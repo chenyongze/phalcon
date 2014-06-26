@@ -6,6 +6,33 @@ return array(
         ),
         'superkeys' => array(
         ),
+        'keyLevels' => array(
+            'basic' => array(
+                'minutelyRate' => 10,
+                'hourlyRate' => 1000,
+                'dailyRate' => 5000,
+            ),
+            'starter' => array(
+                'minutelyRate' => 20,
+                'hourlyRate' => 10000,
+                'dailyRate' => 30000,
+            ),
+            'business' => array(
+                'minutelyRate' => 60,
+                'hourlyRate' => 20000,
+                'dailyRate' => 100000,
+            ),
+            'unlimited' => array(
+                'minutelyRate' => 300,
+                'hourlyRate' => 30000,
+                'dailyRate' => 1000000,
+            ),
+            'extreme' => array(
+                'minutelyRate' => 300,
+                'hourlyRate' => 40000,
+                'dailyRate' => 0,
+            ),
+        ),
         'error' => array(
             'module' => '',
             'controller' => '',
