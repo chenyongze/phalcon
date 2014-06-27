@@ -10,6 +10,12 @@ class Apikeys extends \Eva\EvaEngine\Mvc\Model
      *
      * @var integer
      */
+    public $id;
+
+    /**
+     *
+     * @var integer
+     */
     public $userId;
 
     /**
