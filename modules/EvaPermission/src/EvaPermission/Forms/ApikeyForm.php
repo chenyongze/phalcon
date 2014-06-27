@@ -15,6 +15,7 @@ class ApikeyForm extends Form
 
     /**
      *
+     * @Type(Hidden)
      * @var integer
      */
     public $userId;
@@ -34,6 +35,7 @@ class ApikeyForm extends Form
      * @Option(unlimited=Unlimited)
      * @Option(extreme=Extreme)
      * @Option(customize=Customize)
+     * @Option(blocked=Blocked)
      * @var string
      */
     public $level = 'basic';

@@ -66,7 +66,7 @@
                                 <a href="/admin/permission/apikey/<?=$item->id?>"><code><?=$item->apikey?></code></a>
                                 <span class="label"><?=$item->level?></span>
                             </td>
-                            <td><?=$item->user->username?></td>
+                            <td><a href="/admin/user/edit/<?=$item->user->id?>"><?=$item->user->username?></a></td>
                             <td><?=$item->minutelyRate?></td>
                             <td><?=$item->hourlyRate?></td>
                             <td><?=$item->dailyRate?></td>
@@ -78,7 +78,7 @@
                                         <input type="hidden" data-name="status" value="published" >
                                         <i class="icon-key bigger-120"></i> Change Key
                                     </button>
-                                    <a class="btn btn-xs btn-info" href="/admin/post/edit/<?=$item->id?>">
+                                    <a class="btn btn-xs btn-info" href="/admin/permission/apikey/edit/<?=$item->id?>">
                                         <i class="icon-edit bigger-120"></i> Change Plan
                                     </a>
                                 </div>

@@ -3,6 +3,8 @@
 namespace Eva\EvaPermission\Controllers\Admin;
 
 use Eva\EvaPermission\Entities;
+use Eva\EvaPermission\Models;
+use Eva\EvaUser\Entities\Users;
 use Eva\EvaPermission\Forms;
 use Eva\EvaEngine\Exception;
 
@@ -33,25 +35,31 @@ class ApikeyController extends ControllerBase
     public function createAction()
     {
         $form = new Forms\ApikeyForm();
-        $apikey = new Entities\Apikeys();
+        $apikey = new Models\Apikey();
         $form->setModel($apikey);
         $this->view->setVar('form', $form);
+        if($uid = $this->request->get('uid')) {
+            if(Models\Apikey::findFirst("userId = $uid")) {
+                return $this->response->redirect('/admin/permission/apikey/edit/' . $uid);
+            }
+            $this->view->setVar('user', Users::findFirst($uid));
+        }
 
         if (!$this->request->isPost()) {
             return false;
         }
 
-        $form->bind($this->request->getPost(), $role);
+        $form->bind($this->request->getPost(), $apikey);
         if (!$form->isValid()) {
             return $this->displayInvalidMessages($form);
         }
         $apikey = $form->getEntity();
         try {
             if(!$apikey->save()) {
-                return $this->displayModelMessages($role);
+                return $this->displayModelMessages($apikey);
             }
         } catch (\Exception $e) {
-            return $this->displayException($e, $role->getMessages());
+            return $this->displayException($e, $apikey->getMessages());
         }
         $this->flashSession->success('SUCCESS_APIKEY_CREATED');
 
@@ -60,31 +68,31 @@ class ApikeyController extends ControllerBase
 
     public function editAction()
     {
-        $this->view->changeRender('admin/role/create');
+        $this->view->changeRender('admin/apikey/create');
 
-        $form = new Forms\RoleForm();
-        $role = Entities\Roles::findFirst($this->dispatcher->getParam('id'));
-        $form->setModel($role ? $role : new Entities\Roles());
+        $form = new Forms\ApikeyForm();
+        $apikey = Models\Apikey::findFirst($this->dispatcher->getParam('id'));
+        $form->setModel($apikey ? $apikey : new Models\Apikey());
         $this->view->setVar('form', $form);
-        $this->view->setVar('item', $role);
+        $this->view->setVar('item', $apikey);
         if (!$this->request->isPost()) {
             return false;
         }
 
-        $form->bind($this->request->getPost(), $role);
+        $form->bind($this->request->getPost(), $apikey);
         if (!$form->isValid()) {
             return $this->displayInvalidMessages($form);
         }
-        $role = $form->getEntity();
-        $role->assign($this->request->getPost());
+        $apikey = $form->getEntity();
+        $apikey->assign($this->request->getPost());
         try {
-            $role->save();
+            $apikey->save();
         } catch (\Exception $e) {
-            return $this->displayException($e, $role->getMessages());
+            return $this->displayException($e, $apikey->getMessages());
         }
-        $this->flashSession->success('SUCCESS_ROLE_UPDATED');
+        $this->flashSession->success('SUCCESS_APIKEY_UPDATED');
 
-        return $this->redirectHandler('/admin/permission/role/edit/' . $role->id);
+        return $this->redirectHandler('/admin/permission/apikey/edit/' . $apikey->id);
     }
 
     public function deleteAction()
@@ -103,12 +111,12 @@ class ApikeyController extends ControllerBase
         }
 
         $id = $this->dispatcher->getParam('id');
-        $role = Entities\Roles::findFirst($id);
+        $apikey = Models\Apikey::findFirst($id);
         try {
-            $role->delete();
+            $apikey->delete();
         } catch (\Exception $e) {
-            return $this->displayExceptionForJson($e, $role->getMessages());
+            return $this->displayExceptionForJson($e, $apikey->getMessages());
         }
-        return $this->response->setJsonContent($role);
+        return $this->response->setJsonContent($apikey);
     }
 }
