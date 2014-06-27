@@ -1,0 +1,16 @@
+<div class="news-list">
+    <?foreach($posts as $post):?>
+    <a href="/node/<?=$post->nid?>">
+        <div class="news row livenews" data-action="show-info" data-nid="<?=$post->nid?>" data-nodecolor="<?=is_string($post->node_color) ? $post->node_color : ''?>"  data-nodeformat="<?=is_string($post->node_format) ? $post->node_format : ''?>" data-nodeicon="<?=is_string($post->node_icon) ? $post->node_icon : ''?>">
+            <h3 class="title news-font"><?=$post->node_title?></h3>
+            <time class="agotime time news-font" data-timestamp="<?=$post->node_created?>"><?=$this->tag->datetime($post->node_created)?></time>
+
+        </div>
+    </a>
+    <?endforeach?>
+    <br/><br/>
+    
+        <div class="news-more row" data-action="show-info">
+            <span class="news-font">加载更多</span>	
+        </div>
+</div>
