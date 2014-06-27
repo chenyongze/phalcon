@@ -1,11 +1,51 @@
-<div class="news-list">
+<div class="livenews-list">
     <?foreach($posts as $post):?>
+	
+	<?php 
+		$format = "";
+		$color = "";
+		$icon = "common";
+		
+		if($post->node_format == "加粗"){
+			$format = "bold";
+		}
+		
+		if($post->node_color == "红色"){
+			$color = "red";
+		}
+		elseif($post->node_color == "蓝色"){
+			$color = "蓝色";
+		}
+		
+		if ($post->node_icon == "折线") {
+            $icon = "chart-line";
+        } 
+		elseif ($post->node_icon == "柱状") {
+            $icon = "chart-column";
+        } elseif ($post->node_icon == "提醒") {
+            $icon = "alert-news";
+        } elseif ($post->node_icon == "警告") {
+            $icon = "warning-news";
+        } elseif ($post->node_icon == "传言") {
+            $icon = "rumor";
+        }
+	?>
+	
     <a href="/node/<?=$post->nid?>">
+		<!--
         <div class="news row livenews" data-action="show-info" data-nid="<?=$post->nid?>" data-nodecolor="<?=is_string($post->node_color) ? $post->node_color : ''?>"  data-nodeformat="<?=is_string($post->node_format) ? $post->node_format : ''?>" data-nodeicon="<?=is_string($post->node_icon) ? $post->node_icon : ''?>">
             <h3 class="title news-font"><?=$post->node_title?></h3>
             <time class="agotime time news-font" data-timestamp="<?=$post->node_created?>"><?=$this->tag->datetime($post->node_created)?></time>
 
         </div>
+		-->
+
+		<div class="livenews info" data-action="show-info" data-nid="<?=$post->nid?>">
+			<i class="icon <?=$icon?>"></i>
+			<span class="time "><?=$this->tag->datetime($post->node_created)?></span>
+			<h3 class="news-font title <?=$color?> <?=$format?>"><?=$post->node_title?></h3>
+		</div>
+
     </a>
     <?endforeach?>
     <br/><br/>
