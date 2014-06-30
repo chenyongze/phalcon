@@ -6,37 +6,47 @@ use Phalcon\Acl\Adapter\Memory as MemoryAcl;
 use Phalcon\Acl;
 use Eva\EvaEngine\Exception;
 use Eva\EvaPermission\Entities;
-use Eva\EvaPermission\Models\User as LoginUser;
+use Eva\EvaPermission\Models\Apikey;
 use Phalcon\Cache\Backend as BackendCache;
 
-class SessionAuthority extends AbstractAuthority
+class TokenAuthority extends AbstractAuthority
 {
-    public function setUser(LoginUser $user)
+    protected $apikey;
+
+    public function setApikey($apikey)
     {
-        $this->user = $user;
+        $this->apikey = $apikey;
         return $this;
     }
 
-    public function getUser()
+    public function getApikey()
     {
-        if(!$this->user) {
-            return $this->user = new LoginUser();
-        }
-        return $this->user;
+        return $this->apikey;
+    }
+
+    public function getToken()
+    {
+        $token = new Apikey();
+        $token->setToken($this->apikey);
+        return $token;
     }
 
     public function checkAuth($resource, $operation)
     {
-        $user = $this->getUser();
-        if(!$user->isUserLoggedIn()) {
+        $token = $this->getToken();
+        if(!$token) {
             return false;
         }
 
-        if($user->isSuperUser()) {
+        if($token->isSuperToken()){
             return true;
         }
+        $tokenStatus = $token->getTokenStatus();
+        if(empty($tokenStatus['roles'])) {
+            return false;
+        }
 
-        $roles = $user->getRoles();
+        $roles = $tokenStatus['roles'];
         $acl = $this->getAcl();
         foreach($roles as $role) {
             //If any of roles allowed permission
