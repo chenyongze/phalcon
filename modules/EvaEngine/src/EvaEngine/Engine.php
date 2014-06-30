@@ -302,6 +302,7 @@ class Engine
         /**********************************
         DI initialize for MVC core
         ***********************************/
+        //$di->set('application', $this);
 
         //call loadmodules will overwrite this
         $di->set('moduleManager', function () use ($di) {
@@ -369,6 +370,10 @@ class Engine
         /**********************************
         DI initialize for cache
         ***********************************/
+        $di->set('globalCache', function() use ($self) {
+            return $self->diGlobalCache();
+        });
+
         $di->set('viewCache', function() use ($self) {
             return $self->diViewCache();
         });
@@ -628,6 +633,11 @@ class Engine
             $dbAdapter->setEventsManager($eventsManager);
         }
         return $dbAdapter;
+    }
+
+    public function diGlobalCache()
+    {
+        return $this->diCache('globalCache', 'eva_global_');
     }
 
     public function diViewCache()

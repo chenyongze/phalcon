@@ -41,6 +41,19 @@ return array(
 
     'cache' => array(
         'enable' => false,
+        'globalCache' => array(
+            'enable' => true,
+            'frontend' => array(
+                'adapter' => 'Data',
+                'options' => array(),
+            ),
+            'backend' => array(
+                'adapter' => 'File',
+                'options' => array(
+                    'cacheDir' => __DIR__ . '/../cache/global/',
+                ),
+            ),
+        ),
         'viewCache' => array(
             'enable' => true,
             'frontend' => array(

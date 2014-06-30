@@ -7,6 +7,7 @@ use Phalcon\Acl;
 use Eva\EvaEngine\Exception;
 use Eva\EvaPermission\Entities;
 use Eva\EvaPermission\Models\User as LoginUser;
+use Phalcon\Cache\Backend as BackendCache;
 
 class SessionAuthority
 {
@@ -14,9 +15,44 @@ class SessionAuthority
 
     protected $user;
 
+    protected $cache;
+
     public function getAcl()
     {
-        return $this->acl;
+        if($this->acl) {
+            return $this->acl;
+        }
+
+        $cache = $this->getCache();
+        if($cache && $data = $cache->get('acl')) {
+            return $this->acl = $data;
+        }
+
+        $acl = new MemoryAcl();
+        $acl->setDefaultAction(Acl::DENY);
+        $roles = Entities\Roles::find();
+        foreach($roles as $role) {
+            $roleName = $role->name ? $role->name : $role->roleKey;
+            $acl->addRole($role->roleKey, $role->roleKey);
+        }
+        $resources = Entities\Resources::find();
+        foreach($resources as $resource) {
+            $acl->addResource($resource->resourceKey);
+        }
+        $operations = Entities\Operations::find();
+        foreach($operations as $operation) {
+            $acl->addResourceAccess($operation->resourceKey, $operation->operationKey);
+            if($operation->roles) {
+                foreach($operation->roles as $role) {
+                    $acl->allow($role->roleKey, $operation->resourceKey, $operation->operationKey);
+                }
+            }
+        }
+
+        if($cache) {
+            $cache->save('acl', $acl);
+        }
+        return $this->acl = $acl;
     }
 
     public function setAcl(Acl $acl)
@@ -39,11 +75,20 @@ class SessionAuthority
         return $this->user;
     }
 
+    public function getCache()
+    {
+        return $this->cache;
+    }
+
+    public function setCache(BackendCache $cache)
+    {
+        $this->cache = $cache;
+        return $this;
+    }
+
     public function checkAuth($resource, $operation)
     {
-        $roles = Entities\Roles::findFirst();
         $user = $this->getUser();
-
         if(!$user->isUserLoggedIn()) {
             return false;
         }
@@ -53,7 +98,7 @@ class SessionAuthority
         }
 
         $roles = $user->getRoles();
-        $acl = $this->acl;
+        $acl = $this->getAcl();
         foreach($roles as $role) {
             //If any of roles allowed permission
             if($acl->isAllowed($role, $resource, $operation)) {
@@ -61,30 +106,5 @@ class SessionAuthority
             }
         }
         return false;
-    }
-
-    public function __construct()
-    {
-        $acl = new MemoryAcl();
-        $acl->setDefaultAction(Acl::DENY);
-        $roles = Entities\Roles::find();
-        foreach($roles as $role) {
-            $roleName = $role->name ? $role->name : $role->roleKey;
-            $acl->addRole($role->roleKey, $role->roleKey);
-        }
-        $resources = Entities\Resources::find();
-        foreach($resources as $resource) {
-            $acl->addResource($resource->resourceKey);
-        }
-        $operations = Entities\Operations::find();
-        foreach($operations as $operation) {
-            $acl->addResourceAccess($operation->resourceKey, $operation->operationKey);
-            if($operation->roles) {
-                foreach($operation->roles as $role) {
-                    $acl->allow($role->roleKey, $operation->resourceKey, $operation->operationKey);
-                }
-            }
-        }
-        $this->acl = $acl;
     }
 }

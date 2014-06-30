@@ -1,6 +1,6 @@
 <?php
 return array(
-    'EvaCore' => array(
+    'EvaCommon' => array(
         'routesFrontend' => false,
         'routesBackend' => false,
     ),
@@ -13,6 +13,10 @@ return array(
         'routesBackend' => false,
     ),
     'EvaFileSystem' => array(
+        'routesFrontend' => false,
+        'routesBackend' => false,
+    ),
+    'EvaPermission' => array(
         'routesFrontend' => false,
         'routesBackend' => false,
     ),
