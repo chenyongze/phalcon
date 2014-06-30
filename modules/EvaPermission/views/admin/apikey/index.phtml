@@ -66,19 +66,18 @@
                                 <a href="/admin/permission/apikey/<?=$item->id?>"><code><?=$item->apikey?></code></a>
                                 <span class="label"><?=$item->level?></span>
                             </td>
-                            <td><?=$item->user->username?></td>
+                            <td><a href="/admin/user/edit/<?=$item->user->id?>"><?=$item->user->username?></a></td>
                             <td><?=$item->minutelyRate?></td>
                             <td><?=$item->hourlyRate?></td>
                             <td><?=$item->dailyRate?></td>
                             <td><?=$this->tag->datetime($item->createdAt)?></td>
-                            <td><?=$this->tag->datetime($item->expiredAt)?></td>
+                            <td><?=$item->expiredAt > 0 ? $this->tag->datetime($item->expiredAt) : 'Never'?></td>
                             <td>
                                 <div class="btn-group">
-                                    <button class="btn btn-xs btn-success ajax-form-sumbit" data-ajax-form="1" date-method="put" data-form-action="/admin/post/process/status/<?=$item->id?>" data-callback="window.location.reload();">
-                                        <input type="hidden" data-name="status" value="published" >
+                                    <button class="btn btn-xs btn-success ajax-form-sumbit" data-ajax-form="1" date-method="put" data-form-action="/admin/permission/process/apikey/<?=$item->id?>" data-callback="window.location.reload();">
                                         <i class="icon-key bigger-120"></i> Change Key
                                     </button>
-                                    <a class="btn btn-xs btn-info" href="/admin/post/edit/<?=$item->id?>">
+                                    <a class="btn btn-xs btn-info" href="/admin/permission/apikey/edit/<?=$item->id?>">
                                         <i class="icon-edit bigger-120"></i> Change Plan
                                     </a>
                                 </div>

@@ -32,6 +32,11 @@ return array(
                 'hourlyRate' => 40000,
                 'dailyRate' => 0,
             ),
+            'blocked' => array(
+                'minutelyRate' => '-1',
+                'hourlyRate' => '-1',
+                'dailyRate' => '-1',
+            ),
         ),
         'error' => array(
             'module' => '',

@@ -34,6 +34,25 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
         return $this->response->setJsonContent($roleOperation);
     }
 
+    public function apikeyAction()
+    {
+        if (!$this->request->isPut()) {
+            return $this->displayJsonErrorResponse(405, 'ERR_REQUEST_METHOD_NOT_ALLOW');
+        }
+
+        $id = $this->dispatcher->getParam('id');
+        try {
+            $apikey =  Entities\Apikeys::findFirst($id);
+            if($apikey) {
+                $apikey->apikey = \Phalcon\Text::random(\Phalcon\Text::RANDOM_ALNUM, 8);
+                $apikey->save();
+            }
+        } catch (\Exception $e) {
+            return $this->displayExceptionForJson($e, $apikey->getMessages());
+        }
+        return $this->response->setJsonContent($apikey);
+    }
+
     public function userAction()
     {
         if (!$this->request->isDelete()) {
