@@ -386,6 +386,10 @@ class Engine
             return $self->diApiCache();
         });
 
+        $di->set('fastCache', function() use ($self) {
+            return $self->diFastCache();
+        });
+
         /**********************************
         DI initialize for queue
         ***********************************/
@@ -655,6 +659,18 @@ class Engine
         return $this->diCache('apiCache', 'eva_api_');
     }
 
+    public function diFastCache()
+    {
+        $config = $this->getDI()->getConfig();
+        if(!($config->cache->fastCache->enable)) {
+            return false;
+        }
+
+        $redis = new \Redis();
+        $redis->connect($config->cache->fastCache->host, $config->cache->fastCache->port, $config->cache->fastCache->timeout);
+        return $redis;
+    }
+
     protected function diCache($configKey, $prefix = 'eva_')
     {
         $config = $this->getDI()->getConfig();
@@ -666,6 +682,8 @@ class Engine
             'memory' => 'Phalcon\Cache\Backend\Memory',
             'mongo' => 'Phalcon\Cache\Backend\Mongo',
             'xcache' => 'Phalcon\Cache\Backend\Xcache',
+            'redis' => 'Phalcon\Cache\Backend\Redis',
+            'wincache' => 'Phalcon\Cache\Backend\Wincache',
             'base64' => 'Phalcon\Cache\Frontend\Base64',
             'data' => 'Phalcon\Cache\Frontend\Data',
             'igbinary' => 'Phalcon\Cache\Frontend\Igbinary',

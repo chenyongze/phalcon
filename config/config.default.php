@@ -41,6 +41,12 @@ return array(
 
     'cache' => array(
         'enable' => false,
+        'fastCache' => array(
+            'enable' => true,
+            'host' => '127.0.0.1',
+            'port' => 6379,
+            'timeout' => 1,
+        ),
         'globalCache' => array(
             'enable' => true,
             'frontend' => array(
