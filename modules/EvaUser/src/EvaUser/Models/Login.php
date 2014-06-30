@@ -85,6 +85,7 @@ class Login extends Entities\Users
         return array(
             'id' => $userinfo->id,
             'username' => $userinfo->username,
+            'status' => $userinfo->status,
             'email' => $userinfo->email,
         );
     }
