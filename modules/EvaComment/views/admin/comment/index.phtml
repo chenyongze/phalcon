@@ -38,7 +38,42 @@
             <div class="table-responsive dataTables_wrapper">
                 <div class="row">
                     <div class="col-sm-12">
-
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <?=$form->render('q', array(
+                                        'placeholder' => 'Keyword',
+                                        'class' => 'form-control input-sm'
+                                    ))?>
+                            </div>
+                            <div class="form-group">
+                                <?=$form->render('status', array(
+                                        'class' => 'form-control input-sm'
+                                    ))?>
+                            </div>
+                            <div class="form-group">
+                                <?=$form->render('uid', array())?>
+                                <?=$form->render('username', array(
+                                        'placeholder' => 'Username',
+                                        'class' => 'form-control input-sm autocomplete',
+                                        'data-autocomplete-source' => '/admin/user/process/suggestions?query=%QUERY',
+                                        'data-autocomplete-target' => 'input[name=uid]',
+                                        'data-autocomplete-fill-name' => 'id',
+                                        'data-autocomplete-display-key' => 'username',
+                                    ))?>
+                            </div>
+                           <span>
+                                <label for="filter-from-limit">Display</label>
+                            </span>
+                            <div class="form-group">
+                                <?=$form->render('per_page', array(
+                                        'class' => 'form-control input-sm'
+                                    ))?>
+                            </div>
+                            <button class="btn btn-info btn-sm form-control" type="submit">
+                                <i class="icon-search bigger-110"></i>
+                                Filter
+                            </button>
+                        </form>
 
                     </div>
                 </div>

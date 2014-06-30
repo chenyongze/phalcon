@@ -95,7 +95,7 @@ class Upload extends Files
 
         $filesystem = $this->getDI()->getFileSystem();
 
-        $path = md5(time());
+        $path = md5(microtime());
         $path = str_split($path, 2);
         $pathlevel = $this->getUploadPathLevel();
         $pathlevel > 6 ? 6 : $pathlevel;

@@ -1,6 +1,6 @@
 <?$this->placeholder->block('title')->set($this->escaper->escapeHtml($post->title))?>
 
-<div class="news-info">
+<div class="news-info" data-nodetype="<?=$post->type?>">
     <span class="title"> <?=$post->title?></span>
     <div class="meta">
         <span class="item author"><?=$post->name?></span>

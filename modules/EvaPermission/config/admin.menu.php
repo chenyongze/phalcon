@@ -28,5 +28,12 @@
     </a>
     </li>
 
+    <li class="tobe-highlight" data-highlight-url="/admin/permission/apikey.*">
+    <a href="/admin/permission/apikey">
+        <i class="icon-double-angle-right"></i>
+        API Keys
+    </a>
+    </li>
+
 </ul>
 </li>

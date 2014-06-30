@@ -12,7 +12,7 @@ class IndexController extends ControllerBase
     {
         $cacheKey = 'node-' . md5($this->request->getURI());
         $this->view->cache(array(
-            'lifetime' => 180,
+            'lifetime' => 60,
             'key' => $cacheKey,
         ));
         if($this->view->getCache()->exists($cacheKey)) {
@@ -26,6 +26,20 @@ class IndexController extends ControllerBase
         $provider  = Request::getProvider();
         $provider->setBaseUri('http://api.wallstreetcn.com/apiv1/');
         $response = $provider->get('news-list.json', array(
+            'page' => $page,
+        ));
+        //$response->header->statusCode;
+        $posts = json_decode($response->body);
+        $this->view->setVar('posts', $posts);
+        $this->view->setVar('page', $page);
+    }
+
+    public function livenewsAction()
+    {
+        $page = $this->request->getQuery('page', 'int', '0');
+        $provider  = Request::getProvider();
+        $provider->setBaseUri('http://api.wallstreetcn.com/apiv1/');
+        $response = $provider->get('livenews-list-v2.json', array(
             'page' => $page,
         ));
         //$response->header->statusCode;

@@ -8,11 +8,26 @@ use Eva\EvaEngine\Exception;
 
 class Login extends Entities\Users
 {
+    const SESSION_KEY_LOGIN = 'auth-identity';
+
     protected $maxLoginRetry = 3;
 
     private $tokenSalt = 'EvaUser_Login_TokenSalt';
 
     protected $tokenExpired = 5184000; //60 days
+
+    public function isSuperUser()
+    {
+        return false;
+    }
+
+    public function getRoles()
+    {
+        if(!$this->id) {
+            return array('GUEST');
+        }
+        return array('USER');
+    }
 
     public function getTokenExpired()
     {
@@ -26,7 +41,7 @@ class Login extends Entities\Users
 
             return false;
         }
-        $sessionId = $this->getDI()->get('session')->getId();
+        $sessionId = $this->getDI()->getSession()->getId();
         if (!$sessionId) {
             $this->appendMessage(new Message('ERR_USER_REMEMBER_TOKEN_NO_SESSION'));
 
@@ -60,7 +75,7 @@ class Login extends Entities\Users
     public function saveUserToSession(Entities\Users $userinfo)
     {
         $authIdentity = $this->userToAuthIdentity($userinfo);
-        $this->getDI()->get('session')->set('auth-identity', $authIdentity);
+        $this->getDI()->getSession()->set(self::SESSION_KEY_LOGIN, $authIdentity);
 
         return $authIdentity;
     }
@@ -76,6 +91,8 @@ class Login extends Entities\Users
 
     public function login()
     {
+        $this->getDI()->getEventsManager()->fire('user:beforeLogin', $this);
+
         $userinfo = array();
         if ($this->username) {
             $userinfo = self::findFirst("username = '$this->username'");
@@ -109,14 +126,16 @@ class Login extends Entities\Users
         $userinfo->failedLogins = 0;
         $userinfo->loginAt = time();
         $userinfo->save();
-
         $authIdentity = $this->saveUserToSession($userinfo);
 
+        $this->getDI()->getEventsManager()->fire('user:afterLogin', $userinfo);
         return $authIdentity;
     }
 
     public function loginWithId()
     {
+        $this->getDI()->getEventsManager()->fire('user:beforeLogin', $this);
+
         $userinfo = array();
         if ($this->id) {
             $userinfo = self::findFirst("id = '$this->id'");
@@ -134,11 +153,14 @@ class Login extends Entities\Users
         $userinfo->save();
         $authIdentity = $this->saveUserToSession($userinfo);
 
+        $this->getDI()->getEventsManager()->fire('user:afterLogin', $userinfo);
         return $authIdentity;
     }
 
     public function loginWithCookie($tokenString)
     {
+        $this->getDI()->getEventsManager()->fire('user:beforeLogin', $this);
+
         $tokenArray = explode('|', $tokenString);
         if (!$tokenArray || count($tokenArray) < 3) {
             $this->appendMessage(new Message('ERR_USER_REMEMBER_TOKEN_FORMAT_INCORRECT'));
@@ -182,19 +204,18 @@ class Login extends Entities\Users
         $userinfo->failedLogins = 0;
         $userinfo->loginAt = time();
         $userinfo->save();
-
         $this->saveUserToSession($userinfo);
 
+        $this->getDI()->getEventsManager()->fire('user:afterLogin', $userinfo);
         return true;
     }
 
     public function getAuthIdentity()
     {
-        $authIdentity = $this->getDI()->get('session')->get('auth-identity');
+        $authIdentity = $this->getDI()->getSession()->get(self::SESSION_KEY_LOGIN);
         if ($authIdentity) {
             return $authIdentity;
         }
-
         return false;
     }
 

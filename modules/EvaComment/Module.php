@@ -26,6 +26,10 @@ class Module implements ModuleDefinitionInterface, StandardInterface
         );
     }
 
+    public static function registerGlobalRelations()
+    {
+    }
+
     /**
      * Registers the module auto-loader
      */

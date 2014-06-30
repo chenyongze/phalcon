@@ -120,7 +120,19 @@
                             </td>
                             <td class="hidden-480"><?=$item->id?></td>
                             <td>
-                                <a href="/admin/user/edit/<?=$item->id?>"><?=$item->username?></a>
+                                <a href="/admin/user/edit/<?=$item->id?>">
+                                    <?=$item->username?>
+                                    <?if($item->screenName):?>
+                                    (<?=$item->screenName?>)
+                                    <?endif?>
+                                </a>
+                                <?if($this->moduleManager->hasModule('EvaPermission') && $item->roles):?>
+                                <?foreach($item->roles as $role):?>
+                                <button class="btn btn-xs btn-info ajax-form-sumbit" data-ajax-form="1" date-method="delete" data-form-action="/admin/permission/process/user/<?=$item->id?>/role/<?=$role->id?>" data-callback="form.remove();">
+                                    <?=$role->name?> <?=$role->roleKey?> <i class="icon-remove bigger-120"></i> 
+                                </button>
+                                <?endforeach;?>
+                                <?endif?>
                             </td>
                             <td class="hidden-480">
                                 <?$status = array(
@@ -154,6 +166,12 @@
                                     <button class="btn btn-xs btn-danger ajax-form-sumbit" data-ajax-form="1" date-method="delete" data-form-action="/admin/user/process/delete/<?=$item->id?>" data-confirm="1" data-confirm-message="<?=sprintf('User %s will be deleted, are you sure?', $item->username)?>" data-callback="form.closest('tr').hide();">
                                         <i class="icon-trash bigger-120"></i>
                                     </button>
+
+                                    <?if($this->moduleManager->hasModule('EvaPermission')):?>
+                                    <a class="btn btn-xs btn-info" href="/admin/permission/apikey/create?uid=<?=$item->id?>">
+                                        <i class="icon-key bigger-120"></i>
+                                    </a>
+                                    <?endif?>
                                 </div>
                             </td>
                         </tr>
@@ -173,6 +191,16 @@
                                 <input type="hidden" data-name="status" value="deleted" >
                                 <i class="icon-eye-close bigger-120"></i>
                             </button>
+
+                            <?if($this->moduleManager->hasModule('EvaPermission')):?>
+                            <?$roles = \Eva\EvaPermission\Entities\Roles::find();?>
+                            <?foreach($roles as $role):?>
+                            <button class="btn btn-xs btn-info ajax-form-sumbit" data-batch-form="1" data-source-name="id" data-source-selectors="#post-grid input[data-batch-source]" date-method="put" data-form-action="/admin/permission/process/applyroles" data-callback="window.location.reload();">
+                                <i class="icon-key bigger-120"></i>
+                                <input type="hidden" data-name="roleId" value="<?=$role->id?>" ><?=$role->roleKey?> <?=$role->name?>
+                            </button>
+                            <?endforeach;?>
+                            <?endif?>
                         </div>
                     </div>
                     <div class="col-sm-6">

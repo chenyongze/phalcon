@@ -3,6 +3,7 @@ namespace Eva\EvaComment\Controllers\Admin;
 
 use Eva\EvaComment\Models;
 use Eva\EvaEngine\Exception;
+use Eva\EvaComment\Forms;
 
 class CommentController extends ControllerBase
 {
@@ -30,9 +31,12 @@ class CommentController extends ControllerBase
             'page' => $this->request->getQuery('page', 'int', 1),
         );
 
+        $form = new Forms\FilterForm();
+        $form->setValues($this->request->getQuery());
+        $this->view->setVar('form', $form);
 
         $commentManager = new Models\CommentManager();
-        $comments = $commentManager->findComments();
+        $comments = $commentManager->findComments($query);
 
         $paginator = new \Eva\EvaEngine\Paginator(array(
             "builder" => $comments,
