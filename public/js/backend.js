@@ -257,8 +257,11 @@ $(document).ready(function(){
                 { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },
                 { name: 'colors', items: [ 'TextColor', 'BGColor' ] },
                 { name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
-                { name: 'insert', items: [ 'Image', 'Flash', 'Table', 'HorizontalRule', 'SpecialChar'] }
+                { name: 'insert', items: [ 'Image', 'Flash', 'Table', 'HorizontalRule', 'SpecialChar'] },
+				{ name: 'extent', items: ['WSCNMarkets'] }
             ];
+			CKEDITOR.config.allowedContent = true;
+			CKEDITOR.config.extraPlugins += (CKEDITOR.config.extraPlugins ? ',wscn' : 'wscn');
             
             editors.each(function(){
                 var ckeditor = $(this).ckeditor().ckeditorGet();
