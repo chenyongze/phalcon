@@ -721,7 +721,7 @@ label.checkbox.right {
   background-color: #005178;
   background: -webkit-gradient(linear, 0 0, 0 100%, from(#3c80a1), to(#005077));
   background: -moz-linear-gradient(top, #3c80a1, #005077);
-  color: #fff;
+  color: #FC8024;
 }
 .market.chart > .content {
   border: none;
@@ -3395,8 +3395,8 @@ td.datepickerSpecial.datepickerSelected a {
   word-break: break-all;
 }
 #footer .friend-links {
-  width: 100%;
-  margin-top: 20px;
+  padding-left: 400px;
+  margin-top: 30px;
   line-height: 1.5em;
 }
 #footer .friend-links .title {
