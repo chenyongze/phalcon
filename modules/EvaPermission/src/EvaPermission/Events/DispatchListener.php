@@ -42,6 +42,9 @@ class DispatchListener
             if(!$auth->checkAuth(get_class($controller), $dispatcher->getActionName())) {
                 throw new Exception\UnauthorizedException('Permission not allowed');
             }
+            if($controller instanceof RateLimitControllerInterface && !$auth->checkLimitRate()) {
+                throw new Exception\OperationNotPermitedException('Operation out of limit rate');
+            }
             return true;
         } else {
             return true;
