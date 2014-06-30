@@ -1,14 +1,18 @@
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-CREATE DATABASE IF NOT EXISTS `scrapy` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-USE `scrapy`;
-
 DROP TABLE IF EXISTS `eva_permission_apikeys`;
 CREATE TABLE IF NOT EXISTS `eva_permission_apikeys` (
-  `userId` int(10) NOT NULL,
+  `id` int(10) NOT NULL AUTO_INCREMENT,
   `apikey` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`userId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `userId` int(10) NOT NULL,
+  `level` enum('basic','starter','business','unlimited','extreme','customize','blocked') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'basic',
+  `minutelyRate` int(11) NOT NULL DEFAULT '0',
+  `hourlyRate` int(11) NOT NULL DEFAULT '0',
+  `dailyRate` int(13) NOT NULL DEFAULT '0',
+  `createdAt` int(10) NOT NULL DEFAULT '0',
+  `expiredAt` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `userId` (`userId`),
+  UNIQUE KEY `apikey` (`apikey`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 DROP TABLE IF EXISTS `eva_permission_operations`;
 CREATE TABLE IF NOT EXISTS `eva_permission_operations` (

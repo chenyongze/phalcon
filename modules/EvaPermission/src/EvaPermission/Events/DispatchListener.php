@@ -5,6 +5,7 @@ namespace Eva\EvaPermission\Events;
 use Eva\EvaEngine\Exception;
 use Eva\EvaEngine\Mvc\Controller\SessionAuthorityControllerInterface;
 use Eva\EvaEngine\Mvc\Controller\TokenAuthorityControllerInterface;
+use Eva\EvaEngine\Mvc\Controller\RateLimitControllerInterface;
 use Eva\EvaPermission\Entities;
 use Eva\EvaPermission\Auth;
 
@@ -14,6 +15,7 @@ class DispatchListener
     {
         $dispatcher = $event->getSource();
         $controller = $dispatcher->getActiveController();
+
         //Not need to authority
         if($controller instanceof SessionAuthorityControllerInterface) {
             $auth = new Auth\SessionAuthority();
@@ -27,15 +29,20 @@ class DispatchListener
                     "controller" => "error",
                     "action" => "index",
                     "params" => array(
-                        'isAdminController' => true,
-                        'redirectUri' => '',
+                        'activeController' => $controller,
                     )
                 ));
                 return false;
             }
         } elseif ($controller instanceof TokenAuthorityControllerInterface) {
-            throw new Exception\UnauthorizedException('Permission not allowed');
-            return false;
+            $auth = new Auth\TokenAuthority();
+            $auth->setApikey($dispatcher->getDI()->getRequest()->get('apikey'));
+            $auth->setCache($dispatcher->getDI()->getGlobalCache());
+            //$auth->setFastCache($dispatcher->getDI()->getFastCache());
+            if(!$auth->checkAuth(get_class($controller), $dispatcher->getActionName())) {
+                throw new Exception\UnauthorizedException('Permission not allowed');
+            }
+            return true;
         } else {
             return true;
         }
