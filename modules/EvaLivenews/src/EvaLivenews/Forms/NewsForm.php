@@ -27,7 +27,8 @@ class NewsForm extends Form
 
     /**
      *
-     * @var integer
+     * @Type(Number)
+     * @var string
      */
     public $importance;
 

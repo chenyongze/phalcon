@@ -28,7 +28,7 @@ class News extends \Eva\EvaEngine\Mvc\Model
      *
      * @var integer
      */
-    public $importance;
+    public $importance = 1;
 
     /**
      *
