@@ -72,6 +72,7 @@
 
                                                 <div class="widget-body">
                                                     <div class="widget-main no-padding">
+                                                        <?=$form->render('id', array())?>
                                                         <?=$form->render('content', array(
                                                             'class' => 'form-control text-counter',
                                                             'data-counter-selector' => '#content-counter',
@@ -80,8 +81,7 @@
                                                             //'data-provide' => 'markdown',
                                                             'required' => 'required',
                                                         ))?>
-                                                        <?=$form->render('codeType', array(
-                                                        ))?>
+                                                        <?=$form->render('codeType', array())?>
                                                     </div>
                                                 </div>
                                             </div>

@@ -22,7 +22,7 @@ class News extends \Eva\EvaEngine\Mvc\Model
      *
      * @var string
      */
-    public $status;
+    public $status = 'published';
 
     /**
      *
@@ -40,13 +40,13 @@ class News extends \Eva\EvaEngine\Mvc\Model
      *
      * @var string
      */
-    public $visibility;
+     public $visibility = 'public';
 
     /**
      *
      * @var string
      */
-    public $codeType;
+    public $codeType = 'markdown';
 
     /**
      *
@@ -58,7 +58,7 @@ class News extends \Eva\EvaEngine\Mvc\Model
      *
      * @var integer
      */
-    public $parentId;
+     public $parentId = 0;
 
     /**
      *
@@ -70,7 +70,7 @@ class News extends \Eva\EvaEngine\Mvc\Model
      *
      * @var integer
      */
-    public $sortOrder;
+    public $sortOrder = 0;
 
     /**
      *
@@ -112,31 +112,31 @@ class News extends \Eva\EvaEngine\Mvc\Model
      *
      * @var string
      */
-    public $commentStatus;
+    public $commentStatus = 'open';
 
     /**
      *
      * @var string
      */
-    public $commentType;
+    public $commentType = 'local';
 
     /**
      *
      * @var integer
      */
-    public $commentCount;
+    public $commentCount = 0;
 
     /**
      *
      * @var integer
      */
-    public $count;
+    public $count = 0;
 
     /**
      *
      * @var integer
      */
-    public $imageId;
+    public $imageId = 0;
 
     /**
      *
@@ -148,13 +148,13 @@ class News extends \Eva\EvaEngine\Mvc\Model
      *
      * @var integer
      */
-    public $imageCount;
+     public $imageCount = 0;
 
     /**
      *
      * @var integer
      */
-    public $videoId;
+    public $videoId = 0;
 
     /**
      *
@@ -166,7 +166,7 @@ class News extends \Eva\EvaEngine\Mvc\Model
      *
      * @var integer
      */
-    public $videoCount;
+    public $videoCount = 0;
 
     /**
      *

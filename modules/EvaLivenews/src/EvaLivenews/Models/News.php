@@ -47,21 +47,13 @@ class News extends Entities\News
         if (!$this->slug) {
             $this->slug = \Phalcon\Text::random(\Phalcon\Text::RANDOM_ALNUM, 8);
         }
-
-        $this->validate(new Uniqueness(array(
-            'field' => 'slug'
-        )));
+        if(!$this->title) {
+            $this->title = \Eva\EvaEngine\Text\Substring::substrCn($this->content, 100);
+        }
     }
 
     public function beforeValidationOnUpdate()
     {
-        $this->validate(new Uniqueness(array(
-            'field' => 'slug',
-            'conditions' => 'id != :id:',
-            'bind' => array(
-                'id' => $this->id
-            ),
-        )));
     }
 
 
@@ -187,7 +179,7 @@ class News extends Entities\News
 
         $this->assign($data);
         if (!$this->save()) {
-            throw new Exception\RuntimeException('Create post failed');
+            throw new Exception\RuntimeException('Create news failed');
         }
         return $this;
     }

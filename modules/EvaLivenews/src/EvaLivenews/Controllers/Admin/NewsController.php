@@ -69,39 +69,39 @@ class NewsController extends ControllerBase
         }
         $this->flashSession->success('SUCCESS_POST_CREATED');
 
-        return $this->redirectHandler('/admin/livenews/edit/' . $form->getModel()->id);
+        return $this->redirectHandler('/admin/livenews/news/edit/' . $form->getModel()->id);
     }
 
     public function editAction()
     {
-        $this->view->changeRender('admin/livenews/create');
-        $livenews = Models\Livenews::findFirst($this->dispatcher->getParam('id'));
-        if (!$livenews) {
-            throw new Exception\ResourceNotFoundException('ERR_BLOG_POST_NOT_FOUND');
+        $this->view->changeRender('admin/news/create');
+        $news = Models\News::findFirst($this->dispatcher->getParam('id'));
+        if (!$news) {
+            throw new Exception\ResourceNotFoundException('ERR_LIVENEWS_NEWS_NOT_FOUND');
         }
 
-        $form = new Forms\LivenewsForm();
-        $form->setModel($livenews);
-        $form->addForm('text', 'Eva\EvaLivenews\Forms\TextForm');
+        $form = new Forms\NewsForm();
+        $form->setModel($news);
+        //$form->addForm('text', 'Eva\EvaLivenews\Forms\TextForm');
         $this->view->setVar('form', $form);
-        $this->view->setVar('item', $livenews);
+        $this->view->setVar('item', $news);
 
-        if (!$this->request->isLivenews()) {
+        if (!$this->request->isPost()) {
             return false;
         }
-        $data = $this->request->getLivenews();
+        $data = $this->request->getPost();
 
         if (!$form->isFullValid($data)) {
             return $this->displayInvalidMessages($form);
         }
 
         try {
-            $form->save('updateLivenews');
+            $form->save('updateNews');
         } catch (\Exception $e) {
             return $this->displayException($e, $form->getModel()->getMessages());
         }
-        $this->flashSession->success('SUCCESS_POST_UPDATED');
+        $this->flashSession->success('SUCCESS_NEWS_UPDATED');
 
-        return $this->redirectHandler('/admin/livenews/edit/' . $livenews->id);
+        return $this->redirectHandler('/admin/livenews/news/edit/' . $news->id);
     }
 }

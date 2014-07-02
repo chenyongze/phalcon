@@ -183,6 +183,7 @@ class NewsForm extends Form
 
     /**
      *
+     * @Validator("PresenceOf", message = "Please input content")
      * @Type(TextArea)
      * @var string
      */
