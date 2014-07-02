@@ -40,6 +40,12 @@ class News extends \Eva\EvaEngine\Mvc\Model
      *
      * @var string
      */
+    public $icon;
+
+    /**
+     *
+     * @var string
+     */
      public $visibility = 'public';
 
     /**
@@ -198,11 +204,28 @@ class News extends \Eva\EvaEngine\Mvc\Model
      */
     public $categorySet;
 
+    public function getContentHtml()
+    {
+        if(!$this->content) {
+            return '';
+        }
+
+        if ($this->codeType == 'markdown') {
+            $parsedown = new \Parsedown();
+            return $parsedown->text($this->content);
+        } else {
+            return $this->content;
+        }
+    }
 
     public function initialize()
     {
         $this->belongsTo('userId', 'Eva\EvaUser\Entities\Users', 'id', array(
             'alias' => 'user'
+        ));
+
+        $this->hasOne('id', 'Eva\EvaLivenews\Entities\Texts', 'newsId', array(
+            'alias' => 'text'
         ));
 
         $this->hasMany(

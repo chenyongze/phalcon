@@ -13,10 +13,10 @@
     </a>
     </li>
 
-    <li class="tobe-highlight" data-highlight-url="/admin/livenews/create">
-    <a href="/admin/livenews/create">
+    <li class="tobe-highlight" data-highlight-url="/admin/livenews/news/create">
+    <a href="/admin/livenews/news/create">
         <i class="icon-double-angle-right"></i>
-        Create New Post
+        Write News
     </a>
     </li>
 

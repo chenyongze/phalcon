@@ -163,6 +163,14 @@ class News extends Entities\News
     public function createNews(array $data)
     {
         $categoryData = isset($data['categories']) ? $data['categories'] : array();
+        $textData = isset($data['text']) ? $data['text'] : array();
+
+        if($textData) {
+            unset($data['text']);
+            $text = new Text();
+            $text->assign($textData);
+            $this->text = $text;
+        }
 
         $categories = array();
         if ($categoryData) {
@@ -187,6 +195,14 @@ class News extends Entities\News
     public function updateNews($data)
     {
         $categoryData = isset($data['categories']) ? $data['categories'] : array();
+        $textData = isset($data['text']) ? $data['text'] : array();
+
+        if($textData) {
+            unset($data['text']);
+            $text = new Text();
+            $text->assign($textData);
+            $this->text = $text;
+        }
 
         //remove old relations
         if ($this->categoriesNews) {

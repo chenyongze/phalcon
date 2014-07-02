@@ -205,6 +205,7 @@
 
                                 <div class="tab-pane" id="livenews-tab-extra">
 
+                                    <?$textForm = $form->getForm('text')?>
                                     <div class="row">
                                         <div class="col-xs-9">
                                             <div class="form-group">
@@ -219,9 +220,33 @@
 
                                             <div class="form-group">
                                                 <label class="block clearfix">
-                                                    <h5 class="lighter">Summary</h5>
+                                                    <h5 class="lighter">Full Content</h5>
                                                     <div class="markdown-editor">
-                                                        <?=$form->render('summary', array(
+                                                        <?=$textForm->render('contentExtra', array(
+                                                            'class' => 'form-control',
+                                                            'rows' => 3,
+                                                        ))?>
+                                                    </div>
+                                                </label>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="block clearfix">
+                                                    <h5 class="lighter">Markets</h5>
+                                                    <div class="markdown-editor">
+                                                        <?=$textForm->render('contentFollowup', array(
+                                                            'class' => 'form-control',
+                                                            'rows' => 3,
+                                                        ))?>
+                                                    </div>
+                                                </label>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="block clearfix">
+                                                    <h5 class="lighter">Analysis</h5>
+                                                    <div class="markdown-editor">
+                                                        <?=$textForm->render('contentAnalysis', array(
                                                             'class' => 'form-control',
                                                             'rows' => 3,
                                                         ))?>
@@ -261,15 +286,22 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="clearfix form-actions no-margin">
+                                                    <input name="__redirect" type="hidden" value="" />
+                                                    <button type="submit" class="btn btn-block btn-info form-submiter" data-change-name="status" data-change-value="published">
+                                                        <i class="icon-ok"></i>
+                                                        Publish
+                                                    </button>
+                                                </div>
                                             </div><!--widgex box-->
 
                                             <div class="hr hr-double dotted"></div>
-                                            <div class="widget-box collapsed">
+                                            <div class="widget-box">
                                                 <div class="widget-header widget-header-small">
                                                     <h5 class="lighter">Change Author</h5>
                                                     <span class="widget-toolbar">
                                                         <a data-action="collapse" href="#">
-                                                            <i class="icon-chevron-down"></i>
+                                                            <i class="icon-chevron-up"></i>
                                                         </a>
                                                     </span>
                                                 </div>

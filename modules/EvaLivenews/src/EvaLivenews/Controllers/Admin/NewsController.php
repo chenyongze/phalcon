@@ -50,6 +50,7 @@ class NewsController extends ControllerBase
         $form = new Forms\NewsForm();
         $news = new Models\News();
         $form->setModel($news);
+        $form->addForm('text', 'Eva\EvaLivenews\Forms\TextForm');
         $this->view->setVar('form', $form);
         $this->view->setVar('item', $news);
 
@@ -82,7 +83,7 @@ class NewsController extends ControllerBase
 
         $form = new Forms\NewsForm();
         $form->setModel($news);
-        //$form->addForm('text', 'Eva\EvaLivenews\Forms\TextForm');
+        $form->addForm('text', 'Eva\EvaLivenews\Forms\TextForm');
         $this->view->setVar('form', $form);
         $this->view->setVar('item', $news);
 
