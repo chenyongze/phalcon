@@ -16,4 +16,10 @@ return array(
         'action' => 'node',
         'id' => 1,
     ),
+    '/test/:action(/(\d+))*' =>  array(
+        'module' => 'Wscn',
+        'controller' => 'test',
+        'action' => 1,
+        'id' => 3,
+    ),
 );
