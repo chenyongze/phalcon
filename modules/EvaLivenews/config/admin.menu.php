@@ -9,14 +9,21 @@
     <li class="tobe-highlight" data-highlight-url="/admin/livenews/news.*">
     <a href="/admin/livenews/news">
         <i class="icon-double-angle-right"></i>
-        Live News
+        News List
     </a>
     </li>
 
     <li class="tobe-highlight" data-highlight-url="/admin/livenews/news/create">
     <a href="/admin/livenews/news/create">
         <i class="icon-double-angle-right"></i>
-        Write News
+        Report News
+    </a>
+    </li>
+
+    <li class="tobe-highlight" data-highlight-url="/admin/livenews/news/create">
+    <a href="/admin/livenews/news/create#report-data">
+        <i class="icon-double-angle-right"></i>
+        Report Data
     </a>
     </li>
 

@@ -204,6 +204,7 @@ class NewsForm extends Form
 
     /**
      *
+     * @Type(Url)
      * @var string
      */
     public $sourceUrl;
