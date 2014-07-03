@@ -3,6 +3,7 @@ namespace Eva\EvaLivenews\Forms;
 
 use Eva\EvaEngine\Form;
 use Phalcon\Forms\Element\Check;
+use Phalcon\Forms\Element\Radio;
 use Eva\EvaLivenews\Models;
 
 class NewsForm extends Form
@@ -37,6 +38,12 @@ class NewsForm extends Form
      * @var string
      */
     public $flag;
+
+    /**
+     *
+     * @var string
+     */
+    public $icon;
 
     /**
      *
@@ -239,6 +246,27 @@ class NewsForm extends Form
         }
 
         return $this->categories;
+    }
+
+    public function getIcons()
+    {
+        $icons = array(
+            'reminder' => 'Reminder',
+            'rumor' => 'Rumor',
+            'warning' => 'Warning',
+        );
+        
+        $radios = array();
+        $news = $this->getModel();
+        foreach($icons as $icon => $label) {
+            $radio = new Radio('icon', array(
+                'value' => $icon
+            ));
+            $radio->setLabel($label);
+            $radio->setDefault($news->icon);
+            $radios[$icon] = $radio;
+        }
+        return $this->radio = $radios;
     }
 
     public function initialize($entity = null, $options = null)

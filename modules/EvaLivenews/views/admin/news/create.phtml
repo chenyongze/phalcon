@@ -63,7 +63,7 @@
                                         <div class="col-xs-9">
                                             <div class="widget-box">
                                                 <div class="widget-header widget-header-small header-color-blue">
-                                                    <div class="widget-toolbar">
+                                                    <div class="widget-toolbar no-border">
                                                         <span id="content-counter" class="label label-success">
                                                             1000
                                                         </span>
@@ -103,6 +103,8 @@
 
                                             </div><!--form group-->
 
+
+
                                             <div class="widget-box">
                                                 <div class="widget-header widget-header-small">
                                                     <h5 class="lighter">Categories</h5>
@@ -124,6 +126,41 @@
                                                                         'class' => 'ace',
                                                                     ))?>
                                                                     <span class="lbl"> <?=$category->getLabel()?></span>
+                                                                </label>
+                                                            </div>
+                                                            <?endforeach?>
+                                                            <?endif?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!--widgex box-->
+
+                                            <div class="widget-box">
+                                                <div class="widget-header widget-header-small">
+                                                    <h5 class="lighter">Icon</h5>
+                                                    <span class="widget-toolbar">
+                                                        <a data-action="collapse" href="#">
+                                                            <i class="icon-chevron-up"></i>
+                                                        </a>
+                                                    </span>
+                                                </div>
+                                                <div class="widget-body">
+                                                    <div class="widget-main">
+                                                        <div class="control-group">
+                                                            <?$icons = $form->getIcons()?>
+                                                            <?$iconsMapping = array(
+                                                                'reminder' => 'icon-bell',
+                                                                'rumor' => 'icon-bullhorn',
+                                                                'warning' => 'icon-warning-sign',
+                                                            )?>
+                                                            <?if($icons):?>
+                                                            <?foreach($icons as $key => $icon):?>
+                                                            <div class="radio" style="display:inline-block;width:150px;">
+                                                                <label>
+                                                                    <?=$icon->render(array(
+                                                                        'class' => 'ace',
+                                                                    ))?>
+                                                                    <span class="lbl"> <i class="<?=$iconsMapping[$key]?>"></i> <?=$icon->getLabel()?></span>
                                                                 </label>
                                                             </div>
                                                             <?endforeach?>
@@ -374,8 +411,8 @@
             var textCounter = function(e) {
                             var textarea = e.$textarea;
                             var counter = $(textarea.attr('data-counter-selector'));
-                            var content = e.parseContent();
-                            var contentLength = (content.match(/\n/g)||[]).length + content.length;
+                            var content = e.getContent();
+                            var contentLength = content.length;
                             counter.html(1000 - contentLength);
                             if (contentLength > 1000) {
                                     counter.removeClass('label-danger label-success').addClass('label-danger');
