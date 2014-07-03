@@ -137,7 +137,7 @@
                                                                         <input type="text" class="form-control" placeholder="" data-name="title">
                                                                     </td>
                                                                     <td>
-                                                                        <input type="text" class="form-control time-picker" placeholder="" data-name="timestamp">
+                                                                        <input type="text" class="form-control time-picker" data-show-seconds="false" placeholder="" data-name="timestamp">
                                                                     </td>
                                                                     <td>
                                                                         <input type="number" class="form-control input-small" placeholder="" value="1"  data-name="importance">
@@ -604,6 +604,7 @@
                     markdownEditor.setContent('');
                     $('input[name=codeType]').val('markdown');
                     unlockEditor();
+                    $('#editor-switcher a[href=#report-news]').tab('show')
             }
 
             var initReporter = function(){

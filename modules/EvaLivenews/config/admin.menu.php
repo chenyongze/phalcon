@@ -13,14 +13,14 @@
     </a>
     </li>
 
-    <li class="tobe-highlight" data-highlight-url="/admin/livenews/news/create">
+    <li class="tobe-highlight" data-highlight-url="/admin/livenews/news/create$">
     <a href="/admin/livenews/news/create">
         <i class="icon-double-angle-right"></i>
         Report News
     </a>
     </li>
 
-    <li class="tobe-highlight" data-highlight-url="/admin/livenews/news/create">
+    <li class="tobe-highlight" data-highlight-url="/admin/livenews/news/create\#report-data">
     <a href="/admin/livenews/news/create#report-data">
         <i class="icon-double-angle-right"></i>
         Report Data
