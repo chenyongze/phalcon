@@ -1,0 +1,150 @@
+#leftbar {
+    .clearfix;
+    position: fixed;
+    z-index: 2;
+    width: 530px;
+    padding-left: 15px;
+    top: 90px;
+    bottom: 30px;
+    overflow: hidden;
+
+    & > .content {
+        float: left;
+        width: 170px;
+        height: 100%;
+        position: relative;
+        height: 100%;
+        background-color: #dae8f1;
+        //
+        & > .inner {
+
+        }
+    }
+    & > .sidebar {
+        position: relative;
+        float: left;
+        width: 330px;
+        height: 100%;
+        padding: 20px 15px;
+        background-color: #b0cde1;
+        .chart {
+            height: 150px;
+            margin-bottom: 30px;
+        }
+    }
+
+    .user.box {
+        padding: 20px 15px 15px;
+        height: 145px;
+
+        .avatar {
+            display: block;
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+        }
+    }
+}
+
+#left-market-list {
+    position: absolute;
+    top: 145px;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    font-size: 12px;
+    color: #000;
+    .nano-pane {
+        width: 8px;
+        right: 2px;
+    }
+    .nano-slider {
+        background-color: #aaa;
+    }
+    //
+    .market {
+        display: block;
+        position: relative;
+        height: 52px;
+        width: 100%;
+        padding: 10px 15px;
+        line-height: 16px;
+        &[data-trend=rise] {
+            /*.name {
+                background: url(../icon/rise.png) right center no-repeat;
+            }*/
+            &:before {
+                background: url(../icon/rise.png);
+            }
+        }
+        &[data-trend=fall] {
+            /*.name {
+                background: url(../icon/fall.png) right center no-repeat;
+            }*/
+            &:before {
+                background: url(../icon/fall.png);
+            }
+        }
+        //----------------------------------------
+        &:before {
+            display: block;
+            position: absolute;
+            content: "";
+            width: 16px;
+            height: 16px;
+            top: 0;
+            bottom: 0;
+            left: 75px;
+            margin: auto 0;
+        }
+        //----------------------------------------
+        &:after {
+            display: block;
+            position: absolute;
+            content: "";
+            width: 16px;
+            top: 0;
+            bottom: 0;
+            right: 15px;
+            background: url(../icon/arrow-right-1.png) center center no-repeat;
+        }
+        &:hover {
+            background-color: #b0cde1;
+        }
+        .custom-icon {
+            position: absolute;
+            right: 0;
+            display: block;
+            height: 100%;
+            line-height: 32px;
+        }
+        .custom-span-1 {
+            .ellipsis;
+            width: 80px;
+        }
+        .custom-span-2 {
+            .ellipsis;
+            width: 60px;
+        }
+        .name {
+            display: block;
+            margin-bottom: 4px;
+            padding-right: 20px;
+        }
+    }
+}
+
+#left-side-livenews {
+    overflow: hidden;
+    margin-right: -15px;
+    .content {
+        padding-right: 15px;
+    }
+    .nano-pane {
+        width: 8px;
+        right: 2px;
+    }
+    .nano-slider {
+        background-color: @blue;
+    }
+}
