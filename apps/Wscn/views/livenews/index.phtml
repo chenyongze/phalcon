@@ -39,7 +39,7 @@
 
 
     var socket = io("<?=$this->config->livenews->socketIoServer?>");
-    socket.on('livenews', function(newsString){
+    socket.on('livenews:create', function(newsString){
             appendNews(newsString);
     });
 </script>
