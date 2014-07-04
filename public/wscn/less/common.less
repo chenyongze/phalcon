@@ -62,14 +62,23 @@ body {
     line-height: 1.5em;
     .news {
         display: block;
-        padding-bottom: 1.5em;
+        padding: 1.5em 0;
+        color: #333;
         border-bottom: 1px solid #969696;
-        margin-bottom: 1.5em;
         .time {
             color: @blue;
         }
         .title {
-            color: #333;
+
+        }
+        &:hover {
+            //margin-left: -15px;
+            //margin-right: -15px;
+            //padding-left: 15px;
+            //padding-right: 15px;
+            //background-color: #8CB8D5;
+            //background-color: #cbdce6;
+            color: @blue;
         }
     }
 }
@@ -86,7 +95,15 @@ body {
         border-bottom: 3px solid @blue;
     }
 }
-.side-list {
+.main-title {
+    color: @blue;
+    font-size: 16px;
+    line-height: 30px;
+    padding-bottom: 7px;
+    border-bottom: 3px solid @blue;
+    margin-bottom: 20px;
+}
+.news-list {
     .news {
         .break-word;
         font-size: 14px;
@@ -159,4 +176,8 @@ body {
             color: #787878;
         }
     }
+}
+
+.toolbar {
+    .clearfix;
 }

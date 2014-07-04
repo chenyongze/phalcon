@@ -20,6 +20,11 @@
         //alwaysVisible: true,
         iOSNativeScrolling: true
     });
+    $('#right-side-livenews').nanoScroller({
+        preventPageScrolling: true,
+        //alwaysVisible: true,
+        iOSNativeScrolling: true
+    });
 })(jQuery);
 
 (function($){

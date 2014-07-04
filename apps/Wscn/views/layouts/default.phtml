@@ -10,7 +10,7 @@
     <title><?=$this->placeholder->block('title', '华尔街见闻');?></title>
 
     <!-- Bootstrap -->
-    <link href="/vendor/css/bootstrap-3.x/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/wscn/css/bootstrap.min.css" rel="stylesheet">
     <!-- for ie mobile content-width bug -->
     <script>
         if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
@@ -27,6 +27,8 @@
     <link href="/vendor/js/nano-scroller/nanoscroller.css" rel="stylesheet">
     <!--  -->
     <link href="/wscn/css/style.css" rel="stylesheet">
+    <!-- grunt watch for live reload  -->
+    <script src="//localhost:35729/livereload.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -138,12 +140,24 @@
     </div>
 </footer>
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="/vendor/js/jquery-2.0.3.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/vendor/css/bootstrap-3.x/js/bootstrap.min.js"></script>
+
+<!--[if lt IE 9]>
+<script type="text/javascript" src="/vendor/js/jquery-1.11.1.min.js"></script>
+<![endif]-->
+
+<!--[if gte IE 9]>
+<script type="text/javascript" src="/vendor/js/jquery-2.1.1.min.js"></script>
+<![endif]-->
+
+<!--[if !IE]><!-->
+<script type="text/javascript" src="/vendor/js/jquery-2.1.1.min.js"></script>
+<!--<![endif]-->
+
 <!--  -->
 <script src="/vendor/js/nano-scroller/jquery.nanoscroller.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/wscn/js/bootstrap.min.js"></script>
 <!--  -->
 <script src="/wscn/js/main.js"></script>
 </body>
