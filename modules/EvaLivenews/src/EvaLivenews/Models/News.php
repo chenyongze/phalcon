@@ -16,21 +16,10 @@ class News extends Entities\News
         'title',
         'codeType',
         'createdAt',
-        'summary',
-        'summaryHtml' => 'getSummaryHtml',
+        'contentHtml' => 'getContentHtml',
         'commentStatus',
         'sourceName',
         'sourceUrl',
-        'url' => 'getUrl',
-        'imageUrl' => 'getImageUrl',
-        'content' => 'getContentHtml',
-        'text' => array(
-            'content',
-        ),
-        'tags' => array(
-            'id',
-            'tagName',
-        ),
         'categories' => array(
             'id',
             'categoryName',
@@ -162,6 +151,8 @@ class News extends Entities\News
 
     public function createNews(array $data)
     {
+        $this->getDI()->getEventsManager()->fire('livenews:beforeCreate', $this);
+
         $categoryData = isset($data['categories']) ? $data['categories'] : array();
         $textData = isset($data['text']) ? $data['text'] : array();
 
@@ -189,11 +180,15 @@ class News extends Entities\News
         if (!$this->save()) {
             throw new Exception\RuntimeException('Create news failed');
         }
+
+        $this->getDI()->getEventsManager()->fire('livenews:afterCreate', $this);
+
         return $this;
     }
 
     public function updateNews($data)
     {
+        $this->getDI()->getEventsManager()->fire('livenews:beforeUpdate', $this);
         $categoryData = isset($data['categories']) ? $data['categories'] : array();
         $textData = isset($data['text']) ? $data['text'] : array();
 
@@ -225,17 +220,21 @@ class News extends Entities\News
             throw new Exception\RuntimeException('Update news failed');
         }
 
+        $this->getDI()->getEventsManager()->fire('livenews:afterUpdate', $this);
         return $this;
     }
 
     public function removeNews($id)
     {
+        $this->getDI()->getEventsManager()->fire('livenews:beforeRemove', $this);
         $this->id = $id;
         //remove old relations
         if ($this->categoriesPosts) {
             $this->categoriesPosts->delete();
         }
         $this->delete();
+        $this->getDI()->getEventsManager()->fire('livenews:afterRemove', $this);
+        return $this;
     }
 
     public function getContentHtml()
