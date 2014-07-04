@@ -6,6 +6,7 @@ use Phalcon\Loader;
 use Phalcon\Mvc\Dispatcher;
 use Phalcon\Mvc\ModuleDefinitionInterface;
 use Eva\EvaEngine\Module\StandardInterface;
+use Eva\EvaLivenews\Events\LivenewsListener;
 
 class Module implements ModuleDefinitionInterface, StandardInterface
 {
@@ -44,6 +45,9 @@ class Module implements ModuleDefinitionInterface, StandardInterface
     {
         $dispatcher = $di->getDispatcher();
         $dispatcher->setDefaultNamespace('Eva\EvaLivenews\Controllers');
+
+        $eventsManager = $di->getEventsManager();
+        $eventsManager->attach('livenews', new LivenewsListener());
     }
 
 }

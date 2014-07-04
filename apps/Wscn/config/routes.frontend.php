@@ -22,4 +22,14 @@ return array(
         'action' => 1,
         'id' => 3,
     ),
+    '/livenews' =>  array(
+        'module' => 'Wscn',
+        'controller' => 'livenews',
+    ),
+    '/livenews/:action(/(\d+))*' =>  array(
+        'module' => 'Wscn',
+        'controller' => 'livenews',
+        'action' => 1,
+        'id' => 3,
+    ),
 );
