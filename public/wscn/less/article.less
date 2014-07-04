@@ -1,7 +1,97 @@
 .article {
     .article-title {
-        font-size: 24px;
+        color: #000;
+        font-size: 26px;
         line-height: 1.5em;
         margin-bottom: 20px;
+        @media (max-width: @screen-md-max) {
+            font-size: 20px;
+        }
+        @media (max-width: @screen-xs-max) {
+            font-size: 18px;
+        }
+    }
+    .meta {
+        font-size: 12px;
+        color: #646464;
+        display: inline-block;
+        margin-bottom: 30px;
+        &.author {
+            color: @blue;
+            margin-right: 30px;
+        }
+        &.comment-count {
+            color: @blue;
+            margin-left: 15px;
+        }
+    }
+    .main-image {
+        width: 100%;
+        display: block;
+        margin-bottom: 30px;
+    }
+    .statement {
+        background-color: #DAE8F1;
+        padding: 1em;
+        font-size: 14px;
+        line-height: 1.5em;
+        margin-bottom: 30px;
+        color: @blue;
+    }
+    .toolbar {
+        border-top: 1px solid #969696;
+        border-bottom: 1px solid #969696;
+        padding: 10px 0;
+        margin-bottom: 30px;
+        font-size: 14px;
+        line-height: 32px;
+        .collect {
+            display: inline-block;
+            color: @blue;
+            font-size: 12px;
+            padding-left: 36px;
+            //background
+        }
+        .separator {
+            display: inline-block;
+            width: 0;
+            height: 32px;
+            border-right: 1px solid #969696;
+            float: left;
+            margin-right: 15px;
+        }
+    }
+    .hot-news {
+        margin-bottom: 30px;
+        .news {
+            display: block;
+            color: #000;
+            margin-bottom: 30px;
+            &:hover {
+                color: @blue;
+            }
+            .img {
+                display: block;
+                width: 100%;
+                height: auto;
+                margin-bottom: 15px;
+            }
+            .title {
+                font-size: 14px;
+                line-height: 1.5em;
+            }
+        }
+    }
+    .custom-tabs {
+        .clearfix;
+        font-size: 14px;
+        margin-bottom: 20px;
+        li {
+            float: left;
+            margin-right: 20px;
+            &.active {
+                color: @blue;
+            }
+        }
     }
 }
