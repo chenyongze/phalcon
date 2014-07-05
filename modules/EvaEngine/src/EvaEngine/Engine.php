@@ -223,7 +223,7 @@ class Engine
             }
         }
 
-        if(!$listeners) {
+        if(!is_array($listeners)) {
             return $this;
         }
 
