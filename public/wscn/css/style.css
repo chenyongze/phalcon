@@ -172,7 +172,7 @@ body {
   display: block;
   padding: 1.5em 0;
   color: #333;
-  border-bottom: 1px solid #969696;
+  border-bottom: 1px solid #cccccc;
 }
 .livenews-list .news .time {
   color: #0a62a3;
@@ -473,34 +473,6 @@ body {
   outline: 0;
   width: 230px;
 }
-#search-form {
-  position: absolute;
-  right: 0;
-  height: 36px;
-  top: 12px;
-}
-#search-form .search-field {
-  -webkit-transition: width 0.75s;
-  -moz-transition: width 0.75s;
-  -o-transition: width 0.75s;
-  transition: width 0.75s;
-  cursor: pointer;
-  border: none;
-  line-height: 16px;
-  color: #333;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  height: 36px;
-  padding-left: 36px;
-  width: 36px;
-  background: url(../icon/search-white.png) 8px center no-repeat;
-}
-#search-form .search-field:focus {
-  background-color: #fff;
-  cursor: text;
-  outline: 0;
-  width: 230px;
-}
 @media (max-width: 767px) {
   #header {
     position: absolute;
@@ -641,7 +613,7 @@ body {
   display: block;
   position: relative;
   width: 100%;
-  padding: 8px 15px;
+  padding: 13px 15px;
   line-height: 16px;
 }
 #left-market-list .market[data-trend=rise] {
@@ -714,6 +686,9 @@ body {
     .content {
         padding-right: 15px;
     }*/
+}
+#left-side-livenews .news {
+  border-color: #999;
 }
 #rightbar {
   float: left;
@@ -830,7 +805,7 @@ body {
 }
 #main .news-list.with-img .news-big {
   padding: 25px 0;
-  border-bottom: 1px solid #969696;
+  border-bottom: 1px solid #cccccc;
 }
 #main .news-list.with-img .news-big .cover-img .title {
   font-size: 20px;
@@ -841,7 +816,7 @@ body {
 #main .news-list.with-img .news {
   color: #323232;
   padding: 25px 0;
-  border-bottom: 1px solid #969696;
+  border-bottom: 1px solid #cccccc;
 }
 #main .news-list.with-img .news .cover-img {
   margin-top: 4px;
@@ -1228,6 +1203,121 @@ body {
   display: table;
   content: '';
   clear: both;
+}
+#search {
+  padding-left: 15px;
+  padding-right: 15px;
+  font-size: 14px;
+}
+@media (min-width: 1280px) {
+  #search {
+    padding-left: 220px;
+    padding-right: 370px;
+  }
+}
+#search .custom-nav-tabs a {
+  font-size: 14px;
+  padding-left: 0;
+  padding-right: 0;
+  margin-right: 1.5em;
+}
+#search .search-list {
+  margin-bottom: 30px;
+}
+#search .search-list .item {
+  padding: 15px 0;
+  border-bottom: 1px solid #cccccc;
+}
+#search .search-list .news {
+  position: relative;
+  padding-left: 150px;
+}
+#search .search-list .news .img {
+  position: absolute;
+  display: block;
+  width: 120px;
+  left: 0;
+  top: 21px;
+}
+#search .search-list .news .title {
+  display: block;
+  font-size: 18px;
+  line-height: 1.5em;
+  margin-bottom: 15px;
+}
+#search .search-list .news .meta {
+  display: inline-block;
+  font-size: 12px;
+  margin-bottom: 15px;
+  color: #787878;
+}
+#search .search-list .news .author {
+  margin-right: 1.25em;
+}
+#search .search-list .news .summary {
+  font-size: 14px;
+  line-height: 1.5em;
+  margin-bottom: 15px;
+}
+#search .search-list .news .share,
+#search .search-list .news .collect {
+  display: block;
+  float: left;
+  width: 16px;
+  height: 16px;
+  margin-left: 1em;
+}
+#search .search-list .news .share {
+  background-image: url(../icon/share-blue.png);
+}
+#search .search-list .news .collect {
+  background-image: url(../icon/collect-blue.png);
+}
+@media (max-width: 479px) {
+  #search .search-list .news {
+    padding-left: 0;
+  }
+  #search .search-list .news .title {
+    font-size: 14px;
+  }
+  #search .search-list .news .meta {
+    margin-bottom: 0;
+  }
+}
+#search-form {
+  position: relative;
+  padding-right: 100px;
+  margin-bottom: 30px;
+}
+#search-form .search-field {
+  display: block;
+  height: 30px;
+  padding: 5px 15px;
+  line-height: 20px;
+  border-radius: 3px;
+  border: 1px solid #999;
+  width: 100%;
+}
+#search-form .search-field:focus {
+  border-color: #0a62a3;
+}
+#search-form .submit {
+  display: block;
+  position: absolute;
+  width: 67px;
+  height: 30px;
+  border: 1px solid #0a62a3;
+  color: #0a62a3;
+  background-color: #fff;
+  border-radius: 5px;
+  line-height: 28px;
+  text-align: center;
+  top: 0;
+  right: 0;
+}
+#search-form .submit:hover {
+  color: #fff;
+  background-color: #0a62a3;
 }
 #footer {
   position: relative;

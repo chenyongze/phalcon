@@ -18,4 +18,8 @@ class TestController extends ControllerBase
     public function nodeAction()
     {
     }
+
+    public function searchAction()
+    {
+    }
 }
