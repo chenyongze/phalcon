@@ -25,8 +25,18 @@
         float: left;
         width: 330px;
         height: 100%;
-        padding: 20px 15px;
-        background-color: #b0cde1;
+
+        .nano-content {
+            padding: 20px 15px;
+            background-color: #b0cde1;
+        }
+        .nano-pane {
+            width: 8px;
+            right: 2px;
+        }
+        .nano-slider {
+            background-color: @blue;
+        }
         .chart {
             height: 150px;
             margin-bottom: 30px;
@@ -58,9 +68,8 @@
     .market {
         display: block;
         position: relative;
-        height: 52px;
         width: 100%;
-        padding: 10px 15px;
+        padding: 8px 15px;
         line-height: 16px;
         &[data-trend=rise] {
             /*.name {
@@ -128,16 +137,10 @@
 }
 
 #left-side-livenews {
-    overflow: hidden;
+    /*overflow: hidden;
     margin-right: -15px;
     .content {
         padding-right: 15px;
-    }
-    .nano-pane {
-        width: 8px;
-        right: 2px;
-    }
-    .nano-slider {
-        background-color: @blue;
-    }
+    }*/
+
 }

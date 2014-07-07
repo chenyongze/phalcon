@@ -1,7 +1,9 @@
-.article {
+.post {
+    @border-color: #ccc;
     .article-title {
         color: #000;
         font-size: 26px;
+        font-weight: bold;
         line-height: 1.5em;
         margin-bottom: 20px;
         @media (max-width: @screen-md-max) {
@@ -30,6 +32,53 @@
         display: block;
         margin-bottom: 30px;
     }
+    .article-content {
+        .clearfix;
+        font-size: 16px;
+        line-height: 1.75em;
+        p {
+            margin-bottom: 30px;
+        }
+        ul {
+            margin-bottom: 30px;
+        }
+        li {
+            list-style: circle;
+            margin-left: 20px;
+            margin-bottom: 30px;
+        }
+    }
+    .related-posts {
+        display: block;
+        font-size: 14px;
+        padding: 15px;
+        color: #505050;
+        background-color: #f0f0f0;
+        margin-bottom: 30px;
+        @media (min-width: @screen-sm-min) {
+
+        }
+        @media (min-width: @screen-lg-min) {
+            float: left;
+            width: 282px;
+            margin-right: 30px;
+
+        }
+        ul {
+            margin-bottom: 0;
+        }
+        li {
+            list-style: none;
+            margin-left: 0;
+            //margin-bottom: 0;
+            &:last-child {
+                margin-bottom: 0;
+            }
+            &.last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
     .statement {
         background-color: #DAE8F1;
         padding: 1em;
@@ -39,26 +88,124 @@
         color: @blue;
     }
     .toolbar {
-        border-top: 1px solid #969696;
-        border-bottom: 1px solid #969696;
+        border-top: 1px solid @border-color;
+        border-bottom: 1px solid @border-color;
         padding: 10px 0;
         margin-bottom: 30px;
         font-size: 14px;
         line-height: 32px;
-        .collect {
+        .endorse {
             display: inline-block;
             color: @blue;
             font-size: 12px;
-            padding-left: 36px;
-            //background
+            padding-left: 30px;
+            background: url(../icon/endorse-white.png) left center no-repeat;
         }
         .separator {
             display: inline-block;
             width: 0;
             height: 32px;
-            border-right: 1px solid #969696;
+            border-right: 1px solid @border-color;
             float: left;
             margin-right: 15px;
+        }
+    }
+    .toolbar[data-action=post] {
+        padding: 0;
+        position: relative;
+        .separator {
+            display: block;
+            position: absolute;
+            width: 0;
+            height: 100%;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+        .prev-post,
+        .next-post {
+            .clearfix;
+            display: block;
+            position: relative;
+            width: 50%;
+            float: left;
+            padding: 15px 20px;
+            color: #333;
+            &:hover {
+                background-color: @blue;
+                color: #fff;
+            }
+        }
+        .icon {
+            display: block;
+            position: absolute;
+            width: 40px;
+            height: 30px;
+            top: 0;
+            bottom: 0;
+            margin: auto 0;
+            line-height: 30px;
+            text-align: center;
+            font-size: 16px;
+        }
+        .img {
+            display: block;
+        }
+        .title {
+            display: block;
+            font-size: 14px;
+            line-height: 1.5em;
+        }
+        .prev-post {
+            padding-left: 40px;
+            .icon {
+                left: 0;
+            }
+        }
+        .next-post {
+            padding-right: 40px;
+            .icon {
+                right: 0;
+            }
+        }
+        @media (max-width: @screen-md-max) {
+            .img {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+            .title {
+                height: 4.5em;
+                overflow: hidden;
+            }
+        }
+        @media (min-width: @screen-lg-min) {
+            .img {
+                width: 120px;
+                height: 80px;
+            }
+            .title {
+                width: 120px;
+                height: 80px;
+                overflow: hidden;
+            }
+            .prev-post {
+                .img {
+                    float: left;
+                }
+                .title {
+                    float: right;
+                }
+            }
+            .next-post {
+                .img {
+                    float: right;
+                }
+                .title {
+                    float: left;
+                }
+            }
         }
     }
     .hot-news {

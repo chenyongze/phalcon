@@ -1,13 +1,14 @@
 (function($){
     var $livenews = $('#left-side-livenews');
     var $leftbar = $('#leftbar');
+    var $leftSidebar = $('#leftbar > .sidebar');
     var $marketList = $('#left-market-list');
-    var leftbar_height = $leftbar.height();
+    /*var leftbar_height = $leftbar.height();
     var leftbar_offset = $leftbar.offset();
     var livenews_offset = $livenews.offset();
     var spacing = livenews_offset.top - leftbar_offset.top;
     var height = leftbar_height - spacing - 20;
-    $livenews.height(height);
+    $livenews.height(height);*/
 
     //$marketList.height($marketList.height());
     $marketList.nanoScroller({
@@ -15,7 +16,7 @@
         //alwaysVisible: true,
         iOSNativeScrolling: true
     });
-    $livenews.nanoScroller({
+    $leftSidebar.nanoScroller({
         preventPageScrolling: true,
         //alwaysVisible: true,
         iOSNativeScrolling: true
@@ -40,7 +41,7 @@
         clearTimeout(timeout_show_related_info);
         timeout_fold = setTimeout(function(){
             $content.removeClass('unfold');
-        }, 750);
+        }, 300);
     });
 
     $leftbar.on('mouseover', '[data-hover=related-info]', function(){
