@@ -258,10 +258,11 @@ $(document).ready(function(){
                 { name: 'colors', items: [ 'TextColor', 'BGColor' ] },
                 { name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
                 { name: 'insert', items: [ 'Image', 'Flash', 'Table', 'HorizontalRule', 'SpecialChar'] },
-				{ name: 'extent', items: ['WSCNMarkets'] }
+				{ name: 'extent', items: ['WSCNMarkets'] },
+				{ name: 'extent2', items: ['UploaderBtn'] }
             ];
 			CKEDITOR.config.allowedContent = true;
-			CKEDITOR.config.extraPlugins += (CKEDITOR.config.extraPlugins ? ',wscn' : 'wscn');
+			CKEDITOR.config.extraPlugins += (CKEDITOR.config.extraPlugins ? ',wscn,uploader' : 'wscn,uploader');
             
             editors.each(function(){
                 var ckeditor = $(this).ckeditor().ckeditorGet();
