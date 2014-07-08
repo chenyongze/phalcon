@@ -9,7 +9,7 @@ use Eva\EvaEngine\Exception;
 use Eva\EvaEngine\Mvc\Model\Validator\Uniqueness;
 
 
-class News extends Entities\News
+class NewsManager extends Entities\News
 {
     public static $defaultDump = array(
         'id',

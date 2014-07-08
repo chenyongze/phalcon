@@ -137,7 +137,7 @@
                                                                         <input type="text" class="form-control" placeholder="" data-name="title">
                                                                     </td>
                                                                     <td>
-                                                                        <input type="text" class="form-control time-picker" data-show-seconds="false" placeholder="" data-name="timestamp">
+                                                                        <input type="text" class="form-control " data-show-seconds="false" placeholder="" data-name="timestamp">
                                                                     </td>
                                                                     <td>
                                                                         <input type="number" class="form-control input-small" placeholder="" value="1"  data-name="importance">
@@ -171,22 +171,6 @@
 
 
 
-                                            <div class="form-group">
-                                                <div>
-                                                    <label for="importance">Importance</label>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-xs-2">
-                                                        <?=$form->render('importance', array(
-                                                            'class' => 'form-control',
-                                                        ))?>
-                                                    </div>
-                                                    <div class="col-xs-10">
-                                                        <div id="importance-slider" class="help-block" data-slider-for="#importance"></div>
-                                                    </div>
-                                                </div>
-
-                                            </div><!--form group-->
 
 
 
@@ -219,6 +203,8 @@
                                                     </div>
                                                 </div>
                                             </div><!--widgex box-->
+
+
 
                                             <div class="widget-box">
                                                 <div class="widget-header widget-header-small">
@@ -255,6 +241,23 @@
                                                 </div>
                                             </div><!--widgex box-->
 
+                                            <div class="form-group">
+                                                <div>
+                                                    <label for="importance">Importance</label>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-2">
+                                                        <?=$form->render('importance', array(
+                                                            'class' => 'form-control',
+                                                        ))?>
+                                                    </div>
+                                                    <div class="col-xs-10">
+                                                        <div id="importance-slider" class="help-block" data-slider-for="#importance"></div>
+                                                    </div>
+                                                </div>
+
+                                            </div><!--form group-->
+
                                         </div><!--left col end-->
                                         <div class="col-xs-3">
 
@@ -287,6 +290,13 @@
                                                             </label>
                                                         </div>
                                                     </div>
+                                                    <div class="clearfix form-actions no-margin">
+                                                        <input name="__redirect" type="hidden" value="" />
+                                                        <button type="submit" class="btn btn-block btn-info form-submiter" data-change-name="status" data-change-value="published">
+                                                            <i class="icon-ok"></i>
+                                                            Publish
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div><!--widgex box-->
                                             <div class="hr hr-double dotted"></div>
@@ -310,13 +320,7 @@
                                                         </div>
                                                         <input name="upload" type="file" class="ace-file-input"  multiple="">
                                                     </div>
-                                                    <div class="clearfix form-actions no-margin">
-                                                        <input name="__redirect" type="hidden" value="" />
-                                                        <button type="submit" class="btn btn-block btn-info form-submiter" data-change-name="status" data-change-value="published">
-                                                            <i class="icon-ok"></i>
-                                                            Publish
-                                                        </button>
-                                                    </div>
+
                                                 </div>
                                             </div><!--widgex box-->
 
@@ -613,11 +617,28 @@
                     }
                     var urlHash = window.location.hash.substr(1);
                     var newsId = $('input[name=id]').val();
+                    newsId = newsId == '' ? 0 : parseInt(newsId);
                     var codeType = $('input[name=codeType]').val();
                     if(newsId > 0 && codeType == 'json' || urlHash == 'report-data') {
                             $('#editor-switcher a[href=#report-data]').tab('show')
                             setFinanceData();
                     }
+
+                    
+                    if(newsId < 1) {
+                            var timestamp = parseInt(moment().format('X'));
+                            var next15Min = timestamp + (60 * 15 - timestamp % (60 * 15));
+                            var nextTime = moment.unix(next15Min).format('hh:mm');
+                            reporter.find('input[data-name=timestamp]').each(function(){
+                                $(this).val(nextTime);
+                            });
+                    }
+                    reporter.find('input[data-name=timestamp]').timepicker({
+                            minuteStep: 5,
+                            showMeridian: false
+                    });
+
+                    //bind events at last
                     reporter.on('change', 'input, select', updateFinanceData);
                     $("#reporter-cleaner").on('click', removeFinanceData);
             }

@@ -33,7 +33,7 @@ class NewsController extends ControllerBase
         $form->setValues($this->request->getQuery());
         $this->view->setVar('form', $form);
 
-        $news = new Models\News();
+        $news = new Models\NewsManager();
         $newsSet = $news->findNews($query);
         $paginator = new \Eva\EvaEngine\Paginator(array(
             "builder" => $newsSet,
@@ -48,7 +48,7 @@ class NewsController extends ControllerBase
     public function createAction()
     {
         $form = new Forms\NewsForm();
-        $news = new Models\News();
+        $news = new Models\NewsManager();
         $form->setModel($news);
         $form->addForm('text', 'Eva\EvaLivenews\Forms\TextForm');
         $this->view->setVar('form', $form);
@@ -68,7 +68,7 @@ class NewsController extends ControllerBase
         } catch (\Exception $e) {
             return $this->displayException($e, $form->getModel()->getMessages());
         }
-        $this->flashSession->success('SUCCESS_POST_CREATED');
+        $this->flashSession->success('SUCCESS_NEWS_CREATED');
 
         return $this->redirectHandler('/admin/livenews/news/edit/' . $form->getModel()->id);
     }
