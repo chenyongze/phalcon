@@ -1,0 +1,53 @@
+//清除浮动
+.clearfix {
+    &:before {
+        display: table;
+        content: '';
+        clear: both;
+    }
+    &:after {
+        display: table;
+        content: '';
+        clear: both;
+    }
+}
+//定位
+.relative {
+    position: relative;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.fixed {
+    position: fixed;
+}
+// 过度
+.transition (@transition) {
+    -webkit-transition: @transition;
+       -moz-transition: @transition;
+         -o-transition: @transition;
+            transition: @transition;
+}
+//单行隐藏超过最大宽度的文字
+.ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+//
+.break-word {
+    word-break: break-all;
+}
+//
+.no-paging {
+    padding: 0 !important;
+}
+//
+.no-margin {
+    margin: 0 !important;
+}
+.text-blue {
+    color: @blue !important;
+}

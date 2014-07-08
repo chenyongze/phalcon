@@ -162,4 +162,53 @@ return array(
         'httpMethods' => 'DELETE'
     ),
 
+    'livenewslist' =>  array(
+        'pattern' => '/v2/livenews',
+        'paths' => array(
+            'module' => 'WscnApiVer2',
+            'controller' => 'livenews',
+            'action' => 'index',
+        ),
+        'httpMethods' => 'GET'
+    ),
+    'createlivenews' =>  array(
+        'pattern' => '/v2/livenews',
+        'paths' => array(
+            'module' => 'WscnApiVer2',
+            'controller' => 'livenews',
+            'action' => 'post',
+        ),
+        'httpMethods' => 'POST'
+    ),
+    'getlivenews' =>  array(
+        'pattern' => '/v2/livenews/(\d+)',
+        'paths' => array(
+            'module' => 'WscnApiVer2',
+            'controller' => 'livenews',
+            'action' => 'get',
+            'id' => 1,
+        ),
+        'httpMethods' => 'GET'
+    ),
+    'putlivenews' =>  array(
+        'pattern' => '/v2/livenews/(\d+)',
+        'paths' => array(
+            'module' => 'WscnApiVer2',
+            'controller' => 'livenews',
+            'action' => 'put',
+            'id' => 1,
+        ),
+        'httpMethods' => 'PUT'
+    ),
+    'deletelivenews' =>  array(
+        'pattern' => '/v2/livenews/(\d+)',
+        'paths' => array(
+            'module' => 'WscnApiVer2',
+            'controller' => 'livenews',
+            'action' => 'delete',
+            'id' => 1,
+        ),
+        'httpMethods' => 'DELETE'
+    ),
+
 );

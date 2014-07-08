@@ -1,0 +1,129 @@
+#header {
+    position: fixed;
+    z-index: 9;
+    background-color: @blue;
+    margin-bottom: 30px;
+    width: 100%;
+    top: 0;
+    .navbar {
+        color: #fff;
+        margin-bottom: 0;
+        border: 0;
+    }
+    .nav > li > a:focus,
+    .nav > li > a:hover {
+        background-color: #045587;
+        color: #fff;
+    }
+    .navbar-brand {
+        color: transparent;
+        width: 185px;
+        background: url(../img/logo.png) left center no-repeat;
+    }
+    .navbar-toggle {
+        //float: left;
+        margin-right: 0;
+        .icon-bar {
+            background-color: #fff;
+            //height: 4px;
+            //width: 27px;
+        }
+        .icon-bar + .icon-bar {
+            //margin-top: 6px;
+        }
+    }
+    .navbar-nav > li > a {
+        //line-height: 30px;
+        font-size: 14px;
+    }
+    .search-form {
+        padding-right: 0;
+    }
+    .search-field {
+        .transition(width 0.3s);
+        cursor: pointer;
+        border: none;
+        line-height: 16px;
+        color: #333;
+        padding-top: 9px;
+        padding-bottom: 9px;
+        height: 34px;
+        padding-left: 34px;
+        width: 34px;
+        background: url(../icon/search-white.png) 7px center no-repeat;
+    }
+    .search-field:focus {
+        background-color: #fff;
+        cursor: text;
+        outline: 0;
+        width: 230px;
+    }
+
+}
+
+@media(max-width: (@screen-xs-max)) {
+    #header {
+        //fix ios bug
+        position: absolute;
+        .navbar {
+            min-height: 40px;
+        }
+        .navbar-brand {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            height: 40px;
+        }
+        .navbar-toggle {
+            margin-top: 4px;
+            margin-bottom: 4px;
+            border: none;
+        }
+        .navbar-nav > li > a {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        .search-field {
+            .transition(none);
+            width: 200px;
+            background-color: #fff;
+        }
+        .search-field:focus {
+            width: 200px;
+        }
+    }
+}
+#breaking-news {
+    display: block;
+    height: 0;
+    width: 100%;
+    background-color: #c11;
+    color: #fff;
+    overflow: hidden;
+    .title {
+        .ellipsis;
+        position: relative;
+        padding-left: 40px;
+        padding-right: 40px;
+        font-size: 14px;
+        line-height: 40px;
+    }
+    [data-action=close] {
+        display: block;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 3px;
+        margin: auto 0;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background-color: #fff;
+        color: #646464;
+        text-align: center;
+        line-height: 30px;
+        font-size: 16px;
+        &:hover {
+            color: @blue;
+        }
+    }
+}

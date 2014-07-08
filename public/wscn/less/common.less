@@ -1,0 +1,209 @@
+body {
+    font-family: Tahoma, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+    //font-size: 62.25%;
+    padding-top: 90px;
+    overflow-x: hidden;
+}
+//
+.cover-img {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    &:hover {
+        .cover {
+            bottom: -100%;
+        }
+    }
+    .cover {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        color: #fff;
+        background-color: rgba(0,0,0,.5);
+        padding: 10px 15px;
+        overflow: hidden;
+        transition: bottom 1s;
+        -webkit-transition: bottom 1s;
+    }
+    .img {
+        width: 100%;
+    }
+    .title ,
+    .subtitle {
+        overflow: hidden;
+        line-height: 1.5em;
+    }
+    .title {
+        height: 3em;
+    }
+    .subtitle {
+        height: 1.5em;
+    }
+}
+
+[data-trend="rise"] {
+    .diff ,
+    .diff-pct {
+        color: @riseColor;
+    }
+}
+[data-trend="fall"] {
+    .diff ,
+    .diff-pct {
+        color: @fallColor;
+    }
+}
+
+.pagingbar,
+.toolbar.paging {
+    .button {
+        display: block;
+        float: left;
+        margin-right: 5px;
+        border: 1px solid #c8c8c8;
+        min-width: 18px;
+        padding: 0 5px;
+        height: 28px;
+        line-height: 28px;
+        text-align: center;
+        font-size: 14px;
+        color: @blue;
+        &:hover,
+        &.active{
+            border-color: @blue;
+            background-color: @blue;
+            color: #fff;
+        }
+
+        &[data-action=prev-page],
+        &[data-action=next-page] {
+            width: 78px;
+            color: #646464;
+            &:hover {
+                background-color: transparent;
+                color: @blue;
+            }
+        }
+    }
+}
+
+.livenews-list {
+    font-size: 12px;
+    line-height: 1.5em;
+    .news {
+        display: block;
+        padding: 1.5em 0;
+        color: #333;
+        border-bottom: 1px solid @borderColor;
+        .time {
+            color: @blue;
+        }
+        .title {
+
+        }
+        &:hover {
+            margin-left: -15px;
+            margin-right: -15px;
+            padding-left: 15px;
+            padding-right: 15px;
+            background-color: #8CB8D5;
+            //background-color: #cbdce6;
+            //color: @blue;
+        }
+    }
+}
+.side-title {
+    .clearfix;
+    font-size: 16px;
+    line-height: 40px;
+    margin-bottom: 20px;
+}
+.main-title {
+    color: @blue;
+    font-size: 16px;
+    line-height: 30px;
+    padding-bottom: 6px;
+    border-bottom: 4px solid @blue;
+    margin-bottom: 20px;
+}
+.news-list {
+    .news {
+        .break-word;
+        font-size: 14px;
+        line-height: 21px;
+        margin-bottom: 20px;
+    }
+    &.with-dot {
+        .news {
+            position: relative;
+            padding-left: 1em;
+            &:before {
+                display: inline-block;
+                position: absolute;
+                content: "";
+                left: 0;
+                top: 8px;
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background-color: @blue;
+            }
+        }
+    }
+    &.with-number {
+        .news {
+            position: relative;
+            padding-left: 1.5em;
+            .number {
+                position: absolute;
+                left: 0;
+                color: @blue;
+                font-weight: bold;
+            }
+        }
+    }
+}
+.side-ad {
+    margin-bottom: 30px;
+    img {
+        width: 100%;
+    }
+}
+.side-comments {
+    .comment {
+        position: relative;
+        padding-left: 80px;
+        font-size: 12px;
+        margin-bottom: 30px;
+        .avatar {
+            display: block;
+            width: 60px;
+            height: 60px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .name {
+            color: @blue;
+        }
+        .title {
+            color: #c11;
+        }
+        .content {
+            padding: 12px 14px;
+            margin: 15px 0;
+            color: #787878;
+            background-color: #dae8f1;
+        }
+        .time {
+            color: #787878;
+        }
+    }
+}
+
+.toolbar {
+    .clearfix;
+}

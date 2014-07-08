@@ -1,0 +1,127 @@
+#search {
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 14px;
+
+    @media (min-width: @screen-lg-min) {
+        padding-left: 215px;
+        padding-right: 345px;
+    }
+    .custom-nav-tabs {
+        a {
+            font-size: 14px;
+            padding-left: 0;
+            padding-right: 0;
+            margin-right: 1.5em;
+        }
+        label {
+            font-size: 14px;
+            line-height: 24px;
+        }
+        select {
+            font-size: 12px;
+            line-height: 22px;
+            padding-left: 10px;
+            height: 24px;
+            border: 1px solid @blue;
+        }
+    }
+    .search-list {
+        margin-bottom: 30px;
+        .item {
+            padding: 15px 0;
+            border-bottom: 1px solid @borderColor;
+        }
+        .news {
+            position: relative;
+            padding-left: 150px;
+            .img {
+                position: absolute;
+                display: block;
+                width: 120px;
+                //height: 80px;
+                left: 0;
+                top: 21px;
+            }
+            .title {
+                display: block;
+                font-size: 18px;
+                line-height: 1.5em;
+                margin-bottom: 15px;
+            }
+            .meta {
+                display: inline-block;
+                font-size: 12px;
+                margin-bottom: 15px;
+                color: #787878;
+            }
+            .author {
+                margin-right: 1.25em;
+            }
+            .summary {
+                font-size: 14px;
+                line-height: 1.5em;
+                margin-bottom: 15px;
+            }
+            .share,
+            .collect {
+                display: block;
+                float: left;
+                width: 16px;
+                height: 16px;
+                margin-left: 1em;
+            }
+            .share {
+                background-image: url(../icon/share-blue.png);
+            }
+            .collect {
+                background-image: url(../icon/collect-blue.png);
+            }
+            @media (max-width: @screen-xxs-max) {
+                padding-left: 0;
+                .title {
+                    font-size: 14px;
+                }
+                .meta {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+}
+
+#search-form {
+    position: relative;
+    padding-right: 100px;
+    margin-bottom: 30px;
+    .search-field {
+        display: block;
+        height: 30px;
+        padding: 5px 15px;
+        line-height: 20px;
+        border-radius: 3px;
+        border: 1px solid #999;
+        width: 100%;
+        &:focus {
+            border-color: @blue;
+        }
+    }
+    .submit {
+        display: block;
+        position: absolute;
+        width: 67px;
+        height: 30px;
+        border: 1px solid @blue;
+        color: @blue;
+        background-color: #fff;
+        border-radius: 5px;
+        line-height: 28px;
+        text-align: center;
+        top: 0;
+        right: 0;
+        &:hover {
+            color: #fff;
+            background-color: @blue;
+        }
+    }
+}

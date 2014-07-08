@@ -9,6 +9,8 @@ class Apikey extends Entities\Apikeys
 {
     protected $token;
 
+    protected $tokenStatus = false;
+
     public function beforeValidationOnCreate()
     {
         $this->createdAt = time();
@@ -40,14 +42,18 @@ class Apikey extends Entities\Apikeys
 
     public function getTokenStatus()
     {
+        if($this->tokenStatus !== false) {
+            return $this->tokenStatus;
+        }
+
         $token = $this->token;
         if(!$token) {
-            return array();
+            return $this->tokenStatus = array();
         }
         $fastCache = $this->getDI()->getFastCache();
         $cacheKey = 'eva-permission-token-' . $token;
         if($fastCache && $data = $fastCache->get($cacheKey)) {
-            return json_decode($data, true);
+            return $this->tokenStatus = json_decode($data, true);
         }
 
         $tokenObj = self::findFirst("apikey = '$token'");
@@ -78,12 +84,68 @@ class Apikey extends Entities\Apikeys
         }
 
         $fastCache->set($cacheKey, json_encode($token));
-        return $token;
+        return $this->tokenStatus = $token;
     }
 
     public function isOutOfMinutelyRate()
     {
-    
+        $tokenStatus = $this->getTokenStatus();
+        if(!$tokenStatus) {
+            return true;
+        }
+        $fastCache = $this->getDI()->getFastCache();
+        $cachePrefix = 'eva-permission-token-' . $tokenStatus['apikey'];
+        $time = time();
+        $cacheKey = $cachePrefix . '-' . ($time - $time % 60);
+        $minutelyRate = $tokenStatus['minutelyRate'];
+        
+        $currentRate = $fastCache->get($cacheKey);
+        if($currentRate > $tokenStatus['minutelyRate']) {
+            return true;
+        }
+
+        $fastCache->incr($cacheKey);
+        return false;
+    }
+
+    public function isOutOfHourlyRate()
+    {
+        $tokenStatus = $this->getTokenStatus();
+        if(!$tokenStatus) {
+            return true;
+        }
+        $fastCache = $this->getDI()->getFastCache();
+        $cachePrefix = 'eva-permission-token-' . $tokenStatus['apikey'];
+        $time = time();
+        $cacheKey = $cachePrefix . '-' . ($time - $time % 3600);
+        $minutelyRate = $tokenStatus['hourlyRate'];
+
+        if($currentRate = $fastCache->get($cacheKey) && $currentRate > $tokenStatus['hourlyRate']) {
+            return true;
+        }
+
+        $fastCache->incr($cacheKey);
+        return false;
+    }
+
+    public function isOutOfDailyRate()
+    {
+        $tokenStatus = $this->getTokenStatus();
+        if(!$tokenStatus) {
+            return true;
+        }
+        $fastCache = $this->getDI()->getFastCache();
+        $cachePrefix = 'eva-permission-token-' . $tokenStatus['apikey'];
+        $time = time();
+        $cacheKey = $cachePrefix . '-' . ($time - $time % 86400);
+        $minutelyRate = $tokenStatus['dailyRate'];
+
+        if($currentRate = $fastCache->get($cacheKey) && $currentRate > $tokenStatus['dailyRate']) {
+            return true;
+        }
+
+        $fastCache->incr($cacheKey);
+        return false;
     }
 
 

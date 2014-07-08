@@ -62,7 +62,20 @@ var _hmt = _hmt || [];
                         <a href="/"><img class="logo " src="/img/logo.png" alt=""/></a>
                     </h1>
                     <div class="span9 ad">
-                        <img src="/img/ad/banner.png" alt=""/>
+                        <img id="banner" src="" alt=""/>
+                        <script type="text/javascript">
+                            (function(){
+                                function random(min, max) {
+                                    var range = max - min;
+                                    var rand  = Math.random();
+                                    return(min + Math.round(rand * range));
+                                }
+                                var array = ['/img/ad/banner.png', '/img/ad/banner-2.jpg'];
+                                var banner = document.getElementById('banner');
+                                var ri = random(0, 1);
+                                banner.src = array[ri];
+                            })();
+                        </script>
                         <!--<script type="text/javascript" >BAIDU_CLB_SLOT_ID = "902869";</script>
                         <script type="text/javascript" src="http://cbjs.baidu.com/js/o.js"></script>-->
                     </div>
@@ -154,6 +167,17 @@ var _hmt = _hmt || [];
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="container">
+                <p class="friend-links">
+                    友情链接：
+                    <a target="_blank" href="http://wallstreetcn.com/">华尔街见闻</a> |
+                    <a target="_blank" href="http://www.tjgs217.com/index.html">高盛贵金属</a> |
+                    <a target="_blank" href="http://www.swgold.cn/">狮王黄金</a> |
+                    <a target="_blank" href="http://www.zhonghexp.com/">中和鑫品</a> |
+                    <a target="_blank" href="http://www.06866.com/">金智融贵金属</a> |
+                    <a target="_blank" href="http://www.wallstopinion.com/?p=3894">华尔街评论</a>
+                </p>
             </div>
         </div>
 

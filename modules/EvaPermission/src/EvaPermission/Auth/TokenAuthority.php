@@ -26,9 +26,12 @@ class TokenAuthority extends AbstractAuthority
 
     public function getToken()
     {
+        if($this->token) {
+            return $this->token;
+        }
         $token = new Apikey();
         $token->setToken($this->apikey);
-        return $token;
+        return $this->token = $token;
     }
 
     public function checkAuth($resource, $operation)
@@ -55,5 +58,14 @@ class TokenAuthority extends AbstractAuthority
             }
         }
         return false;
+    }
+
+    public function checkLimitRate()
+    {
+        $token = $this->getToken();
+        if($token->isOutOfMinutelyRate() + $token->isOutOfHourlyRate() + $token->isOutOfDailyRate() > 0){
+            return false;
+        }
+        return true;
     }
 }

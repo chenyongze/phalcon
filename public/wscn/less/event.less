@@ -1,0 +1,28 @@
+body {
+    .transition(padding 0.3s);
+}
+#breaking-news{
+    .transition(height 0.3s);
+}
+#leftbar {
+    .transition(top 0.3s);
+}
+#wrapper {
+    .transition(margin 0.3s);
+}
+
+body.show-breaking-news {
+    padding-top: 130px;
+    #leftbar {
+        top: 130px;
+    }
+    #breaking-news {
+        height: 40px;
+    }
+}
+
+#content.unfold {
+    #wrapper {
+        margin-left: 515px;
+    }
+}

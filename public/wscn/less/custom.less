@@ -1,0 +1,115 @@
+.custom-row {
+    display: block;
+    .clearfix;
+    [class^=custom-col] ,
+    [class^=custom-span] {
+        display: block;
+        float: left;
+    }
+    & > .col-custom-1 {
+        width: percentage((1 / 12));
+    }
+    & > .col-custom-2 {
+        width: percentage((2 / 12));
+    }
+    & > .col-custom-3 {
+        width: percentage((3 / 12));
+    }
+    & > .col-custom-4 {
+        width: percentage((4 / 12));
+    }
+    & > .col-custom-5 {
+        width: percentage((5 / 12));
+    }
+    & > .col-custom-6 {
+        width: percentage((6 / 12));
+    }
+    & > .col-custom-7 {
+        width: percentage((7 / 12));
+    }
+    & > .col-custom-8 {
+        width: percentage((8 / 12));
+    }
+    & > .col-custom-9 {
+        width: percentage((9 / 12));
+    }
+    & > .col-custom-10 {
+        width: percentage((10 / 12));
+    }
+    & > .col-custom-11 {
+        width: percentage((11 / 12));
+    }
+    & > .col-custom-12 {
+        width: percentage(1);
+    }
+}
+//
+.custom-button {
+    .clearfix;
+    display: inline-block;
+    border: none;
+    color: #fff;
+    font-size: 14px;
+    line-height: 1em;
+    padding: 10px 8px;
+    text-align: center;
+    &.type-blue {
+        background-color: @blue;
+    }
+    &.size-sm {
+
+    }
+    &.size-lg {
+        font-size: 16px;
+        padding: 12px 1.5em;
+    }
+    &.size-fluid {
+        display: block;
+        width: 100%;
+    }
+    &.link {
+        position: relative;
+        font-size: 16px;
+        padding: 12px 1.5em;
+        padding-right: 4em;
+        &:after {
+            display: block;
+            position: absolute;
+            right: 1.5em;
+            top: 0;
+            bottom: 0;
+            width: 16px;
+            height: 16px;
+            margin: auto 0;
+            background: url(../icon/arrow-right.png);
+        }
+    }
+}
+//
+.custom-nav-tabs {
+    .clearfix;
+    border-bottom: 4px solid #dcdcdc;
+    li {
+        float: left;
+        margin-bottom: -4px;
+        &.active {
+            a {
+                color: @blue;
+                border-bottom-color: @blue;
+            }
+        }
+        &:hover {
+            a {
+                color: @blue;
+            }
+        }
+    }
+    a {
+        display: block;
+        font-size: 16px;
+        line-height: 1em;
+        padding: 0 1em 1em;
+        color: #646464;
+        border-bottom: 4px solid transparent;
+    }
+}

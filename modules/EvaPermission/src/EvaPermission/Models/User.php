@@ -7,7 +7,7 @@ use Eva\EvaEngine\Exception;
 
 class User extends Login 
 {
-    const SESSION_KEY_ROLES = 'auth-roles';
+    const SESSION_KEY_ROLES = 'session-auth-roles';
 
     public function isSuperUser()
     {
@@ -28,8 +28,10 @@ class User extends Login
         $sessionRoles = $this->getDI()->getSession()->get(self::SESSION_KEY_ROLES);
         $sessionRoles = $sessionRoles ? $sessionRoles : array();
         //Add default roles
-        $sessionRoles[] = 'USER';
-        $sessionRoles = array_unique($sessionRoles);
+        if($authIdentity['status'] == 'active') {
+            $sessionRoles[] = 'USER';
+            $sessionRoles = array_unique($sessionRoles);
+        }
         return $sessionRoles;
     }
 }
