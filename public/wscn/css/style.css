@@ -164,6 +164,42 @@ body {
 [data-trend="fall"] .diff-pct {
   color: #227722;
 }
+.pagingbar .button,
+.toolbar.paging .button {
+  display: block;
+  float: left;
+  margin-right: 5px;
+  border: 1px solid #c8c8c8;
+  min-width: 18px;
+  padding: 0 5px;
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+  font-size: 14px;
+  color: #0a62a3;
+}
+.pagingbar .button:hover,
+.toolbar.paging .button:hover,
+.pagingbar .button.active,
+.toolbar.paging .button.active {
+  border-color: #0a62a3;
+  background-color: #0a62a3;
+  color: #fff;
+}
+.pagingbar .button[data-action=prev-page],
+.toolbar.paging .button[data-action=prev-page],
+.pagingbar .button[data-action=next-page],
+.toolbar.paging .button[data-action=next-page] {
+  width: 78px;
+  color: #646464;
+}
+.pagingbar .button[data-action=prev-page]:hover,
+.toolbar.paging .button[data-action=prev-page]:hover,
+.pagingbar .button[data-action=next-page]:hover,
+.toolbar.paging .button[data-action=next-page]:hover {
+  background-color: transparent;
+  color: #0a62a3;
+}
 .livenews-list {
   font-size: 12px;
   line-height: 1.5em;
@@ -1211,8 +1247,8 @@ body {
 }
 @media (min-width: 1280px) {
   #search {
-    padding-left: 220px;
-    padding-right: 370px;
+    padding-left: 215px;
+    padding-right: 345px;
   }
 }
 #search .custom-nav-tabs a {
@@ -1220,6 +1256,17 @@ body {
   padding-left: 0;
   padding-right: 0;
   margin-right: 1.5em;
+}
+#search .custom-nav-tabs label {
+  font-size: 14px;
+  line-height: 24px;
+}
+#search .custom-nav-tabs select {
+  font-size: 12px;
+  line-height: 22px;
+  padding-left: 10px;
+  height: 24px;
+  border: 1px solid #0a62a3;
 }
 #search .search-list {
   margin-bottom: 30px;

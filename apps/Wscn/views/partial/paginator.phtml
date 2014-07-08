@@ -1,6 +1,6 @@
 <?$pagerBaseQuery = $pager->query;?>
 <?if($pager->total_pages > 1):?>
-<div class="toolbar paging">
+<div class="pagingbar">
     <?if($pager->current > 2):?>
     <a class="button" href="<?=$this->tag->uri($pagerUrl, array('page' => $pager->first), $pagerBaseQuery)?>"><i class="icon-double-angle-left"></i></a>
     <?endif?>
