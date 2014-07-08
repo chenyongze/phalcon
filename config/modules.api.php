@@ -12,6 +12,10 @@ return array(
         'routesFrontend' => false,
         'routesBackend' => false,
     ),
+    'EvaLivenews' => array(
+        'routesFrontend' => false,
+        'routesBackend' => false,
+    ),
     'EvaFileSystem' => array(
         'routesFrontend' => false,
         'routesBackend' => false,
