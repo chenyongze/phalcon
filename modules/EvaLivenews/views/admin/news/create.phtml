@@ -509,5 +509,17 @@
                     });
                     return false;
             });
+
+            $(document).on('click', ".remove-handler", function(){
+                    var handler = $(this);
+                    $.ajax({
+                            url : handler.attr('href'),
+                            type : 'DELETE',
+                            success : function(response){
+                                    handler.closest('.profile-activity').remove();
+                            }
+                    });
+                    return false;
+            });
     });
 </script>
