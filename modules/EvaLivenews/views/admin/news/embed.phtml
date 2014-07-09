@@ -1,0 +1,27 @@
+<div class="profile-feed" id="">
+    <?foreach($pager->items as $item):?>
+    <div class="profile-activity clearfix">
+        <div>
+            <div class="" style="max-height:40px;overflow:hidden;">
+                <?=$item->getContentHtml()?>
+            </div>
+
+            <div class="time">
+                <i class="icon-time"></i>
+                <span class="number"><?=$item->createdAt?></span>
+            </div>
+        </div>
+
+        <div class="tools action-buttons">
+            <a class="blue" href="/admin/livenews/news/edit/<?=$item->id?>">
+                <i class="icon-pencil bigger-125"></i>
+            </a>
+
+            <a class="red" href="#">
+                <i class="icon-remove bigger-125"></i>
+            </a>
+        </div>
+    </div>
+    <?endforeach?>
+</div>
+

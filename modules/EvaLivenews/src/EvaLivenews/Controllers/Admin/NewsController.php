@@ -6,9 +6,16 @@ use Eva\EvaLivenews\Models;
 use Eva\EvaLivenews\Models\Livenews;
 use Eva\EvaLivenews\Forms;
 use Eva\EvaEngine\Exception;
+use Phalcon\Mvc\View;
 
 class NewsController extends ControllerBase
 {
+    public function embedAction()
+    {
+        $this->indexAction();
+        $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
+    }
+
     /**
     * Index action
     */
@@ -76,7 +83,7 @@ class NewsController extends ControllerBase
     public function editAction()
     {
         $this->view->changeRender('admin/news/create');
-        $news = Models\News::findFirst($this->dispatcher->getParam('id'));
+        $news = Models\NewsManager::findFirst($this->dispatcher->getParam('id'));
         if (!$news) {
             throw new Exception\ResourceNotFoundException('ERR_LIVENEWS_NEWS_NOT_FOUND');
         }
