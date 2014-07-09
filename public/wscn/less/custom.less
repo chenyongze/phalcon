@@ -1,7 +1,8 @@
 .custom-row {
     display: block;
     .clearfix;
-    & > * {
+    [class^=col] ,
+    [class^=custom-span] {
         display: block;
         float: left;
     }
