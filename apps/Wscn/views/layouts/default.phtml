@@ -100,41 +100,157 @@
 <?=$this->getContent()?>
 </div>
 
+<!-- Modal -->
+<div id="user-modal" class="custom-modal size-sm" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+    <div class="wrapper">
+        <div id="user-modal-carousel" class="carousel slide" data-ride="carousel" data-interval="false">
+            <!-- Indicators
+            <ol class="carousel-indicators">
+                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+            </ol>
+            -->
+            <!-- Wrapper for slides -->
+            <ol class="carousel-inner">
+                <li class="item custom-modal-content">
+                    <div class="custom-modal-header">
+                        <button type="button" class="close" data-toggle="custom-modal" data-target="#user-modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        重置密码
+                    </div>
+                    <div class="custom-modal-body">
+                        <form action="" role="form">
+                            <div class="form-group">
+                                <label >请输入您的注册邮箱</label>
+                                <input type="email" name="email" class="form-control" placeholder="邮箱">
+                            </div>
+                            <div class="form-footer">
+                                <button type="submit" class="custom-button pull-right">发送邮件</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="custom-modal-footer">
+                        <a class="link-left"  data-target="#user-modal-carousel" data-slide-to="1">返回登录</a>
+                        <a class="link-right" data-target="#user-modal-carousel" data-slide-to="2">注册</a>
+                    </div>
+                </li>
+                <li class="item custom-modal-content active">
+                    <div class="custom-modal-header">
+                        <button type="button" class="close" data-toggle="custom-modal" data-target="#user-modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        华尔街见闻帐号登录
+                    </div>
+                    <div class="custom-modal-body">
+                        <form action="" role="form">
+                            <div class="form-group">
+                                <input type="text" name="username" class="form-control" placeholder="用户名">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="password" class="form-control" placeholder="密码">
+                            </div>
+                            <div class="form-footer">
+                                <div class="checkbox pull-left">
+                                    <label>
+                                        <input type="checkbox"> 记住密码
+                                    </label>
+                                </div>
+                                <button type="submit" class="custom-button pull-right">登录</button>
+                            </div>
+                        </form>
+                        <div class="br-title">
+                            <span class="text">使用第三方登录</span>
+                        </div>
+                        <div class="custom-row">
+                            <div class="custom-span-left" style="">
+                                <button type="button" class="custom-button size-fluid type-weibo">用微博帐号登录</button>
+                            </div>
+                            <div class="custom-span-right" style="">
+                                <button type="button" class="custom-button size-fluid type-qq">用QQ帐号登录</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="custom-modal-footer">
+                        <a class="link-left"  data-target="#user-modal-carousel" data-slide-to="0">忘记密码？</a>
+                        <a class="link-right" data-target="#user-modal-carousel" data-slide-to="2">注册</a>
+                    </div>
+                </li>
+                <li class="item custom-modal-content">
+                    <div class="custom-modal-header">
+                        <button type="button" class="close" data-toggle="custom-modal" data-target="#user-modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        新用户注册
+                    </div>
+                    <div class="custom-modal-body">
+                        <form action="" role="form">
+                            <div class="form-group">
+                                <label >请输入注册信息</label>
+                                <input type="email" name="email" class="form-control" placeholder="邮箱">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="username" class="form-control" placeholder="用户名">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="password" class="form-control" placeholder="密码">
+                            </div>
+                            <div class="form-footer">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox"> 我已经阅读并同意<a href="" class="text-blue">用户协议</a>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="clearfix">
+                                <button type="reset" class="custom-button pull-left">重置表单</button>
+                                <button type="submit" class="custom-button pull-right">注册</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="custom-modal-footer">
+                        <a class="link-left"  data-target="#user-modal-carousel" data-slide-to="1">返回登录</a>
+                    </div>
+                </li>
+            </ol>
+        </div>
+        <!--  -->
+    </div>
+    <!-- modal wrapper end -->
+</div>
+
 <footer id="footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 col-lg-3"></div>
-            <div class="col-md-2 col-sm-3 col-xs-6">
-                <h2 class="foot-title">相关信息</h2>
-                <ul class="list">
-                    <li class="item">关于华尔街见闻</li>
-                    <li class="item">使用条款</li>
-                    <li class="item">版权声明</li>
-                </ul>
-            </div>
-            <div class="col-md-2 col-sm-3 col-xs-6">
-                <h2 class="foot-title">联系我们</h2>
-                <ul class="list">
-                    <li class="item">广告投放</li>
-                    <li class="item">商业合作</li>
-                    <li class="item">意见反馈</li>
-                </ul>
-            </div>
-            <div class="col-md-2 col-sm-3 col-xs-6">
-                <h2 class="foot-title">关注我们</h2>
-                <ul class="list">
-                    <li class="item">微博@华尔街见闻</li>
-                    <li class="item">腾讯微博</li>
-                    <li class="item">邮件订阅</li>
-                    <li class="item">RSS订阅</li>
-                </ul>
-            </div>
-            <div class="col-md-2 col-sm-3 col-xs-6">
-                <h2 class="foot-title">加入我们</h2>
-                <ul class="list">
-                    <li class="item">全职岗位</li>
-                    <li class="item">实习岗位</li>
-                </ul>
+    <div class="wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-lg-3"></div>
+                <div class="col-md-2 col-sm-3 col-xs-6">
+                    <h2 class="foot-title">相关信息</h2>
+                    <ul class="list">
+                        <li class="item">关于华尔街见闻</li>
+                        <li class="item">使用条款</li>
+                        <li class="item">版权声明</li>
+                    </ul>
+                </div>
+                <div class="col-md-2 col-sm-3 col-xs-6">
+                    <h2 class="foot-title">联系我们</h2>
+                    <ul class="list">
+                        <li class="item">广告投放</li>
+                        <li class="item">商业合作</li>
+                        <li class="item">意见反馈</li>
+                    </ul>
+                </div>
+                <div class="col-md-2 col-sm-3 col-xs-6">
+                    <h2 class="foot-title">关注我们</h2>
+                    <ul class="list">
+                        <li class="item">微博@华尔街见闻</li>
+                        <li class="item">腾讯微博</li>
+                        <li class="item">邮件订阅</li>
+                        <li class="item">RSS订阅</li>
+                    </ul>
+                </div>
+                <div class="col-md-2 col-sm-3 col-xs-6">
+                    <h2 class="foot-title">加入我们</h2>
+                    <ul class="list">
+                        <li class="item">全职岗位</li>
+                        <li class="item">实习岗位</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

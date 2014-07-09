@@ -1,3 +1,4 @@
+//滚动条部分初始化
 (function($){
     var $livenews = $('#left-side-livenews');
     var $leftbar = $('#leftbar');
@@ -82,4 +83,20 @@
                 top: '-=5'
             });
     });
+
+    //
+    $(document).on('click', '[data-toggle=custom-modal]', function(e){
+        var $this = $(this);
+        var $target = $($this.attr('data-target'));
+        $target.toggleClass('active');
+    });
+    $(document).on('keyup', function(){
+
+    });
+    $('.custom-modal').on('click', function(e){
+        if (e.target === this) {
+            $(this).removeClass('active');
+        }
+    });
+
 })(jQuery);
