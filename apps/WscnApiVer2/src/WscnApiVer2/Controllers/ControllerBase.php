@@ -12,6 +12,10 @@ class ControllerBase extends \Eva\EvaEngine\Mvc\Controller\ControllerBase implem
 
     public function beforeExecuteRoute($dispatcher)
     {
+        //Only cache get
+        if(!$this->request->isGet()) {
+            return true;
+        }
         $this->cacheKey = $cacheKey = md5($this->request->getURI());
         $cache = $this->getDI()->getApiCache();
         if($data = $cache->get($cacheKey)) {
@@ -25,6 +29,10 @@ class ControllerBase extends \Eva\EvaEngine\Mvc\Controller\ControllerBase implem
 
     public function afterExecuteRoute($dispatcher)
     {
+        if(!$this->request->isGet()) {
+            return parent::afterExecuteRoute($dispatcher);
+        }
+
         if(!$cacheKey = $this->cacheKey) {
             return parent::afterExecuteRoute($dispatcher);
         }

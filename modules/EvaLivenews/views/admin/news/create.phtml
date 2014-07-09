@@ -19,7 +19,7 @@
         </li>
 
         <?if(empty($item->id)):?>
-        <li class="active">Write News</li>
+        <li class="active">Report News</li>
         <?else:?>
         <li class="active">Edit News</li>
         <?endif?>
@@ -36,10 +36,10 @@
 </div>
 
 <?$textForm = $form->getForm('text')?>
-<form id="" action="" method="POST" enctype="multipart/form-data" novalidate="novalidate">
+<form id="news-reporter" action="" method="POST" enctype="multipart/form-data" novalidate="novalidate">
     <div class="page-content">
         <div class="row">
-            <div class="col-xs-12"><!-- PAGE CONTENT BEGINS -->
+            <div class="col-xs-9"><!-- PAGE CONTENT BEGINS -->
                 <div class="widget-box transparent">
                     <div class="widget-header">
                         <h3>Live News</h3>
@@ -56,123 +56,38 @@
                     </div>
 
                     <div class="widget-body">
-                        <div class="widget-main padding-12 no-padding-left no-padding-right">
+
+                        <div class="widget-main no-padding">
                             <div class="tab-content padding-4">
                                 <div class="tab-pane in active" id="livenews-tab-basic">
                                     <div class="row">
-                                        <div class="col-xs-9">
-
-                                            <div class="tabbable tabs-right">
-                                                <ul id="editor-switcher" class="nav nav-tabs">
-                                                    <li class="active">
-                                                    <a href="#report-news" data-toggle="tab">
-                                                        <i class="pink icon-edit bigger-110"></i>
-                                                        News
-                                                    </a>
-                                                    </li>
-                                                    <li class="">
-                                                    <a href="#report-data" data-toggle="tab">
-                                                        <i class="blue icon-usd bigger-110"></i>
-                                                        Data
-                                                    </a>
-                                                    </li>
-                                                </ul>
-
-                                                <div class="tab-content no-padding-top no-padding-left">
-                                                    <div class="tab-pane active" id="report-news">
-                                                        <div class="widget-box">
-                                                            <div class="widget-header widget-header-small header-color-blue">
-                                                                <div class="widget-toolbar no-border">
-                                                                    <span id="content-counter" class="label label-success">
-                                                                        1000
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="widget-body">
-                                                                <div class="widget-main no-padding">
-                                                                    <?=$form->render('id', array())?>
-                                                                    <?=$form->render('content', array(
-                                                                        'class' => 'form-control text-counter',
-                                                                        'data-counter-selector' => '#content-counter',
-                                                                        'rows' => 6,
-                                                                        'placeholder' => 'News Content',
-                                                                        //'data-provide' => 'markdown',
-                                                                        'required' => 'required',
-                                                                    ))?>
-                                                                    <?=$form->render('codeType', array())?>
-                                                                </div>
-                                                            </div>
-                                                        </div><!--widget box end-->
-                                                    </div><!--tab pane end-->
-
-                                                    <div class="tab-pane " id="report-data">
-
-                                                        <table class="table table-striped table-bordered table-hover finance-data-reporter">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>Data Name
-                                                                        <button id="reporter-sync" class="btn btn-xs btn-info" type="button">
-                                                                            <i class="icon-coffee"></i>
-                                                                        </button>
-                                                                    </th>
-                                                                    <th>Time</th>
-                                                                    <th>Importance</th>
-                                                                    <th>Country</th>
-                                                                    <th>Actual</th>
-                                                                    <th>Forecast</th>
-                                                                    <th>Previous</th>
-                                                                    <th> 
-                                                                        <button id="reporter-cleaner" class="btn btn-xs btn-danger" type="button">
-                                                                            <i class="icon-trash"></i>
-                                                                        </button>
-                                                                    </th>
-                                                                </tr>
-                                                            </thead>
-
-                                                            <tbody>
-                                                                <?for($i=0; $i < 5; $i++):?>
-                                                                <tr class="finance-data-row">
-                                                                    <td>
-                                                                        <input type="text" class="form-control" placeholder="" data-name="title">
-                                                                    </td>
-                                                                    <td>
-                                                                        <input type="text" class="form-control " data-show-seconds="false" placeholder="" data-name="timestamp">
-                                                                    </td>
-                                                                    <td>
-                                                                        <input type="number" class="form-control input-small" placeholder="" value="1"  data-name="importance">
-                                                                    </td>
-                                                                    <td>
-                                                                        <select class="form-control select2 input-medium" data-name="country" >
-                                                                            <option value="-1">选择国家</option>
-                                                                            <option value="美国">美国|USD</option><option value="欧元区">欧元区|EUR</option><option value="德国">德国|EUR</option><option value="日本">日本|JPY</option><option value="法国">法国|EUR</option><option value="英国">英国|GBP</option><option value="西班牙">西班牙|EUR</option><option value="意大利">意大利|EUR</option><option value="中国">中国|CNY</option><option value="加拿大">加拿大|CAD</option><option value="中国台北">中国台北|TWD</option><option value="南非">南非|ZAR</option><option value="印度">印度|INR</option><option value="印度尼西亚">印度尼西亚|IDR</option><option value="巴西">巴西|BRL</option><option value="挪威">挪威|NOK</option><option value="新加坡">新加坡|SGD</option><option value="澳大利亚">澳大利亚|AUD</option><option value="泰国">泰国|THB</option><option value="瑞士">瑞士|CHF</option><option value="纽西兰">纽西兰|NZD</option><option value="韩国">韩国|KRW</option><option value="香港">香港|HKD</option><option value="马来西亚">马来西亚|MYR</option>
-                                                                        </select>
-                                                                    </td>
-                                                                    <td>
-                                                                        <input type="text" class="form-control" placeholder="" data-name="actual">
-                                                                    </td>
-                                                                    <td>
-                                                                        <input type="text" class="form-control" placeholder="" data-name="forecast">
-                                                                    </td>
-                                                                    <td>
-                                                                        <input type="text" class="form-control" placeholder="" data-name="previous">
-                                                                    </td>
-                                                                    <td>
-                                                                    </td>
-                                                                </tr>
-                                                                <?endfor?>
-                                                            </tbody>
-                                                        </table>
+                                        <div class="col-xs-8">
 
 
-                                                    </div><!--tab pane end-->
-                                                </div><!--tab content end-->
-                                            </div><!--tabbable end-->
+                                            <div class="widget-box">
+                                                <div class="widget-header widget-header-small header-color-blue">
+                                                    <div class="widget-toolbar no-border">
+                                                        <span id="content-counter" class="label label-success">
+                                                            1000
+                                                        </span>
+                                                    </div>
+                                                </div>
 
-
-
-
-
+                                                <div class="widget-body">
+                                                    <div class="widget-main no-padding">
+                                                        <?=$form->render('id', array())?>
+                                                        <?=$form->render('content', array(
+                                                            'class' => 'form-control text-counter',
+                                                            'data-counter-selector' => '#content-counter',
+                                                            'rows' => 6,
+                                                            'placeholder' => 'News Content',
+                                                            //'data-provide' => 'markdown',
+                                                            'required' => 'required',
+                                                        ))?>
+                                                        <?=$form->render('codeType', array())?>
+                                                    </div>
+                                                </div>
+                                            </div><!--widget box end-->
 
                                             <div class="widget-box">
                                                 <div class="widget-header widget-header-small">
@@ -189,7 +104,7 @@
                                                             <?$categories = $form->getCategories()?>
                                                             <?if($categories):?>
                                                             <?foreach($categories as $key => $category):?>
-                                                            <div class="checkbox" style="display:inline-block;width:150px;">
+                                                            <div class="checkbox" style="display:inline-block;width:110px;">
                                                                 <label>
                                                                     <?=$category->render(array(
                                                                         'class' => 'ace',
@@ -206,7 +121,8 @@
 
 
 
-                                            <div class="widget-box">
+
+                                            <div class="widget-box hide">
                                                 <div class="widget-header widget-header-small">
                                                     <h5 class="lighter">Icon</h5>
                                                     <span class="widget-toolbar">
@@ -259,8 +175,45 @@
                                             </div><!--form group-->
 
                                         </div><!--left col end-->
-                                        <div class="col-xs-3">
+                                        <div class="col-xs-4">
 
+                                            <div class="widget-box">
+                                                <div class="widget-header widget-header-small">
+                                                    <h5 class="lighter">Publish</h5>
+                                                    <span class="widget-toolbar">
+                                                        <a data-action="collapse" href="#">
+                                                            <i class="icon-chevron-up"></i>
+                                                        </a>
+                                                    </span>
+                                                </div>
+
+                                                <div class="widget-body">
+                                                    <div class="widget-main">
+                                                        <div class="input-group">
+                                                            <input name="day" type="text" data-date-format="yyyy-mm-dd" class="form-control date-picker" placeholder="Day" value="<?=empty($item->createdAt) ? '' : $this->tag->datetime($item->createdAt, 'Y-m-d')?>">
+                                                            <span class="input-group-addon">
+                                                                <i class="icon-calendar bigger-110"></i>
+                                                            </span>
+                                                        </div>
+                                                        <div class="input-group bootstrap-timepicker">
+                                                            <input name="time" type="text" class="form-control time-picker" placeholder="Time" value="<?=empty($item->createdAt) ? '' : $this->tag->datetime($item->createdAt, 'H:i:s')?>">
+                                                            <span class="input-group-addon">
+                                                                <i class="icon-time bigger-110"></i>
+                                                            </span>
+                                                            <?=$form->render('createdAt', array(
+                                                            ))?>
+                                                        </div>
+                                                    </div>
+                                                    <div class="clearfix form-actions no-margin">
+                                                        <input name="__redirect" type="hidden" value="" />
+                                                        <button type="submit" class="btn btn-block btn-info form-submiter" data-change-name="status" data-change-value="published">
+                                                            <i class="icon-ok"></i>
+                                                            Publish
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div><!--widgex box-->
+                                            <div class="hr hr-double dotted"></div>
                                             <div class="widget-box">
                                                 <div class="widget-header widget-header-small">
                                                     <h5 class="lighter">News Source</h5>
@@ -270,7 +223,6 @@
                                                         </a>
                                                     </span>
                                                 </div>
-
                                                 <div class="widget-body">
                                                     <div class="widget-main">
                                                         <div class="control-group">
@@ -290,37 +242,6 @@
                                                             </label>
                                                         </div>
                                                     </div>
-                                                    <div class="clearfix form-actions no-margin">
-                                                        <input name="__redirect" type="hidden" value="" />
-                                                        <button type="submit" class="btn btn-block btn-info form-submiter" data-change-name="status" data-change-value="published">
-                                                            <i class="icon-ok"></i>
-                                                            Publish
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div><!--widgex box-->
-                                            <div class="hr hr-double dotted"></div>
-                                            <div class="widget-box">
-                                                <div class="widget-header widget-header-small">
-                                                    <h5 class="lighter">Publish</h5>
-                                                    <span class="widget-toolbar">
-                                                        <a data-action="collapse" href="#">
-                                                            <i class="icon-chevron-up"></i>
-                                                        </a>
-                                                    </span>
-                                                </div>
-                                                <div class="widget-body">
-                                                    <div class="widget-main">
-                                                        <?if(!empty($item->image)):?>
-                                                        <img src="<?=$this->tag->thumb($item->image, 'w_300')?>" alt="" width="100%" />
-                                                        <?endif?>
-                                                        <div class="paste-uploader" data-upload-url="/admin/upload/encode" data-upload-allow-num="1" data-upload-allow-type="" data-upload-maxsize="" data-callback="">
-                                                            <?=$form->render('image', array())?>
-                                                            <?=$form->render('imageId', array())?>
-                                                        </div>
-                                                        <input name="upload" type="file" class="ace-file-input"  multiple="">
-                                                    </div>
-
                                                 </div>
                                             </div><!--widgex box-->
 
@@ -349,7 +270,7 @@
                                                     <h5 class="lighter">Full Content</h5>
                                                     <div class="markdown-editor">
                                                         <?=$textForm->render('contentExtra', array(
-                                                            'class' => 'form-control',
+                                                            'class' => 'form-control wysiwyg',
                                                             'rows' => 3,
                                                         ))?>
                                                     </div>
@@ -361,7 +282,7 @@
                                                     <h5 class="lighter">Markets</h5>
                                                     <div class="markdown-editor">
                                                         <?=$textForm->render('contentFollowup', array(
-                                                            'class' => 'form-control',
+                                                            'class' => 'form-control wysiwyg',
                                                             'rows' => 3,
                                                         ))?>
                                                     </div>
@@ -373,7 +294,7 @@
                                                     <h5 class="lighter">Analysis</h5>
                                                     <div class="markdown-editor">
                                                         <?=$textForm->render('contentAnalysis', array(
-                                                            'class' => 'form-control',
+                                                            'class' => 'form-control wysiwyg',
                                                             'rows' => 3,
                                                         ))?>
                                                     </div>
@@ -384,33 +305,28 @@
                                         <div class="col-xs-3">
 
 
+
                                             <div class="widget-box">
                                                 <div class="widget-header widget-header-small">
-                                                    <h5 class="lighter">Publish Time</h5>
+                                                    <h5 class="lighter">Image</h5>
                                                     <span class="widget-toolbar">
                                                         <a data-action="collapse" href="#">
                                                             <i class="icon-chevron-up"></i>
                                                         </a>
                                                     </span>
                                                 </div>
-
                                                 <div class="widget-body">
                                                     <div class="widget-main">
-                                                        <div class="input-group">
-                                                            <input name="day" type="text" data-date-format="yyyy-mm-dd" class="form-control date-picker" value="<?=empty($item->createdAt) ? '' : $this->tag->datetime($item->createdAt, 'Y-m-d')?>">
-                                                            <span class="input-group-addon">
-                                                                <i class="icon-calendar bigger-110"></i>
-                                                            </span>
+                                                        <?if(!empty($item->image)):?>
+                                                        <img src="<?=$this->tag->thumb($item->image, 'w_300')?>" alt="" width="100%" />
+                                                        <?endif?>
+                                                        <div class="paste-uploader" data-upload-url="/admin/upload/encode" data-upload-allow-num="1" data-upload-allow-type="" data-upload-maxsize="" data-callback="">
+                                                            <?=$form->render('image', array())?>
+                                                            <?=$form->render('imageId', array())?>
                                                         </div>
-                                                        <div class="input-group bootstrap-timepicker">
-                                                            <input name="time" type="text" class="form-control time-picker" value="<?=empty($item->createdAt) ? '' : $this->tag->datetime($item->createdAt, 'H:i:s')?>">
-                                                            <span class="input-group-addon">
-                                                                <i class="icon-time bigger-110"></i>
-                                                            </span>
-                                                            <?=$form->render('createdAt', array(
-                                                            ))?>
-                                                        </div>
+                                                        <input name="upload" type="file" class="ace-file-input"  multiple="">
                                                     </div>
+
                                                 </div>
                                                 <div class="clearfix form-actions no-margin">
                                                     <input name="__redirect" type="hidden" value="" />
@@ -465,27 +381,31 @@
                 </div><!--widget box end-->
 
 
-            </div><!--col12 end-->
-        </div><!--row end-->
-        <div class="row">
-            <div class="col-xs-9"><!-- PAGE CONTENT BEGINS -->
-
-
-
-            </div><!-- /.col -->
+            </div><!--col left end-->
             <div class="col-xs-3">
+                <div class="widget-box">
+                    <div class="widget-header widget-header-small">
+                        <h5 class="lighter">Recent News</h5>
+                        <span class="widget-toolbar">
+                            <a data-action="collapse" href="#">
+                                <i class="icon-chevron-up"></i>
+                            </a>
+                        </span>
+                    </div>
 
+                    <div class="widget-body">
+                        <div id="embed-livenews" class="widget-main">
 
-
-
-
-            </div><!-- /.col -->
-
-        </div><!-- /.row -->
+                        </div>
+                    </div>
+                </div><!--widgex box-->
+            </div><!-- /.col right -->
+        </div><!--row end-->
     </div><!-- /.page-content -->
 </form>
 
 <script type="text/javascript" src="/vendor/js/bootstrap-markdown/js/bootstrap-markdown.js"></script>
+<script type="text/javascript" src="/assets/js/jquery.slimscroll.min.js"></script>
 <script>
     $(document).ready(function(){
             var updateCreateTime = function(){
@@ -510,6 +430,8 @@
                     }
             });
 
+            $('.wysiwyg').ckeditor();
+
 
             //Markdown Editor init 
             var textCounter = function(e) {
@@ -525,124 +447,63 @@
                     }
             }
             var markdownEditor = {};
+            var resetTextCounter = function(){
+                    var textarea = markdownEditor.$textarea;
+                    var counter = $(textarea.attr('data-counter-selector'));
+                    counter.html(1000)
+                        .removeClass('label-danger label-success').addClass('label-success');
+            }
             $("#content").markdown({
                     autofocus:true,
                     onShow: function(e){
-                            markdownEditor = e;
-                            e.$textarea.css('resize','vertical');
-                            textCounter(e);
+                        markdownEditor = e;
+                        e.$textarea.css('resize','vertical');
+                        textCounter(e);
                     }, 
                     onChange:function(e){
-                            textCounter(e);
+                        textCounter(e);
                     }
             });
 
-            //Finance data reporter init
-            var reporter = $('.finance-data-reporter');
-
             var lockEditor = function(){
-                markdownEditor.disableButtons('all');
-                markdownEditor.$textarea.attr('readonly','readonly');
+                    markdownEditor.disableButtons('all');
+                    markdownEditor.$textarea.attr('readonly','readonly');
             }
             var unlockEditor = function(){
-                markdownEditor.enableButtons('all');
-                markdownEditor.$textarea.removeAttr('readonly');
-            
-            }
-            var setFinanceData = function() {
-                    var codeType = $('input[name=codeType]').val();
-                    if(codeType != 'json') {
-                        return false;
-                    }
-                    var jsonString = markdownEditor.getContent();
-                    var data = $.parseJSON(jsonString);
-                    if(!data || data.length < 1) {
-                            return false;
-                    }
-                    for(var i in data) {
-                            var row = reporter.find('.finance-data-row').eq(i);
-                            for(var key in data[i]) {
-                                    row.find("[data-name='" + key + "']").val(data[i][key]);
-                            }
-                    }
-                    lockEditor();
+                    markdownEditor.enableButtons('all');
+                    markdownEditor.$textarea.removeAttr('readonly');
             }
 
-            var updateFinanceData = function(){
-                    var codeType = $('input[name=codeType]').val();
-                    if(codeType != 'json' && markdownEditor.getContent().length > 0) {
-                            if(!confirm('Finance data will overwrite news content, are you sure?')) {
-                                    return false;
-                            }
-                    }
-
-                    var data = [];
-                    reporter.find('.finance-data-row').each(function(){
-                            var row = $(this);
-                            var res = {};
-                            row.find("*[data-name]").each(function(){
-                                    var column = $(this);
-                                    res[column.attr('data-name')] = column.val();
+            var loadLivenews = function(){
+                    $("#embed-livenews").load('/admin/livenews/news/embed', function(){
+                            $(this).slimScroll({
+                                    height: $(window).height() - 150,
+                                    alwaysVisible : true
                             });
-                            if(res.title != '') {
-                                    data.push(res);
-                            }
-
-                    });
-
-
-
-                    if(data.length > 0) {
-                            markdownEditor.setContent(JSON.stringify(data));
-                            $('input[name=codeType]').val('json');
-                        } else {
-                            markdownEditor.setContent('');
-                    }
-                    lockEditor();
-            }
-
-            var removeFinanceData = function(){
-                    if(!confirm("All finance data will be removed, are you sure?")) {
-                        return false;
-                    }
-                    markdownEditor.setContent('');
-                    $('input[name=codeType]').val('markdown');
-                    unlockEditor();
-                    $('#editor-switcher a[href=#report-news]').tab('show')
-            }
-
-            var initReporter = function(){
-                    if(!reporter[0]) {
-                        return;
-                    }
-                    var urlHash = window.location.hash.substr(1);
-                    var newsId = $('input[name=id]').val();
-                    newsId = newsId == '' ? 0 : parseInt(newsId);
-                    var codeType = $('input[name=codeType]').val();
-                    if(newsId > 0 && codeType == 'json' || urlHash == 'report-data') {
-                            $('#editor-switcher a[href=#report-data]').tab('show')
-                            setFinanceData();
-                    }
-
-                    
-                    if(newsId < 1) {
-                            var timestamp = parseInt(moment().format('X'));
-                            var next15Min = timestamp + (60 * 15 - timestamp % (60 * 15));
-                            var nextTime = moment.unix(next15Min).format('hh:mm');
-                            reporter.find('input[data-name=timestamp]').each(function(){
-                                $(this).val(nextTime);
+                            $(this).find('time').each(function(){
+                                    var time = $(this);
+                                    time.html(moment(time.attr("datetime") * 1000).fromNow());
                             });
-                    }
-                    reporter.find('input[data-name=timestamp]').timepicker({
-                            minuteStep: 5,
-                            showMeridian: false
                     });
-
-                    //bind events at last
-                    reporter.on('change', 'input, select', updateFinanceData);
-                    $("#reporter-cleaner").on('click', removeFinanceData);
             }
-            initReporter();
+            loadLivenews();
 
+
+            $(document).on('submit', '#news-reporter', function(){
+                    var form  = $(this);
+                    var data = form.serialize();
+                    $.ajax({
+                        dataType : 'json',
+                        type : 'POST',
+                        data : data,
+                        success : function(response){
+                                loadLivenews();
+                                form[0].reset();
+                                resetTextCounter();
+                                console.log(response);
+                        }
+                    });
+                    return false;
+            });
     });
 </script>
