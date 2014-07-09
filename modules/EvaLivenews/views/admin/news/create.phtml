@@ -492,15 +492,19 @@
             $(document).on('submit', '#news-reporter', function(){
                     var form  = $(this);
                     var data = form.serialize();
+                    var newsId = $('input[name=id]').val();
+                    newsId = newsId == '' ? 0 : parseInt(newsId);
                     $.ajax({
                         dataType : 'json',
                         type : 'POST',
                         data : data,
                         success : function(response){
                                 loadLivenews();
+                                if(newsId > 0) {
+                                    return;
+                                }
                                 form[0].reset();
                                 resetTextCounter();
-                                console.log(response);
                         }
                     });
                     return false;

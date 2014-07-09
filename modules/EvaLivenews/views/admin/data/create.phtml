@@ -31,7 +31,7 @@
     </div><!-- #nav-search -->
 </div>
 
-<form id="" action="" method="POST" enctype="multipart/form-data" novalidate="novalidate">
+<form id="finance-data-reporter" action="" method="POST" enctype="multipart/form-data" novalidate="novalidate">
     <div class="page-content">
         <div class="row">
             <div class="col-xs-9"><!-- PAGE CONTENT BEGINS -->
@@ -39,12 +39,13 @@
                     <div class="widget-header">
                         <h3>Finance Data</h3>
                         <div class="widget-toolbar no-border">
+                            <?if(empty($item->id)):?>
                             <button type="submit" class="btn btn-info btn-medium">
                                 <i class="icon-ok"></i>
                                 Publish All
                             </button>
+                            <?endif?>
                             <input name="__redirect" type="hidden" value="" />
-
                         </div>
                     </div>
 
@@ -70,9 +71,7 @@
                                                             'placeholder' => 'News Content',
                                                             'required' => 'required',
                                                         ))?>
-                                                        <?=$form->render('codeType', array(
-                                                            'value' => 'json'
-                                                        ))?>
+                                                        <?=$form->render('codeType', array())?>
                                                     </div>
                                                 </div>
                                             </div><!--widget box end-->
@@ -86,10 +85,11 @@
                                                             </button>
                                                         </th>
                                                         <th>Time</th>
-                                                        <th>Importance</th>
+                                                        <th>Imp.</th>
                                                         <th>Country</th>
                                                         <th>Forecast</th>
                                                         <th>Previous</th>
+                                                        <th>Correction</th>
                                                         <th>Actual</th>
                                                         <th> 
                                                             <button id="reporter-cleaner" class="btn btn-xs btn-danger" type="button">
@@ -101,15 +101,16 @@
 
                                                 <tbody>
                                                     <?for($i=0; $i < 5; $i++):?>
+                                                    <?if(!empty($item->id)){$i = 4;}?>
                                                     <tr class="finance-data-row">
                                                         <td>
                                                             <input type="text" class="form-control" placeholder="" data-name="title">
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control " data-show-seconds="false" placeholder="" data-name="timestamp">
+                                                            <input type="text" class="form-control center" data-show-seconds="false" placeholder="" data-name="timestamp" size="5"  maxlength="5">
                                                         </td>
                                                         <td>
-                                                            <input type="number" class="form-control input-small" placeholder="" value="1"  data-name="importance">
+                                                            <input type="text" class="form-control center" placeholder="" value="1"  data-name="importance" size="2" maxlength="1">
                                                         </td>
                                                         <td>
                                                             <select class="form-control select2 input-medium" data-name="country" >
@@ -118,16 +119,19 @@
                                                             </select>
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control" placeholder="" data-name="forecast">
+                                                            <input type="text" class="form-control" placeholder="" data-name="forecast" size="8" >
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control" placeholder="" data-name="previous">
+                                                            <input type="text" class="form-control" placeholder="" data-name="previous" size="8">
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control" placeholder="" data-name="actual">
+                                                            <input type="text" class="form-control" placeholder="" data-name="correction" size="8">
                                                         </td>
                                                         <td>
-                                                            <button type="button" class="btn btn-xs btn-info">
+                                                            <input type="text" class="form-control" placeholder="" data-name="actual"  size="10">
+                                                        </td>
+                                                        <td>
+                                                            <button type="button" class="btn btn-xs btn-info row-submiter">
                                                                 Publish
                                                             </button>
                                                         </td>
@@ -174,12 +178,12 @@
                                                             <label for="importance">Importance</label>
                                                         </div>
                                                         <div class="row">
-                                                            <div class="col-xs-2">
+                                                            <div class="col-xs-4">
                                                                 <?=$form->render('importance', array(
                                                                     'class' => 'form-control',
                                                                 ))?>
                                                             </div>
-                                                            <div class="col-xs-10">
+                                                            <div class="col-xs-8">
                                                                 <div id="importance-slider" class="help-block" data-slider-for="#importance"></div>
                                                             </div>
                                                         </div>
@@ -190,7 +194,7 @@
                                                         <label for="day">Day</label>
                                                     </div>
                                                     <div class="input-group">
-                                                        <input id="day" name="day" type="text" data-date-format="yyyy-mm-dd" class="form-control date-picker" placeholder="Day" value="<?=empty($item->createdAt) ? '' : $this->tag->datetime($item->createdAt, 'Y-m-d')?>">
+                                                        <input id="day" name="day" type="text" data-date-format="yyyy-mm-dd" class="form-control " placeholder="Day" value="<?=empty($item->createdAt) ? '' : $this->tag->datetime($item->createdAt, 'Y-m-d')?>">
                                                         <span class="input-group-addon">
                                                             <i class="icon-calendar bigger-110"></i>
                                                         </span>
@@ -201,7 +205,7 @@
                                                         <label for="day">Time</label>
                                                     </div>
                                                     <div class="input-group bootstrap-timepicker">
-                                                        <input id="time" name="time" type="text" class="form-control time-picker" placeholder="Time" value="<?=empty($item->createdAt) ? '' : $this->tag->datetime($item->createdAt, 'H:i:s')?>">
+                                                        <input id="time" name="time" type="text" class="form-control " placeholder="Time" value="<?=empty($item->createdAt) ? '' : $this->tag->datetime($item->createdAt, 'H:i:s')?>">
                                                         <span class="input-group-addon">
                                                             <i class="icon-time bigger-110"></i>
                                                         </span>
@@ -257,6 +261,19 @@
                     $('input[name=createdAt]').val(timestamp);
             }
             $('input[name=day], input[name=time]').on('change', updateCreateTime);
+            $('input[name=day]').on('focus', function(){
+                var day = $(this);
+                if(day.val() == '') {
+                    day.val(moment().format('YYYY-MM-DD'));
+                }
+            });
+            $('input[name=time]').on('focus', function(){
+                var time = $(this);
+                if(time.val() == '') {
+                    var timestamp = parseInt(moment().format('X'));
+                    time.val(moment.unix(timestamp + (60 - timestamp % 60)).format('HH:mm:ss'));
+                }
+            });
 
             var slider = $( "#importance-slider" );
             slider.css('width', slider.parent().width()).css('margin-top', '10px').slider({
@@ -271,158 +288,155 @@
                     }
             });
 
-            $('.wysiwyg').ckeditor();
 
+            //Finance data reporter init
+            var reporter = $('.finance-data-reporter');
+            var form = reporter.closest('form');
+            var jsonContainer = form.find('textarea[name=content]');
 
-            //Markdown Editor init 
-            var textCounter = function(e) {
-                    var textarea = e.$textarea;
-                    var counter = $(textarea.attr('data-counter-selector'));
-                    var content = e.getContent();
-                    var contentLength = content.length;
-                    counter.html(1000 - contentLength);
-                    if (contentLength > 1000) {
-                            counter.removeClass('label-danger label-success').addClass('label-danger');
-                        } else {
-                            counter.removeClass('label-danger label-success').addClass('label-success');
+            var setFinanceData = function() {
+                    var jsonString = jsonContainer.text().trim();
+                    if(jsonString == '') {
+                        return false;
+                    }
+                    var data = $.parseJSON(jsonString);
+                    if(!data) {
+                            return false;
+                    }
+                    var row = reporter.find('.finance-data-row').eq(0);
+                    for(var key in data) {
+                            row.find("[data-name='" + key + "']").val(data[key]);
                     }
             }
-            var markdownEditor = {};
-            $("#content").markdown({
-                    autofocus:true,
-                    onShow: function(e){
-                            markdownEditor = e;
-                            e.$textarea.css('resize','vertical');
-                            textCounter(e);
-                        }, 
-                        onChange:function(e){
-                                textCounter(e);
-                        }
-                });
 
-                //Finance data reporter init
-                var reporter = $('.finance-data-reporter');
+            var submitFinance = function(index){
+                    var row = reporter.find('.finance-data-row').eq(index);
+                    var res = {};
+                    row.find("*[data-name]").each(function(){
+                            var column = $(this);
+                            res[column.attr('data-name')] = column.val();
+                    });
+                    if(res.title.trim() == '') {
+                            return false;
+                    }
 
-                var lockEditor = function(){
-                        markdownEditor.disableButtons('all');
-                        markdownEditor.$textarea.attr('readonly','readonly');
-                }
-                var unlockEditor = function(){
-                        markdownEditor.enableButtons('all');
-                        markdownEditor.$textarea.removeAttr('readonly');
+                    var data = form.serializeArray();
+                    $.each(data, function(i, item){
+                            if(item.name === "content") {
+                                    item.value = JSON.stringify(res);
+                            }
+                    });
+                    $.ajax({
+                            type : 'POST',
+                            dataType : 'json',
+                            data : $.param(data),
+                            success : function(response) {
+                                    loadLivenews();
+                            }
+                    });
 
-                }
-                var setFinanceData = function() {
-                        var codeType = $('input[name=codeType]').val();
-                        if(codeType != 'json') {
-                                return false;
-                        }
-                        var jsonString = markdownEditor.getContent();
-                        var data = $.parseJSON(jsonString);
-                        if(!data || data.length < 1) {
-                                return false;
-                        }
-                        for(var i in data) {
-                                var row = reporter.find('.finance-data-row').eq(i);
-                                for(var key in data[i]) {
-                                        row.find("[data-name='" + key + "']").val(data[i][key]);
-                                }
-                        }
-                        lockEditor();
-                }
+            }
 
-                var updateFinanceData = function(){
-                        var codeType = $('input[name=codeType]').val();
-                        if(codeType != 'json' && markdownEditor.getContent().length > 0) {
-                                if(!confirm('Finance data will overwrite news content, are you sure?')) {
-                                        return false;
-                                }
-                        }
+            var submitAll = function(){
 
-                        var data = [];
-                        reporter.find('.finance-data-row').each(function(){
-                                var row = $(this);
-                                var res = {};
-                                row.find("*[data-name]").each(function(){
-                                        var column = $(this);
-                                        res[column.attr('data-name')] = column.val();
-                                });
-                                if(res.title != '') {
-                                        data.push(res);
-                                }
+            }
 
-                        });
+            /*
+            var updateFinanceData = function(){
+                    var codeType = $('input[name=codeType]').val();
+                    if(codeType != 'json' && markdownEditor.getContent().length > 0) {
+                            if(!confirm('Finance data will overwrite news content, are you sure?')) {
+                                    return false;
+                            }
+                    }
+
+                    var data = [];
+                    reporter.find('.finance-data-row').each(function(){
+                            var row = $(this);
+                            var res = {};
+                            row.find("*[data-name]").each(function(){
+                                    var column = $(this);
+                                    res[column.attr('data-name')] = column.val();
+                            });
+                            if(res.title != '') {
+                                    data.push(res);
+                            }
+
+                    });
 
 
 
-                        if(data.length > 0) {
-                                markdownEditor.setContent(JSON.stringify(data));
-                                $('input[name=codeType]').val('json');
-                            } else {
-                                markdownEditor.setContent('');
-                        }
-                        lockEditor();
-                }
+                    if(data.length > 0) {
+                            markdownEditor.setContent(JSON.stringify(data));
+                            $('input[name=codeType]').val('json');
+                        } else {
+                            markdownEditor.setContent('');
+                    }
+            }
 
-                var removeFinanceData = function(){
-                        if(!confirm("All finance data will be removed, are you sure?")) {
-                                return false;
-                        }
-                        markdownEditor.setContent('');
-                        $('input[name=codeType]').val('markdown');
-                        unlockEditor();
-                        $('#editor-switcher a[href=#report-news]').tab('show')
-                }
+            var removeFinanceData = function(){
+                    if(!confirm("All finance data will be removed, are you sure?")) {
+                            return false;
+                    }
+                    markdownEditor.setContent('');
+                    $('input[name=codeType]').val('markdown');
+                    $('#editor-switcher a[href=#report-news]').tab('show');
+            }
+            */
 
-                var initReporter = function(){
-                        if(!reporter[0]) {
-                                return;
-                        }
-                        var urlHash = window.location.hash.substr(1);
-                        var newsId = $('input[name=id]').val();
-                        newsId = newsId == '' ? 0 : parseInt(newsId);
-                        var codeType = $('input[name=codeType]').val();
-                        if(newsId > 0 && codeType == 'json' || urlHash == 'report-data') {
-                                $('#editor-switcher a[href=#report-data]').tab('show')
-                                setFinanceData();
-                        }
+            var initReporter = function(){
+                    if(!reporter[0]) {
+                            return;
+                    }
+                    $('input[name=codeType]').val('json');
+                    var newsId = $('input[name=id]').val();
+                    newsId = newsId == '' ? 0 : parseInt(newsId);
+                    if(newsId > 0) {
+                            setFinanceData();
+                    }
 
 
-                        if(newsId < 1) {
-                                var timestamp = parseInt(moment().format('X'));
-                                var next15Min = timestamp + (60 * 15 - timestamp % (60 * 15));
-                                var nextTime = moment.unix(next15Min).format('hh:mm');
-                                reporter.find('input[data-name=timestamp]').each(function(){
-                                        $(this).val(nextTime);
-                                });
-                        }
-                        reporter.find('input[data-name=timestamp]').timepicker({
-                                minuteStep: 5,
-                                showMeridian: false
-                        });
+                    if(newsId < 1) {
+                            var timestamp = parseInt(moment().format('X'));
+                            var next15Min = timestamp + (60 * 15 - timestamp % (60 * 15));
+                            var nextTime = moment.unix(next15Min).format('hh:mm');
+                            reporter.find('input[data-name=timestamp]').each(function(){
+                                    $(this).val(nextTime);
+                            });
+                    }
+                    reporter.find('input[data-name=timestamp]').timepicker({
+                            minuteStep: 5,
+                            showMeridian: false
+                    });
 
-                        //bind events at last
-                        reporter.on('change', 'input, select', updateFinanceData);
-                        $("#reporter-cleaner").on('click', removeFinanceData);
-                }
-                initReporter();
+                    //bind events at last
+                    reporter.on('click', '.row-submiter', function(){
+                            var submiter = $(this);
+                            var index = submiter.closest('.finance-data-row').index();
+                            submitFinance(index);
 
-                var loadLivenews = function(){
-                        $("#embed-livenews").load('/admin/livenews/news/embed', function(){
-                                $(this).slimScroll({
-                                        height: $(window).height() - 150,
-                                        alwaysVisible : true
-                                });
-                                $(this).find('time').each(function(){
-                                        var time = $(this);
-                                        time.html(moment(time.attr("datetime") * 1000).fromNow());
-                                });
-                        });
-                }
-                loadLivenews();
+                    });
+                    //reporter.on('change', 'input, select', updateFinanceData);
+                    //$("#reporter-cleaner").on('click', removeFinanceData);
+            }
+            initReporter();
+
+            var loadLivenews = function(){
+                    $("#embed-livenews").load('/admin/livenews/news/embed', function(){
+                            $(this).slimScroll({
+                                    height: $(window).height() - 150,
+                                    alwaysVisible : true
+                            });
+                            $(this).find('time').each(function(){
+                                    var time = $(this);
+                                    time.html(moment(time.attr("datetime") * 1000).fromNow());
+                            });
+                    });
+            }
+            loadLivenews();
 
 
 
 
-        });
-    </script>
+    });
+</script>
