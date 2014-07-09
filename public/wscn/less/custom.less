@@ -1,8 +1,7 @@
 .custom-row {
     display: block;
     .clearfix;
-    [class^=custom-col] ,
-    [class^=custom-span] {
+    & > * {
         display: block;
         float: left;
     }
@@ -84,6 +83,9 @@
             background: url(../icon/arrow-right.png);
         }
     }
+    .text {
+        display: inline-block;
+    }
 }
 //
 .custom-nav-tabs {
@@ -162,5 +164,111 @@
         appearance:none;
         -webkit-padding-end: 20px;
         -moz-padding-end: 20px;*/
+    }
+}
+
+.custom-modal {
+    .transition(opacity 0.5s);
+    z-index: -1;
+    visibility: hidden;
+    opacity: 0;
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    padding: 30px 15px;
+    background-color: rgba(0,0,0,.4);
+    &.active {
+        z-index: 999;
+        visibility: visible;
+        opacity: 1;
+        & > .wrapper {
+            margin-top: 0;
+        }
+    }
+    &.size-sm {
+        .custom-modal-content {
+            width: 400px;
+        }
+    }
+    &.size-lg {
+        .custom-modal-content {
+            width: 800px;
+        }
+    }
+    & > .wrapper {
+        .transition(margin 0.5s);
+        display: block;
+        width: 100%;
+        height: 100%;
+        margin-top: 100%;
+    }
+    .custom-modal-content {
+        width: 600px;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        .custom-modal-header {
+            font-size: 20px;
+            line-height: 60px;
+            padding: 0 30px;
+            color: @blue;
+            border-radius: 10px 10px 0 0;
+            border-bottom: 1px solid @borderColor;
+            background-color: #fff;
+            .close {
+                line-height: 60px;
+            }
+        }
+        .custom-modal-body {
+            padding: 20px 30px 30px;
+            background-color: #fff;
+        }
+        .custom-modal-footer {
+            .clearfix;
+            background-color: @blue;
+            padding: 0 30px;
+            height: 48px;
+            border-radius: 0 0 10px 10px;
+            .link-left,
+            .link-right {
+                display: block;
+                position: relative;
+                font-size: 14px;
+                color: #fff;
+                line-height: 48px;
+                &:before {
+                    display: block;
+                    position: absolute;
+                    content: "";
+                    left: 0;
+                    top: 0;
+                    bottom: 0;
+                    width: 16px;
+                    height: 16px;
+                    margin: auto;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                }
+            }
+            .link-left {
+                float: left;
+                padding-left: 30px;
+                &:before {
+                    background-image: url(../icon/arrow-left.png);
+                }
+            }
+            .link-right {
+                float: right;
+                padding-right: 30px;
+                &:before {
+                    left: auto;
+                    right: 0;
+                    background-image: url(../icon/arrow-right.png);
+                }
+            }
+        }
     }
 }

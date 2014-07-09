@@ -3,6 +3,9 @@ body {
     //font-size: 62.25%;
     padding-top: 90px;
     overflow-x: hidden;
+    @media (max-width: @screen-xs-max) {
+        padding-top: 60px;
+    }
 }
 //
 .cover-img {
@@ -25,8 +28,7 @@ body {
         background-color: rgba(0,0,0,.5);
         padding: 10px 15px;
         overflow: hidden;
-        transition: bottom 1s;
-        -webkit-transition: bottom 1s;
+        .transition(bottom 0.5s);
     }
     .img {
         width: 100%;
@@ -134,12 +136,12 @@ body {
         .break-word;
         font-size: 14px;
         line-height: 21px;
-        margin-bottom: 20px;
     }
     &.with-dot {
         .news {
             position: relative;
             padding-left: 1em;
+            margin-bottom: 20px;
             &:before {
                 display: inline-block;
                 position: absolute;
@@ -154,10 +156,21 @@ body {
         }
     }
     &.with-number {
+        counter-reset:sectioncounter;
         .news {
             position: relative;
-            padding-left: 1.5em;
+            padding-left: 2em;
+            margin-bottom: 20px;
+            &:before {
+                position: absolute;
+                left: 0;
+                color: @blue;
+                font-weight: bold;
+                content:counter(sectioncounter) " .";
+                counter-increment:sectioncounter;
+            }
             .number {
+                display: none;
                 position: absolute;
                 left: 0;
                 color: @blue;
