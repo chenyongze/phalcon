@@ -66,18 +66,30 @@ class NewsController extends ControllerBase
         }
 
         $data = $this->request->getPost();
-        if (!$form->isFullValid($data)) {
-            return $this->displayInvalidMessages($form);
-        }
 
-        try {
-            $form->save('createNews');
-        } catch (\Exception $e) {
-            return $this->displayException($e, $form->getModel()->getMessages());
-        }
-        $this->flashSession->success('SUCCESS_NEWS_CREATED');
 
-        return $this->redirectHandler('/admin/livenews/news/edit/' . $form->getModel()->id);
+        if($this->request->isAjax()) {
+            if (!$form->isFullValid($data)) {
+                return $this->displayJsonInvalidMessages($form);
+            }
+            try {
+                $form->save('createNews');
+            } catch (\Exception $e) {
+                return $this->displayExceptionForJson($e, $form->getModel()->getMessages());
+            }
+            return $this->displayJsonResponse($form->getModel()->dump(Models\NewsManager::$defaultDump));
+        } else {
+            if (!$form->isFullValid($data)) {
+                return $this->displayInvalidMessages($form);
+            }
+            try {
+                $form->save('createNews');
+            } catch (\Exception $e) {
+                return $this->displayException($e, $form->getModel()->getMessages());
+            }
+            $this->flashSession->success('SUCCESS_NEWS_CREATED');
+            return $this->redirectHandler('/admin/livenews/news/edit/' . $form->getModel()->id);
+        }
     }
 
     public function editAction()

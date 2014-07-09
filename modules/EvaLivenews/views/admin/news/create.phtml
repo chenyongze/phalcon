@@ -36,7 +36,7 @@
 </div>
 
 <?$textForm = $form->getForm('text')?>
-<form id="" action="" method="POST" enctype="multipart/form-data" novalidate="novalidate">
+<form id="news-reporter" action="" method="POST" enctype="multipart/form-data" novalidate="novalidate">
     <div class="page-content">
         <div class="row">
             <div class="col-xs-9"><!-- PAGE CONTENT BEGINS -->
@@ -447,141 +447,63 @@
                     }
             }
             var markdownEditor = {};
+            var resetTextCounter = function(){
+                    var textarea = markdownEditor.$textarea;
+                    var counter = $(textarea.attr('data-counter-selector'));
+                    counter.html(1000)
+                        .removeClass('label-danger label-success').addClass('label-success');
+            }
             $("#content").markdown({
                     autofocus:true,
                     onShow: function(e){
-                            markdownEditor = e;
-                            e.$textarea.css('resize','vertical');
-                            textCounter(e);
-                        }, 
-                        onChange:function(e){
-                                textCounter(e);
+                        markdownEditor = e;
+                        e.$textarea.css('resize','vertical');
+                        textCounter(e);
+                    }, 
+                    onChange:function(e){
+                        textCounter(e);
+                    }
+            });
+
+            var lockEditor = function(){
+                    markdownEditor.disableButtons('all');
+                    markdownEditor.$textarea.attr('readonly','readonly');
+            }
+            var unlockEditor = function(){
+                    markdownEditor.enableButtons('all');
+                    markdownEditor.$textarea.removeAttr('readonly');
+            }
+
+            var loadLivenews = function(){
+                    $("#embed-livenews").load('/admin/livenews/news/embed', function(){
+                            $(this).slimScroll({
+                                    height: $(window).height() - 150,
+                                    alwaysVisible : true
+                            });
+                            $(this).find('time').each(function(){
+                                    var time = $(this);
+                                    time.html(moment(time.attr("datetime") * 1000).fromNow());
+                            });
+                    });
+            }
+            loadLivenews();
+
+
+            $(document).on('submit', '#news-reporter', function(){
+                    var form  = $(this);
+                    var data = form.serialize();
+                    $.ajax({
+                        dataType : 'json',
+                        type : 'POST',
+                        data : data,
+                        success : function(response){
+                                loadLivenews();
+                                form[0].reset();
+                                resetTextCounter();
+                                console.log(response);
                         }
-                });
-
-                //Finance data reporter init
-                var reporter = $('.finance-data-reporter');
-
-                var lockEditor = function(){
-                        markdownEditor.disableButtons('all');
-                        markdownEditor.$textarea.attr('readonly','readonly');
-                }
-                var unlockEditor = function(){
-                        markdownEditor.enableButtons('all');
-                        markdownEditor.$textarea.removeAttr('readonly');
-
-                }
-                var setFinanceData = function() {
-                        var codeType = $('input[name=codeType]').val();
-                        if(codeType != 'json') {
-                                return false;
-                        }
-                        var jsonString = markdownEditor.getContent();
-                        var data = $.parseJSON(jsonString);
-                        if(!data || data.length < 1) {
-                                return false;
-                        }
-                        for(var i in data) {
-                                var row = reporter.find('.finance-data-row').eq(i);
-                                for(var key in data[i]) {
-                                        row.find("[data-name='" + key + "']").val(data[i][key]);
-                                }
-                        }
-                        lockEditor();
-                }
-
-                var updateFinanceData = function(){
-                        var codeType = $('input[name=codeType]').val();
-                        if(codeType != 'json' && markdownEditor.getContent().length > 0) {
-                                if(!confirm('Finance data will overwrite news content, are you sure?')) {
-                                        return false;
-                                }
-                        }
-
-                        var data = [];
-                        reporter.find('.finance-data-row').each(function(){
-                                var row = $(this);
-                                var res = {};
-                                row.find("*[data-name]").each(function(){
-                                        var column = $(this);
-                                        res[column.attr('data-name')] = column.val();
-                                });
-                                if(res.title != '') {
-                                        data.push(res);
-                                }
-
-                        });
-
-
-
-                        if(data.length > 0) {
-                                markdownEditor.setContent(JSON.stringify(data));
-                                $('input[name=codeType]').val('json');
-                            } else {
-                                markdownEditor.setContent('');
-                        }
-                        lockEditor();
-                }
-
-                var removeFinanceData = function(){
-                        if(!confirm("All finance data will be removed, are you sure?")) {
-                                return false;
-                        }
-                        markdownEditor.setContent('');
-                        $('input[name=codeType]').val('markdown');
-                        unlockEditor();
-                        $('#editor-switcher a[href=#report-news]').tab('show')
-                }
-
-                var initReporter = function(){
-                        if(!reporter[0]) {
-                                return;
-                        }
-                        var urlHash = window.location.hash.substr(1);
-                        var newsId = $('input[name=id]').val();
-                        newsId = newsId == '' ? 0 : parseInt(newsId);
-                        var codeType = $('input[name=codeType]').val();
-                        if(newsId > 0 && codeType == 'json' || urlHash == 'report-data') {
-                                $('#editor-switcher a[href=#report-data]').tab('show')
-                                setFinanceData();
-                        }
-
-
-                        if(newsId < 1) {
-                                var timestamp = parseInt(moment().format('X'));
-                                var next15Min = timestamp + (60 * 15 - timestamp % (60 * 15));
-                                var nextTime = moment.unix(next15Min).format('hh:mm');
-                                reporter.find('input[data-name=timestamp]').each(function(){
-                                        $(this).val(nextTime);
-                                });
-                        }
-                        reporter.find('input[data-name=timestamp]').timepicker({
-                                minuteStep: 5,
-                                showMeridian: false
-                        });
-
-                        //bind events at last
-                        reporter.on('change', 'input, select', updateFinanceData);
-                        $("#reporter-cleaner").on('click', removeFinanceData);
-                }
-                initReporter();
-
-                var loadLivenews = function(){
-                        $("#embed-livenews").load('/admin/livenews/news/embed', function(){
-                                $(this).slimScroll({
-                                        height: $(window).height() - 150,
-                                        alwaysVisible : true
-                                });
-                                $(this).find('time').each(function(){
-                                        var time = $(this);
-                                        time.html(moment(time.attr("datetime") * 1000).fromNow());
-                                });
-                        });
-                }
-                loadLivenews();
-
-
-
-
-        });
-    </script>
+                    });
+                    return false;
+            });
+    });
+</script>
