@@ -89,69 +89,6 @@
                                                 </div>
                                             </div><!--widget box end-->
 
-                                            <table class="table table-striped table-bordered table-hover finance-data-reporter hide">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Data Name
-                                                            <button id="reporter-sync" class="btn btn-xs btn-info" type="button">
-                                                                <i class="icon-coffee"></i>
-                                                            </button>
-                                                        </th>
-                                                        <th>Time</th>
-                                                        <th>Importance</th>
-                                                        <th>Country</th>
-                                                        <th>Actual</th>
-                                                        <th>Forecast</th>
-                                                        <th>Previous</th>
-                                                        <th> 
-                                                            <button id="reporter-cleaner" class="btn btn-xs btn-danger" type="button">
-                                                                <i class="icon-trash"></i>
-                                                            </button>
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-
-                                                <tbody>
-                                                    <?for($i=0; $i < 5; $i++):?>
-                                                    <tr class="finance-data-row">
-                                                        <td>
-                                                            <input type="text" class="form-control" placeholder="" data-name="title">
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control " data-show-seconds="false" placeholder="" data-name="timestamp">
-                                                        </td>
-                                                        <td>
-                                                            <input type="number" class="form-control input-small" placeholder="" value="1"  data-name="importance">
-                                                        </td>
-                                                        <td>
-                                                            <select class="form-control select2 input-medium" data-name="country" >
-                                                                <option value="-1">选择国家</option>
-                                                                <option value="美国">美国|USD</option><option value="欧元区">欧元区|EUR</option><option value="德国">德国|EUR</option><option value="日本">日本|JPY</option><option value="法国">法国|EUR</option><option value="英国">英国|GBP</option><option value="西班牙">西班牙|EUR</option><option value="意大利">意大利|EUR</option><option value="中国">中国|CNY</option><option value="加拿大">加拿大|CAD</option><option value="中国台北">中国台北|TWD</option><option value="南非">南非|ZAR</option><option value="印度">印度|INR</option><option value="印度尼西亚">印度尼西亚|IDR</option><option value="巴西">巴西|BRL</option><option value="挪威">挪威|NOK</option><option value="新加坡">新加坡|SGD</option><option value="澳大利亚">澳大利亚|AUD</option><option value="泰国">泰国|THB</option><option value="瑞士">瑞士|CHF</option><option value="纽西兰">纽西兰|NZD</option><option value="韩国">韩国|KRW</option><option value="香港">香港|HKD</option><option value="马来西亚">马来西亚|MYR</option>
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control" placeholder="" data-name="actual">
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control" placeholder="" data-name="forecast">
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control" placeholder="" data-name="previous">
-                                                        </td>
-                                                        <td>
-                                                        </td>
-                                                    </tr>
-                                                    <?endfor?>
-                                                </tbody>
-                                            </table>
-
-
-
-
-
-
-
-
                                             <div class="widget-box">
                                                 <div class="widget-header widget-header-small">
                                                     <h5 class="lighter">Categories</h5>
@@ -629,12 +566,21 @@
                 }
                 initReporter();
 
-                $("#embed-livenews").load('/admin/livenews/news/embed', function(){
-                        $(this).slimScroll({
-                                height: $(window).height() - 150,
-                                alwaysVisible : true
+                var loadLivenews = function(){
+                        $("#embed-livenews").load('/admin/livenews/news/embed', function(){
+                                $(this).slimScroll({
+                                        height: $(window).height() - 150,
+                                        alwaysVisible : true
+                                });
+                                $(this).find('time').each(function(){
+                                        var time = $(this);
+                                        time.html(moment(time.attr("datetime") * 1000).fromNow());
+                                });
                         });
-                });
+                }
+                loadLivenews();
+
+
 
 
         });

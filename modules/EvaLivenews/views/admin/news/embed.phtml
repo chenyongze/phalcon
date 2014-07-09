@@ -8,7 +8,7 @@
 
             <div class="time">
                 <i class="icon-time"></i>
-                <span class="number"><?=$item->createdAt?></span>
+                <time datetime="<?=$item->createdAt?>"><?=$this->tag->datetime($item->createdAt)?></time>
             </div>
         </div>
 
