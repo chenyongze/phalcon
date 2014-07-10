@@ -42,7 +42,11 @@
                 <form id="news-reporter" action="" method="POST" enctype="multipart/form-data" novalidate="novalidate">
                 <div class="widget-box transparent">
                     <div class="widget-header">
-                        <h3>Live News</h3>
+                        <?if(empty($item->id)):?>
+                        <h3>Report News</h3> 
+                        <?else:?>
+                        <h3>Edit News</h3> 
+                        <?endif?>
                         <div class="widget-toolbar no-border">
                             <ul id="livenews-tab" class="nav nav-tabs">
                                 <li class="active">

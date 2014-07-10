@@ -37,7 +37,11 @@
             <div class="col-xs-9"><!-- PAGE CONTENT BEGINS -->
                 <div class="widget-box transparent">
                     <div class="widget-header">
-                        <h3>Finance Data</h3>
+                        <?if(empty($item->id)):?>
+                        <h3>Report Finance Data</h3> 
+                        <?else:?>
+                        <h3>Edit Finance Data</h3> 
+                        <?endif?>
                         <div class="widget-toolbar no-border">
                             <?if(empty($item->id)):?>
                             <button type="submit" class="btn btn-info btn-medium batch-submiter">
