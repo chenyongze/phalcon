@@ -51,3 +51,16 @@
 .text-blue {
     color: @blue !important;
 }
+.reset-box-sizing {
+    &,
+    *,
+    *:before,
+    *:after {
+        -webkit-box-sizing: content-box;
+           -moz-box-sizing: content-box;
+                box-sizing: content-box;
+    }
+}
+.element {
+    .reset-box-sizing();
+}
