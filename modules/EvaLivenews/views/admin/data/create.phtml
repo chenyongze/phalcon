@@ -40,7 +40,7 @@
                         <h3>Finance Data</h3>
                         <div class="widget-toolbar no-border">
                             <?if(empty($item->id)):?>
-                            <button type="submit" class="btn btn-info btn-medium">
+                            <button type="submit" class="btn btn-info btn-medium batch-submiter">
                                 <i class="icon-ok"></i>
                                 Publish All
                             </button>
@@ -253,6 +253,7 @@
 <script type="text/javascript" src="/assets/js/jquery.slimscroll.min.js"></script>
 <script>
     $(document).ready(function(){
+            $.blockUI.defaults.message = '<i class="icon-spinner icon-spin"></i> Please Wait';
             var updateCreateTime = function(){
                     var day = $('input[name=day]').val();
                     var time = $('input[name=time]').val();
@@ -309,6 +310,7 @@
                     }
             }
 
+
             var submitFinance = function(index){
                     var row = reporter.find('.finance-data-row').eq(index);
                     var res = {};
@@ -326,18 +328,30 @@
                                     item.value = JSON.stringify(res);
                             }
                     });
+                    row.block();
                     $.ajax({
                             type : 'POST',
                             dataType : 'json',
                             data : $.param(data),
                             success : function(response) {
+                                    row.unblock();
+                                    row.find('input').val('');
                                     loadLivenews();
+                            },
+                            error : function() {
+                                    row.unblock();
                             }
                     });
 
             }
 
             var submitAll = function(){
+
+                    var max = reporter.find('.finance-data-row').length,
+                        i = 0;
+                    for(i; i < max; i++) {
+                        submitFinance(i);
+                    }
 
             }
 
@@ -416,6 +430,10 @@
                             submitFinance(index);
 
                     });
+                    $(document).on('click', ".batch-submiter", function(){
+                        submitAll();
+                    });
+
                     //reporter.on('change', 'input, select', updateFinanceData);
                     //$("#reporter-cleaner").on('click', removeFinanceData);
             }
@@ -455,20 +473,23 @@
                     return false;
             });
 
+
             $(document).on('click', ".remove-handler", function(){
+                    if(!confirm('This news will be deleted, are you sure?')) {
+                        return false;
+                    }
                     var handler = $(this);
                     $.ajax({
                             url : handler.attr('href'),
                             type : 'DELETE',
                             success : function(response){
                                     handler.closest('.profile-activity').remove();
+                            },
+                            error : function() {
+                            
                             }
                     });
                     return false;
             });
-
-
-
-
     });
 </script>
