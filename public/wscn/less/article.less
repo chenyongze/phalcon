@@ -95,11 +95,20 @@
         font-size: 14px;
         line-height: 32px;
         .endorse {
-            display: inline-block;
+            //display: inline-block;
             color: @blue;
             font-size: 12px;
-            padding-left: 30px;
-            background: url(../icon/endorse-white.png) left center no-repeat;
+            margin-right: 10px;
+            float: left;
+            //padding-left: 30px;
+            //background: url(../icon/endorse-white.png) left center no-repeat;
+        }
+        .collect {
+            float: left;
+            display: block;
+            width: 32px;
+            height: 32px;
+            background: url(../icon/collect32px.png);
         }
         .separator {
             display: inline-block;
@@ -108,6 +117,36 @@
             border-right: 1px solid @border-color;
             float: left;
             margin-right: 15px;
+        }
+        .jiathis_style_32x32 {
+            float: right;
+            border-left: 1px solid @border-color;
+            padding-left: 10px;
+            font-size: 14px;
+            .text {
+                display: block;
+                float: left;
+            }
+            .jtico {
+                padding-left: 32px !important;
+                margin-left: 10px;
+                //background: url(../icon/weibo32px.png) 0 0 no-repeat;
+            }
+            .jtico_tsina {
+                background: url(../icon/weibo32px.png) 0 0 no-repeat;
+            }
+            .jtico_cqq {
+                background: url(../icon/qq32px.png) 0 0 no-repeat;
+            }
+            .jtico_weixin {
+                background: url(../icon/wechat32px.png) 0 0 no-repeat;
+            }
+            .jtico_evernote {
+                background: url(../icon/evernote32px.png) 0 0 no-repeat;
+            }
+            .jtico_jiathis {
+                background: url(../icon/share32px.png) 0 0 no-repeat;
+            }
         }
     }
     .toolbar[data-action=post] {
