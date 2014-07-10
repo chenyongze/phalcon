@@ -74,12 +74,15 @@ class Post extends Entities\Posts
             $this->username = $this->username ? $this->username : $userinfo['username'];
         }
     }
+
     public function afterCreate()
     {
-
-        $counterRankUtil = new CounterRankUtil();
-        $counterRankUtil->getCounterRank('posts')->create($this->id);
+        if($this->getDI()->getModuleManager()->hasModule('CounterRank')) {
+            $counterRankUtil = new CounterRankUtil();
+            $counterRankUtil->getCounterRank('posts')->create($this->id);
+        }
     }
+
     public function beforeUpdate()
     {
         $user = new LoginModel();
