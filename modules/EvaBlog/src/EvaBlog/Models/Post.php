@@ -7,6 +7,7 @@ use Eva\EvaUser\Models\Login as LoginModel;
 use Eva\EvaFileSystem\Models\Upload as UploadModel;
 use Eva\EvaEngine\Exception;
 use Eva\EvaEngine\Mvc\Model\Validator\Uniqueness;
+use Eva\CounterRank\utils\CounterRankUtil;
 
 
 class Post extends Entities\Posts
@@ -73,7 +74,10 @@ class Post extends Entities\Posts
             $this->username = $this->username ? $this->username : $userinfo['username'];
         }
     }
-
+    public function afterCreate()
+    {
+        var_dump(func_get_args());
+    }
     public function beforeUpdate()
     {
         $user = new LoginModel();
@@ -101,7 +105,6 @@ class Post extends Entities\Posts
             }
         }
     }
-
     public function validation()
     {
         if ($this->validationHasFailed() == true) {
@@ -212,6 +215,7 @@ class Post extends Entities\Posts
         if (!$this->save()) {
             throw new Exception\RuntimeException('Create post failed');
         }
+
         return $this;
     }
 
