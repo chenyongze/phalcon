@@ -52,7 +52,9 @@ var loadLivenews = function(){
     });
 }
 loadLivenews();
-$(document).on('click', ".remove-handler", function(){
+
+
+$(document).on('click', ".remove-handler", function(e){
     if(!confirm('This news will be deleted, are you sure?')) {
         return false;
     }
@@ -67,5 +69,6 @@ $(document).on('click', ".remove-handler", function(){
 
         }
     });
+    e.stopPropagation();
     return false;
 });

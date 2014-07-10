@@ -13,7 +13,7 @@
                 <?=$item->getContentHtml()?>
                 <?else:?>
                 <?$data = json_decode($item->content)?>
-                <?=$data->title?> | <?=$data->actual?>
+                [<?=$data->timestamp?>] <?=$data->title?> : A[<?=$data->actual?>] / F[<?=$data->forecast?>] / P[<?=$data->previous?>]
                 <?endif?>
             </div>
 
