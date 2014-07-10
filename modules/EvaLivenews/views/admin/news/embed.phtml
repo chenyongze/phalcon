@@ -1,6 +1,6 @@
 <div class="profile-feed" id="">
     <?foreach($pager->items as $item):?>
-    <div class="profile-activity clearfix">
+    <div class="profile-activity clearfix" data-news-id="<?=$item->id?>">
         <div>
             <?if($item->codeType == 'markdown'):?>
             <i class="pull-left thumbicon icon-file-alt btn-default no-hover"></i>
@@ -13,7 +13,7 @@
                 <?=$item->getContentHtml()?>
                 <?else:?>
                 <?$data = json_decode($item->content)?>
-                <?=$data->title?> | <?=$data->actual?>
+                [<?=$data->timestamp?>] <?=$data->title?> : A[<?=$data->actual?>] / F[<?=$data->forecast?>] / P[<?=$data->previous?>]
                 <?endif?>
             </div>
 
