@@ -52,7 +52,7 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
      *
      * @var integer
      */
-    public $parentId;
+    public $parentId = 0;
 
     /**
      *
@@ -76,7 +76,7 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
      *
      * @var integer
      */
-    public $userId;
+    public $userId = 0;
 
     /**
      *
@@ -88,13 +88,13 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
      *
      * @var integer
      */
-    public $updatedAt;
+    public $updatedAt = 0;
 
     /**
      *
      * @var integer
      */
-    public $editorId;
+    public $editorId = 0;
 
     /**
      *
@@ -118,19 +118,19 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
      *
      * @var integer
      */
-    public $commentCount;
+    public $commentCount = 0;
 
     /**
      *
      * @var integer
      */
-    public $count;
+    public $count = 0;
 
     /**
      *
      * @var integer
      */
-    public $imageId;
+    public $imageId = 0;
 
     /**
      *
