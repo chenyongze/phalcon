@@ -229,8 +229,8 @@ class NewsManager extends Entities\News
         $this->getDI()->getEventsManager()->fire('livenews:beforeRemove', $this);
         $this->id = $id;
         //remove old relations
-        if ($this->categoriesPosts) {
-            $this->categoriesPosts->delete();
+        if ($this->categoriesNews) {
+            $this->categoriesNews->delete();
         }
         $this->delete();
         $this->getDI()->getEventsManager()->fire('livenews:afterRemove', $this);
