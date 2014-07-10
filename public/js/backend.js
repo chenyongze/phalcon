@@ -25,6 +25,24 @@ $.noty.defaults = {
     buttons: false // an array of buttons
 };
 
+CKEDITOR.config.contentsCss = '/css/editor.css';
+CKEDITOR.config.toolbar = [
+    { name: 'document', groups: [ 'mode', 'document', 'doctools' ], items: [ 'Source'] },
+    { name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
+    { name: 'editing', groups: [ 'find', 'selection', 'spellchecker' ], items: [ 'Find', 'Replace', '-', 'SelectAll' ] },
+    { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ], items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl' ] },
+    { name: 'tools', items: [ 'Maximize', 'ShowBlocks' ] }, 
+    { name: 'extend', items: [ 'UploaderBtn', 'WSCNMarkets'] },
+    '/',
+    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ] },
+    { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },
+    { name: 'colors', items: [ 'TextColor', 'BGColor' ] },
+    { name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
+    { name: 'insert', items: [ 'Image', 'Flash', 'Table', 'HorizontalRule', 'SpecialChar'] }
+];
+CKEDITOR.config.allowedContent = true;
+CKEDITOR.config.extraPlugins += (CKEDITOR.config.extraPlugins ? ',wscn,uploader' : 'wscn,uploader');
+
 $(document).ready(function(){
     var path = new Uri(window.location).path();
     $(".tobe-highlight").each(function(){
@@ -245,24 +263,7 @@ $(document).ready(function(){
        , initHtmlEditor : function() {
             var self = this;
             var editors = this.editors;
-            CKEDITOR.config.contentsCss = '/css/editor.css';
-            CKEDITOR.config.toolbar = [
-                { name: 'document', groups: [ 'mode', 'document', 'doctools' ], items: [ 'Source'] },
-                { name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
-                { name: 'editing', groups: [ 'find', 'selection', 'spellchecker' ], items: [ 'Find', 'Replace', '-', 'SelectAll' ] },
-                { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ], items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl' ] },
-                { name: 'tools', items: [ 'Maximize', 'ShowBlocks' ] }, 
-                '/',
-                { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ] },
-                { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },
-                { name: 'colors', items: [ 'TextColor', 'BGColor' ] },
-                { name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
-                { name: 'insert', items: [ 'Image', 'Flash', 'Table', 'HorizontalRule', 'SpecialChar'] },
-				{ name: 'extent', items: ['WSCNMarkets'] },
-				{ name: 'extent2', items: ['UploaderBtn'] }
-            ];
-			CKEDITOR.config.allowedContent = true;
-			CKEDITOR.config.extraPlugins += (CKEDITOR.config.extraPlugins ? ',wscn,uploader' : 'wscn,uploader');
+
             
             editors.each(function(){
                 var ckeditor = $(this).ckeditor().ckeditorGet();
@@ -547,6 +548,10 @@ $('*[data-batch-form]').each(function(){
             }
         })
     });
+
+});
+
+$('.wysiwyg').ckeditor({
 
 });
 
