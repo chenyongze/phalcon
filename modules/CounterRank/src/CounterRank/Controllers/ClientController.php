@@ -12,7 +12,7 @@ namespace Eva\CounterRank\Controllers;
 // + CounterClientController.php 计数器 JS 客户端控制器
 // +----------------------------------------------------------------------
 
-use Eva\CounterRank\utils\JSClientHandlerUtil;
+use Eva\CounterRank\Utils\CounterRankUtil;
 use mr5\CounterRank\JSClientHandler;
 use Phalcon\Mvc\Controller;
 
@@ -34,10 +34,13 @@ class ClientController extends Controller
     {
         $this->view->disable();
 
-        $this->jsClientHandler = new JSClientHandlerUtil($this->getDI());
+        $counterRankUtil = new CounterRankUtil();
+        $this->jsClientHandler = $counterRankUtil->getJSClientHandler();
+
     }
     public function getAction()
     {
+
         $this->jsClientHandler->handleGet(
             $this->_getParam('token'),
             $this->_getParam('group'),

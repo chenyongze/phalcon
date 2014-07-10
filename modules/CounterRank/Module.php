@@ -12,6 +12,8 @@
 namespace Eva\CounterRank;
 
 
+use Eva\CounterRank\Utils\CounterRankUtil;
+use Eva\CounterRank\Utils\JSClientHandlerUtil;
 use Eva\EvaEngine\Module\StandardInterface;
 use Phalcon\Loader,
     Phalcon\Mvc\Dispatcher,
@@ -60,5 +62,6 @@ class Module implements ModuleDefinitionInterface, StandardInterface
             $view->setViewsDir('/src/views/');
             return $view;
         });
+
     }
 }

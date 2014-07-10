@@ -1,6 +1,6 @@
 <?php
 
-namespace Eva\CounterRank\utils;
+namespace Eva\CounterRank\Utils;
 
 // +----------------------------------------------------------------------
 // | [phalcon]
@@ -13,24 +13,60 @@ namespace Eva\CounterRank\utils;
 // +----------------------------------------------------------------------
 
 use mr5\CounterRank\CounterRank;
+use mr5\CounterRank\JSClientHandler;
 use Phalcon\DI;
+use Phalcon\Mvc\User\Component;
 
 /**
  * CounterRank 工具类
  * @package Eva\CounterRank\utils
  */
-class CounterRankUtil extends CounterRank
+class CounterRankUtil extends Component
 {
+    protected $counterConfig = null;
+    protected static  $counterRankInstances = array();
+    protected static $jsClientHandler = null;
+    public function __construct()
+    {
+        $this->counterConfig = $this->getDI()->getConfig()->counter;
+    }
 
-    public function __construct(DI $di, $groupName, $useFloat=false) {
-        $counterConfig = $di->getConfig()->counter;
+    /**
+     * 获取 CounterRank 实例
+     *
+     * @param $groupName
+     * @param bool $useFloat
+     * @return CounterRank
+     */
+    public function getCounterRank($groupName, $useFloat = false)
+    {
+        if(!self::$counterRankInstances[$groupName]) {
+            self::$counterRankInstances[$groupName] = new CounterRank(
+                $this->counterConfig->redis_host,
+                $this->counterConfig->redis_port,
+                $this->counterConfig->redis_namespace,
+                $groupName,
+                $useFloat
+            );
+        }
+        return self::$counterRankInstances[$groupName];
+    }
 
-        parent::__construct(
-            $counterConfig->redis_host,
-            $counterConfig->redis_port,
-            $counterConfig->redis_namespace,
-            $groupName,
-            $useFloat
-        );
+    /**
+     * 获取 JSClientHandler实例
+     *
+     * @return JSClientHandler
+     */
+    public function getJSClientHandler()
+    {
+        if(self::$jsClientHandler == null) {
+            self::$jsClientHandler = new JSClientHandler(
+                $this->counterConfig->redis_host,
+                $this->counterConfig->redis_port,
+                $this->counterConfig->redis_namespace,
+                (array) $this->counterConfig->group_tokens
+            );
+        }
+        return self::$jsClientHandler;
     }
 } 
