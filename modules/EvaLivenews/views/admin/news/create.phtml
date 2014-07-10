@@ -36,10 +36,10 @@
 </div>
 
 <?$textForm = $form->getForm('text')?>
-<form id="news-reporter" action="" method="POST" enctype="multipart/form-data" novalidate="novalidate">
     <div class="page-content">
         <div class="row">
             <div class="col-xs-9"><!-- PAGE CONTENT BEGINS -->
+                <form id="news-reporter" action="" method="POST" enctype="multipart/form-data" novalidate="novalidate">
                 <div class="widget-box transparent">
                     <div class="widget-header">
                         <h3>Live News</h3>
@@ -380,7 +380,7 @@
                     </div><!--widget body end-->
                 </div><!--widget box end-->
 
-
+            </form>
             </div><!--col left end-->
             <div class="col-xs-3">
                 <div class="widget-box">
@@ -402,12 +402,12 @@
             </div><!-- /.col right -->
         </div><!--row end-->
     </div><!-- /.page-content -->
-</form>
 
 <script type="text/javascript" src="/vendor/js/bootstrap-markdown/js/bootstrap-markdown.js"></script>
 <script type="text/javascript" src="/assets/js/jquery.slimscroll.min.js"></script>
 <script>
     $(document).ready(function(){
+            $.blockUI.defaults.message = '<i class="icon-spinner icon-spin"></i> Please Wait';
             var updateCreateTime = function(){
                     var day = $('input[name=day]').val();
                     var time = $('input[name=time]').val();
@@ -492,29 +492,41 @@
                     var data = form.serialize();
                     var newsId = $('input[name=id]').val();
                     newsId = newsId == '' ? 0 : parseInt(newsId);
+                    form.block();
                     $.ajax({
                         dataType : 'json',
                         type : 'POST',
                         data : data,
                         success : function(response){
+                                form.unblock();
                                 loadLivenews();
                                 if(newsId > 0) {
                                     return;
                                 }
                                 form[0].reset();
                                 resetTextCounter();
+                        }, 
+                        error : function(){
+                                form.unblock();
                         }
                     });
                     return false;
             });
 
+
             $(document).on('click', ".remove-handler", function(){
+                    if(!confirm('This news will be deleted, are you sure?')) {
+                        return false;
+                    }
                     var handler = $(this);
                     $.ajax({
                             url : handler.attr('href'),
                             type : 'DELETE',
                             success : function(response){
                                     handler.closest('.profile-activity').remove();
+                            },
+                            error : function() {
+                            
                             }
                     });
                     return false;
