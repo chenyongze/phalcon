@@ -76,7 +76,9 @@ class Post extends Entities\Posts
     }
     public function afterCreate()
     {
-        var_dump(func_get_args());
+
+        $counterRankUtil = new CounterRankUtil();
+        $counterRankUtil->getCounterRank('posts')->create($this->id);
     }
     public function beforeUpdate()
     {
