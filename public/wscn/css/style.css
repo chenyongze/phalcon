@@ -552,6 +552,11 @@ body {
 .custom-modal.active > .wrapper {
   margin-top: 0;
 }
+@media (min-height: 700px) {
+  .custom-modal.active > .wrapper {
+    margin-top: 100px;
+  }
+}
 .custom-modal.size-sm .custom-modal-content {
   width: 400px;
 }
@@ -568,11 +573,17 @@ body {
   height: 100%;
   margin-top: 100%;
 }
+.custom-modal .middle-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
 .custom-modal .custom-modal-content {
   width: 600px;
   max-width: 100%;
   margin-left: auto;
   margin-right: auto;
+  border-radius: 10px;
+  box-shadow: 0 0 2px 1px #333;
 }
 .custom-modal .custom-modal-content .custom-modal-header {
   font-size: 20px;
@@ -582,6 +593,20 @@ body {
   border-radius: 10px 10px 0 0;
   border-bottom: 1px solid #cccccc;
   background-color: #fff;
+  position: relative;
+  text-indent: 40px;
+}
+.custom-modal .custom-modal-content .custom-modal-header:before {
+  display: block;
+  position: absolute;
+  content: "";
+  top: 0;
+  bottom: 0;
+  left: 30px;
+  margin: auto;
+  width: 32px;
+  height: 32px;
+  background: url(../icon/logo32px.png) 0 0 no-repeat;
 }
 .custom-modal .custom-modal-content .custom-modal-header .close {
   line-height: 60px;
