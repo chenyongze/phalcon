@@ -67,7 +67,6 @@ class NewsController extends ControllerBase
 
         $data = $this->request->getPost();
 
-
         if($this->request->isAjax()) {
             if (!$form->isFullValid($data)) {
                 return $this->displayJsonInvalidMessages($form);
@@ -100,6 +99,10 @@ class NewsController extends ControllerBase
             throw new Exception\ResourceNotFoundException('ERR_LIVENEWS_NEWS_NOT_FOUND');
         }
 
+        if($news->codeType == 'json') {
+            return $this->redirectHandler('/admin/livenews/data/edit/' . $news->id);
+        }
+
         $form = new Forms\NewsForm();
         $form->setModel($news);
         $form->addForm('text', 'Eva\EvaLivenews\Forms\TextForm');
@@ -111,17 +114,27 @@ class NewsController extends ControllerBase
         }
         $data = $this->request->getPost();
 
-        if (!$form->isFullValid($data)) {
-            return $this->displayInvalidMessages($form);
+        if($this->request->isAjax()) {
+            if (!$form->isFullValid($data)) {
+                return $this->displayJsonInvalidMessages($form);
+            }
+            try {
+                $form->save('updateNews');
+            } catch (\Exception $e) {
+                return $this->displayExceptionForJson($e, $form->getModel()->getMessages());
+            }
+            return $this->displayJsonResponse($form->getModel()->dump(Models\NewsManager::$defaultDump));
+        } else {
+            if (!$form->isFullValid($data)) {
+                return $this->displayInvalidMessages($form);
+            }
+            try {
+                $form->save('updateNews');
+            } catch (\Exception $e) {
+                return $this->displayException($e, $form->getModel()->getMessages());
+            }
+            $this->flashSession->success('SUCCESS_NEWS_UPDATED');
+            return $this->redirectHandler('/admin/livenews/news/edit/' . $news->id);
         }
-
-        try {
-            $form->save('updateNews');
-        } catch (\Exception $e) {
-            return $this->displayException($e, $form->getModel()->getMessages());
-        }
-        $this->flashSession->success('SUCCESS_NEWS_UPDATED');
-
-        return $this->redirectHandler('/admin/livenews/news/edit/' . $news->id);
     }
 }
