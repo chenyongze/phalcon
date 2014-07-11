@@ -90,7 +90,6 @@ cite,
 code,
 dfn,
 em,
-strong,
 th,
 var {
   font-weight: normal;
@@ -242,6 +241,7 @@ body {
   color: #0a62a3;
 }
 .side-title {
+  font-weight: bold;
   font-size: 16px;
   line-height: 40px;
   margin-bottom: 20px;
@@ -259,6 +259,7 @@ body {
 .main-title {
   color: #0a62a3;
   font-size: 16px;
+  font-weight: bold;
   line-height: 30px;
   padding-bottom: 6px;
   border-bottom: 4px solid #0a62a3;
@@ -415,22 +416,10 @@ body {
   line-height: 1em;
   padding: 10px 8px;
   text-align: center;
-}
-.custom-button:before {
-  display: table;
-  content: '';
-  clear: both;
-}
-.custom-button:after {
-  display: table;
-  content: '';
-  clear: both;
+  background-color: #0a62a3;
 }
 .custom-button:active {
   box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.5) inset;
-}
-.custom-button.type-blue {
-  background-color: #0a62a3;
 }
 .custom-button.size-lg {
   font-size: 16px;
@@ -440,15 +429,16 @@ body {
   display: block;
   width: 100%;
 }
-.custom-button.link {
+.custom-button.type-link {
   position: relative;
   font-size: 16px;
   padding: 12px 1.5em;
   padding-right: 4em;
 }
-.custom-button.link:after {
+.custom-button.type-link:after {
   display: block;
   position: absolute;
+  content: "";
   right: 1.5em;
   top: 0;
   bottom: 0;
@@ -456,9 +446,6 @@ body {
   height: 16px;
   margin: auto 0;
   background: url(../icon/arrow-right.png);
-}
-.custom-button .text {
-  display: inline-block;
 }
 .custom-nav-tabs {
   border-bottom: 4px solid #dcdcdc;
@@ -752,6 +739,7 @@ body {
   margin-bottom: 30px;
   width: 100%;
   top: 0;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
 }
 #header .navbar {
   color: #fff;
@@ -1052,6 +1040,69 @@ body {
   border-top: 1px solid #8CB8D5;
   margin-top: -1px;
 }
+.sharebar {
+  font-size: 14px;
+  line-height: 32px;
+  width: 135px;
+}
+.sharebar .discuss,
+.sharebar .collect {
+  display: block;
+  padding-left: 15px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+.sharebar .discuss:before,
+.sharebar .collect:before {
+  display: block;
+  width: 32px;
+  height: 32px;
+  float: left;
+  margin-right: 10px;
+  content: "";
+}
+.sharebar .discuss:before {
+  background: url(../icon/discuss32px.png);
+}
+.sharebar .collect:before {
+  background: url(../icon/collect32px.png);
+}
+.sharebar .jiathis_style_32x32 {
+  font-size: 14px;
+  line-height: 32px;
+}
+.sharebar .jiathis_style_32x32 a {
+  display: block;
+  height: 32px;
+  width: 100%;
+  padding-left: 15px;
+  margin-bottom: 20px;
+}
+.sharebar .jiathis_style_32x32 a.jiathis {
+  margin-left: 15px;
+}
+.sharebar .jiathis_style_32x32 .jtico {
+  padding-left: 32px !important;
+  font-size: 14px;
+  text-indent: 10px;
+  margin: 0;
+}
+.sharebar .jiathis_style_32x32 .jtico_tsina {
+  background: url(../icon/weibo32px.png) 0 0 no-repeat;
+}
+.sharebar .jiathis_style_32x32 .jtico_cqq {
+  background: url(../icon/qq32px.png) 0 0 no-repeat;
+}
+.sharebar .jiathis_style_32x32 .jtico_weixin {
+  background: url(../icon/wechat32px.png) 0 0 no-repeat;
+}
+.sharebar .jiathis_style_32x32 .jtico_evernote {
+  background: url(../icon/evernote32px.png) 0 0 no-repeat;
+}
+.sharebar .jiathis_style_32x32 .jtico_jiathis {
+  background: url(../icon/share32px.png) 0 0 no-repeat;
+}
 #rightbar {
   float: left;
   padding: 0 15px;
@@ -1111,6 +1162,41 @@ body {
 #side-livenews {
   font-size: 14px;
   height: 300px;
+}
+#postbar {
+  position: fixed;
+  bottom: 40px;
+  padding-left: 15px;
+}
+#postbar .item {
+  display: block;
+  width: 50px;
+  height: 50px;
+  margin-bottom: 15px;
+}
+#postbar .suggest {
+  background: url(../icon/suggest50px.png);
+}
+#postbar .suggest:hover {
+  background-image: url(../icon/suggest-active50px.png);
+}
+#postbar .wechat {
+  background: url(../icon/wechat50px.png);
+}
+#postbar .wechat:hover {
+  background-image: url(../icon/wechat-active50px.png);
+}
+#postbar .up {
+  background: url(../icon/up50px.png);
+}
+#postbar .up:hover {
+  background-image: url(../icon/up-active50px.png);
+}
+#qrcode {
+  display: block;
+  position: fixed;
+  top: 230px;
+  padding-left: 15px;
 }
 #main {
   float: left;
@@ -1195,6 +1281,14 @@ body {
   color: #323232;
   padding: 25px 0;
   border-bottom: 1px solid #cccccc;
+  /*
+            .endorse ,
+            .discuss {
+                display: inline-block;
+                padding-left: 20px;
+                background-position: 0 center;
+                background-repeat: no-repeat;
+            }*/
 }
 #main .news-list.with-img .news .cover-img {
   margin-top: 4px;
@@ -1226,19 +1320,8 @@ body {
   color: #0a62a3;
   margin-left: 0;
 }
-#main .news-list.with-img .news .endorse,
-#main .news-list.with-img .news .discuss {
-  display: inline-block;
-  padding-left: 20px;
-  background-position: 0 center;
-  background-repeat: no-repeat;
-}
 #main .news-list.with-img .news .endorse {
-  background-image: url(../icon/endorse-white.png);
   margin-right: 1em;
-}
-#main .news-list.with-img .news .discuss {
-  background-image: url(../icon/discuss-white.png);
 }
 #main .news-list.with-img .news .share,
 #main .news-list.with-img .news .collect {
@@ -1435,6 +1518,27 @@ body {
 }
 .post .toolbar .jiathis_style_32x32 .jtico_jiathis {
   background: url(../icon/share32px.png) 0 0 no-repeat;
+}
+@media (max-width: 479px) {
+  .post .toolbar .collect {
+    margin-bottom: 10px;
+  }
+  .post .toolbar .jiathis_style_32x32 {
+    float: none;
+    display: block;
+    border-left: none;
+    padding-left: 0;
+  }
+  .post .toolbar .jiathis_style_32x32:before {
+    display: table;
+    content: '';
+    clear: both;
+  }
+  .post .toolbar .jiathis_style_32x32:after {
+    display: table;
+    content: '';
+    clear: both;
+  }
 }
 .post .toolbar[data-action=post] {
   padding: 0;
@@ -1850,7 +1954,6 @@ body {
 }
 #user-modal .custom-button.type-weibo {
   background-color: #D04341;
-  text-indent: 30px;
 }
 #user-modal .custom-button[type=submit] {
   background-color: #0a62a3;
@@ -1928,6 +2031,12 @@ body.show-breaking-news #breaking-news {
   #rightbar {
     width: 330px;
   }
+  #postbar {
+    margin-left: 720px;
+  }
+  #qrcode {
+    margin-left: 720px;
+  }
 }
 @media (min-width: 992px) {
   #content {
@@ -1939,6 +2048,10 @@ body.show-breaking-news #breaking-news {
   #main {
     width: 430px;
   }
+  #postbar,
+  #qrcode {
+    margin-left: 960px;
+  }
 }
 @media (min-width: 1280px) {
   #content {
@@ -1949,6 +2062,10 @@ body.show-breaking-news #breaking-news {
   }
   #main {
     width: 670px;
+  }
+  #postbar,
+  #qrcode {
+    margin-left: 1200px;
   }
 }
 /*# sourceMappingURL=style.css.map */

@@ -23,7 +23,7 @@
         iOSNativeScrolling: true
     });
     $('#right-side-livenews').nanoScroller({
-        preventPageScrolling: true,
+        //preventPageScrolling: true,
         //alwaysVisible: true,
         iOSNativeScrolling: true
     });
