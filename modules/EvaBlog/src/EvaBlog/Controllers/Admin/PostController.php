@@ -24,6 +24,7 @@ class PostController extends ControllerBase
             'uid' => $this->request->getQuery('uid', 'int'),
             'cid' => $this->request->getQuery('cid', 'int'),
             'username' => $this->request->getQuery('username', 'string'),
+            'sourceName' => $this->request->getQuery('source_name', 'string'),
             'order' => $order,
             'limit' => $limit,
             'page' => $this->request->getQuery('page', 'int', 1),
