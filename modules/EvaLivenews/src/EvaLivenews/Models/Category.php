@@ -12,8 +12,7 @@ class Category extends Entities\Categories
     {
         $this->createdAt = time();
         if (!$this->slug) {
-            $factory = new \RandomLib\Factory();
-            $this->slug = $factory->getMediumStrengthGenerator()->generateString(8, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+            $this->slug = \Phalcon\Text::random(\Phalcon\Text::RANDOM_ALNUM, 8);
         }
     }
 

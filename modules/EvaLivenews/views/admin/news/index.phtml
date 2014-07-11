@@ -30,7 +30,8 @@
         <div class="col-xs-12">
             <h3 class="header smaller lighter blue">
                 News List
-                <a href="/admin/livenews/news/create" class="btn btn-sm"><i class="icon-pencil align-top bigger-125"></i> Write New</a>
+                <a href="/admin/livenews/news/create" class="btn btn-sm"><i class="icon-file-alt align-top bigger-125"></i> Report News</a>
+                <a href="/admin/livenews/data/create" class="btn btn-sm"><i class="icon-warning-sign align-top bigger-125"></i> Report Data</a>
             </h3>
             <div class="table-header">
                 Showing <?=$pager->offset_start?> to <?=$pager->offset_end?> of <?=$pager->total_items?> Items 
@@ -48,6 +49,11 @@
                             </div>
                             <div class="form-group">
                                 <?=$form->render('status', array(
+                                    'class' => 'form-control input-sm'
+                                ))?>
+                            </div>
+                            <div class="form-group">
+                                <?=$form->render('code_type', array(
                                     'class' => 'form-control input-sm'
                                 ))?>
                             </div>
@@ -97,8 +103,9 @@
                             </th>
                             <th>Title</th>
                             <th class="hidden-480">Status</th>
+                            <th class="hidden-480">Importance</th>
                             <th>
-                                <a href="<?=$this->tag->uri('/admin/livenews/news', $pager->query)?>" class="sortable-link" data-sortable-value="sort_order" data-sortable-default="-sort_order">Order</a>
+                                Categories
                             </th>
                             <th>User</th>
                             <th>
@@ -122,7 +129,14 @@
                             </td>
                             <td class="hidden-480"><?=$item->id?></td>
                             <td>
-                                <a href="/admin/livenews/news/edit/<?=$item->id?>"><?=$item->title?></a>
+                                <a href="/admin/livenews/news/edit/<?=$item->id?>">
+                                    <?if($item->codeType == 'markdown'):?>
+                                    <?=$item->title?>
+                                    <?else:?>
+                                    <?$data = json_decode($item->content)?>
+                                    [<?=$this->tag->datetime($item->createdAt, 'H:i')?>] <?=$data->title?> : A[<?=$data->actual?>] / F[<?=$data->forecast?>] / P[<?=$data->previous?>]
+                                    <?endif?>
+                                </a>
                                 <?if($item->sourceName):?><a href="<?=$item->sourceUrl?>" target="_blank"><span class="label"><?=$item->sourceName?></span></a><?endif?>
                                 <span class="label"><?=$item->codeType?></span>
                             </td>
@@ -135,8 +149,15 @@
                                 )?>
                                 <span class="label label-sm <?=$status[$item->status]?>"><?=$item->status?></span>
                             </td>
-                            <td>
-                                <input class="form-control input-mini ajax-field-edit" value="<?=$item->sortOrder?>" data-name="sortOrder" date-method="put" data-form-action="/admin/livenews/news/process/sort/<?=$item->id?>" data-callback="input.parent().addClass('has-success')" />
+                            <td class="hidden-480 center">
+                                <?=$item->importance?>
+                            </td>
+                            <td class="grey">
+                                <?if($item->categories):?>
+                                <?foreach($item->categories as $category):?>
+                                <i class="icon-tag"></i><?=$category->categoryName?>
+                                <?endforeach?>
+                                <?endif?>
                             </td>
                             <td><?=$item->user ? $item->user->username : ''?></td>
                             <td><?=$this->tag->datetime($item->createdAt)?></td>

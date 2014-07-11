@@ -39,7 +39,7 @@ class Module implements ModuleDefinitionInterface, StandardInterface
     /**
      * Registers the module-only services
      *
-     * @param Phalcon\DI $di
+     * @param $di
      */
     public function registerServices($di)
     {

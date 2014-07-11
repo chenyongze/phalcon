@@ -2,7 +2,6 @@
 
 namespace Eva\EvaPermission\Auth;
 
-use Phalcon\Acl\Adapter\Memory as MemoryAcl;
 use Phalcon\Acl;
 use Eva\EvaEngine\Exception;
 use Eva\EvaPermission\Entities;
@@ -12,6 +11,8 @@ use Phalcon\Cache\Backend as BackendCache;
 class TokenAuthority extends AbstractAuthority
 {
     protected $apikey;
+
+    protected $token;
 
     public function setApikey($apikey)
     {

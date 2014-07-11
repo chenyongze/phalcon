@@ -24,6 +24,7 @@ class UploadController extends ControllerBase implements JsonControllerInterface
              ));
          }
          $upload = new Models\Upload();
+         $fileinfo = array();
          try {
              $files = $this->request->getUploadedFiles();
              //Only allow upload the first file by force
@@ -53,6 +54,7 @@ class UploadController extends ControllerBase implements JsonControllerInterface
              ));
          }
          $upload = new Models\Upload();
+         $fileinfo = array();
          try {
              $file = $upload->uploadByEncodedData(
                 $this->request->getPost('file'),

@@ -44,6 +44,16 @@ class FilterForm extends Form
 
     /**
     *
+    * @Type(Select)
+    * @Option("All Type")
+    * @Option(markdown=News)
+    * @Option(json=Data)
+    * @var string
+    */
+    public $code_type;
+
+    /**
+    *
     * @var string
     */
     public $username;
