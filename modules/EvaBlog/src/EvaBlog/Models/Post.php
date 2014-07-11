@@ -141,6 +141,10 @@ class Post extends Entities\Posts
             $itemQuery->andWhere('status = :status:', array('status' => $query['status']));
         }
 
+        if (!empty($query['sourceName'])) {
+            $itemQuery->andWhere('sourceName = :sourceName:', array('sourceName' => $query['sourceName']));
+        }
+
         if (!empty($query['uid'])) {
             $itemQuery->andWhere('userId = :uid:', array('uid' => $query['uid']));
         }

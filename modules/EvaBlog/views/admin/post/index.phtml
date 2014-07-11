@@ -51,6 +51,7 @@
                                     'class' => 'form-control input-sm'
                                 ))?>
                             </div>
+                            
                             <div class="form-group">
                                 <?=$form->render('uid', array())?>
                                 <?=$form->render('username', array(
@@ -60,6 +61,12 @@
                                     'data-autocomplete-target' => 'input[name=uid]',
                                     'data-autocomplete-fill-name' => 'id',
                                     'data-autocomplete-display-key' => 'username',
+                                ))?>
+                            </div>
+                            <div class="form-group">
+                                <?=$form->render('source_name', array(
+                                    'class' => 'form-control input-sm',
+                                    'placeholder' => 'Source',
                                 ))?>
                             </div>
                             <div class="form-group">
