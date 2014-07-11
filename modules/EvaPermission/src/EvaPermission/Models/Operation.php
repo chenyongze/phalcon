@@ -17,6 +17,7 @@ class Operation extends Entities\Operations
             'id' => 'id ASC',
             '-id' => 'id DESC',
         );
+        $order = 'id ASC';
 
         if (!empty($query['q'])) {
             $itemQuery->andWhere('resourceKey LIKE :q: OR name LIKE :q:', array('q' => "%{$query['q']}%"));

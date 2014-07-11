@@ -40,6 +40,7 @@
     ],
     "require-dev": {
         "doctrine/orm": "*",
-        "symfony/finder": "*"
+        "symfony/finder": "*",
+	"league/oauth2-server": "*"
     }
 }

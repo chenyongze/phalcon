@@ -58,7 +58,6 @@ class Apikey extends Entities\Apikeys
 
         $tokenObj = self::findFirst("apikey = '$token'");
         if($tokenObj) {
-            $tokenObj = $tokenObj;
             $token = array(
                 'apikey' => $tokenObj->apikey,
                 'userId' => $tokenObj->userId,

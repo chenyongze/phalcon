@@ -2,6 +2,7 @@
 
 namespace Eva\EvaPermission\Entities;
 
+/** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
 class Apikeys extends \Eva\EvaEngine\Mvc\Model
 {
     protected $tableName = 'permission_apikeys';

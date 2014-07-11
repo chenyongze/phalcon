@@ -11,6 +11,7 @@ class PostController extends \Phalcon\Mvc\Controller
     {
         $limit = $this->dispatcher->getParam('limit');
         $limit = $limit ? $limit : 25;
+        /** @noinspection PhpDuplicateArrayKeysInspection */
         $query = array(
             'q' => $this->dispatcher->getParam('q'),
             'status' => $this->dispatcher->getParam('status'),
@@ -20,7 +21,6 @@ class PostController extends \Phalcon\Mvc\Controller
             'order' => $this->dispatcher->getParam('order'),
             'limit' => $limit,
             'page' => $this->dispatcher->getParam('page'),
-            'order' => $this->dispatcher->getParam('order'),
         );
         $post = new Models\Post();
         $posts = $post->findPosts($query);
