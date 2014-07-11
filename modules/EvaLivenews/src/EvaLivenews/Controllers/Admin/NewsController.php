@@ -6,9 +6,16 @@ use Eva\EvaLivenews\Models;
 use Eva\EvaLivenews\Models\Livenews;
 use Eva\EvaLivenews\Forms;
 use Eva\EvaEngine\Exception;
+use Phalcon\Mvc\View;
 
 class NewsController extends ControllerBase
 {
+    public function embedAction()
+    {
+        $this->indexAction();
+        $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
+    }
+
     /**
     * Index action
     */
@@ -59,26 +66,41 @@ class NewsController extends ControllerBase
         }
 
         $data = $this->request->getPost();
-        if (!$form->isFullValid($data)) {
-            return $this->displayInvalidMessages($form);
-        }
 
-        try {
-            $form->save('createNews');
-        } catch (\Exception $e) {
-            return $this->displayException($e, $form->getModel()->getMessages());
+        if($this->request->isAjax()) {
+            if (!$form->isFullValid($data)) {
+                return $this->displayJsonInvalidMessages($form);
+            }
+            try {
+                $form->save('createNews');
+            } catch (\Exception $e) {
+                return $this->displayExceptionForJson($e, $form->getModel()->getMessages());
+            }
+            return $this->displayJsonResponse($form->getModel()->dump(Models\NewsManager::$defaultDump));
+        } else {
+            if (!$form->isFullValid($data)) {
+                return $this->displayInvalidMessages($form);
+            }
+            try {
+                $form->save('createNews');
+            } catch (\Exception $e) {
+                return $this->displayException($e, $form->getModel()->getMessages());
+            }
+            $this->flashSession->success('SUCCESS_NEWS_CREATED');
+            return $this->redirectHandler('/admin/livenews/news/edit/' . $form->getModel()->id);
         }
-        $this->flashSession->success('SUCCESS_NEWS_CREATED');
-
-        return $this->redirectHandler('/admin/livenews/news/edit/' . $form->getModel()->id);
     }
 
     public function editAction()
     {
         $this->view->changeRender('admin/news/create');
-        $news = Models\News::findFirst($this->dispatcher->getParam('id'));
+        $news = Models\NewsManager::findFirst($this->dispatcher->getParam('id'));
         if (!$news) {
             throw new Exception\ResourceNotFoundException('ERR_LIVENEWS_NEWS_NOT_FOUND');
+        }
+
+        if($news->codeType == 'json') {
+            return $this->redirectHandler('/admin/livenews/data/edit/' . $news->id);
         }
 
         $form = new Forms\NewsForm();
@@ -92,17 +114,27 @@ class NewsController extends ControllerBase
         }
         $data = $this->request->getPost();
 
-        if (!$form->isFullValid($data)) {
-            return $this->displayInvalidMessages($form);
+        if($this->request->isAjax()) {
+            if (!$form->isFullValid($data)) {
+                return $this->displayJsonInvalidMessages($form);
+            }
+            try {
+                $form->save('updateNews');
+            } catch (\Exception $e) {
+                return $this->displayExceptionForJson($e, $form->getModel()->getMessages());
+            }
+            return $this->displayJsonResponse($form->getModel()->dump(Models\NewsManager::$defaultDump));
+        } else {
+            if (!$form->isFullValid($data)) {
+                return $this->displayInvalidMessages($form);
+            }
+            try {
+                $form->save('updateNews');
+            } catch (\Exception $e) {
+                return $this->displayException($e, $form->getModel()->getMessages());
+            }
+            $this->flashSession->success('SUCCESS_NEWS_UPDATED');
+            return $this->redirectHandler('/admin/livenews/news/edit/' . $news->id);
         }
-
-        try {
-            $form->save('updateNews');
-        } catch (\Exception $e) {
-            return $this->displayException($e, $form->getModel()->getMessages());
-        }
-        $this->flashSession->success('SUCCESS_NEWS_UPDATED');
-
-        return $this->redirectHandler('/admin/livenews/news/edit/' . $news->id);
     }
 }

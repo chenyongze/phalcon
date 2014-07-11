@@ -20,8 +20,8 @@
     </a>
     </li>
 
-    <li class="tobe-highlight" data-highlight-url="/admin/livenews/news/create\#report-data">
-    <a href="/admin/livenews/news/create#report-data">
+    <li class="tobe-highlight" data-highlight-url="/admin/livenews/data/.*">
+    <a href="/admin/livenews/data/create">
         <i class="icon-double-angle-right"></i>
         Report Data
     </a>

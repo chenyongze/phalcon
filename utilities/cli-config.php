@@ -19,7 +19,7 @@ $dbParams = array(
     'driver'   => 'pdo_mysql',
     'user'     => $config->dbAdapter->master->username,
     'password' => $config->dbAdapter->master->password,
-    'dbname'   => $config->dbAdapter->master->database,
+    'dbname'   => $config->dbAdapter->master->dbname,
 );
 
 $config = Setup::createAnnotationMetadataConfiguration($paths, $isDevMode);

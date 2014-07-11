@@ -3,7 +3,10 @@
         <div class="content">
             <div class="user box">
                 <img class="avatar" src="" alt=""/>
-                <button class="custom-button size-fluid type-blue">登陆</button>
+                <button class="custom-button size-fluid type-blue"
+                        data-toggle="custom-modal"
+                        data-target="#user-modal"
+                        data-action="login">登陆</button>
             </div>
             <div id="left-market-list" class="nano" data-hover="unfold">
                 <nav class="nano-content">
@@ -289,7 +292,7 @@
                     <span class="meta time">2014年6月20号  12:24</span>
                     <div class="pull-right">
                         <span class="meta">来源：华尔街见闻</span>
-                        <span class="meta comment-count">(10)</span>
+                        <span class="meta comment-count icontext icontext-discuss-blue">(10)</span>
                     </div>
                 </div>
                 <img src="/wscn/img/img-news-lg.jpg" class="main-image" alt=""/>
@@ -318,11 +321,19 @@
                     <br/>同时欢迎关注见闻微信号：wallstreetcn
                 </p>
                 <div class="toolbar">
-                    <span class="endorse">(132)</span>
-                    <div class="pull-right">
-                        <span class="separator hidden-xxs hidden-xs"></span>
-                        分享
+                    <span class="endorse icontext icontext-endorse-blue">(132)</span>
+                    <a class="collect" href=""></a>
+                    <!-- JiaThis Button BEGIN -->
+                    <div class="jiathis_style_32x32">
+                        <span class="text">分享</span>
+                        <a class="jiathis_button_tsina"></a>
+                        <a class="jiathis_button_cqq"></a>
+                        <a class="jiathis_button_weixin"></a>
+                        <a class="jiathis_button_evernote"></a>
+                        <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
                     </div>
+                    <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1393984262901745" charset="utf-8"></script>
+                    <!-- JiaThis Button END -->
                 </div>
                 <div class="toolbar hidden-xxs" data-action="post">
                     <a class="prev-post">
@@ -528,43 +539,33 @@
                 <li class="tab-pane active" id="side-day-rank-news">
                     <ul class="news-list with-number">
                         <li class="news">
-                            <span class="number">1</span>
                             <a class="title" href="">什么都怪房地产？别把中国经济想得太简单</a>
                         </li>
                         <li class="news">
-                            <span class="number">2</span>
                             <a class="title" href="">德国放弃从美国运回黄金说明了什么？</a>
                         </li>
                         <li class="news">
-                            <span class="number">3</span>
                             <a class="title" href="">微刺激发力 汇丰中国制造业PMI创七个月新高</a>
                         </li>
                         <li class="news">
-                            <span class="number">4</span>
                             <a class="title" href="">今夏全球市场焦点——美国通胀是否已现？</a>
                         </li>
                         <li class="news">
-                            <span class="number">5</span>
                             <a class="title" href="">对话中国顶尖对冲基金！见闻俱乐部第2期主题沙龙火热报名中</a>
                         </li>
                         <li class="news">
-                            <span class="number">6</span>
                             <a class="title" href="">干旱席卷世界最大甘蔗产区 对冲基金押宝糖价上涨</a>
                         </li>
                         <li class="news">
-                            <span class="number">7</span>
                             <a class="title" href="">金属骗贷调查泼冷水 铜市六周以来首现净空头</a>
                         </li>
                         <li class="news">
-                            <span class="number">8</span>
                             <a class="title" href="">伦敦房地产泡沫比中国更大</a>
                         </li>
                         <li class="news">
-                            <span class="number">9</span>
                             <a class="title" href="">“超级投资者”踏空牛市 谁是美股新高的缔造者？</a>
                         </li>
                         <li class="news">
-                            <span class="number">10</span>
                             <a class="title" href="">一张图看懂中国为何需要微刺激</a>
                         </li>
                     </ul>
@@ -572,43 +573,33 @@
                 <li class="tab-pane " id="side-week-rank-news">
                     <ul class="news-list with-number">
                         <li class="news">
-                            <span class="number">1</span>
                             <a class="title" href="">什么都怪房地产？别把中国经济想得太简单</a>
                         </li>
                         <li class="news">
-                            <span class="number">2</span>
                             <a class="title" href="">德国放弃从美国运回黄金说明了什么？</a>
                         </li>
                         <li class="news">
-                            <span class="number">3</span>
                             <a class="title" href="">微刺激发力 汇丰中国制造业PMI创七个月新高</a>
                         </li>
                         <li class="news">
-                            <span class="number">4</span>
                             <a class="title" href="">今夏全球市场焦点——美国通胀是否已现？</a>
                         </li>
                         <li class="news">
-                            <span class="number">5</span>
                             <a class="title" href="">对话中国顶尖对冲基金！见闻俱乐部第2期主题沙龙火热报名中</a>
                         </li>
                         <li class="news">
-                            <span class="number">6</span>
                             <a class="title" href="">干旱席卷世界最大甘蔗产区 对冲基金押宝糖价上涨</a>
                         </li>
                         <li class="news">
-                            <span class="number">7</span>
                             <a class="title" href="">金属骗贷调查泼冷水 铜市六周以来首现净空头</a>
                         </li>
                         <li class="news">
-                            <span class="number">8</span>
                             <a class="title" href="">伦敦房地产泡沫比中国更大</a>
                         </li>
                         <li class="news">
-                            <span class="number">9</span>
                             <a class="title" href="">“超级投资者”踏空牛市 谁是美股新高的缔造者？</a>
                         </li>
                         <li class="news">
-                            <span class="number">10</span>
                             <a class="title" href="">一张图看懂中国为何需要微刺激</a>
                         </li>
                     </ul>

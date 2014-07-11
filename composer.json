@@ -4,24 +4,29 @@
     "license": "Business Licenses",
     "authors": [
         {
-        "name": "AlloVince",
-        "email": "allo.vince@gmail.com",
-        "homepage": "http://avnpc.com"
-    }
+            "name": "AlloVince",
+            "email": "allo.vince@gmail.com",
+            "homepage": "http://avnpc.com"
+        }
     ],
     "require": {
         "php": ">=5.3.10",
-	"ext-phalcon": ">=1.3.2",
-	"ircmaxell/password-compat": "dev-master",
-	"zircote/swagger-php": "*",
-        "phalcon/incubator" : "dev-master",
-	"knplabs/gaufrette" : "dev-master",
-	"allovince/evaoauth": "dev-master",
-	"allovince/evathumber": "dev-master",
-	"imagine/imagine": "dev-master",
-	"swiftmailer/swiftmailer" : "dev-master",
-	"rase/socket.io-emitter": "dev-master",
-	"erusev/parsedown" : "dev-master"
+        "ext-phalcon": ">=1.3.2",
+        "ext-redis": "*",
+        "ext-gearman": "*",
+
+        "ircmaxell/password-compat": "dev-master",
+        "zircote/swagger-php": "*",
+        "phalcon/incubator": "dev-master",
+        "knplabs/gaufrette": "dev-master",
+        "allovince/evaoauth": "dev-master",
+        "allovince/evathumber": "dev-master",
+        "imagine/imagine": "dev-master",
+        "swiftmailer/swiftmailer": "dev-master",
+        "rase/socket.io-emitter": "dev-master",
+        "erusev/parsedown": "dev-master",
+
+        "mr5/counter-rank": "dev-master"
     },
     "repositories": [
         {
@@ -30,11 +35,11 @@
         },
         {
             "type": "git",
-            "url":  "https://github.com/AlloVince/socket.io-php-emitter.git"
+            "url": "https://github.com/AlloVince/socket.io-php-emitter.git"
         }
     ],
-    "require-dev" : {
-	"doctrine/orm": "*",
+    "require-dev": {
+        "doctrine/orm": "*",
         "symfony/finder": "*"
     }
 }

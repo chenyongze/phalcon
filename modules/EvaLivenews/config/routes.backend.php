@@ -11,6 +11,16 @@ return array(
         'action' => 1,
         'id' => 3,
     ),
+    '/admin/livenews/data' =>  array(
+        'module' => 'EvaLivenews',
+        'controller' => 'Admin\Data',
+    ),
+    '/admin/livenews/data/:action(/(\d+))*' =>  array(
+        'module' => 'EvaLivenews',
+        'controller' => 'Admin\Data',
+        'action' => 1,
+        'id' => 3,
+    ),
     '/admin/livenews/category' =>  array(
         'module' => 'EvaLivenews',
         'controller' => 'Admin\Category',

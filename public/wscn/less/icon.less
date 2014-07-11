@@ -1,27 +1,68 @@
-[class^=icon-] {
-    display: inline-block;
-    vertical-align: middle;
-    width: 16px;
-    height: 16px;
+.icontext {
+    display: inline;
+    padding-left: 20px;
+    position: relative;
+    min-height: 16px;
+    font-style: normal;
+    &:before {
+        display: block;
+        position: absolute;
+        content: "";
+        width: 16px;
+        height: 16px;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto 0;
+    }
+    &.rtl {
+        padding-left: 0;
+        padding-right: 20px;
+        &:before {
+            left: auto;
+            right: 0;
+        }
+    }
 }
-.icon-arrow-right {
+.icontext-arrow-right:before {
     background: url(../icon/arrow-right.png);
 }
-.icon-rise {
+.icontext-rise:before {
     background: url(../icon/rise.png);
 }
-.icon-fall {
+.icontext-fall:before {
     background: url(../icon/fall.png);
 }
-.icon-collect {
+.icontext-collect-blue:before {
     background: url(../icon/collect-blue.png);
 }
-.icon-share {
+.icontext-share-blue:before {
     background: url(../icon/share-blue.png);
 }
-.icon-discuss {
+.icontext-discuss-blue:before {
+    background: url(../icon/discuss-blue.png);
+}
+.icontext-endorse-blue:before {
+    background: url(../icon/endorse-blue.png);
+}
+.icontext-discuss-white:before {
     background: url(../icon/discuss-white.png);
 }
-.icon-endorse {
+.icontext-endorse-white:before {
     background: url(../icon/endorse-white.png);
+}
+
+.icontext-qq-md ,
+.icontext-weibo-md {
+    padding-left: 30px;
+}
+.icontext-qq-md:before {
+    width: 24px;
+    height: 24px;
+    background: url(../icon/qq-md.png);
+}
+.icontext-weibo-md:before {
+    width: 24px;
+    height: 24px;
+    background: url(../icon/weibo-md.png);
 }
