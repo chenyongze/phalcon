@@ -48,6 +48,12 @@ class FilterForm extends Form
     */
     public $username;
 
+    /**
+    *
+    * @var string
+    */
+    public $source_name;
+
     protected $cid;
 
     public function addCid()

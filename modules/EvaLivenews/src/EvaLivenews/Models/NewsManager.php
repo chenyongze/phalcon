@@ -117,6 +117,10 @@ class NewsManager extends Entities\News
             $itemQuery->andWhere('status = :status:', array('status' => $query['status']));
         }
 
+        if (!empty($query['codeType'])) {
+            $itemQuery->andWhere('codeType = :codeType:', array('codeType' => $query['codeType']));
+        }
+
         if (!empty($query['uid'])) {
             $itemQuery->andWhere('userId = :uid:', array('uid' => $query['uid']));
         }

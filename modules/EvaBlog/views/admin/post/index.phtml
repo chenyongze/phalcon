@@ -51,6 +51,7 @@
                                     'class' => 'form-control input-sm'
                                 ))?>
                             </div>
+                            
                             <div class="form-group">
                                 <?=$form->render('uid', array())?>
                                 <?=$form->render('username', array(
@@ -60,6 +61,12 @@
                                     'data-autocomplete-target' => 'input[name=uid]',
                                     'data-autocomplete-fill-name' => 'id',
                                     'data-autocomplete-display-key' => 'username',
+                                ))?>
+                            </div>
+                            <div class="form-group">
+                                <?=$form->render('source_name', array(
+                                    'class' => 'form-control input-sm',
+                                    'placeholder' => 'Source',
                                 ))?>
                             </div>
                             <div class="form-group">
@@ -101,7 +108,7 @@
                                 <a href="<?=$this->tag->uri('/admin/post', $pager->query)?>" class="sortable-link" data-sortable-value="sort_order" data-sortable-default="-sort_order">Order</a>
                             </th>
                             <th>User</th>
-                            <th>heat</th>
+                            <th>Count</th>
                             <th>
                                 <a href="<?=$this->tag->uri('/admin/post', $pager->query)?>" class="sortable-link" data-sortable-value="created_at" data-sortable-default="-created_at">
                                     <i class="icon-time bigger-110"></i>
@@ -140,7 +147,7 @@
                                 <input class="form-control input-mini ajax-field-edit" value="<?=$item->sortOrder?>" data-name="sortOrder" date-method="put" data-form-action="/admin/post/process/sort/<?=$item->id?>" data-callback="input.parent().addClass('has-success')" />
                             </td>
                             <td><?=$item->user ? $item->user->username : ''?></td>
-                            <td>0</td>
+                            <td><?=$item->count?></td>
                             <td><?=$this->tag->datetime($item->createdAt)?></td>
                             <td>
                                 <div class="btn-group">

@@ -21,7 +21,7 @@ class NewsController extends ControllerBase
     */
     public function indexAction()
     {
-        $limit = $this->request->getQuery('limit', 'int', 25);
+        $limit = $this->request->getQuery('per_page', 'int', 25);
         $limit = $limit > 100 ? 100 : $limit;
         $limit = $limit < 10 ? 10 : $limit;
         $order = $this->request->getQuery('order', 'string', '-created_at');
@@ -31,6 +31,7 @@ class NewsController extends ControllerBase
             'uid' => $this->request->getQuery('uid', 'int'),
             'cid' => $this->request->getQuery('cid', 'int'),
             'username' => $this->request->getQuery('username', 'string'),
+            'codeType' => $this->request->getQuery('code_type', 'string'),
             'order' => $order,
             'limit' => $limit,
             'page' => $this->request->getQuery('page', 'int', 1),

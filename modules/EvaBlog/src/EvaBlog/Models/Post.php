@@ -77,10 +77,7 @@ class Post extends Entities\Posts
 
     public function afterCreate()
     {
-        if($this->getDI()->getModuleManager()->hasModule('CounterRank')) {
-            $counterRankUtil = new CounterRankUtil();
-            $counterRankUtil->getCounterRank('posts')->create($this->id);
-        }
+        $this->getDI()->getEventsManager()->fire('blog:afterCreate', $this);
     }
 
     public function beforeUpdate()
@@ -142,6 +139,10 @@ class Post extends Entities\Posts
 
         if (!empty($query['status'])) {
             $itemQuery->andWhere('status = :status:', array('status' => $query['status']));
+        }
+
+        if (!empty($query['sourceName'])) {
+            $itemQuery->andWhere('sourceName = :sourceName:', array('sourceName' => $query['sourceName']));
         }
 
         if (!empty($query['uid'])) {

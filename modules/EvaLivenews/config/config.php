@@ -2,7 +2,7 @@
 
 return array(
     'livenews' => array(
-        'broadcastEnable' => true,
+        'broadcastEnable' => false,
         'socketIoServer' => 'http://localhost:3000',
         'socketIoRedis' => array(
             'host' => 'localhost',
