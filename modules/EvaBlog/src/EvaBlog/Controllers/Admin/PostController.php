@@ -14,7 +14,7 @@ class PostController extends ControllerBase
     */
     public function indexAction()
     {
-        $limit = $this->request->getQuery('limit', 'int', 25);
+        $limit = $this->request->getQuery('per_page', 'int', 25);
         $limit = $limit > 100 ? 100 : $limit;
         $limit = $limit < 10 ? 10 : $limit;
         $order = $this->request->getQuery('order', 'string', '-created_at');
