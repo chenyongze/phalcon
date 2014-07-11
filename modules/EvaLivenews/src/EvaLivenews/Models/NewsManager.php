@@ -6,7 +6,6 @@ use Eva\EvaLivenews\Entities;
 use Eva\EvaUser\Models\Login as LoginModel;
 use Eva\EvaFileSystem\Models\Upload as UploadModel;
 use Eva\EvaEngine\Exception;
-use Eva\EvaEngine\Mvc\Model\Validator\Uniqueness;
 
 
 class NewsManager extends Entities\News

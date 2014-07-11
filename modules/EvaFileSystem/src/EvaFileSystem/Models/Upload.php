@@ -59,6 +59,7 @@ class Upload extends Files
         $fileExtension = strtolower(array_pop($filenameArray));
         $originalFileName = implode('.', $filenameArray);
         $fileName = Tag::friendlyTitle($originalFileName);
+        $fileHash = null;
         if ($fileName == '-') {
             $fileName = Text::random(Text::RANDOM_ALNUM, 6);
         }

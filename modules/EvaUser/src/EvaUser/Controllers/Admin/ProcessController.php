@@ -29,8 +29,6 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
     {
         if (!$this->request->isPut()) {
             throw new Exception\ResourceNotFoundException('ERR_USER_REQUEST_USER_NOT_FOUND');
-
-            return $this->displayJsonErrorResponse(405, 'ERR_REQUEST_METHOD_NOT_ALLOW');
         }
 
         $id = $this->dispatcher->getParam('id');
@@ -62,7 +60,7 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
                 $user->delete();
             }
         } catch (\Exception $e) {
-            return $this->displayExceptionForJson($e, $user>getMessages());
+            return $this->displayExceptionForJson($e, $user->getMessages());
         }
 
         return $this->response->setJsonContent($user);

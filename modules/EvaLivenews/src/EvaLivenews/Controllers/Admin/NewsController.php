@@ -3,7 +3,6 @@
 namespace Eva\EvaLivenews\Controllers\Admin;
 
 use Eva\EvaLivenews\Models;
-use Eva\EvaLivenews\Models\Livenews;
 use Eva\EvaLivenews\Forms;
 use Eva\EvaEngine\Exception;
 use Phalcon\Mvc\View;

@@ -97,7 +97,7 @@ class Apikey extends Entities\Apikeys
         $time = time();
         $cacheKey = $cachePrefix . '-' . ($time - $time % 60);
         $minutelyRate = $tokenStatus['minutelyRate'];
-        
+
         $currentRate = $fastCache->get($cacheKey);
         if($currentRate > $tokenStatus['minutelyRate']) {
             return true;
