@@ -13,7 +13,7 @@
                 <?=$item->getContentHtml()?>
                 <?else:?>
                 <?$data = json_decode($item->content)?>
-                [<?=$data->timestamp?>] <?=$data->title?> : A[<?=$data->actual?>] / F[<?=$data->forecast?>] / P[<?=$data->previous?>]
+                [<?=$this->tag->datetime($item->createdAt, 'H:i')?>] <?=$data->title?> : A[<?=$data->actual?>] / F[<?=$data->forecast?>] / P[<?=$data->previous?>]
                 <?endif?>
             </div>
 
