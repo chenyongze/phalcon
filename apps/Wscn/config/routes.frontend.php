@@ -32,4 +32,27 @@ return array(
         'action' => 1,
         'id' => 3,
     ),
+
+    '/register' => array(
+        'module' => 'Wscn',
+        'controller' => 'register',
+    ),
+    '/register/:action' => array(
+        'module' => 'Wscn',
+        'controller' => 'register',
+        'action' => 1,
+    ),
+    '/login' => array(
+        'module' => 'Wscn',
+        'controller' => 'login',
+    ),
+    '/login/:action([\w/]*)' => array(
+        'module' => 'Wscn',
+        'controller' => 'login',
+        'action' => 1,
+    ),
+    '/logout' => array(
+        'module' => 'Wscn',
+        'controller' => 'logout',
+    ),
 );
