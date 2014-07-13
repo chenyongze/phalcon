@@ -100,7 +100,19 @@
 </header>
 
 <div id="content">
-<?=$this->getContent()?>
+    <?=$this->getContent()?>
+    <!-- qr code -->
+    <a id="qrcode" class="hidden-xs hidden-xxs" href="http://wallstreetcn.com/app/index.html">
+        <img src="/wscn/img/qrcode.png" alt=""/>
+    </a>
+    <!-- qr code end -->
+    <!-- postbar -->
+    <aside id="postbar" class="hidden-xs hidden-xxs">
+        <a class="item suggest"></a>
+        <a class="item wechat"></a>
+        <a class="item up" href="#"></a>
+    </aside>
+    <!-- postbar ebd -->
 </div>
 
 <!-- Modal -->
@@ -170,7 +182,7 @@
                                                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                                             </div>
                                             <div class="form-footer">
-                                                <div class="checkbox pull-left">
+                                                <div class="checkbox pull-left" style="width: 100px;">
                                                     <label>
                                                         <input type="checkbox"> 记住密码
                                                     </label>

@@ -156,3 +156,69 @@
         }
     }
 }
+
+.sharebar {
+    font-size: 14px;
+    line-height: 32px;
+    width: 135px;
+    .discuss ,
+    .collect {
+        display: block;
+        padding-left: 15px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #ccc;
+        margin-bottom: 20px;
+        &:before {
+            display: block;
+            width: 32px;
+            height: 32px;
+            float: left;
+            margin-right: 10px;
+            content: "";
+        }
+    }
+    .discuss:before {
+        background: url(../icon/discuss32px.png);
+    }
+    .collect:before {
+        background: url(../icon/collect32px.png);
+    }
+
+    .jiathis_style_32x32 {
+        font-size: 14px;
+        line-height: 32px;
+        a {
+            display: block;
+            height: 32px;
+            width: 100%;
+            padding-left: 15px;
+            margin-bottom: 20px;
+            &.jiathis {
+                margin-left: 15px;
+            }
+        }
+        .jtico {
+            padding-left: 32px !important;
+            //display: block;
+            font-size: 14px;
+            text-indent: 10px;
+            margin: 0;
+            //background: url(../icon/weibo32px.png) 0 0 no-repeat;
+        }
+        .jtico_tsina {
+            background: url(../icon/weibo32px.png) 0 0 no-repeat;
+        }
+        .jtico_cqq {
+            background: url(../icon/qq32px.png) 0 0 no-repeat;
+        }
+        .jtico_weixin {
+            background: url(../icon/wechat32px.png) 0 0 no-repeat;
+        }
+        .jtico_evernote {
+            background: url(../icon/evernote32px.png) 0 0 no-repeat;
+        }
+        .jtico_jiathis {
+            background: url(../icon/share32px.png) 0 0 no-repeat;
+        }
+    }
+}

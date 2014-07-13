@@ -21,3 +21,41 @@
     font-size: 14px;
     height: 300px;
 }
+
+#postbar {
+    position: fixed;
+    bottom: 40px;
+    padding-left: 15px;
+    .item {
+        display: block;
+        width: 50px;
+        height: 50px;
+        margin-bottom: 15px;
+    }
+    .suggest {
+        background: url(../icon/suggest50px.png);
+        &:hover {
+            background-image: url(../icon/suggest-active50px.png);
+        }
+    }
+    .wechat {
+        background: url(../icon/wechat50px.png);
+        &:hover {
+            background-image: url(../icon/wechat-active50px.png);
+        }
+    }
+    .up {
+        background: url(../icon/up50px.png);
+        &:hover {
+            background-image: url(../icon/up-active50px.png);
+        }
+    }
+}
+
+#qrcode {
+    display: block;
+    position: fixed;
+    top: 230px;
+    padding-left: 15px;
+}
+
