@@ -240,12 +240,12 @@
                                         </div>
                                         <div class="custom-row">
                                             <div class="custom-span-left" style="">
-                                                <a class="custom-button size-fluid type-weibo" href="/auth/request/weibo/oauth2" target="_blank">
+                                                <a class="custom-button size-fluid type-weibo login-social-btn" href="/auth/request/weibo/oauth2" target="_blank">
                                                     <i class="icontext icontext-weibo-md">微博帐号</i>
                                                 </a>
                                             </div>
                                             <div class="custom-span-right" style="">
-                                                <a class="custom-button size-fluid type-qq" href="/auth/request/tencent/oauth2" target="_blank">
+                                                <a class="custom-button size-fluid type-qq login-social-btn" href="/auth/request/tencent/oauth2" target="_blank">
                                                     <i class="icontext icontext-qq-md">QQ帐号</i>
                                                 </a>
                                             </div>
@@ -324,12 +324,12 @@
                                             </div>
                                             <div class="custom-row">
                                                 <div class="custom-span-left" style="">
-                                                    <a class="custom-button size-fluid type-weibo" href="/auth/request/weibo/oauth2" target="_blank">
+                                                    <a class="custom-button size-fluid type-weibo login-social-btn" href="/auth/request/weibo/oauth2" target="_blank">
                                                         <i class="icontext icontext-weibo-md">微博帐号</i>
                                                     </a>
                                                 </div>
                                                 <div class="custom-span-right" style="">
-                                                    <a class="custom-button size-fluid type-qq" href="/auth/request/tencent/oauth2" target="_blank">
+                                                    <a class="custom-button size-fluid type-qq login-social-btn" href="/auth/request/tencent/oauth2" target="_blank">
                                                         <i class="icontext icontext-qq-md">QQ帐号</i>
                                                     </a>
                                                 </div>
@@ -376,6 +376,15 @@
 <script src="/wscn/js/main.js"></script>
 
 <script>
+var usermanager = {
+    success : function(token, user){
+            console.log(token);
+            console.log(user);
+    },
+    error : function (error){
+            console.log(error);
+    }
+}
 $(document).ready(function(){
     //form validation
     $('form').parsley({
@@ -414,6 +423,11 @@ $(document).ready(function(){
             });
 
             passwordInput.data('password-preview-inited', true); 
+    });
+
+    $(document).on('click', '.login-social-btn', function(){
+            window.open($(this).attr('href'), '_blank');
+            return false;
     });
 
 });

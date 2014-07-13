@@ -5,6 +5,7 @@ namespace Wscn\Controllers;
 use Eva\EvaOAuthClient\Models;
 use Eva\EvaUser\Models as UserModels;
 use EvaOAuth\Service as OAuthService;
+use Phalcon\Mvc\View;
 
 class AuthController extends ControllerBase
 {
@@ -39,12 +40,17 @@ class AuthController extends ControllerBase
 
         $session->set('request-token', $requestToken);
         $requestTokenUrl = $oauth->getAdapter()->getRequestTokenUrl();
-        $this->view->disable();
-        $this->response->redirect($requestTokenUrl, true);
+        return $this->response->redirect($requestTokenUrl, true);
     }
 
     public function accessAction()
     {
+        $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
+        $this->view->setVar('error', null);
+        $this->view->setVar('success', null);
+        $this->view->setVar('token', null);
+        $this->view->setVar('user', null);
+
         $service = $this->dispatcher->getParam('service');
         $oauthStr = $this->dispatcher->getParam('auth');
         $oauthStr = $oauthStr === 'oauth1' ? 'oauth1' : 'oauth2';
@@ -66,7 +72,7 @@ class AuthController extends ControllerBase
         $requestToken = $session->get('request-token');
 
         if (!$requestToken) {
-            return $this->response->redirect($this->getDI()->getConfig()->oauth->authFailedRedirectUri);
+            return $this->view->setVar('error', 'ERR_OAUTH_REQUEST_TOKEN_FAILED');
         }
 
         try {
@@ -75,23 +81,20 @@ class AuthController extends ControllerBase
             $session->set('access-token', $accessTokenArray);
             $session->remove('request-token');
         } catch (\Exception $e) {
-            $this->flashSession->error('ERR_OAUTH_AUTHORIZATION_FAILED');
-            $this->ignoreException($e);
-
-            return $this->response->redirect($this->getDI()->getConfig()->oauth->authFailedRedirectUri);
+            return $this->view->setVar('error', 'ERR_OAUTH_AUTHORIZATION_FAILED');
         }
-
+        
+        $this->view->setVar('token', $accessTokenArray);
         $user = new Models\Login();
         try {
             if ($user->loginWithAccessToken($accessTokenArray)) {
-                return $this->response->redirect($this->getDI()->getConfig()->oauth->loginSuccessRedirectUri);
+                $this->view->setVar('success', 1);
+                $this->view->setVar('user', $user);
             } else {
-                return $this->response->redirect('/auth/register');
+                $this->view->setVar('success', 1);
             }
         } catch (\Exception $e) {
-            $this->displayException($e, $user->getMessages());
-
-            return $this->response->redirect($this->getDI()->getConfig()->oauth->registerFailedRedirectUri);
+            $this->view->setVar('error', 'ERR_OAUTH_LOGIN_FAILED');
         }
 
     }
