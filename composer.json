@@ -28,7 +28,7 @@
         "mr5/counter-rank": "dev-master"
     },
     "suggest": {
-        ext-gearman": "*"
+        "ext-gearman": "*"
     },
     "repositories": [
         {
