@@ -18,11 +18,11 @@ class SessionController extends ControllerBase
         } catch (\Exception $e) {
             $this->displayException($e, $user->getMessages());
 
-            return $this->response->redirect($this->getDI()->get('config')->user->activeFailedRedirectUri);
+            return $this->response->redirect($this->getDI()->getConfig()->user->activeFailedRedirectUri);
         }
         $this->flashSession->success('SUCCESS_USER_ACTIVED');
 
-        return $this->response->redirect($this->getDI()->get('config')->user->activeSuccessRedirectUri);
+        return $this->response->redirect($this->getDI()->getConfig()->user->activeSuccessRedirectUri);
     }
 
     public function forgotAction()
@@ -33,7 +33,7 @@ class SessionController extends ControllerBase
 
         $email = $this->request->getPost('email');
         if (!$email || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            return $this->response->redirect($this->getDI()->get('config')->user->resetFailedRedirectUri);
+            return $this->response->redirect($this->getDI()->getConfig()->user->resetFailedRedirectUri);
         }
 
         $user = new Models\ResetPassword();
@@ -46,10 +46,10 @@ class SessionController extends ControllerBase
         } catch (\Exception $e) {
             $this->displayException($e, $user->getMessages());
 
-            return $this->response->redirect($this->getDI()->get('config')->user->resetFailedRedirectUri);
+            return $this->response->redirect($this->getDI()->getConfig()->user->resetFailedRedirectUri);
         }
 
-        return $this->response->redirect($this->getDI()->get('config')->user->resetSuccessRedirectUri);
+        return $this->response->redirect($this->getDI()->getConfig()->user->resetSuccessRedirectUri);
     }
 
     public function resetAction()
@@ -63,7 +63,7 @@ class SessionController extends ControllerBase
         } catch (\Exception $e) {
             $this->displayException($e, $user->getMessages());
 
-            return $this->response->redirect($this->getDI()->get('config')->user->resetFailedRedirectUri);
+            return $this->response->redirect($this->getDI()->getConfig()->user->resetFailedRedirectUri);
         }
 
         if (!$this->request->isPost()) {
@@ -74,7 +74,7 @@ class SessionController extends ControllerBase
         if ($form->isValid($this->request->getPost()) === false) {
             $this->displayInvalidMessages($form);
 
-            return $this->response->redirect($this->getDI()->get('config')->user->resetFailedRedirectUri);
+            return $this->response->redirect($this->getDI()->getConfig()->user->resetFailedRedirectUri);
         }
 
         $user->assign(array(
@@ -87,22 +87,9 @@ class SessionController extends ControllerBase
         } catch (\Exception $e) {
             $this->displayException($e, $user->getMessages());
 
-            return $this->response->redirect($this->getDI()->get('config')->user->resetFailedRedirectUri);
+            return $this->response->redirect($this->getDI()->getConfig()->user->resetFailedRedirectUri);
         }
 
-        return $this->response->redirect($this->getDI()->get('config')->user->resetSuccessRedirectUri);
+        return $this->response->redirect($this->getDI()->getConfig()->user->resetSuccessRedirectUri);
     }
-
-    public function testAction()
-    {
-        $user = new Models\Login();
-        $authIdentity = $user->getAuthIdentity();
-        if (!$authIdentity && ($tokenString = $this->cookies->get('realm')->getValue())) {
-            if ($user->loginWithCookie($tokenString)) {
-            } else {
-                $this->cookies->delete('realm');
-            }
-        }
-    }
-
 }

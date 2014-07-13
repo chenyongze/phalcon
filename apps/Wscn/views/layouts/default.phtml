@@ -115,170 +115,7 @@
     <!-- postbar ebd -->
 </div>
 
-<!-- Modal -->
-<div id="user-modal" class="custom-modal size-sm" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
-    <div class="wrapper">
-        <div id="user-modal-carousel" class="carousel slide" data-ride="carousel" data-interval="false">
-            <!-- Indicators
-            <ol class="carousel-indicators">
-                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-            </ol>
-            -->
-            <!-- Wrapper for slides -->
-            <ol class="carousel-inner">
-                <li class="item ">
-                    <table>
-                        <tbody>
-                        <tr>
-                            <td>
-                                <div class="custom-modal-content">
-                                    <div class="custom-modal-header">
-                                        <button type="button" class="close" data-toggle="custom-modal" data-target="#user-modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                        重置密码
-                                    </div>
-                                    <div class="custom-modal-body">
-                                        <form action="/session/forgot"  method="POST" novalidate="novalidate">
-                                            <div class="form-group has-feedback">
-                                                <label >请输入您的注册邮箱</label>
-                                                <input type="email" name="email" class="form-control" placeholder="邮箱">
-                                                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                                            </div>
-                                            <div class="form-footer">
-                                                <button type="submit" class="custom-button pull-right">发送邮件</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="custom-modal-footer">
-                                        <a class="link-left"  data-target="#user-modal-carousel" data-slide-to="1">返回登录</a>
-                                        <a class="link-right" data-target="#user-modal-carousel" data-slide-to="2">注册</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </li>
-                <!--  -->
-                <li class="item active">
-                    <table>
-                        <tbody>
-                        <tr>
-                            <td>
-                                <div class="custom-modal-content">
-                                    <div class="custom-modal-header">
-                                        <button type="button" class="close" data-toggle="custom-modal" data-target="#user-modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                        登录华尔街见闻
-                                    </div>
-                                    <div class="custom-modal-body">
-                                        <form action="/login"  method="POST" novalidate="novalidate">
-                                            <div class="form-group has-feedback">
-                                                <input type="text" name="username" class="form-control" placeholder="用户名或邮箱" required>
-                                                <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                                            </div>
-                                            <div class="form-group has-feedback">
-                                                <input type="password" name="password" class="form-control" placeholder="密码" required>
-                                                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                                            </div>
-                                            <div class="form-footer">
-                                                <div class="checkbox pull-left" style="width: 100px;">
-                                                    <label>
-                                                        <input type="checkbox"> 记住密码
-                                                    </label>
-                                                </div>
-                                                <button type="submit" class="btn custom-button pull-right">登录</button>
-                                            </div>
-                                        </form>
-                                        <div class="br-title">
-                                            <span class="text">使用社交账号登录</span>
-                                        </div>
-                                        <div class="custom-row">
-                                            <div class="custom-span-left" style="">
-                                                <button type="button" class="custom-button size-fluid type-weibo">
-                                                    <i class="icontext icontext-weibo-md">微博帐号登录</i>
-                                                </button>
-                                            </div>
-                                            <div class="custom-span-right" style="">
-                                                <button type="button" class="custom-button size-fluid type-qq">
-                                                    <i class="icontext icontext-qq-md">QQ帐号登录</i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="custom-modal-footer">
-                                        <a class="link-left"  data-target="#user-modal-carousel" data-slide-to="0">忘记密码</a>
-                                        <a class="link-right" data-target="#user-modal-carousel" data-slide-to="2">注册</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </li>
-                <!--  -->
-                <li class="item">
-                    <table>
-                        <tbody>
-                        <tr>
-                            <td>
-                                <div class="custom-modal-content">
-                                    <div class="custom-modal-header">
-                                        <button type="button" class="close" data-toggle="custom-modal" data-target="#user-modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                        注册华尔街见闻
-                                    </div>
-                                    <div class="custom-modal-body">
-                                        <form action="/register"  method="POST" novalidate="novalidate">
-                                            <div class="form-group has-feedback">
-                                                <label>使用邮箱注册</label>
-                                                <input type="email" name="email" class="form-control" placeholder="邮箱" required>
-                                                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                                            </div>
-                                            <div class="form-group has-feedback">
-                                                <input type="text" name="username" class="form-control" placeholder="用户名" required>
-                                                <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                                            </div>
-                                            <div class="form-group has-feedback">
-                                                <input type="password" name="password" class="form-control" placeholder="密码" required>
-                                                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                                            </div>
-                                            <div class="form-footer">
-                                                <button type="submit" class="custom-button pull-right">注册</button>
-                                            </div>
-                                            <div class="br-title">
-                                                <span class="text">使用社交账号注册</span>
-                                            </div>
-                                            <div class="custom-row">
-                                                <div class="custom-span-left" style="">
-                                                    <button type="button" class="custom-button size-fluid type-weibo">
-                                                        <i class="icontext icontext-weibo-md">微博帐号</i>
-                                                    </button>
-                                                </div>
-                                                <div class="custom-span-right" style="">
-                                                    <button type="button" class="custom-button size-fluid type-qq">
-                                                        <i class="icontext icontext-qq-md">QQ帐号</i>
-                                                    </button>
-                                                </div>
-                                            </div>
 
-                                        </form>
-                                    </div>
-                                    <div class="custom-modal-footer">
-                                        <a class="link-left"  data-target="#user-modal-carousel" data-slide-to="1">返回登录</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                </li>
-                <!--  -->
-            </ol>
-        </div>
-        <!--  -->
-    </div>
-    <!-- modal wrapper end -->
-</div>
 
 <footer id="footer">
     <div class="wrapper">
@@ -323,6 +160,201 @@
 </footer>
 
 
+<!-- Modal -->
+<div id="user-modal" class="custom-modal size-sm " tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+    <div class="wrapper">
+        <div id="user-modal-carousel" class="carousel slide" data-ride="carousel" data-interval="false">
+            <!-- Indicators
+            <ol class="carousel-indicators">
+                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+            </ol>
+            -->
+            <!-- Wrapper for slides -->
+            <ol class="carousel-inner">
+                <li class="item ">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div class="custom-modal-content">
+                                    <div class="custom-modal-header">
+                                        <button type="button" class="close" data-toggle="custom-modal" data-target="#user-modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        重新设置密码
+                                    </div>
+                                    <div class="custom-modal-body">
+                                        <form action="/session/forgot"  method="POST" novalidate="novalidate">
+                                            <div class="form-group has-feedback">
+                                                <label >请输入注册邮箱</label>
+                                                <input type="email" name="email" class="form-control" placeholder="注册邮箱" required>
+                                                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                                            </div>
+                                            <div class="form-footer">
+                                                <button type="submit" class="custom-button pull-right">发送确认邮件</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="custom-modal-footer">
+                                        <a class="link-left"  data-target="#user-modal-carousel" data-slide-to="1">返回登录</a>
+                                        <a class="link-right" data-target="#user-modal-carousel" data-slide-to="2">注册</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </li>
+                <!--  -->
+                <li class="item active">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div class="custom-modal-content">
+                                    <div class="custom-modal-header">
+                                        <button type="button" class="close" data-toggle="custom-modal" data-target="#user-modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        登录华尔街见闻
+                                    </div>
+                                    <div class="custom-modal-body">
+                                        <form action="/login"  method="POST" novalidate="novalidate">
+                                            <div class="form-group has-feedback">
+                                                <input type="text" name="username" class="form-control" placeholder="用户名或邮箱" required>
+                                                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                                            </div>
+                                            <div class="form-group has-feedback">
+                                                <input type="password" name="password" class="form-control password-previewer" placeholder="密码" required>
+                                                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                                            </div>
+                                            <div class="form-footer">
+                                                <div class="checkbox pull-left" style="width: 100px;">
+                                                    <label>
+                                                        <input type="checkbox"> 记住密码
+                                                    </label>
+                                                </div>
+                                                <button type="submit" class="custom-button pull-right">登录</button>
+                                            </div>
+                                        </form>
+                                        <div class="br-title">
+                                            <span class="text">使用社交账号登录</span>
+                                        </div>
+                                        <div class="custom-row">
+                                            <div class="custom-span-left" style="">
+                                                <a class="custom-button size-fluid type-weibo" href="/auth/request/weibo/oauth2" target="_blank">
+                                                    <i class="icontext icontext-weibo-md">微博帐号</i>
+                                                </a>
+                                            </div>
+                                            <div class="custom-span-right" style="">
+                                                <a class="custom-button size-fluid type-qq" href="/auth/request/tencent/oauth2" target="_blank">
+                                                    <i class="icontext icontext-qq-md">QQ帐号</i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="custom-modal-footer">
+                                        <a class="link-left"  data-target="#user-modal-carousel" data-slide-to="0">忘记密码</a>
+                                        <a class="link-right" data-target="#user-modal-carousel" data-slide-to="2">注册</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </li>
+                <!--  -->
+                <li class="item">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div class="custom-modal-content">
+                                    <div class="custom-modal-header">
+                                        <button type="button" class="close" data-toggle="custom-modal" data-target="#user-modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        注册华尔街见闻
+                                    </div>
+                                    <div class="custom-modal-body">
+                                        <form action="/register"  method="POST" novalidate="novalidate" role="form">
+                                            <div class="form-group has-feedback">
+                                                <label>使用邮箱注册</label>
+                                                <input type="email" name="email" class="form-control" placeholder="邮箱" required
+                                                    data-parsley-trigger="blur change"
+                                                    data-parsley-remote="/register/check"
+                                                    data-parsley-remote-options='{ method: "GET", dataType: "json"}'
+                                                    data-parsley-remote-message="输入的邮箱已被占用"
+                                                >
+                                                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                                            </div>
+                                            <div class="form-group has-feedback">
+                                                <input type="text" name="username" class="form-control" placeholder="用户名" required
+                                                    data-parsley-trigger="blur change"
+                                                    data-parsley-type="alphanum"
+                                                    maxlength="24"
+                                                    data-parsley-minlength="4"
+                                                    data-parsley-minlength-message="用户名最短4个字符"
+                                                    data-parsley-maxlength="24"
+                                                    data-parsley-pattern="^(?![0-9]+$)"
+                                                    data-parsley-pattern-message="请不要使用纯数字作为用户名"
+                                                    data-parsley-remote="/register/check"
+                                                    data-parsley-remote-options='{ method: "GET", dataType: "json"}'
+                                                    data-parsley-remote-message="输入的用户名已被占用"
+                                                >
+                                                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                                            </div>
+                                            <div class="form-group has-feedback">
+                                                <input type="password" name="password" class="form-control password-previewer" placeholder="密码" required
+                                                    data-parsley-trigger="blur change"
+                                                    data-parsley-minlength="6"
+                                                    data-parsley-minlength-message="密码最短6位"
+                                                    maxlength="26"
+                                                    data-parsley-maxlength="26"
+                                                    data-parsley-max-length="密码最长26位"
+                                                >
+                                                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                                            </div>
+                                            <div class="form-footer">
+                                                <div class="checkbox pull-left" style="width: 150px;">
+                                                    <label>
+                                                        <input type="checkbox" name="agree" checked="checked" required> 同意<a href="/page/terms" class="text-blue">使用条款</a>
+                                                    </label>
+                                                </div>
+                                                <button type="submit" class="custom-button pull-right">注册</button>
+                                            </div>
+                                            <div class="br-title">
+                                                <span class="text">使用社交账号注册</span>
+                                            </div>
+                                            <div class="custom-row">
+                                                <div class="custom-span-left" style="">
+                                                    <a class="custom-button size-fluid type-weibo" href="/auth/request/weibo/oauth2" target="_blank">
+                                                        <i class="icontext icontext-weibo-md">微博帐号</i>
+                                                    </a>
+                                                </div>
+                                                <div class="custom-span-right" style="">
+                                                    <a class="custom-button size-fluid type-qq" href="/auth/request/tencent/oauth2" target="_blank">
+                                                        <i class="icontext icontext-qq-md">QQ帐号</i>
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                    <div class="custom-modal-footer">
+                                        <a class="link-left"  data-target="#user-modal-carousel" data-slide-to="1">返回登录</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                </li>
+                <!--  -->
+            </ol>
+        </div>
+        <!--  -->
+    </div>
+    <!-- modal wrapper end -->
+</div>
+
+
 <!--[if lt IE 9]>
 <script type="text/javascript" src="/vendor/js/jquery-1.11.1.min.js"></script>
 <![endif]-->
@@ -334,6 +366,9 @@
 <!--  -->
 <script src="/vendor/js/nano-scroller/jquery.nanoscroller.js"></script>
 <script src="/vendor/js/parsley.js"></script>
+<script src="/vendor/js/parsley.remote.js"></script>
+<script src="/vendor/js/parsley.i18n.zh_cn.js"></script>
+<script src="/vendor/js/jquery.blockUI.js"></script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="/wscn/js/bootstrap.min.js"></script>
@@ -353,6 +388,34 @@ $(document).ready(function(){
         errorsWrapper: "<span class='help-block' style='margin:0;'></span>",
         errorTemplate: "<span></span>"
     });
+
+    $('form').on('focus change blur keyup', '.password-previewer', function(){
+            var passwordInput = $(this);
+            var helper = passwordInput.closest('.form-group').find('.form-control-feedback');
+            if(passwordInput.val() !== '') {
+                    helper.removeClass('glyphicon-lock').addClass('glyphicon-eye-open').css('cursor', 'pointer');
+            } else {
+                    helper.removeClass('glyphicon-eye-open glyphicon-eye-close').addClass('glyphicon-lock').css('cursor', 'default');
+            }
+
+            var inited = passwordInput.data('password-preview-inited');
+            if(inited) {
+                return;
+            }
+            passwordInput.closest('.form-group').on('click', '.form-control-feedback', function(){
+                var icon = $(this);
+                if(icon.hasClass('glyphicon-eye-open')) {
+                    passwordInput.attr('type', 'text');
+                    icon.toggleClass('glyphicon-eye-open glyphicon-eye-close');
+                } else if(icon.hasClass('glyphicon-eye-close')) {
+                    passwordInput.attr('type', 'password');
+                    icon.toggleClass('glyphicon-eye-open glyphicon-eye-close');
+                }
+            });
+
+            passwordInput.data('password-preview-inited', true); 
+    });
+
 });
 </script>
 </body>

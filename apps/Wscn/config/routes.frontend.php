@@ -55,4 +55,23 @@ return array(
         'module' => 'Wscn',
         'controller' => 'logout',
     ),
+    '/session/:action' => array(
+        'module' => 'Wscn',
+        'controller' => 'session',
+        'action' => 1,
+    ),
+
+    '/auth/:action/(\w+)/(oauth1|oauth2)*' =>  array(
+        'module' => 'Wscn',
+        'controller' => 'auth',
+        'action' => 1,
+        'service' => 2,
+        'auth' => 3,
+    ),
+
+    '/auth/:action' =>  array(
+        'module' => 'Wscn',
+        'controller' => 'auth',
+        'action' => 1,
+    ),
 );
