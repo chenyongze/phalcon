@@ -230,7 +230,7 @@
                                             <div class="form-footer">
                                                 <div class="checkbox pull-left" style="width: 100px;">
                                                     <label>
-                                                        <input type="checkbox"> 记住密码
+                                                        <input type="checkbox" name="remember"> 记住密码
                                                     </label>
                                                 </div>
                                                 <button type="submit" class="custom-button pull-right">登录</button>
@@ -359,10 +359,24 @@
                                         登录并绑定
                                     </div>
                                     <div class="custom-modal-body">
+                                        <form action="/auth/login"  method="POST" novalidate="novalidate">
+                                            <div class="form-group has-feedback">
+                                                <input type="text" name="username" class="form-control" placeholder="用户名或邮箱" required>
+                                                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                                            </div>
+                                            <div class="form-group has-feedback">
+                                                <input type="password" name="password" class="form-control password-previewer" placeholder="密码" required>
+                                                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                                            </div>
+                                            <div class="form-footer">
+                                                <button type="submit" class="custom-button pull-right">登录并绑定</button>
+                                            </div>
+                                        </form>
 
                                     </div>
                                     <div class="custom-modal-footer">
-                                        <a class="link-left"  data-target="#user-modal-carousel" data-slide-to="1">返回登录</a>
+                                        <a class="link-left"  data-target="#user-modal-carousel" data-slide-to="1">使用密码登录</a>
+                                        <a class="link-right"  data-target="#user-modal-carousel" data-slide-to="3">注册并绑定</a>
                                     </div>
                                 </div>
                             </td>
@@ -382,10 +396,46 @@
                                         注册并绑定
                                     </div>
                                     <div class="custom-modal-body">
+                                        <form action="/auth/register"  method="POST" novalidate="novalidate" role="form">
+                                            <label for="connected-register-form-email">请填写邮箱及用户名确保账号不会丢失</label>
+                                            <div class="form-group has-feedback">
+                                                <input id="connected-register-form-email" type="email" name="email" class="form-control" placeholder="邮箱" required
+                                                    data-parsley-trigger="blur change"
+                                                    data-parsley-remote="/register/check"
+                                                    data-parsley-remote-options='{ method: "GET", dataType: "json"}'
+                                                    data-parsley-remote-message="输入的邮箱已被占用"
+                                                >
+                                                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                                            </div>
+                                            <div class="form-group has-feedback">
+                                                <input type="text" name="username" class="form-control" placeholder="用户名" required
+                                                    data-parsley-trigger="blur change"
+                                                    data-parsley-type="alphanum"
+                                                    maxlength="24"
+                                                    data-parsley-minlength="4"
+                                                    data-parsley-minlength-message="用户名最短4个字符"
+                                                    data-parsley-maxlength="24"
+                                                    data-parsley-pattern="^(?![0-9]+$)"
+                                                    data-parsley-pattern-message="请不要使用纯数字作为用户名"
+                                                    data-parsley-remote="/register/check"
+                                                    data-parsley-remote-options='{ method: "GET", dataType: "json"}'
+                                                    data-parsley-remote-message="输入的用户名已被占用"
+                                                >
+                                                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                                            </div>
+                                            <div class="form-footer">
+                                                <div class="checkbox pull-left" style="width: 150px;">
+                                                    <label>
+                                                        <input type="checkbox" name="agree" checked="checked" required> 同意<a href="/page/terms" class="text-blue">使用条款</a>
+                                                    </label>
+                                                </div>
+                                                <button type="submit" class="custom-button pull-right">注册并绑定</button>
+                                            </div>
 
                                     </div>
                                     <div class="custom-modal-footer">
-                                        <a class="link-left"  data-target="#user-modal-carousel" data-slide-to="1">返回登录</a>
+                                        <a class="link-left"  data-target="#user-modal-carousel" data-slide-to="2">使用邮箱密码注册</a>
+                                        <a class="link-right"  data-target="#user-modal-carousel" data-slide-to="3">登录并绑定</a>
                                     </div>
                                 </div>
                             </td>
@@ -419,19 +469,22 @@
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="/wscn/js/bootstrap.min.js"></script>
+<script src="/wscn/js/usermanager.js"></script>
 <!--  -->
 <script src="/wscn/js/main.js"></script>
 
 <script>
-var usermanager = {
-    success : function(token, user){
-            console.log(token);
-            console.log(user);
-    },
-    error : function (error){
-            console.log(error);
-    }
-}
+var usrManager = new UserManager();
+usrManager.start();
+usrManager.onNotLogin(function(){
+    $(document).on('click', '.login-social-btn', function(){
+            window.open($(this).attr('href'), '_blank');
+            return false;
+    });
+});
+usrManager.onLogin(function(){
+});
+
 $(document).ready(function(){
     //form validation
     $('form').parsley({
@@ -472,10 +525,7 @@ $(document).ready(function(){
             passwordInput.data('password-preview-inited', true); 
     });
 
-    $(document).on('click', '.login-social-btn', function(){
-            window.open($(this).attr('href'), '_blank');
-            return false;
-    });
+
 
 });
 </script>
