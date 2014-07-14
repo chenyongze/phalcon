@@ -15,7 +15,7 @@ class RegisterController extends ControllerBase
 
         $form = new Forms\RegisterForm();
         if ($form->isValid($this->request->getPost()) === false) {
-            $this->displayInvalidMessages($form);
+            $this->showInvalidMessages($form);
 
             return $this->response->redirect($this->getDI()->get('config')->user->registerFailedRedirectUri);
         }
@@ -28,7 +28,7 @@ class RegisterController extends ControllerBase
         try {
             $user->register();
         } catch (\Exception $e) {
-            $this->displayException($e, $user->getMessages());
+            $this->showException($e, $user->getMessages());
 
             return $this->response->redirect($this->getDI()->get('config')->user->registerFailedRedirectUri);
         }

@@ -89,7 +89,7 @@ class AuthController extends ControllerBase
                 return $this->response->redirect('/auth/register');
             }
         } catch (\Exception $e) {
-            $this->displayException($e, $user->getMessages());
+            $this->showException($e, $user->getMessages());
 
             return $this->response->redirect($this->getDI()->get('config')->oauth->registerFailedRedirectUri);
         }
@@ -143,7 +143,7 @@ class AuthController extends ControllerBase
 
             return $this->response->redirect($this->getDI()->get('config')->oauth->loginSuccessRedirectUri);
         } catch (\Exception $e) {
-            $this->displayException($e, $user->getMessages());
+            $this->showException($e, $user->getMessages());
 
             return $this->response->redirect($this->getDI()->get('config')->oauth->registerFailedRedirectUri);
         }
@@ -202,7 +202,7 @@ class AuthController extends ControllerBase
 
             return $this->response->redirect($this->getDI()->get('config')->oauth->loginSuccessRedirectUri);
         } catch (\Exception $e) {
-            $this->displayException($e, $user->getMessages());
+            $this->showException($e, $user->getMessages());
 
             return $this->response->redirect($this->getDI()->get('config')->oauth->loginFailedRedirectUri);
         }

@@ -225,7 +225,7 @@ class LivenewsController extends ControllerBase
 
 
         if (!$form->isFullValid($data)) {
-            return $this->displayJsonInvalidMessages($form);
+            return $this->showInvalidMessagesAsJson($form);
         }
 
         try {
@@ -233,7 +233,7 @@ class LivenewsController extends ControllerBase
             $data = $livenews->dump(Models\NewsManager::$defaultDump);
             return $this->response->setJsonContent($data);
         } catch (\Exception $e) {
-            return $this->displayExceptionForJson($e, $form->getModel()->getMessages());
+            return $this->showExceptionAsJson($e, $form->getModel()->getMessages());
         }
      }
 
@@ -277,7 +277,7 @@ class LivenewsController extends ControllerBase
         $form->addForm('text', 'Eva\EvaLivenews\Forms\TextForm');
 
         if (!$form->isFullValid($data)) {
-            return $this->displayJsonInvalidMessages($form);
+            return $this->showInvalidMessagesAsJson($form);
         }
 
         try {
@@ -285,7 +285,7 @@ class LivenewsController extends ControllerBase
             $data = $livenews->dump(Models\NewsManager::$defaultDump);
             return $this->response->setJsonContent($data);
         } catch (\Exception $e) {
-            return $this->displayExceptionForJson($e, $form->getModel()->getMessages());
+            return $this->showExceptionAsJson($e, $form->getModel()->getMessages());
         }
     }
 
@@ -325,7 +325,7 @@ class LivenewsController extends ControllerBase
              $livenews->removeNews($id);
              return $this->response->setJsonContent($livenewsinfo);
          } catch (\Exception $e) {
-             return $this->displayExceptionForJson($e, $livenews->getMessages());
+             return $this->showExceptionAsJson($e, $livenews->getMessages());
          }
     }
 }

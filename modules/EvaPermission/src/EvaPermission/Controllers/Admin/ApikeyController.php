@@ -51,15 +51,15 @@ class ApikeyController extends ControllerBase
 
         $form->bind($this->request->getPost(), $apikey);
         if (!$form->isValid()) {
-            return $this->displayInvalidMessages($form);
+            return $this->showInvalidMessages($form);
         }
         $apikey = $form->getEntity();
         try {
             if(!$apikey->save()) {
-                return $this->displayModelMessages($apikey);
+                return $this->showModelMessages($apikey);
             }
         } catch (\Exception $e) {
-            return $this->displayException($e, $apikey->getMessages());
+            return $this->showException($e, $apikey->getMessages());
         }
         $this->flashSession->success('SUCCESS_APIKEY_CREATED');
 
@@ -81,14 +81,14 @@ class ApikeyController extends ControllerBase
 
         $form->bind($this->request->getPost(), $apikey);
         if (!$form->isValid()) {
-            return $this->displayInvalidMessages($form);
+            return $this->showInvalidMessages($form);
         }
         $apikey = $form->getEntity();
         $apikey->assign($this->request->getPost());
         try {
             $apikey->save();
         } catch (\Exception $e) {
-            return $this->displayException($e, $apikey->getMessages());
+            return $this->showException($e, $apikey->getMessages());
         }
         $this->flashSession->success('SUCCESS_APIKEY_UPDATED');
 
@@ -115,7 +115,7 @@ class ApikeyController extends ControllerBase
         try {
             $apikey->delete();
         } catch (\Exception $e) {
-            return $this->displayExceptionForJson($e, $apikey->getMessages());
+            return $this->showExceptionAsJson($e, $apikey->getMessages());
         }
         return $this->response->setJsonContent($apikey);
     }
