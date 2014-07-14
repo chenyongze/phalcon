@@ -1,36 +1,44 @@
 (function(){
-    var usm = window.userManager || {};
-    usm.$element = $('#user-modal');
-    usm.showModal = function(name){
+    var usf = window.userForms || {};
+    usf.$element = $('#user-modal');
+    usf.show = function(name){
         switch(name) {
-            case 'login' :
-                this.$element.addClass('active');
-                $('#user-modal-carousel .item.active').removeClass('active');
-                $('#user-modal-carousel .item:eq(1)').addClass('active');
-                break;
             case 'register' :
                 this.$element.addClass('active');
                 $('#user-modal-carousel .item.active').removeClass('active');
                 $('#user-modal-carousel .item:eq(2)').addClass('active');
                 break;
-            case 'reset password' :
+            case 'reset' :
                 this.$element.addClass('active');
                 $('#user-modal-carousel .item.active').removeClass('active');
                 $('#user-modal-carousel .item:eq(0)').addClass('active');
                 break;
-            case 'binding and login' :
+            case 'login-connect' :
                 this.$element.addClass('active');
                 $('#user-modal-carousel .item.active').removeClass('active');
                 $('#user-modal-carousel .item:eq(3)').addClass('active');
                 break;
-            case 'binding and register' :
+            case 'register-connect' :
                 this.$element.addClass('active');
                 $('#user-modal-carousel .item.active').removeClass('active');
                 $('#user-modal-carousel .item:eq(4)').addClass('active');
                 break;
+            case 'login' :
+            default:
+                this.$element.addClass('active');
+                $('#user-modal-carousel .item.active').removeClass('active');
+                $('#user-modal-carousel .item:eq(1)').addClass('active');
+                break;
         }
     };
-    window.userManager = usm;
+    usf.onConnectSuccess = function(token, user) {
+        usf.show('register-connect');
+    };
+
+    usf.onConnectFailed = function(error, errorMsg) {
+        usf.$element.find('.item.active form').prepend('<div data-raw-message="' + error + '" class="alert alert alert-danger">' + errorMsg + '<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button></div>');
+    };
+    window.userForms = usf;
 })();
 
 //滚动条部分初始化
