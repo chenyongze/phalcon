@@ -145,6 +145,22 @@ body {
     padding-top: 60px;
   }
 }
+.centerbox {
+  text-align: center;
+}
+.centerbox > * {
+  display: inline-block;
+  vertical-align: middle;
+  text-align: left;
+}
+.centerbox:before,
+.centerbox:after {
+  display: inline-block;
+  content: "";
+  width: 0;
+  height: 100%;
+  vertical-align: middle;
+}
 .cover-img {
   display: block;
   position: relative;
