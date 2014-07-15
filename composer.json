@@ -29,6 +29,10 @@
     "repositories": [
         {
             "type": "git",
+            "url": "https://github.com/AlloVince/EvaEngine.git"
+        },
+        {
+            "type": "git",
             "url": "https://github.com/AlloVince/EvaOAuth.git"
         },
         {
