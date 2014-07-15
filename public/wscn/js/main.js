@@ -149,7 +149,6 @@
         if (e.target === this) {
             $(this).removeClass('active');
         }
-        e.preventDefault();
     });
     $('#user-modal-carousel > .carousel-inner > .item').on('click', function(e){
         if (e.target === this) {
