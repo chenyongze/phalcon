@@ -46,7 +46,7 @@ return array(
         'module' => 'Wscn',
         'controller' => 'login',
     ),
-    '/login/:action([\w/]*)' => array(
+    '/login/:action' => array(
         'module' => 'Wscn',
         'controller' => 'login',
         'action' => 1,
