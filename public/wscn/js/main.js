@@ -2,31 +2,23 @@
     var usf = window.userForms || {};
     usf.$element = $('#user-modal');
     usf.show = function(name){
+        usf.$element.addClass('active');
+        $('#user-modal-carousel .item.active').removeClass('active');
         switch(name) {
             case 'register' :
-                this.$element.addClass('active');
-                $('#user-modal-carousel .item.active').removeClass('active');
                 $('#user-modal-carousel .item:eq(2)').addClass('active');
                 break;
             case 'reset' :
-                this.$element.addClass('active');
-                $('#user-modal-carousel .item.active').removeClass('active');
                 $('#user-modal-carousel .item:eq(0)').addClass('active');
                 break;
             case 'login-connect' :
-                this.$element.addClass('active');
-                $('#user-modal-carousel .item.active').removeClass('active');
                 $('#user-modal-carousel .item:eq(3)').addClass('active');
                 break;
             case 'register-connect' :
-                this.$element.addClass('active');
-                $('#user-modal-carousel .item.active').removeClass('active');
                 $('#user-modal-carousel .item:eq(4)').addClass('active');
                 break;
             case 'login' :
             default:
-                this.$element.addClass('active');
-                $('#user-modal-carousel .item.active').removeClass('active');
                 $('#user-modal-carousel .item:eq(1)').addClass('active');
                 break;
         }
