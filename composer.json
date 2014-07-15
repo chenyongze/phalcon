@@ -2,6 +2,7 @@
     "name": "allovince/phalcon",
     "description": "",
     "license": "Business Licenses",
+    "minimum-stability": "dev",
     "authors": [
         {
             "name": "AlloVince",
@@ -11,20 +12,15 @@
     ],
     "require": {
         "php": ">=5.3.10",
-        "ext-phalcon": ">=1.3.2",
         "ext-redis": "*",
-
+	"allovince/evaengine": "dev-master",
         "ircmaxell/password-compat": "dev-master",
         "zircote/swagger-php": "*",
-        "phalcon/incubator": "dev-master",
-        "knplabs/gaufrette": "dev-master",
         "allovince/evaoauth": "dev-master",
         "allovince/evathumber": "dev-master",
         "imagine/imagine": "dev-master",
-        "swiftmailer/swiftmailer": "dev-master",
         "rase/socket.io-emitter": "dev-master",
         "erusev/parsedown": "dev-master",
-
         "mr5/counter-rank": "dev-master"
     },
     "suggest": {
