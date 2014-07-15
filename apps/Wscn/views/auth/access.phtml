@@ -9,20 +9,20 @@
 </head>
 <body>
 <script>
-    //TODO: when opener closed
     if(!window.opener) {
-    
-    }
-    var error = <?=json_encode($error);?>;
-    var success = <?=json_encode($success);?>;
-    var token = <?=json_encode($token);?>;
-    var user = <?=json_encode($user);?>;
-    if(success) {
-            window.opener.usermanager.success(token, user);
+            window.location.href = '<?=$this->url->get('/')?>';
     } else {
-            window.opener.usermanager.error(error);
+        var error = <?=json_encode($error);?>;
+        var success = <?=json_encode($success);?>;
+        var token = <?=json_encode($token);?>;
+        var user = <?=json_encode($user);?>;
+        if(success) {
+                window.opener.userForms.onConnectSuccess(token, user);
+            } else {
+                window.opener.userForms.onConnectFailed(error, error);
+        }
+        window.close();
     }
-    window.close();
 </script>
 </body>
 </html>
