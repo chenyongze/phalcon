@@ -141,7 +141,7 @@ class Login extends Entities\Users
         }
 
         if ($userinfo->status != 'active') {
-            throw new Exception\UnauthorizedException('ERR_USER_NOT_ACTIVATED');
+            throw new Exception\UnauthorizedException('ERR_USER_NOT_ACTIVED');
         }
 
         $userinfo->failedLogins = 0;

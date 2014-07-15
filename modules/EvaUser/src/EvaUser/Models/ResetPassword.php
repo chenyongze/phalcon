@@ -40,7 +40,7 @@ class ResetPassword extends Entities\Users
 
     public function sendPasswordResetMail($email, $forceSend = false)
     {
-        if (false === $forceSend && $this->getDI()->get('config')->mailer->async) {
+        if (false === $forceSend && $this->getDI()->getConfig()->mailer->async) {
             $queue = $this->getDI()->get('queue');
             $result = $queue->doBackground('sendmailAsync', json_encode(array(
                 'class' => __CLASS__,
@@ -61,7 +61,7 @@ class ResetPassword extends Entities\Users
         $message->setTo(array(
             $userinfo->email => $userinfo->username
         ));
-        $message->setTemplate($this->getDI()->get('config')->user->resetMailTemplate);
+        $message->setTemplate($this->getDI()->getConfig()->user->resetMailTemplate);
         $message->assign(array(
             'user' => $userinfo->toArray(),
             'url' => $message->toSystemUrl('/session/reset/' . urlencode($userinfo->username) . '/' . $userinfo->passwordResetHash)

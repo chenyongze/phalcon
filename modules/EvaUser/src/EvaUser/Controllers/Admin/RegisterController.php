@@ -17,7 +17,7 @@ class RegisterController extends ControllerBase
         if ($form->isValid($this->request->getPost()) === false) {
             $this->showInvalidMessages($form);
 
-            return $this->response->redirect($this->getDI()->get('config')->user->registerFailedRedirectUri);
+            return $this->response->redirect($this->getDI()->getConfig()->user->registerFailedRedirectUri);
         }
         $user = new Models\Register();
         $user->assign(array(
@@ -30,11 +30,11 @@ class RegisterController extends ControllerBase
         } catch (\Exception $e) {
             $this->showException($e, $user->getMessages());
 
-            return $this->response->redirect($this->getDI()->get('config')->user->registerFailedRedirectUri);
+            return $this->response->redirect($this->getDI()->getConfig()->user->registerFailedRedirectUri);
         }
         $this->flashSession->success('SUCCESS_USER_REGISTERED_ACTIVE_MAIL_SENT');
 
-        return $this->response->redirect($this->getDI()->get('config')->user->registerFailedRedirectUri);
+        return $this->response->redirect($this->getDI()->getConfig()->user->registerFailedRedirectUri);
     }
 
     public function checkAction()

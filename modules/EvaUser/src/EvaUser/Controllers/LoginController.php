@@ -17,7 +17,7 @@ class LoginController extends ControllerBase
         if ($form->isValid($this->request->getPost()) === false) {
             $this->showInvalidMessages($form);
 
-            return $this->response->redirect($this->getDI()->get('config')->user->loginFailedRedirectUri);
+            return $this->response->redirect($this->getDI()->getConfig()->user->loginFailedRedirectUri);
         }
 
         $user = new Models\Login();
@@ -45,11 +45,11 @@ class LoginController extends ControllerBase
             }
             $this->flashSession->success('SUCCESS_USER_LOGGED_IN');
 
-            return $this->response->redirect($this->getDI()->get('config')->user->loginSuccessRedirectUri);
+            return $this->response->redirect($this->getDI()->getConfig()->user->loginSuccessRedirectUri);
         } catch (\Exception $e) {
             $this->showException($e, $user->getMessages());
 
-            return $this->response->redirect($this->getDI()->get('config')->user->loginFailedRedirectUri);
+            return $this->response->redirect($this->getDI()->getConfig()->user->loginFailedRedirectUri);
         }
     }
 
@@ -57,7 +57,7 @@ class LoginController extends ControllerBase
     {
         $username = $this->request->get('username');
         if (!$username) {
-            return $this->response->redirect($this->getDI()->get('config')->user->resetFailedRedirectUri);
+            return $this->response->redirect($this->getDI()->getConfig()->user->resetFailedRedirectUri);
         }
 
         $user = new Models\Login();
@@ -65,11 +65,11 @@ class LoginController extends ControllerBase
             $user->sendVerificationEmail($username);
             $this->flashSession->success('SUCCESS_USER_ACTIVE_MAIL_SENT');
 
-            return $this->response->redirect($this->getDI()->get('config')->user->resetSuccessRedirectUri);
+            return $this->response->redirect($this->getDI()->getConfig()->user->resetSuccessRedirectUri);
         } catch (\Exception $e) {
             $this->showException($e, $user->getMessages());
 
-            return $this->response->redirect($this->getDI()->get('config')->user->resetFailedRedirectUri);
+            return $this->response->redirect($this->getDI()->getConfig()->user->resetFailedRedirectUri);
         }
     }
 
