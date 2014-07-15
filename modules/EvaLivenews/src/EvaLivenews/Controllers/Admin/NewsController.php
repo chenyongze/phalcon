@@ -76,7 +76,7 @@ class NewsController extends ControllerBase
             } catch (\Exception $e) {
                 return $this->showExceptionAsJson($e, $form->getModel()->getMessages());
             }
-            return $this->displayJsonResponse($form->getModel()->dump(Models\NewsManager::$defaultDump));
+            return $this->showResponseAsJson($form->getModel()->dump(Models\NewsManager::$defaultDump));
         } else {
             if (!$form->isFullValid($data)) {
                 return $this->showInvalidMessages($form);
