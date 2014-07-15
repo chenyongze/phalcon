@@ -98,7 +98,7 @@ class SessionController extends ControllerBase
         $user = new Models\Login();
         $authIdentity = $user->getAuthIdentity();
         if (!$authIdentity && ($tokenString = $this->cookies->get('realm')->getValue())) {
-            if ($user->loginWithCookie($tokenString)) {
+            if ($user->loginByCookie($tokenString)) {
             } else {
                 $this->cookies->delete('realm');
             }

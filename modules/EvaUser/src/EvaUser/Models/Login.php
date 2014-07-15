@@ -86,7 +86,7 @@ class Login extends Entities\Users
         $token = new Entities\Tokens();
         $token->sessionId = $sessionId;
         $token->token = md5(uniqid(rand(), true));
-        $token->userHash = $this->getUserHash($userinfo);
+        $token->userHash = $this->getRememberMeHash($userinfo);
         $token->userId = $userinfo->id;
         $token->refreshAt = time();
         $token->expiredAt = time() + $this->tokenExpired;

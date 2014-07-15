@@ -31,7 +31,7 @@ class Login extends UserEntity
             'id' => $token->userId
         ));
 
-        return $userModel->loginWithId();
+        return $userModel->login();
     }
 
     public function connectWithExistEmail(array $accessToken)
