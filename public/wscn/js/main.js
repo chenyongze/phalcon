@@ -1,37 +1,30 @@
-(function(){
-    var usm = window.userManager || {};
-    usm.$element = $('#user-modal');
+(function(usm){
+    //var usm = window.userManager || {};
     usm.showModal = function(name){
+        $('#user-modal').addClass('active');
+        $('#user-modal-carousel .item.active').removeClass('active');
         switch(name) {
             case 'login' :
-                this.$element.addClass('active');
-                $('#user-modal-carousel .item.active').removeClass('active');
                 $('#user-modal-carousel .item:eq(1)').addClass('active');
                 break;
             case 'register' :
-                this.$element.addClass('active');
-                $('#user-modal-carousel .item.active').removeClass('active');
                 $('#user-modal-carousel .item:eq(2)').addClass('active');
                 break;
             case 'reset password' :
-                this.$element.addClass('active');
-                $('#user-modal-carousel .item.active').removeClass('active');
                 $('#user-modal-carousel .item:eq(0)').addClass('active');
                 break;
             case 'binding and login' :
-                this.$element.addClass('active');
-                $('#user-modal-carousel .item.active').removeClass('active');
                 $('#user-modal-carousel .item:eq(3)').addClass('active');
                 break;
             case 'binding and register' :
-                this.$element.addClass('active');
-                $('#user-modal-carousel .item.active').removeClass('active');
                 $('#user-modal-carousel .item:eq(4)').addClass('active');
                 break;
+            default :
+                $('#user-modal-carousel .item:eq(1)').addClass('active');
         }
     };
-    window.userManager = usm;
-})();
+    //window.userManager = usm;
+})(window.userManager = window.userManager || {});
 
 //滚动条部分初始化
 (function($){
