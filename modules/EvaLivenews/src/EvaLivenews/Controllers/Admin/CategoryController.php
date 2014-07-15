@@ -49,14 +49,14 @@ class CategoryController extends ControllerBase
 
         $form->bind($this->request->getPost(), $category);
         if (!$form->isValid()) {
-            return $this->displayInvalidMessages($form);
+            return $this->showInvalidMessages($form);
         }
         $category = $form->getEntity();
         try {
             $category->createCategory();
         } catch (\Exception $e) {
-            return $this->displayException($e, $category->getMessages());
-            //return $this->response->redirect($this->getDI()->get('config')->user->registerFailedRedirectUri);
+            return $this->showException($e, $category->getMessages());
+            //return $this->response->redirect($this->getDI()->getConfig()->user->registerFailedRedirectUri);
         }
         $this->flashSession->success('SUCCESS_BLOG_CATEGORY_CREATED');
 
@@ -78,14 +78,14 @@ class CategoryController extends ControllerBase
 
         $form->bind($this->request->getPost(), $category);
         if (!$form->isValid()) {
-            return $this->displayInvalidMessages($form);
+            return $this->showInvalidMessages($form);
         }
         $category = $form->getEntity();
         $category->assign($this->request->getPost());
         try {
             $category->updateCategory();
         } catch (\Exception $e) {
-            return $this->displayException($e, $category->getMessages());
+            return $this->showException($e, $category->getMessages());
         }
         $this->flashSession->success('SUCCESS_BLOG_CATEGORY_UPDATED');
 
@@ -113,7 +113,7 @@ class CategoryController extends ControllerBase
         try {
             $category->delete();
         } catch (\Exception $e) {
-            return $this->displayExceptionForJson($e, $category->getMessages());
+            return $this->showExceptionAsJson($e, $category->getMessages());
         }
 
         $this->response->setContentType('application/json', 'utf-8');

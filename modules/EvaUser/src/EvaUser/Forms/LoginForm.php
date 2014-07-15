@@ -15,7 +15,7 @@ class LoginForm extends Form
         $name = new Text('identify');
         $name->addValidators(array(
             new PresenceOf(array(
-                'message' => 'The field is required'
+                'message' => 'Please input username or email'
             ))
         ));
         $this->add($name);
@@ -35,17 +35,5 @@ class LoginForm extends Form
             )),
         ));
         $this->add($password);
-    }
-
-    /**
-     * Prints messages for a specific element
-     */
-    public function messages($name)
-    {
-        if ($this->hasMessagesFor($name)) {
-            foreach ($this->getMessagesFor($name) as $message) {
-                $this->flash->error($message);
-            }
-        }
     }
 }

@@ -35,7 +35,7 @@ class UploadController extends ControllerBase implements JsonControllerInterface
                  $fileinfo['localUrl'] = $file->getLocalUrl();
              }
          } catch (\Exception $e) {
-             return $this->displayExceptionForJson($e, $upload->getMessages());
+             return $this->showExceptionAsJson($e, $upload->getMessages());
          }
          return $this->response->setJsonContent($fileinfo);
     }
@@ -66,7 +66,7 @@ class UploadController extends ControllerBase implements JsonControllerInterface
                  $fileinfo['localUrl'] = $file->getLocalUrl();
              }
          } catch (\Exception $e) {
-             return $this->displayExceptionForJson($e, $upload->getMessages());
+             return $this->showExceptionAsJson($e, $upload->getMessages());
          }
          return $this->response->setJsonContent($fileinfo);
     }

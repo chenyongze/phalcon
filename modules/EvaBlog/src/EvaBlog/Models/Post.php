@@ -343,8 +343,8 @@ class Post extends Entities\Posts
 
     public function getUrl()
     {
-        $postUrl = $this->getDI()->get('config')->baseUri;
-        $postPath = $this->getDI()->get('config')->blog->postPath;
+        $postUrl = $this->getDI()->getConfig()->baseUri;
+        $postPath = $this->getDI()->getConfig()->blog->postPath;
 
         return $postUrl . sprintf($postPath, $this->slug);
     }
@@ -365,8 +365,8 @@ class Post extends Entities\Posts
                 return $this->image;
             }
         }
-        $staticUri = $this->getDI()->get('config')->filesystem->staticUri;
-        $staticPath = $this->getDI()->get('config')->filesystem->staticPath;
+        $staticUri = $this->getDI()->getConfig()->filesystem->staticUri;
+        $staticPath = $this->getDI()->getConfig()->filesystem->staticPath;
         return $staticUri . $staticPath . $this->image;
         */
     }

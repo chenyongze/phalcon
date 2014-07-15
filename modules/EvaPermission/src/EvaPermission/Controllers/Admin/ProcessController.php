@@ -12,7 +12,7 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
     public function roleAction()
     {
         if (!$this->request->isDelete()) {
-            return $this->displayJsonErrorResponse(405, 'ERR_REQUEST_METHOD_NOT_ALLOW');
+            return $this->showErrorMessageAsJson(405, 'ERR_REQUEST_METHOD_NOT_ALLOW');
         }
 
         $data = array(
@@ -28,7 +28,7 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
                 $roleOperation->delete();
             }
         } catch (\Exception $e) {
-            return $this->displayExceptionForJson($e, $roleOperation->getMessages());
+            return $this->showExceptionAsJson($e, $roleOperation->getMessages());
         }
 
         return $this->response->setJsonContent($roleOperation);
@@ -37,7 +37,7 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
     public function apikeyAction()
     {
         if (!$this->request->isPut()) {
-            return $this->displayJsonErrorResponse(405, 'ERR_REQUEST_METHOD_NOT_ALLOW');
+            return $this->showErrorMessageAsJson(405, 'ERR_REQUEST_METHOD_NOT_ALLOW');
         }
 
         $id = $this->dispatcher->getParam('id');
@@ -48,7 +48,7 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
                 $apikey->save();
             }
         } catch (\Exception $e) {
-            return $this->displayExceptionForJson($e, $apikey->getMessages());
+            return $this->showExceptionAsJson($e, $apikey->getMessages());
         }
         return $this->response->setJsonContent($apikey);
     }
@@ -56,7 +56,7 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
     public function userAction()
     {
         if (!$this->request->isDelete()) {
-            return $this->displayJsonErrorResponse(405, 'ERR_REQUEST_METHOD_NOT_ALLOW');
+            return $this->showErrorMessageAsJson(405, 'ERR_REQUEST_METHOD_NOT_ALLOW');
         }
 
         $data = array(
@@ -72,7 +72,7 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
                 $userRole->delete();
             }
         } catch (\Exception $e) {
-            return $this->displayExceptionForJson($e, $userRole->getMessages());
+            return $this->showExceptionAsJson($e, $userRole->getMessages());
         }
 
         return $this->response->setJsonContent($userRole);
@@ -81,12 +81,12 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
     public function applyRolesAction()
     {
         if (!$this->request->isPut()) {
-            return $this->displayJsonErrorResponse(405, 'ERR_REQUEST_METHOD_NOT_ALLOW');
+            return $this->showErrorMessageAsJson(405, 'ERR_REQUEST_METHOD_NOT_ALLOW');
         }
 
         $idArray = $this->request->getPut('id');
         if (!is_array($idArray) || count($idArray) < 1) {
-            return $this->displayJsonErrorResponse(401, 'ERR_REQUEST_PARAMS_INCORRECT');
+            return $this->showErrorMessageAsJson(401, 'ERR_REQUEST_PARAMS_INCORRECT');
         }
 
         $roleId = $this->request->getPut('roleId');
@@ -109,7 +109,7 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
                 $res[] = $userRole;
             }
         } catch (\Exception $e) {
-            return $this->displayExceptionForJson($e, $userRole->getMessages());
+            return $this->showExceptionAsJson($e, $userRole->getMessages());
         }
 
         return $this->response->setJsonContent($res);
@@ -118,12 +118,12 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
     public function applyOperationsAction()
     {
         if (!$this->request->isPut()) {
-            return $this->displayJsonErrorResponse(405, 'ERR_REQUEST_METHOD_NOT_ALLOW');
+            return $this->showErrorMessageAsJson(405, 'ERR_REQUEST_METHOD_NOT_ALLOW');
         }
 
         $idArray = $this->request->getPut('id');
         if (!is_array($idArray) || count($idArray) < 1) {
-            return $this->displayJsonErrorResponse(401, 'ERR_REQUEST_PARAMS_INCORRECT');
+            return $this->showErrorMessageAsJson(401, 'ERR_REQUEST_PARAMS_INCORRECT');
         }
 
         $roleId = $this->request->getPut('roleid');
@@ -146,7 +146,7 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
                 $res[] = $roleOperation;
             }
         } catch (\Exception $e) {
-            return $this->displayExceptionForJson($e, $roleOperation->getMessages());
+            return $this->showExceptionAsJson($e, $roleOperation->getMessages());
         }
 
         return $this->response->setJsonContent($res);

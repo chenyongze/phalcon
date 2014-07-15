@@ -164,7 +164,7 @@
 
 
 <!-- Modal -->
-<div id="user-modal" class="custom-modal size-sm " tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+<div id="user-modal" class="custom-modal size-sm active" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
     <div class="wrapper">
         <div id="user-modal-carousel" class="carousel slide" data-ride="carousel" data-interval="false">
             <!-- Indicators
@@ -176,7 +176,7 @@
             -->
             <!-- Wrapper for slides -->
             <ol class="carousel-inner">
-                <li class="item centerbox">
+                <li id="user-modal-reset" class="item centerbox">
                     <div class="custom-modal-content">
                         <div class="custom-modal-header">
                             <button type="button" class="close" data-action="close-custom-modal" data-target="#user-modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -201,7 +201,8 @@
                     </div>
                 </li>
                 <!--  -->
-                <li class="item centerbox active">
+
+                <li id="user-modal-login" class="item centerbox active">
                     <div class="custom-modal-content">
                         <div class="custom-modal-header">
                             <button type="button" class="close" data-action="close-custom-modal" data-target="#user-modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -210,7 +211,7 @@
                         <div class="custom-modal-body">
                             <form action="/login"  method="POST" novalidate="novalidate">
                                 <div class="form-group has-feedback">
-                                    <input type="text" name="username" class="form-control" placeholder="用户名或邮箱" required>
+                                    <input type="text" name="identify" class="form-control" placeholder="用户名或邮箱" required>
                                     <span class="glyphicon glyphicon-user form-control-feedback"></span>
                                 </div>
                                 <div class="form-group has-feedback">
@@ -249,7 +250,7 @@
                     </div>
                 </li>
                 <!--  -->
-                <li class="item centerbox">
+                <li id="user-modal-register" class="item centerbox">
                     <div class="custom-modal-content">
                         <div class="custom-modal-header">
                             <button type="button" class="close" data-action="close-custom-modal" data-target="#user-modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -297,7 +298,7 @@
                                 <div class="form-footer">
                                     <div class="checkbox pull-left" style="width: 150px;">
                                         <label>
-                                            <input type="checkbox" name="agree" checked="checked" required> 同意<a href="/page/terms" class="text-blue">使用条款</a>
+                                            <input type="checkbox" name="agree" checked="checked" value="yes" required> 同意<a href="/page/terms" class="text-blue" target="_blank">使用条款</a>
                                         </label>
                                     </div>
                                     <button type="submit" class="custom-button pull-right">注册</button>
@@ -325,7 +326,7 @@
                     </div>
                 </li>
                 <!--  -->
-                <li class="item centerbox">
+                <li id="user-modal-connect-login" class="item centerbox">
                     <div class="custom-modal-content">
                         <div class="custom-modal-header">
                             <button type="button" class="close" data-action="close-custom-modal" data-target="#user-modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -334,7 +335,7 @@
                         <div class="custom-modal-body">
                             <form action="/auth/login"  method="POST" novalidate="novalidate">
                                 <div class="form-group has-feedback">
-                                    <input type="text" name="username" class="form-control" placeholder="用户名或邮箱" required>
+                                    <input type="text" name="identify" class="form-control" placeholder="用户名或邮箱" required>
                                     <span class="glyphicon glyphicon-user form-control-feedback"></span>
                                 </div>
                                 <div class="form-group has-feedback">
@@ -354,7 +355,7 @@
                     </div>
                 </li>
                 <!--  -->
-                <li class="item centerbox">
+                <li id="user-modal-connect-register" class="item centerbox">
                     <div class="custom-modal-content">
                         <div class="custom-modal-header">
                             <button type="button" class="close" data-action="close-custom-modal" data-target="#user-modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -391,7 +392,7 @@
                                 <div class="form-footer">
                                     <div class="checkbox pull-left" style="width: 150px;">
                                         <label>
-                                            <input type="checkbox" name="agree" checked="checked" required> 同意<a href="/page/terms" class="text-blue">使用条款</a>
+                                            <input type="checkbox" name="agree" checked="checked" value="yes" required> 同意<a href="/page/terms" class="text-blue" target="_blank">使用条款</a>
                                         </label>
                                     </div>
                                     <button type="submit" class="custom-button pull-right">注册并绑定</button>
@@ -435,12 +436,117 @@
 <script src="/wscn/js/main.js"></script>
 
 <script>
+var userMessages = {
+        'ERR_USER_PASSWORD_WRONG' : '密码不匹配，请重试',
+        'ERR_USER_PASSWORD_WRONG_MAX_TIMES' : '密码输入错误次数太多，用户已经被锁定，请稍后重试',
+        'ERR_USER_NOT_EXIST' : '用户不存在',
+        'ERR_USER_NOT_ACTIVED' : '用户未激活<span class="inactive-handle"></span>',
+        'ERR_USER_RESET_CODE_NOT_MATCH' : '验证码不匹配',
+        'ERR_USER_RESET_CODE_EXPIRED' : '验证码已过期',
+        'ERR_USER_USERNAME_ALREADY_TAKEN' : '用户名已存在',
+        'ERR_USER_EMAIL_ALREADY_TAKEN' : '用户邮箱已存在',
+        'ERR_USER_CREATE_FAILED' : '创建用户失败',
+        'ERR_USER_BE_BANNED' : '用户已被屏蔽',
+        'ERR_OAUTH_AUTHORIZATION_FAILED' : '第三方授权失败',
+        'SUCCESS_USER_ACTIVE_MAIL_SENT' : '激活邮件已发送',
+        'SUCCESS_USER_REGISTERED_ACTIVE_MAIL_SENT' : '一封验证邮件已发到注册邮箱，请验证后登陆',
+        'SUCCESS_USER_RESET_MAIL_SENT' : '一封包含重置密码信息的邮件已经发送到注册邮箱',
+        'SUCCESS_USER_PASSWORD_RESET' : '新密码已设置，请重新登陆',
+        'SUCCESS_OAUTH_USER_REGISTERED' : '注册成功',
+        'SUCCESS_OAUTH_USER_CONNECTED' : '绑定第三方帐号成功',
+        'SUCCESS_OAUTH_AUTO_CONNECT_EXIST_EMAIL' : '登录成功'
+};
 var usrManager = new UserManager();
 usrManager.start();
 usrManager.onNotLogin(function(){
+    var showMessage = function(messageCode, message) {
+            return '<div data-raw-message="' + messageCode + '" class="alert alert-danger">' + message + '<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button></div>'
+    }
     $(document).on('click', '.login-social-btn', function(){
-            window.open($(this).attr('href'), '_blank');
-            return false;
+        window.open($(this).attr('href'), '_blank');
+        return false;
+    });
+    $("#user-modal-register, #user-modal-reset, #user-modal-connect-login").on('submit', 'form', function(){
+        var form = $(this);
+        $.ajax({
+            url : form.attr('action'),
+            dataType : 'json',
+            data : form.serialize(),
+            type : 'POST',
+            success : function(response){
+                    form.find('.alert').remove();
+            },
+            error : function(error) {
+                    form.find('.alert').remove();
+                    var messages = error.responseJSON.errors;
+                    if(!messages || messages.length < 1) {
+                            form.prepend(showMessage('ERR_UNKNOW', '有未知错误发生，请稍候重试'));
+                    }
+                    var i = 0;
+                    for(i in messages) {
+                        var message = messages[i];
+                        var messageCode = message.message;
+                        var errorMsg = userMessages[messageCode] || messageCode;
+                        form.prepend(showMessage(message.message, errorMsg));
+                    }
+            
+            }
+        });
+        return false;
+    });
+
+    $("#user-modal-login").on('submit', 'form', function(){
+            var form = $(this);
+            var inactiveHandler = function(form){
+                    var username = form.find('input[name=identify]').val();
+                    form.find('.inactive-handle').html('，如未收到激活邮件，请<a href="/login/reactive?username=' + username + '">点击重发</a>');
+                    form.find('.inactive-handle').on('click', 'a', function(){
+                        var inactiveLink = $(this);
+                        $.ajax({
+                            url : inactiveLink.attr('href'),
+                            type : 'GET',
+                            success : function(response){
+                                    inactiveLink.closest('.alert')
+                                        .removeClass('alert-danger')
+                                        .addClass('alert-success')
+                                        .html('激活邮件已发送，请登录邮箱查收');
+                            },
+                            error : function(error) {
+                                    inactiveLink.closest('.alert')
+                                        .html('激活邮件发送失败，请<a href="/login/reactive?username=' + username + '">重试</a>');
+                            }
+                        });
+                        return false;
+                    });
+            }
+        $.ajax({
+            url : form.attr('action'),
+            dataType : 'json',
+            data : form.serialize(),
+            type : 'POST',
+            success : function(response){
+                    form.find('.alert').remove();
+            },
+            error : function(error) {
+                    form.find('.alert').remove();
+                    var messages = error.responseJSON.errors;
+                    if(!messages || messages.length < 1) {
+                            form.prepend(showMessage('ERR_UNKNOW', '有未知错误发生，请稍候重试'));
+                    }
+                    var i = 0;
+                    for(i in messages) {
+                        var message = messages[i];
+                        var messageCode = message.message;
+                        var errorMsg = userMessages[messageCode] || messageCode;
+                        form.prepend(showMessage(message.message, errorMsg));
+                        if(messageCode == 'ERR_USER_NOT_ACTIVED') {
+                                inactiveHandler(form);
+                        }
+                    }
+            
+            }
+        });
+        return false;
     });
 });
 usrManager.onLogin(function(){
@@ -478,7 +584,7 @@ $(document).ready(function(){
                     passwordInput.attr('type', 'text');
                     icon.toggleClass('glyphicon-eye-open glyphicon-eye-close');
                 } else if(icon.hasClass('glyphicon-eye-close')) {
-                    passwordInput.attr('type', 'password');
+                    passwordInput.attr('type', 'password');username
                     icon.toggleClass('glyphicon-eye-open glyphicon-eye-close');
                 }
             });

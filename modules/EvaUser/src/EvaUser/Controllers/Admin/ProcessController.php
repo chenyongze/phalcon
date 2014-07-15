@@ -34,14 +34,14 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
         $id = $this->dispatcher->getParam('id');
         $user =  Models\User::findFirst($id);
         if (!$user) {
-            return $this->displayJsonErrorResponse(404, 'ERR_USER_NOT_FOUND');
+            return $this->showErrorMessageAsJson(404, 'ERR_USER_NOT_FOUND');
         }
 
         try {
             $user->status = $this->request->getPut('status');
             $user->save();
         } catch (\Exception $e) {
-            return $this->displayExceptionForJson($e, $user->getMessages());
+            return $this->showExceptionAsJson($e, $user->getMessages());
         }
 
         return $this->response->setJsonContent($user);
@@ -50,7 +50,7 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
     public function deleteAction()
     {
         if (!$this->request->isDelete()) {
-            return $this->displayJsonErrorResponse(405, 'ERR_REQUEST_METHOD_NOT_ALLOW');
+            return $this->showErrorMessageAsJson(405, 'ERR_REQUEST_METHOD_NOT_ALLOW');
         }
 
         $id = $this->dispatcher->getParam('id');
@@ -60,7 +60,7 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
                 $user->delete();
             }
         } catch (\Exception $e) {
-            return $this->displayExceptionForJson($e, $user->getMessages());
+            return $this->showExceptionAsJson($e, $user->getMessages());
         }
 
         return $this->response->setJsonContent($user);

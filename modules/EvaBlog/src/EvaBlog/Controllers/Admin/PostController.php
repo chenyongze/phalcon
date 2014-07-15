@@ -61,13 +61,13 @@ class PostController extends ControllerBase
 
         $data = $this->request->getPost();
         if (!$form->isFullValid($data)) {
-            return $this->displayInvalidMessages($form);
+            return $this->showInvalidMessages($form);
         }
 
         try {
             $form->save('createPost');
         } catch (\Exception $e) {
-            return $this->displayException($e, $form->getModel()->getMessages());
+            return $this->showException($e, $form->getModel()->getMessages());
         }
         $this->flashSession->success('SUCCESS_POST_CREATED');
 
@@ -94,13 +94,13 @@ class PostController extends ControllerBase
         $data = $this->request->getPost();
 
         if (!$form->isFullValid($data)) {
-            return $this->displayInvalidMessages($form);
+            return $this->showInvalidMessages($form);
         }
 
         try {
             $form->save('updatePost');
         } catch (\Exception $e) {
-            return $this->displayException($e, $form->getModel()->getMessages());
+            return $this->showException($e, $form->getModel()->getMessages());
         }
         $this->flashSession->success('SUCCESS_POST_UPDATED');
 

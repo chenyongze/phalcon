@@ -16,7 +16,7 @@ class SessionController extends ControllerBase
         try {
             $user->verifyNewUser($username, $code);
         } catch (\Exception $e) {
-            $this->displayException($e, $user->getMessages());
+            $this->showException($e, $user->getMessages());
 
             return $this->response->redirect($this->getDI()->getConfig()->user->activeFailedRedirectUri);
         }
@@ -44,7 +44,7 @@ class SessionController extends ControllerBase
             $user->requestResetPassword();
             $this->flashSession->success('SUCCESS_USER_RESET_MAIL_SENT');
         } catch (\Exception $e) {
-            $this->displayException($e, $user->getMessages());
+            $this->showException($e, $user->getMessages());
 
             return $this->response->redirect($this->getDI()->getConfig()->user->resetFailedRedirectUri);
         }
@@ -61,7 +61,7 @@ class SessionController extends ControllerBase
         try {
             $user->verifyPasswordReset($username, $code);
         } catch (\Exception $e) {
-            $this->displayException($e, $user->getMessages());
+            $this->showException($e, $user->getMessages());
 
             return $this->response->redirect($this->getDI()->getConfig()->user->resetFailedRedirectUri);
         }
@@ -72,7 +72,7 @@ class SessionController extends ControllerBase
 
         $form = new Forms\ResetPasswordForm();
         if ($form->isValid($this->request->getPost()) === false) {
-            $this->displayInvalidMessages($form);
+            $this->showInvalidMessages($form);
 
             return $this->response->redirect($this->getDI()->getConfig()->user->resetFailedRedirectUri);
         }
@@ -85,7 +85,7 @@ class SessionController extends ControllerBase
             $user->resetPassword();
             $this->flashSession->success('SUCCESS_USER_PASSWORD_RESET');
         } catch (\Exception $e) {
-            $this->displayException($e, $user->getMessages());
+            $this->showException($e, $user->getMessages());
 
             return $this->response->redirect($this->getDI()->getConfig()->user->resetFailedRedirectUri);
         }
