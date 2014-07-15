@@ -220,11 +220,18 @@
                                     <div class="custom-modal-body">
                                         <form action="/login"  method="POST" novalidate="novalidate">
                                             <div class="form-group has-feedback">
-                                                <input type="text" name="username" class="form-control" placeholder="用户名或邮箱" required>
+                                                <input type="text" name="identify" class="form-control" placeholder="用户名或邮箱" required
+                                                    data-parsley-minlength="4"
+                                                    data-parsley-minlength-message="用户名最短4个字符"
+                                                >
                                                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
                                             </div>
                                             <div class="form-group has-feedback">
-                                                <input type="password" name="password" class="form-control password-previewer" placeholder="密码" required>
+                                                <input type="password" name="password" class="form-control" placeholder="密码" required
+                                                    data-parsley-trigger="blur change"
+                                                    data-parsley-minlength="6"
+                                                    data-parsley-minlength-message="密码最短6位"
+                                                >
                                                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                                             </div>
                                             <div class="form-footer">
