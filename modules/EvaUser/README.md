@@ -67,3 +67,13 @@ Login by Third part token
 ### Register
 
 
+``` php
+use Eva\EvaUser\Models\Login;
+$register = new Register();
+$register->assign(array(
+    'username' => $this->request->getPost('username'),
+    'email' => $this->request->getPost('email'),
+    'password' => $this->request->getPost('password'),           
+));
+$register->register();
+```
