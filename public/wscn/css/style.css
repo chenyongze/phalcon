@@ -434,6 +434,9 @@ body {
   text-align: center;
   background-color: #0a62a3;
 }
+.custom-button:hover {
+  color: #fff;
+}
 .custom-button:active {
   box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.5) inset;
 }
