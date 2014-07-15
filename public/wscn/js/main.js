@@ -69,30 +69,30 @@
     var timeout_fold = null;
     var $leftbar = $('#leftbar');
     var $content = $('#content');
-    $leftbar.on('mouseover', '[data-hover=unfold]', function(){
+    $leftbar.on('mouseover', '[data-hover=unfold]', function(e){
         clearTimeout(timeout_fold);
         $content.addClass('unfold');
     });
-    $leftbar.on('mouseout', '[data-hover=unfold]', function(){
+    $leftbar.on('mouseout', '[data-hover=unfold]', function(e){
         clearTimeout(timeout_show_related_info);
         timeout_fold = setTimeout(function(){
             $content.removeClass('unfold');
         }, 300);
     });
 
-    $leftbar.on('mouseover', '[data-hover=related-info]', function(){
+    $leftbar.on('mouseover', '[data-hover=related-info]', function(e){
         clearTimeout(timeout_show_related_info);
     });
 
     //breaking-news
-    $('#breaking-news [data-action=close]').click(function(){
+    $('#breaking-news [data-action=close]').click(function(e){
         $('body').removeClass('show-breaking-news');
         return false;
     });
 
     //
     var $sidebar = $('#sidebar');
-    $('#show-sidebar').on('click', function(){
+    $('#show-sidebar').on('click', function(e){
         $sidebar
             .animate({
                 right: '-' + $sidebar.width(),
@@ -104,8 +104,9 @@
                 right: '15px',
                 top: '-=5'
             });
+        e.preventDefault();
     });
-    $('#close-sidebar').on('click', function(){
+    $('#close-sidebar').on('click', function(e){
         $sidebar
             .animate({
                 right: '-' + $sidebar.width(),
@@ -117,17 +118,25 @@
                 right: '15px',
                 top: '-=5'
             });
+        e.preventDefault();
     });
     //
     $(document).on('click', '[data-action=login]', function(e){
-        $('#user-modal-carousel .item.active').removeClass('active');
-        $('#user-modal-carousel .item:eq(1)').addClass('active');
+        userForms.show();
+        return false;
     });
     //
-    $(document).on('click', '[data-toggle=custom-modal]', function(e){
+    $(document).on('click', '[data-action=custom-modal]', function(e){
         var $this = $(this);
         var $target = $($this.attr('data-target'));
-        $target.toggleClass('active');
+        $target.addClass('active');
+        e.preventDefault();
+    });
+    $(document).on('click', '[data-action=close-custom-modal]', function(e){
+        var $this = $(this);
+        var $target = $($this.attr('data-target'));
+        $target.removeClass('active');
+        e.preventDefault();
     });
     $(document).on('keyup', function(e){
         switch(e.which) {
@@ -139,6 +148,12 @@
     $('.custom-modal').on('click', function(e){
         if (e.target === this) {
             $(this).removeClass('active');
+        }
+        e.preventDefault();
+    });
+    $('#user-modal-carousel > .carousel-inner > .item').on('click', function(e){
+        if (e.target === this) {
+            $('#user-modal').removeClass('active');
         }
     });
 
