@@ -56,7 +56,7 @@ class CategoryController extends ControllerBase
             $category->createCategory();
         } catch (\Exception $e) {
             return $this->showException($e, $category->getMessages());
-            //return $this->response->redirect($this->getDI()->get('config')->user->registerFailedRedirectUri);
+            //return $this->response->redirect($this->getDI()->getConfig()->user->registerFailedRedirectUri);
         }
         $this->flashSession->success('SUCCESS_BLOG_CATEGORY_CREATED');
 
