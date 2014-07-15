@@ -22,4 +22,9 @@ class TestController extends ControllerBase
     public function searchAction()
     {
     }
+
+    public function listAction()
+    {
+    }
+
 }
