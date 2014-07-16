@@ -3,7 +3,7 @@
     <?$this->partial("partial/sidebar", array())?>
     </aside>
     <div id="wrapper">
-        <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 1 ,'limit' => 3, 'order' => '-sort_order'));$posts = $pager->items;?>
+        <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 1 ,'limit' => 3, 'has_image' => 1, 'order' => '-sort_order'));$posts = $pager->items;?>
         <div id="main">
             <div class="top3-news custom-row hidden-xxs">
                 <div class="custom-span-1">
@@ -55,7 +55,7 @@
             </ul>
             <div class="tab-content">
                 <ul class="tab-pane news-list with-img active" id="main-news">
-                    <?$pager = $this->tag->component('post', array('status' => 'published', 'limit' => 25, 'order' => '-created_at'));$posts = $pager->items;?>
+                    <?$pager = $this->tag->component('post', array('status' => 'published', 'limit' => 25, 'has_image' => 1, 'order' => '-created_at'));$posts = $pager->items;?>
                     <?foreach($posts as $post):?>
                     <li class="news">
                     <div class="row">
