@@ -9,6 +9,7 @@ class NodeController extends ControllerBase
 {
     public function indexAction()
     {
+        return $this->response->redirect('/news');
     }
 
     public function nodeAction()

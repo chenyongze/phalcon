@@ -95,6 +95,10 @@
                     </div>
                     </li>
                     <?endforeach;?>
+                    <?$this->partial("partial/paginator", array(
+                        'pagerUrl' => '/news',
+                        'pager' => $pager,
+                    ))?>
 
                     <li class="news-big hide">
                     <a class="cover-img" href="">
@@ -158,32 +162,15 @@
                 <button id="show-sidebar" class="custom-button type-link pull-right">实时新闻</button>
             </h2>
 
+            <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 1 ,'limit' => 5, 'page' => 2, 'has_image' => 1, 'order' => '-sort_order'));$posts = $pager->items;?>
             <ul id="side-topnews" class=" news-list with-dot">
+                <?foreach($posts as $post):?>
                 <li class="news">
-                <a class="title" href="">
-                    <strong>将股纳入新兴市场指数意味着什么？120亿美元入场，证监会积</strong>
+                <a class="title" href="/node/<?=$post->id?>">
+                    <strong><?=$post->title?></strong>
                 </a>
                 </li>
-                <li class="news">
-                <a class="title" href="">
-                    <strong>全球第二大产糖国新规：原糖进口税猛增167%</strong>
-                </a>
-                </li>
-                <li class="news">
-                <a class="title" href="">
-                    <strong>中央出手救市落空？官媒抨击房地产唱空者“别有用心”</strong>
-                </a>
-                </li>
-                <li class="news">
-                <a class="title" href="">
-                    <strong>日媒：中国大幅减持日债恐为向日施压</strong>
-                </a>
-                </li>
-                <li class="news">
-                <a class="title" href="">
-                    <strong>南非史上最长罢工结束 铂金钯金双双下挫</strong>
-                </a>
-                </li>
+                <?endforeach?>
             </ul>
             <!--  -->
             <div class="side-ad">
@@ -205,111 +192,27 @@
             </ul>
             <ul class="tab-content">
                 <li class="tab-pane active" id="side-day-rank-news">
+                <?$pager = $this->tag->component('post', array('status' => 'published', 'limit' => 10, 'order' => '-count'));$posts = $pager->items;?>
                 <ul class="news-list with-number">
+                    <?foreach($posts as $post):?>
                     <li class="news">
-                    <a class="title" href="">
-                        <strong>金属骗贷调查泼冷水，铜市六周以来首现净空头</strong>
+                    <a class="title" href="/node/<?=$post->id?>">
+                        <strong><?=$post->title?></strong>
                     </a>
                     </li>
-                    <li class="news">
-                    <a class="title" href="">
-                        <strong>伦敦房地产泡沫比中国更大</strong>
-                    </a>
-                    </li>
-                    <li class="news">
-                    <a class="title" href="">
-                        <strong>“超级投资者”踏空牛市 谁是美股新高的缔造者？</strong>
-                    </a>
-                    </li>
-                    <li class="news">
-                    <a class="title" href="">
-                        <strong>什么都怪房地产？别把中国经济想得太简单</strong>
-                    </a>
-                    </li>
-                    <li class="news">
-                    <a class="title" href="">
-                        <strong>德国放弃从美国运回黄金说明了什么？</strong>
-                    </a>
-                    </li>
-                    <li class="news">
-                    <a class="title" href="">
-                        <strong>微刺激发力 汇丰中国制造业PMI创七个月新高</strong>
-                    </a>
-                    </li>
-                    <li class="news">
-                    <a class="title" href="">
-                        <strong>今夏全球市场焦点——美国通胀是否已现？</strong>
-                    </a>
-                    </li>
-                    <li class="news">
-                    <a class="title" href="">
-                        <strong>对话中国顶尖对冲基金！见闻俱乐部第2期主题沙龙火热报名中</strong>
-                    </a>
-                    </li>
-                    <li class="news">
-                    <a class="title" href="">
-                        <strong>干旱席卷世界最大甘蔗产区 对冲基金押宝糖价上涨</strong>
-                    </a>
-                    </li>
-                    <li class="news">
-                    <a class="title" href="">
-                        <strong>一张图看懂中国为何需要微刺激</strong>
-                    </a>
-                    </li>
+                    <?endforeach?>
                 </ul>
                 </li>
+                <?$pager = $this->tag->component('post', array('status' => 'published', 'limit' => 10, 'order' => '-sort_order'));$posts = $pager->items;?>
                 <li class="tab-pane " id="side-week-rank-news">
                 <ul class="news-list with-number">
+                    <?foreach($posts as $post):?>
                     <li class="news">
-                    <a class="title" href="">
-                        <strong>什么都怪房地产？别把中国经济想得太简单</strong>
+                    <a class="title" href="/node/<?=$post->id?>">
+                        <strong><?=$post->title?></strong>
                     </a>
                     </li>
-                    <li class="news">
-                    <a class="title" href="">
-                        <strong>德国放弃从美国运回黄金说明了什么？</strong>
-                    </a>
-                    </li>
-                    <li class="news">
-                    <a class="title" href="">
-                        <strong>微刺激发力 汇丰中国制造业PMI创七个月新高</strong>
-                    </a>
-                    </li>
-                    <li class="news">
-                    <a class="title" href="">
-                        <strong>今夏全球市场焦点——美国通胀是否已现？</strong>
-                    </a>
-                    </li>
-                    <li class="news">
-                    <a class="title" href="">
-                        <strong>对话中国顶尖对冲基金！见闻俱乐部第2期主题沙龙火热报名中</strong>
-                    </a>
-                    </li>
-                    <li class="news">
-                    <a class="title" href="">
-                        <strong>干旱席卷世界最大甘蔗产区 对冲基金押宝糖价上涨</strong>
-                    </a>
-                    </li>
-                    <li class="news">
-                    <a class="title" href="">
-                        <strong>金属骗贷调查泼冷水，铜市六周以来首现净空头</strong>
-                    </a>
-                    </li>
-                    <li class="news">
-                    <a class="title" href="">
-                        <strong>伦敦房地产泡沫比中国更大</strong>
-                    </a>
-                    </li>
-                    <li class="news">
-                    <a class="title" href="">
-                        <strong>“超级投资者”踏空牛市 谁是美股新高的缔造者？</strong>
-                    </a>
-                    </li>
-                    <li class="news">
-                    <a class="title" href="">
-                        <strong>一张图看懂中国为何需要微刺激</strong>
-                    </a>
-                    </li>
+                    <?endforeach?>
                 </ul>
                 </li>
             </ul>

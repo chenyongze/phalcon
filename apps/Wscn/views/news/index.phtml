@@ -1,0 +1,46 @@
+<div id="search">
+    <form id="search-form" action="">
+        <input class="search-field" name="q" type="text"/>
+        <input class="submit" type="submit" type="text" value="查询"/>
+    </form>
+    <ul class="custom-nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#search-news">新闻（<?=$pager->total_items?>）</a></li>
+        <li><a data-toggle="tab" href="#search-market">资产（30）</a></li>
+        <li><a data-toggle="tab" href="#search-user">用户（5）</a></li>
+        <li class="pull-right custom-select hidden-xxs" style="width: 200px; text-align: right;">
+            <label>排序：</label>
+            <select>
+                <option value="asc">正序</option>
+                <option value="desc">倒序</option>
+            </select>
+        </li>
+    </ul>
+<?$posts = $pager->items;?>
+    <div class="tab-content">
+        <ul class="tab-pane search-list active" id="search-news">
+            <?foreach($posts as $post):?>
+            <li class="item news">
+                <img class="img " src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_77,w_120') : '/img/article.jpg'?>" alt=""/>
+                <a class="title" href="/node/<?=$post->id?>"><?=$post->title?></a>
+                <div>
+                    <span class="meta author">文/<span class="text-blue"><?=$post->user ? $post->user->username : '华尔街见闻'?> </span></span>
+                    <span class="meta time"><?=$this->tag->datetime($post->createdAt)?></span>
+                    <span class="pull-right">
+                        <span class="meta endorse icontext icontext-endorse-blue">(25)</span>
+                        <span class="meta discuss icontext icontext-discuss-blue">(<?=$post->commentCount > 0 ?: 0?>)</span>
+                    </span>
+                </div>
+                <p class="summary hidden-xxs">
+                  <?if($post->summary):?>
+                            <?=$post->getSummaryHtml()?>
+                            <?else:?>
+                            <?=\Eva\EvaEngine\Text\Substring::substrCn(strip_tags($post->getContentHtml()), 100);?>
+                            <?endif?>
+                </p>
+            </li>
+            <?endforeach?>
+        </ul>
+        <ul class="tab-pane search-list" id="search-user"></ul>
+        <ul class="tab-pane search-list" id="search-market"></ul>
+    </div>
+</div>
