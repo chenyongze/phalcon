@@ -63,8 +63,8 @@
                             <a class="cover-img" href="/node/<?=$post->id?>">
                                 <img class="img " src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_125,w_193') : '/img/article.jpg'?>" alt=""/>
                                 <div class="cover">
-                                    <span class="endorse icontext icontext-endorse-white">(123)</span>
-                                    <span class="discuss icontext icontext-discuss-white">(89)</span>
+                                    <span class="endorse icontext icontext-endorse-white">&nbsp;(123)</span>
+                                    <span class="discuss icontext icontext-discuss-white">&nbsp;(89)</span>
                                 </div>
                             </a>
                         </div>
@@ -79,19 +79,19 @@
                                 </span>
                                 <span class="meta time hidden-lg pull-right"><?=$this->tag->datetime($post->createdAt)?></span>
                             </div>
-                            <p class="summary visible-lg visible-xs">
+                            <div class="summary hidden-xxs">
                             <?if($post->summary):?>
                             <?=$post->getSummaryHtml()?>
                             <?else:?>
                             <?=\Eva\EvaEngine\Text\Substring::substrCn(strip_tags($post->getContentHtml()), 100);?>
                             <?endif?>
-                            </p>
+                            </div>
                         </div>
-                        <p class="summary col-sm-12 hidden-lg hidden-xs">
+                        <div class="summary col-sm-12 visible-xxs">
                         <?if($post->summary):?>
                         <?=$post->getSummaryHtml()?>
                         <?endif?>
-                        </p>
+                        </div>
                     </div>
                     </li>
                     <?endforeach;?>
@@ -119,8 +119,8 @@
                             <a class="cover-img" href="/node/<?=$post->id?>">
                                 <img class="img " src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_125,w_193') : '/img/article.jpg'?>" alt=""/>
                                 <div class="cover">
-                                    <span class="endorse icontext icontext-endorse-white">(123)</span>
-                                    <span class="discuss icontext icontext-discuss-white">(89)</span>
+                                    <span class="endorse icontext icontext-endorse-white">&nbsp;(123)</span>
+                                    <span class="discuss icontext icontext-discuss-white">&nbsp;(89)</span>
                                 </div>
                             </a>
                         </div>
@@ -135,19 +135,19 @@
                                 </span>
                                 <span class="meta time hidden-lg pull-right"><?=$this->tag->datetime($post->createdAt)?></span>
                             </div>
-                            <p class="summary visible-lg visible-xs">
+                            <div class="summary hidden-xxs">
                             <?if($post->summary):?>
                             <?=$post->getSummaryHtml()?>
                             <?else:?>
                             <?=\Eva\EvaEngine\Text\Substring::substrCn(strip_tags($post->getContentHtml()), 100);?>
                             <?endif?>
-                            </p>
+                            </div>
                         </div>
-                        <p class="summary col-sm-12 hidden-lg hidden-xs">
+                        <div class="summary col-sm-12 visible-xxs">
                         <?if($post->summary):?>
                         <?=$post->getSummaryHtml()?>
                         <?endif?>
-                        </p>
+                        </div>
                     </div>
                     </li>
                     <?endforeach;?>
