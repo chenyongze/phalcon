@@ -318,6 +318,38 @@ class Post extends Entities\Posts
         return implode(',', $tagArray);
     }
 
+    public function getPrevPost()
+    {
+        if(!$this->id) {
+            return false;
+        }
+
+        return self::findFirst(array(
+            'conditions' => 'status = :status: AND createdAt < :createdAt:',
+            'bind'       => array(
+               'createdAt' => $this->createdAt,
+               'status' => 'published',
+            ),
+            'order' => 'createdAt DESC'
+        ));
+    }
+
+    public function getNextPost()
+    {
+        if(!$this->id) {
+            return false;
+        }
+
+        return self::findFirst(array(
+            'conditions' => 'status = :status: AND createdAt > :createdAt:',
+            'bind'       => array(
+               'createdAt' => $this->createdAt,
+               'status' => 'published',
+            ),
+            'order' => 'createdAt ASC'
+        ));
+    }
+
     public function getSummaryHtml()
     {
         if (!$this->summary) {

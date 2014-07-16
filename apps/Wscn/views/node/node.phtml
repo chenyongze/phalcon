@@ -25,7 +25,7 @@
             <article>
             <h1 class="article-title"><?=$post->title?></h1>
                 <div>
-                    <span class="meta author">文/ <?=$post->user ? $post->user->username : '华尔街见闻'?></span>
+                    <span class="meta author">文 / <?=$post->user ? $post->user->username : '华尔街见闻'?></span>
                     <span class="meta time"><?=$this->tag->datetime($post->createdAt)?></span>
                     <div class="pull-right">
                         <?if($post->sourceName):?>
@@ -68,17 +68,33 @@
                     <!-- JiaThis Button END -->
                 </div>
                 <div class="toolbar hidden-xxs" data-action="post">
-                    <a class="prev-post">
+                    <?if($prevPost = $post->getPrevPost()):?>
+                    <a class="prev-post" href="/node/<?=$prevPost->id?>">
                         <span class="icon glyphicon glyphicon-chevron-left"></span>
-                        <img class="img" src="/wscn/img/img-news.jpg" alt=""/>
-                        <h3 class="title">前中央军委副主席徐才厚严重违纪</h3>
+                        <img class="img" src="<?=$prevPost->image ? $this->tag->thumb($prevPost->image, 'c_fill,h_80,w_120') : '/img/article.jpg'?>" alt=""/>
+                        <h3 class="title"><?=$prevPost->title?></h3>
                     </a>
+                    <?else:?>
+                    <a class="prev-post" href="/news">
+                        <span class="icon glyphicon glyphicon-chevron-left"></span>
+                        <img class="img" src="/img/article.jpg" alt=""/>
+                        <h3 class="title">没有更多文章了，看看大家在关注什么</h3>
+                    </a>
+                    <?endif?>
                     <div class="separator"></div>
-                    <a class="next-post">
+                    <?if($nextPost = $post->getNextPost()):?>
+                    <a class="next-post" href="/node/<?=$nextPost->id?>">
                         <span class="icon glyphicon glyphicon-chevron-right"></span>
-                        <img class="img" src="/wscn/img/img-news.jpg" alt=""/>
-                        <h3 class="title">私营部门贷款持续收缩 通胀不及目标一半</h3>
+                        <img class="img" src="<?=$nextPost->image ? $this->tag->thumb($nextPost->image, 'c_fill,h_80,w_120') : '/img/article.jpg'?>" alt=""/>
+                        <h3 class="title"><?=$nextPost->title?></h3>
                     </a>
+                    <?else:?>
+                    <a class="next-post" href="/news">
+                        <span class="icon glyphicon glyphicon-chevron-right"></span>
+                        <img class="img" src="/img/article.jpg" alt=""/>
+                        <h3 class="title" style="color:gray">没有更多文章了，看大家在关注什么</h3>
+                    </a>
+                    <?endif?>
                 </div>
                 <div class="toolbar visible-xxs">
                     上一篇：<a class="link" href="">前中央军委副主席徐才厚严重违纪</a>
@@ -87,43 +103,16 @@
                 </div>
             </article>
             <h2 class="main-title">更多热点</h2>
+            <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 2 ,'limit' => 6, 'has_image' => 1, 'order' => '-sort_order'));$posts = $pager->items;?>
             <ul class="hot-news row">
+                <?foreach($posts as $post):?>
                 <li class="col-lg-4 col-xs-6">
-                    <a href="" class="news">
-                        <img class="img" src="/wscn/img/img-news.jpg" alt=""/>
-                        <h3 class="title">操盘诀窍：5分钟读懂上市公司财报</h3>
+                    <a href="/node/<?=$post->id?>" class="news">
+                        <img class="img" src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_124,w_193') : '/img/article.jpg'?>" alt=""/>
+                        <h3 class="title"><?=$post->title?></h3>
                     </a>
                 </li>
-                <li class="col-lg-4 col-xs-6">
-                    <a href="" class="news">
-                        <img class="img" src="/wscn/img/img-news.jpg" alt=""/>
-                        <h3 class="title">操盘诀窍：5分钟读懂上市公司财报</h3>
-                    </a>
-                </li>
-                <li class="col-lg-4 col-xs-6">
-                    <a href="" class="news">
-                        <img class="img" src="/wscn/img/img-news.jpg" alt=""/>
-                        <h3 class="title">操盘诀窍：5分钟读懂上市公司财报</h3>
-                    </a>
-                </li>
-                <li class="col-lg-4 col-xs-6">
-                    <a href="" class="news">
-                        <img class="img" src="/wscn/img/img-news.jpg" alt=""/>
-                        <h3 class="title">操盘诀窍：5分钟读懂上市公司财报</h3>
-                    </a>
-                </li>
-                <li class="col-lg-4 col-xs-6">
-                    <a href="" class="news">
-                        <img class="img" src="/wscn/img/img-news.jpg" alt=""/>
-                        <h3 class="title">操盘诀窍：5分钟读懂上市公司财报</h3>
-                    </a>
-                </li>
-                <li class="col-lg-4 col-xs-6">
-                    <a href="" class="news">
-                        <img class="img" src="/wscn/img/img-news.jpg" alt=""/>
-                        <h3 class="title">操盘诀窍：5分钟读懂上市公司财报</h3>
-                    </a>
-                </li>
+                <?endforeach?>
             </ul>
             <h2 class="main-title">关键字阅读</h2>
             <ul class="custom-tabs">
