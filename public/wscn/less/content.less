@@ -6,12 +6,15 @@
     position: relative;
     z-index: 2;
     overflow: hidden;
+    margin-left: -15px;
+    margin-right: -15px;
+    &.columns-2 {
+        overflow: visible;
+    }
 }
 #wrapper {
     .clearfix;
     z-index: 3;
     position: relative;
     background-color: #fff;
-    margin-left: -15px;
-    margin-right: -15px;
 }

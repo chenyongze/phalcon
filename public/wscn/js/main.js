@@ -155,5 +155,8 @@
             $('#user-modal').removeClass('active');
         }
     });
-
+    //switch  控件
+    $('[data-toggle=switch]').click(function(){
+        $(this).toggleClass('active');
+    });
 })(jQuery);

@@ -169,6 +169,46 @@
     }
 }
 
+.custom-switch {
+    cursor: pointer;
+    .text {
+        display: inline-block;
+        vertical-align: middle;
+    }
+    .key {
+        .transition(background-color 0.3s);
+        display: inline-block;
+        vertical-align: middle;
+        width: 40px;
+        height: 24px;
+        border-radius: 12px;
+        background-color: #ccc;
+        box-shadow: 0 0 2px rgba(0,0,0,.3);
+        &:after {
+            .transition(margin 0.3s);
+            display: block;
+            content: "关";
+            font-size: 12px;
+            text-align: center;
+            line-height: 24px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: #fff;
+            box-shadow: 0 0 2px rgba(0,0,0,.3);
+        }
+    }
+    &.active {
+        .key {
+            background-color: #0FBC0A;
+            &:after {
+                margin-left: 16px;
+                content: "开";
+            }
+        }
+    }
+}
+
 .custom-modal {
     .transition(opacity 0.5s);
     z-index: -1;
