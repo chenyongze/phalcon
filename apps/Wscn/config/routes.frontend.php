@@ -16,12 +16,18 @@ return array(
         'action' => 'node',
         'id' => 1,
     ),
-    '/test/:action(/(\d+))*' =>  array(
+    '/news' =>  array(
         'module' => 'Wscn',
-        'controller' => 'test',
+        'controller' => 'news',
+    ),
+    '/news/:action(/(\d+))*' =>  array(
+        'module' => 'Wscn',
+        'controller' => 'news',
         'action' => 1,
         'id' => 3,
     ),
+
+
     '/livenews' =>  array(
         'module' => 'Wscn',
         'controller' => 'livenews',
@@ -73,5 +79,12 @@ return array(
         'module' => 'Wscn',
         'controller' => 'auth',
         'action' => 1,
+    ),
+
+    '/test/:action(/(\d+))*' =>  array(
+        'module' => 'Wscn',
+        'controller' => 'test',
+        'action' => 1,
+        'id' => 3,
     ),
 );

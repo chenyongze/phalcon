@@ -2,7 +2,11 @@
     <aside id="leftbar">
         <div class="sharebar">
             <a class="collect" href="">收藏</a>
-            <a class="discuss" href="">评论（10）</a>
+            <a class="discuss" href="#comments">评论
+                <?if($post->commentCount > 0):?>
+                （<?=$post->commentCount?>）
+                <?endif?>
+            </a>
             <!-- JiaThis Button BEGIN -->
             <div class="jiathis_style_32x32">
                 <a class="jiathis_button_tsina">微博</a>
@@ -19,16 +23,20 @@
     <div id="wrapper">
         <div id="main">
             <article>
-                <h1 class="article-title">对话中国顶尖对冲基金！见闻俱乐部第2期主题沙龙火热报名中</h1>
+            <h1 class="article-title"><?=$post->title?></h1>
                 <div>
-                    <span class="meta author">文/黄金头条</span>
-                    <span class="meta time">2014年6月20号  12:24</span>
+                    <span class="meta author">文 / <?=$post->user ? $post->user->username : '华尔街见闻'?></span>
+                    <span class="meta time"><?=$this->tag->datetime($post->createdAt)?></span>
                     <div class="pull-right">
-                        <span class="meta">来源：华尔街见闻</span>
-                        <span class="meta comment-count icontext icontext-discuss-blue">(10)</span>
+                        <?if($post->sourceName):?>
+                        <span class="meta">来源：<a href="<?=$post->sourceUrl?>" target="_blank"><?=$post->sourceName?></a></span>
+                        <?endif?>
+                        <a href="#comments"><span class="meta comment-count icontext icontext-discuss-blue">(<?=$post->commentCount > 0 ?: 0?>)</span></a>
                     </div>
                 </div>
-                <img src="/wscn/img/img-news-lg.jpg" class="main-image" alt=""/>
+                <?if($post->imageId):?>
+                <img src="<?=$post->thumbnail->imageWidth > 640 || $post->thumbnail->imageHeight > 350 ? $this->tag->thumb($post->image, 'c_fill,h_350,w_640') : $this->tag->thumb($post->image)?>" class="main-image" alt=""/>
+                <?endif?>
                 <div class="article-content">
                     <aside class="related-posts">
                         <h2 class="main-title">相关文章</h2>
@@ -38,16 +46,7 @@
                             <li class="news last-child"><a class="title" href="">MSCI将A股纳入市场意味着什么？</a></li>
                         </ul>
                     </aside>
-                    <p>面对“政令不出中南海”的症结，约一个月前国务院总理李克强曾在常务会上批评某些地方“为官不为”，要求各部委“守土有责”。从上周开始，国务院派出8个督查组赴部分省、国务院部门和单位进行为期十天的督查，全面督查地方对稳增长、调结构、惠民生政策如何落实。</p>
-                    <p>上述6月25日至7月5日动身的8个督查组有四个由部长挂帅。目前已督查或正督查的地区包括广东、湖南、湖北、河北、山东、辽宁等地，每地调研3天左右。督查主要针对《政府工作报告》部署的2014年重点工作和去年下半年以来出台的稳增长、促改革、调结构、惠民生等政策措施，涉及19个专题、60项重点内容。</p>
-                    <p>知情人士向《第一财经日报》透露，按行程推算，此次督查将最大范围涉及多个地区和国务院下属机构，将是一轮比较全面的督查。“与此同时，部委的督查工作也正在展</p>
-                    <p>据各地官方消息，</p>
-                    <ul>
-                        <li>国家发展改革委主任徐绍史任组长的第五督查组在山东省调研；</li>
-                        <li>交通运输部部长杨传堂为组长、民政部副部长窦玉沛为副组长的第六督查组先督查河北省，随后赴辽宁省，曾在大连实地考察棚户区改造项目、公租房项目、养老服务中心等；</li>
-                        <li>水利部部长陈雷任组长、人力资源和社会保障部副部长信长星任副组长的第七督查组先后在湖南和湖北省调研；</li>
-                        <li>审计署审计长刘家义为组长、住房城乡建设部副部长齐骥为副组长的第八督查组在广东省检查，到广州、深圳、肇庆等市实地调研。</li>
-                    </ul>
+                    <?=$post->getContentHtml()?>
                 </div>
                 <p class="statement">
                     在各大APP商店搜索“华尔街见闻”，可下载我们的移动客户端。
@@ -69,17 +68,33 @@
                     <!-- JiaThis Button END -->
                 </div>
                 <div class="toolbar hidden-xxs" data-action="post">
-                    <a class="prev-post">
+                    <?if($prevPost = $post->getPrevPost()):?>
+                    <a class="prev-post" href="/node/<?=$prevPost->id?>">
                         <span class="icon glyphicon glyphicon-chevron-left"></span>
-                        <img class="img" src="/wscn/img/img-news.jpg" alt=""/>
-                        <h3 class="title">前中央军委副主席徐才厚严重违纪</h3>
+                        <img class="img" src="<?=$prevPost->image ? $this->tag->thumb($prevPost->image, 'c_fill,h_80,w_120') : '/img/article.jpg'?>" alt=""/>
+                        <h3 class="title"><?=$prevPost->title?></h3>
                     </a>
+                    <?else:?>
+                    <a class="prev-post" href="/news">
+                        <span class="icon glyphicon glyphicon-chevron-left"></span>
+                        <img class="img" src="/img/article.jpg" alt=""/>
+                        <h3 class="title">没有更多文章了，看看大家在关注什么</h3>
+                    </a>
+                    <?endif?>
                     <div class="separator"></div>
-                    <a class="next-post">
+                    <?if($nextPost = $post->getNextPost()):?>
+                    <a class="next-post" href="/node/<?=$nextPost->id?>">
                         <span class="icon glyphicon glyphicon-chevron-right"></span>
-                        <img class="img" src="/wscn/img/img-news.jpg" alt=""/>
-                        <h3 class="title">私营部门贷款持续收缩 通胀不及目标一半</h3>
+                        <img class="img" src="<?=$nextPost->image ? $this->tag->thumb($nextPost->image, 'c_fill,h_80,w_120') : '/img/article.jpg'?>" alt=""/>
+                        <h3 class="title"><?=$nextPost->title?></h3>
                     </a>
+                    <?else:?>
+                    <a class="next-post" href="/news">
+                        <span class="icon glyphicon glyphicon-chevron-right"></span>
+                        <img class="img" src="/img/article.jpg" alt=""/>
+                        <h3 class="title" style="color:gray">没有更多文章了，看大家在关注什么</h3>
+                    </a>
+                    <?endif?>
                 </div>
                 <div class="toolbar visible-xxs">
                     上一篇：<a class="link" href="">前中央军委副主席徐才厚严重违纪</a>
@@ -88,43 +103,16 @@
                 </div>
             </article>
             <h2 class="main-title">更多热点</h2>
+            <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 2 ,'limit' => 6, 'has_image' => 1, 'order' => '-sort_order'));$posts = $pager->items;?>
             <ul class="hot-news row">
+                <?foreach($posts as $post):?>
                 <li class="col-lg-4 col-xs-6">
-                    <a href="" class="news">
-                        <img class="img" src="/wscn/img/img-news.jpg" alt=""/>
-                        <h3 class="title">操盘诀窍：5分钟读懂上市公司财报</h3>
+                    <a href="/node/<?=$post->id?>" class="news">
+                        <img class="img" src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_124,w_193') : '/img/article.jpg'?>" alt=""/>
+                        <h3 class="title"><?=$post->title?></h3>
                     </a>
                 </li>
-                <li class="col-lg-4 col-xs-6">
-                    <a href="" class="news">
-                        <img class="img" src="/wscn/img/img-news.jpg" alt=""/>
-                        <h3 class="title">操盘诀窍：5分钟读懂上市公司财报</h3>
-                    </a>
-                </li>
-                <li class="col-lg-4 col-xs-6">
-                    <a href="" class="news">
-                        <img class="img" src="/wscn/img/img-news.jpg" alt=""/>
-                        <h3 class="title">操盘诀窍：5分钟读懂上市公司财报</h3>
-                    </a>
-                </li>
-                <li class="col-lg-4 col-xs-6">
-                    <a href="" class="news">
-                        <img class="img" src="/wscn/img/img-news.jpg" alt=""/>
-                        <h3 class="title">操盘诀窍：5分钟读懂上市公司财报</h3>
-                    </a>
-                </li>
-                <li class="col-lg-4 col-xs-6">
-                    <a href="" class="news">
-                        <img class="img" src="/wscn/img/img-news.jpg" alt=""/>
-                        <h3 class="title">操盘诀窍：5分钟读懂上市公司财报</h3>
-                    </a>
-                </li>
-                <li class="col-lg-4 col-xs-6">
-                    <a href="" class="news">
-                        <img class="img" src="/wscn/img/img-news.jpg" alt=""/>
-                        <h3 class="title">操盘诀窍：5分钟读懂上市公司财报</h3>
-                    </a>
-                </li>
+                <?endforeach?>
             </ul>
             <h2 class="main-title">关键字阅读</h2>
             <ul class="custom-tabs">

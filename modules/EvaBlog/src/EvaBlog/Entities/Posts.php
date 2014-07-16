@@ -198,6 +198,7 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
             'alias' => 'text'
         ));
 
+
         $this->belongsTo('userId', 'Eva\EvaUser\Entities\Users', 'id', array(
             'alias' => 'user'
         ));
@@ -235,6 +236,11 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
             'id',
             array('alias' => 'tags')
         );
+
+
+        $this->hasOne('imageId', 'Eva\EvaFileSystem\Entities\Files', 'id', array(
+            'alias' => 'thumbnail'
+        ));
 
         parent::initialize();
     }

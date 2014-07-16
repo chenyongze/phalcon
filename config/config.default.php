@@ -4,6 +4,9 @@ return array(
     //Phalcon default settings
     'baseUri' => '/',
 
+    //For multi domain system
+    'domain' => '',
+
 
     //System DI settings:
     

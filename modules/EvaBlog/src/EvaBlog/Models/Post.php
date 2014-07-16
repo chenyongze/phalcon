@@ -127,6 +127,8 @@ class Post extends Entities\Posts
             '-created_at' => 'createdAt DESC',
             'sort_order' => 'sortOrder ASC',
             '-sort_order' => 'sortOrder DESC',
+            'count' => 'count ASC',
+            '-count' => 'count DESC',
         );
 
         if (!empty($query['columns'])) {
@@ -139,6 +141,10 @@ class Post extends Entities\Posts
 
         if (!empty($query['status'])) {
             $itemQuery->andWhere('status = :status:', array('status' => $query['status']));
+        }
+
+        if (!empty($query['has_image'])) {
+            $itemQuery->andWhere('imageId > 0');
         }
 
         if (!empty($query['sourceName'])) {
@@ -310,6 +316,38 @@ class Post extends Entities\Posts
         }
 
         return implode(',', $tagArray);
+    }
+
+    public function getPrevPost()
+    {
+        if(!$this->id) {
+            return false;
+        }
+
+        return self::findFirst(array(
+            'conditions' => 'status = :status: AND createdAt < :createdAt:',
+            'bind'       => array(
+               'createdAt' => $this->createdAt,
+               'status' => 'published',
+            ),
+            'order' => 'createdAt DESC'
+        ));
+    }
+
+    public function getNextPost()
+    {
+        if(!$this->id) {
+            return false;
+        }
+
+        return self::findFirst(array(
+            'conditions' => 'status = :status: AND createdAt > :createdAt:',
+            'bind'       => array(
+               'createdAt' => $this->createdAt,
+               'status' => 'published',
+            ),
+            'order' => 'createdAt ASC'
+        ));
     }
 
     public function getSummaryHtml()
