@@ -17,6 +17,7 @@ class PostController extends \Phalcon\Mvc\Controller
             'status' => $this->dispatcher->getParam('status'),
             'uid' => $this->dispatcher->getParam('uid'),
             'cid' => $this->dispatcher->getParam('cid'),
+            'tid' => $this->dispatcher->getParam('tid'),
             'has_image' => $this->dispatcher->getParam('has_image', 'int'),
             'username' => $this->dispatcher->getParam('username'),
             'order' => $this->dispatcher->getParam('order'),

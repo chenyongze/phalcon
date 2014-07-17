@@ -14,8 +14,10 @@ class NewsManager extends Entities\News
         'id',
         'title',
         'codeType',
+        'importance',
         'createdAt',
         'contentHtml' => 'getContentHtml',
+        'data' => 'getData',
         'commentStatus',
         'sourceName',
         'sourceUrl',
@@ -26,6 +28,11 @@ class NewsManager extends Entities\News
         'user' => array(
             'id',
             'username',
+        ),
+        'text' => array(
+            'contentExtra',
+            'contentFollowup',
+            'contentAnalysis',
         ),
     );
 
@@ -245,13 +252,28 @@ class NewsManager extends Entities\News
         if (empty($this->content)) {
             return '';
         }
+
         if ($this->codeType == 'markdown') {
             $parsedown = new \Parsedown();
-
             return $parsedown->text($this->content);
+        } elseif ($this->codeType == 'json') {
+            return '';
         }
 
         return $this->content;
+    }
+
+    public function getData()
+    {
+        if (empty($this->content)) {
+            return null;
+        }
+
+        if ($this->codeType == 'json') {
+            return json_decode($this->content);
+        }
+
+        return null;
     }
 
     public function getImageUrl()

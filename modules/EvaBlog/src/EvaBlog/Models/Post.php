@@ -160,6 +160,11 @@ class Post extends Entities\Posts
             ->andWhere('r.categoryId = :cid:', array('cid' => $query['cid']));
         }
 
+        if (!empty($query['tid'])) {
+            $itemQuery->join('Eva\EvaBlog\Entities\TagsPosts', 'id = r.postId', 'r')
+            ->andWhere('r.tagId = :tid:', array('tid' => $query['tid']));
+        }
+
         $order = 'createdAt DESC';
         if (!empty($query['order'])) {
             $orderArray = explode(',', $query['order']);
