@@ -62,6 +62,13 @@ class PostController extends ControllerBase
      *           type="integer"
      *         ),
      *         @SWG\Parameter(
+     *           name="tid",
+     *           description="Tag ID",
+     *           paramType="query",
+     *           required=false,
+     *           type="integer"
+     *         ),
+     *         @SWG\Parameter(
      *           name="order",
      *           description="Order, allow value : +-id, +-created_at, +-sortOrder default is -created_at",
      *           paramType="query",
@@ -91,6 +98,7 @@ class PostController extends ControllerBase
             'status' => $this->request->getQuery('status', 'string'),
             'uid' => $this->request->getQuery('uid', 'int'),
             'cid' => $this->request->getQuery('cid', 'int'),
+            'tid' => $this->request->getQuery('tid', 'int'),
             'username' => $this->request->getQuery('username', 'string'),
             'order' => $order,
             'limit' => $limit,

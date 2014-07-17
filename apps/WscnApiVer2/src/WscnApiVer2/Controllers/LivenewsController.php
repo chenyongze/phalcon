@@ -48,6 +48,13 @@ class LivenewsController extends ControllerBase
      *           type="string"
      *         ),
      *         @SWG\Parameter(
+     *           name="code_type",
+     *           description="Allow value : markdown (News) | json (Finance Data)",
+     *           paramType="query",
+     *           required=false,
+     *           type="string"
+     *         ),
+     *         @SWG\Parameter(
      *           name="uid",
      *           description="User ID",
      *           paramType="query",
@@ -89,6 +96,7 @@ class LivenewsController extends ControllerBase
         $query = array(
             'q' => $this->request->getQuery('q', 'string'),
             'status' => $this->request->getQuery('status', 'string'),
+            'codeType' => $this->request->getQuery('code_type', 'string'),
             'uid' => $this->request->getQuery('uid', 'int'),
             'cid' => $this->request->getQuery('cid', 'int'),
             'username' => $this->request->getQuery('username', 'string'),
@@ -96,6 +104,7 @@ class LivenewsController extends ControllerBase
             'limit' => $limit,
             'page' => $this->request->getQuery('page', 'int', 1),
         );
+
 
         $form = new Forms\FilterForm();
         $form->setValues($this->request->getQuery());
@@ -117,8 +126,10 @@ class LivenewsController extends ControllerBase
                     'id',
                     'title',
                     'codeType',
+                    'importance',
                     'createdAt',
                     'contentHtml' => 'getContentHtml',
+                    'data' => 'getData',
                     'commentStatus',
                     'sourceName',
                     'sourceUrl',
