@@ -157,6 +157,12 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
     public $sourceUrl;
 
     /**
+     *
+     * @var decimal
+     */
+    public $voteScore;
+
+    /**
      * Independent Column Mapping.
      */
     public function columnMap()
