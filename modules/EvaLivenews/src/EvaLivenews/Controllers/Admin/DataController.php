@@ -39,22 +39,22 @@ class DataController extends ControllerBase
 
         if($this->request->isAjax()) {
             if (!$form->isFullValid($data)) {
-                return $this->displayJsonInvalidMessages($form);
+                return $this->showInvalidMessagesAsJson($form);
             }
             try {
                 $form->save('updateNews');
             } catch (\Exception $e) {
-                return $this->displayExceptionForJson($e, $form->getModel()->getMessages());
+                return $this->showExceptionAsJson($e, $form->getModel()->getMessages());
             }
-            return $this->displayJsonResponse($form->getModel()->dump(Models\NewsManager::$defaultDump));
+            return $this->showResponseAsJson($form->getModel()->dump(Models\NewsManager::$defaultDump));
         } else {
             if (!$form->isFullValid($data)) {
-                return $this->displayInvalidMessages($form);
+                return $this->showInvalidMessages($form);
             }
             try {
                 $form->save('updateNews');
             } catch (\Exception $e) {
-                return $this->displayException($e, $form->getModel()->getMessages());
+                return $this->showException($e, $form->getModel()->getMessages());
             }
             $this->flashSession->success('SUCCESS_NEWS_UPDATED');
             return $this->redirectHandler('/admin/livenews/news/edit/' . $news->id);

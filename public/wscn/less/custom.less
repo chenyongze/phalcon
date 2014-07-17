@@ -43,6 +43,7 @@
         width: percentage(1);
     }
 }
+
 //
 .custom-button {
     display: inline-block;
@@ -53,6 +54,9 @@
     padding: 10px 8px;
     text-align: center;
     background-color: @blue;
+    &:hover {
+        color: #fff;
+    }
     &:active {
         box-shadow: 0 0 3px 1px rgba(0,0,0,.5) inset;
     }
@@ -166,6 +170,57 @@
     }
 }
 
+.switch-box {
+    cursor: pointer;
+    margin-bottom: 0;
+    .text {
+        display: inline-block;
+        vertical-align: middle;
+    }
+    input[type=checkbox] {
+        display: none;
+    }
+    .box {
+        .transition(background-color 0.3s);
+        display: inline-block;
+        vertical-align: middle;
+        width: 40px;
+        height: 24px;
+        border-radius: 12px;
+        background-color: #ccc;
+        box-shadow: 0 0 2px rgba(0,0,0,.3);
+        &:after {
+            .transition(margin 0.3s);
+            display: block;
+            content: "关";
+            font-size: 12px;
+            text-align: center;
+            line-height: 24px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: #fff;
+            box-shadow: 0 0 2px rgba(0,0,0,.3);
+        }
+    }
+    input[type=checkbox]:checked + .box {
+        background-color: #0FBC0A;
+        &:after {
+            margin-left: 16px;
+            content: "开";
+        }
+    }
+    &.active {
+        .box {
+            background-color: #0FBC0A;
+            &:after {
+                margin-left: 16px;
+                content: "开";
+            }
+        }
+    }
+}
+
 .custom-modal {
     .transition(opacity 0.5s);
     z-index: -1;
@@ -244,6 +299,9 @@
         .custom-modal-body {
             padding: 20px 30px 30px;
             background-color: #fff;
+        }
+        .custom-nav-tabs {
+            margin-bottom: 30px;
         }
         .custom-modal-footer {
             .clearfix;

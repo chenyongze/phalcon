@@ -13,28 +13,47 @@ class RegisterController extends ControllerBase
             return;
         }
 
-        $form = new Forms\RegisterForm();
-        if ($form->isValid($this->request->getPost()) === false) {
-            $this->displayInvalidMessages($form);
+        if($this->request->isAjax()) {
+            $form = new Forms\RegisterForm();
+            if ($form->isValid($this->request->getPost()) === false) {
+                return $this->showInvalidMessagesAsJson($form);
+            }
+            $user = new Models\Register();
+            $user->assign(array(
+                'username' => $this->request->getPost('username'),
+                'email' => $this->request->getPost('email'),
+                'password' => $this->request->getPost('password'),
+            ));
+            try {
+                $registerUser = $user->register();
+                return $this->showResponseAsJson($registerUser);
+            } catch (\Exception $e) {
+                return $this->showExceptionAsJson($e, $user->getMessages());
+            }
+        } else {
+            $form = new Forms\RegisterForm();
+            if ($form->isValid($this->request->getPost()) === false) {
+                $this->showInvalidMessages($form);
 
-            return $this->response->redirect($this->getDI()->get('config')->user->registerFailedRedirectUri);
+                return $this->redirectHandler($this->getDI()->getConfig()->user->registerFailedRedirectUri);
+            }
+            $user = new Models\Register();
+            $user->assign(array(
+                'username' => $this->request->getPost('username'),
+                'email' => $this->request->getPost('email'),
+                'password' => $this->request->getPost('password'),
+            ));
+            try {
+                $user->register();
+            } catch (\Exception $e) {
+                $this->showException($e, $user->getMessages());
+
+                return $this->redirectHandler($this->getDI()->getConfig()->user->registerFailedRedirectUri);
+            }
+            $this->flashSession->success('SUCCESS_USER_REGISTERED_ACTIVE_MAIL_SENT');
+            return $this->redirectHandler($this->getDI()->getConfig()->user->registerFailedRedirectUri);
         }
-        $user = new Models\Register();
-        $user->assign(array(
-            'username' => $this->request->getPost('username'),
-            'email' => $this->request->getPost('email'),
-            'password' => $this->request->getPost('password'),
-        ));
-        try {
-            $user->register();
-        } catch (\Exception $e) {
-            $this->displayException($e, $user->getMessages());
 
-            return $this->response->redirect($this->getDI()->get('config')->user->registerFailedRedirectUri);
-        }
-        $this->flashSession->success('SUCCESS_USER_REGISTERED_ACTIVE_MAIL_SENT');
-
-        return $this->response->redirect($this->getDI()->get('config')->user->registerFailedRedirectUri);
     }
 
     public function checkAction()

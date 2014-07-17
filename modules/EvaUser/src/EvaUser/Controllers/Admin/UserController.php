@@ -69,13 +69,13 @@ class UserController extends AdminControllerBase implements SessionAuthorityCont
 
         $data = $this->request->getPost();
         if (!$form->isFullValid($data)) {
-            return $this->displayInvalidMessages($form);
+            return $this->showInvalidMessages($form);
         }
 
         try {
             $form->save();
         } catch (\Exception $e) {
-            return $this->displayException($e, $form->getModel()->getMessages());
+            return $this->showException($e, $form->getModel()->getMessages());
         }
         $this->flashSession->success('SUCCESS_USER_CREATED');
 
@@ -106,13 +106,13 @@ class UserController extends AdminControllerBase implements SessionAuthorityCont
 
         $data = $this->request->getPost();
         if (!$form->isFullValid($data)) {
-            return $this->displayInvalidMessages($form);
+            return $this->showInvalidMessages($form);
         }
 
         try {
             $form->save();
         } catch (\Exception $e) {
-            return $this->displayException($e, $form->getModel()->getMessages());
+            return $this->showException($e, $form->getModel()->getMessages());
         }
         $this->flashSession->success('SUCCESS_USER_UPDATED');
 

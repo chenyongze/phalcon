@@ -157,6 +157,12 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
     public $sourceUrl;
 
     /**
+     *
+     * @var decimal
+     */
+    public $voteScore;
+
+    /**
      * Independent Column Mapping.
      */
     public function columnMap()
@@ -235,6 +241,21 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
             'id',
             array('alias' => 'tags')
         );
+
+        $this->hasManyToMany(
+            'id',
+            'Eva\EvaBlog\Entities\Connections',
+            'sourceId',
+            'targetId',
+            'Eva\EvaBlog\Entities\Posts',
+            'id',
+            array('alias' => 'connections')
+        );
+
+
+        $this->hasOne('imageId', 'Eva\EvaFileSystem\Entities\Files', 'id', array(
+            'alias' => 'thumbnail'
+        ));
 
         parent::initialize();
     }

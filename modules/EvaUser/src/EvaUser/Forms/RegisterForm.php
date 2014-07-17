@@ -43,10 +43,10 @@ class RegisterForm extends Form
         $email->setLabel('Email');
         $email->addValidators(array(
             new PresenceOf(array(
-                'message' => 'The e-mail is required'
+                'message' => 'Email is required'
             )),
             new Email(array(
-                'message' => 'The e-mail is not valid'
+                'message' => 'Email is not valid'
             ))
         ));
         $this->add($email);

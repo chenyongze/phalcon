@@ -1,45 +1,320 @@
-<div class="row">
-    <div class="col-md-8">
-        <div id="livenews">
-
-        </div>
-
-    </div>
-    <div class="col-md-4">.col-md-6</div>
-</div>
-
-
-<script id="news-template" type="text/template" data-template>
-        <div class="media">
-            <a href="#" class="pull-left">
-                <img alt="64x64" data-src="holder.js/64x64" class="media-object" style="width: 64px; height: 64px;" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjZWVlIi8+PHRleHQgdGV4dC1hbmNob3I9Im1pZGRsZSIgeD0iMzIiIHk9IjMyIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEycHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NjR4NjQ8L3RleHQ+PC9zdmc+">
-            </a>
-            <div class="media-body">
-                <h4 class="media-heading"><%= title %></h4>
-                <%= contentHtml %>
+<div id="main-content" class="columns-2">
+    <div id="main" class="page-livenews">
+        <div class="topbar hidden-xs hidden-xxs">
+            <a href="" class="custom-button type-link absolute">最新文章</a>
+            <div class="control-box">
+                <span class="left glyphicon glyphicon-chevron-left"></span>
+                <span class="right glyphicon glyphicon-chevron-right"></span>
+            </div>
+            <div class="news-list with-dot">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <a class="news" href="">
+                            <strong>什么都怪房地产？别把中国经济想得太简单</strong>
+                        </a>
+                    </div>
+                    <div class="col-lg-6">
+                        <a class="news" href="">
+                            <strong>德国放弃从美国运回黄金说明了什么？</strong>
+                        </a>
+                    </div>
+                    <div class="col-lg-6">
+                        <a class="news" href="">
+                            <strong>微刺激发力 汇丰中国制造业PMI创七个月新高</strong>
+                        </a>
+                    </div>
+                    <div class="col-lg-6">
+                        <a class="news" href="">
+                            <strong>今夏全球市场焦点——美国通胀是否已现？</strong>
+                        </a>
+                    </div>
+                    <div class="col-lg-6">
+                        <a class="news" href="">
+                            <strong>对话中国顶尖对冲基金！见闻俱乐部第2期主题沙龙火热报名中</strong>
+                        </a>
+                    </div>
+                    <div class="col-lg-6">
+                        <a class="news" href="">
+                            <strong>干旱席卷世界最大甘蔗产区 对冲基金押宝糖价上涨</strong>
+                        </a>
+                    </div>
+                    <div class="col-lg-6">
+                        <a class="news" href="">
+                            <strong>金属骗贷调查泼冷水，铜市六周以来首现净空头</strong>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
-</script>
+        <div id="livenews-box">
+            <div class="header">
+                <div class="clearfix">
+                    <button class="custom-button config glyphicon glyphicon-cog" data-action="config"></button>
+                    <label class="switch-box" data-toggle="switch">
+                        <span class="icon"></span>
+                        <span class="text">声音提醒</span>
+                        <input type="checkbox" name="cc">
+                        <span class="box"></span>
+                    </label>
+                </div>
+                <div class="checkbox-group">
+                    <div class="checkbox" style="">
+                        <label>
+                            <input type="checkbox" name="cc">
+                            <span class="text">全球央行</span>
+                        </label>
+                    </div>
+                    <div class="checkbox" style="">
+                        <label>
+                            <input type="checkbox" name="cc">
+                            <span class="text">经济数据</span>
+                        </label>
+                    </div>
+                    <div class="checkbox" style="">
+                        <label>
+                            <input type="checkbox" name="cc">
+                            <span class="text">股市</span>
+                        </label>
+                    </div>
+                    <div class="checkbox" style="">
+                        <label>
+                            <input type="checkbox" name="cc">
+                            <span class="text">外汇</span>
+                        </label>
+                    </div>
+                    <div class="checkbox" style="">
+                        <label>
+                            <input type="checkbox" name="cc">
+                            <span class="text">贵金属</span>
+                        </label>
+                    </div>
+                    <div class="checkbox" style="">
+                        <label>
+                            <input type="checkbox" name="cc">
+                            <span class="text">中国</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="body">
+                <ul>
+                    <li class="date">2014年7月15号  09:30:24</li>
+                    <li class="news">
+                        <div class="content">
+                            <span class="icon"></span>
+                            <span class="time">10:35</span>
+                            上海高校毕业生就业签约超七成，自主创业增加上海市教委：2014年上海高校毕业生就业签约率为 72.24%，预计到8月底，总体就业率将与去年同期持平。此外，目前上海高校总共有828名毕业生选择自主创业，同比增加70.7%。
+                        </div>
+                        <div class="footer">
+                        <span class="meta">
+                            <i class="icontext icontext-collect-blue"></i>
+                        </span>
+                        <span class="meta">
+                            <i class="icontext icontext-share-blue"></i>
+                        </span>
+                        <span class="meta">
+                            <i class="icontext icontext-discuss-blue"></i>&nbsp;32
+                        </span>
+                        </div>
+                    </li>
+                    <li class="news">
+                        <div class="content">
+                            <span class="icon"></span>
+                            <span class="time">10:35</span>
+                            上海高校毕业生就业签约超七成，自主创业增加上海市教委：2014年上海高校毕业生就业签约率为 72.24%，预计到8月底，总体就业率将与去年同期持平。此外，目前上海高校总共有828名毕业生选择自主创业，同比增加70.7%。
+                        </div>
+                        <div class="footer">
+                        <span class="meta">
+                            <i class="icontext icontext-collect-blue"></i>
+                        </span>
+                        <span class="meta">
+                            <i class="icontext icontext-share-blue"></i>
+                        </span>
+                        <span class="meta">
+                            <i class="icontext icontext-discuss-blue"></i>&nbsp;32
+                        </span>
+                        </div>
+                    </li>
+                    <li class="news">
+                        <div class="content">
+                            <span class="icon"></span>
+                            <span class="time">10:35</span>
+                            上海高校毕业生就业签约超七成，自主创业增加上海市教委：2014年上海高校毕业生就业签约率为 72.24%，预计到8月底，总体就业率将与去年同期持平。此外，目前上海高校总共有828名毕业生选择自主创业，同比增加70.7%。
+                        </div>
+                        <div class="footer">
+                        <span class="meta">
+                            <i class="icontext icontext-collect-blue"></i>
+                        </span>
+                        <span class="meta">
+                            <i class="icontext icontext-share-blue"></i>
+                        </span>
+                        <span class="meta">
+                            <i class="icontext icontext-discuss-blue"></i>&nbsp;32
+                        </span>
+                        </div>
+                    </li>
+                    <li class="news">
+                        <div class="content">
+                            <span class="icon"></span>
+                            <span class="time">10:35</span>
+                            上海高校毕业生就业签约超七成，自主创业增加上海市教委：2014年上海高校毕业生就业签约率为 72.24%，预计到8月底，总体就业率将与去年同期持平。此外，目前上海高校总共有828名毕业生选择自主创业，同比增加70.7%。
+                        </div>
+                        <div class="footer">
+                        <span class="meta">
+                            <i class="icontext icontext-collect-blue"></i>
+                        </span>
+                        <span class="meta">
+                            <i class="icontext icontext-share-blue"></i>
+                        </span>
+                        <span class="meta">
+                            <i class="icontext icontext-discuss-blue"></i>&nbsp;32
+                        </span>
+                        </div>
+                    </li>
+                </ul>
+                <div class="pagingbar">
+                    <a class="button" href="">1</a>
+                    <a class="button" href="">2</a>
+                    <a class="button" href="">3</a>
+                    <a class="button" href="">4</a>
+                    <a class="button" href="">5</a>
+                    <a class="button" href="">6</a>
+                    <a class="button" href="">7</a>
+                    <a class="button" href="">8</a>
+                    <a class="button" data-action="prev-page" href="">下一页</a>
+                </div>
+            </div>
+            <!-- body end -->
+        </div>
+    </div>
+    <div id="rightbar">
+        <h2 class="main-title">实时行情</h2>
+        <!-- Start: Wallstreetcn.com sidebar widget -->
+        <div id="js-wscn-sidebar-wrapper" class="hidden-xxs" style="margin-bottom: 15px;"></div>
+        <script src="http://markets.static.wallstreetcn.com/embed/sidebar.js" type='text/javascript'></script>
 
+        <script type='text/javascript'>
+            (function(){
 
-<script src="/vendor/js/jquery-2.0.3.min.js"></script>
-<script src="/vendor/js/underscore.min.js"></script>
-<script src="/vendor/js/socket.io/socket.io.js"></script>
-<script>
-    var appendNews = function(newsString) {
-            try {
-                    var news = $.parseJSON(newsString);
-                    var template = _.template($("#news-template").html());
-                    var render = template(news);
-                    $("#livenews").prepend(render);
-                } catch (e) {
-                    console.log(e);
-            }
-    }
+                // 插入的 iFrame 父节点
+                var parentId = 'js-wscn-sidebar-wrapper';
+                // iFrame 的 ID
+                var iframeId = 'js-wscn-sidebar-iframe';
 
+                var options = /*options*/{
+                    "chart": {
+                        "interval": "5"
+                    },
+                    "theme": "light",
+                    "height": "430",
+                    "width": "300",
+                    "active": 0,
+                    "tabs": [
+                        {
+                            "name": "综合",
+                            "symbols": [
+                                "XAUUSD",
+                                "UKOil",
+                                "SPX500",
+                                "000001",
+                                "EURUSD",
+                                "USDJPY",
+                                "US10Year"
+                            ]
+                        },
+                        {
+                            "name": "外汇",
+                            "symbols": [
+                                "EURUSD",
+                                "GBPUSD",
+                                "USDJPY",
+                                "USDCHF",
+                                "AUDUSD",
+                                "USDCAD",
+                                "USDollarIndex"
+                            ]
+                        },
+                        {
+                            "name": "期货",
+                            "symbols": [
+                                "XAUUSD",
+                                "XAGUSD",
+                                "UKOil",
+                                "USOil",
+                                "Copper",
+                                "CORN",
+                                "WHEAT"
+                            ]
+                        },
+                        {
+                            "name": "股指",
+                            "symbols": [
+                                "SPX500",
+                                "NAS100",
+                                "US30",
+                                "JPN225INDEX",
+                                "hkg33index",
+                                "UK100",
+                                "eustx50index"
+                            ]
+                        }
+                    ]
+                }/*endOptions*/
+                var sidebar = new WallstreetCN.embed.Sidebar(parentId, options, iframeId);
+                sidebar.render();
 
-    var socket = io("<?=$this->config->livenews->socketIoServer?>");
-    socket.on('livenews:create', function(newsString){
-            appendNews(newsString);
-    });
-</script>
+            })();
+        </script>
+        <!-- End: Wallstreetcn.com sidebar widget -->
+        <!--  -->
+        <div class="side-ad">
+            <img src="/wscn/img/side-img-1.jpg" alt=""/>
+        </div>
+        <h2 class="main-title">财经日历</h2>
+        <div id="side-fcl" class="nano fc-list type-side" data-fcl-option="time-format: HH:mm a;height: 400;autoScroll:true;refreshPrice:true;">
+            <div class="titlebar">
+                据 <a href="" data-action="scroll-fixed">下次数据</a> 公布时间还有：<span class="clock"></span>
+            </div>
+            <ul class="nano-content content">
+                <li class="more"></li>
+            </ul>
+            <script type="text/template" data-template>
+                <% for(var i=0; i<records.length; i++) { %>
+                <% var record = records[i]; %>
+                <% if (i == 0 || record.date.charAt(9) != records[i-1].date.charAt(9)) { %>
+                <li class="date" data-date="<%= record.date %>"><%= record.date %></li>
+                <% } %>
+                <li id="<%= record.id %>" class="item" data-cid="<%= record.cid %>" data-trend="<%= record.trend %>" data-utm="<%= record.utm %>">
+                    <div class="custom-row">
+                        <div class="col-custom-4 time"><%= record.time %></div>
+                        <div class="col-custom-8 important" data-value="<%= record.importance %>"><%= record.stars %></div>
+                    </div>
+                    <div class="custom-row">
+                        <span class="col-custom-4 country"><%= record.country %></span>
+                        <a    class="col-custom-8 title" href=""><%= record.title %></a>
+                    </div>
+                    <div class="custom-row">
+                        <div class="col-custom-4 price actual">
+                            <span class="text">今值：</span>
+                            <span class="value"><%= record.actual %></span>
+                        </div>
+                        <div class="col-custom-4 price forecast">
+                            <span class="text">预测：</span>
+                            <span class="value"><%= record.forecast %></span>
+                        </div>
+                        <div class="col-custom-4 price previous">
+                            <span class="text">前值：</span>
+                            <span class="value"><%= record.previous %></span>
+                        </div>
+                    </div>
+                </li>
+                <% } %>
+            </script>
+            <div class="loader">
+                <img class="indicator" src="/img/loader.gif" width="100" height="100" alt=""/>
+            </div>
+        </div>
+        <!--finance-calendar list end-->
+    </div>
+    <!-- rightbar end -->
+</div>

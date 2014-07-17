@@ -11,7 +11,7 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
     public function newsAction()
     {
         if (!$this->request->isDelete()) {
-            return $this->displayJsonErrorResponse(405, 'ERR_REQUEST_METHOD_NOT_ALLOW');
+            return $this->showErrorMessageAsJson(405, 'ERR_REQUEST_METHOD_NOT_ALLOW');
         }
 
         $id = $this->dispatcher->getParam('id');
@@ -19,7 +19,7 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
         try {
             $news->removeNews($id);
         } catch (\Exception $e) {
-            return $this->displayExceptionForJson($e, $news->getMessages());
+            return $this->showExceptionAsJson($e, $news->getMessages());
         }
 
         return $this->response->setJsonContent($news);

@@ -222,7 +222,7 @@ class MediaController extends ControllerBase
             $data = $media->dump(Models\FileManager::$defaultDump);
             return $this->response->setJsonContent($data);
         } catch (\Exception $e) {
-            return $this->displayExceptionForJson($e, $form->getModel()->getMessages());
+            return $this->showExceptionAsJson($e, $form->getModel()->getMessages());
         }
      }
 
@@ -267,7 +267,7 @@ class MediaController extends ControllerBase
                 return $this->response->setJsonContent($data);
             }
         } catch (\Exception $e) {
-            return $this->displayExceptionForJson($e, $upload->getMessages());
+            return $this->showExceptionAsJson($e, $upload->getMessages());
         }
     }
 
@@ -307,7 +307,7 @@ class MediaController extends ControllerBase
              $media->delete($id);
              return $this->response->setJsonContent($mediainfo);
          } catch (\Exception $e) {
-             return $this->displayExceptionForJson($e, $media->getMessages());
+             return $this->showExceptionAsJson($e, $media->getMessages());
          }
     }
 }

@@ -48,6 +48,13 @@ class LivenewsController extends ControllerBase
      *           type="string"
      *         ),
      *         @SWG\Parameter(
+     *           name="code_type",
+     *           description="Allow value : markdown (News) | json (Finance Data)",
+     *           paramType="query",
+     *           required=false,
+     *           type="string"
+     *         ),
+     *         @SWG\Parameter(
      *           name="uid",
      *           description="User ID",
      *           paramType="query",
@@ -89,6 +96,7 @@ class LivenewsController extends ControllerBase
         $query = array(
             'q' => $this->request->getQuery('q', 'string'),
             'status' => $this->request->getQuery('status', 'string'),
+            'codeType' => $this->request->getQuery('code_type', 'string'),
             'uid' => $this->request->getQuery('uid', 'int'),
             'cid' => $this->request->getQuery('cid', 'int'),
             'username' => $this->request->getQuery('username', 'string'),
@@ -96,6 +104,7 @@ class LivenewsController extends ControllerBase
             'limit' => $limit,
             'page' => $this->request->getQuery('page', 'int', 1),
         );
+
 
         $form = new Forms\FilterForm();
         $form->setValues($this->request->getQuery());
@@ -117,8 +126,10 @@ class LivenewsController extends ControllerBase
                     'id',
                     'title',
                     'codeType',
+                    'importance',
                     'createdAt',
                     'contentHtml' => 'getContentHtml',
+                    'data' => 'getData',
                     'commentStatus',
                     'sourceName',
                     'sourceUrl',
@@ -225,7 +236,7 @@ class LivenewsController extends ControllerBase
 
 
         if (!$form->isFullValid($data)) {
-            return $this->displayJsonInvalidMessages($form);
+            return $this->showInvalidMessagesAsJson($form);
         }
 
         try {
@@ -233,7 +244,7 @@ class LivenewsController extends ControllerBase
             $data = $livenews->dump(Models\NewsManager::$defaultDump);
             return $this->response->setJsonContent($data);
         } catch (\Exception $e) {
-            return $this->displayExceptionForJson($e, $form->getModel()->getMessages());
+            return $this->showExceptionAsJson($e, $form->getModel()->getMessages());
         }
      }
 
@@ -277,7 +288,7 @@ class LivenewsController extends ControllerBase
         $form->addForm('text', 'Eva\EvaLivenews\Forms\TextForm');
 
         if (!$form->isFullValid($data)) {
-            return $this->displayJsonInvalidMessages($form);
+            return $this->showInvalidMessagesAsJson($form);
         }
 
         try {
@@ -285,7 +296,7 @@ class LivenewsController extends ControllerBase
             $data = $livenews->dump(Models\NewsManager::$defaultDump);
             return $this->response->setJsonContent($data);
         } catch (\Exception $e) {
-            return $this->displayExceptionForJson($e, $form->getModel()->getMessages());
+            return $this->showExceptionAsJson($e, $form->getModel()->getMessages());
         }
     }
 
@@ -325,7 +336,7 @@ class LivenewsController extends ControllerBase
              $livenews->removeNews($id);
              return $this->response->setJsonContent($livenewsinfo);
          } catch (\Exception $e) {
-             return $this->displayExceptionForJson($e, $livenews->getMessages());
+             return $this->showExceptionAsJson($e, $livenews->getMessages());
          }
     }
 }

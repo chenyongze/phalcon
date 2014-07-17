@@ -127,6 +127,8 @@ class Post extends Entities\Posts
             '-created_at' => 'createdAt DESC',
             'sort_order' => 'sortOrder ASC',
             '-sort_order' => 'sortOrder DESC',
+            'count' => 'count ASC',
+            '-count' => 'count DESC',
         );
 
         if (!empty($query['columns'])) {
@@ -141,6 +143,10 @@ class Post extends Entities\Posts
             $itemQuery->andWhere('status = :status:', array('status' => $query['status']));
         }
 
+        if (!empty($query['has_image'])) {
+            $itemQuery->andWhere('imageId > 0');
+        }
+
         if (!empty($query['sourceName'])) {
             $itemQuery->andWhere('sourceName = :sourceName:', array('sourceName' => $query['sourceName']));
         }
@@ -152,6 +158,11 @@ class Post extends Entities\Posts
         if (!empty($query['cid'])) {
             $itemQuery->join('Eva\EvaBlog\Entities\CategoriesPosts', 'id = r.postId', 'r')
             ->andWhere('r.categoryId = :cid:', array('cid' => $query['cid']));
+        }
+
+        if (!empty($query['tid'])) {
+            $itemQuery->join('Eva\EvaBlog\Entities\TagsPosts', 'id = r.postId', 'r')
+            ->andWhere('r.tagId = :tid:', array('tid' => $query['tid']));
         }
 
         $order = 'createdAt DESC';
@@ -312,6 +323,38 @@ class Post extends Entities\Posts
         return implode(',', $tagArray);
     }
 
+    public function getPrevPost()
+    {
+        if(!$this->id) {
+            return false;
+        }
+
+        return self::findFirst(array(
+            'conditions' => 'status = :status: AND createdAt < :createdAt:',
+            'bind'       => array(
+               'createdAt' => $this->createdAt,
+               'status' => 'published',
+            ),
+            'order' => 'createdAt DESC'
+        ));
+    }
+
+    public function getNextPost()
+    {
+        if(!$this->id) {
+            return false;
+        }
+
+        return self::findFirst(array(
+            'conditions' => 'status = :status: AND createdAt > :createdAt:',
+            'bind'       => array(
+               'createdAt' => $this->createdAt,
+               'status' => 'published',
+            ),
+            'order' => 'createdAt ASC'
+        ));
+    }
+
     public function getSummaryHtml()
     {
         if (!$this->summary) {
@@ -343,8 +386,8 @@ class Post extends Entities\Posts
 
     public function getUrl()
     {
-        $postUrl = $this->getDI()->get('config')->baseUri;
-        $postPath = $this->getDI()->get('config')->blog->postPath;
+        $postUrl = $this->getDI()->getConfig()->baseUri;
+        $postPath = $this->getDI()->getConfig()->blog->postPath;
 
         return $postUrl . sprintf($postPath, $this->slug);
     }
@@ -365,8 +408,8 @@ class Post extends Entities\Posts
                 return $this->image;
             }
         }
-        $staticUri = $this->getDI()->get('config')->filesystem->staticUri;
-        $staticPath = $this->getDI()->get('config')->filesystem->staticPath;
+        $staticUri = $this->getDI()->getConfig()->filesystem->staticUri;
+        $staticPath = $this->getDI()->getConfig()->filesystem->staticPath;
         return $staticUri . $staticPath . $this->image;
         */
     }

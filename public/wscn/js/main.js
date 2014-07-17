@@ -1,3 +1,38 @@
+(function(){
+    var usf = window.userForms || {};
+    usf.$element = $('#user-modal');
+    usf.show = function(name){
+        usf.$element.addClass('active');
+        $('#user-modal-carousel .item.active').removeClass('active');
+        switch(name) {
+            case 'register' :
+                $('#user-modal-carousel .item:eq(2)').addClass('active');
+                break;
+            case 'reset' :
+                $('#user-modal-carousel .item:eq(0)').addClass('active');
+                break;
+            case 'login-connect' :
+                $('#user-modal-carousel .item:eq(3)').addClass('active');
+                break;
+            case 'register-connect' :
+                $('#user-modal-carousel .item:eq(4)').addClass('active');
+                break;
+            case 'login' :
+            default:
+                $('#user-modal-carousel .item:eq(1)').addClass('active');
+                break;
+        }
+    };
+    usf.onConnectSuccess = function(token, user) {
+        usf.show('register-connect');
+    };
+
+    usf.onConnectFailed = function(error, errorMsg) {
+        usf.$element.find('.item.active form').prepend('<div data-raw-message="' + error + '" class="alert alert alert-danger">' + errorMsg + '<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button></div>');
+    };
+    window.userForms = usf;
+})();
+
 //滚动条部分初始化
 (function($){
     var $livenews = $('#left-side-livenews');
@@ -27,6 +62,8 @@
         //alwaysVisible: true,
         iOSNativeScrolling: true
     });
+    //
+    $('.fc-list').fcl();
 })(jQuery);
 
 (function($){
@@ -34,30 +71,30 @@
     var timeout_fold = null;
     var $leftbar = $('#leftbar');
     var $content = $('#content');
-    $leftbar.on('mouseover', '[data-hover=unfold]', function(){
+    $leftbar.on('mouseover', '[data-hover=unfold]', function(e){
         clearTimeout(timeout_fold);
         $content.addClass('unfold');
     });
-    $leftbar.on('mouseout', '[data-hover=unfold]', function(){
+    $leftbar.on('mouseout', '[data-hover=unfold]', function(e){
         clearTimeout(timeout_show_related_info);
         timeout_fold = setTimeout(function(){
             $content.removeClass('unfold');
         }, 300);
     });
 
-    $leftbar.on('mouseover', '[data-hover=related-info]', function(){
+    $leftbar.on('mouseover', '[data-hover=related-info]', function(e){
         clearTimeout(timeout_show_related_info);
     });
 
     //breaking-news
-    $('#breaking-news [data-action=close]').click(function(){
+    $('#breaking-news [data-action=close]').click(function(e){
         $('body').removeClass('show-breaking-news');
         return false;
     });
 
     //
     var $sidebar = $('#sidebar');
-    $('#show-sidebar').on('click', function(){
+    $('#show-sidebar').on('click', function(e){
         $sidebar
             .animate({
                 right: '-' + $sidebar.width(),
@@ -69,8 +106,9 @@
                 right: '15px',
                 top: '-=5'
             });
+        e.preventDefault();
     });
-    $('#close-sidebar').on('click', function(){
+    $('#close-sidebar').on('click', function(e){
         $sidebar
             .animate({
                 right: '-' + $sidebar.width(),
@@ -82,17 +120,25 @@
                 right: '15px',
                 top: '-=5'
             });
+        e.preventDefault();
     });
     //
     $(document).on('click', '[data-action=login]', function(e){
-        $('#user-modal-carousel .item.active').removeClass('active');
-        $('#user-modal-carousel .item:eq(1)').addClass('active');
+        userForms.show();
+        return false;
     });
     //
-    $(document).on('click', '[data-toggle=custom-modal]', function(e){
+    $(document).on('click', '[data-action=custom-modal]', function(e){
         var $this = $(this);
         var $target = $($this.attr('data-target'));
-        $target.toggleClass('active');
+        $target.addClass('active');
+        e.preventDefault();
+    });
+    $(document).on('click', '[data-action=close-custom-modal]', function(e){
+        var $this = $(this);
+        var $target = $($this.attr('data-target'));
+        $target.removeClass('active');
+        e.preventDefault();
     });
     $(document).on('keyup', function(e){
         switch(e.which) {
@@ -106,5 +152,15 @@
             $(this).removeClass('active');
         }
     });
-
+    $('#user-modal-carousel > .carousel-inner > .item').on('click', function(e){
+        if (e.target === this) {
+            $('#user-modal').removeClass('active');
+        }
+    });
+    //switch  控件
+    /*
+    $('[data-toggle=switch]').click(function(){
+        $(this).toggleClass('active');
+    });
+    */
 })(jQuery);
