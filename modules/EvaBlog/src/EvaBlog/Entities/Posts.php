@@ -198,7 +198,6 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
             'alias' => 'text'
         ));
 
-
         $this->belongsTo('userId', 'Eva\EvaUser\Entities\Users', 'id', array(
             'alias' => 'user'
         ));
@@ -235,6 +234,16 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
             'Eva\EvaBlog\Entities\Tags',
             'id',
             array('alias' => 'tags')
+        );
+
+        $this->hasManyToMany(
+            'id',
+            'Eva\EvaBlog\Entities\Connections',
+            'sourceId',
+            'targetId',
+            'Eva\EvaBlog\Entities\Posts',
+            'id',
+            array('alias' => 'connections')
         );
 
 
