@@ -32,15 +32,23 @@ class CounterRankUtil extends Component
     }
 
     /**
+     * 通过分组名获取 token
+     * @param string $groupName
+     * @return string
+     */
+    public function getToken($groupName) {
+        return $this->counterConfig->group_tokens[$groupName]->token;
+    }
+    /**
      * 获取 CounterRank 实例
      *
-     * @param $groupName
-     * @param bool $useFloat
+     * @param string    $groupName  分组名
+     * @param bool      $useFloat   是否使用浮点数，默认不使用
      * @return CounterRank
      */
     public function getCounterRank($groupName, $useFloat = false)
     {
-        if(!self::$counterRankInstances[$groupName]) {
+        if(!isset(self::$counterRankInstances[$groupName])) {
             self::$counterRankInstances[$groupName] = new CounterRank(
                 $this->counterConfig->redis_host,
                 $this->counterConfig->redis_port,
@@ -59,14 +67,33 @@ class CounterRankUtil extends Component
      */
     public function getJSClientHandler()
     {
+        $tokens = array();
+        foreach($this->counterConfig->group_tokens->toArray() as $groupName=>$config) {
+            $tokens[$groupName] = $config['token'];
+        }
         if(self::$jsClientHandler == null) {
             self::$jsClientHandler = new JSClientHandler(
                 $this->counterConfig->redis_host,
                 $this->counterConfig->redis_port,
                 $this->counterConfig->redis_namespace,
-                (array) $this->counterConfig->group_tokens
+                $tokens
             );
+            self::$jsClientHandler->setTokenVerifier(function ($operation, $userToken, $token, $group, $keys) {
+                $str = $token.$group;
+                if($keys) {
+                    $str .= $keys;
+                }
+                return md5($str) == $userToken;
+            });
+            self::$jsClientHandler->getCounterRankInstance()->setFixMiss(function($key, CounterRank $counterRank) {
+                $counterRank->create($key, 0);
+
+                return true;
+            });
         }
         return self::$jsClientHandler;
     }
-} 
+    public function persist(\Closure $func) {
+
+    }
+}

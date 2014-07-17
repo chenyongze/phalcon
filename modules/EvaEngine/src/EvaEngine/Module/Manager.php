@@ -124,6 +124,7 @@ class Manager implements EventsAwareInterface
             'moduleConfig' => '', //module config file path
             'routesFrontend' => '', //module router frontend path
             'routesBackend' => '', //module router backend path
+            'routesCommand' => '', // module router in CLI mode
             'relations' => '', //entity relations for injection
             'listeners' => '', //module listeners list array
             'viewHelpers' => '', //module view helpers
@@ -162,6 +163,8 @@ class Manager implements EventsAwareInterface
             $module['moduleConfig'] = false === $module['moduleConfig'] || $module['moduleConfig'] ? $module['moduleConfig'] : $module['dir'] . '/config/config.php';
             $module['routesBackend'] = false === $module['routesBackend'] || $module['routesBackend'] ? $module['routesBackend'] : $module['dir'] . '/config/routes.backend.php';
             $module['routesFrontend'] = false === $module['routesFrontend'] || $module['routesFrontend'] ? $module['routesFrontend'] : $module['dir'] . '/config/routes.frontend.php';
+            $module['routesCommand'] = false === $module['routesCommand'] || $module['routesCommand'] ? $module['routesCommand'] : $module['dir'] . '/config/routes.command.php';
+
             $module['translatePath'] = false === $module['translatePath'] || $module['translatePath'] ? $module['translatePath'] : $module['dir'] . '/languages';
             $module['adminMenu'] = false === $module['adminMenu'] || $module['adminMenu'] ? $module['adminMenu'] : $module['dir'] . '/config/admin.menu.php';
 
@@ -173,7 +176,8 @@ class Manager implements EventsAwareInterface
         $listeners = array();
         $loader->registerClasses($classes)->register();
         foreach($modules as $key => $module) {
-            if(!class_exists($module['className']) || !(new $module['className'] instanceof StandardInterface)) {
+            $moduleInstance = new $module['className'];
+            if(!class_exists($module['className']) || !($moduleInstance instanceof StandardInterface)) {
                 continue;
             }
             $namespace = $module['className']::registerGlobalAutoloaders();
@@ -226,7 +230,14 @@ class Manager implements EventsAwareInterface
         }
         return array();
     }
-
+    public function getModuleRoutesCommand($moduleName)
+    {
+        $modules = $this->getModules();
+        if (!empty($modules[$moduleName]['routesCommand']) && file_exists($modules[$moduleName]['routesCommand'])) {
+            return include $modules[$moduleName]['routesCommand'];
+        }
+        return array();
+    }
     public function getModuleRoutesBackend($moduleName)
     {
         $modules = $this->getModules();

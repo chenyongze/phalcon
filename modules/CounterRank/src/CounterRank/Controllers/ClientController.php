@@ -42,7 +42,7 @@ class ClientController extends Controller
     {
 
         $this->jsClientHandler->handleGet(
-            $this->_getParam('token'),
+            $this->request->getQuery('hash'),
             $this->_getParam('group'),
             $this->_getParam('keys'),
             $this->request->getQuery('callback')
@@ -51,7 +51,7 @@ class ClientController extends Controller
     public function increaseAction()
     {
         $this->jsClientHandler->handleIncrease(
-            $this->_getParam('token'),
+            $this->request->getQuery('hash'),
             $this->_getParam('group'),
             $this->_getParam('keys'),
             $this->request->getQuery('callback')
@@ -60,7 +60,7 @@ class ClientController extends Controller
     public function rankAction()
     {
         $this->jsClientHandler->handleRank(
-            $this->_getParam('token'),
+            $this->request->getQuery('hash'),
             $this->_getParam('group'),
             $this->_getParam('type'),
             $this->_getParam('limit'),
