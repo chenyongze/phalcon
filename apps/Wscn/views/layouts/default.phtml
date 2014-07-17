@@ -321,87 +321,131 @@
                             </form>
                         </div>
                         <div class="custom-modal-footer">
-                            <a class="link-left"  data-target="#user-modal-carousel" data-slide-to="1">返回登录</a>
+                            <a class="link-left" data-target="#user-modal-carousel" data-slide-to="1">返回登录</a>
                         </div>
                     </div>
                 </li>
                 <!--  -->
                 <li id="user-modal-connect-login" class="item centerbox">
-                    <div class="custom-modal-content">
+                    <div class="custom-modal-content" style="width: 600px;">
                         <div class="custom-modal-header">
                             <button type="button" class="close" data-action="close-custom-modal" data-target="#user-modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                            登录并绑定
+                            使用社交帐号登录
                         </div>
-                        <div class="custom-modal-body">
-                            <form action="/auth/login"  method="POST" novalidate="novalidate">
-                                <div class="form-group has-feedback">
-                                    <input type="text" name="identify" class="form-control" placeholder="用户名或邮箱" required>
-                                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                        <div class="custom-modal-body" style="border-radius: 0 0 10px 10px;">
+                            <ul class="custom-nav-tabs">
+                                <li >
+                                    <a href="" data-target="#user-modal-carousel" data-slide-to="4">
+                                        <i class="glyphicon glyphicon-user"></i> 初次注册
+                                    </a>
+                                </li>
+                                <li class="active">
+                                    <a href="" data-target="#user-modal-carousel" data-slide-to="3">
+                                        <i class="glyphicon glyphicon-link"></i> 已有账号
+                                    </a>
+                                </li>
+                            </ul>
+                            <form action="/auth/login" class="clearfix" method="POST" novalidate="novalidate">
+                                <div class="custom-row">
+                                    <div class="custom-span-1">
+                                        <h3 class="form-title">微博帐号</h3>
+                                        <div class="text-center">
+                                            <img class="form-avatar" src="" alt=""/>
+                                            <br/>
+                                            <div class="form-label">Every One</div>
+                                        </div>
+                                    </div>
+                                    <div class="custom-span-2"></div>
+                                    <div class="custom-span-3">
+                                        <h3 class="form-title">华尔街见闻</h3>
+                                        <div class="form-group has-feedback size-sm">
+                                            <input type="text" name="identify" class="form-control" placeholder="用户名或邮箱" required>
+                                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                                        </div>
+                                        <div class="form-group has-feedback size-sm">
+                                            <input type="password" name="password" class="form-control password-previewer" placeholder="密码" required>
+                                            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                                        </div>
+                                        <label class="form-label">请填写需要绑定的帐号信息</label>
+                                    </div>
                                 </div>
-                                <div class="form-group has-feedback">
-                                    <input type="password" name="password" class="form-control password-previewer" placeholder="密码" required>
-                                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                                </div>
-                                <div class="form-footer">
-                                    <button type="submit" class="custom-button pull-right">登录并绑定</button>
-                                </div>
+                                <hr class="form-hr"/>
+                                <button type="submit" class="custom-button pull-right">登录并绑定</button>
                             </form>
-
-                        </div>
-                        <div class="custom-modal-footer">
-                            <a class="link-left"  data-target="#user-modal-carousel" data-slide-to="1">使用密码登录</a>
-                            <a class="link-right"  data-target="#user-modal-carousel" data-slide-to="4">注册并绑定</a>
                         </div>
                     </div>
                 </li>
                 <!--  -->
                 <li id="user-modal-connect-register" class="item centerbox">
-                    <div class="custom-modal-content">
+                    <div class="custom-modal-content" style="width: 560px">
                         <div class="custom-modal-header">
                             <button type="button" class="close" data-action="close-custom-modal" data-target="#user-modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                            注册并绑定
+                            使用社交帐号注册
                         </div>
-                        <div class="custom-modal-body">
-                            <form action="/auth/register"  method="POST" novalidate="novalidate" role="form">
-                                <label for="connected-register-form-email">请填写邮箱及用户名确保账号不会丢失</label>
-                                <div class="form-group has-feedback">
-                                    <input id="connected-register-form-email" type="email" name="email" class="form-control" placeholder="邮箱" required
-                                        data-parsley-trigger="blur change"
-                                        data-parsley-remote="/register/check"
-                                        data-parsley-remote-options='{ method: "GET", dataType: "json"}'
-                                        data-parsley-remote-message="输入的邮箱已被占用"
-                                    >
-                                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                                </div>
-                                <div class="form-group has-feedback">
-                                    <input type="text" name="username" class="form-control" placeholder="用户名" required
-                                        data-parsley-trigger="blur change"
-                                        data-parsley-type="alphanum"
-                                        maxlength="24"
-                                        data-parsley-minlength="4"
-                                        data-parsley-minlength-message="用户名最短4个字符"
-                                        data-parsley-maxlength="24"
-                                        data-parsley-pattern="^(?![0-9]+$)"
-                                        data-parsley-pattern-message="请不要使用纯数字作为用户名"
-                                        data-parsley-remote="/register/check"
-                                        data-parsley-remote-options='{ method: "GET", dataType: "json"}'
-                                        data-parsley-remote-message="输入的用户名已被占用"
-                                    >
-                                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                                </div>
-                                <div class="form-footer">
-                                    <div class="checkbox pull-left" style="width: 150px;">
-                                        <label>
-                                            <input type="checkbox" name="agree" checked="checked" value="yes" required> 同意<a href="/page/terms" class="text-blue" target="_blank">使用条款</a>
-                                        </label>
+                        <div class="custom-modal-body" style="border-radius: 0 0 10px 10px;">
+                            <ul class="custom-nav-tabs">
+                                <li class="active">
+                                    <a href="" data-target="#user-modal-carousel" data-slide-to="4">
+                                        <i class="glyphicon glyphicon-user"></i> 初次注册
+                                    </a>
+                                </li>
+                                <li >
+                                    <a href="" data-target="#user-modal-carousel" data-slide-to="3">
+                                        <i class="glyphicon glyphicon-link"></i> 已有账号
+                                    </a>
+                                </li>
+                            </ul>
+                            <form action="/auth/register" class="clearfix" method="POST" novalidate="novalidate" role="form">
+                                <div class="custom-row custom-row-2">
+                                    <div class="vr-line"></div>
+                                    <div class="custom-span-4" style="margin-top: -8px;">
+                                        微博帐号
                                     </div>
-                                    <button type="submit" class="custom-button pull-right">注册并绑定</button>
+                                    <div class="custom-span-5">
+                                        <img class="form-avatar" src="" alt=""/>
+                                        <br/>
+                                        <div class="form-label">Every One</div>
+                                    </div>
+                                    <div class="custom-span-4">
+                                        邮箱
+                                    </div>
+                                    <div class="custom-span-5">
+                                        <div class="form-group has-feedback size-sm">
+                                            <input id="connected-register-form-email" type="email" name="email" class="form-control" placeholder="邮箱" required
+                                                   data-parsley-trigger="blur change"
+                                                   data-parsley-remote="/register/check"
+                                                   data-parsley-remote-options='{ method: "GET", dataType: "json"}'
+                                                   data-parsley-remote-message="输入的邮箱已被占用"
+                                                    >
+                                            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                                        </div>
+                                    </div>
+                                    <div class="custom-span-4">
+                                        密码
+                                    </div>
+                                    <div class="custom-span-5">
+                                        <div class="form-group has-feedback size-sm">
+                                            <input type="text" name="username" class="form-control" placeholder="用户名" required
+                                                   data-parsley-trigger="blur change"
+                                                   data-parsley-type="alphanum"
+                                                   maxlength="24"
+                                                   data-parsley-minlength="4"
+                                                   data-parsley-minlength-message="用户名最短4个字符"
+                                                   data-parsley-maxlength="24"
+                                                   data-parsley-pattern="^(?![0-9]+$)"
+                                                   data-parsley-pattern-message="请不要使用纯数字作为用户名"
+                                                   data-parsley-remote="/register/check"
+                                                   data-parsley-remote-options='{ method: "GET", dataType: "json"}'
+                                                   data-parsley-remote-message="输入的用户名已被占用"
+                                                    >
+                                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                                        </div>
+                                        <label for="connected-register-form-email" class="form-label">请填写邮箱及用户名确保账号不会丢失</label>
+                                    </div>
                                 </div>
+                                <hr class="form-hr"/>
+                                <button type="submit" class="custom-button pull-right">登录并绑定</button>
                             </form>
-                        </div>
-                        <div class="custom-modal-footer">
-                            <a class="link-left"  data-target="#user-modal-carousel" data-slide-to="2">使用邮箱密码注册</a>
-                            <a class="link-right"  data-target="#user-modal-carousel" data-slide-to="3">登录并绑定</a>
                         </div>
                     </div>
                 </li>
@@ -663,7 +707,7 @@ $(document).ready(function(){
             return el.$element.closest(".form-group");
         },
 
-        errorsWrapper: "<span class='help-block' style='margin:0;'></span>",
+        errorsWrapper: "<span class='help-block' style='margin-bottom: 0;'></span>",
         errorTemplate: "<span></span>"
     });
 

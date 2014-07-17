@@ -7,6 +7,14 @@ body {
         padding-top: 60px;
     }
 }
+
+.text-blue {
+    color: @blue !important;
+}
+.text-center {
+    text-align: center !important;
+}
+
 //ie8 的bug checkbox 组件文字会换行，添加text类
 .checkbox {
     .text {
@@ -16,9 +24,11 @@ body {
 
 //
 .centerbox {
+    font-size: 0;
     text-align: center;
 }
 .centerbox > * {
+    font-size: 14px;
     display: inline-block;
     vertical-align: middle;
     text-align: left;

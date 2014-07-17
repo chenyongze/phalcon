@@ -33,6 +33,22 @@
         height: 40px;
         line-height: 40px;
     }
+    .form-group {
+        &.size-sm {
+            font-size: 12px;
+            .form-control {
+                height: 30px;
+                font-size: 12px;
+                padding-top: 5px;
+                padding-bottom: 5px;
+            }
+            .form-control-feedback {
+                width: 30px;
+                height: 30px;
+                line-height: 30px;
+            }
+        }
+    }
     .has-success .form-control-feedback {
         color: #3c763d;
     }
@@ -42,9 +58,32 @@
     .has-error .form-control-feedback {
         color: #a94442;
     }
+    .form-avatar {
+        width: 75px;
+        height: 75px;
+        margin-bottom: 15px;
+    }
+    .form-title {
+        font-size: 14px;
+        line-height: 36px;
+        border-bottom: 1px solid #ccc;
+        margin-bottom: 15px;
+    }
+    .form-label {
+        color: @blue;
+        line-height: 20px;
+        font-size: 12px;
+        margin-bottom: 15px;
+    }
     .form-footer {
         .clearfix;
         padding-top: 5px;
+        margin-bottom: 20px;
+    }
+    .form-hr {
+        border-top: none;
+        border-bottom: 1px solid #ccc;
+        margin-top: 20px;
         margin-bottom: 20px;
     }
     .br-title {
@@ -79,6 +118,54 @@
             }
             .custom-span-left {
                 margin-bottom: 20px;
+            }
+        }
+        .custom-span-1 ,
+        .custom-span-3 {
+            padding-left: 10px;
+            padding-right: 10px;
+            background-color: #eee;
+            border: 1px solid #ccc;
+        }
+        @media (min-width: @screen-sm-min) {
+            &.custom-row-1 {
+                width: 540px;
+            }
+            &.custom-row-2 {
+                position: relative;
+                padding: 30px 15px 15px;
+                background-color: #eee;
+                border: 1px solid #ccc;
+                & > .vr-line {
+                    position: absolute;
+                    width: 1px;
+                    top: 30px;
+                    bottom: 30px;
+                    left: 213px;
+                    border-left: 1px solid #ccc;
+                }
+            }
+            .custom-span-1 {
+                width: 180px;
+            }
+            .custom-span-2 {
+                width: 100px;
+                height: 179px;
+                background: url(../img/binding.png) center no-repeat;
+            }
+            .custom-span-3 {
+                width: 260px;
+            }
+            //
+            .custom-span-4 {
+                width: 198px;
+                padding: 0 15px;
+                text-align: right;
+                line-height: 30px;
+            }
+            .custom-span-5 {
+                padding: 0 15px;
+                width: 270px;
             }
         }
     }

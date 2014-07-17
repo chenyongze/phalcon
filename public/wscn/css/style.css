@@ -145,13 +145,21 @@ body {
     padding-top: 60px;
   }
 }
+.text-blue {
+  color: #0a62a3 !important;
+}
+.text-center {
+  text-align: center !important;
+}
 .checkbox .text {
   display: inline-block;
 }
 .centerbox {
+  font-size: 0;
   text-align: center;
 }
 .centerbox > * {
+  font-size: 14px;
   display: inline-block;
   vertical-align: middle;
   text-align: left;
@@ -825,6 +833,9 @@ body {
 .custom-modal .custom-modal-content .custom-modal-body {
   padding: 20px 30px 30px;
   background-color: #fff;
+}
+.custom-modal .custom-modal-content .custom-nav-tabs {
+  margin-bottom: 30px;
 }
 .custom-modal .custom-modal-content .custom-modal-footer {
   background-color: #0a62a3;
@@ -2328,6 +2339,20 @@ body {
   height: 40px;
   line-height: 40px;
 }
+#user-modal .form-group.size-sm {
+  font-size: 12px;
+}
+#user-modal .form-group.size-sm .form-control {
+  height: 30px;
+  font-size: 12px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+#user-modal .form-group.size-sm .form-control-feedback {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+}
 #user-modal .has-success .form-control-feedback {
   color: #3c763d;
 }
@@ -2336,6 +2361,23 @@ body {
 }
 #user-modal .has-error .form-control-feedback {
   color: #a94442;
+}
+#user-modal .form-avatar {
+  width: 75px;
+  height: 75px;
+  margin-bottom: 15px;
+}
+#user-modal .form-title {
+  font-size: 14px;
+  line-height: 36px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 15px;
+}
+#user-modal .form-label {
+  color: #0a62a3;
+  line-height: 20px;
+  font-size: 12px;
+  margin-bottom: 15px;
 }
 #user-modal .form-footer {
   padding-top: 5px;
@@ -2350,6 +2392,12 @@ body {
   display: table;
   content: '';
   clear: both;
+}
+#user-modal .form-hr {
+  border-top: none;
+  border-bottom: 1px solid #ccc;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 #user-modal .br-title {
   display: block;
@@ -2382,6 +2430,53 @@ body {
   }
   #user-modal .custom-row .custom-span-left {
     margin-bottom: 20px;
+  }
+}
+#user-modal .custom-row .custom-span-1,
+#user-modal .custom-row .custom-span-3 {
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: #eee;
+  border: 1px solid #ccc;
+}
+@media (min-width: 768px) {
+  #user-modal .custom-row.custom-row-1 {
+    width: 540px;
+  }
+  #user-modal .custom-row.custom-row-2 {
+    position: relative;
+    padding: 30px 15px 15px;
+    background-color: #eee;
+    border: 1px solid #ccc;
+  }
+  #user-modal .custom-row.custom-row-2 > .vr-line {
+    position: absolute;
+    width: 1px;
+    top: 30px;
+    bottom: 30px;
+    left: 213px;
+    border-left: 1px solid #ccc;
+  }
+  #user-modal .custom-row .custom-span-1 {
+    width: 180px;
+  }
+  #user-modal .custom-row .custom-span-2 {
+    width: 100px;
+    height: 179px;
+    background: url(../img/binding.png) center no-repeat;
+  }
+  #user-modal .custom-row .custom-span-3 {
+    width: 260px;
+  }
+  #user-modal .custom-row .custom-span-4 {
+    width: 198px;
+    padding: 0 15px;
+    text-align: right;
+    line-height: 30px;
+  }
+  #user-modal .custom-row .custom-span-5 {
+    padding: 0 15px;
+    width: 270px;
   }
 }
 #user-modal .custom-button {
