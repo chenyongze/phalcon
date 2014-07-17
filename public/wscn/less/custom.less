@@ -169,13 +169,17 @@
     }
 }
 
-.custom-switch {
+.switch-box {
     cursor: pointer;
+    margin-bottom: 0;
     .text {
         display: inline-block;
         vertical-align: middle;
     }
-    .key {
+    input[type=checkbox] {
+        display: none;
+    }
+    .box {
         .transition(background-color 0.3s);
         display: inline-block;
         vertical-align: middle;
@@ -198,8 +202,15 @@
             box-shadow: 0 0 2px rgba(0,0,0,.3);
         }
     }
+    input[type=checkbox]:checked + .box {
+        background-color: #0FBC0A;
+        &:after {
+            margin-left: 16px;
+            content: "开";
+        }
+    }
     &.active {
-        .key {
+        .box {
             background-color: #0FBC0A;
             &:after {
                 margin-left: 16px;

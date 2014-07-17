@@ -62,6 +62,8 @@
         //alwaysVisible: true,
         iOSNativeScrolling: true
     });
+    //
+    $('.fc-list').fcl();
 })(jQuery);
 
 (function($){
@@ -156,7 +158,9 @@
         }
     });
     //switch  控件
+    /*
     $('[data-toggle=switch]').click(function(){
         $(this).toggleClass('active');
     });
+    */
 })(jQuery);

@@ -7,6 +7,12 @@ body {
         padding-top: 60px;
     }
 }
+//ie8 的bug checkbox 组件文字会换行，添加text类
+.checkbox {
+    .text {
+        display: inline-block;
+    }
+}
 
 //
 .centerbox {
@@ -24,6 +30,29 @@ body {
     width: 0;
     height: 100%;
     vertical-align: middle;
+}
+.loader {
+    display: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0,0,0,.3);
+    .indicator {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+    }
+}
+.loading {
+    position: relative;
+    & > .loader {
+        display: block;
+    }
 }
 //
 .cover-img {
@@ -80,11 +109,10 @@ body {
 .pagingbar,
 .toolbar.paging {
     .button {
-        display: block;
-        float: left;
+        display: inline-block;
         margin-right: 5px;
         border: 1px solid #c8c8c8;
-        min-width: 18px;
+        min-width: 28px;
         padding: 0 5px;
         height: 28px;
         line-height: 28px;
@@ -123,6 +151,122 @@ body {
         }
         .title {
 
+        }
+    }
+}
+
+.fc-list {
+    [data-trend=up] {
+        .actual {
+            color: @riseColor;
+        }
+    }
+    [data-trend=down] {
+        .actual {
+            color: @fallColor;
+        }
+    }
+    .date {
+        color: #333;
+        font-weight: bold;
+    }
+    & > .content {
+        outline: none;
+    }
+    &.type-side {
+        font-size: 12px;
+        background-color: #eee;
+        & > .content {
+            top: 36px;
+            bottom: 10px;
+        }
+        & > .nano-pane {
+            top: 41px;
+            bottom: 15px;
+            right: 1px;
+        }
+        .nano-slider {
+            background-color: #888;
+        }
+        .clock {
+            color: #ff3e3e;
+            font-weight: bold;
+        }
+        .titlebar {
+            margin: 0 10px;
+            line-height: 30px;
+            border-bottom: 1px solid #999;
+            a {
+                color: #068CB5;
+            }
+        }
+        .date {
+            padding: 8px 15px;
+        }
+        .item {
+            .clearfix;
+            background-color: #fff;
+            margin-bottom: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
+            padding: 8px 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 2px rgba(0,0,0,.3);
+            .time {
+                font-weight: bold;
+                line-height: 16px;
+                color: @blue;
+            }
+            .star {
+                font-size: 14px;
+                line-height: 16px;
+                top: 0;
+                margin-right: 6px;
+                margin-bottom: 4px;
+                color: #999;
+                &.active {
+                    color: @blue;
+                }
+            }
+            .title {
+                display: block;
+                font-weight: bold;
+                line-height: 1.5em;
+                margin-bottom: 5px;
+            }
+            .price {
+                white-space: nowrap;
+                & > .text {
+                    color: #b4b4b4;
+                }
+                & > .value {
+                    font-weight: bold;
+                }
+            }
+        }
+        .more {
+            display: block;
+            padding: 0 15px;
+            cursor: pointer;
+            line-height: 30px;
+            color: #068CB5;
+            &:before {
+                content: '加载更多>>';
+            }
+            &:hover {
+                color: #c8c8c8;
+            }
+        }
+        &.loading {
+            .more {
+                cursor: normal;
+                &:before {
+                    content: '正在加载中…';
+                }
+                &:hover {
+                    color: #c8c8c8;
+                }
+            }
         }
     }
 }
