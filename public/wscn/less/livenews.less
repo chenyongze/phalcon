@@ -79,6 +79,14 @@
                 margin-right: 15px;
             }
         }
+        .checkbox-group {
+            padding: 5px 30px;
+            border-top: 1px solid #eee;
+            .checkbox {
+                display: inline-block;
+                margin-right: 10px;
+            }
+        }
     }
     & > .body {
         padding:  0 30px 30px;
@@ -95,9 +103,11 @@
         .time {
             position: absolute;
             left: 45px;
+            top: 15px;
         }
         .icon {
             position: absolute;
+            top: 15px;
         }
         & > .content {
             .break-word;
@@ -126,6 +136,49 @@
                 padding-right: 120px;
                 min-height: 80px;
             }
+
         }
     }
+}
+
+
+@media (max-width: @screen-xxs-max) {
+
+    #livenews-box {
+        & > .header {
+            .config {
+                width: 40px;
+                height: 36px;
+                color: #fff;
+                text-align: center;
+                font-size: 16px;
+                line-height: 16px;
+            }
+            .custom-switch {
+                height: 36px;
+                margin-right: 15px;
+                .icon {
+                    margin-right: 10px;
+                }
+                .text {
+                    height: 36px;
+                    line-height: 36px;
+                    margin-right: 10px;
+                }
+            }
+            .checkbox-group {
+                padding: 0 15px;
+            }
+        }
+        & > .body {
+            padding:  0 15px 15px;
+        }
+        .news {
+            & > .content {
+                padding-left: 15px;
+                padding-top: 45px;
+            }
+        }
+    }
+
 }
