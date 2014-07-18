@@ -162,40 +162,6 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
      */
     public $voteScore;
 
-    /**
-     * Independent Column Mapping.
-     */
-    public function columnMap()
-    {
-        return array(
-            'id' => 'id',
-            'title' => 'title',
-            'status' => 'status',
-            'flag' => 'flag',
-            'visibility' => 'visibility',
-            'codeType' => 'codeType',
-            'language' => 'language',
-            'parentId' => 'parentId',
-            'slug' => 'slug',
-            'sortOrder' => 'sortOrder',
-            'createdAt' => 'createdAt',
-            'userId' => 'userId',
-            'username' => 'username',
-            'updatedAt' => 'updatedAt',
-            'editorId' => 'editorId',
-            'editorName' => 'editorName',
-            'commentStatus' => 'commentStatus',
-            'commentType' => 'commentType',
-            'commentCount' => 'commentCount',
-            'count' => 'count',
-            'imageId' => 'imageId',
-            'image' => 'image',
-            'summary' => 'summary',
-            'sourceName' => 'sourceName',
-            'sourceUrl' => 'sourceUrl',
-        );
-    }
-
     protected $tableName = 'blog_posts';
 
     public function initialize()
