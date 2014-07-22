@@ -1,9 +1,3 @@
-
-
-var tool = {
-
-};
-
 //finance calender
 /**
  * fcl -> finance calendar list

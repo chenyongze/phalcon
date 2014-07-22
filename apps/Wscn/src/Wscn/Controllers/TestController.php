@@ -27,4 +27,8 @@ class TestController extends ControllerBase
     {
     }
 
+    public function loginAction()
+    {
+    }
+
 }
