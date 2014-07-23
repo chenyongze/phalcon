@@ -225,15 +225,15 @@ body {
 .cover-img .subtitle {
   height: 1.5em;
 }
-.img-loading {
+.img-box {
   width: 100%;
   position: relative;
 }
-.img-loading .bg-img {
+.img-box .bg-img {
   width: 100%;
   height: auto;
 }
-.img-loading .front-img {
+.img-box .front-img {
   position: absolute;
   top: 0;
   width: 100%;
@@ -2363,6 +2363,11 @@ body {
 }
 #footer .list .item {
   margin-bottom: 1em;
+}
+@media (max-width: 479px) {
+  #footer {
+    text-align: center;
+  }
 }
 .page-user .form-control {
   height: 40px;

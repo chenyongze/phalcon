@@ -10,7 +10,10 @@
                     <?$posts->valid(); $post = $posts->current();?>
                     <?if($post):?>
                     <a class="top1 cover-img" href="/node/<?=$post->id?>">
-                        <img class="img" src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_300,w_426') : '/img/article.jpg'?>" alt=""/>
+                        <div class="img-box">
+                            <img class="bg-img" src="/wscn/img/bg-img.gif" alt=""/>
+                            <img class="front-img" src="<?=$post->image ? $this->tag->thumb($post->image) : '/img/article.jpg'?>" alt=""/>
+                        </div>
                         <div class="cover">
                             <h3 class="title"><?=$post->title?></h3>
                             <!--
@@ -25,7 +28,10 @@
                         <?$posts->valid(); $post = $posts->current();?>
                         <?if($post):?>
                         <a class="top2 cover-img" href="/node/<?=$post->id?>">
-                            <img class="img" src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_149,w_212') : '/img/article.jpg'?>" alt=""/>
+                            <div class="img-box">
+                                <img class="bg-img" src="/wscn/img/bg-img.gif" alt=""/>
+                                <img class="front-img" src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_149,w_212') : '/img/article.jpg'?>" alt=""/>
+                            </div>
                             <div class="cover">
                                 <h3 class="title"><?=$post->title?></h3>
                             </div>
@@ -36,7 +42,10 @@
                         <?$posts->valid(); $post = $posts->current();?>
                         <?if($post):?>
                         <a class="top3 cover-img" href="/node/<?=$post->id?>">
-                            <img class="img" src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_149,w_212') : '/img/article.jpg'?>" alt=""/>
+                            <div class="img-box">
+                                <img class="bg-img" src="/wscn/img/bg-img.gif" alt=""/>
+                                <img class="front-img" src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_149,w_212') : '/img/article.jpg'?>" alt=""/>
+                            </div>
                             <div class="cover">
                                 <h3 class="title"><?=$post->title?></h3>
                             </div>
@@ -61,7 +70,7 @@
                     <div class="row">
                         <div class="col-lg-4 col-sm-5 col-xs-5">
                             <a class="cover-img" href="/node/<?=$post->id?>">
-                                <div class="img img-loading">
+                                <div class="img img-box">
                                     <img class="bg-img" src="/wscn/img/bg-img.gif" alt=""/>
                                     <img class="front-img" onload="img_loading(this)" src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_360,w_600') : '/img/article.jpg'?>" alt=""/>
                                 </div>
@@ -129,7 +138,7 @@
                     <div class="row">
                         <div class="col-lg-4 col-sm-5 col-xs-5">
                             <a class="cover-img" href="/node/<?=$post->id?>">
-                                <div class="img img-loading">
+                                <div class="img img-box">
                                     <img class="bg-img" src="/wscn/img/bg-img.gif" alt=""/>
                                     <img class="front-img" onload="img_loading(this)" src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_360,w_600') : '/img/article.jpg'?>" alt=""/>
                                 </div>
