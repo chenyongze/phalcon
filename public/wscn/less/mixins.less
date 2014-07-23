@@ -30,6 +30,13 @@
          -o-transition: @transition;
             transition: @transition;
 }
+// 动画
+.animation (@animation) {
+    -webkit-animation: @animation;
+       -moz-animation: @animation;
+         -o-animation: @animation;
+            animation: @animation;
+}
 //单行隐藏超过最大宽度的文字
 .ellipsis {
     overflow: hidden;

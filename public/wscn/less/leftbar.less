@@ -1,3 +1,26 @@
+@-webkit-keyframes market-trend-rise {
+    50% {top: -16px}
+    51% {top: 62px}
+    100% {top: 23px}
+}
+@keyframes market-trend-rise {
+    50% {top: -16px}
+    51% {top: 62px}
+    100% {top: 23px}
+}
+
+@-webkit-keyframes market-trend-fall {
+    50% {top: 62px}
+    51% {top: -16px}
+    to {top: 23px}
+}
+@keyframes market-trend-fall {
+    50% {top: 62px}
+    51% {top: -16px}
+    to {top: 23px}
+}
+
+
 #leftbar {
     .clearfix;
     display: none;
@@ -77,6 +100,7 @@
                 background: url(../icon/rise.png) right center no-repeat;
             }*/
             &:before {
+                .animation(market-trend-rise 0.5s);
                 background: url(../icon/rise.png);
             }
         }
@@ -85,6 +109,7 @@
                 background: url(../icon/fall.png) right center no-repeat;
             }*/
             &:before {
+                .animation(market-trend-fall 0.5s);
                 background: url(../icon/fall.png);
             }
         }
@@ -95,10 +120,10 @@
             content: "";
             width: 16px;
             height: 16px;
-            top: 0;
-            bottom: 0;
+            top: 23px;
+            //bottom: 0;
             left: 75px;
-            margin: auto 0;
+            //margin: auto 0;
         }
         //----------------------------------------
         &:after {
@@ -112,6 +137,10 @@
             background: url(../icon/arrow-right-1.png) center center no-repeat;
         }
         &:hover {
+            background-color: #b0cde1;
+        }
+        //todo
+        &.active {
             background-color: #b0cde1;
         }
         .custom-icon {

@@ -35,21 +35,12 @@
 
 //滚动条部分初始化
 (function($){
-    var $livenews = $('#left-side-livenews');
-    var $leftbar = $('#leftbar');
-    var $leftSidebar = $('#leftbar > .sidebar');
-
-    $leftSidebar.nanoScroller({
-        preventPageScrolling: true,
-        //alwaysVisible: true,
-        iOSNativeScrolling: true
-    });
+    //页面右侧事实新闻
     $('#right-side-livenews').nanoScroller({
-        //preventPageScrolling: true,
         //alwaysVisible: true,
         iOSNativeScrolling: true
     });
-    //
+    //页面经济日历
     $('.fc-list').fcl();
 })(jQuery);
 
