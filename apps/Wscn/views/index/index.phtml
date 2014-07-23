@@ -73,8 +73,17 @@
                             <div>
                                 <span class="meta author">文 / <?=$post->user ? $post->user->username : '华尔街见闻'?></span>
                                 <span class="meta time visible-lg-inline-block"><?=$this->tag->datetime($post->createdAt)?></span>
-                                <span class="meta pull-right visible-lg-inline-block">
-                                    <a class="share" href=""></a>
+                                <span class="meta pull-right visible-lg-inline-block"
+                                      onmouseover="jiathis_share('<?=$post->title?>', 'http://wallstreetcn.com/node/<?=$post->id?>')">
+                                    <a class="share jiathis jiathis_txt jtico jtico_jiathis" target="_blank"
+                                       href="http://www.jiathis.com/share/?uid=1393984262901745"></a>
+                                    <!--
+                                    <div class="share" onmouseover="jiathis_share('如何在一个页面中添加多组分享代码', 'http://www.jiathis.com/help/html/add-more-icons/');">
+                                        <div class="jiathis_style">
+                                            <a href="http://www.jiathis.com/share/?uid=1393984262901745" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+                                        </div>
+                                    </div>
+                                    -->
                                     <a class="collect" href=""></a>
                                 </span>
                                 <span class="meta time hidden-lg pull-right"><?=$this->tag->datetime($post->createdAt)?></span>
@@ -252,6 +261,7 @@
         </div>
     </div>
 </div>
+
 <!-- main-content end -->
 <aside id="sidebar">
 <h2 class="side-title">
@@ -265,3 +275,15 @@
 </div>
 </aside>
 <!-- sidebar end -->
+
+<script type="text/javascript">
+    var jiathis_config = {}
+    function jiathis_share(title, url) {
+        jiathis_config.title = title;
+        jiathis_config.url = url;
+        console.log(jiathis_config);
+    }
+</script>
+<!--分享参数代码结束-->
+<!--分享功能代码统一放到页尾-->
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1393984262901745" charset="utf-8"></script>

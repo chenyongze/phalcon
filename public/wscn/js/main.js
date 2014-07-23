@@ -38,20 +38,7 @@
     var $livenews = $('#left-side-livenews');
     var $leftbar = $('#leftbar');
     var $leftSidebar = $('#leftbar > .sidebar');
-    var $marketList = $('#left-market-list');
-    /*var leftbar_height = $leftbar.height();
-    var leftbar_offset = $leftbar.offset();
-    var livenews_offset = $livenews.offset();
-    var spacing = livenews_offset.top - leftbar_offset.top;
-    var height = leftbar_height - spacing - 20;
-    $livenews.height(height);*/
 
-    //$marketList.height($marketList.height());
-    $marketList.nanoScroller({
-        preventPageScrolling: true,
-        //alwaysVisible: true,
-        iOSNativeScrolling: true
-    });
     $leftSidebar.nanoScroller({
         preventPageScrolling: true,
         //alwaysVisible: true,
@@ -67,24 +54,7 @@
 })(jQuery);
 
 (function($){
-    var timeout_show_related_info = null;
-    var timeout_fold = null;
-    var $leftbar = $('#leftbar');
-    var $content = $('#content');
-    $leftbar.on('mouseover', '[data-hover=unfold]', function(e){
-        clearTimeout(timeout_fold);
-        $content.addClass('unfold');
-    });
-    $leftbar.on('mouseout', '[data-hover=unfold]', function(e){
-        clearTimeout(timeout_show_related_info);
-        timeout_fold = setTimeout(function(){
-            $content.removeClass('unfold');
-        }, 300);
-    });
 
-    $leftbar.on('mouseover', '[data-hover=related-info]', function(e){
-        clearTimeout(timeout_show_related_info);
-    });
 
     //breaking-news
     $('#breaking-news [data-action=close]').click(function(e){
