@@ -12,13 +12,15 @@ namespace Eva\Wiki\Models;
 // + Entry.php
 // +----------------------------------------------------------------------
 
-class Entry extends \Eva\Wiki\Entities\Entry
+use Eva\Wiki\Entities\Entries;
+
+class Entry extends Entries
 {
-    public function getTagString()
+    public function getLinkedKeywords()
     {
-        return 'a,b';
+        return '';
     }
-    public function findWiki(array $query = array())
+    public function findEntries(array $query = array())
     {
         $itemQuery = $this->getDI()->getModelsManager()->createBuilder();
 
@@ -78,5 +80,51 @@ class Entry extends \Eva\Wiki\Entities\Entry
         $itemQuery->orderBy($order);
         return $itemQuery;
     }
+    public function createEntry($data)
+    {
+        $textData = isset($data['text']) ? $data['text'] : array();
+        $tagData = isset($data['tags']) ? $data['tags'] : array();
+        $categoryData = isset($data['categories']) ? $data['categories'] : array();
 
-} 
+        if($textData) {
+            unset($data['text']);
+            $text = new Text();
+            $text->assign($textData);
+            $this->text = $text;
+        }
+
+        $tags = array();
+        if ($tagData) {
+            unset($data['tags']);
+            $tagArray = is_array($tagData) ? $tagData : explode(',', $tagData);
+            foreach ($tagArray as $tagName) {
+                $tag = new Tag();
+                $tag->tagName = $tagName;
+                $tags[] = $tag;
+            }
+            if ($tags) {
+                $this->tags = $tags;
+            }
+        }
+
+        $categories = array();
+        if ($categoryData) {
+            unset($data['categories']);
+            foreach ($categoryData as $categoryId) {
+                $category = Category::findFirst($categoryId);
+                if ($category) {
+                    $categories[] = $category;
+                }
+            }
+            $this->categories = $categories;
+        }
+
+
+        $this->assign($data);
+        if (!$this->save()) {
+            throw new Exception\RuntimeException('Create post failed');
+        }
+
+        return $this;
+    }
+}

@@ -10,13 +10,13 @@
         </li>
 
         <li>
-        <a href="/admin/post">Post</a>
+        <a href="/admin/wiki">Wiki</a>
         </li>
 
         <?if(empty($item->id)):?>
-        <li class="active">Write New Post</li>
+        <li class="active">Write New Entry</li>
         <?else:?>
-        <li class="active">Edit Post</li>
+        <li class="active">Edit Entry</li>
         <?endif?>
     </ul><!-- .breadcrumb -->
 
@@ -34,9 +34,9 @@
     <div class="page-content">
         <div class="page-header">
             <?if(empty($item->id)):?>
-            <h1>Write New Post</h1>
+            <h1>Write New Entry</h1>
             <?else:?>
-            <h1>Edit Post</h1>
+            <h1>Edit Entry</h1>
             <?endif?>
         </div><!-- /.page-header -->
 
@@ -49,9 +49,15 @@
                         <?=$form->render('title', array(
                             'class' => 'form-control input-lg  slug-generator',
                             'data-slug-target' => '#slug',
-                            'placeholder' => 'Title',
+                            'placeholder' => 'Please input main keyword of the entry ...',
                             'required' => 'required',
                         ))?>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label class="block clearfix">
+                        <input type="text" placeholder="Please enter synonymies of the entry ..." value="<?=$item ? $item->getLinkedKeywords() : ''?>" name="synonymies" class="tag-input form-control input-lg">
+
                     </label>
                 </div>
 <!--                <div class="form-group">-->
@@ -69,7 +75,53 @@
 //                        ))?>
 <!--                    </div>-->
 <!--                </div>-->
+                <div class="form-group">
+                    <div class="widget-box transparent">
+                        <div class="widget-header">
+                            <h4 class="lighter">Content</h4>
+                            <div class="widget-toolbar no-border ">
+                                <div class="btn-group">
+                                    <button class="btn btn-sm btn-info editor-open-media-handle">
+                                        <i class="icon-plus align-top bigger-125"></i>
+                                        Select Media
+                                    </button>
 
+                                    <span class="btn btn-sm btn-purple fileinput-button">
+                                        <i class="icon-cloud-upload align-top bigger-125"></i>
+                                        Upload Media
+                                        <input type="file" multiple  class="editor-upload-handle" data-connect-editor=".editor-content" />
+                                    </span>
+
+                                    <ul id="switch-code" class="nav nav-tabs hide">
+                                        <li class="">
+                                            <a href="#format-markdown" data-toggle="tab">Markdown</a>
+                                        </li>
+                                        <li>
+                                            <a href="#format-html" data-toggle="tab">Html</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div><!--widget box header-->
+                    </div><!--widget box end-->
+
+                    <label class="block clearfix">
+
+                        <div class="markdown-editor">
+                            <?=$textForm->render('content', array(
+                                'class' => 'form-control editor editor-content',
+                                //'class' => 'form-control wysiwyg',
+                                'rows' => 12,
+                                'required' => 'required',
+                            ))?>
+                            <?=$form->render('codeType', array(
+                            ))?>
+                        </div>
+                        <!--
+                        <button id="test">test</button>
+                        -->
+                    </label>
+                </div>
                 <div class="form-group">
                     <label class="block clearfix">
                         <h5 class="lighter">Summary</h5>
@@ -116,7 +168,7 @@
                                     Status
                                 </label>
                                 <?=$form->render('status', array(
-                                    'class' => 'form-control',
+                                    'class' => 'form-control'
                                 ))?>
                             </fieldset>
                         </div>
@@ -181,25 +233,7 @@
                 </div><!--widgex box-->
 
 
-                <div class="hr hr-double dotted"></div>
-                <div class="widget-box">
-                    <div class="widget-header widget-header-small">
-                        <h5 class="lighter">Tags</h5>
-                        <span class="widget-toolbar">
-                            <a data-action="collapse" href="#">
-                                <i class="icon-chevron-up"></i>
-                            </a>
-                        </span>
-                    </div>
 
-                    <div class="widget-body">
-                        <div class="widget-main">
-                            <div class="form-group">
-                                <input type="text" placeholder="Enter Tags ..." value="<?=$item ? $item->getTagString() : ''?>" name="tags" class="tag-input form-control">
-                            </div>
-                        </div>
-                    </div>
-                </div><!--widgex box-->
 
                 <div class="hr hr-double dotted"></div>
                 <div class="widget-box collapsed">

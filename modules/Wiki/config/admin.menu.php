@@ -17,14 +17,22 @@
     </a>
 
     <ul class="submenu">
-        <li class="tobe-highlight" data-highlight-url="/admin/wiki.*">
+        <li class="tobe-highlight" data-highlight-url="/admin/wiki$">
             <a href="/admin/wiki">
                 <i class="icon-double-angle-right"></i>
-                Wiki List
+                Entry List
             </a>
+        </li>
+        <li  class="tobe-highlight" data-highlight-url="/admin/wiki/create">
             <a href="/admin/wiki/create">
                 <i class="icon-double-angle-right"></i>
-                Create New Wiki
+                Create New Entry
+            </a>
+        </li>
+        <li class="tobe-highlight" data-highlight-url="/admin/wiki/categories">
+            <a href="/admin/wiki/category">
+                <i class="icon-double-angle-right"></i>
+                Entry Category List
             </a>
         </li>
     </ul>

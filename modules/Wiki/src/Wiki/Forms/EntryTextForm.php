@@ -9,7 +9,7 @@ class EntryTextForm extends Form
      *
      * @var integer
      */
-    public $postId;
+    public $entryId;
 
     /**
      *
@@ -36,5 +36,5 @@ class EntryTextForm extends Form
      */
     public $content;
 
-    protected $defaultModelClass = 'Eva\EvaBlog\Models\Text';
+    protected $defaultModelClass = 'Eva\Wiki\Models\EntryText';
 }
