@@ -48,7 +48,7 @@
 #livenews-box {
     box-shadow: 0 0 3px rgba(0,0,0,.36);
     & > .header {
-        box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        box-shadow: 0 2px 2px rgba(0,0,0,0.3);
         .config {
             display: block;
             float: left;
@@ -90,7 +90,12 @@
     }
     & > .body {
         padding:  0 30px 30px;
-        .pagingbar {
+        & > .content {
+            //padding-bottom: 30px;
+            //border-bottom: 1px solid #B9B9B9;
+        }
+        & > .pagingbar {
+            margin-top: 30px;
             text-align: right;
             .button {
                 margin-right: 0;
@@ -102,48 +107,142 @@
         line-height: 50px;
         font-weight: bold;
         border-bottom: 1px solid #B9B9B9;
-        margin-bottom: 30px;
     }
     .news {
-        border: 1px solid #b9b9b9;
-        margin-bottom: 30px;
+        position: relative;
+        padding-top: 10px;
+        padding-left: 90px;
         .time {
             position: absolute;
-            left: 45px;
-            top: 15px;
+            left: 30px;
+            top: 10px;
         }
         .icon {
             position: absolute;
-            top: 15px;
+            top: 10px;
         }
         & > .content {
-            .break-word;
             position: relative;
-            padding-top: 15px;
-            padding-bottom: 15px;
-            padding-left: 100px;
-            padding-right: 15px;
         }
         & > .footer {
-            border-top: 1px solid #b9b9b9;
-            background-color: #eee;
+            border-bottom: 1px solid #b9b9b9;
             text-align: right;
+            padding: 9px 0;
             font-size: 0;
             .meta {
                 font-size: 12px;
                 cursor: pointer;
                 display: inline-block;
-                padding: 0 15px;
-                line-height: 30px;
+                line-height: 16px;
+                padding-left: 10px;
+                margin-left: 10px;
                 border-left: 1px solid #b9b9b9;
             }
         }
-        &.with-img {
+        &.type-img ,
+        &.type-video {
             & > .content {
                 padding-right: 120px;
-                min-height: 80px;
+                min-height: 60px;
             }
-
+            .thumb {
+                position: absolute;
+                top: 9px;
+                right: 0;
+                width: 70px;
+                height: 42px;
+                box-shadow: 0 0 2px rgba(0,0,0,0.3);
+            }
+        }
+        &.type-data {
+            & > .content {
+                padding-left: 200px;
+                padding-right: 120px;
+                font-size: 16px;
+            }
+            &:before {
+                display: block;
+                position: absolute;
+                content: "";
+                z-index: 0;
+                background-color: @blue;
+                width: 123px;
+                height: 40px;
+                top: 30px;
+                left: -33px;
+            }
+            .important {
+                position: absolute;
+                top: 40px;
+                left: 30px;
+                .star {
+                    font-size: 14px;
+                    color: #ccc;
+                    line-height: 20px;
+                }
+                .active {
+                    color: #fff;
+                }
+            }
+            .time {
+                top: 30px;
+                color: @blue;
+                font-weight: bold;
+            }
+            .verdict {
+                position: absolute;
+                top: 20px;
+                right: 0;
+                width: 100px;
+                height: 40px;
+                color: #fff;
+                line-height: 40px;
+                text-align: center;
+                background-color: #ccc;
+            }
+            .flag {
+                position: absolute;
+                display: block;
+                top: 20px;
+                left: 100px;
+                width: 60px;
+                height: 40px;
+            }
+            .title {
+                color: @blue;
+                font-weight: bold;
+                font-size: 16px;
+                line-height: 24px;
+                height: 48px;
+                overflow: hidden;
+                margin-bottom: 10px;
+            }
+            .country {
+                display: inline-block;
+                margin-right: 1em;
+            }
+            .text {
+                color: #666;
+            }
+            .value {
+                font-weight: bold;
+            }
+            &[data-trend=rise] {
+                .current {
+                    color: @riseColor;
+                }
+                .verdict {
+                    background-color: @riseColor;
+                }
+            }
+            &[data-trend=fall] {
+                .current {
+                    color: @fallColor;
+                }
+                .verdict {
+                    background-color: @fallColor;
+                }
+            }
         }
     }
 }

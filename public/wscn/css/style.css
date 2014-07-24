@@ -608,6 +608,7 @@ body {
 .custom-button.type-link {
   position: relative;
   font-size: 14px;
+  line-height: 16px;
   font-weight: normal;
   padding: 12px 1.5em;
   padding-right: 4em;
@@ -2212,7 +2213,7 @@ body {
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.36);
 }
 #livenews-box > .header {
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
 }
 #livenews-box > .header .config {
   display: block;
@@ -2255,10 +2256,11 @@ body {
 #livenews-box > .body {
   padding: 0 30px 30px;
 }
-#livenews-box > .body .pagingbar {
+#livenews-box > .body > .pagingbar {
+  margin-top: 30px;
   text-align: right;
 }
-#livenews-box > .body .pagingbar .button {
+#livenews-box > .body > .pagingbar .button {
   margin-right: 0;
   margin-left: 5px;
 }
@@ -2266,46 +2268,136 @@ body {
   line-height: 50px;
   font-weight: bold;
   border-bottom: 1px solid #B9B9B9;
-  margin-bottom: 30px;
 }
 #livenews-box .news {
-  border: 1px solid #b9b9b9;
-  margin-bottom: 30px;
+  position: relative;
+  padding-top: 10px;
+  padding-left: 90px;
 }
 #livenews-box .news .time {
   position: absolute;
-  left: 45px;
-  top: 15px;
+  left: 30px;
+  top: 10px;
 }
 #livenews-box .news .icon {
   position: absolute;
-  top: 15px;
+  top: 10px;
 }
 #livenews-box .news > .content {
-  word-break: break-all;
   position: relative;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  padding-left: 100px;
-  padding-right: 15px;
 }
 #livenews-box .news > .footer {
-  border-top: 1px solid #b9b9b9;
-  background-color: #eee;
+  border-bottom: 1px solid #b9b9b9;
   text-align: right;
+  padding: 9px 0;
   font-size: 0;
 }
 #livenews-box .news > .footer .meta {
   font-size: 12px;
   cursor: pointer;
   display: inline-block;
-  padding: 0 15px;
-  line-height: 30px;
+  line-height: 16px;
+  padding-left: 10px;
+  margin-left: 10px;
   border-left: 1px solid #b9b9b9;
 }
-#livenews-box .news.with-img > .content {
+#livenews-box .news.type-img > .content,
+#livenews-box .news.type-video > .content {
   padding-right: 120px;
-  min-height: 80px;
+  min-height: 60px;
+}
+#livenews-box .news.type-img .thumb,
+#livenews-box .news.type-video .thumb {
+  position: absolute;
+  top: 9px;
+  right: 0;
+  width: 70px;
+  height: 42px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+}
+#livenews-box .news.type-data > .content {
+  padding-left: 200px;
+  padding-right: 120px;
+  font-size: 16px;
+}
+#livenews-box .news.type-data:before {
+  display: block;
+  position: absolute;
+  content: "";
+  z-index: 0;
+  background-color: #0a62a3;
+  width: 123px;
+  height: 40px;
+  top: 30px;
+  left: -33px;
+}
+#livenews-box .news.type-data .important {
+  position: absolute;
+  top: 40px;
+  left: 30px;
+}
+#livenews-box .news.type-data .important .star {
+  font-size: 14px;
+  color: #ccc;
+  line-height: 20px;
+}
+#livenews-box .news.type-data .important .active {
+  color: #fff;
+}
+#livenews-box .news.type-data .time {
+  top: 30px;
+  color: #0a62a3;
+  font-weight: bold;
+}
+#livenews-box .news.type-data .verdict {
+  position: absolute;
+  top: 20px;
+  right: 0;
+  width: 100px;
+  height: 40px;
+  color: #fff;
+  line-height: 40px;
+  text-align: center;
+  background-color: #ccc;
+}
+#livenews-box .news.type-data .flag {
+  position: absolute;
+  display: block;
+  top: 20px;
+  left: 100px;
+  width: 60px;
+  height: 40px;
+}
+#livenews-box .news.type-data .title {
+  color: #0a62a3;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 24px;
+  height: 48px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+#livenews-box .news.type-data .country {
+  display: inline-block;
+  margin-right: 1em;
+}
+#livenews-box .news.type-data .text {
+  color: #666;
+}
+#livenews-box .news.type-data .value {
+  font-weight: bold;
+}
+#livenews-box .news.type-data[data-trend=rise] .current {
+  color: #ff3e3e;
+}
+#livenews-box .news.type-data[data-trend=rise] .verdict {
+  background-color: #ff3e3e;
+}
+#livenews-box .news.type-data[data-trend=fall] .current {
+  color: #227722;
+}
+#livenews-box .news.type-data[data-trend=fall] .verdict {
+  background-color: #227722;
 }
 @media (max-width: 479px) {
   #livenews-box > .header .config {
