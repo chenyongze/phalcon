@@ -69,16 +69,16 @@
                     <li class="news">
                     <div class="row">
                         <div class="col-lg-4 col-sm-5 col-xs-5">
-                            <a class="cover-img" href="/node/<?=$post->id?>">
+                            <div class="cover-img" href="/node/<?=$post->id?>">
                                 <div class="img img-box">
                                     <img class="bg-img" src="/wscn/img/bg-img.gif" alt=""/>
                                     <img class="front-img" onload="img_loading(this)" src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_360,w_600') : '/img/article.jpg'?>" alt=""/>
                                 </div>
                                 <div class="cover">
-                                    <span class="endorse icontext icontext-endorse-white" data-action="endorse">&nbsp;(123)</span>
-                                    <span class="discuss icontext icontext-discuss-white" data-action="discuss">&nbsp;(89)</span>
+                                    <span title="点赞" class="endorse" data-action="endorse">123</span>
+                                    <a href="/node/<?=$post->id?>#comments" title="查看评论" class="discuss" data-action="discuss">89</a>
                                 </div>
-                            </a>
+                            </div>
                         </div>
                         <div class="col-lg-8 col-sm-7 col-xs-7">
                             <a class="title" href="/node/<?=$post->id?>"><?=$post->title?></a>
@@ -96,7 +96,7 @@
                                         </div>
                                     </div>
                                     -->
-                                    <a class="collect" data-action="collect" href=""></a>
+                                    <a class="collect" title="收藏" data-action="collect" href=""></a>
                                 </span>
                                 <span class="meta time hidden-lg pull-right"><?=$this->tag->datetime($post->createdAt)?></span>
                             </div>
@@ -137,16 +137,16 @@
                     <li class="news">
                     <div class="row">
                         <div class="col-lg-4 col-sm-5 col-xs-5">
-                            <a class="cover-img" href="/node/<?=$post->id?>">
+                            <div class="cover-img" href="/node/<?=$post->id?>">
                                 <div class="img img-box">
                                     <img class="bg-img" src="/wscn/img/bg-img.gif" alt=""/>
                                     <img class="front-img" onload="img_loading(this)" src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_360,w_600') : '/img/article.jpg'?>" alt=""/>
                                 </div>
                                 <div class="cover">
-                                    <span class="endorse icontext icontext-endorse-white" data-action="endorse">&nbsp;(123)</span>
-                                    <span class="discuss icontext icontext-discuss-white" data-action="discuss">&nbsp;(89)</span>
+                                    <span title="点赞" class="endorse" data-action="endorse">123</span>
+                                    <a href="/node/<?=$post->id?>#comments" title="查看评论" class="discuss" data-action="discuss">89</a>
                                 </div>
-                            </a>
+                            </div>
                         </div>
                         <div class="col-lg-8 col-sm-7 col-xs-7">
                             <a class="title" href="/node/<?=$post->id?>"><?=$post->title?></a>
@@ -157,7 +157,7 @@
                                       onmouseover="jiathis_share('<?=$post->title?>', 'http://wallstreetcn.com/node/<?=$post->id?>')">
                                     <a class="share jiathis jiathis_txt jtico jtico_jiathis" target="_blank"
                                        href="http://www.jiathis.com/share/?uid=1393984262901745"></a>
-                                    <a class="collect" data-action="collect" href=""></a>
+                                    <a class="collect" title="收藏" data-action="collect" href=""></a>
                                 </span>
                                 <span class="meta time hidden-lg pull-right"><?=$this->tag->datetime($post->createdAt)?></span>
                             </div>

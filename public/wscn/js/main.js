@@ -53,6 +53,24 @@
         return false;
     });
 
+    //点赞
+    $('[data-action=endorse]').on('click', function(e){
+        var $this = $(this);
+        if ($this.hasClass('active')) {
+            return;
+        }
+        var text = parseInt($this.text());
+        text ++ ;
+        $this.text(text);
+        $this.addClass('active');
+        e.preventDefault();
+    });
+    //收藏
+    $('[data-action=collect]').on('click', function(e){
+        $(this).toggleClass('active');
+        e.preventDefault();
+    });
+
     // 页面侧边栏 start
     var $sidebar = $('#sidebar');
     $('#show-sidebar').on('click', function(e){
