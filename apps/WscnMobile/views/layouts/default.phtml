@@ -82,6 +82,19 @@
             WSCN_UTIL.mobile.detectOrientation();
 
         </script> 
+<script type="text/javascript">
+    $(function ($) {
+
+		$(".nav span").click(function(){
+			//console.log("." + $(this).attr("data-target"));
+			$(".content-wrapper > div").css("display","none");
+			$("." + $(this).attr("data-target")).css("display","");
+		})
+	
+	 }(Zepto));
+	 
+	 
+</script>
         <script type="text/javascript">
             $(function ($) {
 

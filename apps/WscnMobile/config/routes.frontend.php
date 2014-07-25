@@ -48,4 +48,8 @@ return array(
         'controller' => 'search',
         'action' => 'suggestion',
     ),
+    '/login' =>  array(
+        'module' => 'WscnMobile',
+        'controller' => 'login',
+    ),
 );
