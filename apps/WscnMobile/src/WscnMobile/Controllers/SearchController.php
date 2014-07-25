@@ -42,17 +42,14 @@ class SearchController extends ControllerBase
         return $paginator;
     }
 
-    public function newsAction()
+    public function suggestionAction()
     {
-        $id = $this->dispatcher->getParam('id');
-        if (is_numeric($id)) {
-            $post = Post::findFirst($id);
-        } else {
-            $post = Post::findFirstBySlug($id);
+        $searchUrl = 'http://nssug.baidu.com/su?&sugParams&prod=baike&ie=uft-8';
+        header('Content-Type: application/json');
+        if(!empty($_GET['wd'])) {
+            $content = file_get_contents($searchUrl . '&wd=' . urlencode($_GET['wd']) . '&cb=' . urlencode($_GET['cb']));
+            echo iconv('GB2312', 'UTF-8//IGNORE', $content);
+            exit;
         }
-        if(!$post || $post->status != 'published') {
-            throw new Exception\ResourceNotFoundException('Request post not found');
-        }
-        $this->view->setVar('post', $post);
     }
 }

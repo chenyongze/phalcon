@@ -75,6 +75,24 @@
         <script type="text/javascript" src="http://cdn.static.wallstreetcn.com/js/moment-with-langs.min.js"></script>
         <script type="text/javascript" src="http://cdn.static.wallstreetcn.com/js/art-template-3.0.0.js"></script>
         <script type="text/javascript" src="/wscnm/js/calendar.js"></script>
+        <script type="text/javascript" src="/wscnm/js/tagcloud.js"></script>
+        <script type="text/javascript" src="/wscnm/js/marketlist.js"></script>
+        <script type="text/javascript" src="/wscnm/js/marketdetail.js" data-desc="depend on wscn_util.js & store.js"></script>
+        <script type="text/javascript">  
+            WSCN_UTIL.mobile.detectOrientation();
+
+        </script> 
+        <script type="text/javascript">
+            $(function ($) {
+
+                    $('#searchInput').suggestion({
+                            source: "/search/suggestion"
+                    });
+
+                    var tagCloud = new TagCould("tagcloud",{radius:parseInt(window.innerWidth)/2 - 20});
+                    tagCloud.start();
+            }(Zepto));
+        </script>
 
 
         <script type="text/javascript">

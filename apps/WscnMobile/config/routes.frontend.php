@@ -5,10 +5,6 @@ return array(
         'module' => 'WscnMobile',
         'controller' => 'index',
     ),
-    '/livenews' =>  array(
-        'module' => 'WscnMobile',
-        'controller' => 'livenews',
-    ),
     '/news' =>  array(
         'module' => 'WscnMobile',
         'controller' => 'news',
@@ -19,6 +15,26 @@ return array(
         'action' => 'news',
         'id' => 1 
     ),
+    '/markets' =>  array(
+        'module' => 'WscnMobile',
+        'controller' => 'markets',
+    ),
+    '/markets/(\w+)' =>  array(
+        'module' => 'WscnMobile',
+        'controller' => 'markets',
+        'action' => 'quote',
+        'id' => 1 
+    ),
+    '/livenews' =>  array(
+        'module' => 'WscnMobile',
+        'controller' => 'livenews',
+    ),
+    '/livenews/(\d+)' =>  array(
+        'module' => 'WscnMobile',
+        'controller' => 'livenews',
+        'action' => 'livenews',
+        'id' => 1 
+    ),
     '/calendar' =>  array(
         'module' => 'WscnMobile',
         'controller' => 'calendar',
@@ -26,5 +42,10 @@ return array(
     '/search' =>  array(
         'module' => 'WscnMobile',
         'controller' => 'search',
+    ),
+    '/search/suggestion' =>  array(
+        'module' => 'WscnMobile',
+        'controller' => 'search',
+        'action' => 'suggestion',
     ),
 );
