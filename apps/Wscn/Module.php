@@ -19,6 +19,9 @@ class Module implements ModuleDefinitionInterface, StandardInterface
 
     public static function registerGlobalEventListeners()
     {
+        return array(
+            'dispatch' => 'Wscn\Events\DispatchListener',
+        );
     }
 
     public static function registerGlobalViewHelpers()
