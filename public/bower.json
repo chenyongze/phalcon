@@ -1,0 +1,16 @@
+{
+  "name": "phalcon",
+  "version": "0.1.0",
+  "description": "",
+  "dependencies": {
+    "requirejs": "latest",
+    "require-css": "latest",
+    "requirejs-text": "latest",
+    "jquery": "latest",
+    "jquery-1.11.1": "1.11.1",
+    "bootstrap": "v3.1.1"
+  },
+  "scripts": {
+    "postinstall": "bower-requirejs -c ./config.js"
+  }
+}

@@ -1,0 +1,21 @@
+<div class="news-info">
+    <h2 class="title"><?=$post->title?></h2>
+    <div class="meta">
+        <span class="item author">文 / <?=$post->user ? $post->user->username : '华尔街见闻'?></span>
+        <span class="item time"><?=$this->tag->datetime($post->createdAt)?></span>
+        <div class="btn" data-action="to-share" style="">
+            <img src="/wscnm/img/star-off.png" class="favorite"/>
+        </div>
+    </div>
+    <div class="content">
+        <?=$post->getContentHtml()?>
+    </div>
+    <div class="sharebar">
+        <span class="item label">分享：</span>
+        <a class="item btn tsina" href="http://www.jiathis.com/send/?webid=tsina&amp;url=http://<?=$this->config->wscnmobile->domain?>/news/<?=$post->id?>" target="_blank"></a>
+        <a class="item btn tqq" href="http://www.jiathis.com/send/?webid=tqq&amp;url=http://<?=$this->config->wscnmobile->domain?>/news/<?=$post->id?>" target="_blank"></a>
+        <a class="item btn cqq" href="http://www.jiathis.com/send/?webid=cqq&amp;url=http://<?=$this->config->wscnmobile->domain?>/news/<?=$post->id?>" target="_blank"></a>
+        <a class="item btn evernote" href="http://www.jiathis.com/send/?webid=evernote&amp;url=http://<?=$this->config->wscnmobile->domain?>/news/<?=$post->id?>" target="_blank"></a>
+    </div>
+
+</div>
