@@ -75,8 +75,8 @@
                                     <img class="front-img" onload="img_loading(this)" src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_360,w_600') : '/img/article.jpg'?>" alt=""/>
                                 </div>
                                 <div class="cover">
-                                    <span class="endorse icontext icontext-endorse-white">&nbsp;(123)</span>
-                                    <span class="discuss icontext icontext-discuss-white">&nbsp;(89)</span>
+                                    <span class="endorse icontext icontext-endorse-white" data-action="endorse">&nbsp;(123)</span>
+                                    <span class="discuss icontext icontext-discuss-white" data-action="discuss">&nbsp;(89)</span>
                                 </div>
                             </a>
                         </div>
@@ -96,7 +96,7 @@
                                         </div>
                                     </div>
                                     -->
-                                    <a class="collect" href=""></a>
+                                    <a class="collect" data-action="collect" href=""></a>
                                 </span>
                                 <span class="meta time hidden-lg pull-right"><?=$this->tag->datetime($post->createdAt)?></span>
                             </div>
@@ -143,8 +143,8 @@
                                     <img class="front-img" onload="img_loading(this)" src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_360,w_600') : '/img/article.jpg'?>" alt=""/>
                                 </div>
                                 <div class="cover">
-                                    <span class="endorse icontext icontext-endorse-white">&nbsp;(123)</span>
-                                    <span class="discuss icontext icontext-discuss-white">&nbsp;(89)</span>
+                                    <span class="endorse icontext icontext-endorse-white" data-action="endorse">&nbsp;(123)</span>
+                                    <span class="discuss icontext icontext-discuss-white" data-action="discuss">&nbsp;(89)</span>
                                 </div>
                             </a>
                         </div>
@@ -153,9 +153,11 @@
                             <div>
                                 <span class="meta author">文 / <?=$post->user ? $post->user->username : '华尔街见闻'?></span>
                                 <span class="meta time visible-lg-inline-block"><?=$this->tag->datetime($post->createdAt)?></span>
-                                <span class="meta pull-right visible-lg-inline-block">
-                                    <a class="share" href=""></a>
-                                    <a class="collect" href=""></a>
+                                <span class="meta pull-right visible-lg-inline-block"
+                                      onmouseover="jiathis_share('<?=$post->title?>', 'http://wallstreetcn.com/node/<?=$post->id?>')">
+                                    <a class="share jiathis jiathis_txt jtico jtico_jiathis" target="_blank"
+                                       href="http://www.jiathis.com/share/?uid=1393984262901745"></a>
+                                    <a class="collect" data-action="collect" href=""></a>
                                 </span>
                                 <span class="meta time hidden-lg pull-right"><?=$this->tag->datetime($post->createdAt)?></span>
                             </div>

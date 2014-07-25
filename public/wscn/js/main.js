@@ -48,12 +48,12 @@
 
 
     //breaking-news
-    $('#breaking-news [data-action=close]').click(function(e){
+    $('[data-action=hide-breaking-news]').click(function(e){
         $('body').removeClass('show-breaking-news');
         return false;
     });
 
-    //
+    // 页面侧边栏 start
     var $sidebar = $('#sidebar');
     $('#show-sidebar').on('click', function(e){
         $sidebar
@@ -83,12 +83,13 @@
             });
         e.preventDefault();
     });
+    // 页面侧边栏 end
     //
     $(document).on('click', '[data-action=login]', function(e){
         userForms.show();
         return false;
     });
-    //
+    // custom-modal
     $(document).on('click', '[data-action=custom-modal]', function(e){
         var $this = $(this);
         var $target = $($this.attr('data-target'));
