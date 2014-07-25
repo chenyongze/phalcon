@@ -1,0 +1,84 @@
+<form action="http://www.baidu.com/s" method="get">
+    <div class="search">
+        <div class="search-input"><input type="text" id="searchInput" name="wd"></div>
+        <div class="search-button"><input type="submit" value="&nbsp;&nbsp;搜&nbsp;索&nbsp;&nbsp;"></div>
+    </div>
+</form>
+<div class="tagcloud">
+    <h2 class="hot-word-title">热门搜索</h2>
+    <div id="tagcloud">
+        <a href="" class="tagc1">黄金</a>
+
+        <a href="" class="tagc2">金融</a>
+
+        <a href="" class="tagc1">欧元</a>
+
+        <a href="" class="tagc2">美元</a>
+
+        <a href="" class="tagc1">英镑</a>
+
+        <a href="" class="tagc1">美联储</a>
+
+        <a href="" class="tagc1">欧洲央行</a>
+
+        <a href="" class="tagc2">ECB</a>
+
+        <a href="" class="tagc2">耶伦</a>
+
+        <a href="" class="tagc2">德拉吉</a>
+
+        <a href="" class="tagc2">周小川</a>
+
+        <a href="" class="tagc1">EUR/USD</a>
+
+        <a href="" class="tagc2">白银</a>
+
+        <a href="" class="tagc2">标普500</a>
+
+        <a href="" class="tagc2">美股股市</a>
+
+        <a href="" class="tagc1">奇虎</a>
+
+        <a href="" class="tagc2">百度</a>
+
+        <a href="" class="tagc2">巴菲特</a>
+
+        <a href="" class="tagc2">Ackman</a>
+
+        <a href="" class="tagc2">对冲基金</a>
+
+        <a href="" class="tagc2">茅台</a>
+
+        <a href="" class="tagc2">YY</a>
+
+        <a href="" class="tagc1">特斯拉</a>
+
+        <a href="" class="tagc1">SolarCity</a>
+
+        <a href="" class="tagc2">微软</a>
+
+        <a href="" class="tagc2">飞天诚信</a>
+
+        <a href="" class="tagc2">LRTO</a>
+
+        <a href="" class="tagc6">QE</a>
+
+        <a href="" class="tagc2">TTP</a>
+
+        <a href="" class="tagc1">欧盟</a>
+
+        <a href="" class="tagc2">伯南克</a>
+    </div>
+</div>
+<script type="text/javascript" src="js/tagcloud.js"></script>
+<script type="text/javascript">
+    $(function ($) {
+		
+		$('#searchInput').suggestion({
+            source: "suggestion.php"
+        });
+		
+		var tagCloud = new TagCould("tagcloud",{radius:parseInt(window.innerWidth)/2 - 20});
+		tagCloud.start();
+	 }(Zepto));
+</script>
