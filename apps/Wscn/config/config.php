@@ -2,7 +2,7 @@
 
 return array(
     'wscn' => array(
-        'mobileRedirect' => true,
+        'mobileRedirect' => false,
         'mobileRedirectCookieName' => 'mr',
         'mobileDomain' => 'm.wallstreetcn.com',
     ),

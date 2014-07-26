@@ -24,7 +24,20 @@
         }
     };
     usf.onConnectSuccess = function(token, user) {
-        usf.show('register-connect');
+        console.log(token);
+        console.log(user);
+        if(user) {
+        }
+        if(token) {
+            usf.show('register-connect');
+            var site = {
+                'weibo' : '微博',
+                'tencent' : 'QQ'
+            }
+            usf.$element.find('[data-auth-avatar]').attr('src', token.remoteImageUrl);
+            usf.$element.find('[data-auth-user]').html(token.remoteUserName);
+            usf.$element.find('[data-auth-site]').html(site[token.adapterKey]);
+        }
     };
 
     usf.onConnectFailed = function(error, errorMsg) {
