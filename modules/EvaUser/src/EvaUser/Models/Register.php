@@ -10,6 +10,8 @@ class Register extends Entities\Users
 {
     public function register()
     {
+        $this->getDI()->getEventsManager()->fire('user:beforeRegister', $this);
+
         $userinfo = self::findFirst("username = '$this->username'");
         if ($userinfo) {
             throw new Exception\ResourceConflictException('ERR_USER_USERNAME_ALREADY_TAKEN');
@@ -31,7 +33,7 @@ class Register extends Entities\Users
         $this->activationHash = sha1(uniqid(mt_rand(), true));
         // generate integer-timestamp for saving of account-creating date
         $this->createdAt = time();
-        $this->providerType = 'DEFAULT';
+        $this->providerType = $this->providerType ?: 'DEFAULT';
         if ($this->save() == false) {
             throw new Exception\RuntimeException('ERR_USER_CREATE_FAILED');
         }
@@ -42,12 +44,13 @@ class Register extends Entities\Users
         }
         $this->sendVerificationEmail($userinfo->username);
 
+        $this->getDI()->getEventsManager()->fire('user:afterRegister', $this);
         return $userinfo;
     }
 
     public function sendVerificationEmail($username, $forceSend = false)
     {
-        if (false === $forceSend && $this->getDI()->get('config')->mailer->async) {
+        if (false === $forceSend && $this->getDI()->getConfig()->mailer->async) {
             $queue = $this->getDI()->get('queue');
             $result = $queue->doBackground('sendmailAsync', json_encode(array(
                 'class' => __CLASS__,
@@ -72,7 +75,7 @@ class Register extends Entities\Users
         $message->setTo(array(
             $userinfo->email => $userinfo->username
         ));
-        $message->setTemplate($this->getDI()->get('config')->user->activeMailTemplate);
+        $message->setTemplate($this->getDI()->getConfig()->user->activeMailTemplate);
         $message->assign(array(
             'user' => $userinfo->toArray(),
             'url' => $message->toSystemUrl('/session/verify/' . urlencode($userinfo->username) . '/' . $userinfo->activationHash)
@@ -85,8 +88,8 @@ class Register extends Entities\Users
 
     /**
     * checks the email/verification code combination and set the user's activation status to active in the database
-    * @param int $userId user id
-    * @param string $user_activation_verification_code verification token
+    * @param int $username
+    * @param string $activationCode
     * @return bool success status
     */
     public function verifyNewUser($username, $activationCode)

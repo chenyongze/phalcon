@@ -59,6 +59,7 @@ class Upload extends Files
         $fileExtension = strtolower(array_pop($filenameArray));
         $originalFileName = implode('.', $filenameArray);
         $fileName = Tag::friendlyTitle($originalFileName);
+        $fileHash = null;
         if ($fileName == '-') {
             $fileName = Text::random(Text::RANDOM_ALNUM, 6);
         }
@@ -98,7 +99,7 @@ class Upload extends Files
         $path = md5(microtime());
         $path = str_split($path, 2);
         $pathlevel = $this->getUploadPathLevel();
-        $pathlevel > 6 ? 6 : $pathlevel;
+        $pathlevel = $pathlevel > 6 ? 6 : $pathlevel;
         $path = array_slice($path, 0, $pathlevel);
         $filePath = implode('/', $path);
         $path = $filePath . '/' . $fileName . '.' . $fileExtension;
@@ -183,7 +184,7 @@ class Upload extends Files
         $path = md5(time());
         $path = str_split($path, 2);
         $pathlevel = $this->getUploadPathLevel();
-        $pathlevel > 6 ? 6 : $pathlevel;
+        $pathlevel = $pathlevel > 6 ? 6 : $pathlevel;
         $path = array_slice($path, 0, $pathlevel);
         $filePath = implode('/', $path);
         $path = $filePath . '/' . $fileName . '.' . $fileExtension;

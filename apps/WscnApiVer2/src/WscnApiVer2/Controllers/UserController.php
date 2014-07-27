@@ -200,7 +200,7 @@ class UserController extends ControllerBase
         $form->addForm('profile', 'Eva\EvaUser\Forms\ProfileForm');
 
         if (!$form->isFullValid($data)) {
-            return $this->displayJsonInvalidMessages($form);
+            return $this->showInvalidMessagesAsJson($form);
         }
 
         try {
@@ -208,7 +208,7 @@ class UserController extends ControllerBase
             $data = $user->dump(Models\User::$defaultDump);
             return $this->response->setJsonContent($data);
         } catch (\Exception $e) {
-            return $this->displayExceptionForJson($e, $form->getModel()->getMessages());
+            return $this->showExceptionAsJson($e, $form->getModel()->getMessages());
         }
      }
 
@@ -252,7 +252,7 @@ class UserController extends ControllerBase
         $form->addForm('profile', 'Eva\EvaUser\Forms\ProfileForm');
 
         if (!$form->isFullValid($data)) {
-            return $this->displayJsonInvalidMessages($form);
+            return $this->showInvalidMessagesAsJson($form);
         }
 
         try {
@@ -260,7 +260,7 @@ class UserController extends ControllerBase
             $data = $user->dump(Models\User::$defaultDump);
             return $this->response->setJsonContent($data);
         } catch (\Exception $e) {
-            return $this->displayExceptionForJson($e, $form->getModel()->getMessages());
+            return $this->showExceptionAsJson($e, $form->getModel()->getMessages());
         }
     }
 
@@ -300,7 +300,7 @@ class UserController extends ControllerBase
              $user->removeUser($id);
              return $this->response->setJsonContent($userinfo);
          } catch (\Exception $e) {
-             return $this->displayExceptionForJson($e, $user->getMessages());
+             return $this->showExceptionAsJson($e, $user->getMessages());
          }
     }
 }

@@ -62,6 +62,13 @@ class PostController extends ControllerBase
      *           type="integer"
      *         ),
      *         @SWG\Parameter(
+     *           name="tid",
+     *           description="Tag ID",
+     *           paramType="query",
+     *           required=false,
+     *           type="integer"
+     *         ),
+     *         @SWG\Parameter(
      *           name="order",
      *           description="Order, allow value : +-id, +-created_at, +-sortOrder default is -created_at",
      *           paramType="query",
@@ -91,6 +98,7 @@ class PostController extends ControllerBase
             'status' => $this->request->getQuery('status', 'string'),
             'uid' => $this->request->getQuery('uid', 'int'),
             'cid' => $this->request->getQuery('cid', 'int'),
+            'tid' => $this->request->getQuery('tid', 'int'),
             'username' => $this->request->getQuery('username', 'string'),
             'order' => $order,
             'limit' => $limit,
@@ -235,7 +243,7 @@ class PostController extends ControllerBase
 
 
         if (!$form->isFullValid($data)) {
-            return $this->displayJsonInvalidMessages($form);
+            return $this->showInvalidMessagesAsJson($form);
         }
 
         try {
@@ -243,7 +251,7 @@ class PostController extends ControllerBase
             $data = $post->dump(Models\Post::$defaultDump);
             return $this->response->setJsonContent($data);
         } catch (\Exception $e) {
-            return $this->displayExceptionForJson($e, $form->getModel()->getMessages());
+            return $this->showExceptionAsJson($e, $form->getModel()->getMessages());
         }
      }
 
@@ -287,7 +295,7 @@ class PostController extends ControllerBase
         $form->addForm('text', 'Eva\EvaBlog\Forms\TextForm');
 
         if (!$form->isFullValid($data)) {
-            return $this->displayJsonInvalidMessages($form);
+            return $this->showInvalidMessagesAsJson($form);
         }
 
         try {
@@ -295,7 +303,7 @@ class PostController extends ControllerBase
             $data = $post->dump(Models\Post::$defaultDump);
             return $this->response->setJsonContent($data);
         } catch (\Exception $e) {
-            return $this->displayExceptionForJson($e, $form->getModel()->getMessages());
+            return $this->showExceptionAsJson($e, $form->getModel()->getMessages());
         }
     }
 
@@ -335,7 +343,7 @@ class PostController extends ControllerBase
              $post->removePost($id);
              return $this->response->setJsonContent($postinfo);
          } catch (\Exception $e) {
-             return $this->displayExceptionForJson($e, $post->getMessages());
+             return $this->showExceptionAsJson($e, $post->getMessages());
          }
     }
 }

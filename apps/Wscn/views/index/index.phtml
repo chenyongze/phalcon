@@ -1,0 +1,306 @@
+<div id="main-content">
+    <aside id="leftbar">
+    <?$this->partial("partial/sidebar", array())?>
+    </aside>
+    <div id="wrapper">
+        <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 1 ,'limit' => 3, 'has_image' => 1, 'order' => '-sort_order'));$posts = $pager->items;?>
+        <div id="main">
+            <div class="top3-news custom-row hidden-xxs">
+                <div class="custom-span-1">
+                    <?$posts->valid(); $post = $posts->current();?>
+                    <?if($post):?>
+                    <a class="top1 cover-img" href="/node/<?=$post->id?>">
+                        <div class="img-box">
+                            <img class="bg-img" src="/wscn/img/bg-img.gif" alt=""/>
+                            <img class="front-img" src="<?=$post->image ? $this->tag->thumb($post->image) : '/img/article.jpg'?>" alt=""/>
+                        </div>
+                        <div class="cover">
+                            <h3 class="title"><?=$post->title?></h3>
+                            <!--
+                            <h4 class="subtitle">MSCI将A股纳入新兴市场指数意味着什么？120亿美元入场</h4>
+                            -->
+                        </div>
+                    </a>
+                    <?endif?>
+                </div>
+                <div class="custom-span-2">
+                    <div class="custom-span-3">
+                        <?$posts->valid(); $post = $posts->current();?>
+                        <?if($post):?>
+                        <a class="top2 cover-img" href="/node/<?=$post->id?>">
+                            <div class="img-box">
+                                <img class="bg-img" src="/wscn/img/bg-img.gif" alt=""/>
+                                <img class="front-img" src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_149,w_212') : '/img/article.jpg'?>" alt=""/>
+                            </div>
+                            <div class="cover">
+                                <h3 class="title"><?=$post->title?></h3>
+                            </div>
+                        </a>
+                        <?endif?>
+                    </div>
+                    <div class="custom-span-4">
+                        <?$posts->valid(); $post = $posts->current();?>
+                        <?if($post):?>
+                        <a class="top3 cover-img" href="/node/<?=$post->id?>">
+                            <div class="img-box">
+                                <img class="bg-img" src="/wscn/img/bg-img.gif" alt=""/>
+                                <img class="front-img" src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_149,w_212') : '/img/article.jpg'?>" alt=""/>
+                            </div>
+                            <div class="cover">
+                                <h3 class="title"><?=$post->title?></h3>
+                            </div>
+                        </a>
+                        <?endif?>
+                    </div>
+                </div>
+            </div>
+            <ul class="custom-nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#main-news">最新文章</a></li>
+                <!--<li><a data-toggle="tab" href="#main-hot-news">热门排行</a></li>-->
+                <li><a data-toggle="tab" href="#main-recommend-news">编辑推荐</a></li>
+                <!--
+                <li><a data-toggle="tab" href="#main-special-news">专栏专访</a></li>
+                -->
+            </ul>
+            <div class="tab-content">
+                <ul class="tab-pane news-list with-img active" id="main-news">
+                    <?$pager = $this->tag->component('post', array('status' => 'published', 'limit' => 25, 'has_image' => 1, 'order' => '-created_at'));$posts = $pager->items;?>
+                    <?foreach($posts as $post):?>
+                    <li class="news">
+                    <div class="row">
+                        <div class="col-lg-4 col-sm-5 col-xs-5">
+                            <div class="cover-img" href="/node/<?=$post->id?>">
+                                <div class="img img-box">
+                                    <img class="bg-img" src="/wscn/img/bg-img.gif" alt=""/>
+                                    <img class="front-img" onload="img_loading(this)" src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_360,w_600') : '/img/article.jpg'?>" alt=""/>
+                                </div>
+                                <div class="cover">
+                                    <span title="点赞" class="endorse" data-action="endorse">123</span>
+                                    <a href="/node/<?=$post->id?>#comments" title="查看评论" class="discuss" data-action="discuss">89</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8 col-sm-7 col-xs-7">
+                            <a class="title" href="/node/<?=$post->id?>"><?=$post->title?></a>
+                            <div>
+                                <span class="meta author">文 / <?=$post->user ? $post->user->username : '华尔街见闻'?></span>
+                                <span class="meta time visible-lg-inline-block"><?=$this->tag->datetime($post->createdAt)?></span>
+                                <span class="meta pull-right visible-lg-inline-block"
+                                      onmouseover="jiathis_share('<?=$post->title?>', 'http://wallstreetcn.com/node/<?=$post->id?>')">
+                                    <a class="share jiathis jiathis_txt jtico jtico_jiathis" target="_blank"
+                                       href="http://www.jiathis.com/share/?uid=1393984262901745"></a>
+                                    <!--
+                                    <div class="share" onmouseover="jiathis_share('如何在一个页面中添加多组分享代码', 'http://www.jiathis.com/help/html/add-more-icons/');">
+                                        <div class="jiathis_style">
+                                            <a href="http://www.jiathis.com/share/?uid=1393984262901745" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+                                        </div>
+                                    </div>
+                                    -->
+                                    <a class="collect" title="收藏" data-action="collect" href=""></a>
+                                </span>
+                                <span class="meta time hidden-lg pull-right"><?=$this->tag->datetime($post->createdAt)?></span>
+                            </div>
+                            <div class="summary hidden-xxs">
+                            <?if($post->summary):?>
+                            <?=$post->getSummaryHtml()?>
+                            <?else:?>
+                            <?=\Eva\EvaEngine\Text\Substring::substrCn(strip_tags($post->getContentHtml()), 100);?>
+                            <?endif?>
+                            </div>
+                        </div>
+                        <div class="summary col-sm-12 visible-xxs">
+                        <?if($post->summary):?>
+                        <?=$post->getSummaryHtml()?>
+                        <?endif?>
+                        </div>
+                    </div>
+                    </li>
+                    <?endforeach;?>
+                    <?$this->partial("partial/paginator", array(
+                        'pagerUrl' => '/news',
+                        'pager' => $pager,
+                    ))?>
+
+                    <li class="news-big hide">
+                    <a class="cover-img" href="">
+                        <img class="img" src="/wscn/img/img-news-lg.jpg" alt=""/>
+                        <div class="cover">
+                            <h3 class="title">对话中国顶尖对冲基金！见闻俱乐部第2期主题沙龙火热报名中</h3>
+                            <h4 class="subtitle">沪港通”有望10月正式推出，A股与港股将迎来哪些投资机会？</h4>
+                        </div>
+                    </a>
+                    </li>
+                </ul><!--  -->
+                <ul class="tab-pane news-list with-img" id="main-recommend-news">
+                    <?$pager = $this->tag->component('post', array('status' => 'published', 'limit' => 25, 'order' => '-count'));$posts = $pager->items;?>
+                    <?foreach($posts as $post):?>
+                    <li class="news">
+                    <div class="row">
+                        <div class="col-lg-4 col-sm-5 col-xs-5">
+                            <div class="cover-img" href="/node/<?=$post->id?>">
+                                <div class="img img-box">
+                                    <img class="bg-img" src="/wscn/img/bg-img.gif" alt=""/>
+                                    <img class="front-img" onload="img_loading(this)" src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_360,w_600') : '/img/article.jpg'?>" alt=""/>
+                                </div>
+                                <div class="cover">
+                                    <span title="点赞" class="endorse" data-action="endorse">123</span>
+                                    <a href="/node/<?=$post->id?>#comments" title="查看评论" class="discuss" data-action="discuss">89</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8 col-sm-7 col-xs-7">
+                            <a class="title" href="/node/<?=$post->id?>"><?=$post->title?></a>
+                            <div>
+                                <span class="meta author">文 / <?=$post->user ? $post->user->username : '华尔街见闻'?></span>
+                                <span class="meta time visible-lg-inline-block"><?=$this->tag->datetime($post->createdAt)?></span>
+                                <span class="meta pull-right visible-lg-inline-block"
+                                      onmouseover="jiathis_share('<?=$post->title?>', 'http://wallstreetcn.com/node/<?=$post->id?>')">
+                                    <a class="share jiathis jiathis_txt jtico jtico_jiathis" target="_blank"
+                                       href="http://www.jiathis.com/share/?uid=1393984262901745"></a>
+                                    <a class="collect" title="收藏" data-action="collect" href=""></a>
+                                </span>
+                                <span class="meta time hidden-lg pull-right"><?=$this->tag->datetime($post->createdAt)?></span>
+                            </div>
+                            <div class="summary hidden-xxs">
+                            <?if($post->summary):?>
+                            <?=$post->getSummaryHtml()?>
+                            <?else:?>
+                            <?=\Eva\EvaEngine\Text\Substring::substrCn(strip_tags($post->getContentHtml()), 100);?>
+                            <?endif?>
+                            </div>
+                        </div>
+                        <div class="summary col-sm-12 visible-xxs">
+                        <?if($post->summary):?>
+                        <?=$post->getSummaryHtml()?>
+                        <?endif?>
+                        </div>
+                    </div>
+                    </li>
+                    <?endforeach;?>
+                </ul>
+
+                <ul class="tab-pane news-list with-img hide" id="main-special-news">main-special-news</ul>
+            </div>
+        </div>
+        <div id="rightbar">
+            <h2 class="side-title">
+                头条新闻
+                <button id="show-sidebar" class="custom-button type-link pull-right">实时新闻</button>
+            </h2>
+
+            <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 1 ,'limit' => 5, 'page' => 2, 'has_image' => 1, 'order' => '-sort_order'));$posts = $pager->items;?>
+            <ul id="side-topnews" class=" news-list with-dot">
+                <?foreach($posts as $post):?>
+                <li class="news">
+                <a class="title" href="/node/<?=$post->id?>">
+                    <strong><?=$post->title?></strong>
+                </a>
+                </li>
+                <?endforeach?>
+            </ul>
+            <!--  -->
+            <div class="side-ad">
+                <img src="/wscn/img/side-img-1.jpg" alt=""/>
+            </div>
+            <!--  -->
+            <div class="row">
+                <div class="col-sm-12">
+
+                </div>
+            </div>
+            <ul class="custom-nav-tabs custom-row">
+                <li class="col-custom-6 active">
+                <a data-toggle="tab" href="#side-day-rank-news"><strong>日排行</strong></a>
+                </li>
+                <li class="col-custom-6 ">
+                <a data-toggle="tab" href="#side-week-rank-news"><strong>周排行</strong></a>
+                </li>
+            </ul>
+            <ul class="tab-content">
+                <li class="tab-pane active" id="side-day-rank-news">
+                <?$pager = $this->tag->component('post', array('status' => 'published', 'limit' => 10, 'order' => '-count'));$posts = $pager->items;?>
+                <ul class="news-list with-number">
+                    <?foreach($posts as $post):?>
+                    <li class="news">
+                    <a class="title" href="/node/<?=$post->id?>">
+                        <strong><?=$post->title?></strong>
+                    </a>
+                    </li>
+                    <?endforeach?>
+                </ul>
+                </li>
+                <?$pager = $this->tag->component('post', array('status' => 'published', 'limit' => 10, 'order' => '-sort_order'));$posts = $pager->items;?>
+                <li class="tab-pane " id="side-week-rank-news">
+                <ul class="news-list with-number">
+                    <?foreach($posts as $post):?>
+                    <li class="news">
+                    <a class="title" href="/node/<?=$post->id?>">
+                        <strong><?=$post->title?></strong>
+                    </a>
+                    </li>
+                    <?endforeach?>
+                </ul>
+                </li>
+            </ul>
+            <!--  -->
+            <h2 class="main-title">最新留言</h2>
+            <ul class="side-comments">
+                <li class="comment">
+                <img class="avatar" src="" alt=""/>
+                <div>
+                    <a class="name" href="">smartisan</a> 评论了
+                    <a class="title" href="">希尔顿酒店准备在纽约上市融资</a>
+                </div>
+                <p class="content">
+                找中央啊！津京一体化，然后就没有问题了。但无论如何，财政纪律得重新抓，得狠抓，没有问题啊。
+                </p>
+                <div>
+                    <span class="time">2014年06月25日 05:58</span>
+                    <a class="text-blue pull-right" href="" data-action="reply">回复</a>
+                </div>
+                </li>
+
+                <li class="comment">
+                <img class="avatar" src="" alt=""/>
+                <div>
+                    <a class="name" href="">天才小熊猫</a> 评论了
+                    <a class="title" href="">希尔顿酒店准备在纽约上市融资</a>
+                </div>
+                <p class="content">
+                无言的秘密，美国收水，伊拉克开打不暴跌才怪呢。
+                </p>
+                <div>
+                    <span class="time">2014年06月25日 06:03</span>
+                    <a class="text-blue pull-right" href="" data-action="reply">回复</a>
+                </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- main-content end -->
+<aside id="sidebar">
+<h2 class="side-title">
+    实时新闻
+    <button id="close-sidebar" class="custom-button type-link pull-right">头条新闻</button>
+</h2>
+<div id="side-livenews" class="nano">
+    <ul class="nano-content">
+        <li class="news"></li>
+    </ul>
+</div>
+</aside>
+<!-- sidebar end -->
+
+<script type="text/javascript">
+    var jiathis_config = {}
+    function jiathis_share(title, url) {
+        jiathis_config.title = title;
+        jiathis_config.url = url;
+        //console.log(jiathis_config);
+    }
+</script>
+<!--分享参数代码结束-->
+<!--分享功能代码统一放到页尾-->
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1393984262901745" charset="utf-8"></script>

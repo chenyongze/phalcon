@@ -12,5 +12,4 @@ class ControllerBase extends \Eva\EvaEngine\Mvc\Controller\AdminControllerBase
         $this->view->setModuleViewsDir('EvaUser', '/views');
         $this->view->setModulePartialsDir('EvaCommon', '/views');
     }
-
 }

@@ -7,6 +7,9 @@
 	<link href="favicon.ico" rel="shortcut icon" type="image/x-icon">
 	<link rel="stylesheet" href="http://cdn.static.wallstreetcn.com/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="http://cdn.static.wallstreetcn.com/css/font-awesome.min.css" />
+    <!-- 请置于所有广告位代码之前 -->
+    <script type="text/javascript" src="http://dup.baidustatic.com/js/zm.js"></script>
+    <!--  -->
 	<style type="text/css">
 		.toolbar{
 			position: relative;
@@ -55,7 +58,8 @@
 			height: 34px;
 		}
 		
-		.news-list{
+		.news-list,
+		.livenews-list{
 			
 			position: absolute;
 			width: 100%;
@@ -68,7 +72,8 @@
 			font-family: verdana, 'Hiragino Sans GB', 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif;
 		}
 		
-		.news-list .news {
+		.news-list .news,
+		.livenews-list .livenews{
 			position: relative;
 			width: 100%;
 			min-height: 42px !important;
@@ -164,14 +169,136 @@
 
         .news-info .meta>.item {
                 margin-right: 1em;
-        }	</style>
+        }
+
+		.livenews.info {
+			width: 100%;
+			font-size: 16px;
+		}
+		
+		.livenews.info .icon {
+			display: inline-block;
+			vertical-align: bottom;
+			width: 19px;
+			height: 19px;
+			margin-right: 10px;
+		}
+		
+		.livenews.info .icon.chart-column {
+			background-image: url(/wscnwap/sprite.png?v1.01);
+			background-repeat: no-repeat;
+			background-size: 577px 37px;
+			-webkit-background-size: 577px 37px;
+			-o-background-size: 577px 37px;
+			background-position: -19px 0;
+		}
+		
+		.livenews.info .icon.chart-line {
+			background-image: url(/wscnwap/sprite.png?v1.01);
+			background-repeat: no-repeat;
+			background-size: 577px 37px;
+			-webkit-background-size: 577px 37px;
+			-o-background-size: 577px 37px;
+			background-position: -38px 0;
+		}
+		
+		.livenews.info .icon.alert-news {
+			background-image: url(/wscnwap/sprite.png?v1.01);
+			background-repeat: no-repeat;
+			background-size: 577px 37px;
+			-webkit-background-size: 577px 37px;
+			-o-background-size: 577px 37px;
+			background-position: 0 0;
+		}
+		
+		.livenews.info .icon.common {
+			background-image: url(/wscnwap/sprite.png?v1.01);
+			background-repeat: no-repeat;
+			background-size: 577px 37px;
+			-webkit-background-size: 577px 37px;
+			-o-background-size: 577px 37px;
+			background-position: -57px 0;
+		}
+		
+		.livenews.info .icon.warning-news {
+			background-image: url(/wscnwap/sprite.png?v1.01);
+			background-repeat: no-repeat;
+			background-size: 577px 37px;
+			-webkit-background-size: 577px 37px;
+			-o-background-size: 577px 37px;
+			background-position: -95px 0;
+		}
+		
+		.livenews.info .icon.rumor {
+			background-image: url(/wscnwap/sprite.png?v1.01);
+			background-repeat: no-repeat;
+			background-size: 577px 37px;
+			-webkit-background-size: 577px 37px;
+			-o-background-size: 577px 37px;
+			background-position: -76px 0;
+		}
+		.livenews.info .time {
+			color: #52abd3;
+			font-size: 14px;
+		}
+		.livenews.info .title {
+			width: 100%;
+			padding-left: 30px;
+			padding-top: 10px;
+			color: #222;
+			font-size: 15px;
+			line-height: 25px;
+		}
+		.livenews.info .title.red {
+			color: #fb0000;
+		}
+		.livenews.info .title.blue {
+			color: #004d7f;
+		}
+		.livenews.info .title.bold {
+			font-weight: bold;
+		}
+		.livenews.info .head {
+			margin-bottom: 10px;
+			margin-top: 5px;
+		}
+		.livenews.info .content {
+			line-height: 2;
+		}
+		.livenews.info .content blockquote {
+			margin: 1em;
+			padding: 10px 1em;
+			border-left: .4em solid #666;
+			background: #f1f1f1;
+		}
+		.livenews.info .content p {
+			margin-bottom: 15px;
+		}
+		.livenews.info .content img {
+			display: block;
+			max-width: 100% !important;
+			height: auto !important;
+			margin-bottom: 15px;
+		}
+		
+		a:hover {
+			text-decoration: none;
+		}
+		
+		html,body{
+			height:100%;
+		}
+        .baidu-ad iframe {
+            margin: 0 auto 20px !important;
+        }
+		</style>
 	
 </head>
 <body>
 
 <div style="width: 100% !important; height: 100% !important;">
 	<div class="toolbar">
-		<a href="/"><div class="home"><img src="/wscnwap/logo.png"/></div></a>
+		<a href="/" class="home"><div class="home"><img src="/wscnwap/logo.png"/></div></a>
 		<a href="http://wallstreetcn.com/downloadapp.html" target="_blank"><div class="app-download"><img src="/wscnwap/app-download.png" /></div></a>
 	</div>
 <?=$this->getContent()?>
@@ -189,6 +316,11 @@ function updateTimeLabel($list){
 	});
 }
 
+function isLivenews(){
+	//return document.location.href.indexOf("livenews") != -1;
+	return document.location.href.indexOf("livenews") != -1 || $(".news-info").attr("data-nodetype") == "livenews";
+}
+
 $(document).ready(function(){
     moment.lang('zh-cn');
 	
@@ -199,19 +331,25 @@ $(document).ready(function(){
 		$(".home img,.app-download img").css("max-width","50%");
 	}
 	
+	var listClass = isLivenews() ? ".livenews-list" : ".news-list";
 	$(".news-more").click(function(){
 		var hash = document.location.hash,page;
 		hash == "" ? (page = 1) : (page = 1 * hash.split("=")[1] + 1);
 		document.location.hash = "page=" + page;
 		
 		$(".news-more span").html("正在加载");
-		$.get("/?page=" + page,function(result){
+		$.get((isLivenews() ? "/livenews?page=" : "/?page=") + page,function(result){
 			$(".news-more span").html("加载更多");
-			var newsList = $(".news-list a",result);//.insertAfter(".news-list:last");
+			var newsList = $(listClass + " a",result);
+			console.log(newsList);
 			updateTimeLabel(newsList.find(".agotime"));
-			newsList.insertAfter(".news-list a:last");
+			newsList.insertAfter(listClass + " a:last");
 		});
 	});
+	
+	if(isLivenews()){
+		$(".toolbar .home").attr("href","/livenews");
+	}
 });
 </script>
 

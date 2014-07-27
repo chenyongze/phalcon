@@ -1,6 +1,7 @@
 <?php
 return array(
     'user' => array(
+        'allowPendingUserLogin' => false,
         'registerUri' => '/admin/login',
         'registerSuccessRedirectUri' => '/admin/login',
         'registerFailedRedirectUri' => '/admin/login',

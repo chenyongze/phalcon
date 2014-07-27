@@ -43,15 +43,15 @@ class RoleController extends ControllerBase
 
         $form->bind($this->request->getPost(), $role);
         if (!$form->isValid()) {
-            return $this->displayInvalidMessages($form);
+            return $this->showInvalidMessages($form);
         }
         $role = $form->getEntity();
         try {
-            if(!$role->save()) {
-                return $this->displayModelMessages($role);
+            if (!$role->save()) {
+                return $this->showModelMessages($role);
             }
         } catch (\Exception $e) {
-            return $this->displayException($e, $role->getMessages());
+            return $this->showException($e, $role->getMessages());
         }
         $this->flashSession->success('SUCCESS_ROLE_CREATED');
 
@@ -73,14 +73,14 @@ class RoleController extends ControllerBase
 
         $form->bind($this->request->getPost(), $role);
         if (!$form->isValid()) {
-            return $this->displayInvalidMessages($form);
+            return $this->showInvalidMessages($form);
         }
         $role = $form->getEntity();
         $role->assign($this->request->getPost());
         try {
             $role->save();
         } catch (\Exception $e) {
-            return $this->displayException($e, $role->getMessages());
+            return $this->showException($e, $role->getMessages());
         }
         $this->flashSession->success('SUCCESS_ROLE_UPDATED');
 
@@ -107,7 +107,7 @@ class RoleController extends ControllerBase
         try {
             $role->delete();
         } catch (\Exception $e) {
-            return $this->displayExceptionForJson($e, $role->getMessages());
+            return $this->showExceptionAsJson($e, $role->getMessages());
         }
         return $this->response->setJsonContent($role);
     }

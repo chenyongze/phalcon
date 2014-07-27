@@ -1,0 +1,481 @@
+<style>
+    .md-preview {
+        overflow:auto;
+    }
+</style>
+<div class="breadcrumbs" id="breadcrumbs">
+    <script type="text/javascript">
+        try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+    </script>
+
+    <ul class="breadcrumb">
+        <li>
+        <i class="icon-home home-icon"></i>
+        <a href="/admin/dashboard">Home</a>
+        </li>
+
+        <li>
+        <a href="/admin/livenews/news">Live News</a>
+        </li>
+
+        <?if(empty($item->id)):?>
+        <li class="active">Report News</li>
+        <?else:?>
+        <li class="active">Edit News</li>
+        <?endif?>
+    </ul><!-- .breadcrumb -->
+
+    <div class="nav-search" id="nav-search">
+        <form class="form-search">
+            <span class="input-icon">
+                <input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
+                <i class="icon-search nav-search-icon"></i>
+            </span>
+        </form>
+    </div><!-- #nav-search -->
+</div>
+
+<?$textForm = $form->getForm('text')?>
+    <div class="page-content">
+        <div class="row">
+            <div class="col-xs-9"><!-- PAGE CONTENT BEGINS -->
+                <form id="news-reporter" action="" method="POST" enctype="multipart/form-data" novalidate="novalidate">
+                <div class="widget-box transparent">
+                    <div class="widget-header">
+                        <?if(empty($item->id)):?>
+                        <h3>Report News</h3> 
+                        <?else:?>
+                        <h3>Edit News</h3> 
+                        <?endif?>
+                        <div class="widget-toolbar no-border">
+                            <ul id="livenews-tab" class="nav nav-tabs">
+                                <li class="active">
+                                <a href="#livenews-tab-basic" data-toggle="tab">Basic</a>
+                                </li>
+                                <li>
+                                <a href="#livenews-tab-extra" data-toggle="tab">Extra</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="widget-body">
+
+                        <div class="widget-main no-padding">
+                            <div class="tab-content padding-4">
+                                <div class="tab-pane in active" id="livenews-tab-basic">
+                                    <div class="row">
+                                        <div class="col-xs-8">
+
+
+                                            <div class="widget-box">
+                                                <div class="widget-header widget-header-small header-color-blue">
+                                                    <div class="widget-toolbar no-border">
+                                                        <span id="content-counter" class="label label-success">
+                                                            1000
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="widget-body">
+                                                    <div class="widget-main no-padding">
+                                                        <?=$form->render('id', array())?>
+                                                        <?=$form->render('content', array(
+                                                            'class' => 'form-control text-counter',
+                                                            'data-counter-selector' => '#content-counter',
+                                                            'rows' => 6,
+                                                            'placeholder' => 'News Content',
+                                                            //'data-provide' => 'markdown',
+                                                            'required' => 'required',
+                                                        ))?>
+                                                        <?=$form->render('codeType', array())?>
+                                                    </div>
+                                                </div>
+                                            </div><!--widget box end-->
+
+                                            <div class="widget-box">
+                                                <div class="widget-header widget-header-small">
+                                                    <h5 class="lighter">Categories</h5>
+                                                    <span class="widget-toolbar">
+                                                        <a data-action="collapse" href="#">
+                                                            <i class="icon-chevron-up"></i>
+                                                        </a>
+                                                    </span>
+                                                </div>
+                                                <div class="widget-body">
+                                                    <div class="widget-main">
+                                                        <div class="control-group">
+                                                            <?$categories = $form->getCategories()?>
+                                                            <?if($categories):?>
+                                                            <?foreach($categories as $key => $category):?>
+                                                            <div class="checkbox" style="display:inline-block;width:110px;">
+                                                                <label>
+                                                                    <?=$category->render(array(
+                                                                        'class' => 'ace',
+                                                                    ))?>
+                                                                    <span class="lbl"> <?=$category->getLabel()?></span>
+                                                                </label>
+                                                            </div>
+                                                            <?endforeach?>
+                                                            <?endif?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!--widgex box-->
+
+
+
+
+                                            <div class="widget-box hide">
+                                                <div class="widget-header widget-header-small">
+                                                    <h5 class="lighter">Icon</h5>
+                                                    <span class="widget-toolbar">
+                                                        <a data-action="collapse" href="#">
+                                                            <i class="icon-chevron-up"></i>
+                                                        </a>
+                                                    </span>
+                                                </div>
+                                                <div class="widget-body">
+                                                    <div class="widget-main">
+                                                        <div class="control-group">
+                                                            <?$icons = $form->getIcons()?>
+                                                            <?$iconsMapping = array(
+                                                                'reminder' => 'icon-bell',
+                                                                'rumor' => 'icon-bullhorn',
+                                                                'warning' => 'icon-warning-sign',
+                                                            )?>
+                                                            <?if($icons):?>
+                                                            <?foreach($icons as $key => $icon):?>
+                                                            <div class="radio" style="display:inline-block;width:150px;">
+                                                                <label>
+                                                                    <?=$icon->render(array(
+                                                                        'class' => 'ace',
+                                                                    ))?>
+                                                                    <span class="lbl"> <i class="<?=$iconsMapping[$key]?>"></i> <?=$icon->getLabel()?></span>
+                                                                </label>
+                                                            </div>
+                                                            <?endforeach?>
+                                                            <?endif?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!--widgex box-->
+
+                                            <div class="form-group">
+                                                <div>
+                                                    <label for="importance">Importance</label>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-2">
+                                                        <?=$form->render('importance', array(
+                                                            'class' => 'form-control',
+                                                        ))?>
+                                                    </div>
+                                                    <div class="col-xs-10">
+                                                        <div id="importance-slider" class="help-block" data-slider-for="#importance"></div>
+                                                    </div>
+                                                </div>
+
+                                            </div><!--form group-->
+
+                                        </div><!--left col end-->
+                                        <div class="col-xs-4">
+
+                                            <div class="widget-box">
+                                                <div class="widget-header widget-header-small">
+                                                    <h5 class="lighter">Publish</h5>
+                                                    <span class="widget-toolbar">
+                                                        <a data-action="collapse" href="#">
+                                                            <i class="icon-chevron-up"></i>
+                                                        </a>
+                                                    </span>
+                                                </div>
+
+                                                <div class="widget-body">
+                                                    <div class="widget-main">
+                                                        <div class="input-group">
+                                                            <input name="day" type="text" data-date-format="yyyy-mm-dd" class="form-control" placeholder="Day" value="<?=empty($item->createdAt) ? '' : $this->tag->datetime($item->createdAt, 'Y-m-d')?>">
+                                                            <span class="input-group-addon">
+                                                                <i class="icon-calendar bigger-110"></i>
+                                                            </span>
+                                                        </div>
+                                                        <div class="input-group bootstrap-timepicker">
+                                                            <input name="time" type="text" class="form-control" placeholder="Time" value="<?=empty($item->createdAt) ? '' : $this->tag->datetime($item->createdAt, 'H:i:s')?>">
+                                                            <span class="input-group-addon">
+                                                                <i class="icon-time bigger-110"></i>
+                                                            </span>
+                                                            <?=$form->render('createdAt', array(
+                                                            ))?>
+                                                        </div>
+                                                    </div>
+                                                    <div class="clearfix form-actions no-margin">
+                                                        <input name="__redirect" type="hidden" value="" />
+                                                        <button type="submit" class="btn btn-block btn-info form-submiter" data-change-name="status" data-change-value="published">
+                                                            <i class="icon-ok"></i>
+                                                            Publish
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div><!--widgex box-->
+                                            <div class="hr hr-double dotted"></div>
+                                            <div class="widget-box">
+                                                <div class="widget-header widget-header-small">
+                                                    <h5 class="lighter">News Source</h5>
+                                                    <span class="widget-toolbar">
+                                                        <a data-action="collapse" href="#">
+                                                            <i class="icon-chevron-up"></i>
+                                                        </a>
+                                                    </span>
+                                                </div>
+                                                <div class="widget-body">
+                                                    <div class="widget-main">
+                                                        <div class="control-group">
+                                                            <label class="block clearfix">
+                                                                Source Name
+                                                                <?=$form->render('sourceName', array(
+                                                                    'class' => 'form-control',
+                                                                ))?>
+                                                            </label>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="block clearfix">
+                                                                Source Url 
+                                                                <?=$form->render('sourceUrl', array(
+                                                                    'class' => 'form-control',
+                                                                ))?>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!--widgex box-->
+
+                                        </div><!--right col end-->
+                                    </div><!--row end-->
+
+                                </div><!--tab pane end-->
+
+                                <div class="tab-pane" id="livenews-tab-extra">
+
+                                    <?$textForm = $form->getForm('text')?>
+                                    <div class="row">
+                                        <div class="col-xs-9">
+                                            <div class="form-group">
+                                                <label class="block clearfix">
+                                                    <?=$form->render('title', array(
+                                                        'class' => 'form-control input-lg',
+                                                        'placeholder' => 'Title',
+                                                    ))?>
+                                                </label>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label class="block clearfix">
+                                                    <h5 class="lighter">Full Content</h5>
+                                                    <div class="markdown-editor">
+                                                        <?=$textForm->render('contentExtra', array(
+                                                            'class' => 'form-control wysiwyg',
+                                                            'rows' => 3,
+                                                        ))?>
+                                                    </div>
+                                                </label>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="block clearfix">
+                                                    <h5 class="lighter">Markets</h5>
+                                                    <div class="markdown-editor">
+                                                        <?=$textForm->render('contentFollowup', array(
+                                                            'class' => 'form-control wysiwyg',
+                                                            'rows' => 3,
+                                                        ))?>
+                                                    </div>
+                                                </label>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="block clearfix">
+                                                    <h5 class="lighter">Analysis</h5>
+                                                    <div class="markdown-editor">
+                                                        <?=$textForm->render('contentAnalysis', array(
+                                                            'class' => 'form-control wysiwyg',
+                                                            'rows' => 3,
+                                                        ))?>
+                                                    </div>
+                                                </label>
+                                            </div>
+
+                                        </div><!--left col end-->
+                                        <div class="col-xs-3">
+
+
+
+                                            <div class="widget-box">
+                                                <div class="widget-header widget-header-small">
+                                                    <h5 class="lighter">Image</h5>
+                                                    <span class="widget-toolbar">
+                                                        <a data-action="collapse" href="#">
+                                                            <i class="icon-chevron-up"></i>
+                                                        </a>
+                                                    </span>
+                                                </div>
+                                                <div class="widget-body">
+                                                    <div class="widget-main">
+                                                        <?if(!empty($item->image)):?>
+                                                        <img src="<?=$this->tag->thumb($item->image, 'w_300')?>" alt="" width="100%" />
+                                                        <?endif?>
+                                                        <div class="paste-uploader" data-upload-url="/admin/upload/encode" data-upload-allow-num="1" data-upload-allow-type="" data-upload-maxsize="" data-callback="">
+                                                            <?=$form->render('image', array())?>
+                                                            <?=$form->render('imageId', array())?>
+                                                        </div>
+                                                        <input name="upload" type="file" class="ace-file-input"  multiple="">
+                                                    </div>
+
+                                                </div>
+                                                <div class="clearfix form-actions no-margin">
+                                                    <input name="__redirect" type="hidden" value="" />
+                                                    <button type="submit" class="btn btn-block btn-info form-submiter" data-change-name="status" data-change-value="published">
+                                                        <i class="icon-ok"></i>
+                                                        Publish
+                                                    </button>
+                                                </div>
+                                            </div><!--widgex box-->
+
+                                            <div class="hr hr-double dotted"></div>
+                                            <div class="widget-box">
+                                                <div class="widget-header widget-header-small">
+                                                    <h5 class="lighter">Change Author</h5>
+                                                    <span class="widget-toolbar">
+                                                        <a data-action="collapse" href="#">
+                                                            <i class="icon-chevron-up"></i>
+                                                        </a>
+                                                    </span>
+                                                </div>
+
+                                                <div class="widget-body">
+                                                    <div class="widget-main">
+                                                        <div class="control-group">
+                                                            <label class="block clearfix">
+                                                                <?=$form->render('username', array(
+                                                                    'class' => 'form-control autocomplete',
+                                                                    'data-autocomplete-source' => '/admin/user/process/suggestions?query=%QUERY',
+                                                                    'data-autocomplete-target' => 'input[name=userId]',
+                                                                    'data-autocomplete-fill-name' => 'id',
+                                                                    'data-autocomplete-display-key' => 'username',
+                                                                    'data-autocomplete-clear-fill-when-nomatch' => '1',
+                                                                    'placeholder' => 'Use current user with no fill',
+                                                                ))?>
+                                                                <?=$form->render('userId', array(
+                                                                    'class' => 'form-control',
+                                                                ))?>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!--widgex box-->
+
+                                        </div><!--right col end-->
+                                    </div><!--row end-->
+
+                                </div><!--tab pane end-->
+
+                            </div><!--tab content end-->
+                        </div><!--widget main end-->
+                    </div><!--widget body end-->
+                </div><!--widget box end-->
+
+            </form>
+            </div><!--col left end-->
+            <div class="col-xs-3">
+                <div class="widget-box">
+                    <div class="widget-header widget-header-small">
+                        <h5 class="lighter">Recent News</h5>
+                        <span class="widget-toolbar">
+                            <a data-action="collapse" href="#">
+                                <i class="icon-chevron-up"></i>
+                            </a>
+                        </span>
+                    </div>
+
+                    <div class="widget-body">
+                        <div id="embed-livenews" class="widget-main">
+
+                        </div>
+                    </div>
+                </div><!--widgex box-->
+            </div><!-- /.col right -->
+        </div><!--row end-->
+    </div><!-- /.page-content -->
+
+<script type="text/javascript" src="/vendor/js/bootstrap-markdown/js/bootstrap-markdown.js"></script>
+<script type="text/javascript" src="/assets/js/jquery.slimscroll.min.js"></script>
+<script>
+    $(document).ready(function(){
+            <?include __DIR__ . '/../partial/reporter.js'?>
+            //Markdown Editor init 
+            var textCounter = function(e) {
+                    var textarea = e.$textarea;
+                    var counter = $(textarea.attr('data-counter-selector'));
+                    var content = e.getContent();
+                    var contentLength = content.length;
+                    counter.html(1000 - contentLength);
+                    if (contentLength > 1000) {
+                            counter.removeClass('label-danger label-success').addClass('label-danger');
+                        } else {
+                            counter.removeClass('label-danger label-success').addClass('label-success');
+                    }
+            }
+            var markdownEditor = {};
+            var resetTextCounter = function(){
+                    var textarea = markdownEditor.$textarea;
+                    var counter = $(textarea.attr('data-counter-selector'));
+                    counter.html(1000)
+                        .removeClass('label-danger label-success').addClass('label-success');
+            }
+            $("#content").markdown({
+                    autofocus:true,
+                    onShow: function(e){
+                        markdownEditor = e;
+                        e.$textarea.css('resize','vertical');
+                        textCounter(e);
+                    }, 
+                    onChange:function(e){
+                        textCounter(e);
+                    }
+            });
+
+            var lockEditor = function(){
+                    markdownEditor.disableButtons('all');
+                    markdownEditor.$textarea.attr('readonly','readonly');
+            }
+            var unlockEditor = function(){
+                    markdownEditor.enableButtons('all');
+                    markdownEditor.$textarea.removeAttr('readonly');
+            }
+            $(document).on('submit', '#news-reporter', function(){
+                    var form  = $(this);
+                    var data = form.serialize();
+                    var newsId = $('input[name=id]').val();
+                    newsId = newsId == '' ? 0 : parseInt(newsId);
+                    form.block();
+                    $.ajax({
+                        dataType : 'json',
+                        type : 'POST',
+                        data : data,
+                        success : function(response){
+                                form.unblock();
+                                loadLivenews();
+                                if(newsId > 0) {
+                                    return;
+                                }
+                                form[0].reset();
+                                resetTextCounter();
+                        }, 
+                        error : function(){
+                                form.unblock();
+                        }
+                    });
+                    return false;
+            });
+    });
+</script>

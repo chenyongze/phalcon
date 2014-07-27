@@ -10,21 +10,22 @@
 		<meta name="description" content="" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-		<link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
-		<link rel="stylesheet" href="/assets/css/font-awesome.min.css" />
+        <link href="/vendor/css/bootstrap-3.x/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="/vendor/css/font-awesome.css" rel="stylesheet" />
 		<!--[if IE 7]>
-		  <link rel="stylesheet" href="/assets/css/font-awesome-ie7.min.css" />
+        <link href="/vendor/css/font-awesome-ie7.css" rel="stylesheet" />
 		<![endif]-->
 		<link rel="stylesheet" href="/assets/css/ace-fonts.css" />
 		<link rel="stylesheet" href="/assets/css/ace.min.css" />
+        <link rel="stylesheet" href="/assets/css/ace-part2.min.css" />
 		<link rel="stylesheet" href="/assets/css/ace-skins.min.css" />
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="/assets/css/ace-ie.min.css" />
 		<![endif]-->
 
 		<!--[if lt IE 9]>
-		<script src="/assets/js/html5shiv.js"></script>
-		<script src="/assets/js/respond.min.js"></script>
+        <script src="/vendor/js/html5shiv.js"></script>
+        <script src="/vendor/js/respond.js"></script>
 		<![endif]-->
 		<script src="/assets/js/ace-extra.min.js"></script>
 	</head>
@@ -58,28 +59,21 @@
 		<!-- basic scripts -->
 
 		<!--[if !IE]> -->
-
-		<script type="text/javascript">
-			window.jQuery || document.write("<script src='/assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
-		</script>
-
+		<script src="/vendor/js/jquery-2.0.3.js"></script>
 		<!-- <![endif]-->
 
 		<!--[if IE]>
-<script type="text/javascript">
- window.jQuery || document.write("<script src='/assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
-</script>
-<![endif]-->
+		<script src="/vendor/js/jquery-1.10.2.js"></script>
+        <![endif]-->
 
 		<script type="text/javascript">
 			if("ontouchend" in document) document.write("<script src='/assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 		</script>
 
 
-        <script src="/assets/js/bootstrap.min.js"></script>
-        <script src="/assets/js/parsley/parsley.remote.js"></script>
-        <script src="/assets/js/parsley/parsley.js"></script>
-        <script src="/assets/js/parsley/i18n/zh_cn.js"></script>
+        <script src="/vendor/css/bootstrap-3.x/js/bootstrap.min.js"></script>
+        <script src="/vendor/js/parsley.js"></script>
+        <script src="/vendor/js/parsley.remote.js"></script>
 		<!-- inline scripts related to this page -->
 
 		<script type="text/javascript">

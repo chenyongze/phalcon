@@ -1,0 +1,196 @@
+#user-modal {
+    label {
+        font-weight: normal;
+    }
+    table {
+        width: 100%;
+        height: 100%;
+    }
+    .carousel {
+        height: 100%;
+    }
+    .carousel-inner {
+        height: 100%;
+        width: 100%;
+        & > .item {
+            width: 100%;
+            height: 100%;
+        }
+    }
+    .form-control {
+        height: 40px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        line-height: 20px;
+        &:focus + .help-block + .form-control-feedback {
+            color: #1395E5;
+        }
+    }
+    .form-control-feedback {
+        top: 0;
+        color: #999;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+    }
+    .form-group {
+        &.size-sm {
+            font-size: 12px;
+            .form-control {
+                height: 30px;
+                font-size: 12px;
+                padding-top: 5px;
+                padding-bottom: 5px;
+            }
+            .form-control-feedback {
+                width: 30px;
+                height: 30px;
+                line-height: 30px;
+            }
+        }
+    }
+    .has-success .form-control-feedback {
+        color: #3c763d;
+    }
+    .has-warning .form-control-feedback {
+        color: #8a6d3b;
+    }
+    .has-error .form-control-feedback {
+        color: #a94442;
+    }
+    .form-avatar {
+        width: 75px;
+        height: 75px;
+        margin-bottom: 15px;
+    }
+    .form-title {
+        font-size: 14px;
+        line-height: 36px;
+        border-bottom: 1px solid #ccc;
+        margin-bottom: 15px;
+    }
+    .form-label {
+        color: @blue;
+        line-height: 20px;
+        font-size: 12px;
+        margin-bottom: 15px;
+    }
+    .form-footer {
+        .clearfix;
+        padding-top: 5px;
+        margin-bottom: 20px;
+    }
+    .form-hr {
+        border-top: none;
+        border-bottom: 1px solid #ccc;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    .br-title {
+        display: block;
+        width: 100%;
+        text-align: center;
+        height: 10px;
+        border-bottom: 1px solid #119BEF;
+        margin-bottom: 32px;
+        .text {
+            background-color: #fff;
+            padding: 0 10px;
+            color: #999;
+            font-size: 14px;
+            line-height: 20px;
+        }
+    }
+    .custom-row {
+        .custom-span-left {
+            width: 50%;
+            padding-right: 10px;
+        }
+        .custom-span-right {
+            width: 50%;
+            padding-left: 10px;
+        }
+        @media (max-width: @screen-xxs-max) {
+            .custom-span-left ,
+            .custom-span-right {
+                width: 100%;
+                padding: 0;
+            }
+            .custom-span-left {
+                margin-bottom: 20px;
+            }
+        }
+        .custom-span-1 ,
+        .custom-span-3 {
+            padding-left: 10px;
+            padding-right: 10px;
+            background-color: #e6eef8;
+            border: 1px solid #ccc;
+        }
+        @media (min-width: @screen-sm-min) {
+            &.custom-row-1 {
+                width: 540px;
+            }
+            &.custom-row-2 {
+                position: relative;
+                padding: 30px 15px 15px;
+                background-color: #e6eef8;
+                border: 1px solid #ccc;
+                & > .vr-line {
+                    position: absolute;
+                    width: 1px;
+                    top: 30px;
+                    bottom: 30px;
+                    left: 213px;
+                    border-left: 1px solid #ccc;
+                }
+            }
+            .custom-span-1 {
+                width: 180px;
+            }
+            .custom-span-2 {
+                width: 100px;
+                height: 179px;
+                background: url(../img/binding.png) center no-repeat;
+            }
+            .custom-span-3 {
+                width: 260px;
+            }
+            //
+            .custom-span-4 {
+                width: 198px;
+                padding: 0 15px;
+                text-align: right;
+                line-height: 30px;
+            }
+            .custom-span-5 {
+                padding: 0 15px;
+                width: 270px;
+            }
+        }
+    }
+    .custom-button {
+        line-height: 20px;
+        border-radius: 5px;
+        &.type-qq {
+            background-color: #2384CC;
+        }
+        &.type-weibo {
+            background-color: #D04341;
+        }
+    }
+    .custom-button[type=submit] {
+        background-color: @blue;
+        width: 140px;
+        @media (max-width: @screen-xxs-max) {
+            width: 100px;
+        }
+    }
+    .custom-button[type=reset] {
+        background-color: #797979;
+        width: 140px;
+        @media (max-width: @screen-xxs-max) {
+            width: 100px;
+        }
+    }
+}

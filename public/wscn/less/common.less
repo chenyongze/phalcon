@@ -1,0 +1,404 @@
+body {
+    font-family: Tahoma, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+    //font-size: 62.25%;
+    padding-top: 90px;
+    overflow-x: hidden;
+    @media (max-width: @screen-xs-max) {
+        padding-top: 60px;
+    }
+}
+
+.text-blue {
+    color: @blue !important;
+}
+.text-center {
+    text-align: center !important;
+}
+
+//ie8 的bug checkbox 组件文字会换行，添加text类
+.checkbox {
+    .text {
+        display: inline-block;
+    }
+}
+
+//
+.centerbox {
+    font-size: 0;
+    text-align: center;
+}
+.centerbox > * {
+    font-size: 14px;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: left;
+}
+.centerbox:before,
+.centerbox:after {
+    display: inline-block;
+    content: "";
+    width: 0;
+    height: 100%;
+    vertical-align: middle;
+}
+.loader {
+    display: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0,0,0,.3);
+    .indicator {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+    }
+}
+.loading {
+    position: relative;
+    & > .loader {
+        display: block;
+    }
+}
+//
+.cover-img {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    //width: 100%;
+    //height: 100%;
+    &:hover {
+        .cover {
+            //bottom: -100%;
+        }
+    }
+    .cover {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        color: #fff;
+        background-color: rgba(0,0,0,.5);
+        padding: 10px 15px;
+        overflow: hidden;
+        //.transition(bottom 0.5s);
+    }
+    .img {
+        max-width: 100%;
+    }
+    .title ,
+    .subtitle {
+        overflow: hidden;
+        line-height: 1.5em;
+    }
+    .title {
+        height: 3em;
+    }
+    .subtitle {
+        height: 1.5em;
+    }
+}
+
+.img-box {
+    width: 100%;
+    position: relative;
+    .bg-img {
+        width: 100%;
+        height: auto;
+    }
+    .front-img {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        display: none;
+    }
+}
+
+[data-trend="rise"] {
+    .diff ,
+    .diff-pct {
+        color: @riseColor;
+    }
+}
+[data-trend="fall"] {
+    .diff ,
+    .diff-pct {
+        color: @fallColor;
+    }
+}
+
+.pagingbar,
+.toolbar.paging {
+    .button {
+        display: inline-block;
+        margin-right: 5px;
+        border: 1px solid #c8c8c8;
+        min-width: 28px;
+        padding: 0 5px;
+        height: 28px;
+        line-height: 28px;
+        text-align: center;
+        font-size: 14px;
+        color: @blue;
+        &:hover,
+        &.active{
+            border-color: @blue;
+            background-color: @blue;
+            color: #fff;
+        }
+
+        &[data-action=prev-page],
+        &[data-action=next-page] {
+            width: 78px;
+            color: #646464;
+            &:hover {
+                background-color: transparent;
+                color: @blue;
+            }
+        }
+    }
+}
+
+.livenews-list {
+    font-size: 12px;
+    line-height: 1.5em;
+    .news {
+        display: block;
+        padding: 1.5em 0;
+        color: #333;
+        border-bottom: 1px solid @borderColor;
+        .time {
+            color: @blue;
+        }
+        .title {
+
+        }
+    }
+}
+
+.fc-list {
+    [data-trend=up] {
+        .actual {
+            color: @riseColor;
+        }
+    }
+    [data-trend=down] {
+        .actual {
+            color: @fallColor;
+        }
+    }
+    .date {
+        color: #333;
+        font-weight: bold;
+    }
+    & > .content {
+        outline: none;
+    }
+    &.type-side {
+        font-size: 12px;
+        background-color: #eee;
+        & > .content {
+            top: 36px;
+            bottom: 10px;
+        }
+        & > .nano-pane {
+            top: 41px;
+            bottom: 15px;
+            right: 1px;
+        }
+        .nano-slider {
+            background-color: #888;
+        }
+        .clock {
+            color: #ff3e3e;
+            font-weight: bold;
+        }
+        .titlebar {
+            margin: 0 10px;
+            line-height: 30px;
+            border-bottom: 1px solid #999;
+            a {
+                color: #068CB5;
+            }
+        }
+        .date {
+            padding: 8px 15px;
+        }
+        .item {
+            .clearfix;
+            background-color: #fff;
+            margin-bottom: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
+            padding: 8px 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 2px rgba(0,0,0,.3);
+            .time {
+                font-weight: bold;
+                line-height: 16px;
+                color: @blue;
+            }
+            .star {
+                font-size: 14px;
+                line-height: 16px;
+                top: 0;
+                margin-right: 6px;
+                margin-bottom: 4px;
+                color: #999;
+                &.active {
+                    color: @blue;
+                }
+            }
+            .title {
+                display: block;
+                font-weight: bold;
+                line-height: 1.5em;
+                margin-bottom: 5px;
+            }
+            .price {
+                white-space: nowrap;
+                & > .text {
+                    color: #b4b4b4;
+                }
+                & > .value {
+                    font-weight: bold;
+                }
+            }
+        }
+        .more {
+            display: block;
+            padding: 0 15px;
+            cursor: pointer;
+            line-height: 30px;
+            color: #068CB5;
+            &:before {
+                content: '加载更多>>';
+            }
+            &:hover {
+                color: #c8c8c8;
+            }
+        }
+        &.loading {
+            .more {
+                cursor: default;
+                &:before {
+                    content: '正在加载中…';
+                }
+                &:hover {
+                    color: #c8c8c8;
+                }
+            }
+        }
+    }
+}
+.side-title {
+    .clearfix;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 40px;
+    margin-bottom: 20px;
+}
+.main-title {
+    color: @blue;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 30px;
+    padding-bottom: 6px;
+    border-bottom: 4px solid @blue;
+    margin-bottom: 20px;
+}
+.news-list {
+    .news {
+        .break-word;
+        font-size: 14px;
+        line-height: 21px;
+    }
+    &.with-dot {
+        .news {
+            position: relative;
+            display: block;
+            padding-left: 1em;
+            margin-bottom: 20px;
+            &:before {
+                display: inline-block;
+                position: absolute;
+                content: "";
+                left: 0;
+                top: 8px;
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background-color: @blue;
+            }
+        }
+    }
+    &.with-number {
+        counter-reset:sectioncounter;
+        .news {
+            position: relative;
+            padding-left: 2em;
+            margin-bottom: 20px;
+            &:before {
+                position: absolute;
+                left: 0;
+                color: @blue;
+                font-weight: bold;
+                content:counter(sectioncounter) " .";
+                counter-increment:sectioncounter;
+            }
+            .number {
+                display: none;
+                position: absolute;
+                left: 0;
+                color: @blue;
+                font-weight: bold;
+            }
+        }
+    }
+}
+.side-ad {
+    margin-bottom: 30px;
+    img {
+        width: 100%;
+    }
+}
+.side-comments {
+    .comment {
+        position: relative;
+        padding-left: 80px;
+        font-size: 12px;
+        margin-bottom: 30px;
+        .avatar {
+            display: block;
+            width: 60px;
+            height: 60px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .name {
+            color: @blue;
+        }
+        .title {
+            color: #c11;
+        }
+        .content {
+            padding: 12px 14px;
+            margin: 15px 0;
+            color: #787878;
+            background-color: #dae8f1;
+        }
+        .time {
+            color: #787878;
+        }
+    }
+}
+
+.toolbar {
+    .clearfix;
+}

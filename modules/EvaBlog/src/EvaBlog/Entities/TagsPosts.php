@@ -31,12 +31,13 @@ class TagsPosts extends \Eva\EvaEngine\Mvc\Model
 
     public function initialize()
     {
-        $this->belongsTo('tagId', 'Eva\EvaBlog\Entities\Tags', 'id',
+        $this->belongsTo(
+            'tagId', 'Eva\EvaBlog\Entities\Tags', 'id',
             array('alias' => 'Tag')
         );
-        $this->belongsTo('postId', 'Eva\EvaBlog\Entities\Posts', 'id',
+        $this->belongsTo(
+            'postId', 'Eva\EvaBlog\Entities\Posts', 'id',
             array('alias' => 'Post')
         );
     }
-
 }

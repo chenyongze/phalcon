@@ -46,5 +46,4 @@ class Roles extends \Eva\EvaEngine\Mvc\Model
 
         parent::initialize();
     }
-
 }

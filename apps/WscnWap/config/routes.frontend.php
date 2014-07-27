@@ -5,6 +5,11 @@ return array(
         'module' => 'WscnWap',
         'controller' => 'index',
     ),
+    '/livenews' =>  array(
+        'module' => 'WscnWap',
+        'controller' => 'index',
+        'action' => 'livenews',
+    ),
     '/node/(\d+)' =>  array(
         'module' => 'WscnWap',
         'controller' => 'index',

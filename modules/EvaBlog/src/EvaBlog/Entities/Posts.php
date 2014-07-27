@@ -52,7 +52,7 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
      *
      * @var integer
      */
-    public $parentId;
+    public $parentId = 0;
 
     /**
      *
@@ -76,7 +76,7 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
      *
      * @var integer
      */
-    public $userId;
+    public $userId = 0;
 
     /**
      *
@@ -88,13 +88,13 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
      *
      * @var integer
      */
-    public $updatedAt;
+    public $updatedAt = 0;
 
     /**
      *
      * @var integer
      */
-    public $editorId;
+    public $editorId = 0;
 
     /**
      *
@@ -118,19 +118,19 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
      *
      * @var integer
      */
-    public $commentCount;
+    public $commentCount = 0;
 
     /**
      *
      * @var integer
      */
-    public $count;
+    public $count = 0;
 
     /**
      *
      * @var integer
      */
-    public $imageId;
+    public $imageId = 0;
 
     /**
      *
@@ -157,38 +157,10 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
     public $sourceUrl;
 
     /**
-     * Independent Column Mapping.
+     *
+     * @var decimal
      */
-    public function columnMap()
-    {
-        return array(
-            'id' => 'id',
-            'title' => 'title',
-            'status' => 'status',
-            'flag' => 'flag',
-            'visibility' => 'visibility',
-            'codeType' => 'codeType',
-            'language' => 'language',
-            'parentId' => 'parentId',
-            'slug' => 'slug',
-            'sortOrder' => 'sortOrder',
-            'createdAt' => 'createdAt',
-            'userId' => 'userId',
-            'username' => 'username',
-            'updatedAt' => 'updatedAt',
-            'editorId' => 'editorId',
-            'editorName' => 'editorName',
-            'commentStatus' => 'commentStatus',
-            'commentType' => 'commentType',
-            'commentCount' => 'commentCount',
-            'count' => 'count',
-            'imageId' => 'imageId',
-            'image' => 'image',
-            'summary' => 'summary',
-            'sourceName' => 'sourceName',
-            'sourceUrl' => 'sourceUrl',
-        );
-    }
+    public $voteScore = 0;
 
     protected $tableName = 'blog_posts';
 
@@ -235,6 +207,21 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
             'id',
             array('alias' => 'tags')
         );
+
+        $this->hasManyToMany(
+            'id',
+            'Eva\EvaBlog\Entities\Connections',
+            'sourceId',
+            'targetId',
+            'Eva\EvaBlog\Entities\Posts',
+            'id',
+            array('alias' => 'connections')
+        );
+
+
+        $this->hasOne('imageId', 'Eva\EvaFileSystem\Entities\Files', 'id', array(
+            'alias' => 'thumbnail'
+        ));
 
         parent::initialize();
     }

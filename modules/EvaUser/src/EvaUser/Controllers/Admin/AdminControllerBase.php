@@ -10,5 +10,4 @@ class AdminControllerBase extends ControllerBase
         $this->view->setModuleViewsDir('EvaUser', '/views');
         $this->view->setModulePartialsDir('EvaCommon', '/views');
     }
-
 }

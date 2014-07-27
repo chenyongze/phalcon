@@ -2,9 +2,16 @@
 
 namespace Eva\EvaPermission\Entities;
 
+/** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
 class Apikeys extends \Eva\EvaEngine\Mvc\Model
 {
     protected $tableName = 'permission_apikeys';
+
+    /**
+     *
+     * @var integer
+     */
+    public $id;
 
     /**
      *
@@ -56,7 +63,8 @@ class Apikeys extends \Eva\EvaEngine\Mvc\Model
 
     public function initialize()
     {
-        $this->belongsTo('userId', 'Eva\EvaUser\Entities\Users', 'id',
+        $this->belongsTo(
+            'userId', 'Eva\EvaUser\Entities\Users', 'id',
             array('alias' => 'user')
         );
         parent::initialize();

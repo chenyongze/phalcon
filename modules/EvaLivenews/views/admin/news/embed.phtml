@@ -1,0 +1,38 @@
+<div class="profile-feed" id="">
+    <?foreach($pager->items as $item):?>
+    <div class="profile-activity clearfix" data-news-id="<?=$item->id?>">
+        <div>
+            <?if($item->codeType == 'markdown'):?>
+            <i class="pull-left thumbicon icon-file-alt btn-default no-hover"></i>
+            <?else:?>
+            <i class="pull-left thumbicon icon-warning-sign btn-warning no-hover"></i>
+            <?endif?>
+            <div class="" style="max-height:40px;overflow:hidden;">
+
+                <?if($item->codeType == 'markdown'):?>
+                <?=$item->getContentHtml()?>
+                <?else:?>
+                <?$data = json_decode($item->content)?>
+                [<?=$this->tag->datetime($item->createdAt, 'H:i')?>] <?=$data->title?> : A[<?=$data->actual?>] / F[<?=$data->forecast?>] / P[<?=$data->previous?>]
+                <?endif?>
+            </div>
+
+            <div class="time">
+                <i class="icon-time"></i>
+                <time datetime="<?=$item->createdAt?>"><?=$this->tag->datetime($item->createdAt)?></time>
+            </div>
+        </div>
+
+        <div class="tools action-buttons">
+            <a class="edit-handler blue" href="/admin/livenews/news/edit/<?=$item->id?>" target="_blank">
+                <i class="icon-pencil bigger-125"></i>
+            </a>
+
+            <a class="remove-handler red" href="/admin/livenews/process/news/<?=$item->id?>">
+                <i class="icon-remove bigger-125"></i>
+            </a>
+        </div>
+    </div>
+    <?endforeach?>
+</div>
+

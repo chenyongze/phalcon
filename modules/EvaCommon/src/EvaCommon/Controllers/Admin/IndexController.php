@@ -6,14 +6,14 @@ use Eva\EvaEngine\Mvc\Controller\AdminControllerBase as AdminControllerBase;
 use Eva\EvaEngine\Mvc\Controller\AuthorityControllerInterface;
 
 /**
-* @resourceName Admin Entrance 
+* @resourceName Admin Entrance
 * @resourceDescription
 */
 class IndexController extends AdminControllerBase
 {
 
     /**
-    * @operationName Admin entrance redirect 
+    * @operationName Admin entrance redirect
     * @operationDescription
     */
     public function indexAction()

@@ -721,7 +721,7 @@ label.checkbox.right {
   background-color: #005178;
   background: -webkit-gradient(linear, 0 0, 0 100%, from(#3c80a1), to(#005077));
   background: -moz-linear-gradient(top, #3c80a1, #005077);
-  color: #fff;
+  color: #FC8024;
 }
 .market.chart > .content {
   border: none;
@@ -1057,9 +1057,9 @@ label.checkbox.right {
   display: block;
 }
 .article.page blockquote {
-  font-family: Optima, Georgia, STSong, serif;
   margin: 1em 0;
-  color: #999;
+  color: #555;
+  font-size: 16px;
   padding: 0.6em 1em;
   background: #f8f8f8;
   border-left: 0.4em solid #ddd;
@@ -2455,6 +2455,7 @@ td.datepickerSpecial.datepickerSelected a {
 }
 #main .recommend-news.list > .item {
   display: block;
+  width: 230px;
   float: left;
   margin-left: 25px;
 }
@@ -2463,9 +2464,9 @@ td.datepickerSpecial.datepickerSelected a {
 }
 #main .recommend-news.list > .item > .link {
   display: block;
-  width: 230px;
-  height: 150px;
   position: relative;
+  width: 100%;
+  height: 150px;
   overflow: hidden;
 }
 #main .recommend-news.list > .item > .link .img {
@@ -3395,8 +3396,8 @@ td.datepickerSpecial.datepickerSelected a {
   word-break: break-all;
 }
 #footer .friend-links {
-  width: 100%;
-  margin-top: 20px;
+  padding-left: 400px;
+  margin-top: 30px;
   line-height: 1.5em;
 }
 #footer .friend-links .title {

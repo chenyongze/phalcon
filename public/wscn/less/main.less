@@ -1,0 +1,226 @@
+#main {
+    float: left;
+    padding: 0 15px;
+    margin-bottom: 30px;
+    .top3-news {
+        margin-bottom: 30px;
+        img {
+            width: 100%;
+            height: auto;
+        }
+        .top1 {
+            .title {
+                font-size: 20px;
+            }
+            .subtitle {
+                font-size: 14px;
+            }
+        }
+        .top2, .top3 {
+            .title {
+                font-size: 14px;
+            }
+        }
+
+        @media (min-width: @screen-xs-min) {
+            .custom-span-1 {
+                width: percentage(1);
+                border-bottom: 1px solid #fff;
+            }
+            .custom-span-2 {
+                width: percentage(1);
+            }
+            .custom-span-3 ,
+            .custom-span-4 {
+                border-top: 1px solid #fff;
+                width: percentage((1 / 2));
+            }
+            .custom-span-3 {
+                border-right: 1px solid #fff;
+            }
+            .custom-span-4 {
+                border-left: 1px solid #fff;
+            }
+        }
+        @media (min-width: @screen-md-min) {
+
+        }
+        @media (min-width: @screen-lg-min) {
+            .top1 .img {
+                height: 300px;
+            }
+            .top2 .img ,
+            .top3 .img {
+                height: 149px;
+            }
+            .custom-span-1 {
+                width: percentage((2 / 3));
+                //height: 300px;
+                border-bottom: none;
+                border-right: 1px solid #fff;
+            }
+            .custom-span-2 {
+                width: percentage((1 / 3));
+            }
+            .custom-span-3 ,
+            .custom-span-4 {
+                border: none;
+                border-left: 1px solid #fff;
+                //height: 150px;
+                width: percentage(1);
+            }
+            .custom-span-3 {
+                border-bottom: 1px solid #fff;
+            }
+            .custom-span-4 {
+                border-top: 1px solid #fff;
+            }
+        }
+    }
+    .news-list.with-img {
+        .news-big {
+            padding: 25px 0;
+            border-bottom: 1px solid @borderColor;
+            .cover-img {
+                .title {
+                    font-size: 20px;
+                }
+                .subtitle {
+                    font-size: 14px;
+                }
+            }
+        }
+        .news {
+            color: #323232;
+            padding: 25px 0;
+            border-bottom: 1px solid @borderColor;
+            .cover-img {
+                margin-top: 4px;
+                .cover {
+                    background-color: @blue;
+                    padding: 0 10px ;
+                    font-size: 13px;
+                    line-height: 30px;
+                }
+                .img {
+                    //width: 100%;
+                    //height: auto;
+                }
+            }
+            .title {
+                display: block;
+                font-size: 18px;
+                line-height: 25px;
+            }
+            .meta {
+                display: inline-block;
+                margin-top: 16px ;
+                margin-left: 16px;
+                font-size: 12px;
+                height: 16px;
+                line-height: 16px;
+            }
+            .author {
+                color: @blue;
+                margin-left: 0;
+            }
+            .time {
+
+            }
+            .endorse ,
+            .discuss {
+                display: inline;
+                padding-left: 20px;
+                background-position: 0 center;
+                background-repeat: no-repeat;
+                &:before {
+                    content: "(";
+                }
+                &:after {
+                    content: ")";
+                }
+            }
+            .endorse {
+                background-image: url(../icon/endorse-white.png);
+                margin-right: 1em;
+                cursor: pointer;
+                &.active {
+                    background-image: url(../icon/endorse-white-active.png);
+                }
+            }
+            .discuss {
+                cursor: pointer;
+                background-image: url(../icon/discuss-white.png);
+            }
+            .share,
+            .collect {
+                display: block;
+                float: left;
+                width: 16px;
+                height: 16px;
+                margin-left: 1em;
+            }
+            .share {
+                background-image: url(../icon/share-blue.png);
+            }
+            .collect {
+                background-image: url(../icon/collect-blue.png);
+                &.active {
+                    background-image: url(../icon/collect-blue-active.png);
+                }
+            }
+            .summary {
+                color: #787878;
+                margin-top: 10px;
+                font-size: 14px;
+                line-height: 1.5em;
+                //height: 4.5em;
+                //overflow: hidden;
+            }
+        }
+    }
+}
+
+@media (max-width: (@screen-md-max)) {
+    #main {
+        .news-list {
+            .news {
+                .title {
+                    //font-size: 16px;
+                }
+                .summary {
+                    font-size: 13px;
+                }
+            }
+        }
+    }
+}
+@media (max-width: (@screen-sm-max)) {
+    #main {
+        .custom-nav-tabs a {
+            font-size: 15px;
+        }
+        .news-list {
+            .news {
+                .title {
+                    font-size: 15px;
+                }
+                .summary {
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: @screen-xxs-max) {
+    #main {
+        .news-list {
+            .news {
+                .title {
+                    margin-top: 10px;
+                }
+            }
+        }
+    }
+}

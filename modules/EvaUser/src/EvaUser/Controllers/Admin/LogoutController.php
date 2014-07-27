@@ -12,5 +12,4 @@ class LogoutController extends ControllerBase
 
         return $this->response->redirect('/admin');
     }
-
 }

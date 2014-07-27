@@ -4,6 +4,7 @@ namespace Eva\EvaUser\Models;
 
 use Eva\EvaUser\Entities;
 use Eva\EvaFileSystem\Models\Upload as UploadModel;
+use Eva\EvaEngine\Exception;
 
 class User extends Entities\Users
 {
@@ -142,5 +143,4 @@ class User extends Entities\Users
         $this->id = $id;
         $this->delete();
     }
-
 }

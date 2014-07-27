@@ -7,7 +7,7 @@ use Eva\EvaUser\Models\Login as LoginModel;
 use Eva\EvaFileSystem\Models\Upload as UploadModel;
 use Eva\EvaEngine\Exception;
 use Eva\EvaEngine\Mvc\Model\Validator\Uniqueness;
-
+use Eva\CounterRank\utils\CounterRankUtil;
 
 class Post extends Entities\Posts
 {
@@ -74,6 +74,11 @@ class Post extends Entities\Posts
         }
     }
 
+    public function afterCreate()
+    {
+        $this->getDI()->getEventsManager()->fire('blog:afterCreate', $this);
+    }
+
     public function beforeUpdate()
     {
         $user = new LoginModel();
@@ -101,7 +106,6 @@ class Post extends Entities\Posts
             }
         }
     }
-
     public function validation()
     {
         if ($this->validationHasFailed() == true) {
@@ -122,6 +126,8 @@ class Post extends Entities\Posts
             '-created_at' => 'createdAt DESC',
             'sort_order' => 'sortOrder ASC',
             '-sort_order' => 'sortOrder DESC',
+            'count' => 'count ASC',
+            '-count' => 'count DESC',
         );
 
         if (!empty($query['columns'])) {
@@ -136,6 +142,14 @@ class Post extends Entities\Posts
             $itemQuery->andWhere('status = :status:', array('status' => $query['status']));
         }
 
+        if (!empty($query['has_image'])) {
+            $itemQuery->andWhere('imageId > 0');
+        }
+
+        if (!empty($query['sourceName'])) {
+            $itemQuery->andWhere('sourceName = :sourceName:', array('sourceName' => $query['sourceName']));
+        }
+
         if (!empty($query['uid'])) {
             $itemQuery->andWhere('userId = :uid:', array('uid' => $query['uid']));
         }
@@ -145,13 +159,18 @@ class Post extends Entities\Posts
             ->andWhere('r.categoryId = :cid:', array('cid' => $query['cid']));
         }
 
+        if (!empty($query['tid'])) {
+            $itemQuery->join('Eva\EvaBlog\Entities\TagsPosts', 'id = r.postId', 'r')
+            ->andWhere('r.tagId = :tid:', array('tid' => $query['tid']));
+        }
+
         $order = 'createdAt DESC';
         if (!empty($query['order'])) {
             $orderArray = explode(',', $query['order']);
-            if(count($orderArray) > 1) {
+            if (count($orderArray) > 1) {
                 $order = array();
-                foreach($orderArray as $subOrder) {
-                    if($subOrder && !empty($orderMapping[$subOrder])) {
+                foreach ($orderArray as $subOrder) {
+                    if ($subOrder && !empty($orderMapping[$subOrder])) {
                         $order[] = $orderMapping[$subOrder];
                     }
                 }
@@ -174,7 +193,7 @@ class Post extends Entities\Posts
         $tagData = isset($data['tags']) ? $data['tags'] : array();
         $categoryData = isset($data['categories']) ? $data['categories'] : array();
 
-        if($textData) {
+        if ($textData) {
             unset($data['text']);
             $text = new Text();
             $text->assign($textData);
@@ -212,6 +231,7 @@ class Post extends Entities\Posts
         if (!$this->save()) {
             throw new Exception\RuntimeException('Create post failed');
         }
+
         return $this;
     }
 
@@ -222,7 +242,7 @@ class Post extends Entities\Posts
         $tagData = $data['tags'];
         $categoryData = $data['categories'];
 
-        if($textData) {
+        if ($textData) {
             unset($data['text']);
             $text = new Text();
             $text->assign($textData);
@@ -302,6 +322,38 @@ class Post extends Entities\Posts
         return implode(',', $tagArray);
     }
 
+    public function getPrevPost()
+    {
+        if (!$this->id) {
+            return false;
+        }
+
+        return self::findFirst(array(
+            'conditions' => 'status = :status: AND createdAt < :createdAt:',
+            'bind'       => array(
+               'createdAt' => $this->createdAt,
+               'status' => 'published',
+            ),
+            'order' => 'createdAt DESC'
+        ));
+    }
+
+    public function getNextPost()
+    {
+        if (!$this->id) {
+            return false;
+        }
+
+        return self::findFirst(array(
+            'conditions' => 'status = :status: AND createdAt > :createdAt:',
+            'bind'       => array(
+               'createdAt' => $this->createdAt,
+               'status' => 'published',
+            ),
+            'order' => 'createdAt ASC'
+        ));
+    }
+
     public function getSummaryHtml()
     {
         if (!$this->summary) {
@@ -333,8 +385,8 @@ class Post extends Entities\Posts
 
     public function getUrl()
     {
-        $postUrl = $this->getDI()->get('config')->baseUri;
-        $postPath = $this->getDI()->get('config')->blog->postPath;
+        $postUrl = $this->getDI()->getConfig()->baseUri;
+        $postPath = $this->getDI()->getConfig()->blog->postPath;
 
         return $postUrl . sprintf($postPath, $this->slug);
     }
@@ -355,8 +407,8 @@ class Post extends Entities\Posts
                 return $this->image;
             }
         }
-        $staticUri = $this->getDI()->get('config')->filesystem->staticUri;
-        $staticPath = $this->getDI()->get('config')->filesystem->staticPath;
+        $staticUri = $this->getDI()->getConfig()->filesystem->staticUri;
+        $staticPath = $this->getDI()->getConfig()->filesystem->staticPath;
         return $staticUri . $staticPath . $this->image;
         */
     }

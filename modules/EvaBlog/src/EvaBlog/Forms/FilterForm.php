@@ -48,6 +48,12 @@ class FilterForm extends Form
     */
     public $username;
 
+    /**
+    *
+    * @var string
+    */
+    public $source_name;
+
     protected $cid;
 
     public function addCid()
@@ -79,5 +85,4 @@ class FilterForm extends Form
         $this->initializeFormAnnotations();
         $this->addCid();
     }
-
 }

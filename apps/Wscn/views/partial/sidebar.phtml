@@ -1,0 +1,317 @@
+<div class="content">
+    <div class="user box">
+        <img class="avatar" src="" alt=""/>
+        <a class="custom-button size-fluid" href="/login" data-action="login">登录</a>
+    </div>
+    <div id="left-market-list" class="nano" data-hover="unfold">
+        <nav class="nano-content">
+        <a class="market item" data-hover="related-info" data-symbol="XAUUSD" data-prev-close="1313.9" data-num-fixed="2" data-trend="rise">
+            <span class="custom-row">
+                <span class="custom-span-1 name" title="黄金">黄金</span>
+                <span class="custom-span-2 diff">+0.99</span>
+            </span>
+            <span class="custom-row">
+                <span class="custom-span-1 value">1261.09</span>
+                <span class="custom-span-2 diff-pct">+0.68%</span>
+            </span>
+        </a>
+        <a class="market item" data-hover="related-info" data-symbol="UKOil" data-prev-close="107.68" data-num-fixed="2" data-trend="rise">
+            <span class="custom-row">
+                <span class="custom-span-1 name" title="布油">布油</span>
+                <span class="custom-span-2 diff">+0.69</span>
+            </span>
+            <span class="custom-row">
+                <span class="custom-span-1 value">109.75</span>
+                <span class="custom-span-2 diff-pct">+0.57%</span>
+            </span>
+        </a>
+        <a class="market item" data-hover="related-info" data-symbol="SPX500INDEX" data-prev-close="1978.22" data-num-fixed="2" data-trend="fall">
+            <span class="custom-row">
+                <span class="custom-span-1 name" title="标普500">标普500</span>
+                <span class="custom-span-2 diff">-0.48</span>
+            </span>
+            <span class="custom-row">
+                <span class="custom-span-1 value">1950.56</span>
+                <span class="custom-span-2 diff-pct">-0.49%</span>
+            </span>
+        </a>
+        <a class="market item" data-hover="related-info" data-symbol="000001" data-prev-close="2054.479" data-num-fixed="2" data-trend="rise">
+            <span class="custom-row">
+                <span class="custom-span-1 name" title="上证指数">上证指数</span>
+                <span class="custom-span-2 diff">+0.005</span>
+            </span>
+            <span class="custom-row">
+                <span class="custom-span-1 value">1.3538</span>
+                <span class="custom-span-2 diff-pct">+0.04%</span>
+            </span>
+        </a>
+        <a class="market item" data-hover="related-info" data-symbol="EURUSD" data-prev-close="1.3522" data-num-fixed="4" data-trend="rise">
+            <span class="custom-row">
+                <span class="custom-span-1 name" title="欧元/美元">欧元/美元</span>
+                <span class="custom-span-2 diff">+0.005</span>
+            </span>
+            <span class="custom-row">
+                <span class="custom-span-1 value">1.3538</span>
+                <span class="custom-span-2 diff-pct">+0.04%</span>
+            </span>
+        </a>
+        <a class="market item" data-hover="related-info" data-symbol="USDJPY" data-prev-close="101.405" data-num-fixed="3" data-trend="fall">
+            <span class="custom-row">
+                <span class="custom-span-1 name" title="美元/日元">美元/日元</span>
+                <span class="custom-span-2 diff">-0.014</span>
+            </span>
+            <span class="custom-row">
+                <span class="custom-span-1 value">2.651</span>
+                <span class="custom-span-2 diff-pct">-0.53%</span>
+            </span>
+        </a>
+        <a class="market item" data-hover="related-info" data-symbol="US10Year" data-prev-close="2.475" data-num-fixed="3" data-trend="rise">
+            <span class="custom-row">
+                <span class="custom-span-1 name" title="美国10年期国债">美国10年期国债</span>
+                <span class="custom-span-2 diff">+0.99</span>
+            </span>
+            <span class="custom-row">
+                <span class="custom-span-1 value">1261.09</span>
+                <span class="custom-span-2 diff-pct">+0.68%</span>
+            </span>
+        </a>
+        </nav>
+    </div>
+</div>
+<div class="sidebar nano" data-hover="unfold">
+    <div class="nano-content">
+        <div class="chart"></div>
+        <div class="datum"></div>
+        <!--   -->
+    </div>
+    <!-- nano-content -->
+    <div class="loader">
+        <img class="indicator" src="/img/loader.gif" width="100" height="100" alt=""/>
+    </div>
+</div>
+<!-- left sidebar end -->
+
+<!-- 测试用 -->
+<script type="text/template" id="test-leftbar-datum-1">
+    <h3 class="side-title">
+        <button class="custom-button type-link">相关新闻</button>
+    </h3>
+    <ul class=" news-list with-dot">
+        <li class="news">
+            <a class="title" href="">测试数据：相关新闻一</a>
+        </li>
+        <li class="news">
+            <a class="title" href="">全球第二大产糖国新规：原糖进口税猛增167%</a>
+        </li>
+        <li class="news">
+            <a class="title" href="">证监会积极推动A股入MSCI，上交所认为大盘T+0条件成熟</a>
+        </li>
+    </ul>
+    <h3 class="side-title" style="margin-bottom: 15px; margin-top: 30px">
+        <button class="custom-button type-link">实时新闻</button>
+    </h3>
+    <ul id="left-side-livenews" class="livenews-list size-sm">
+        <li>
+            <a class="news" href="">
+                <span class="time">18:12</span>
+                <span class="title"> | 国土部：不动产统一登记试点城市确定消息不实，目前尚未启动不动产统一登记试点工作。（凤凰财经）</span>
+            </a>
+        </li>
+        <li>
+            <a class="news" href="">
+                <span class="time">18:09</span>
+                <span class="title"> | 受”以房养老”展开试点消息提振，养老概念股早盘大幅上涨。其中，概念股龙头桑乐金目前涨9.4%，盘中触及涨停</span>
+            </a>
+        </li>
+        <li>
+            <a class="news" href="">
+                <span class="time">17:53</span>
+                <span class="title"> | 香港恒生指数开盘上涨0.49%</span>
+            </a>
+        </li>
+        <li>
+            <a class="news" href="">
+                <span class="time">17:45</span>
+                <span class="title"> | 中国央行公开市场今日将通过28天期正回购操作回笼180亿元人民币。</span>
+            </a>
+        </li>
+        <li>
+            <a class="news" href="">
+                <span class="time">17:38</span>
+                <span class="title"> | 国土部：不动产统一登记试点城市确定消息不实，目前尚未启动不动产统一登记试点工作。（凤凰财经）</span>
+            </a>
+        </li>
+        <li>
+            <a class="news" href="">
+                <span class="time">18:12</span>
+                <span class="title"> | 国土部：不动产统一登记试点城市确定消息不实，目前尚未启动不动产统一登记试点工作。（凤凰财经）</span>
+            </a>
+        </li>
+        <li>
+            <a class="news" href="">
+                <span class="time">18:09</span>
+                <span class="title"> | 受”以房养老”展开试点消息提振，养老概念股早盘大幅上涨。其中，概念股龙头桑乐金目前涨9.4%，盘中触及涨停</span>
+            </a>
+        </li>
+        <li>
+            <a class="news" href="">
+                <span class="time">17:53</span>
+                <span class="title"> | 香港恒生指数开盘上涨0.49%</span>
+            </a>
+        </li>
+        <li>
+            <a class="news" href="">
+                <span class="time">17:45</span>
+                <span class="title"> | 中国央行公开市场今日将通过28天期正回购操作回笼180亿元人民币。</span>
+            </a>
+        </li>
+        <li>
+            <a class="news" href="">
+                <span class="time">17:38</span>
+                <span class="title"> | 国土部：不动产统一登记试点城市确定消息不实，目前尚未启动不动产统一登记试点工作。（凤凰财经）</span>
+            </a>
+        </li>
+        <li>
+            <a class="news" href="">
+                <span class="time">18:12</span>
+                <span class="title"> | 国土部：不动产统一登记试点城市确定消息不实，目前尚未启动不动产统一登记试点工作。（凤凰财经）</span>
+            </a>
+        </li>
+        <li>
+            <a class="news" href="">
+                <span class="time">18:09</span>
+                <span class="title"> | 受”以房养老”展开试点消息提振，养老概念股早盘大幅上涨。其中，概念股龙头桑乐金目前涨9.4%，盘中触及涨停</span>
+            </a>
+        </li>
+        <li>
+            <a class="news" href="">
+                <span class="time">17:53</span>
+                <span class="title"> | 香港恒生指数开盘上涨0.49%</span>
+            </a>
+        </li>
+        <li>
+            <a class="news" href="">
+                <span class="time">17:45</span>
+                <span class="title"> | 中国央行公开市场今日将通过28天期正回购操作回笼180亿元人民币。</span>
+            </a>
+        </li>
+        <li>
+            <a class="news" href="">
+                <span class="time">17:38</span>
+                <span class="title"> | 国土部：不动产统一登记试点城市确定消息不实，目前尚未启动不动产统一登记试点工作。（凤凰财经）</span>
+            </a>
+        </li>
+    </ul>
+</script>
+
+<script type="text/template" id="test-leftbar-datum-2">
+    <h3 class="side-title">
+        <button class="custom-button type-link">相关新闻</button>
+    </h3>
+    <ul class=" news-list with-dot">
+        <li class="news">
+            <a class="title" href="">测试数据：相关新闻二</a>
+        </li>
+        <li class="news">
+            <a class="title" href="">全球第二大产糖国新规：原糖进口税猛增167%</a>
+        </li>
+        <li class="news">
+            <a class="title" href="">证监会积极推动A股入MSCI，上交所认为大盘T+0条件成熟</a>
+        </li>
+    </ul>
+    <h3 class="side-title" style="margin-bottom: 15px; margin-top: 30px">
+        <button class="custom-button type-link">实时新闻</button>
+    </h3>
+    <ul id="left-side-livenews" class="livenews-list size-sm">
+        <li>
+            <a class="news" href="">
+                <span class="time">18:12</span>
+                <span class="title"> | 国土部：不动产统一登记试点城市确定消息不实，目前尚未启动不动产统一登记试点工作。（凤凰财经）</span>
+            </a>
+        </li>
+        <li>
+            <a class="news" href="">
+                <span class="time">18:09</span>
+                <span class="title"> | 受”以房养老”展开试点消息提振，养老概念股早盘大幅上涨。其中，概念股龙头桑乐金目前涨9.4%，盘中触及涨停</span>
+            </a>
+        </li>
+        <li>
+            <a class="news" href="">
+                <span class="time">17:53</span>
+                <span class="title"> | 香港恒生指数开盘上涨0.49%</span>
+            </a>
+        </li>
+        <li>
+            <a class="news" href="">
+                <span class="time">17:45</span>
+                <span class="title"> | 中国央行公开市场今日将通过28天期正回购操作回笼180亿元人民币。</span>
+            </a>
+        </li>
+        <li>
+            <a class="news" href="">
+                <span class="time">17:38</span>
+                <span class="title"> | 国土部：不动产统一登记试点城市确定消息不实，目前尚未启动不动产统一登记试点工作。（凤凰财经）</span>
+            </a>
+        </li>
+        <li>
+            <a class="news" href="">
+                <span class="time">18:12</span>
+                <span class="title"> | 国土部：不动产统一登记试点城市确定消息不实，目前尚未启动不动产统一登记试点工作。（凤凰财经）</span>
+            </a>
+        </li>
+        <li>
+            <a class="news" href="">
+                <span class="time">18:09</span>
+                <span class="title"> | 受”以房养老”展开试点消息提振，养老概念股早盘大幅上涨。其中，概念股龙头桑乐金目前涨9.4%，盘中触及涨停</span>
+            </a>
+        </li>
+        <li>
+            <a class="news" href="">
+                <span class="time">17:53</span>
+                <span class="title"> | 香港恒生指数开盘上涨0.49%</span>
+            </a>
+        </li>
+        <li>
+            <a class="news" href="">
+                <span class="time">17:45</span>
+                <span class="title"> | 中国央行公开市场今日将通过28天期正回购操作回笼180亿元人民币。</span>
+            </a>
+        </li>
+        <li>
+            <a class="news" href="">
+                <span class="time">17:38</span>
+                <span class="title"> | 国土部：不动产统一登记试点城市确定消息不实，目前尚未启动不动产统一登记试点工作。（凤凰财经）</span>
+            </a>
+        </li>
+        <li>
+            <a class="news" href="">
+                <span class="time">18:12</span>
+                <span class="title"> | 国土部：不动产统一登记试点城市确定消息不实，目前尚未启动不动产统一登记试点工作。（凤凰财经）</span>
+            </a>
+        </li>
+        <li>
+            <a class="news" href="">
+                <span class="time">18:09</span>
+                <span class="title"> | 受”以房养老”展开试点消息提振，养老概念股早盘大幅上涨。其中，概念股龙头桑乐金目前涨9.4%，盘中触及涨停</span>
+            </a>
+        </li>
+        <li>
+            <a class="news" href="">
+                <span class="time">17:53</span>
+                <span class="title"> | 香港恒生指数开盘上涨0.49%</span>
+            </a>
+        </li>
+        <li>
+            <a class="news" href="">
+                <span class="time">17:45</span>
+                <span class="title"> | 中国央行公开市场今日将通过28天期正回购操作回笼180亿元人民币。</span>
+            </a>
+        </li>
+        <li>
+            <a class="news" href="">
+                <span class="time">17:38</span>
+                <span class="title"> | 国土部：不动产统一登记试点城市确定消息不实，目前尚未启动不动产统一登记试点工作。（凤凰财经）</span>
+            </a>
+        </li>
+    </ul>
+</script>

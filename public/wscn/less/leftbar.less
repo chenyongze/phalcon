@@ -1,0 +1,254 @@
+@-webkit-keyframes market-trend-rise {
+    50% {top: -16px}
+    51% {top: 62px}
+    100% {top: 23px}
+}
+@keyframes market-trend-rise {
+    50% {top: -16px}
+    51% {top: 62px}
+    100% {top: 23px}
+}
+
+@-webkit-keyframes market-trend-fall {
+    50% {top: 62px}
+    51% {top: -16px}
+    to {top: 23px}
+}
+@keyframes market-trend-fall {
+    50% {top: 62px}
+    51% {top: -16px}
+    to {top: 23px}
+}
+
+
+#leftbar {
+    .clearfix;
+    display: none;
+    position: fixed;
+    z-index: 2;
+    width: 530px;
+    padding-left: 15px;
+    top: 90px;
+    bottom: 30px;
+    overflow: hidden;
+
+    & > .content {
+        float: left;
+        width: 170px;
+        height: 100%;
+        position: relative;
+        height: 100%;
+        background-color: #dae8f1;
+        //
+        & > .inner {
+
+        }
+    }
+    & > .sidebar {
+        position: relative;
+        float: left;
+        width: 330px;
+        height: 100%;
+
+        .nano-content {
+            padding: 20px 15px;
+            background-color: #b0cde1;
+        }
+        .nano-pane {
+            width: 8px;
+            right: 2px;
+        }
+        .nano-slider {
+            background-color: @blue;
+        }
+        .chart {
+            height: 150px;
+            margin-bottom: 30px;
+        }
+    }
+
+    .user.box {
+        padding: 20px 15px 15px;
+        height: 145px;
+
+        .avatar {
+            display: block;
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+        }
+    }
+}
+
+#left-market-list {
+    position: absolute;
+    top: 145px;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    font-size: 12px;
+    color: #000;
+    //
+    .market {
+        display: block;
+        position: relative;
+        width: 100%;
+        padding: 13px 15px;
+        line-height: 16px;
+        &[data-trend=rise] {
+            /*.name {
+                background: url(../icon/rise.png) right center no-repeat;
+            }*/
+            &:before {
+                .animation(market-trend-rise 0.5s);
+                background: url(../icon/rise.png);
+            }
+        }
+        &[data-trend=fall] {
+            /*.name {
+                background: url(../icon/fall.png) right center no-repeat;
+            }*/
+            &:before {
+                .animation(market-trend-fall 0.5s);
+                background: url(../icon/fall.png);
+            }
+        }
+        //----------------------------------------
+        &:before {
+            display: block;
+            position: absolute;
+            content: "";
+            width: 16px;
+            height: 16px;
+            top: 23px;
+            //bottom: 0;
+            left: 75px;
+            //margin: auto 0;
+        }
+        //----------------------------------------
+        &:after {
+            display: block;
+            position: absolute;
+            content: "";
+            width: 16px;
+            top: 0;
+            bottom: 0;
+            right: 15px;
+            background: url(../icon/arrow-right-1.png) center center no-repeat;
+        }
+        &:hover {
+            background-color: #b0cde1;
+        }
+        //todo
+        &.active {
+            background-color: #b0cde1;
+        }
+        .custom-icon {
+            position: absolute;
+            right: 0;
+            display: block;
+            height: 100%;
+            line-height: 32px;
+        }
+        .custom-span-1 {
+            .ellipsis;
+            width: 80px;
+        }
+        .custom-span-2 {
+            .ellipsis;
+            width: 60px;
+        }
+        .name {
+            display: block;
+            margin-bottom: 4px;
+            padding-right: 20px;
+        }
+    }
+}
+
+#left-side-livenews {
+    /*overflow: hidden;
+    margin-right: -15px;
+    .content {
+        padding-right: 15px;
+    }*/
+    .news {
+        border-color: #999;
+        &:hover {
+            margin-left: -15px;
+            margin-right: -15px;
+            padding-left: 15px;
+            padding-right: 15px;
+            background-color: #8CB8D5;
+            border-bottom: 1px solid #8CB8D5;
+            border-top: 1px solid #8CB8D5;
+            margin-top: -1px;
+        }
+    }
+}
+
+.sharebar {
+    font-size: 14px;
+    line-height: 32px;
+    width: 135px;
+    .discuss ,
+    .collect {
+        display: block;
+        padding-left: 15px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #ccc;
+        margin-bottom: 20px;
+        &:before {
+            display: block;
+            width: 32px;
+            height: 32px;
+            float: left;
+            margin-right: 10px;
+            content: "";
+        }
+    }
+    .discuss:before {
+        background: url(../icon/discuss32px.png);
+    }
+    .collect:before {
+        background: url(../icon/collect32px.png);
+    }
+
+    .jiathis_style_32x32 {
+        font-size: 14px;
+        line-height: 32px;
+        a {
+            display: block;
+            height: 32px;
+            width: 100%;
+            padding-left: 15px;
+            margin-bottom: 20px;
+            &.jiathis {
+                margin-left: 15px;
+            }
+        }
+        .jtico {
+            padding-left: 32px !important;
+            //display: block;
+            font-size: 14px;
+            text-indent: 10px;
+            margin: 0;
+            //background: url(../icon/weibo32px.png) 0 0 no-repeat;
+        }
+        .jtico_tsina {
+            background: url(../icon/weibo32px.png) 0 0 no-repeat;
+        }
+        .jtico_cqq {
+            background: url(../icon/qq32px.png) 0 0 no-repeat;
+        }
+        .jtico_weixin {
+            background: url(../icon/wechat32px.png) 0 0 no-repeat;
+        }
+        .jtico_evernote {
+            background: url(../icon/evernote32px.png) 0 0 no-repeat;
+        }
+        .jtico_jiathis {
+            background: url(../icon/share32px.png) 0 0 no-repeat;
+        }
+    }
+}

@@ -1,0 +1,20 @@
+{
+    "name": "allovince/evacommon",
+    "description": "Basic Common Module of EvaEngine",
+    "license": "BSD-3-Clause",
+    "minimum-stability": "dev",
+    "authors": [
+        {
+        "name": "AlloVince",
+        "email": "allo.vince@gmail.com",
+        "homepage": "http://avnpc.com"
+    }
+    ],
+    "require": {
+        "allovince/evaengine" : "dev-master"
+    },
+    "autoload": {
+	"classmap" : ["Module.php"],
+        "psr-4": {"Eva\\EvaCommon\\": "src/EvaCommon"}
+    }
+}

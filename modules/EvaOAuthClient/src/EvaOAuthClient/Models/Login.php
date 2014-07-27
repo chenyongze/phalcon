@@ -31,7 +31,7 @@ class Login extends UserEntity
             'id' => $token->userId
         ));
 
-        return $userModel->loginWithId();
+        return $userModel->login();
     }
 
     public function connectWithExistEmail(array $accessToken)
@@ -165,7 +165,7 @@ class Login extends UserEntity
         $message->setTo(array(
             $userinfo->email => $userinfo->username
         ));
-        $message->setTemplate($this->getDI()->get('config')->user->confirmMailTemplate);
+        $message->setTemplate($this->getDI()->getConfig()->user->confirmMailTemplate);
         $message->assign(array(
             'user' => $userinfo->toArray(),
             'url' => $message->toSystemUrl('/auth/verify/' . urlencode($userinfo->username) . '/' . $userinfo->activationHash)
@@ -173,5 +173,4 @@ class Login extends UserEntity
 
         return $mailer->send($message->getMessage());
     }
-
 }

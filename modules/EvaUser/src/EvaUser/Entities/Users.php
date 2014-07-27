@@ -173,7 +173,6 @@ class Users extends \Eva\EvaEngine\Mvc\Model
      */
     public function validation()
     {
-
         $this->validate(
             new Email(
                 array(
@@ -187,43 +186,35 @@ class Users extends \Eva\EvaEngine\Mvc\Model
         }
     }
 
-    /**
-     * Independent Column Mapping.
-     */
-    public function columnMap()
+    protected $tableName = 'user_users';
+
+    public function isSuperUser()
     {
-        return array(
-            'id' => 'id',
-            'username' => 'username',
-            'email' => 'email',
-            'mobile' => 'mobile',
-            'status' => 'status',
-            'accountType' => 'accountType',
-            'screenName' => 'screenName',
-            'firstName' => 'firstName',
-            'lastName' => 'lastName',
-            'password' => 'password',
-            'oldPassword' => 'oldPassword',
-            'gender' => 'gender',
-            'avatarId' => 'avatarId',
-            'avatar' => 'avatar',
-            'timezone' => 'timezone',
-            'language' => 'language',
-            'emailStatus' => 'emailStatus',
-            'emailConfirmedAt' => 'emailConfirmedAt',
-            'createdAt' => 'createdAt',
-            'loginAt' => 'loginAt',
-            'failedLogins' => 'failedLogins',
-            'loginFailedAt' => 'loginFailedAt',
-            'activationHash' => 'activationHash',
-            'activedAt' => 'activedAt',
-            'passwordResetHash' => 'passwordResetHash',
-            'passwordResetAt' => 'passwordResetAt',
-            'providerType' => 'providerType'
-        );
+        return false;
     }
 
-    protected $tableName = 'user_users';
+    public function isActived()
+    {
+        return $this->status == 'active';
+    }
+
+    public function isBlocked()
+    {
+        return $this->status == 'deleted';
+    }
+
+    public function getRoles()
+    {
+        if (!$this->id) {
+            return array('GUEST');
+        }
+
+        if ($this->isActived()) {
+            return array('USER');
+        } else {
+            return array('PENDING_USER');
+        }
+    }
 
     public function initialize()
     {

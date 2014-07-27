@@ -1,0 +1,68 @@
+.icontext {
+    display: inline;
+    padding-left: 16px;
+    position: relative;
+    min-height: 16px;
+    font-style: normal;
+    &:before {
+        display: block;
+        position: absolute;
+        content: "";
+        width: 16px;
+        height: 16px;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto 0;
+    }
+    &.rtl {
+        padding-left: 0;
+        padding-right: 16px;
+        &:before {
+            left: auto;
+            right: 0;
+        }
+    }
+}
+.icontext-arrow-right:before {
+    background: url(../icon/arrow-right.png);
+}
+.icontext-rise:before {
+    background: url(../icon/rise.png);
+}
+.icontext-fall:before {
+    background: url(../icon/fall.png);
+}
+.icontext-collect-blue:before {
+    background: url(../icon/collect-blue.png);
+}
+.icontext-share-blue:before {
+    background: url(../icon/share-blue.png);
+}
+.icontext-discuss-blue:before {
+    background: url(../icon/discuss-blue.png);
+}
+.icontext-endorse-blue:before {
+    background: url(../icon/endorse-blue.png);
+}
+.icontext-discuss-white:before {
+    background: url(../icon/discuss-white.png);
+}
+.icontext-endorse-white:before {
+    background: url(../icon/endorse-white.png);
+}
+
+.icontext-qq-md ,
+.icontext-weibo-md {
+    padding-left: 30px;
+}
+.icontext-qq-md:before {
+    width: 24px;
+    height: 24px;
+    background: url(../icon/qq-md.png);
+}
+.icontext-weibo-md:before {
+    width: 24px;
+    height: 24px;
+    background: url(../icon/weibo-md.png);
+}

@@ -14,7 +14,7 @@ class PostController extends ControllerBase
     */
     public function indexAction()
     {
-        $limit = $this->request->getQuery('limit', 'int', 25);
+        $limit = $this->request->getQuery('per_page', 'int', 25);
         $limit = $limit > 100 ? 100 : $limit;
         $limit = $limit < 10 ? 10 : $limit;
         $order = $this->request->getQuery('order', 'string', '-created_at');
@@ -23,7 +23,10 @@ class PostController extends ControllerBase
             'status' => $this->request->getQuery('status', 'string'),
             'uid' => $this->request->getQuery('uid', 'int'),
             'cid' => $this->request->getQuery('cid', 'int'),
+            'tid' => $this->request->getQuery('tid', 'int'),
+            'tag' => $this->request->getQuery('tag', 'string'),
             'username' => $this->request->getQuery('username', 'string'),
+            'sourceName' => $this->request->getQuery('source_name', 'string'),
             'order' => $order,
             'limit' => $limit,
             'page' => $this->request->getQuery('page', 'int', 1),
@@ -60,13 +63,13 @@ class PostController extends ControllerBase
 
         $data = $this->request->getPost();
         if (!$form->isFullValid($data)) {
-            return $this->displayInvalidMessages($form);
+            return $this->showInvalidMessages($form);
         }
 
         try {
             $form->save('createPost');
         } catch (\Exception $e) {
-            return $this->displayException($e, $form->getModel()->getMessages());
+            return $this->showException($e, $form->getModel()->getMessages());
         }
         $this->flashSession->success('SUCCESS_POST_CREATED');
 
@@ -93,13 +96,13 @@ class PostController extends ControllerBase
         $data = $this->request->getPost();
 
         if (!$form->isFullValid($data)) {
-            return $this->displayInvalidMessages($form);
+            return $this->showInvalidMessages($form);
         }
 
         try {
             $form->save('updatePost');
         } catch (\Exception $e) {
-            return $this->displayException($e, $form->getModel()->getMessages());
+            return $this->showException($e, $form->getModel()->getMessages());
         }
         $this->flashSession->success('SUCCESS_POST_UPDATED');
 

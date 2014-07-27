@@ -11,7 +11,7 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
     public function deleteAction()
     {
         if (!$this->request->isDelete()) {
-            return $this->displayJsonErrorResponse(405, 'ERR_REQUEST_METHOD_NOT_ALLOW');
+            return $this->showErrorMessageAsJson(405, 'ERR_REQUEST_METHOD_NOT_ALLOW');
         }
 
         $id = $this->dispatcher->getParam('id');
@@ -19,7 +19,7 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
         try {
             $post->removePost($id);
         } catch (\Exception $e) {
-            return $this->displayExceptionForJson($e, $post->getMessages());
+            return $this->showExceptionAsJson($e, $post->getMessages());
         }
 
         return $this->response->setJsonContent($post);
@@ -28,7 +28,7 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
     public function statusAction()
     {
         if (!$this->request->isPut()) {
-            return $this->displayJsonErrorResponse(405, 'ERR_REQUEST_METHOD_NOT_ALLOW');
+            return $this->showErrorMessageAsJson(405, 'ERR_REQUEST_METHOD_NOT_ALLOW');
         }
 
         $id = $this->dispatcher->getParam('id');
@@ -37,7 +37,7 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
             $post->status = $this->request->getPut('status');
             $post->save();
         } catch (\Exception $e) {
-            return $this->displayExceptionForJson($e, $post->getMessages());
+            return $this->showExceptionAsJson($e, $post->getMessages());
         }
 
         return $this->response->setJsonContent($post);
@@ -46,7 +46,7 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
     public function sortAction()
     {
         if (!$this->request->isPut()) {
-            return $this->displayJsonErrorResponse(405, 'ERR_REQUEST_METHOD_NOT_ALLOW');
+            return $this->showErrorMessageAsJson(405, 'ERR_REQUEST_METHOD_NOT_ALLOW');
         }
 
         $id = $this->dispatcher->getParam('id');
@@ -55,7 +55,7 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
             $post->sortOrder = (int) $this->request->getPut('sortOrder');
             $post->save();
         } catch (\Exception $e) {
-            return $this->displayExceptionForJson($e, $post->getMessages());
+            return $this->showExceptionAsJson($e, $post->getMessages());
         }
 
         return $this->response->setJsonContent($post);
@@ -64,12 +64,12 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
     public function batchAction()
     {
         if (!$this->request->isPut()) {
-            return $this->displayJsonErrorResponse(405, 'ERR_REQUEST_METHOD_NOT_ALLOW');
+            return $this->showErrorMessageAsJson(405, 'ERR_REQUEST_METHOD_NOT_ALLOW');
         }
 
         $idArray = $this->request->getPut('id');
         if (!is_array($idArray) || count($idArray) < 1) {
-            return $this->displayJsonErrorResponse(401, 'ERR_REQUEST_PARAMS_INCORRECT');
+            return $this->showErrorMessageAsJson(401, 'ERR_REQUEST_PARAMS_INCORRECT');
         }
 
         $status = $this->request->getPut('status');
@@ -85,7 +85,7 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
                 }
             }
         } catch (\Exception $e) {
-            return $this->displayExceptionForJson($e, $post->getMessages());
+            return $this->showExceptionAsJson($e, $post->getMessages());
         }
 
         return $this->response->setJsonContent($posts);
@@ -104,7 +104,7 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
                     'slug' => $slug
                 )
             );
-            if($exclude) {
+            if ($exclude) {
                 $conditions['conditions'] .= ' AND id != :id:';
                 $conditions['bind']['id'] = $exclude;
             }
@@ -122,5 +122,4 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
             'id' => $post ? $post->id : 0,
         ));
     }
-
 }

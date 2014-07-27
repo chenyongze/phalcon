@@ -67,10 +67,10 @@ class FileManager extends Files
         $order = 'createdAt DESC';
         if (!empty($query['order'])) {
             $orderArray = explode(',', $query['order']);
-            if(count($orderArray) > 1) {
+            if (count($orderArray) > 1) {
                 $order = array();
-                foreach($orderArray as $subOrder) {
-                    if($subOrder && !empty($orderMapping[$subOrder])) {
+                foreach ($orderArray as $subOrder) {
+                    if ($subOrder && !empty($orderMapping[$subOrder])) {
                         $order[] = $orderMapping[$subOrder];
                     }
                 }
@@ -86,5 +86,4 @@ class FileManager extends Files
         $itemQuery->orderBy($order);
         return $itemQuery;
     }
-
 }

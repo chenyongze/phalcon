@@ -21,10 +21,12 @@ class UsersRoles extends \Eva\EvaEngine\Mvc\Model
 
     public function initialize()
     {
-        $this->belongsTo('userId', 'Eva\EvaUser\Entities\Users', 'id',
+        $this->belongsTo(
+            'userId', 'Eva\EvaUser\Entities\Users', 'id',
             array('alias' => 'user')
         );
-        $this->belongsTo('roleId', 'Eva\EvaPermission\Entities\Roles', 'id',
+        $this->belongsTo(
+            'roleId', 'Eva\EvaPermission\Entities\Roles', 'id',
             array('alias' => 'role')
         );
 
