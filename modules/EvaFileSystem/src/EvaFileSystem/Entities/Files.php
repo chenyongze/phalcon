@@ -4,7 +4,6 @@ namespace Eva\EvaFileSystem\Entities;
 
 use Eva\EvaEngine\Exception;
 
-
 class Files extends \Eva\EvaEngine\Mvc\Model
 {
     protected $tableName = 'file_files';
@@ -181,7 +180,7 @@ class Files extends \Eva\EvaEngine\Mvc\Model
     public function getConfig()
     {
         $configKey = $this->configKey;
-        if(empty($this->getDI()->getConfig()->filesystem->$configKey)) {
+        if (empty($this->getDI()->getConfig()->filesystem->$configKey)) {
             throw new Exception\InvalidArgumentException(sprintf('No matched file system config key %s found', $configKey));
         }
         return $this->getDI()->getConfig()->filesystem->$configKey;
@@ -189,7 +188,7 @@ class Files extends \Eva\EvaEngine\Mvc\Model
 
     public function readConfig()
     {
-        if(true === $this->configReady) {
+        if (true === $this->configReady) {
             return $this;
         }
         $config = $this->getConfig();
