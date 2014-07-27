@@ -27,7 +27,7 @@ class CounterTask extends TaskBase
     }
     public function persistAction($params)
     {
-        if(empty($params)) {
+        if (empty($params)) {
             $this->output->writelnError('[Error]: Group Name is null');
 
         } else {
@@ -39,8 +39,8 @@ class CounterTask extends TaskBase
                 function(array $items) use ($post, & $count) {
                     $values = '';
                     $count += count($items);
-                    foreach($items AS $post_id=>$heat) {
-                        if($values != '') {
+                    foreach ($items as $post_id => $heat) {
+                        if ($values != '') {
                             $values .= ',';
                         }
                         $values .= "({$post_id}, {$heat}, '', 'private', '', 0)";
@@ -53,4 +53,4 @@ class CounterTask extends TaskBase
             $this->output->writelnComment('Done! Persist '.$count.' items;');
         }
     }
-} 
+}

@@ -9,7 +9,6 @@ use Eva\EvaEngine\Exception;
 use Eva\EvaEngine\Mvc\Model\Validator\Uniqueness;
 use Eva\CounterRank\utils\CounterRankUtil;
 
-
 class Post extends Entities\Posts
 {
     public static $defaultDump = array(
@@ -168,10 +167,10 @@ class Post extends Entities\Posts
         $order = 'createdAt DESC';
         if (!empty($query['order'])) {
             $orderArray = explode(',', $query['order']);
-            if(count($orderArray) > 1) {
+            if (count($orderArray) > 1) {
                 $order = array();
-                foreach($orderArray as $subOrder) {
-                    if($subOrder && !empty($orderMapping[$subOrder])) {
+                foreach ($orderArray as $subOrder) {
+                    if ($subOrder && !empty($orderMapping[$subOrder])) {
                         $order[] = $orderMapping[$subOrder];
                     }
                 }
@@ -194,7 +193,7 @@ class Post extends Entities\Posts
         $tagData = isset($data['tags']) ? $data['tags'] : array();
         $categoryData = isset($data['categories']) ? $data['categories'] : array();
 
-        if($textData) {
+        if ($textData) {
             unset($data['text']);
             $text = new Text();
             $text->assign($textData);
@@ -243,7 +242,7 @@ class Post extends Entities\Posts
         $tagData = $data['tags'];
         $categoryData = $data['categories'];
 
-        if($textData) {
+        if ($textData) {
             unset($data['text']);
             $text = new Text();
             $text->assign($textData);
@@ -325,7 +324,7 @@ class Post extends Entities\Posts
 
     public function getPrevPost()
     {
-        if(!$this->id) {
+        if (!$this->id) {
             return false;
         }
 
@@ -341,7 +340,7 @@ class Post extends Entities\Posts
 
     public function getNextPost()
     {
-        if(!$this->id) {
+        if (!$this->id) {
             return false;
         }
 
