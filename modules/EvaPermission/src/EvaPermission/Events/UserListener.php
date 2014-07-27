@@ -12,14 +12,14 @@ class UserListener
 {
     public function afterLogin($event, $loginUser)
     {
-        if(!$loginUser->id) {
+        if (!$loginUser->id) {
             return;
         }
 
         $roles = $loginUser->roles;
         $sessionRoles = array();
-        if($roles) {
-            foreach($roles as $role) {
+        if ($roles) {
+            foreach ($roles as $role) {
                 $sessionRoles[] = $role->roleKey;
             }
         }

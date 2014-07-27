@@ -67,5 +67,4 @@ class Module implements ModuleDefinitionInterface, StandardInterface
         $dispatcher = $di->getDispatcher();
         $dispatcher->setDefaultNamespace('Eva\EvaPermission\Controllers');
     }
-
 }

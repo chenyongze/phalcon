@@ -35,5 +35,4 @@ class Operation extends Entities\Operations
         $itemQuery->orderBy($order);
         return $itemQuery;
     }
-
 }

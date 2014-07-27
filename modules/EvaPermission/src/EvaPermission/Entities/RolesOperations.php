@@ -21,10 +21,12 @@ class RolesOperations extends \Eva\EvaEngine\Mvc\Model
     public function initialize()
     {
         
-        $this->belongsTo('roleId', 'Eva\EvaPermission\Entities\Roles', 'id',
+        $this->belongsTo(
+            'roleId', 'Eva\EvaPermission\Entities\Roles', 'id',
             array('alias' => 'role')
         );
-        $this->belongsTo('operationId', 'Eva\EvaPermission\Entities\Operations', 'id',
+        $this->belongsTo(
+            'operationId', 'Eva\EvaPermission\Entities\Operations', 'id',
             array('alias' => 'operationId')
         );
     }

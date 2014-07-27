@@ -30,11 +30,11 @@ class Apikey extends Entities\Apikeys
 
     public function isSuperToken()
     {
-        if(!$this->token) {
+        if (!$this->token) {
             return false;
         }
         $config = $this->getDI()->getConfig()->permission->superkeys->toArray();
-        if(in_array($this->token, $config)) {
+        if (in_array($this->token, $config)) {
             return true;
         }
         return false;
@@ -42,22 +42,22 @@ class Apikey extends Entities\Apikeys
 
     public function getTokenStatus()
     {
-        if($this->tokenStatus !== false) {
+        if ($this->tokenStatus !== false) {
             return $this->tokenStatus;
         }
 
         $token = $this->token;
-        if(!$token) {
+        if (!$token) {
             return $this->tokenStatus = array();
         }
         $fastCache = $this->getDI()->getFastCache();
         $cacheKey = 'eva-permission-token-' . $token;
-        if($fastCache && $data = $fastCache->get($cacheKey)) {
+        if ($fastCache && $data = $fastCache->get($cacheKey)) {
             return $this->tokenStatus = json_decode($data, true);
         }
 
         $tokenObj = self::findFirst("apikey = '$token'");
-        if($tokenObj) {
+        if ($tokenObj) {
             $token = array(
                 'apikey' => $tokenObj->apikey,
                 'userId' => $tokenObj->userId,
@@ -68,12 +68,12 @@ class Apikey extends Entities\Apikeys
                 'expiredAt' => $tokenObj->expiredAt,
             );
             $roles = array();
-            if($tokenObj->user && $userRoles = $tokenObj->user->roles) {
-                foreach($userRoles as $role) {
+            if ($tokenObj->user && $userRoles = $tokenObj->user->roles) {
+                foreach ($userRoles as $role) {
                     $roles[] = $role->roleKey;
                 }
             }
-            if($tokenObj->user->status == 'active') {
+            if ($tokenObj->user->status == 'active') {
                 $roles[] = 'USER';
                 $roles = array_unique($roles);
             }
@@ -89,7 +89,7 @@ class Apikey extends Entities\Apikeys
     public function isOutOfMinutelyRate()
     {
         $tokenStatus = $this->getTokenStatus();
-        if(!$tokenStatus) {
+        if (!$tokenStatus) {
             return true;
         }
         $fastCache = $this->getDI()->getFastCache();
@@ -99,7 +99,7 @@ class Apikey extends Entities\Apikeys
         $minutelyRate = $tokenStatus['minutelyRate'];
 
         $currentRate = $fastCache->get($cacheKey);
-        if($currentRate > $tokenStatus['minutelyRate']) {
+        if ($currentRate > $tokenStatus['minutelyRate']) {
             return true;
         }
 
@@ -110,7 +110,7 @@ class Apikey extends Entities\Apikeys
     public function isOutOfHourlyRate()
     {
         $tokenStatus = $this->getTokenStatus();
-        if(!$tokenStatus) {
+        if (!$tokenStatus) {
             return true;
         }
         $fastCache = $this->getDI()->getFastCache();
@@ -119,7 +119,7 @@ class Apikey extends Entities\Apikeys
         $cacheKey = $cachePrefix . '-' . ($time - $time % 3600);
         $minutelyRate = $tokenStatus['hourlyRate'];
 
-        if($currentRate = $fastCache->get($cacheKey) && $currentRate > $tokenStatus['hourlyRate']) {
+        if ($currentRate = $fastCache->get($cacheKey) && $currentRate > $tokenStatus['hourlyRate']) {
             return true;
         }
 
@@ -130,7 +130,7 @@ class Apikey extends Entities\Apikeys
     public function isOutOfDailyRate()
     {
         $tokenStatus = $this->getTokenStatus();
-        if(!$tokenStatus) {
+        if (!$tokenStatus) {
             return true;
         }
         $fastCache = $this->getDI()->getFastCache();
@@ -139,13 +139,11 @@ class Apikey extends Entities\Apikeys
         $cacheKey = $cachePrefix . '-' . ($time - $time % 86400);
         $minutelyRate = $tokenStatus['dailyRate'];
 
-        if($currentRate = $fastCache->get($cacheKey) && $currentRate > $tokenStatus['dailyRate']) {
+        if ($currentRate = $fastCache->get($cacheKey) && $currentRate > $tokenStatus['dailyRate']) {
             return true;
         }
 
         $fastCache->incr($cacheKey);
         return false;
     }
-
-
 }

@@ -19,7 +19,7 @@ class SessionAuthority extends AbstractAuthority
 
     public function getUser()
     {
-        if(!$this->user) {
+        if (!$this->user) {
             return $this->user = new LoginUser();
         }
         return $this->user;
@@ -28,19 +28,19 @@ class SessionAuthority extends AbstractAuthority
     public function checkAuth($resource, $operation)
     {
         $user = $this->getUser();
-        if(!$user->isUserLoggedIn()) {
+        if (!$user->isUserLoggedIn()) {
             return false;
         }
 
-        if($user->isSuperUser()) {
+        if ($user->isSuperUser()) {
             return true;
         }
 
         $roles = $user->getRoles();
         $acl = $this->getAcl();
-        foreach($roles as $role) {
+        foreach ($roles as $role) {
             //If any of roles allowed permission
-            if($acl->isAllowed($role, $resource, $operation)) {
+            if ($acl->isAllowed($role, $resource, $operation)) {
                 return true;
             }
         }

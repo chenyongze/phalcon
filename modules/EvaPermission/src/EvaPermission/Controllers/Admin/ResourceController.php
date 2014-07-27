@@ -29,5 +29,4 @@ class ResourceController extends ControllerBase
         $pager = $paginator->getPaginate();
         $this->view->setVar('pager', $pager);
     }
-
 }

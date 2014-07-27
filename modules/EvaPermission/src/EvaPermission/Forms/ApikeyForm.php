@@ -73,7 +73,7 @@ class ApikeyForm extends Form
 
     /**
      *
-     * @var string 
+     * @var string
      */
     public $username;
 

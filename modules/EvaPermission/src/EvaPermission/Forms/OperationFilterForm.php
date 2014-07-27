@@ -57,5 +57,4 @@ class OperationFilterForm extends Form
         $this->initializeFormAnnotations();
         $this->addRole();
     }
-
 }

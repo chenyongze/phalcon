@@ -38,30 +38,30 @@ class Scanner
     {
         $controllerPath = $controller->getPathName();
         $controllerClass = $this->getClassName($controller->getContents());
-        if(!$controllerClass) {
+        if (!$controllerClass) {
             return $this;
         }
 
         $resource = $this->getResource($controllerClass);
 
-        if(!$resource) {
+        if (!$resource) {
             return $this;
         }
 
         $operations = $this->getOperations($controllerClass);
 
-        if(!$operations) {
+        if (!$operations) {
             return $this;
         }
 
         $resourceModel = Entities\Resources::findFirstByResourceKey($resource['resourceKey']);
-        if(!$resourceModel){
+        if (!$resourceModel) {
             $resourceModel = new Entities\Resources();
         }
         $resourceModel->assign($resource);
 
         $operationModels = array();
-        foreach($operations as $operation) {
+        foreach ($operations as $operation) {
             $operationModel = Entities\Operations::findFirst(array(
                 "conditions" => "resourceKey = :resourceKey: AND operationKey = :operationKey:",
                 "bind"       => array(
@@ -69,14 +69,14 @@ class Scanner
                     'operationKey' => $operation['operationKey'],
                 )
             ));
-            if(!$operationModel) {
+            if (!$operationModel) {
                 $operationModel = new Entities\Operations();
             }
             $operationModel->assign($operation);
             $operationModels[] = $operationModel;
         }
         $resourceModel->operations = $operationModels;
-        if($resourceModel->save()) {
+        if ($resourceModel->save()) {
             echo sprintf("Resource %s already added to DB\n", $resource['resourceKey']);
         } else {
             print_r($resourceModel->getMessages());
@@ -94,16 +94,16 @@ class Scanner
     {
         $ref = new \ReflectionClass($controllerClass);
         //Not a private resource
-        if(!$ref->implementsInterface('Eva\EvaEngine\Mvc\Controller\TokenAuthorityControllerInterface') &&
+        if (!$ref->implementsInterface('Eva\EvaEngine\Mvc\Controller\TokenAuthorityControllerInterface') &&
           !$ref->implementsInterface('Eva\EvaEngine\Mvc\Controller\SessionAuthorityControllerInterface')) {
             return false;
         }
         
         $resourceGroup = 'app';
-        if($ref->implementsInterface('Eva\EvaEngine\Mvc\Controller\TokenAuthorityControllerInterface')) {
+        if ($ref->implementsInterface('Eva\EvaEngine\Mvc\Controller\TokenAuthorityControllerInterface')) {
             $resourceGroup = 'api';
         } else {
-            if($ref->isSubclassOf('Eva\EvaEngine\Mvc\Controller\AdminControllerBase')) {
+            if ($ref->isSubclassOf('Eva\EvaEngine\Mvc\Controller\AdminControllerBase')) {
                 $resourceGroup = 'admin';
             }
         }
@@ -114,11 +114,11 @@ class Scanner
         $resourceName = $controllerClass;
         $resourceDes = '';
 
-        if($resourceAnnotations && $annotation = $resourceAnnotations->get('resourceName')) {
+        if ($resourceAnnotations && $annotation = $resourceAnnotations->get('resourceName')) {
             $resourceName = implode('', $annotation->getArguments());
         }
 
-        if($resourceAnnotations && $annotation = $resourceAnnotations->get('resourceDescription')) {
+        if ($resourceAnnotations && $annotation = $resourceAnnotations->get('resourceDescription')) {
             $resourceDes = implode('', $annotation->getArguments());
         }
 
@@ -142,8 +142,8 @@ class Scanner
         $reflector = $reader->get($controllerClass);
         $operationAnnotations = $reflector->getMethodsAnnotations();
 
-        foreach($methods as $method) {
-            if(!\Phalcon\Text::endsWith($method->name, 'Action')) {
+        foreach ($methods as $method) {
+            if (!\Phalcon\Text::endsWith($method->name, 'Action')) {
                 continue;
             }
 
@@ -151,7 +151,7 @@ class Scanner
             $operationName = $operationKey;
             $operationDes = '';
 
-            if(isset($operationAnnotations[$method->name]) && $annotations = $operationAnnotations[$method->name]) {
+            if (isset($operationAnnotations[$method->name]) && $annotations = $operationAnnotations[$method->name]) {
                 $annotation = $annotations->get('operationName');
                 $operationName = implode('', $annotation->getArguments());
                 $annotation = $annotations->get('operationDescription');
@@ -173,14 +173,13 @@ class Scanner
     {
         $tokens = token_get_all($sourceCode);
         $tokenLength = count($tokens);
-        for($i = 0; $i < $tokenLength; $i++) {
-
-            if(isset($tokens[$i][1]) && strtolower($tokens[$i][1]) == 'namespace') {
+        for ($i = 0; $i < $tokenLength; $i++) {
+            if (isset($tokens[$i][1]) && strtolower($tokens[$i][1]) == 'namespace') {
                 $j = 1;
                 $namespace = '';
-                while(true) {
-                    if(empty($tokens[$i + $j][1])) {
-                        if($j != 1) {
+                while (true) {
+                    if (empty($tokens[$i + $j][1])) {
+                        if ($j != 1) {
                             break;
                         }
                     }
@@ -191,12 +190,12 @@ class Scanner
                 $i += $j;
             }
 
-            if(isset($tokens[$i][1]) && strtolower($tokens[$i][1]) == 'class') {
+            if (isset($tokens[$i][1]) && strtolower($tokens[$i][1]) == 'class') {
                 $j = 1;
                 $class = '';
-                while(true) {
-                    if(isset($tokens[$i + $j][1]) && trim($tokens[$i + $j][1]) == '') {
-                        if($j != 1) {
+                while (true) {
+                    if (isset($tokens[$i + $j][1]) && trim($tokens[$i + $j][1]) == '') {
+                        if ($j != 1) {
                             break;
                         }
                     }
@@ -208,7 +207,7 @@ class Scanner
             }
         }
 
-        if(empty($namespaces) || empty($classes)) {
+        if (empty($namespaces) || empty($classes)) {
             return '';
         }
         return $namespaces[0] . '\\' . $classes[0];

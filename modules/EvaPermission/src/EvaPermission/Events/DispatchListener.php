@@ -17,10 +17,10 @@ class DispatchListener
         $controller = $dispatcher->getActiveController();
 
         //Not need to authority
-        if($controller instanceof SessionAuthorityControllerInterface) {
+        if ($controller instanceof SessionAuthorityControllerInterface) {
             $auth = new Auth\SessionAuthority();
             $auth->setCache($dispatcher->getDI()->getGlobalCache());
-            if(!$auth->checkAuth(get_class($controller), $dispatcher->getActionName())) {
+            if (!$auth->checkAuth(get_class($controller), $dispatcher->getActionName())) {
                 $dispatcher->setModuleName('EvaPermission');
                 $dispatcher->setNamespaceName('Eva\EvaPermission\Controllers');
                 $dispatcher->setControllerName('Error');
@@ -39,10 +39,10 @@ class DispatchListener
             $auth->setApikey($dispatcher->getDI()->getRequest()->get('apikey'));
             $auth->setCache($dispatcher->getDI()->getGlobalCache());
             //$auth->setFastCache($dispatcher->getDI()->getFastCache());
-            if(!$auth->checkAuth(get_class($controller), $dispatcher->getActionName())) {
+            if (!$auth->checkAuth(get_class($controller), $dispatcher->getActionName())) {
                 throw new Exception\UnauthorizedException('Permission not allowed');
             }
-            if($controller instanceof RateLimitControllerInterface && !$auth->checkLimitRate()) {
+            if ($controller instanceof RateLimitControllerInterface && !$auth->checkLimitRate()) {
                 throw new Exception\OperationNotPermitedException('Operation out of limit rate');
             }
             return true;

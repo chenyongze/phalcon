@@ -19,37 +19,37 @@ abstract class AbstractAuthority
 
     public function getAcl()
     {
-        if($this->acl) {
+        if ($this->acl) {
             return $this->acl;
         }
 
         $cache = $this->getCache();
-        if($cache && $data = $cache->get('acl')) {
+        if ($cache && $data = $cache->get('acl')) {
             return $this->acl = $data;
         }
 
         $acl = new MemoryAcl();
         $acl->setDefaultAction(Acl::DENY);
         $roles = Entities\Roles::find();
-        foreach($roles as $role) {
+        foreach ($roles as $role) {
             $roleName = $role->name ? $role->name : $role->roleKey;
             $acl->addRole($role->roleKey, $role->roleKey);
         }
         $resources = Entities\Resources::find();
-        foreach($resources as $resource) {
+        foreach ($resources as $resource) {
             $acl->addResource($resource->resourceKey);
         }
         $operations = Entities\Operations::find();
-        foreach($operations as $operation) {
+        foreach ($operations as $operation) {
             $acl->addResourceAccess($operation->resourceKey, $operation->operationKey);
-            if($operation->roles) {
-                foreach($operation->roles as $role) {
+            if ($operation->roles) {
+                foreach ($operation->roles as $role) {
                     $acl->allow($role->roleKey, $operation->resourceKey, $operation->operationKey);
                 }
             }
         }
 
-        if($cache) {
+        if ($cache) {
             $cache->save('acl', $acl);
         }
         return $this->acl = $acl;
@@ -69,7 +69,7 @@ abstract class AbstractAuthority
 
     public function getUser()
     {
-        if(!$this->user) {
+        if (!$this->user) {
             return $this->user = new LoginUser();
         }
         return $this->user;
