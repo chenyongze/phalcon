@@ -17,7 +17,7 @@ class CommentManager extends BaseModel
         '-created_at' => 'createdAt DESC',
     );
 
-    const DEFAULT_SORT = 'createdAt DESC';
+    const DEFAULT_SORT = '-created_at';
 
     /**
      * {@inheritdoc}
@@ -105,10 +105,10 @@ class CommentManager extends BaseModel
             $builder->andWhere('username LIKE :username:', array('username' => "%{$query['usernameli']}%"));
         }
 
-        $order = self::DEFAULT_SORT;
-        if (!empty($query['order'])) {
-            isset(self::$orderMapping[$query['order']]) and $order = self::$orderMapping[$query['order']];
+        if (empty($query['order']) || empty(self::$orderMapping[$query['order']])) {
+            $query['order'] = self::DEFAULT_SORT;
         }
+        $order = self::$orderMapping[$query['order']];
 
         $builder->orderBy($order);
 
@@ -144,10 +144,10 @@ class CommentManager extends BaseModel
         $builder->andWhere('status = "' . Comments::STATE_APPROVED . '"');
         $builder->andWhere('threadId = :threadId:', array('threadId' => $thread->id));
 
-        $order = self::DEFAULT_SORT;
-        if (!empty($sorter)) {
-            isset(self::$orderMapping[$sorter]) and $order = self::$orderMapping[$sorter];
+        if (empty($sorter) || empty(self::$orderMapping[$sorter])) {
+            $sorter = self::DEFAULT_SORT;
         }
+        $order = self::$orderMapping[$sorter];
 
         $builder->orderBy($order);
 

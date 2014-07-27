@@ -1,13 +1,4 @@
 /**
- * This file is part of the FOSCommentBundle package.
- *
- * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
- *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
- */
-
-/**
  * To use this reference javascript, you must also have jQuery installed. If
  * you want to embed comments cross-domain, then easyXDM CORS is also required.
  *
@@ -341,7 +332,7 @@
                                 WS_COMMENT.serializeObject(form),
                                 function(data) {
                                     var form = $($.trim(data)).children('form')[0];
-                                    var threadId = $(form).data().fosCommentThreadId;
+                                    var threadId = $(form).data().wsCommentThreadId;
 
                                     // reload the intire thread
                                     WS_COMMENT.getThreadComments(threadId);
@@ -456,10 +447,10 @@
         loadCommentCounts: function()
         {
             var threadIds = [];
-            var commentCountElements = $('span.fos-comment-count');
+            var commentCountElements = $('span.ws-comment-count');
 
             commentCountElements.each(function(i, elem){
-                var threadId = $(elem).data('fosCommentThreadId');
+                var threadId = $(elem).data('wsCommentThreadId');
                 if(threadId) {
                     threadIds.push(threadId);
                 }
@@ -481,7 +472,7 @@
                     }
 
                     $.each(commentCountElements, function(){
-                        var threadId = $(this).data('fosCommentThreadId');
+                        var threadId = $(this).data('wsCommentThreadId');
                         if(threadId) {
                             WS_COMMENT.setCommentCount(this, threadData[threadId]);
                         }
@@ -582,14 +573,14 @@
         WS_COMMENT.setCommentCount = window.ws_comment_thread_comment_count_callback;
     }
 
-    if($('span.fos-comment-count').length > 0) {
+    if($('span.ws-comment-count').length > 0) {
         WS_COMMENT.loadCommentCounts();
     }
 
     WS_COMMENT.initializeListeners();
 
-    window.fos = window.fos || {};
-    window.fos.Comment = WS_COMMENT;
+    window.ws = window.ws || {};
+    window.ws.Comment = WS_COMMENT;
 
     /**
      * 用户评论
