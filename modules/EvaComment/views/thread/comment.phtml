@@ -18,7 +18,7 @@ if($comment->depth>0){
         <p class="ws-comment-content"><?=htmlspecialchars($comment->content) ?></p>
 
         <div class="ws-comment-footer">
-            <span class="ws-comment-time" datetime="2014-06-27T09:40:34+08:00" title="2014年6月27日 9:40:34 AM">3小时前</span>
+            <span class="ws-comment-time" data-time="<?=date('c',$comment->createdAt)?>" title="<?=date('Y年m月d日 H:i:s',$comment->createdAt)?>"><?=date('Y-m-d H:i:s',$comment->createdAt)?></span>
             <span class="ws-comment-actions">
                 <a class="ws-comment-reply" href="javascript:void(0);" data-id="<?=$comment->id?>" data-url="/thread/<?= $thread->uniqueKey?>/comments/new">
                     回复

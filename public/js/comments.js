@@ -1,37 +1,3 @@
-/**
- * To use this reference javascript, you must also have jQuery installed. If
- * you want to embed comments cross-domain, then easyXDM CORS is also required.
- *
- * @todo: expand this explanation (also in the docs)
- *
- * Then a comment thread can be embedded on any page:
- *
- * <div id="ws_comment_thread">#comments</div>
- * <script type="text/javascript">
- *     // Set the thread_id if you want comments to be loaded via ajax (url to thread comments api)
- *     var ws_comment_thread_id = 'a_unique_identifier_for_the_thread';
- *     var ws_comment_thread_api_base_url = 'http://example.org/api/threads';
- *
- *     // Optionally set the cors url if you want cross-domain AJAX (also needs easyXDM)
- *     var ws_comment_remote_cors_url = 'http://example.org/cors/index.html';
- *
- *     // Optionally set a custom callback function to update the comment count elements
- *     var ws_comment_thread_comment_count_callback = function(elem, threadObject){}
- *
- *     // Optionally set a different element than div#ws_comment_thread as container
- *     var ws_comment_thread_container = $('#other_element');
- *
- * (function() {
- *     var ws_comment_script = document.createElement('script');
- *     ws_comment_script.async = true;
- *     ws_comment_script.src = 'http://example.org/path/to/this/file.js';
- *     ws_comment_script.type = 'text/javascript';
- *
- *     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ws_comment_script);
- * })();
- * </script>
- */
-
 (function(window, $, easyXDM){
     "use strict";
     var WS_COMMENT = {
@@ -402,6 +368,9 @@
 //                form.after(commentHtml);
                 var comment_element = $('#ws_comment_list');
                 comment_element.prepend(commentHtml);
+
+                //todo
+                $('.ws-title').show();
             }
             form.trigger('ws_comment_add_comment', commentHtml);
 

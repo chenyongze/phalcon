@@ -8,6 +8,8 @@ class Threads extends BaseModel
 {
     protected $tableName = 'comment_threads';
 
+    const DEFAULT_COMMENT_STATUS = 'approved';
+
     /**
      *
      * @var integer
@@ -65,12 +67,13 @@ class Threads extends BaseModel
 
     public function onConstruct()
     {
-        $this->title = '';
+        $this->title = 'undefined';
         $this->isCommentAble = '';
         $this->numComments = 0;
         $this->lastCommentAt = time();
         $this->lastEditAt = time();
         $this->channel = 0;
+        $this->defaultCommentStatus = self::DEFAULT_COMMENT_STATUS;
     }
 
     public function isCommentable()
