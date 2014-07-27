@@ -104,5 +104,4 @@ class SessionController extends ControllerBase
             }
         }
     }
-
 }

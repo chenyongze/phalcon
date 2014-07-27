@@ -45,5 +45,4 @@ class Module implements ModuleDefinitionInterface, StandardInterface
         $dispatcher = $di->getDispatcher();
         $dispatcher->setDefaultNamespace('Eva\EvaUser\Controllers');
     }
-
 }

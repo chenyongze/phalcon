@@ -13,7 +13,7 @@ class RegisterController extends ControllerBase
             return;
         }
 
-        if($this->request->isAjax()) {
+        if ($this->request->isAjax()) {
             $form = new Forms\RegisterForm();
             if ($form->isValid($this->request->getPost()) === false) {
                 return $this->showInvalidMessagesAsJson($form);
@@ -78,5 +78,4 @@ class RegisterController extends ControllerBase
             'status' => $userinfo ? $userinfo->status : null,
         ));
     }
-
 }

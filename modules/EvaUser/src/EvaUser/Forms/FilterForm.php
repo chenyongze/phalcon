@@ -49,5 +49,4 @@ class FilterForm extends Form
     {
         $this->initializeFormAnnotations();
     }
-
 }

@@ -205,11 +205,11 @@ class Users extends \Eva\EvaEngine\Mvc\Model
 
     public function getRoles()
     {
-        if(!$this->id) {
+        if (!$this->id) {
             return array('GUEST');
         }
 
-        if($this->isActived()) {
+        if ($this->isActived()) {
             return array('USER');
         } else {
             return array('PENDING_USER');

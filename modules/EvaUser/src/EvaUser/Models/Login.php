@@ -23,7 +23,7 @@ class Login extends Entities\Users
         $di = DI::getDefault();
         $session = $di->getSession();
         $currentUser = $session->get(self::SESSION_KEY_LOGIN);
-        if($currentUser) {
+        if ($currentUser) {
             return $currentUser;
         }
         return array(
@@ -39,7 +39,7 @@ class Login extends Entities\Users
         $di = DI::getDefault();
         $session = $di->getSession();
         $roles = $session->get(self::SESSION_KEY_ROLES);
-        if($roles) {
+        if ($roles) {
             return $roles;
         }
         return array(
@@ -128,7 +128,7 @@ class Login extends Entities\Users
     {
         $this->getDI()->getEventsManager()->fire('user:beforeLogin', $this);
 
-        if(!$this->id) {
+        if (!$this->id) {
             throw new Exception\InvalidArgumentException('ERR_USER_NO_ID_INPUT');
         }
 

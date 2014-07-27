@@ -65,5 +65,4 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
 
         return $this->response->setJsonContent($user);
     }
-
 }

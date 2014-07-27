@@ -143,5 +143,4 @@ class User extends Entities\Users
         $this->id = $id;
         $this->delete();
     }
-
 }
