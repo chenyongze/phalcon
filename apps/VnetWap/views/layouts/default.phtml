@@ -8,58 +8,88 @@
         <link rel="stylesheet" type="text/css" href="/vnet/gmu/reset.css" />
         <link rel="stylesheet" type="text/css" href="/vnet/gmu/gmu.css" />
         <link rel="stylesheet" type="text/css" href="/vnet/css/style.css" />
+		<style type="text/css">
+			#menu {
+				/*background: transparent;*/
+				border-width: 0;
+				display: -webkit-box;
+				-webkit-box-flex: 1;
+			}
+			#menu li a {
+				/*color: #333;*/
+			}
 
+			#menu li.ui-state-active,
+			#menu li.ui-state-hover {
+				/*background: transparent;*/
+			}
+			#menu li.ui-state-active a,
+			#menu li.ui-state-hover a{
+				/*color: #e81459;*/
+			}
+
+			#menu .ui-scroller {
+				position: relative;
+			}
+			#menu .bar {
+				position: absolute;
+				height: 2px;
+				bottom: 0;
+				overflow: hidden;
+				-webkit-box-sizing:border-box;
+				padding: 0 10px;
+				-webkit-transition: left 200ms ease-out;
+				display:none;
+			}
+			#menu .bar:after {
+				content: '';
+				display: block;
+				height: 2px;
+				background-color: #e81459;
+			}
+			#menu_wrap {
+				display: -webkit-box;
+			}
+			#arrow {
+				width: 30px;
+				-webkit-box-flex: 0;
+				-webkit-box-align: center;
+				-webkit-box-pack: center;
+				display: -webkit-box;
+				background-color:#2773dc;
+			}
+			.ui-scroller {
+				float: left;
+			}
+		</style>
     </head>
     <body>
 
         <div>
-            <div class="toolbar">
-                <button class="menu-icon">打开菜单</button>
+            <div class="toolbar" style="background-image:url(/vnet/img/bg.png);background-repeat: repeat;">
+                <button class="menu-icon" style="display:none">打开菜单</button>
                 <h3 class="title" style="display:none">互联星空财经频道</h3>
-                <a href="/" class="home"><div class="home"><img src="/vnet/img/logo.png"/></div></a>
+                <a href="/"><div class="home" style="top: 1px;left:0px"><img src="/vnet/img/logo.png"/></div></a>
                 <a href="http://wallstreetcn.com/downloadapp.html" target="_blank" style="display:none"><div class="app-download"><img src="/vnet/img/app-download.png" /></div></a>
             </div>
+			<div id="menu_wrap">
+				<div id="menu">
+					<ul>
+						<li class="news"><a href="/">头条</a></li>
+						<li class="direct-tv"><a href="/direct">直播</a></li>
+						<li class="livenews"><a href="/livenews">快讯</a></li>
+						<li class="markets"><a href="/markets">行情</a></li>
+						<li class="recommend"><a href="/recommend">推荐</a></li>
+					</ul>
+					<span class="bar"></span>
+				</div>
+				<a id="arrow"><span>&gt;</span></a>
+			</div>
             <div class="content-wrapper">
                 <?=$this->getContent()?>
             </div>
 
-            <div class="left-menu">
-
-                <a href="/login"><img src="/vnet/img/icon.png" class="person-icon" alt="登录" /></a>
-                <ul>
-                    <li>
-                    <a href="/news">
-                        <img src="/vnet/img/txt.png" alt="" />
-                        <span>新闻资讯</span>
-                    </a>
-                    </li>
-                    <li>
-                    <a href="/livenews">
-                        <img src="/vnet/img/ufo.png" alt="" />
-                        <span>实时新闻</span>
-                    </a>
-                    </li>
-                    <li>
-                    <a href="/markets">
-                        <img src="/vnet/img/xls.png" alt="" />
-                        <span>全球行情</span>
-                    </a>
-                    </li>
-                    <li>
-                    <a href="/calendar">
-                        <img src="/vnet/img/xls.png" alt="" />
-                        <span>财经日历</span>
-                    </a>
-                    </li>
-                    <li>
-                    <a href="/search">
-                        <img src="/vnet/img/xls.png" />
-                        <span>搜索&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                    </a>
-                    </li>
-                </ul>
-
-            </div>
+            
 
 
 
@@ -76,6 +106,51 @@
         <script type="text/javascript" src="http://cdn.static.wallstreetcn.com/js/art-template-3.0.0.js"></script>
         <script type="text/javascript" src="/vnet/js/marketlist.js"></script>
         <script type="text/javascript" src="/vnet/js/marketdetail.js" data-desc="depend on wscn_util.js & store.js"></script>
+		<script type="text/javascript">
+
+			(function () {
+				var bar = $('#menu span.bar'),
+					left = $('#menu ul').offset().left;
+				$('#menu').navigator({
+					select: function( e, index, li ){
+						bar.css({
+							left: li.offsetLeft - left,
+							width: li.childNodes[0].offsetWidth
+						});
+					},
+					ready: function() {
+						bar.appendTo($('#menu').find('.ui-scroller'));
+					}
+				});
+
+				$('#arrow').on('click', function(){
+					$('#menu').iScroll( 'scrollTo', 100, 0, 400, true );
+				});
+
+				
+				$("#menu li").each(function(){
+					$(this).removeClass("ui-state-active");
+				});
+				
+				var url = document.location.href;
+				if(url.indexOf("livenews") != -1){
+					$("#menu .livenews").addClass("ui-state-active");
+				}
+				else if(url.indexOf("news") != -1){
+					$("#menu .news").addClass("ui-state-active");
+				}
+				else if(url.indexOf("direct") != -1){
+					$("#menu .direct-tv").addClass("ui-state-active");
+				}
+				else if(url.indexOf("markets") != -1){
+					$("#menu .markets").addClass("ui-state-active");
+				}
+				else if(url.indexOf("recommend") != -1){
+					$("#menu .recommend").addClass("ui-state-active");
+				}
+
+			})();
+		</script>
     </body>
 </html>
 
