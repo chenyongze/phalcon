@@ -6,13 +6,13 @@
                 <div class="col-md-8">
 
                     <form data-validate action="/login"  method="POST" novalidate="novalidate" role="form">
+                        <label class="control-label">用户名或邮箱</label>
                         <div class="form-group has-feedback">
-                            <label class="control-label">用户名或邮箱</label>
                             <input id="" type="text" name="identify" class="form-control" placeholder="" required>
                             <span class="glyphicon glyphicon-user form-control-feedback"></span>
                         </div>
+                        <label class="control-label">密码</label>
                         <div class="form-group has-feedback">
-                            <label class="control-label">密码</label>
                             <input type="password" name="password" class="form-control password-previewer" placeholder="" required>
                             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                         </div>
@@ -37,7 +37,7 @@
             <a class="custom-button type-qq size-fluid" href="/auth/request/tencent/oauth2">
                 <i class="icontext icontext-qq-md">QQ帐号</i>
             </a>
-            <p>还没有帐号，<a href="/register">去注册</a></p>
+            <p>还没有帐号，<a href="/register" class="text-blue">去注册</a></p>
         </div>
     </div>
 </div>
