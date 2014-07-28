@@ -19,4 +19,14 @@ return array(
         'module' => 'VnetWap',
         'controller' => 'livenews',
     ),
+    '/direct' =>  array(
+        'module' => 'VnetWap',
+        'controller' => 'index',
+        'action' => 'live',
+    ),
+    '/recommend' =>  array(
+        'module' => 'VnetWap',
+        'controller' => 'index',
+        'action' => 'recommend',
+    ),
 );
