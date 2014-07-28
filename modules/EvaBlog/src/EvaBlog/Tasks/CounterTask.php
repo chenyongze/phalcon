@@ -46,7 +46,7 @@ class CounterTask extends TaskBase
                         $values .= "({$post_id}, {$heat}, '', 'private', '', 0)";
                     }
 
-                    $post->getWriteConnection()->execute('INSERT INTO eva_blog_posts(id, count, title, visibility, slug, createdAt) VALUES  '.$values.' ON DUPLICATE KEY UPDATE count=count+values(`count`);');
+                    $post->getWriteConnection()->execute('INSERT INTO '. $post->getSource() .'(id, count, title, visibility, slug, createdAt) VALUES  '.$values.' ON DUPLICATE KEY UPDATE count=count+values(`count`);');
                 },
                 CounterRank::PERSIST_WITH_DELETING
             );
