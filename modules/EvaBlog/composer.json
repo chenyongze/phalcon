@@ -15,7 +15,8 @@
         "erusev/parsedown": "dev-master"
     },
     "suggest": {
-        "allovince/evauser": "dev-master"
+        "allovince/evauser": "dev-master",
+	"allovince/evafilesystem": "dev-master"
     },
     "autoload": {
 	"classmap" : ["Module.php"],

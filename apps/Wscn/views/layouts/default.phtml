@@ -427,7 +427,7 @@
                                         </div>
                                     </div>
                                     <div class="custom-span-4">
-                                        密码
+                                        用户名
                                     </div>
                                     <div class="custom-span-5">
                                         <div class="form-group has-feedback size-sm">
@@ -634,7 +634,7 @@ usrManager.onNotLogin(function(){
                     form.find('.alert').remove();
                     var messages = error.responseJSON.errors;
                     if(!messages || messages.length < 1) {
-                            form.prepend(showMessage('ERR_UNKNOW', '有未知错误发生，请稍候重试'));
+                            form.prepend(showMessage('ERR_UNKNOW', '连接服务器失败，请稍候重试'));
                     }
                     var i = 0;
                     for(i in messages) {

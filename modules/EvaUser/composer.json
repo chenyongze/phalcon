@@ -14,6 +14,9 @@
 	"allovince/evacommon" : "dev-master",
         "ircmaxell/password-compat": "dev-master"
     },
+    "suggest": {
+	"allovince/evafilesystem": "dev-master"
+    },
     "autoload": {
 	"classmap" : ["Module.php"],
         "psr-4": {"Eva\\EvaUser\\": "src/EvaUser"}
