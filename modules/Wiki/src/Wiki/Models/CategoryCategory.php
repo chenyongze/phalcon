@@ -9,12 +9,13 @@ namespace Eva\Wiki\Models;
 // +----------------------------------------------------------------------
 // + Datetime: 14-7-22 18:27
 // +----------------------------------------------------------------------
-// + CategoriesCategories.php 分类与分类的模型
+// + CategoryCategory.php 分类与分类的模型
 // +----------------------------------------------------------------------
 
 use Eva\EvaEngine\Mvc\Model;
+use Eva\Wiki\Entities\CategoriesCategories;
 
-class CategoriesCategories extends \Eva\Wiki\Entities\CategoriesCategories
+class CategoryCategory extends CategoriesCategories
 {
     public function forNewCategoryByParentId($categoryId, $parents)
     {
@@ -36,6 +37,9 @@ class CategoriesCategories extends \Eva\Wiki\Entities\CategoriesCategories
             $realTableName = $this->getPrefix() . $this->tableName;
             $this->getWriteConnection()->execute('INSERT INTO ' . $realTableName . '(categoryId, parentId) VALUES ' . $VALUES);
 
+            $category = new Category();
+            $category->unmarkRoot($categoryId);
+
         }
     }
 
@@ -55,10 +59,11 @@ class CategoriesCategories extends \Eva\Wiki\Entities\CategoriesCategories
                 $VALUES .= sprintf('(%d,%d)', $categoryId, $_parent);
             }
         }
-        if ($VALUES) {
-            $realTableName = $this->getPrefix() . $this->tableName;
-            $this->getWriteConnection()->execute('INSERT INTO ' . $realTableName . '(categoryId, parentId) VALUES ' . $VALUES . ' ON DUPLICATE KEY UPDATE categoryId=categoryId;');
+        $category = new Category();
 
+        if ($VALUES) {
+            $this->getWriteConnection()->execute('INSERT INTO ' . $this->getSource() . '(categoryId, parentId) VALUES ' . $VALUES . ' ON DUPLICATE KEY UPDATE categoryId=categoryId;');
+            // 全量更新时，删除 $parents 中没有的 id
             $this->getModelsManager()
                 ->executeQuery(
                     sprintf('DELETE FROM Eva\Wiki\Entities\CategoriesCategories  WHERE categoryId=%d AND parentId NOT IN (%s)',
@@ -66,7 +71,18 @@ class CategoriesCategories extends \Eva\Wiki\Entities\CategoriesCategories
                         implode(',', $parents)
                     )
                 );
+            $category->unmarkRoot($categoryId);
+        } else {
+            // $VALUES为空时，即表示解除所有分类父子关系。
+            $this->getModelsManager()
+                ->executeQuery(
+                    'DELETE FROM Eva\Wiki\Entities\CategoriesCategories  WHERE categoryId=:categoryId:',
+                    array(
+                        'categoryId' => $categoryId
+                    )
 
+                );
+            $category->markRoot($categoryId);
         }
     }
 }

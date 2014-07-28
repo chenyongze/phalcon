@@ -110,6 +110,17 @@ class Entries extends Model
 
     /**
      *
+     * @var integer
+     */
+    public $imageId = 0;
+
+    /**
+     *
+     * @var string
+     */
+    public $image = '';
+    /**
+     *
      * @var string
      */
     public $summary;
@@ -149,7 +160,12 @@ class Entries extends Model
             'entryId',
             array('alias' => 'categoriesEntries')
         );
-
+        $this->hasMany(
+            'id',
+            'Eva\Wiki\Entities\CategoryKeywords',
+            'entryId',
+            array('alias' => 'keywords')
+        );
         $this->hasManyToMany(
             'id',
             'Eva\Wiki\Entities\CategoriesEntries',

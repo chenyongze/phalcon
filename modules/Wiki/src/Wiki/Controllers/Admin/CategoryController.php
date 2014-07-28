@@ -16,9 +16,6 @@ class CategoryController extends AdminControllerBase
     {
         $currentPage = $this->request->getQuery('page', 'int'); // GET
         $limit = $this->request->getQuery('limit', 'int');
-//        $order = $this->request->getQuery('order', 'int');
-
-
         $catModel = new Models\Category();
         $this->view->setVar('pager', $catModel->listCategories($limit, $currentPage));
     }

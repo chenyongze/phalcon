@@ -132,7 +132,7 @@ class Category extends Entities\Categories
 
         if ($this->save()) {
             if ($data['parents']) {
-                $cateCate = new CategoriesCategories();
+                $cateCate = new CategoryCategory();
                 $cateCate->forNewCategoryByParentId($this->id, $data['parents']);
             }
         }
@@ -155,10 +155,34 @@ class Category extends Entities\Categories
         }
 
         if ($this->save()) {
-            if ($data['parents']) {
-                $cateCate = new CategoriesCategories();
-                $cateCate->forFullUpdateCategoryByParentId($this->id, $data['parents']);
-            }
+            $parents = isset($data['parents']) ? $data['parents'] : array();
+
+            $cateCate = new CategoryCategory();
+            $cateCate->forFullUpdateCategoryByParentId($this->id, $parents);
         }
+    }
+
+    /**
+     * 标记指定分类为根分类
+     *
+     * @param $categoryId
+     */
+    public function markRoot($categoryId)
+    {
+        $this->getModelsManager()->executeQuery('UPDATE Eva\Wiki\Entities\Categories SET isRoot=1 WHERE id=:categoryId:', array(
+            'categoryId' => $categoryId
+        ));
+    }
+
+    /**
+     * 取消标记指定根分类
+     *
+     * @param $categoryId
+     */
+    public function unmarkRoot($categoryId)
+    {
+        $this->getModelsManager()->executeQuery('UPDATE Eva\Wiki\Entities\Categories SET isRoot=0 WHERE id=:categoryId:', array(
+            'categoryId' => $categoryId
+        ));
     }
 }

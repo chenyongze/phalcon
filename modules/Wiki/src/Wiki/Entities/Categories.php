@@ -39,9 +39,9 @@ class Categories extends Model
 
     /**
      *
-     * @var integer
+     * @var boolean
      */
-    public $rootId;
+    public $isRoot = true;
 
     /**
      *
@@ -96,12 +96,7 @@ class Categories extends Model
             'id',
             array('alias' => 'children')
         );
-        $this->belongsTo(
-            'rootId',
-            'Eva\Wiki\Entities\Categories',
-            'id',
-            array('alias' => 'root')
-        );
+
 
         parent::initialize();
     }

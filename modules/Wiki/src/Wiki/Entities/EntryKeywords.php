@@ -7,38 +7,36 @@ namespace Eva\Wiki\Entities;
 // +----------------------------------------------------------------------
 // | Author: Mr.5 <mr5.simple@gmail.com>
 // +----------------------------------------------------------------------
-// + Datetime: 14-7-22 18:27
+// + Datetime: 14-7-25 17:26
 // +----------------------------------------------------------------------
-// + CategoriesCategories.php 分类与分类的关系实体
+// + EntryKeywords.php
 // +----------------------------------------------------------------------
 
 use Eva\EvaEngine\Mvc\Model;
 
-class CategoriesCategories extends Model
+class EntryKeywords extends Model
 {
-    protected $tableName = 'wiki_categories_categories';
+    /**
+     * @var int 所属词条 ID
+     */
+    public $entryId;
 
     /**
-     *
-     * @var integer
+     * @var string 关键词
      */
-    public $categoryId;
+    public $keyword;
 
     /**
-     *
-     * @var integer
+     * @var boolean 是否是主关键词
      */
-    public $parentId;
+    public $main=false;
 
     public function initialize()
     {
-        $this->belongsTo('categoryId', 'Eva\Wiki\Entities\Categories', 'id',
-            array('alias' => 'category')
-        );
-        $this->belongsTo('parentId', 'Eva\Wiki\Entities\Categories', 'id',
-            array('alias' => 'parent')
+        $this->belongsTo('entryId', 'Eva\Wiki\Entities\Entries', 'id',
+            array('alias' => 'entry')
         );
 
         parent::initialize();
     }
-}
+} 
