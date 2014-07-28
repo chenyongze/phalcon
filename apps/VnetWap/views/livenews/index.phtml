@@ -1,0 +1,52 @@
+<style>
+.red {
+        color:red !important;
+}
+</style>
+<ul class="news-list livenews-list">
+    <?foreach($posts as $post):?>
+	<?php 
+		$format = "";
+		$color = "";
+		$icon = "common";
+		
+		if($post->node_format == "加粗"){
+			$format = "bold";
+		}
+		
+		if($post->node_color == "红色"){
+			$color = "red";
+		}
+		elseif($post->node_color == "蓝色"){
+			$color = "蓝色";
+		}
+		
+		if ($post->node_icon == "折线") {
+            $icon = "chart-line";
+        } 
+		elseif ($post->node_icon == "柱状") {
+            $icon = "chart-column";
+        } elseif ($post->node_icon == "提醒") {
+            $icon = "alert-news";
+        } elseif ($post->node_icon == "警告") {
+            $icon = "warning-news";
+        } elseif ($post->node_icon == "传言") {
+            $icon = "rumor";
+        }
+	?>
+    <li class="livenews">
+    <a href="/livenews/<?=$post->nid?>">
+        <i class="icon common"></i>
+        <dl>
+            <dd class="datetime"><?=$this->tag->datetime($post->node_created)?></dd>
+            <dd class="content  <?=$color?> <?=$format?>"><?=$post->node_title?></dd>
+        </dl>
+    </a>
+    </li>
+    <?endforeach?>
+</ul>
+<br/>
+<div class="news-more row" data-action="show-info">
+    <span class="news-font">加载更多</span>	
+</div>	
+<br/><br/>

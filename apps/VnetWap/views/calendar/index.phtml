@@ -1,0 +1,102 @@
+<style type="text/css">
+
+    body > div {
+            /*background-color:#f7f7f7;*/
+            height:100%;
+    }
+    a{
+            color:white;
+    }
+    a,a:hover {
+            text-decoration: none;
+    }
+</style>
+<script id='cal_value_item_tpl' type='text/html'>
+    <table class="details {{bg}}" data-currency="{{currency}}" data-id="{{id}}">
+        <tbody>
+            <tr class="bold">
+                <td>{{country}}</td>
+                <td class="{{importanceColor}}" colspan="2">{{importance}}</td>
+            </tr>
+            <tr class="txt-font">
+                <td colspan="3">{{title}}</td>
+            </tr>
+            <tr class="txt-font bold">
+                <td>今值 <span class="{{actualValueColor}}">{{actual}}</span></td>
+                <td>预期 <span class="">{{forecast}}</span></td>
+                <td>前值 <span class="">{{previous}}</span></td>
+            </tr>
+        </tbody>
+    </table>
+</script>
+<script id='cal_nonvalue_item_tpl' type='text/html'>
+    <table class="details {{bg}}" data-currency="{{currency}}" data-id="{{id}}">
+        <tbody>
+            <tr class="bold">
+                <td>{{country}}</td>
+                <td class="red">{{importance}}</td>
+            </tr>
+            <tr class="txt-font">
+                <td colspan="2">{{title}}</td>
+            </tr>
+        </tbody>
+    </table>
+</script>
+<script id='cal_value_list_tpl' type='text/html'>
+    <li class="item" data-localdatetime="{{localDateTime}}">
+    <div class="row">
+        <span class="time left">{{time}}</span>
+    </div>
+    {{each list}}
+    {{include 'cal_value_item_tpl' $value}}
+    {{/each}}
+    </li>
+</script>
+<script id='cal_nonvalue_list_tpl' type='text/html'>
+    <li class="item" data-localdatetime="{{localDateTime}}">
+    <div class="row">
+        <span class="time left">{{time}}</span>
+    </div>
+    {{each list}}
+    {{include 'cal_nonvalue_item_tpl' $value}}
+    {{/each}}
+    </li>
+</script>
+<div class="calendar-info">
+    <div class="datetime-label" data-date="2014-07-07">星期一，2014年7月7日</div>
+    <div class="fd">
+        <ul class="content"></ul>
+    </div>
+
+    <div class="fe">
+        <h3 class="title">财经大事</h3>
+        <ul class="content">
+        </ul>
+    </div>
+
+    <div class="sr">
+        <h3 class="title">股票财报</h3>
+        <ul class="content">
+        </ul>
+    </div>
+
+    <div class="vn">
+        <h3 class="title">假期预告</h3>
+        <ul class="content">
+        </ul>
+    </div>
+
+    <div class="bi">
+        <h3 class="title">国债发行</h3>
+        <ul class="content">
+        </ul>
+    </div>
+
+    <div class="sharebar">
+        <span class="item label">分享：</span>
+        <a class="item btn tsina" href="http://www.jiathis.com/send/?webid=tsina&amp;url=http://m.wallstreetcn.com/?route=livenews_info_98052&amp;title=【快讯】人民币兑美元中间价报6.1658；上周五中间价6.1642，收报6.2043。人民币中间价连续第四日走弱，并创下一个月低点。 ( 下载 @华尔街见闻 客户端:https://itunes.apple.com/us/app/hua-er-jie-jian-wen/id738227477)" target="_blank"></a>
+        <a class="item btn tqq" href="http://www.jiathis.com/send/?webid=tqq&amp;url=http://m.wallstreetcn.com/?route=livenews_info_98052&amp;title=【快讯】人民币兑美元中间价报6.1658；上周五中间价6.1642，收报6.2043。人民币中间价连续第四日走弱，并创下一个月低点。 ( 下载 @华尔街见闻 客户端:https://itunes.apple.com/us/app/hua-er-jie-jian-wen/id738227477)" target="_blank"></a>
+        <a class="item btn cqq" href="http://www.jiathis.com/send/?webid=cqq&amp;url=http://m.wallstreetcn.com/?route=livenews_info_98052&amp;title=【快讯】人民币兑美元中间价报6.1658；上周五中间价6.1642，收报6.2043。人民币中间价连续第四日走弱，并创下一个月低点。 ( 下载 @华尔街见闻 客户端:https://itunes.apple.com/us/app/hua-er-jie-jian-wen/id738227477)" target="_blank"></a>
+        <a class="item btn evernote" href="http://www.jiathis.com/send/?webid=evernote&amp;url=http://m.wallstreetcn.com/?route=livenews_info_98052&amp;title=【快讯】人民币兑美元中间价报6.1658；上周五中间价6.1642，收报6.2043。人民币中间价连续第四日走弱，并创下一个月低点。 ( 下载 @华尔街见闻 客户端:https://itunes.apple.com/us/app/hua-er-jie-jian-wen/id738227477)" target="_blank"></a>
+    </div>
+</div>
