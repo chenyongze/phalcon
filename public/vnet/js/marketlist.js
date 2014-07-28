@@ -11,6 +11,7 @@ $(function ($) {
 	});
 	
 	$(".markets.view").on('click','tr',function(){
+        return false;
 		document.location = "/markets/" + $(this).attr("data-symbol") + "?from=" + getHash();
 	});
 	
