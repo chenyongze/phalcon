@@ -10,10 +10,7 @@
                     <?$posts->valid(); $post = $posts->current();?>
                     <?if($post):?>
                     <a class="top1 cover-img" href="/node/<?=$post->id?>">
-                        <div class="img-box">
-                            <img class="bg-img" src="/wscn/img/bg-img.gif" alt=""/>
-                            <img class="front-img" onload="img_loading(this)" src="<?=$post->image ? $this->tag->thumb($post->image) : '/img/article.jpg'?>" alt=""/>
-                        </div>
+                        <img class="lazy img" src="/wscn/img/bg-img.gif" data-original="<?=$post->image ? $this->tag->thumb($post->image) : '/img/article.jpg'?>" alt=""/>
                         <div class="cover">
                             <h3 class="title"><?=$post->title?></h3>
                             <!--
@@ -28,10 +25,7 @@
                         <?$posts->valid(); $post = $posts->current();?>
                         <?if($post):?>
                         <a class="top2 cover-img" href="/node/<?=$post->id?>">
-                            <div class="img-box">
-                                <img class="bg-img" src="/wscn/img/bg-img.gif" alt=""/>
-                                <img class="front-img" onload="img_loading(this)" src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_149,w_212') : '/img/article.jpg'?>" alt=""/>
-                            </div>
+                            <img class="lazy img" src="/wscn/img/bg-img.gif" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_149,w_212') : '/img/article.jpg'?>" alt=""/>
                             <div class="cover">
                                 <h3 class="title"><?=$post->title?></h3>
                             </div>
@@ -42,10 +36,7 @@
                         <?$posts->valid(); $post = $posts->current();?>
                         <?if($post):?>
                         <a class="top3 cover-img" href="/node/<?=$post->id?>">
-                            <div class="img-box">
-                                <img class="bg-img" src="/wscn/img/bg-img.gif" alt=""/>
-                                <img class="front-img" onload="img_loading(this)" src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_149,w_212') : '/img/article.jpg'?>" alt=""/>
-                            </div>
+                            <img class="lazy img" src="/wscn/img/bg-img.gif" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_149,w_212') : '/img/article.jpg'?>" alt=""/>
                             <div class="cover">
                                 <h3 class="title"><?=$post->title?></h3>
                             </div>
@@ -70,10 +61,7 @@
                     <div class="row">
                         <div class="col-lg-4 col-sm-5 col-xs-5">
                             <div class="cover-img" href="/node/<?=$post->id?>">
-                                <div class="img img-box">
-                                    <img class="bg-img" src="/wscn/img/bg-img.gif" alt=""/>
-                                    <img class="front-img" onload="img_loading(this)" src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_360,w_600') : '/img/article.jpg'?>" alt=""/>
-                                </div>
+                                <img class="lazy full-width" src="/wscn/img/bg-img.gif" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_360,w_600') : '/img/article.jpg'?>" alt=""/>
                                 <div class="cover">
                                     <span title="点赞" class="endorse" data-action="endorse">123</span>
                                     <a href="/node/<?=$post->id?>#comments" title="查看评论" class="discuss" data-action="discuss">89</a>
@@ -138,10 +126,13 @@
                     <div class="row">
                         <div class="col-lg-4 col-sm-5 col-xs-5">
                             <div class="cover-img" href="/node/<?=$post->id?>">
+                                <!--
                                 <div class="img img-box">
                                     <img class="bg-img" src="/wscn/img/bg-img.gif" alt=""/>
                                     <img class="front-img" onload="img_loading(this)" src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_360,w_600') : '/img/article.jpg'?>" alt=""/>
                                 </div>
+                                -->
+                                <img class="lazy full-width" src="/wscn/img/bg-img.gif" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_360,w_600') : '/img/article.jpg'?>" alt=""/>
                                 <div class="cover">
                                     <span title="点赞" class="endorse" data-action="endorse">123</span>
                                     <a href="/node/<?=$post->id?>#comments" title="查看评论" class="discuss" data-action="discuss">89</a>

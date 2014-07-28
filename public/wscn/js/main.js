@@ -59,7 +59,6 @@
 
 (function($){
 
-
     //breaking-news
     $('[data-action=hide-breaking-news]').click(function(e){
         $('body').removeClass('show-breaking-news');

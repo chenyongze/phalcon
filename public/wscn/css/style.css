@@ -152,6 +152,12 @@ body {
 .checkbox .text {
   display: inline-block;
 }
+.full-width {
+  width: 100%;
+}
+img.lazy {
+  display: inline-block !important;
+}
 .centerbox {
   font-size: 0;
   text-align: center;
