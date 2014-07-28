@@ -58,6 +58,29 @@ class EntryController extends AdminControllerBase
         $form->addForm('text', 'Eva\Wiki\Forms\EntryTextForm');
         $this->view->setVar('form', $form);
         $this->view->setVar('item', $entry);
+
+        if (!$this->request->isPost()) {
+            return false;
+        }
+
+        $data = $this->request->getPost();
+        if (!$form->isFullValid($data)) {
+            return $this->showInvalidMessages($form);
+        }
+        p($data);
+        exit();
+        try {
+            $form->save('createEntry');
+        } catch (\Exception $e) {
+            return $this->showException($e, $form->getModel()->getMessages());
+        }
+        $this->flashSession->success('SUCCESS_ENTRY_CREATED');
+
+        return $this->redirectHandler('/admin/entry/edit/' . $form->getModel()->id);
+    }
+    public function categoriesAction()
+    {
+
     }
 
 }

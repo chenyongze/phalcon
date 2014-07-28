@@ -9,12 +9,12 @@ namespace Eva\Wiki\Entities;
 // +----------------------------------------------------------------------
 // + Datetime: 14-7-11 16:15
 // +----------------------------------------------------------------------
-// + Entry.php
+// + Entry.php 词条实体
 // +----------------------------------------------------------------------
 
 use Eva\EvaEngine\Mvc\Model;
 
-class Entry extends Model
+class Entries extends Model
 {
     protected $tableName = 'wiki_entries';
 
@@ -34,7 +34,7 @@ class Entry extends Model
      *
      * @var string
      */
-    public $status;
+    public $status = 'pending';
 
     /**
      *
@@ -110,6 +110,17 @@ class Entry extends Model
 
     /**
      *
+     * @var integer
+     */
+    public $imageId = 0;
+
+    /**
+     *
+     * @var string
+     */
+    public $image = '';
+    /**
+     *
      * @var string
      */
     public $summary;
@@ -126,4 +137,45 @@ class Entry extends Model
      */
     public $sourceUrl;
 
+    public function initialize()
+    {
+        $this->hasMany(
+            'categoryId',
+            'Eva\Wiki\Entities\Categories',
+            'id',
+            array('alias' => 'categories')
+        );
+
+        $this->hasOne('id', 'Eva\Wiki\Entities\EntryTexts', 'entryId', array(
+            'alias' => 'text'
+        ));
+
+        $this->belongsTo('userId', 'Eva\EvaUser\Entities\Users', 'id', array(
+            'alias' => 'user'
+        ));
+
+        $this->hasMany(
+            'id',
+            'Eva\Wiki\Entities\CategoriesEntries',
+            'entryId',
+            array('alias' => 'categoriesEntries')
+        );
+        $this->hasMany(
+            'id',
+            'Eva\Wiki\Entities\CategoryKeywords',
+            'entryId',
+            array('alias' => 'keywords')
+        );
+        $this->hasManyToMany(
+            'id',
+            'Eva\Wiki\Entities\CategoriesEntries',
+            'entryId',
+            'categoryId',
+            'Eva\Wiki\Entities\Categories',
+            'id',
+            array('alias' => 'categories')
+        );
+
+        parent::initialize();
+    }
 }

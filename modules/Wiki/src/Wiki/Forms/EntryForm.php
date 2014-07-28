@@ -3,7 +3,7 @@ namespace Eva\Wiki\Forms;
 
 use Eva\EvaEngine\Form;
 use Phalcon\Forms\Element\Check;
-use Eva\EvaBlog\Models;
+use Eva\Wiki\Models;
 
 class EntryForm extends Form
 {
@@ -161,7 +161,6 @@ class EntryForm extends Form
         }
         $category = new Models\Category();
         $categories = $category->find(array(
-            "order" => "id DESC",
             "limit" => 100
         ));
 

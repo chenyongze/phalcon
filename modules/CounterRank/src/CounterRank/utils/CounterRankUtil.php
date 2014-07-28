@@ -69,7 +69,7 @@ class CounterRankUtil extends Component
     {
         $tokens = array();
         foreach($this->counterConfig->group_tokens->toArray() as $groupName=>$config) {
-            $tokens[$groupName] = $config['token'];
+            $tokens[$groupName] = $config;
         }
         if(self::$jsClientHandler == null) {
             self::$jsClientHandler = new JSClientHandler(
