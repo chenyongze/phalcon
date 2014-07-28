@@ -8,17 +8,6 @@ use Phalcon\Http\Client\Request;
 
 class IndexController extends ControllerBase
 {
-    public function beforeExecuteRoute()
-    {
-        $cacheKey = 'node-' . md5($this->request->getURI());
-        $this->view->cache(array(
-            'lifetime' => 60,
-            'key' => $cacheKey,
-        ));
-        if($this->view->getCache()->exists($cacheKey)) {
-            return false;
-        }
-    }
 
     public function indexAction()
     {
