@@ -12,7 +12,7 @@
                     <a class="top1 cover-img" href="/node/<?=$post->id?>">
                         <div class="img-box">
                             <img class="bg-img" src="/wscn/img/bg-img.gif" alt=""/>
-                            <img class="front-img" src="<?=$post->image ? $this->tag->thumb($post->image) : '/img/article.jpg'?>" alt=""/>
+                            <img class="front-img" onload="img_loading(this)" src="<?=$post->image ? $this->tag->thumb($post->image) : '/img/article.jpg'?>" alt=""/>
                         </div>
                         <div class="cover">
                             <h3 class="title"><?=$post->title?></h3>
@@ -30,7 +30,7 @@
                         <a class="top2 cover-img" href="/node/<?=$post->id?>">
                             <div class="img-box">
                                 <img class="bg-img" src="/wscn/img/bg-img.gif" alt=""/>
-                                <img class="front-img" src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_149,w_212') : '/img/article.jpg'?>" alt=""/>
+                                <img class="front-img" onload="img_loading(this)" src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_149,w_212') : '/img/article.jpg'?>" alt=""/>
                             </div>
                             <div class="cover">
                                 <h3 class="title"><?=$post->title?></h3>
@@ -44,7 +44,7 @@
                         <a class="top3 cover-img" href="/node/<?=$post->id?>">
                             <div class="img-box">
                                 <img class="bg-img" src="/wscn/img/bg-img.gif" alt=""/>
-                                <img class="front-img" src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_149,w_212') : '/img/article.jpg'?>" alt=""/>
+                                <img class="front-img" onload="img_loading(this)" src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_149,w_212') : '/img/article.jpg'?>" alt=""/>
                             </div>
                             <div class="cover">
                                 <h3 class="title"><?=$post->title?></h3>
