@@ -110,6 +110,19 @@
 		<script type="text/javascript">
 
 			(function () {
+                $(document).on('click', '.news-more', function(){
+                    var loader = $(this);
+                    var link = $(this).attr('href');
+                    $.ajax({
+                        url : link,
+                        success : function(response){
+                                var newpage = $(response);
+                                $(".content-wrapper ul").append(newpage.find('.content-wrapper ul').html());
+                                loader.attr('href', newpage.find('a.news-more').attr('href'));
+                        }
+                    });
+                    return false;
+                });
 				var bar = $('#menu span.bar'),
 					left = $('#menu ul').offset().left;
 				$('#menu').navigator({
