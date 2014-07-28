@@ -35,12 +35,14 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <!-- for img-box loading   -->
+
+    <!-- for img-box loading
     <script type="text/javascript">
         function img_loading(element){
             element.style.display = 'block';
         }
     </script>
+    -->
 </head>
 <body>
 
@@ -478,6 +480,11 @@
 <script src="/vendor/js/parsley.remote.js"></script>
 <script src="/vendor/js/parsley.i18n.zh_cn.js"></script>
 <script src="/vendor/js/jquery.blockUI.js"></script>
+<script src="/vendor/js/jquery.lazyload.js"></script>
+<!-- 图片延时加载 -->
+<script type="text/javascript">
+    $("img.lazy").lazyload();
+</script>
 <script src="/vendor/js/moment.min.js"></script>
 <script type="text/javascript">
     moment.lang('zh-cn', {

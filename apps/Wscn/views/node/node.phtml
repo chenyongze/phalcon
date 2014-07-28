@@ -35,7 +35,9 @@
                     </div>
                 </div>
                 <?if($post->imageId):?>
-                <img src="<?=$post->thumbnail->imageWidth > 640 || $post->thumbnail->imageHeight > 350 ? $this->tag->thumb($post->image, 'c_fill,h_350,w_640') : $this->tag->thumb($post->image)?>" class="main-image" alt=""/>
+                <img class="main-image lazy" src="/wscn/img/bg-img.gif" alt=""
+                     data-original="<?=$post->thumbnail->imageWidth > 640 || $post->thumbnail->imageHeight > 350 ?
+                     $this->tag->thumb($post->image, 'c_fill,h_350,w_640') : $this->tag->thumb($post->image)?>" />
                 <?endif?>
                 <div class="article-content">
                     <aside class="related-posts">
@@ -108,10 +110,7 @@
                 <?foreach($posts as $post):?>
                 <li class="col-lg-4 col-xs-6">
                     <a href="/node/<?=$post->id?>" class="news">
-                        <div class="img img-box">
-                            <img class="bg-img" src="/wscn/img/bg-img.gif" alt=""/>
-                            <img class="front-img" onload="img_loading(this)" src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_124,w_193') : '/img/article.jpg'?>" alt=""/>
-                        </div>
+                        <img class="lazy full-width" src="/wscn/img/bg-img.gif" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_360,w_600') : '/img/article.jpg'?>" alt=""/>
                         <h3 class="title"><?=$post->title?></h3>
                     </a>
                 </li>
