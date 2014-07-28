@@ -5,7 +5,30 @@ use Eva\EvaEngine\Mvc\Model as BaseModel;
 
 class Comments extends BaseModel
 {
+    const STATE_APPROVED = 'approved';
+
+    const STATE_DELETED = 'deleted';
+
+    const STATE_SPAM = 'spam';   //灌水评论
+
+    const STATE_HAM = 'ham';     //不文明评论
+
+    const STATE_DANGEROUS = 'dangerous';  //政治敏感评论
+
+    const STATE_PENDING = 'pending';
+
+
+
     protected $tableName = 'comment_comments';
+
+    public static $defaultDump = array(
+        'id',
+        'threadId',
+        'codeType',
+        'content',
+        'status',
+        'createdAt',
+    );
 
     /**
      *
@@ -125,10 +148,10 @@ class Comments extends BaseModel
 
     public function getChildrenComments()
     {
-        $phql = 'SELECT * FROM Eva\EvaComment\Entities\Comments AS c WHERE c.rootId = :rootId: AND c.status = "approved"';
+        $phql = 'SELECT * FROM Eva\EvaComment\Entities\Comments AS c WHERE c.rootId = :rootId: AND c.status = :status:';
 
         $manager = $this->getModelsManager();
-        $comments = $manager->executeQuery($phql,array('rootId'=>$this->id));
+        $comments = $manager->executeQuery($phql,array('rootId'=>$this->id,'status'=>SELF::STATE_APPROVED));
         return $this->childrenComments = $comments;
     }
 
@@ -155,7 +178,7 @@ class Comments extends BaseModel
         $this->rootId = 0;
         $this->parentPath = '';
         $this->depth = 0;
-        $this->status = 'approved';
+        $this->status = SELF::STATE_APPROVED;
         $this->createdAt = time();
         $this->updatedAt = time();
     }

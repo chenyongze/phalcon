@@ -1,0 +1,20 @@
+<ul class="news-list">
+    <?$posts = $pager->items;?>
+    <?foreach($posts as $post):?>
+    <li class="news">
+    <a href="/news/<?=$post->id?>">
+        <img src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_60,w_75') : '/img/article.jpg'?>"/>
+        <dl>
+            <dd class="content"><?=$post->title?></dd>
+
+            <dd class="source"><?=$this->tag->datetime($post->createdAt)?></dd>
+        </dl>
+    </a>
+    </li>
+    <?endforeach;?>
+</ul>
+<br/>
+<a class="news-more" data-action="show-info" href="/news?page=<?=$pager->next?>">
+    <span class="news-font">加载更多</span>	
+</a>	
+<br/><br/>

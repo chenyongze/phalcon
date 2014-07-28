@@ -21,6 +21,7 @@
         "imagine/imagine": "dev-master",
         "rase/socket.io-emitter": "dev-master",
         "erusev/parsedown": "dev-master",
+	"mobiledetect/mobiledetectlib" : "dev-master",
         "mr5/counter-rank": "dev-master"
     },
     "suggest": {

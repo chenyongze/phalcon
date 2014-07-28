@@ -15,5 +15,11 @@ return array(
         'action' => 1,
         'id' => 3,
     ),
+    '/admin/thread/post/(\d+)*' =>  array(
+        'module' => 'EvaComment',
+        'controller' => 'Admin\Thread',
+        'action' => 'post',
+        'postId' => 1,
+    ),
 );
 

@@ -1,0 +1,421 @@
+/*
+ * Globals
+ */
+
+body {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    color: #555;
+}
+
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6 {
+    margin-top: 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: normal;
+    color: #333;
+}
+
+
+/*
+ * Override Bootstrap's default container.
+ */
+
+@media (min-width: 1200px) {
+    .container {
+        width: 970px;
+    }
+}
+
+
+/*
+ * Masthead for nav
+ */
+
+.blog-masthead {
+    background-color: #428bca;
+    box-shadow: inset 0 -2px 5px rgba(0,0,0,.1);
+}
+
+/* Nav links */
+.blog-nav-item {
+    position: relative;
+    display: inline-block;
+    padding: 10px;
+    font-weight: 500;
+    color: #cdddeb;
+}
+.blog-nav-item:hover,
+.blog-nav-item:focus {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Active state gets a caret at the bottom */
+.blog-nav .active {
+    color: #fff;
+}
+.blog-nav .active:after {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 0;
+    margin-left: -5px;
+    vertical-align: middle;
+    content: " ";
+    border-right:  5px solid transparent;
+    border-bottom: 5px solid;
+    border-left:   5px solid transparent;
+}
+
+
+/*
+ * Blog name and description
+ */
+
+.blog-header {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.blog-title {
+    margin-top: 30px;
+    margin-bottom: 0;
+    font-size: 60px;
+    font-weight: normal;
+}
+.blog-description {
+    font-size: 20px;
+    color: #999;
+}
+
+
+.user-comments {
+    font-family: "Microsoft YaHei";
+    color: #999;
+    /*background-color: #f0f0f0;*/
+}
+
+.user-comments > .more {
+    background-color: #646464;
+    color: #fff;
+    line-height: 24px;
+    padding: 8px 30px;
+}
+.user-comments > .title {
+    font-size: 14px;
+}
+.user-comments > .more {
+    font-size: 16px;
+    text-align: center;
+}
+.user-comments > .content {
+    /*padding: 30px;*/
+    font-size: 15px;
+    line-height: 1.5em;
+}
+
+/*.ws-reply-box > form:before {*/
+    /*display: table;*/
+    /*content: '';*/
+    /*clear: both;*/
+/*}*/
+/*.ws-reply-box > form:after {*/
+    /*display: table;*/
+    /*content: '';*/
+    /*clear: both;*/
+/*}*/
+
+.ws-reply-box{
+    padding-top: 10px;
+}
+
+
+
+.ws-reply-box > form {
+    float: right;
+    display: block;
+    width: 85%;
+    border-radius: 5px;
+}
+
+.ws-reply-box > form .input {
+    display: block;
+    border: 1px solid #969696;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 10px;
+}
+
+.ws-reply-box > form .submit {
+    display: block;
+    margin: 5px 0;
+    float: right;
+    color: #fff;
+    background: #1F65A1;
+    width: 90px;
+    height: 32px;
+}
+
+.ws-reply-box:after{
+    content:".";
+    display:block;
+    height:0;
+    clear:both;
+    visibility:hidden
+}
+
+.ws-title {
+    font-size: 15px;
+    margin-top: 10px;
+}
+
+.ws-sort {
+    float: right;
+    text-align: right;
+}
+
+.ws-sort a {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.ws-comments {
+    padding: 0;
+}
+
+.ws-comment {
+    /*width: 100%;*/
+    height: auto;
+    clear: both;
+    padding-top: 10px;
+    margin-top: 10px;
+    border-top: 1px solid #ddd;
+    position: relative;
+}
+
+.ws-comment:after{
+    content:".";
+    display:block;
+    height:0;
+    clear:both;
+    visibility:hidden
+}
+
+.ws-avatar {
+    /*position: absolute;*/
+    /*top:10px;*/
+    /*left: 0;*/
+    float: left;
+    margin-right: 20px;
+}
+
+
+.ws-comment-body {
+    /*float: right;*/
+    /*width: 85%;*/
+    padding-left: 65px;
+}
+
+.ws-comment>.ws-avatar {
+    position: absolute;
+    top:10px;
+    left: 0;
+    /*float: left;*/
+    /*margin-right: 20px;*/
+}
+
+.ws-user-name {
+    font-size: 15px;
+    /*font-weight: bold;*/
+    color: #0A61A3;
+}
+
+.ws-comment-content {
+    /*width: 100%;*/
+    color: #323232;
+    font-size: 15px;
+    line-height: 1.75em;
+    margin: 5px 0;
+}
+
+.ws-comment-time {
+    color: #969696;
+    font-size: 14px;
+    line-height: 24px;
+}
+
+.ws-comment-footer {
+}
+
+.ws-comment-actions {
+    float: right;
+    /*width: 280px;*/
+    text-align: right;
+}
+
+.ws-comment-actions a{
+    color: #969696;
+    /*width: 50px;*/
+    margin-left: 15px;
+    display: inline-block;
+    /*float: left;*/
+    font-size: 14px;
+    line-height: 24px;
+}
+
+.ws-comment-actions a:hover{
+    color: #555;
+    text-decoration: none;
+}
+
+.ws-paginator {
+    text-align: right;
+    margin: 15px 0;
+    padding: 20px 0;
+    border-top: 1px solid #000;
+}
+
+.ws-paginator a{
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    border: 1px solid #999;
+    color: #999;
+}
+
+.ws-paginator span.current {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    border: 1px solid #1F65A1;
+    color: #FFF;
+    background: #1F65A1;
+}
+
+.ws-paginator a:hover {
+    border: 1px solid #1F65A1;
+    color: #1F65A1;
+    text-decoration: none;
+}
+
+.ws-step1{
+    margin-left: 20px;
+}
+
+.ws-step2{
+    margin-left: 50px;
+}
+
+.ws-step3{
+    margin-left: 80px;
+}
+
+.ws-step1>.ws-comment-body{
+    padding-left: 40px;
+}
+
+.ws-step2>.ws-comment-body{
+    padding-left: 40px;
+}
+
+.ws-step3>.ws-comment-body{
+    padding-left: 40px;
+}
+
+.ws-step1>.ws-avatar img{
+    width: 30px;
+    height: 30px;
+}
+
+.ws-step2>.ws-avatar img{
+    width: 30px;
+    height: 30px;
+}
+
+.ws-step3>.ws-avatar img{
+    width: 30px;
+    height: 30px;
+}
+
+
+
+/*
+ * Main column and sidebar layout
+ */
+
+.blog-main {
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+/* Sidebar modules for boxing content */
+.sidebar-module {
+    padding: 15px;
+    margin: 0 -15px 15px;
+}
+.sidebar-module-inset {
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+}
+.sidebar-module-inset p:last-child,
+.sidebar-module-inset ul:last-child,
+.sidebar-module-inset ol:last-child {
+    margin-bottom: 0;
+}
+
+
+
+/* Pagination */
+.pager {
+    margin-bottom: 60px;
+    text-align: left;
+}
+.pager > li > a {
+    width: 140px;
+    padding: 10px 20px;
+    text-align: center;
+    border-radius: 30px;
+}
+
+
+/*
+ * Blog posts
+ */
+
+.blog-post {
+    margin-bottom: 60px;
+}
+.blog-post-title {
+    margin-bottom: 5px;
+    font-size: 40px;
+}
+.blog-post-meta {
+    margin-bottom: 20px;
+    color: #999;
+}
+
+
+/*
+ * Footer
+ */
+
+.blog-footer {
+    padding: 40px 0;
+    color: #999;
+    text-align: center;
+    background-color: #f9f9f9;
+    border-top: 1px solid #e5e5e5;
+}
+
+
+
+
+

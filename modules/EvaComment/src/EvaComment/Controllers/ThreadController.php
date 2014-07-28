@@ -10,6 +10,8 @@ use Eva\EvaComment\Models\CommentManager;
 use Eva\EvaEngine\Mvc\Controller\ControllerBase;
 use Eva\EvaBlog\Forms;
 
+use Gregwar\Captcha\CaptchaBuilder;
+
 
 class ThreadController extends ControllerBase
 {
@@ -23,31 +25,18 @@ class ThreadController extends ControllerBase
         $this->view->setModulePartialsDir('EvaComment', '/views');
     }
 
-    public function indexAction()
-    {
-        $this->view->setModuleLayout('WscnGold', '/views/layouts/default');
-        $this->getDI()->get('eventsManager')->attach(
-            "view",
-            function ($event, $view) {
-                p($view);
-//                exit;
-            }
-        );
-        echo 'index';
-    }
-
     /**
      * Get the comments of a thread. Creates a new thread if none exists.
      *
-     * @param string $id Id of the thread
+     * @param string $uniqueKey Id of the thread
      *
-     * @todo Add support page/pagesize/sorting/tree-depth parameters
      */
     public function getThreadCommentsAction($uniqueKey)
     {
 
         $displayDepth = $this->request->getQuery('displayDepth');
-        $sorter = $this->request->getQuery('sorter');
+        $sorter = $this->request->getQuery('sorter','string',CommentManager::DEFAULT_SORT);
+        $currentPage = $this->request->getQuery('page', 'int', 1);
 
         $threadManager = new ThreadManager();
 
@@ -75,12 +64,12 @@ class ThreadController extends ControllerBase
 
         $cacheKey = $uniqueKey.'###'.$thread->numComments.$thread->lastEditAt;
 
-        $this->view->cache(
-            array(
-                "lifetime" => 86400,
-                "key"      => $cacheKey,
-            )
-        );
+//        $this->view->cache(
+//            array(
+//                "lifetime" => 86400,
+//                "key"      => $cacheKey,
+//            )
+//        );
 
 //        $viewMode = $this->dispatcher->getParam('view');
 
@@ -102,17 +91,31 @@ class ThreadController extends ControllerBase
             case self::VIEW_TREE:
 
             default:
-                $comments = $commentManager->findCommentTreeByThread($thread, $sorter, $displayDepth);
+                $comments = $commentManager->findCommentsByThread($thread, $sorter, $displayDepth);
                 break;
         }
 
+        $this->view->pick('thread/thread');
+
+        $query = array(
+            'page' => $currentPage,
+        );
+        $limit = 10;
+        $paginator = new \Eva\EvaEngine\Paginator(array(
+            "builder" => $comments,
+            "limit"=> $limit,
+            "page" => $currentPage
+        ));
+        $paginator->setQuery($query);
+        $pager = $paginator->getPaginate();
+
         $this->view->setVars(
             array(
-                'comments' => $comments,
+                'pager' => $pager,
+                'comments' => $pager->items,
                 'displayDepth' => $displayDepth,
-                'sorter' => 'date',
+                'sorter' => $sorter,
                 'thread' => $thread,
-                'view' => $viewMode,
             )
         );
     }
@@ -120,21 +123,19 @@ class ThreadController extends ControllerBase
     /**
      * Creates a new Comment for the Thread from the submitted data.
      *
-     * @param string $id The id of the thread
+     * @param string $uniqueKey The id of the thread
      *
-     * @return View
-     * @todo Add support for comment parent (in form?)
      */
-    public function postThreadCommentsAction($threadKey)
+    public function postThreadCommentsAction($uniqueKey)
     {
         $threadManager = new ThreadManager();
-        $thread = $threadManager->findThreadByUniqueKey($threadKey);
+        $thread = $threadManager->findThreadByUniqueKey($uniqueKey);
         if (!$thread) {
             throw new \Exception(sprintf('Thread with identifier of "%s" does not exist', $threadKey));
         }
 
 //        if (!$thread->isCommentable()) {
-//            throw new \Exception(sprintf('Thread "%s" is not commentable', $threadKey));
+//            throw new \Exception(sprintf('Thread "%s" is not commentable', $uniqueKey));
 //        }
 
 
@@ -149,35 +150,36 @@ class ThreadController extends ControllerBase
 //        if ($form->isValid()) {
         $comment->content = $content;
         if(!empty($username)) $comment->username = $username;
-
+        $commentManager->filterContent($comment);  //政治敏感词过滤
         if ($commentManager->saveComment($comment) !== false) {
             $errors = $comment->getMessages();
             p($errors);
 //                return $this->getViewHandler()->handle($this->onCreateCommentSuccess($form, $id, $parent));
         }
 
-//        }
+        $this->view->pick('thread/comment');
+
         $this->view->setVars(
             array(
                 'comment' => $comment,
                 'thread' => $thread,
             )
         );
+
     }
 
     /**
      * Presents the form to use to create a new Comment for a Thread.
      *
-     * @param string $id
+     * @param string $uniqueKey
      *
-     * @return View
      */
-    public function newThreadCommentsAction($threadKey)
+    public function newThreadCommentsAction($uniqueKey)
     {
         $threadManager = new ThreadManager();
-        $thread = $threadManager->findThreadByUniqueKey($threadKey);
+        $thread = $threadManager->findThreadByUniqueKey($uniqueKey);
         if (!$thread) {
-            throw new \Exception(sprintf('Thread with identifier of "%s" does not exist', $threadKey));
+            throw new \Exception(sprintf('Thread with identifier of "%s" does not exist', $uniqueKey));
         }
 
         $commentManager = new CommentManager();
@@ -192,6 +194,22 @@ class ThreadController extends ControllerBase
                 'thread' => $thread,
             )
         );
+    }
+
+    public function captchaAction()
+    {
+        $builder = new CaptchaBuilder;
+        $builder->build();
+
+        if($builder->testPhrase($userInput)) {
+            // instructions if user phrase is good
+        }
+        else {
+            // user phrase is wrong
+        }
+
+        header('Content-type: image/jpeg');
+        $builder->output();
     }
 
     /**

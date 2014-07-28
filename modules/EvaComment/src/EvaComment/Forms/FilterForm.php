@@ -37,6 +37,8 @@ class FilterForm extends Form
     * @Option(approved=Approved)
     * @Option(pending=Pending)
     * @Option(spam=Spam)
+    * @Option(ham=Ham)
+    * @Option(dangerous=Dangerous)
     * @Option(deleted=Deleted)
     * @var string
     */

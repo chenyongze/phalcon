@@ -33,5 +33,11 @@ return array(
         'controller' => 'thread',
         'action' => 1,
     ),
+
+    '/demo/:action' =>  array(
+        'module' => 'EvaComment',
+        'controller' => 'demo',
+        'action' => 1,
+    ),
 );
 

@@ -9,51 +9,11 @@ class RegisterController extends ControllerBase
 {
     public function indexAction()
     {
-        if (!$this->request->isPost()) {
-            return;
-        }
-
-        if($this->request->isAjax()) {
-            $form = new Forms\RegisterForm();
-            if ($form->isValid($this->request->getPost()) === false) {
-                return $this->showInvalidMessagesAsJson($form);
-            }
-            $user = new Models\Register();
-            $user->assign(array(
-                'username' => $this->request->getPost('username'),
-                'email' => $this->request->getPost('email'),
-                'password' => $this->request->getPost('password'),
-            ));
-            try {
-                $registerUser = $user->register();
-                return $this->showResponseAsJson($registerUser);
-            } catch (\Exception $e) {
-                return $this->showExceptionAsJson($e, $user->getMessages());
-            }
-        } else {
-            $form = new Forms\RegisterForm();
-            if ($form->isValid($this->request->getPost()) === false) {
-                $this->showInvalidMessages($form);
-
-                return $this->redirectHandler($this->getDI()->getConfig()->user->registerFailedRedirectUri);
-            }
-            $user = new Models\Register();
-            $user->assign(array(
-                'username' => $this->request->getPost('username'),
-                'email' => $this->request->getPost('email'),
-                'password' => $this->request->getPost('password'),
-            ));
-            try {
-                $user->register();
-            } catch (\Exception $e) {
-                $this->showException($e, $user->getMessages());
-
-                return $this->redirectHandler($this->getDI()->getConfig()->user->registerFailedRedirectUri);
-            }
-            $this->flashSession->success('SUCCESS_USER_REGISTERED_ACTIVE_MAIL_SENT');
-            return $this->redirectHandler($this->getDI()->getConfig()->user->registerFailedRedirectUri);
-        }
-
+        $this->dispatcher->forward(array(
+            'namespace' => 'Eva\EvaUser\Controllers',
+            'controller' => 'register',
+            'action' => 'index',
+        ));
     }
 
     public function checkAction()

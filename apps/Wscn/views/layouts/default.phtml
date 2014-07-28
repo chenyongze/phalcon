@@ -79,7 +79,7 @@
                             <span class="glyphicon glyphicon-search form-control-feedback"></span>
                         </div>
                     </form>
-                    <a class="glyphicon glyphicon-user user-control" data-action="login"></a>
+                    <a class="glyphicon glyphicon-user user-control" href="/login"></a>
                 </div>
 
                 <!--
@@ -101,7 +101,7 @@
     <a id="breaking-news" href="">
         <div class="container">
             <h2 class="title">中证报评论：“微刺激”加码，稳增长措施有望进一步出台，下半年经济有望企稳，但下行压力依然存在。
-                <span class="glyphicon glyphicon-remove" data-action="close"></span>
+                <span class="glyphicon glyphicon-remove" data-action="hide-breaking-news"></span>
             </h2>
         </div>
     </a>
@@ -354,11 +354,11 @@
                             <form data-validate action="/auth/login" class="clearfix" method="POST" novalidate="novalidate">
                                 <div class="custom-row">
                                     <div class="custom-span-1">
-                                        <h3 class="form-title">微博帐号</h3>
+                                        <h3 class="form-title"><span data-auth-site></span>帐号</h3>
                                         <div class="text-center">
-                                            <img class="form-avatar" src="" alt=""/>
+                                            <img class="form-avatar" src="" alt="" data-auth-avatar/>
                                             <br/>
-                                            <div class="form-label">Every One</div>
+                                            <div class="form-label" data-auth-user></div>
                                         </div>
                                     </div>
                                     <div class="custom-span-2"></div>
@@ -405,12 +405,12 @@
                                 <div class="custom-row custom-row-2">
                                     <div class="vr-line"></div>
                                     <div class="custom-span-4" style="margin-top: -8px;">
-                                        微博帐号
+                                        <span data-auth-icon></span><span data-auth-site></span>帐号
                                     </div>
                                     <div class="custom-span-5">
-                                        <img class="form-avatar" src="" alt=""/>
+                                        <img class="form-avatar" src="" alt="" data-auth-avatar />
                                         <br/>
-                                        <div class="form-label">Every One</div>
+                                        <div class="form-label"  data-auth-user></div>
                                     </div>
                                     <div class="custom-span-4">
                                         邮箱
@@ -450,7 +450,7 @@
                                     </div>
                                 </div>
                                 <hr class="form-hr"/>
-                                <button type="submit" class="custom-button pull-right">登录并绑定</button>
+                                <button type="submit" class="custom-button pull-right">注册</button>
                             </form>
                         </div>
                     </div>

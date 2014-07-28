@@ -160,7 +160,7 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
      *
      * @var decimal
      */
-    public $voteScore;
+    public $voteScore = 0;
 
     protected $tableName = 'blog_posts';
 

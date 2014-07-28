@@ -9,7 +9,6 @@ class CommentController extends ControllerBase
 {
     public function indexAction()
     {
-//        return 'fdsafdas';
         $limit = $this->request->getQuery('limit', 'int', 25);
         $limit = $limit > 100 ? 100 : $limit;
         $limit = $limit < 10 ? 10 : $limit;

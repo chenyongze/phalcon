@@ -38,5 +38,4 @@ class OperationController extends ControllerBase
         $this->view->setVar('pager', $pager);
         $this->view->setVar('roles', Entities\Roles::find());
     }
-
 }

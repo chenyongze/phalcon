@@ -24,7 +24,20 @@
         }
     };
     usf.onConnectSuccess = function(token, user) {
-        usf.show('register-connect');
+        console.log(token);
+        console.log(user);
+        if(user) {
+        }
+        if(token) {
+            usf.show('register-connect');
+            var site = {
+                'weibo' : '微博',
+                'tencent' : 'QQ'
+            }
+            usf.$element.find('[data-auth-avatar]').attr('src', token.remoteImageUrl);
+            usf.$element.find('[data-auth-user]').html(token.remoteUserName);
+            usf.$element.find('[data-auth-site]').html(site[token.adapterKey]);
+        }
     };
 
     usf.onConnectFailed = function(error, errorMsg) {
@@ -48,12 +61,30 @@
 
 
     //breaking-news
-    $('#breaking-news [data-action=close]').click(function(e){
+    $('[data-action=hide-breaking-news]').click(function(e){
         $('body').removeClass('show-breaking-news');
         return false;
     });
 
-    //
+    //点赞
+    $('[data-action=endorse]').on('click', function(e){
+        var $this = $(this);
+        if ($this.hasClass('active')) {
+            return;
+        }
+        var text = parseInt($this.text());
+        text ++ ;
+        $this.text(text);
+        $this.addClass('active');
+        e.preventDefault();
+    });
+    //收藏
+    $('[data-action=collect]').on('click', function(e){
+        $(this).toggleClass('active');
+        e.preventDefault();
+    });
+
+    // 页面侧边栏 start
     var $sidebar = $('#sidebar');
     $('#show-sidebar').on('click', function(e){
         $sidebar
@@ -83,12 +114,13 @@
             });
         e.preventDefault();
     });
+    // 页面侧边栏 end
     //
     $(document).on('click', '[data-action=login]', function(e){
         userForms.show();
         return false;
     });
-    //
+    // custom-modal
     $(document).on('click', '[data-action=custom-modal]', function(e){
         var $this = $(this);
         var $target = $($this.attr('data-target'));

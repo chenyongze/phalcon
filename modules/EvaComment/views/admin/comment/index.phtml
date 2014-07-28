@@ -90,7 +90,7 @@
                                 <a href="<?=$this->tag->uri('/admin/comment', $pager->query)?>" class="sortable-link" data-sortable-value="id">ID</a>
                             </th>
                             <th>Title</th>
-                            <th class="hidden-480">Status</th>
+                            <th style="width: 100px">Status</th>
                             <th>User</th>
                             <th>
                                 <a href="<?=$this->tag->uri('/admin/comment', $pager->query)?>" class="sortable-link" data-sortable-value="created_at" data-sortable-default="-created_at">
@@ -98,6 +98,7 @@
                                     Created At
                                 </a>
                             </th>
+                            <th style="width: 200px"></th>
                             <th></th>
                         </tr>
                     </thead>
@@ -117,17 +118,47 @@
                                 <?if($item->sourceName):?><a href="<?=$item->sourceUrl?>" target="_blank"><span class="label"><?=$item->sourceName?></span></a><?endif?>
                                 <span class="label"><?=$item->codeType?></span>
                             </td>
-                            <td class="hidden-480">
-                                <?$status = array(
-                                    'draft' => 'label-info',
-                                    'pending' => 'label-warning',
+                            <td>
+                                <?
+                                $status_style = array(
+                                    'pending' => 'label',
                                     'deleted' => 'label',
+                                    'spam' => 'label-info',
+                                    'ham' => 'label-warning',
                                     'approved' => 'label-success',
-                                )?>
-                                <span class="label label-sm <?=$status[$item->status]?>"><?=$item->status?></span>
+                                    'dangerous' => 'label-danger'
+                                );
+
+                                $status = array(
+                                    'pending' => '未通过',
+                                    'deleted' => 'deleted',
+                                    'approved' => '通过',
+                                    'spam' => '灌水评论',
+                                    'ham' => '过火评论',
+                                    'dangerous' => '敏感评论'
+                                )
+
+                                ?>
+                                <span class="label label-sm <?=$status_style[$item->status]?>"><?=$status[$item->status]?></span>
                             </td>
                             <td><?=$item->username?></td>
                             <td><?=$this->tag->datetime($item->createdAt)?></td>
+                            <td>
+                                <div class="btn-group">
+                                    <button class="btn btn-xs btn-info ajax-form-sumbit" data-ajax-form="1" date-method="put" data-form-action="/admin/comment/process/status/<?=$item->id?>" data-callback="window.location.reload();">
+                                        <input type="hidden" data-name="status" value="spam" >
+                                        灌水评论
+                                    </button>
+                                    <button class="btn btn-xs btn-warning ajax-form-sumbit" data-ajax-form="1" date-method="put" data-form-action="/admin/comment/process/status/<?=$item->id?>" data-callback="window.location.reload();">
+                                        <input type="hidden" data-name="status" value="ham" >
+                                        过火评论
+                                    </button>
+                                    <button class="btn btn-xs btn-danger ajax-form-sumbit" data-ajax-form="1" date-method="put" data-form-action="/admin/comment/process/status/<?=$item->id?>" data-callback="window.location.reload();">
+                                        <input type="hidden" data-name="status" value="dangerous" >
+                                        敏感评论
+                                    </button>
+                                </div>
+                            </td>
                             <td>
                                 <div class="btn-group">
                                     <button class="btn btn-xs btn-success ajax-form-sumbit" data-ajax-form="1" date-method="put" data-form-action="/admin/comment/process/status/<?=$item->id?>" data-callback="window.location.reload();">
@@ -135,13 +166,10 @@
                                         <i class="icon-ok bigger-120"></i>
                                     </button>
 
-
-
                                     <button class="btn btn-xs ajax-form-sumbit" data-ajax-form="1" date-method="put" data-form-action="/admin/comment/process/status/<?=$item->id?>" data-callback="window.location.reload();">
-                                        <input type="hidden" data-name="status" value="deleted" >
+                                        <input type="hidden" data-name="status" value="pending" >
                                         <i class="icon-eye-close bigger-120"></i>
                                     </button>
-
 <!--                                    <button class="btn btn-xs btn-danger ajax-form-sumbit" data-ajax-form="1" date-method="delete" data-form-action="/admin/post/process/delete/--><?//=$item->id?><!--" data-confirm="1" data-confirm-message="--><?//=sprintf('Item %s will be deleted, are you sure?', $item->title)?><!--" data-callback="form.closest('tr').hide();">-->
 <!--                                        <i class="icon-trash bigger-120"></i>-->
 <!--                                    </button>-->

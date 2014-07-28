@@ -127,20 +127,30 @@
             .time {
 
             }
-            /*
             .endorse ,
             .discuss {
-                display: inline-block;
+                display: inline;
                 padding-left: 20px;
                 background-position: 0 center;
                 background-repeat: no-repeat;
-            }*/
+                &:before {
+                    content: "(";
+                }
+                &:after {
+                    content: ")";
+                }
+            }
             .endorse {
-                //background-image: url(../icon/endorse-white.png);
+                background-image: url(../icon/endorse-white.png);
                 margin-right: 1em;
+                cursor: pointer;
+                &.active {
+                    background-image: url(../icon/endorse-white-active.png);
+                }
             }
             .discuss {
-                //background-image: url(../icon/discuss-white.png);
+                cursor: pointer;
+                background-image: url(../icon/discuss-white.png);
             }
             .share,
             .collect {
@@ -155,6 +165,9 @@
             }
             .collect {
                 background-image: url(../icon/collect-blue.png);
+                &.active {
+                    background-image: url(../icon/collect-blue-active.png);
+                }
             }
             .summary {
                 color: #787878;

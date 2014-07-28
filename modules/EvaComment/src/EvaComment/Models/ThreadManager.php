@@ -6,18 +6,6 @@ use Eva\EvaEngine\Mvc\Model as BaseModel;
 
 class ThreadManager extends BaseModel
 {
-    function test()
-    {
-        $phql = 'SELECT * FROM Eva\EvaComment\Entities\Comments';
-
-
-        $manager = $this->getModelsManager();
-        $data = $manager->executeQuery($phql);
-        foreach ($data as $k => $comment) {
-            echo $comment->id;
-        }
-//        var_dump($data);
-    }
 
     public function findThreadByUniqueKey($uniqueKey)
     {

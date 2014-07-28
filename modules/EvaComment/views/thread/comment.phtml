@@ -1,0 +1,42 @@
+<?
+$stepClass = '';
+if($comment->depth>0){
+    $stepClass = $comment->depth>3 ? 3 : $comment->depth;
+    $stepClass = 'ws-step'.$stepClass;
+}
+?>
+<div class="ws-comment <?=$stepClass?>" id="ws-comment-<?=$comment->id ?>" data-comment-id="<?=$comment->id ?>" data-thread-id="<?= $thread->id?>" data-root-id="0" data-source="duoshuo">
+
+    <div class="ws-avatar">
+        <img src="/img/avatar.png" alt="ikk">
+    </div>
+
+    <div class="ws-comment-body">
+        <div class="ws-comment-header">
+            <span class="ws-user-name" data-qqt-account=""><?=$comment->username ?></span>
+        </div>
+        <p class="ws-comment-content"><?=htmlspecialchars($comment->content) ?></p>
+
+        <div class="ws-comment-footer">
+            <span class="ws-comment-time" data-time="<?=date('c',$comment->createdAt)?>" title="<?=date('Y年m月d日 H:i:s',$comment->createdAt)?>"><?=date('Y-m-d H:i:s',$comment->createdAt)?></span>
+            <span class="ws-comment-actions">
+                <a class="ws-comment-reply" href="javascript:void(0);" data-id="<?=$comment->id?>" data-url="/thread/<?= $thread->uniqueKey?>/comments/new">
+                    回复
+                </a>
+                <a class="ws-comment-up" href="javascript:void(0);" data-id="<?=$comment->id?>" data-url="/thread/<?= $thread->uniqueKey?>/comments/new">
+                    顶
+                </a>
+                <a class="ws-comment-down" href="javascript:void(0);" data-id="<?=$comment->id?>" data-url="/thread/<?= $thread->uniqueKey?>/comments/new">
+                    踩
+                </a>
+                <a class="ws-comment-repost" href="javascript:void(0);" data-id="<?=$comment->id?>" data-url="/thread/<?= $thread->uniqueKey?>/comments/new">
+                    转发
+                </a>
+<!--                <a class="ws-comment-report" href="javascript:void(0);" data-id="--><?//=$comment->id?><!--" data-url="/thread/--><?//= $thread->uniqueKey?><!--/comments/new">-->
+<!--                    <span class="ws-icon ws-icon-reply"></span>举报-->
+<!--                </a>-->
+            </span>
+        </div>
+
+    </div>
+</div>

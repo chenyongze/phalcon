@@ -24,7 +24,7 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
                 'conditions' => 'roleId = :roleId: AND operationId = :operationId:',
                 'bind' => $data,
             ));
-            if($roleOperation) {
+            if ($roleOperation) {
                 $roleOperation->delete();
             }
         } catch (\Exception $e) {
@@ -43,7 +43,7 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
         $id = $this->dispatcher->getParam('id');
         try {
             $apikey =  Entities\Apikeys::findFirst($id);
-            if($apikey) {
+            if ($apikey) {
                 $apikey->apikey = \Phalcon\Text::random(\Phalcon\Text::RANDOM_ALNUM, 8);
                 $apikey->save();
             }
@@ -68,7 +68,7 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
                 'conditions' => 'userId = :userId: AND roleId = :roleId:',
                 'bind' => $data,
             ));
-            if($userRole) {
+            if ($userRole) {
                 $userRole->delete();
             }
         } catch (\Exception $e) {
@@ -101,7 +101,7 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
                     'conditions' => 'roleId = :roleId: AND userId = :userId:',
                     'bind' => $data,
                 ));
-                if(!$userRole) {
+                if (!$userRole) {
                     $userRole = new Entities\UsersRoles();
                     $userRole->assign($data);
                     $userRole->save();
@@ -138,7 +138,7 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
                     'conditions' => 'roleId = :roleId: AND operationId = :operationId:',
                     'bind' => $data,
                 ));
-                if(!$roleOperation) {
+                if (!$roleOperation) {
                     $roleOperation = new Entities\RolesOperations();
                     $roleOperation->assign($data);
                     $roleOperation->save();
@@ -151,4 +151,4 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
 
         return $this->response->setJsonContent($res);
     }
-} 
+}

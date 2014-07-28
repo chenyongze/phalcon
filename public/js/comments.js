@@ -1,49 +1,6 @@
-/**
- * This file is part of the FOSCommentBundle package.
- *
- * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
- *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
- */
-
-/**
- * To use this reference javascript, you must also have jQuery installed. If
- * you want to embed comments cross-domain, then easyXDM CORS is also required.
- *
- * @todo: expand this explanation (also in the docs)
- *
- * Then a comment thread can be embedded on any page:
- *
- * <div id="fos_comment_thread">#comments</div>
- * <script type="text/javascript">
- *     // Set the thread_id if you want comments to be loaded via ajax (url to thread comments api)
- *     var fos_comment_thread_id = 'a_unique_identifier_for_the_thread';
- *     var fos_comment_thread_api_base_url = 'http://example.org/api/threads';
- *
- *     // Optionally set the cors url if you want cross-domain AJAX (also needs easyXDM)
- *     var fos_comment_remote_cors_url = 'http://example.org/cors/index.html';
- *
- *     // Optionally set a custom callback function to update the comment count elements
- *     var fos_comment_thread_comment_count_callback = function(elem, threadObject){}
- *
- *     // Optionally set a different element than div#fos_comment_thread as container
- *     var fos_comment_thread_container = $('#other_element');
- *
- * (function() {
- *     var fos_comment_script = document.createElement('script');
- *     fos_comment_script.async = true;
- *     fos_comment_script.src = 'http://example.org/path/to/this/file.js';
- *     fos_comment_script.type = 'text/javascript';
- *
- *     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(fos_comment_script);
- * })();
- * </script>
- */
-
 (function(window, $, easyXDM){
     "use strict";
-    var FOS_COMMENT = {
+    var WS_COMMENT = {
         /**
          * Shorcut post method.
          *
@@ -91,23 +48,23 @@
          * @param string identifier Unique identifier url for the thread comments.
          * @param string url Optional url for the thread. Defaults to current location.
          */
-        getThreadComments: function(identifier, permalink) {
-            var event = jQuery.Event('fos_comment_before_load_thread');
+        getThreadComments: function(identifier,params,permalink) {
+            var event = jQuery.Event('ws_comment_before_load_thread');
 
             event.identifier = identifier;
-            event.params = {
-                permalink: encodeURIComponent(permalink || window.location.href)
-            };
 
-            FOS_COMMENT.thread_container.trigger(event);
-            FOS_COMMENT.get(
-                FOS_COMMENT.base_url  + '/' + encodeURIComponent(event.identifier) + '/comments',
+            event.params = params || {};
+            event.params.permalink = encodeURIComponent(permalink || window.location.href);
+
+            WS_COMMENT.thread_container.trigger(event);
+            WS_COMMENT.get(
+                WS_COMMENT.full_url,
                 event.params,
                 // success
                 function(data) {
-                    FOS_COMMENT.thread_container.html(data);
-                    FOS_COMMENT.thread_container.attr('data-thread', event.identifier);
-                    FOS_COMMENT.thread_container.trigger('fos_comment_load_thread', event.identifier);
+                    WS_COMMENT.thread_container.html(data);
+                    WS_COMMENT.thread_container.attr('data-thread', event.identifier);
+                    WS_COMMENT.thread_container.trigger('ws_comment_load_thread', event.identifier);
                 }
             );
         },
@@ -116,28 +73,28 @@
          * Initialize the event listeners.
          */
         initializeListeners: function() {
-            FOS_COMMENT.thread_container.on('submit',
-                'form.fos_comment_comment_new_form',
+            WS_COMMENT.thread_container.on('submit',
+                'form.ws_comment_comment_new_form',
                 function(e) {
                     var that = $(this);
-                    var serializedData = FOS_COMMENT.serializeObject(this);
+                    var serializedData = WS_COMMENT.serializeObject(this);
 
                     e.preventDefault();
 
-                    var event = $.Event('fos_comment_submitting_form');
+                    var event = $.Event('ws_comment_submitting_form');
                     that.trigger(event);
 
                     if (event.isDefaultPrevented()) {
                         return;
                     }
 
-                    FOS_COMMENT.post(
+                    WS_COMMENT.post(
                         this.action,
                         serializedData,
                         // success
                         function(data, statusCode) {
-                            FOS_COMMENT.appendComment(data, that);
-                            that.trigger('fos_comment_new_comment', data);
+                            WS_COMMENT.appendComment(data, that);
+                            that.trigger('ws_comment_new_comment', data);
                         },
                         // error
                         function(data, statusCode) {
@@ -147,63 +104,68 @@
                         },
                         // complete
                         function(data, statusCode) {
-                            that.trigger('fos_comment_submitted_form', statusCode);
+                            that.trigger('ws_comment_submitted_form', statusCode);
                         }
                     );
                 }
             );
 
-            FOS_COMMENT.thread_container.on('click',
-                '.fos_comment_comment_reply_show_form',
+            WS_COMMENT.thread_container.on('click',
+                '.ws-comment-reply',
                 function(e) {
                     var form_data = $(this).data();
                     var that = $(this);
 
-
-                    if(that.hasClass('fos_comment_replying')) {
-//                        $('.fos_comment_comment_reply_form').hide();
-                        $('#fos_comment_replies_'+form_data.id).toggle();
+                    if(that.hasClass('ds_comment_replying')) {
+                        var current = $('#ws-comment-'+form_data.id+' .ws-comment-body .ws-reply-box');
+                        if(current.is(':hidden')){
+                            $('.ws-comment-body .ws-reply-box').hide();
+                            current.show();
+                        }else{
+                            //动画
+                            current.hide()
+                        }
                         return that;
                     }else{
-                        $('#fos_comment_replies_'+form_data.id).show();
+                        $('.ws-comment-body .ws-reply-box').hide()
                     }
 
-                    FOS_COMMENT.get(
+                    WS_COMMENT.get(
                         form_data.url,
                         {parentId: form_data.id},
                         function(data) {
-                            that.addClass('fos_comment_replying');
-                            $('#fos_comment_replies_'+form_data.id+' .content').prepend(data);
-                            that.trigger('fos_comment_show_form', data);
+                            that.addClass('ds_comment_replying');
+                            $('#ws-comment-'+form_data.id+' .ws-comment-body').append(data);
+//                            that.trigger('ws_comment_show_form', data);
                         }
                     );
                 }
             );
 
-            FOS_COMMENT.thread_container.on('click',
-                '.fos_comment_comment_reply_cancel',
+            WS_COMMENT.thread_container.on('click',
+                '.ws_comment_comment_reply_cancel',
                 function(e) {
-                    var form_holder = $(this).closest('.fos_comment_comment_form_holder');
+                    var form_holder = $(this).closest('.ws_comment_comment_form_holder');
 
-                    var event = $.Event('fos_comment_cancel_form');
+                    var event = $.Event('ws_comment_cancel_form');
                     form_holder.trigger(event);
 
                     if (event.isDefaultPrevented()) {
                         return;
                     }
 
-                    form_holder.closest('.fos_comment_comment_reply').removeClass('fos_comment_replying');
+                    form_holder.closest('.ws_comment_comment_reply').removeClass('ws_comment_replying');
                     form_holder.remove();
                 }
             );
 
-            FOS_COMMENT.thread_container.on('click',
-                '.fos_comment_comment_edit_show_form',
+            WS_COMMENT.thread_container.on('click',
+                '.ws_comment_comment_edit_show_form',
                 function(e) {
                     var form_data = $(this).data();
                     var that = $(this);
 
-                    FOS_COMMENT.get(
+                    WS_COMMENT.get(
                         form_data.url,
                         {},
                         function(data) {
@@ -215,24 +177,24 @@
                             // show the edit form
                             commentBody.html(data);
 
-                            that.trigger('fos_comment_show_edit_form', data);
+                            that.trigger('ws_comment_show_edit_form', data);
                         }
                     );
                 }
             );
 
-            FOS_COMMENT.thread_container.on('submit',
-                'form.fos_comment_comment_edit_form',
+            WS_COMMENT.thread_container.on('submit',
+                'form.ws_comment_comment_edit_form',
                 function(e) {
                     var that = $(this);
 
-                    FOS_COMMENT.post(
+                    WS_COMMENT.post(
                         this.action,
-                        FOS_COMMENT.serializeObject(this),
+                        WS_COMMENT.serializeObject(this),
                         // success
                         function(data) {
-                            FOS_COMMENT.editComment(data);
-                            that.trigger('fos_comment_edit_comment', data);
+                            WS_COMMENT.editComment(data);
+                            that.trigger('ws_comment_edit_comment', data);
                         },
 
                         // error
@@ -247,21 +209,21 @@
                 }
             );
 
-            FOS_COMMENT.thread_container.on('click',
-                '.fos_comment_comment_edit_cancel',
+            WS_COMMENT.thread_container.on('click',
+                '.ws_comment_comment_edit_cancel',
                 function(e) {
-                    FOS_COMMENT.cancelEditComment($(this).parents('.fos_comment_comment_body'));
+                    WS_COMMENT.cancelEditComment($(this).parents('.ws_comment_comment_body'));
                 }
             );
 
-            FOS_COMMENT.thread_container.on('click',
-                '.fos_comment_comment_vote',
+            WS_COMMENT.thread_container.on('click',
+                '.ws_comment_comment_vote',
                 function(e) {
                     var that = $(this);
                     var form_data = that.data();
 
                     // Get the form
-                    FOS_COMMENT.get(
+                    WS_COMMENT.get(
                         form_data.url,
                         {},
                         function(data) {
@@ -269,12 +231,12 @@
                             var form = $($.trim(data)).children('form')[0];
                             var form_data = $(form).data();
 
-                            FOS_COMMENT.post(
+                            WS_COMMENT.post(
                                 form.action,
-                                FOS_COMMENT.serializeObject(form),
+                                WS_COMMENT.serializeObject(form),
                                 function(data) {
                                     $('#' + form_data.scoreHolder).html(data);
-                                    that.trigger('fos_comment_vote_comment', data, form);
+                                    that.trigger('ws_comment_vote_comment', data, form);
                                 }
                             );
                         }
@@ -282,12 +244,12 @@
                 }
             );
 
-            FOS_COMMENT.thread_container.on('click',
-                '.fos_comment_comment_remove',
+            WS_COMMENT.thread_container.on('click',
+                '.ws_comment_comment_remove',
                 function(e) {
                     var form_data = $(this).data();
 
-                    var event = $.Event('fos_comment_removing_comment');
+                    var event = $.Event('ws_comment_removing_comment');
                     $(this).trigger(event);
 
                     if (event.isDefaultPrevented()) {
@@ -295,16 +257,16 @@
                     }
 
                     // Get the form
-                    FOS_COMMENT.get(
+                    WS_COMMENT.get(
                         form_data.url,
                         {},
                         function(data) {
                             // Post it
                             var form = $($.trim(data)).children('form')[0];
 
-                            FOS_COMMENT.post(
+                            WS_COMMENT.post(
                                 form.action,
-                                FOS_COMMENT.serializeObject(form),
+                                WS_COMMENT.serializeObject(form),
                                 function(data) {
                                     var commentHtml = $($.trim(data));
 
@@ -318,32 +280,63 @@
                 }
             );
 
-            FOS_COMMENT.thread_container.on('click',
-                '.fos_comment_thread_commentable_action',
+            WS_COMMENT.thread_container.on('click',
+                '.ws_comment_thread_commentable_action',
                 function(e) {
                     var form_data = $(this).data();
 
                     // Get the form
-                    FOS_COMMENT.get(
+                    WS_COMMENT.get(
                         form_data.url,
                         {},
                         function(data) {
                             // Post it
                             var form = $($.trim(data)).children('form')[0];
 
-                            FOS_COMMENT.post(
+                            WS_COMMENT.post(
                                 form.action,
-                                FOS_COMMENT.serializeObject(form),
+                                WS_COMMENT.serializeObject(form),
                                 function(data) {
                                     var form = $($.trim(data)).children('form')[0];
-                                    var threadId = $(form).data().fosCommentThreadId;
+                                    var threadId = $(form).data().wsCommentThreadId;
 
                                     // reload the intire thread
-                                    FOS_COMMENT.getThreadComments(threadId);
+                                    WS_COMMENT.getThreadComments(threadId);
                                 }
                             );
                         }
                     );
+                }
+            );
+
+            WS_COMMENT.thread_container.on('click',
+                '.ws-paginator a',
+                function(e) {
+                    var data = $(this).data();
+
+                    var identifier = window.ws_comment_thread_id;
+
+                    var params = {
+                        page: data.page||1,
+                        sorter: $('.ws-sort .ws-current').data().sort
+                    };
+
+                    WS_COMMENT.getThreadComments(identifier,params);
+                }
+            );
+
+            WS_COMMENT.thread_container.on('click',
+                '.ws-sort a',
+                function(e) {
+                    var data = $(this).data();
+
+                    var identifier = window.ws_comment_thread_id;
+
+                    var params = {
+                        sorter: data.sort
+                    };
+
+                    WS_COMMENT.getThreadComments(identifier,params);
                 }
             );
         },
@@ -353,41 +346,45 @@
 
             var parent = form_data.parent;
             if(form_data.parent) {
-                form.next().prepend(commentHtml);
-//                var form_parent = form.closest('.fos_comment_comment_form_holder');
+//                form.next().prepend(commentHtml);
+                $('#ws-comment-'+form_data.parent).after(commentHtml);
+//                var form_parent = form.closest('.ws_comment_comment_form_holder');
 //
 //                // reply button holder
-//                var reply_button_holder = form.closest('.fos_comment_comment_reply');
+//                var reply_button_holder = form.closest('.ws_comment_comment_reply');
 //
-//                var comment_element = form.closest('.fos_comment_comment_show')
-//                    .children('.fos_comment_comment_replies');
+//                var comment_element = form.closest('.ws_comment_comment_show')
+//                    .children('.ws_comment_comment_replies');
 //
-//                reply_button_holder.removeClass('fos_comment_replying');
+//                reply_button_holder.removeClass('ws_comment_replying');
 //
 //                comment_element.prepend(commentHtml);
-//                comment_element.trigger('fos_comment_add_comment', commentHtml);
+//                comment_element.trigger('ws_comment_add_comment', commentHtml);
 //
 //                // Remove the form
 //                form_parent.remove();
             } else {
                 // Insert the comment
 //                form.after(commentHtml);
-                var comment_element = $('#fos_comment_list');
+                var comment_element = $('#ws_comment_list');
                 comment_element.prepend(commentHtml);
+
+                //todo
+                $('.ws-title').show();
             }
-            form.trigger('fos_comment_add_comment', commentHtml);
+            form.trigger('ws_comment_add_comment', commentHtml);
 
             // "reset" the form
             form = $(form[0]);
             form[0].reset();
-            form.children('.fos_comment_form_errors').remove();
+            form.children('.ws_comment_form_errors').remove();
         },
 
         editComment: function(commentHtml) {
             var commentHtml = $($.trim(commentHtml));
-            var originalCommentBody = $('#' + commentHtml.attr('id')).children('.fos_comment_comment_body');
+            var originalCommentBody = $('#' + commentHtml.attr('id')).children('.ws_comment_comment_body');
 
-            originalCommentBody.html(commentHtml.children('.fos_comment_comment_body').html());
+            originalCommentBody.html(commentHtml.children('.ws_comment_comment_body').html());
         },
 
         cancelEditComment: function(commentBody) {
@@ -419,17 +416,17 @@
         loadCommentCounts: function()
         {
             var threadIds = [];
-            var commentCountElements = $('span.fos-comment-count');
+            var commentCountElements = $('span.ws-comment-count');
 
             commentCountElements.each(function(i, elem){
-                var threadId = $(elem).data('fosCommentThreadId');
+                var threadId = $(elem).data('wsCommentThreadId');
                 if(threadId) {
                     threadIds.push(threadId);
                 }
             });
 
-            FOS_COMMENT.get(
-                FOS_COMMENT.base_url + '.json',
+            WS_COMMENT.get(
+                WS_COMMENT.base_url + '.json',
                 {ids: threadIds},
                 function(data) {
                     // easyXdm doesn't always serialize
@@ -444,9 +441,9 @@
                     }
 
                     $.each(commentCountElements, function(){
-                        var threadId = $(this).data('fosCommentThreadId');
+                        var threadId = $(this).data('wsCommentThreadId');
                         if(threadId) {
-                            FOS_COMMENT.setCommentCount(this, threadData[threadId]);
+                            WS_COMMENT.setCommentCount(this, threadData[threadId]);
                         }
                     });
                 }
@@ -466,14 +463,14 @@
     };
 
     // Check if a thread container was configured. If not, use default.
-    FOS_COMMENT.thread_container = window.fos_comment_thread_container || $('#fos_comment_thread');
+    WS_COMMENT.thread_container = window.ws_comment_thread_container || $('#ws_comment_thread');
 
     // AJAX via easyXDM if this is configured
-    if(typeof window.fos_comment_remote_cors_url != "undefined") {
+    if(typeof window.ws_comment_remote_cors_url != "undefined") {
         /**
          * easyXDM instance to use
          */
-        FOS_COMMENT.easyXDM = easyXDM.noConflict('FOS_COMMENT');
+        WS_COMMENT.easyXDM = easyXDM.noConflict('WS_COMMENT');
 
         /**
          * Shorcut request method.
@@ -484,7 +481,7 @@
          * @param function success Optional callback function to use in case of succes.
          * @param function error Optional callback function to use in case of error.
          */
-        FOS_COMMENT.request = function(method, url, data, success, error) {
+        WS_COMMENT.request = function(method, url, data, success, error) {
             // wrap the callbacks to match the callback parameters of jQuery
             var wrappedSuccessCallback = function(response){
                 if('undefined' !== typeof success) {
@@ -498,18 +495,18 @@
             };
 
             // todo: is there a better way to do this?
-            FOS_COMMENT.xhr.request({
+            WS_COMMENT.xhr.request({
                     url: url,
                     method: method,
                     data: data
             }, wrappedSuccessCallback, wrappedErrorCallback);
         };
 
-        FOS_COMMENT.post = function(url, data, success, error) {
+        WS_COMMENT.post = function(url, data, success, error) {
             this.request('POST', url, data, success, error);
         };
 
-        FOS_COMMENT.get= function(url, data, success, error) {
+        WS_COMMENT.get= function(url, data, success, error) {
             // make data serialization equals to that of jquery
             var params = jQuery.param(data);
             url += '' != params ? '?' + params : '';
@@ -518,8 +515,8 @@
         };
 
         /* Initialize xhr object to do cross-domain requests. */
-        FOS_COMMENT.xhr = new FOS_COMMENT.easyXDM.Rpc({
-                remote: window.fos_comment_remote_cors_url
+        WS_COMMENT.xhr = new WS_COMMENT.easyXDM.Rpc({
+                remote: window.ws_comment_remote_cors_url
         }, {
             remote: {
                 request: {} // request is exposed by /cors/
@@ -528,61 +525,66 @@
     }
 
     // set the appropriate base url
-    FOS_COMMENT.base_url = window.fos_comment_thread_api_base_url;
+    WS_COMMENT.base_url = window.ws_comment_thread_api_base_url;
+
+
 
     // Load the comment if there is a thread id defined.
-    if(typeof window.fos_comment_thread_id != "undefined") {
+    if(typeof window.ws_comment_thread_id != "undefined") {
         // get the thread comments and init listeners
-        FOS_COMMENT.getThreadComments(window.fos_comment_thread_id);
+        var identifier = window.ws_comment_thread_id;
+
+        WS_COMMENT.full_url = WS_COMMENT.base_url  + '/' + encodeURIComponent(identifier) + '/comments';
+        WS_COMMENT.getThreadComments(identifier);
     }
 
-    if(typeof window.fos_comment_thread_comment_count_callback != "undefined") {
-        FOS_COMMENT.setCommentCount = window.fos_comment_thread_comment_count_callback;
+    if(typeof window.ws_comment_thread_comment_count_callback != "undefined") {
+        WS_COMMENT.setCommentCount = window.ws_comment_thread_comment_count_callback;
     }
 
-    if($('span.fos-comment-count').length > 0) {
-        FOS_COMMENT.loadCommentCounts();
+    if($('span.ws-comment-count').length > 0) {
+        WS_COMMENT.loadCommentCounts();
     }
 
-    FOS_COMMENT.initializeListeners();
+    WS_COMMENT.initializeListeners();
 
-    window.fos = window.fos || {};
-    window.fos.Comment = FOS_COMMENT;
+    window.ws = window.ws || {};
+    window.ws.Comment = WS_COMMENT;
 
     /**
      * 用户评论
      */
-    function hiedUsernameModal() {
-        var $modal = $('#comment-username-modal');
-        $modal.find('[name=username]').val('');
-        $modal.unwrap();
-    }
-    $(document).on('click', '.user-comments form.fos_comment_comment_new_form > [type=submit]', function(e){
-
-        var $form = $(this).parent();
-        var formId = $form[0].id;
-        var comment = $form.find('textarea').val();
-        if (comment) {
-            var $modal = $('#comment-username-modal');
-            $modal.attr('data-form-id', formId);
-            $modal.wrap('<div class="modal-wrap"></div>');
-        }
-        e.preventDefault();
-    });
-    $(document).on('click', '#comment-username-modal [data-action=close]', function(e){
-        hiedUsernameModal();
-    });
-    $(document).on('click', '#comment-username-modal [type=submit]', function(e){
-        var $modal = $('#comment-username-modal');
-        var username = $modal.find('[name=username]').val();
-        if (username) {
-            var formId = $modal.attr('data-form-id');
-            var $form = $('#' + formId);
-            $form.find('[name=username]').val(username);
-            $form.trigger('submit');
-            hiedUsernameModal();
-        }
-        e.preventDefault();
-    });
+//    function hiedUsernameModal() {
+//        var $modal = $('#comment-username-modal');
+//        $modal.find('[name=username]').val('');
+//        $modal.unwrap();
+//    }
+//    $(document).on('click', '.user-comments form.ws_comment_comment_new_form > [type=submit]', function(e){
+//
+//        var $form = $(this).parent();
+//        var formId = $form[0].id;
+//        var comment = $form.find('textarea').val();
+//        if (comment) {
+//            var $modal = $('#comment-username-modal');
+//            $modal.attr('data-form-id', formId);
+//            $modal.wrap('<div class="modal-wrap"></div>');
+//        }
+//        e.preventDefault();
+//    });
+//    $(document).on('click', '#comment-username-modal [data-action=close]', function(e){
+//        hiedUsernameModal();
+//    });
+//    $(document).on('click', '#comment-username-modal [type=submit]', function(e){
+//        var $modal = $('#comment-username-modal');
+//        var username = $modal.find('[name=username]').val();
+//        if (username) {
+//            var formId = $modal.attr('data-form-id');
+//            var $form = $('#' + formId);
+//            $form.find('[name=username]').val(username);
+//            $form.trigger('submit');
+//            hiedUsernameModal();
+//        }
+//        e.preventDefault();
+//    });
 
 })(window, window.jQuery, window.easyXDM);

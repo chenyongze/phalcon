@@ -2,6 +2,7 @@
 namespace Eva\EvaComment\Models;
 
 use Eva\EvaComment\Entities\Comments;
+use Eva\EvaComment\Entities\Threads;
 
 use Eva\EvaEngine\Mvc\Model as BaseModel;
 
@@ -9,27 +10,24 @@ use InvalidArgumentException;
 
 class CommentManager extends BaseModel
 {
-    function test()
-    {
-        $phql = 'SELECT * FROM Eva\EvaComment\Entities\Comment';
+    public static $orderMapping = array(
+        'id' => 'id ASC',
+        '-id' => 'id DESC',
+        'created_at' => 'createdAt ASC',
+        '-created_at' => 'createdAt DESC',
+    );
 
-
-        $manager = $this->getModelsManager();
-        $data = $manager->executeQuery($phql);
-        foreach ($data as $k => $comment) {
-            echo $comment->id;
-        }
-//        var_dump($data);
-    }
+    const DEFAULT_SORT = '-created_at';
 
     /**
      * {@inheritdoc}
      */
-    public function createComment($thread, $parent = null)
+    public function createComment(Threads $thread, Comments $parent = null)
     {
         $comment = new Comments;
 
         $comment->threadId = $thread->id;
+        $comment->status  = $thread->defaultCommentStatus;
 
         if (null !== $parent) {
             $comment->parentId = $parent->id;
@@ -37,7 +35,7 @@ class CommentManager extends BaseModel
 
             $comment->parentPath = $parent->parentPath ? $parent->parentPath.'/'.$parent->id : $parent->id;
 
-            $comment->depth = $comment->depth+1;
+            $comment->depth = $parent->depth+1;
         }
 
 //        $event = new CommentEvent($comment);
@@ -49,7 +47,7 @@ class CommentManager extends BaseModel
     /**
      * {@inheritdoc}
      */
-    public function saveComment($comment)
+    public function saveComment(Comments $comment)
     {
         $thread = $comment->getThread();
         if (null === $thread) {
@@ -64,6 +62,13 @@ class CommentManager extends BaseModel
         return true;
     }
 
+    public function removeComment(Comments $comment)
+    {
+        //todo 权限验证
+        $comment->status = Comments::STATE_DELETED;
+        $comment->save();
+    }
+
     function findComments($query=array())
     {
 //        $phql = 'SELECT * FROM Eva\EvaComment\Entities\Comments AS c ORDER BY c.createdAt DESC';
@@ -73,45 +78,41 @@ class CommentManager extends BaseModel
 
 //        return $comments;
 
-        $itemQuery = $this->getModelsManager()->createBuilder();
+        $builder = $this->getModelsManager()->createBuilder();
 
-        $itemQuery->from('Eva\EvaComment\Entities\Comments');
-
-        $orderMapping = array(
-            'id' => 'id ASC',
-            '-id' => 'id DESC',
-            'created_at' => 'createdAt ASC',
-            '-created_at' => 'createdAt DESC',
-        );
+        $builder->from('Eva\EvaComment\Entities\Comments');
 
         if (!empty($query['columns'])) {
-            $itemQuery->columns($query['columns']);
+            $builder->columns($query['columns']);
         }
 
+
         if (!empty($query['q'])) {
-            $itemQuery->andWhere('title LIKE :q:', array('q' => "%{$query['q']}%"));
+            $builder->andWhere('content LIKE :q:', array('q' => "%{$query['q']}%"));
         }
 
         if (!empty($query['status'])) {
-            $itemQuery->andWhere('status = :status:', array('status' => $query['status']));
+            $builder->andWhere('status = :status:', array('status' => $query['status']));
+        }else{
+            $builder->andWhere('status != :status:', array('status' => Comments::STATE_DELETED));
         }
 
         if (!empty($query['uid'])) {
-            $itemQuery->andWhere('userId = :uid:', array('uid' => $query['uid']));
+            $builder->andWhere('userId = :uid:', array('uid' => $query['uid']));
         }
 
-        if (!empty($query['cid'])) {
-            $itemQuery->join('Eva\EvaBlog\Entities\CategoriesPosts', 'id = r.postId', 'r')
-                ->andWhere('r.categoryId = :cid:', array('cid' => $query['cid']));
+        if (!empty($query['username'])) {
+            $builder->andWhere('username LIKE :username:', array('username' => "%{$query['usernameli']}%"));
         }
 
-        $order = 'createdAt DESC';
-        if (!empty($query['order'])) {
-            $order = empty($orderMapping[$query['order']]) ? 'createdAt DESC' : $orderMapping[$query['order']];
+        if (empty($query['order']) || empty(self::$orderMapping[$query['order']])) {
+            $query['order'] = self::DEFAULT_SORT;
         }
-        $itemQuery->orderBy($order);
+        $order = self::$orderMapping[$query['order']];
 
-        return $itemQuery;
+        $builder->orderBy($order);
+
+        return  $builder;
     }
 
     function findCommentById($id)
@@ -120,7 +121,7 @@ class CommentManager extends BaseModel
         return $comment;
     }
 
-    function updateCommentStatus($comment,$status)
+    function updateCommentStatus(Comments $comment,$status)
     {
         $comment->status = $status;
         $comment->updatedAt = time();
@@ -133,25 +134,51 @@ class CommentManager extends BaseModel
     }
 
 
-    function findCommentsByThread($thread, $sorter, $displayDepth)
+    function findCommentsByThread(Threads $thread, $sorter, $displayDepth)
     {
-        $phql = 'SELECT * FROM Eva\EvaComment\Entities\Comments AS c
-                WHERE c.threadId = :threadId: AND c.status = "approved" ORDER BY c.createdAt DESC';
 
-        $manager = $this->getModelsManager();
-        $comments = $manager->executeQuery($phql, array('threadId' => $thread->id));
+        $builder = $this->getModelsManager()->createBuilder();
 
-        return $comments;
+        $builder->from('Eva\EvaComment\Entities\Comments');
+
+        $builder->andWhere('status = "' . Comments::STATE_APPROVED . '"');
+        $builder->andWhere('threadId = :threadId:', array('threadId' => $thread->id));
+
+        if (empty($sorter) || empty(self::$orderMapping[$sorter])) {
+            $sorter = self::DEFAULT_SORT;
+        }
+        $order = self::$orderMapping[$sorter];
+
+        $builder->orderBy($order);
+
+        return $builder;
     }
 
     function findCommentTreeByThread($thread, $sorter, $displayDepth)
     {
-        $phql = 'SELECT * FROM Eva\EvaComment\Entities\Comments AS c
-                WHERE c.threadId = :threadId: AND c.rootId = 0 AND c.status = "approved" ORDER BY c.createdAt DESC';
+//        $phql = 'SELECT * FROM Eva\EvaComment\Entities\Comments AS c
+//                WHERE c.threadId = :threadId: AND c.rootId = 0 AND c.status = "approved" ORDER BY c.createdAt DESC';
+//
+//        $manager = $this->getModelsManager();
+//        $comments = $manager->executeQuery($phql, array('threadId' => $thread->id));
+//
+//        return $comments;
+    }
+
+    function filterContent(Comments $comment)
+    {
+        $phql = 'SELECT word FROM Eva\EvaComment\Entities\Filter AS f WHERE f.level = 2';
 
         $manager = $this->getModelsManager();
-        $comments = $manager->executeQuery($phql, array('threadId' => $thread->id));
+        $arr = $manager->executeQuery($phql);
 
-        return $comments;
+        if (!empty($arr)) {
+            foreach($arr as $v){
+                if (stripos($comment->content,$v->word) !== false) {
+                    $comment->status = Comments::STATE_PENDING;
+                }
+            }
+        }
+        return $comment;
     }
 } 

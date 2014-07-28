@@ -38,8 +38,8 @@ class ApikeyController extends ControllerBase
         $apikey = new Models\Apikey();
         $form->setModel($apikey);
         $this->view->setVar('form', $form);
-        if($uid = $this->request->get('uid')) {
-            if(Models\Apikey::findFirst("userId = $uid")) {
+        if ($uid = $this->request->get('uid')) {
+            if (Models\Apikey::findFirst("userId = $uid")) {
                 return $this->response->redirect('/admin/permission/apikey/edit/' . $uid);
             }
             $this->view->setVar('user', Users::findFirst($uid));
@@ -55,7 +55,7 @@ class ApikeyController extends ControllerBase
         }
         $apikey = $form->getEntity();
         try {
-            if(!$apikey->save()) {
+            if (!$apikey->save()) {
                 return $this->showModelMessages($apikey);
             }
         } catch (\Exception $e) {

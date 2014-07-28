@@ -1,6 +1,6 @@
 <?php
 return array(
-    'EvaCommon' => array(
+    'EvaCore' => array(
         'routesFrontend' => false,
         'routesBackend' => false,
     ),
@@ -9,6 +9,10 @@ return array(
         'routesBackend' => false,
     ),
     'EvaBlog' => array(
+        'routesFrontend' => false,
+        'routesBackend' => false,
+    ),
+    'EvaComment' => array(
         'routesFrontend' => false,
         'routesBackend' => false,
     ),

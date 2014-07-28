@@ -104,7 +104,7 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
                     'slug' => $slug
                 )
             );
-            if($exclude) {
+            if ($exclude) {
                 $conditions['conditions'] .= ' AND id != :id:';
                 $conditions['bind']['id'] = $exclude;
             }
@@ -122,5 +122,4 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
             'id' => $post ? $post->id : 0,
         ));
     }
-
 }

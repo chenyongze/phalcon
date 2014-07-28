@@ -202,5 +202,4 @@ class ProfileForm extends Form
     public function initialize($entity = null, $options = null)
     {
     }
-
 }

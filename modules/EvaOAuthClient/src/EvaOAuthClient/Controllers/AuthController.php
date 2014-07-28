@@ -207,5 +207,4 @@ class AuthController extends ControllerBase
             return $this->response->redirect($this->getDI()->getConfig()->oauth->loginFailedRedirectUri);
         }
     }
-
 }

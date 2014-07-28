@@ -173,5 +173,4 @@ class Login extends UserEntity
 
         return $mailer->send($message->getMessage());
     }
-
 }

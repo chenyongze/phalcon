@@ -47,7 +47,7 @@ class RoleController extends ControllerBase
         }
         $role = $form->getEntity();
         try {
-            if(!$role->save()) {
+            if (!$role->save()) {
                 return $this->showModelMessages($role);
             }
         } catch (\Exception $e) {

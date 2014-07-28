@@ -27,7 +27,7 @@ class TokenAuthority extends AbstractAuthority
 
     public function getToken()
     {
-        if($this->token) {
+        if ($this->token) {
             return $this->token;
         }
         $token = new Apikey();
@@ -38,23 +38,23 @@ class TokenAuthority extends AbstractAuthority
     public function checkAuth($resource, $operation)
     {
         $token = $this->getToken();
-        if(!$token) {
+        if (!$token) {
             return false;
         }
 
-        if($token->isSuperToken()){
+        if ($token->isSuperToken()) {
             return true;
         }
         $tokenStatus = $token->getTokenStatus();
-        if(empty($tokenStatus['roles'])) {
+        if (empty($tokenStatus['roles'])) {
             return false;
         }
 
         $roles = $tokenStatus['roles'];
         $acl = $this->getAcl();
-        foreach($roles as $role) {
+        foreach ($roles as $role) {
             //If any of roles allowed permission
-            if($acl->isAllowed($role, $resource, $operation)) {
+            if ($acl->isAllowed($role, $resource, $operation)) {
                 return true;
             }
         }
@@ -64,7 +64,7 @@ class TokenAuthority extends AbstractAuthority
     public function checkLimitRate()
     {
         $token = $this->getToken();
-        if($token->isOutOfMinutelyRate() + $token->isOutOfHourlyRate() + $token->isOutOfDailyRate() > 0){
+        if ($token->isOutOfMinutelyRate() + $token->isOutOfHourlyRate() + $token->isOutOfDailyRate() > 0) {
             return false;
         }
         return true;

@@ -60,5 +60,4 @@ class RegisterController extends ControllerBase
             'status' => $userinfo ? $userinfo->status : null,
         ));
     }
-
 }
