@@ -2485,83 +2485,83 @@ img.lazy {
     text-align: center;
   }
 }
-.page-user .form-control {
+.page-auth .form-control {
   height: 40px;
   padding-top: 10px;
   padding-bottom: 10px;
   line-height: 20px;
 }
-.page-user .form-control:focus + .help-block + .form-control-feedback {
+.page-auth .form-control:focus + .help-block + .form-control-feedback {
   color: #1395E5;
 }
-.page-user .form-control-feedback {
+.page-auth .form-control-feedback {
   top: 0;
   color: #999;
   width: 40px;
   height: 40px;
   line-height: 40px;
 }
-.page-user .form-group.size-sm {
+.page-auth .form-group.size-sm {
   font-size: 12px;
 }
-.page-user .form-group.size-sm .form-control {
+.page-auth .form-group.size-sm .form-control {
   height: 30px;
   font-size: 12px;
   padding-top: 5px;
   padding-bottom: 5px;
 }
-.page-user .form-group.size-sm .form-control-feedback {
+.page-auth .form-group.size-sm .form-control-feedback {
   width: 30px;
   height: 30px;
   line-height: 30px;
 }
-.page-user .has-success .form-control-feedback {
+.page-auth .has-success .form-control-feedback {
   color: #3c763d;
 }
-.page-user .has-warning .form-control-feedback {
+.page-auth .has-warning .form-control-feedback {
   color: #8a6d3b;
 }
-.page-user .has-error .form-control-feedback {
+.page-auth .has-error .form-control-feedback {
   color: #a94442;
 }
-.page-user .form-avatar {
+.page-auth .form-avatar {
   width: 75px;
   height: 75px;
   margin-bottom: 15px;
 }
-.page-user .form-title {
+.page-auth .form-title {
   font-size: 14px;
   line-height: 36px;
   border-bottom: 1px solid #ccc;
   margin-bottom: 15px;
 }
-.page-user .form-label {
+.page-auth .form-label {
   color: #0a62a3;
   line-height: 20px;
   font-size: 12px;
   margin-bottom: 15px;
 }
-.page-user .form-footer {
+.page-auth .form-footer {
   padding-top: 5px;
   margin-bottom: 20px;
 }
-.page-user .form-footer:before {
+.page-auth .form-footer:before {
   display: table;
   content: '';
   clear: both;
 }
-.page-user .form-footer:after {
+.page-auth .form-footer:after {
   display: table;
   content: '';
   clear: both;
 }
-.page-user .form-hr {
+.page-auth .form-hr {
   border-top: none;
   border-bottom: 1px solid #ccc;
   margin-top: 20px;
   margin-bottom: 20px;
 }
-.page-user .br-title {
+.page-auth .br-title {
   display: block;
   width: 100%;
   text-align: center;
@@ -2569,65 +2569,65 @@ img.lazy {
   border-bottom: 1px solid #119BEF;
   margin-bottom: 32px;
 }
-.page-user .br-title .text {
+.page-auth .br-title .text {
   background-color: #fff;
   padding: 0 10px;
   color: #999;
   font-size: 14px;
   line-height: 20px;
 }
-.page-user .custom-button {
+.page-auth .custom-button {
   line-height: 20px;
   border-radius: 5px;
 }
-.page-user .custom-button.type-qq {
+.page-auth .custom-button.type-qq {
   background-color: #2384CC;
 }
-.page-user .custom-button.type-weibo {
+.page-auth .custom-button.type-weibo {
   background-color: #D04341;
 }
-.page-user .custom-button[type=submit] {
+.page-auth .custom-button[type=submit] {
   background-color: #0a62a3;
   width: 140px;
 }
 @media (max-width: 479px) {
-  .page-user .custom-button[type=submit] {
+  .page-auth .custom-button[type=submit] {
     width: 100px;
   }
 }
-.page-user .custom-button[type=reset] {
+.page-auth .custom-button[type=reset] {
   background-color: #797979;
   width: 140px;
 }
 @media (max-width: 479px) {
-  .page-user .custom-button[type=reset] {
+  .page-auth .custom-button[type=reset] {
     width: 100px;
   }
 }
-#user {
+#auth {
   background-color: #eee;
   padding: 40px 100px 100px;
 }
-#user .form-title {
+#auth .form-title {
   font-size: 21px;
   padding-bottom: 20px;
   border-bottom: 1px solid #ccc;
   margin-bottom: 30px;
 }
-#user .sub-title {
+#auth .sub-title {
   font-size: 16px;
   margin-bottom: 30px;
 }
-#user .custom-span-1 {
+#auth .custom-span-1 {
   width: 66%;
 }
-#user .custom-span-2 {
+#auth .custom-span-2 {
   border-left: 1px solid #ccc;
   padding-left: 30px;
   padding-right: 100px;
   width: 34%;
 }
-#user .custom-span-2 .custom-button {
+#auth .custom-span-2 .custom-button {
   margin-bottom: 15px;
 }
 #user-modal label {
