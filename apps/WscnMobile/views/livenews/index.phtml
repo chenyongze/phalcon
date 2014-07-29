@@ -1,19 +1,27 @@
-<?$livenews = $pager->items;?>
-<ul class="news-list livenews-list">
-    <?foreach($livenews as $news):?>
-    <li class="livenews">
-    <a href="/livenews/<?=$news->id?>">
-        <i class="icon common"></i>
-        <dl>
-            <dd class="datetime"><?=$this->tag->datetime($news->createdAt)?></dd>
-            <dd class="content"><?=$news->title?></dd>
-        </dl>
-    </a>
-    </li>
-    <?endforeach?>
-</ul>
-<br/>
-<div class="news-more row" data-action="show-info">
-    <span class="news-font">加载更多</span>	
-</div>	
-<br/><br/>
+<div>
+    <?=$this->partial('partial/top')?>
+    <div class="content-wrapper">
+        <?$livenews = $pager->items;?>
+        <ul class="news-list livenews-list">
+            <?foreach($livenews as $news):?>
+            <li class="livenews">
+            <a href="/livenews/<?=$news->id?>">
+                <i class="icon common"></i>
+                <dl>
+                    <dd class="datetime"><?=$this->tag->datetime($news->createdAt)?></dd>
+                    <dd class="content"><?=$news->title?></dd>
+                </dl>
+            </a>
+            </li>
+            <?endforeach?>
+        </ul>
+        <br/>
+        <a class="news-more row" data-action="show-info" href="/livenews?page=<?=$pager->next?>">
+            <span class="news-font">加载更多</span>	
+        </a>	
+        <br/><br/>
+    </div>
+    <?=$this->partial('partial/leftmenu')?>
+    <?=$this->partial('partial/footer')?>
+</div>
+<?=$this->partial('partial/js')?>

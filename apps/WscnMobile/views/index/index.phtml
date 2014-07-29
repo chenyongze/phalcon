@@ -1,20 +1,30 @@
-<ul class="news-list">
-    <?$posts = $pager->items;?>
-    <?foreach($posts as $post):?>
-    <li class="news">
-    <a href="/news/<?=$post->id?>">
-        <img src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_60,w_75') : '/img/article.jpg'?>"/>
-        <dl>
-            <dd class="content"><?=$post->title?></dd>
+<div>
+    <?=$this->partial('partial/top')?>
+    <div class="content-wrapper">
+        <ul class="news-list">
+            <?$posts = $pager->items;?>
+            <?foreach($posts as $post):?>
+            <li class="news">
+            <a href="/node/<?=$post->id?>">
+                <img src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_60,w_75') : '/img/article.jpg'?>"/>
+                <dl>
+                    <dd class="content"><?=$post->title?></dd>
 
-            <dd class="source"><?=$this->tag->datetime($post->createdAt)?></dd>
-        </dl>
-    </a>
-    </li>
-    <?endforeach;?>
-</ul>
-<br/>
-<a class="news-more" data-action="show-info" href="/news?page=<?=$pager->next?>">
-    <span class="news-font">加载更多</span>	
-</a>	
-<br/><br/>
+                    <dd class="source"><?=$this->tag->datetime($post->createdAt)?></dd>
+                </dl>
+            </a>
+            </li>
+            <?endforeach;?>
+        </ul>
+        <br/>
+        <a class="news-more" data-action="show-info" href="/?page=<?=$pager->next?>">
+            <span class="news-font">加载更多</span>	
+        </a>	
+        <br/><br/>
+    </div>
+    <?=$this->partial('partial/leftmenu')?>
+    <?=$this->partial('partial/footer')?>
+</div>
+<?=$this->partial('partial/js')?>
+
+

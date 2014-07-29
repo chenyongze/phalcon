@@ -5,11 +5,7 @@ return array(
         'module' => 'WscnMobile',
         'controller' => 'index',
     ),
-    '/news' =>  array(
-        'module' => 'WscnMobile',
-        'controller' => 'news',
-    ),
-    '/news/(\d+)' =>  array(
+    '/node/(\d+)' =>  array(
         'module' => 'WscnMobile',
         'controller' => 'news',
         'action' => 'news',
