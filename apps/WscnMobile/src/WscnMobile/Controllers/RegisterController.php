@@ -3,26 +3,26 @@
 namespace WscnMobile\Controllers;
 
 use Eva\EvaUser\Models;
-use Eva\EvaUser\Models\Login;
 use Eva\EvaUser\Forms;
 
-class LoginController extends ControllerBase
+class RegisterController extends ControllerBase
 {
     public function indexAction()
     {
         $this->dispatcher->forward(array(
             'namespace' => 'Eva\EvaUser\Controllers',
-            'controller' => 'login',
+            'controller' => 'register',
             'action' => 'index',
         ));
     }
 
-    public function reactiveAction()
+    public function checkAction()
     {
         $this->dispatcher->forward(array(
             'namespace' => 'Eva\EvaUser\Controllers',
-            'controller' => 'login',
-            'action' => 'reactive',
+            'controller' => 'register',
+            'action' => 'check',
         ));
     }
+
 }
