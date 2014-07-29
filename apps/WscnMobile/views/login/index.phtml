@@ -4,13 +4,13 @@
 
         <div class="login-form" style="display:">
             <section id="loginSection" class="login-section">
-            <form action="" name="loginForm">
+            <form name="loginForm" data-validate action="/login"  method="POST" novalidate="novalidate">
                 <h1>华尔街见闻帐号登录</h1>
                 <div>
-                    <input type="text" placeholder="用户名" required="" name="username" class="username"/>
+                    <input type="text" name="identify" class="username" placeholder="用户名或邮箱" required>
                 </div>
                 <div>
-                    <input type="password" placeholder="密码" required="" name="password" class="password"/>
+                    <input type="password" name="password" class="password" placeholder="密码" required>
                 </div>
                 <div>
                     <input type="submit" value="登录" />
@@ -26,19 +26,37 @@
 
         <div class="register-form" style="display:none">
             <section id="registerSection" class="register-section">
-            <form action="" name="registerForm">
+            <form name="registerForm" data-validate action="/register"  method="POST" novalidate="novalidate">
                 <h1>新用户注册</h1>
                 <div>
-                    <input type="text" placeholder="邮箱" required="" name="email" class="email"/>
+                    <input type="text" name="email" class="email" placeholder="邮箱" required
+                    data-parsley-trigger="blur change"
+                    data-parsley-remote="/register/check"
+                    data-parsley-remote-options='{ method: "GET", dataType: "json"}'
+                    data-parsley-remote-message="输入的邮箱已被占用" >
                 </div>
                 <div>
-                    <input type="text" placeholder="用户名" required="" name="username" class="username"/>
+                    <input type="text" name="username" class="username" placeholder="用户名" required
+                    data-parsley-trigger="blur change"
+                    data-parsley-type="alphanum"
+                    maxlength="24"
+                    data-parsley-minlength="4"
+                    data-parsley-minlength-message="用户名最短4个字符"
+                    data-parsley-maxlength="24"
+                    data-parsley-pattern="^(?![0-9]+$)"
+                    data-parsley-pattern-message="请不要使用纯数字作为用户名"
+                    data-parsley-remote="/register/check"
+                    data-parsley-remote-options='{ method: "GET", dataType: "json"}'
+                    data-parsley-remote-message="输入的用户名已被占用" >
                 </div>
                 <div>
-                    <input type="password" placeholder="密码" required="" name="password" class="password"/>
-                </div>
-                <div class="agreement">
-                    <input type="checkbox" required="" name="agreement" /><span>我已经阅读并同意用户协议</span>
+                    <input type="password" name="password" class="password" placeholder="密码" required
+                    data-parsley-trigger="blur change"
+                    data-parsley-minlength="6"
+                    data-parsley-minlength-message="密码最短6位"
+                    maxlength="26"
+                    data-parsley-maxlength="26"
+                    data-parsley-max-length="密码最长26位" >
                 </div>
                 <div>
                     <input type="submit" value="注册" />
@@ -52,13 +70,13 @@
 
         <div class="reset-password-form" style="display:none">
             <section id="resetPasswordSection" class="reset-password-section">
-            <form action="" name="resetPasswordForm">
+            <form name="resetPasswordForm" data-validate action="/reset"  method="POST" novalidate="novalidate">
                 <h1>重置密码</h1>
                 <div>
-                    <input type="text" placeholder="邮箱" required="" name="email" class="email"/>
+                    <input type="text" name="email" class="email" placeholder="注册邮箱" required>
                 </div>
                 <div>
-                    <input type="submit" value="发送邮件" />
+                    <input type="submit" value="发送确认邮件" />
                 </div>
             </form><!-- form -->
             <div class="nav">
@@ -71,12 +89,19 @@
     </div>
     <?=$this->partial('partial/footer')?>
 </div>
-<?=$this->partial('partial/js')?>
+<?=$this->partial('partial/js', array(
+    'baseLib' => 'jQuery',
+))?>
+<script type="text/javascript" src="/vendor/js/parsley.js"></script>
 <script type="text/javascript">
-    $(function ($) {
-		$(".nav span").click(function(){
-			$(".content-wrapper > div").css("display","none");
-			$("." + $(this).attr("data-target")).css("display","");
-		})
-	 }(Zepto));
+    (function ($) {
+            $(".nav span").click(function(){
+                    $(".content-wrapper > div").css("display","none");
+                    $("." + $(this).attr("data-target")).css("display","");
+            })
+
+            $('form[data-validate]').parsley({
+            });
+
+    }(window.jQuery));
 </script>
