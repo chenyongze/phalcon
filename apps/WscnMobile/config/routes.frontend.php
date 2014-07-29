@@ -44,8 +44,31 @@ return array(
         'controller' => 'search',
         'action' => 'suggestion',
     ),
-    '/login' =>  array(
+    '/register' => array(
+        'module' => 'WscnMobile',
+        'controller' => 'register',
+    ),
+    '/register/:action' => array(
+        'module' => 'WscnMobile',
+        'controller' => 'register',
+        'action' => 1,
+    ),
+    '/login' => array(
         'module' => 'WscnMobile',
         'controller' => 'login',
+    ),
+    '/login/:action' => array(
+        'module' => 'WscnMobile',
+        'controller' => 'login',
+        'action' => 1,
+    ),
+    '/logout' => array(
+        'module' => 'WscnMobile',
+        'controller' => 'logout',
+    ),
+    '/session/:action' => array(
+        'module' => 'WscnMobile',
+        'controller' => 'session',
+        'action' => 1,
     ),
 );
