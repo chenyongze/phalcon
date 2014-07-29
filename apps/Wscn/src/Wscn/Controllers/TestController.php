@@ -31,4 +31,8 @@ class TestController extends ControllerBase
     {
     }
 
+    public function userAction()
+    {
+    }
+
 }

@@ -1013,16 +1013,91 @@ img.lazy {
 }
 #header .user-control {
   display: inline-block;
+  position: relative;
   width: 34px;
   height: 34px;
+  vertical-align: middle;
+}
+#header .user-control > .icon {
+  display: block;
+  width: 100%;
+  height: 100%;
   line-height: 34px;
   color: #fff;
   text-align: center;
-  vertical-align: middle;
   top: 0;
 }
-#header .user-control:hover {
+#header .user-control > .avatar {
+  display: none;
+}
+#header .user-control > .avatar img {
+  width: 24px;
+  height: 24px;
+  margin: 5px;
+}
+#header .user-control > .control {
+  display: none;
+  position: absolute;
+  top: 34px;
+  right: -15px;
+  width: 145px;
+  padding-top: 15px;
+}
+#header .user-control > .control:hover {
+  display: block;
+}
+#header .user-control > .control > .content {
+  position: relative;
+  border-radius: 5px;
+  color: #333;
+  background-color: #fff;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  padding: 5px 0 ;
+}
+#header .user-control > .control > .content:before {
+  display: block;
+  position: absolute;
+  content: "";
+  background-color: #fff;
+  border-top: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  z-index: 0;
+  width: 10px;
+  height: 10px;
+  top: -6px;
+  right: 25px;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+#header .user-control > .control > .content > .item {
+  display: block;
+  width: 100%;
+  height: 36px;
+  padding-left: 25px;
+  font-size: 14px;
+  line-height: 36px;
+}
+#header .user-control > .control > .content > .item:hover {
   color: #fff;
+  background-color: #1395E5;
+}
+#header .user-control > .control > .content > .line {
+  display: block;
+  border: none;
+  margin: 2px 0;
+  border-bottom: 1px solid #ddd;
+}
+#header .user-control.login > .icon {
+  display: none;
+}
+#header .user-control.login > .avatar {
+  display: block;
+}
+#header .user-control.login:hover > .control {
+  display: block;
 }
 #header .form-group {
   margin: 0;
@@ -2629,6 +2704,84 @@ img.lazy {
 }
 #auth .custom-span-2 .custom-button {
   margin-bottom: 15px;
+}
+.page-user > .head {
+  margin-bottom: 50px;
+}
+.page-user > .head:before {
+  display: table;
+  content: '';
+  clear: both;
+}
+.page-user > .head:after {
+  display: table;
+  content: '';
+  clear: both;
+}
+.page-user > .head > .avatar {
+  display: block;
+  float: left;
+  background: #ccc;
+}
+.page-user > .head > .auth {
+  float: right;
+  text-align: right;
+  line-height: 1em;
+}
+.page-user > .head > .auth .title {
+  font-size: 16px;
+  line-height: 1em;
+  color: #1395E5;
+  margin-bottom: 15px;
+}
+.page-user > .head > .auth .info {
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+.page-user > .head > .auth .handle {
+  font-size: 12px;
+  color: #0a62a3;
+}
+.page-user > .head > .info {
+  font-size: 12px;
+  color: #666;
+}
+.page-user > .head > .info .name {
+  font-size: 20px;
+  line-height: 1em;
+  margin-bottom: 10px;
+}
+.page-user > .head > .info .signature {
+  height: 3em;
+  overflow: hidden;
+  line-height: 1.5em;
+}
+.page-user > .head > .info .meta {
+  margin-top: 12px;
+  line-height: 16px;
+  position: relative;
+  padding-left: 40px;
+}
+.page-user > .head > .info .meta .icon {
+  position: absolute;
+  color: #0a62a3;
+  font-size: 16px;
+  left: 0;
+}
+@media (min-width: 1280px) {
+  .page-user > .head > .avatar {
+    width: 150px;
+    height: 150px;
+  }
+  .page-user > .head > .auth {
+    float: right;
+    width: 175px;
+    border-left: 1px solid #ccc;
+  }
+  .page-user > .head > .info {
+    float: right;
+    width: 450px;
+  }
 }
 #user-modal label {
   font-weight: normal;

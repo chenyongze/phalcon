@@ -23,6 +23,14 @@
 .fixed {
     position: fixed !important;
 }
+//转换
+.transform (@transform) {
+    -webkit-transform: @transform;
+       -moz-transform: @transform;
+        -ms-transform: @transform;
+         -o-transform: @transform;
+            transform: @transform;
+}
 // 过度
 .transition (@transition) {
     -webkit-transition: @transition;

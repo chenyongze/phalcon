@@ -1,5 +1,76 @@
 .page-user {
+    & > .head {
+        .clearfix;
+        margin-bottom: 50px;
+        & > .avatar {
+            display: block;
+            float: left;
+            background: #ccc;
+        }
+        & > .auth {
+            float: right;
+            text-align: right;
+            line-height: 1em;
+            .title {
+                font-size: 16px;
+                line-height: 1em;
+                color: #1395E5;
+                margin-bottom: 15px;
+            }
+            .info {
+                font-size: 14px;
+                margin-bottom: 15px;
+            }
+            .handle {
+                font-size: 12px;
+                color: @blue;
+            }
+        }
+        & > .info {
+            font-size: 12px;
+            color: #666;
+            .name {
+                font-size: 20px;
+                line-height: 1em;
+                margin-bottom: 10px;
+            }
+            .signature {
+                height: 3em;
+                overflow: hidden;
+                line-height: 1.5em;
+            }
+            .meta {
+                margin-top: 12px;
+                line-height: 16px;
+                position: relative;
+                padding-left: 40px;
+                .icon {
+                    position: absolute;
+                    color: @blue;
+                    font-size: 16px;
+                    left: 0;
+                }
+            }
+        }
+        @media (min-width: @screen-lg-min) {
+            & > .avatar {
+                width: 150px;
+                height: 150px;
+            }
+            & > .auth {
+                float: right;
+                width: 175px;
+                border-left: 1px solid #ccc;
+            }
+            & > .info {
+                float: right;
+                width: 450px;
+            }
+        }
+    }
+    & > .body {
 
+    }
 }
 
 #user {

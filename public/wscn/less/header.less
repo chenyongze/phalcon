@@ -47,15 +47,95 @@
     }
     .user-control {
         display: inline-block;
+        position: relative;
         width: 34px;
         height: 34px;
-        line-height: 34px;
-        color: #fff;
-        text-align: center;
         vertical-align: middle;
-        top: 0;
-        &:hover {
+        & > .icon {
+            display: block;
+            width: 100%;
+            height: 100%;
+            line-height: 34px;
             color: #fff;
+            text-align: center;
+            top: 0;
+        }
+        & > .avatar {
+            display: none;
+            img {
+                width: 24px;
+                height: 24px;
+                margin: 5px;
+            }
+        }
+        & > .control {
+            display: none;
+            position: absolute;
+            top: 34px;
+            right: -15px;
+            width: 145px;
+            padding-top: 15px;
+            &:hover {
+                display: block;
+            }
+            & > .content {
+                position: relative;
+                border-radius: 5px;
+                color: #333;
+                background-color: #fff;
+                //border: 1px solid #ddd ;
+                box-shadow: 0 0 3px rgba(0,0,0,0.3);
+                padding: 5px 0 ;
+                &:before {
+                    display: block;
+                    position: absolute;
+                    content: "";
+                    background-color: #fff;
+                    border-top: 1px solid #ddd;
+                    border-left: 1px solid #ddd;
+                    z-index: 0;
+                    width: 10px;
+                    height: 10px;
+                    top: -6px;
+                    right: 25px;
+                    //box-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+                    .transform(rotate(45deg));
+                }
+                & > .item {
+                    display: block;
+                    width: 100%;
+                    height: 36px;
+                    padding-left: 25px;
+                    font-size: 14px;
+                    line-height: 36px;
+                    &:hover {
+                        color: #fff;
+                        background-color: #1395E5;
+                    }
+                }
+                & > .line {
+                    display: block;
+                    border: none;
+                    margin: 2px 0;
+                    border-bottom: 1px solid #ddd;
+                }
+            }
+        }
+        &.login {
+            & > .icon {
+                display: none;
+            }
+            & > .avatar {
+                display: block;
+            }
+            &:hover {
+                & > .control {
+                    display: block;
+                }
+            }
+        }
+        &.inactive {
+
         }
     }
     .form-group {
