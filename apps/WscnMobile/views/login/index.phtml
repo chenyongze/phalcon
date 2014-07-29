@@ -1,66 +1,82 @@
-		<div class="login-form" style="display:">
-			<section id="loginSection" class="login-section">
-				<form action="" name="loginForm">
-					<h1>华尔街见闻帐号登录</h1>
-					<div>
-						<input type="text" placeholder="用户名" required="" name="username" class="username"/>
-					</div>
-					<div>
-						<input type="password" placeholder="密码" required="" name="password" class="password"/>
-					</div>
-					<div>
-						<input type="submit" value="登录" />
-					</div>
-				</form><!-- form -->
-				<div class="nav">
-					<span class="left" data-target="reset-password-form">忘记密码?</span>
-					<span class="right" data-target="register-form">注册</span>
-					
-				</div><!-- button -->
-			</section><!-- content -->
-		</div><!-- container -->
-		
-		<div class="register-form" style="display:none">
-			<section id="registerSection" class="register-section">
-				<form action="" name="registerForm">
-					<h1>新用户注册</h1>
-					<div>
-						<input type="text" placeholder="邮箱" required="" name="email" class="email"/>
-					</div>
-					<div>
-						<input type="text" placeholder="用户名" required="" name="username" class="username"/>
-					</div>
-					<div>
-						<input type="password" placeholder="密码" required="" name="password" class="password"/>
-					</div>
-					<div class="agreement">
-						<input type="checkbox" required="" name="agreement" /><span>我已经阅读并同意用户协议</span>
-					</div>
-					<div>
-						<input type="submit" value="注册" />
-					</div>
-				</form><!-- form -->
-				<div class="nav">
-					<span class="left" data-target="login-form">返回登录</span>
-				</div><!-- button -->
-			</section><!-- content -->
-		</div><!-- container -->
-		
-		<div class="reset-password-form" style="display:none">
-			<section id="resetPasswordSection" class="reset-password-section">
-				<form action="" name="resetPasswordForm">
-					<h1>重置密码</h1>
-					<div>
-						<input type="text" placeholder="邮箱" required="" name="email" class="email"/>
-					</div>
-					<div>
-						<input type="submit" value="发送邮件" />
-					</div>
-				</form><!-- form -->
-				<div class="nav">
-					<span class="left" data-target="login-form">返回登录</span>
-					<span class="right" data-target="register-form">注册</span>
-				</div><!-- button -->
-			</section><!-- content -->
-		</div><!-- container -->
-		
+<div>
+    <?=$this->partial('partial/top_single')?>
+    <div class="content-wrapper">
+
+        <div class="login-form" style="display:">
+            <section id="loginSection" class="login-section">
+            <form action="" name="loginForm">
+                <h1>华尔街见闻帐号登录</h1>
+                <div>
+                    <input type="text" placeholder="用户名" required="" name="username" class="username"/>
+                </div>
+                <div>
+                    <input type="password" placeholder="密码" required="" name="password" class="password"/>
+                </div>
+                <div>
+                    <input type="submit" value="登录" />
+                </div>
+            </form><!-- form -->
+            <div class="nav">
+                <span class="left" data-target="reset-password-form">忘记密码?</span>
+                <span class="right" data-target="register-form">注册</span>
+
+            </div><!-- button -->
+            </section><!-- content -->
+        </div><!-- container -->
+
+        <div class="register-form" style="display:none">
+            <section id="registerSection" class="register-section">
+            <form action="" name="registerForm">
+                <h1>新用户注册</h1>
+                <div>
+                    <input type="text" placeholder="邮箱" required="" name="email" class="email"/>
+                </div>
+                <div>
+                    <input type="text" placeholder="用户名" required="" name="username" class="username"/>
+                </div>
+                <div>
+                    <input type="password" placeholder="密码" required="" name="password" class="password"/>
+                </div>
+                <div class="agreement">
+                    <input type="checkbox" required="" name="agreement" /><span>我已经阅读并同意用户协议</span>
+                </div>
+                <div>
+                    <input type="submit" value="注册" />
+                </div>
+            </form><!-- form -->
+            <div class="nav">
+                <span class="left" data-target="login-form">返回登录</span>
+            </div><!-- button -->
+            </section><!-- content -->
+        </div><!-- container -->
+
+        <div class="reset-password-form" style="display:none">
+            <section id="resetPasswordSection" class="reset-password-section">
+            <form action="" name="resetPasswordForm">
+                <h1>重置密码</h1>
+                <div>
+                    <input type="text" placeholder="邮箱" required="" name="email" class="email"/>
+                </div>
+                <div>
+                    <input type="submit" value="发送邮件" />
+                </div>
+            </form><!-- form -->
+            <div class="nav">
+                <span class="left" data-target="login-form">返回登录</span>
+                <span class="right" data-target="register-form">注册</span>
+            </div><!-- button -->
+            </section><!-- content -->
+        </div><!-- container -->
+
+    </div>
+    <?=$this->partial('partial/footer')?>
+</div>
+<?=$this->partial('partial/js')?>
+<script type="text/javascript">
+    $(function ($) {
+		$(".nav span").click(function(){
+			$(".content-wrapper > div").css("display","none");
+			$("." + $(this).attr("data-target")).css("display","");
+		})
+	 }(Zepto));
+</script>

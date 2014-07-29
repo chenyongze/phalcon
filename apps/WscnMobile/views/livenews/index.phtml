@@ -25,3 +25,18 @@
     <?=$this->partial('partial/footer')?>
 </div>
 <?=$this->partial('partial/js')?>
+<script type="text/javascript">
+    $(document).on('click', '.news-more', function(){
+            var loader = $(this);
+            var link = $(this).attr('href');
+            $.ajax({
+                    url : link,
+                    success : function(response){
+                            var newpage = $(response);
+                            $(".content-wrapper ul").append(newpage.find('.content-wrapper ul').html());
+                            loader.attr('href', newpage.find('a.news-more').attr('href'));
+                    }
+            });
+            return false;
+    });
+</script>
