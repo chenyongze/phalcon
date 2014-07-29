@@ -100,17 +100,15 @@
                             </label>
                         </th>
                         <th class="hidden-480">
-                            <a href="<?=$this->tag->uri('/admin/post', $pager->query)?>" class="sortable-link" data-sortable-value="id">ID</a>
+                            <a href="<?=$this->tag->uri('/admin/wiki', $pager->query)?>" class="sortable-link" data-sortable-value="id">ID</a>
                         </th>
                         <th>Title</th>
                         <th class="hidden-480">Status</th>
-                        <th>
-                            <a href="<?=$this->tag->uri('/admin/post', $pager->query)?>" class="sortable-link" data-sortable-value="sort_order" data-sortable-default="-sort_order">Order</a>
-                        </th>
+
                         <th>User</th>
                         <th>Count</th>
                         <th>
-                            <a href="<?=$this->tag->uri('/admin/post', $pager->query)?>" class="sortable-link" data-sortable-value="created_at" data-sortable-default="-created_at">
+                            <a href="<?=$this->tag->uri('/admin/wiki', $pager->query)?>" class="sortable-link" data-sortable-value="created_at" data-sortable-default="-created_at">
                                 <i class="icon-time bigger-110"></i>
                                 Created At
                             </a>
@@ -130,7 +128,7 @@
                             </td>
                             <td class="hidden-480"><?=$item->id?></td>
                             <td>
-                                <a href="/admin/post/edit/<?=$item->id?>"><?=$item->title?></a>
+                                <a href="/admin/wiki/edit/<?=$item->id?>"><?=$item->title?></a>
                                 <?if($item->sourceName):?><a href="<?=$item->sourceUrl?>" target="_blank"><span class="label"><?=$item->sourceName?></span></a><?endif?>
                                 <span class="label"><?=$item->codeType?></span>
                             </td>
@@ -143,29 +141,27 @@
                                 )?>
                                 <span class="label label-sm <?=$status[$item->status]?>"><?=$item->status?></span>
                             </td>
-                            <td>
-                                <input class="form-control input-mini ajax-field-edit" value="<?=$item->sortOrder?>" data-name="sortOrder" date-method="put" data-form-action="/admin/post/process/sort/<?=$item->id?>" data-callback="input.parent().addClass('has-success')" />
-                            </td>
+
                             <td><?=$item->user ? $item->user->username : ''?></td>
                             <td><?=$item->count?></td>
                             <td><?=$this->tag->datetime($item->createdAt)?></td>
                             <td>
                                 <div class="btn-group">
-                                    <button class="btn btn-xs btn-success ajax-form-sumbit" data-ajax-form="1" date-method="put" data-form-action="/admin/post/process/status/<?=$item->id?>" data-callback="window.location.reload();">
+                                    <button class="btn btn-xs btn-success ajax-form-sumbit" data-ajax-form="1" date-method="put" data-form-action="/admin/wiki/process/status/<?=$item->id?>" data-callback="window.location.reload();">
                                         <input type="hidden" data-name="status" value="published" >
                                         <i class="icon-ok bigger-120"></i>
                                     </button>
 
-                                    <a class="btn btn-xs btn-info" href="/admin/post/edit/<?=$item->id?>">
+                                    <a class="btn btn-xs btn-info" href="/admin/wiki/edit/<?=$item->id?>">
                                         <i class="icon-edit bigger-120"></i>
                                     </a>
 
-                                    <button class="btn btn-xs ajax-form-sumbit" data-ajax-form="1" date-method="put" data-form-action="/admin/post/process/status/<?=$item->id?>" data-callback="window.location.reload();">
+                                    <button class="btn btn-xs ajax-form-sumbit" data-ajax-form="1" date-method="put" data-form-action="/admin/wiki/process/status/<?=$item->id?>" data-callback="window.location.reload();">
                                         <input type="hidden" data-name="status" value="deleted" >
                                         <i class="icon-eye-close bigger-120"></i>
                                     </button>
 
-                                    <button class="btn btn-xs btn-danger ajax-form-sumbit" data-ajax-form="1" date-method="delete" data-form-action="/admin/post/process/delete/<?=$item->id?>" data-confirm="1" data-confirm-message="<?=sprintf('Item %s will be deleted, are you sure?', $item->title)?>" data-callback="form.closest('tr').hide();">
+                                    <button class="btn btn-xs btn-danger ajax-form-sumbit" data-ajax-form="1" date-method="delete" data-form-action="/admin/wiki/process/delete/<?=$item->id?>" data-confirm="1" data-confirm-message="<?=sprintf('Item %s will be deleted, are you sure?', $item->title)?>" data-callback="form.closest('tr').hide();">
                                         <i class="icon-trash bigger-120"></i>
                                     </button>
                                 </div>
@@ -178,12 +174,12 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="btn-group">
-                            <button class="btn btn-xs btn-success ajax-form-sumbit" data-batch-form="1" data-source-name="id" data-source-selectors="#post-grid input[data-batch-source]" date-method="put" data-form-action="/admin/post/process/batch" data-callback="window.location.reload();">
+                            <button class="btn btn-xs btn-success ajax-form-sumbit" data-batch-form="1" data-source-name="id" data-source-selectors="#post-grid input[data-batch-source]" date-method="put" data-form-action="/admin/wiki/process/batch" data-callback="window.location.reload();">
                                 <input type="hidden" data-name="status" value="published" >
                                 <i class="icon-ok bigger-120"></i>
                             </button>
 
-                            <button class="btn btn-xs ajax-form-sumbit" data-batch-form="1" data-source-name="id" data-source-selectors="#post-grid input[data-batch-source]" date-method="put" data-form-action="/admin/post/process/batch" data-callback="window.location.reload();">
+                            <button class="btn btn-xs ajax-form-sumbit" data-batch-form="1" data-source-name="id" data-source-selectors="#post-grid input[data-batch-source]" date-method="put" data-form-action="/admin/wiki/process/batch" data-callback="window.location.reload();">
                                 <input type="hidden" data-name="status" value="deleted" >
                                 <i class="icon-eye-close bigger-120"></i>
                             </button>
@@ -192,7 +188,7 @@
                     <div class="col-sm-6">
                         <div class="dataTables_paginate">
                             <?$this->partial("partial/paginator", array(
-                                'pagerUrl' => '/admin/post',
+                                'pagerUrl' => '/admin/wiki',
                                 'pager' => $pager,
                             ))?>
                         </div>

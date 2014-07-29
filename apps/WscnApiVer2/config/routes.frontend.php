@@ -210,5 +210,22 @@ return array(
         ),
         'httpMethods' => 'DELETE'
     ),
-
+    'wikiCrateCategory' =>  array(
+        'pattern' => '/v2/wiki/category',
+        'paths' => array(
+            'module' => 'WscnApiVer2',
+            'controller' => 'Wiki',
+            'action' => 'createCategory',
+        ),
+        'httpMethods' => 'POST'
+    ),
+    'wikiCrateEntry' =>  array(
+        'pattern' => '/v2/wiki/entry',
+        'paths' => array(
+            'module' => 'WscnApiVer2',
+            'controller' => 'Wiki',
+            'action' => 'createEntry',
+        ),
+        'httpMethods' => 'POST'
+    ),
 );

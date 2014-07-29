@@ -30,9 +30,6 @@ class EntryForm extends Form
      * @var string
      */
     public $status;
-
-
-
     /**
      *
      * @var string
@@ -44,25 +41,14 @@ class EntryForm extends Form
      * @Type(Hidden)
      * @var string
      */
-    public $codeType;
+    public $codeType = 'html';
 
     /**
      *
      * @var string
      */
-    public $language;
+    public $language = 'zh';
 
-    /**
-     *
-     * @var integer
-     */
-    public $parentId;
-
-    /**
-     *
-     * @var string
-     */
-    public $slug;
 
     /**
      *
@@ -153,6 +139,8 @@ class EntryForm extends Form
     public $summary;
 
     protected $categories;
+
+    public $categoryNames;
 
     public function getCategories()
     {

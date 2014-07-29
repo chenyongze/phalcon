@@ -6,6 +6,9 @@ use Eva\EvaEngine\Paginator;
 use Eva\Wiki\Entities;
 use Eva\EvaFileSystem\Models\Upload as UploadModel;
 use Eva\EvaEngine\Exception;
+use Eva\Wiki\Forms\CategoryForm;
+use Eva\Wiki\Utils\Pinyin;
+
 
 class Category extends Entities\Categories
 {
@@ -53,6 +56,7 @@ class Category extends Entities\Categories
     public function beforeValidationOnCreate()
     {
         $this->createdAt = time();
+
     }
 
 
@@ -73,7 +77,7 @@ class Category extends Entities\Categories
 
         $paginator = new Paginator(array(
             "builder" => $items,
-            "limit" => 500,
+            "limit" => 100,
             "page" => $currentPage
         ));
 
@@ -81,37 +85,10 @@ class Category extends Entities\Categories
         return $pager;
     }
 
-    public function beforeUpdate()
-    {
-        /*
-        //not allow set self to parent
-        if (!$this->parentId || $this->parentId == $this->id) {
-            $this->parentId = 0;
-            $this->rootId = 0;
-        } else {
-            $parentCategory = self::findFirst($this->parentId);
-            if ($parentCategory) {
-                if (
-                    $parentCategory->rootId == $this->id  //not allow move to child node
-                    || $parentCategory->rootId == $this->rootId
-                ) {
-                    throw new Exception\InvalidArgumentException('ERR_BLOG_CATEGORY_NOT_ALLOW_MOVE');
-
-                } else {
-                    if ($parentCategory->parentId) {
-                        $this->rootId = $parentCategory->rootId;
-                    } else {
-                        $this->rootId = $parentCategory->id;
-                    }
-                }
-
-            } else {
-                $this->rootId = 0;
-            }
-        }
-        */
-    }
-
+    /**
+     *
+     * @param array $data
+     */
     public function createCategory(array $data)
     {
 
@@ -129,7 +106,8 @@ class Category extends Entities\Categories
                 $this->image = $file->getFullUrl();
             }
         }
-
+        $pinyin = new Pinyin();
+        $this->initial = substr($pinyin->transformUcwords($this->categoryName), 0, 1);
         if ($this->save()) {
             if ($data['parents']) {
                 $cateCate = new CategoryCategory();
@@ -138,6 +116,9 @@ class Category extends Entities\Categories
         }
     }
 
+    /**
+     * @param array $data
+     */
     public function updateCategory(array $data)
     {
         if ($this->getDI()->getRequest()->hasFiles()) {
@@ -153,7 +134,8 @@ class Category extends Entities\Categories
                 $this->image = $file->getFullUrl();
             }
         }
-
+        $pinyin = new Pinyin();
+        $this->initial = substr($pinyin->transformUcwords($this->categoryName), 0, 1);
         if ($this->save()) {
             $parents = isset($data['parents']) ? $data['parents'] : array();
 
@@ -184,5 +166,48 @@ class Category extends Entities\Categories
         $this->getModelsManager()->executeQuery('UPDATE Eva\Wiki\Entities\Categories SET isRoot=0 WHERE id=:categoryId:', array(
             'categoryId' => $categoryId
         ));
+    }
+
+    /**
+     * 通过分类名、父分类名创建分类。自动检测分类名是否已经存在
+     *
+     * @param $categoryName
+     * @param $parentNames
+     * @return Category
+     * @throws Exception\RuntimeException
+     */
+    public function createCategoryByNames($categoryName, array $parentNames)
+    {
+        $categoryName = addslashes($categoryName);
+        $subCategory = self::getOrCreate($categoryName);
+        if(!$subCategory) {
+            return false;
+        }
+        $parentIds = array();
+        foreach ($parentNames as $_parentName) {
+            $_category = self::getOrCreate($_parentName);
+            if ($_category->id > 0) {
+                $parentIds[] = $_category->id;
+
+            }
+        }
+        $cateCate = new CategoryCategory();
+        $cateCate->forFullUpdateCategoryByParentId($subCategory->id, $parentIds);
+        return $subCategory->id;
+    }
+    public static  function getOrCreate($categoryName)
+    {
+        $categoryDAO = new Category();
+        $category = $categoryDAO->findFirst("categoryName='{$categoryName}'");
+        $pinyin = new Pinyin();
+
+        if(!$category) {
+            $category->categoryName = $categoryName;
+            $category->initial = substr($pinyin->transformUcwords($category->categoryName), 0, 1);
+
+            $category->save();
+        }
+        return $category;
+
     }
 }
