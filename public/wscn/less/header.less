@@ -46,11 +46,22 @@
         padding-right: 0;
     }
     .user-control {
+        z-index: 9999;
         display: inline-block;
         position: relative;
         width: 34px;
         height: 34px;
         vertical-align: middle;
+
+        .icon-inactive {
+            display: none;
+            width: 45px;
+            height: 16px;
+            vertical-align: middle;
+            margin-left: 5px;
+            background: url(../icon/inactive.png) 0 0 no-repeat;
+        }
+
         & > .icon {
             display: block;
             width: 100%;
@@ -135,7 +146,19 @@
             }
         }
         &.inactive {
-
+            &:before {
+                display: block;
+                position: absolute;
+                content: "";
+                width: 20px;
+                height: 20px;
+                top: -5px;
+                right: -5px;
+                background: url(../icon/warn.png) 0 0 no-repeat;
+            }
+            .icon-inactive {
+                display: inline-block;
+            }
         }
     }
     .form-group {
@@ -246,21 +269,21 @@
         font-size: 14px;
         line-height: 40px;
     }
-    [data-action=close] {
+    [data-action="hide-breaking-news"] {
         display: block;
         position: absolute;
         top: 0;
         bottom: 0;
         right: 3px;
         margin: auto 0;
-        width: 28px;
-        height: 28px;
+        width: 24px;
+        height: 24px;
+        line-height: 24px;
+        font-size: 14px;
         border-radius: 50%;
         background-color: #fff;
         color: #646464;
         text-align: center;
-        line-height: 30px;
-        font-size: 16px;
         &:hover {
             color: @blue;
         }
