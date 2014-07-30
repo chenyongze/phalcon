@@ -86,6 +86,7 @@ class CommentManager extends BaseModel
             $builder->columns($query['columns']);
         }
 
+        $builder->andWhere('rootId = 0');
 
         if (!empty($query['q'])) {
             $builder->andWhere('content LIKE :q:', array('q' => "%{$query['q']}%"));
