@@ -142,6 +142,7 @@ class CommentManager extends BaseModel
 
         $builder->from('Eva\EvaComment\Entities\Comments');
 
+        $builder->andWhere('rootId = 0');
         $builder->andWhere('status = "' . Comments::STATE_APPROVED . '"');
         $builder->andWhere('threadId = :threadId:', array('threadId' => $thread->id));
 
