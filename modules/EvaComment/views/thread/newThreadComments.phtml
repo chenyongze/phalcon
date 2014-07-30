@@ -10,8 +10,8 @@ $parentId = $parent ? $parent->id : '';
     <?
     echo $this->tag->form(array($url,
         'method'=>'post',
-        'id' => 'fos_comment_form_'.$parentId,
-        'class'=>'fos_comment_comment_new_form fos_comment_comment_reply_form',
+        'id' => 'ws_comment_form_'.$parentId,
+        'class'=>'ws_comment_comment_new_form fos_comment_comment_reply_form',
         'data-parent'=>$parentId))
     ?>
         <textarea class="input" name="content" rows="3"></textarea>

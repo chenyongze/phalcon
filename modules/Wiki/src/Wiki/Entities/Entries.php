@@ -31,6 +31,13 @@ class Entries extends Model
     public $title;
 
     /**
+     * 首字母
+     *
+     * @var string
+     */
+    public $initial;
+
+    /**
      *
      * @var string
      */
@@ -46,7 +53,7 @@ class Entries extends Model
      *
      * @var string
      */
-    public $visibility;
+    public $visibility = 'public';
 
     /**
      *
@@ -58,13 +65,8 @@ class Entries extends Model
      *
      * @var string
      */
-    public $language;
+    public $language = 'zh';
 
-    /**
-     *
-     * @var integer
-     */
-    public $parentId;
 
     /**
      *
@@ -106,7 +108,7 @@ class Entries extends Model
      *
      * @var integer
      */
-    public $count;
+    public $count = 0;
 
     /**
      *
@@ -162,7 +164,7 @@ class Entries extends Model
         );
         $this->hasMany(
             'id',
-            'Eva\Wiki\Entities\CategoryKeywords',
+            'Eva\Wiki\Entities\EntryKeywords',
             'entryId',
             array('alias' => 'keywords')
         );

@@ -31,6 +31,13 @@ class Categories extends Model
     public $categoryName;
 
     /**
+     * 首字母
+     *
+     * @var string
+     */
+    public $initial;
+
+    /**
      *
      * @var string
      */

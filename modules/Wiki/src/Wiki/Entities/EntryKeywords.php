@@ -16,6 +16,8 @@ use Eva\EvaEngine\Mvc\Model;
 
 class EntryKeywords extends Model
 {
+    protected $tableName = 'wiki_entry_keywords';
+
     /**
      * @var int 所属词条 ID
      */
@@ -25,11 +27,6 @@ class EntryKeywords extends Model
      * @var string 关键词
      */
     public $keyword;
-
-    /**
-     * @var boolean 是否是主关键词
-     */
-    public $main=false;
 
     public function initialize()
     {

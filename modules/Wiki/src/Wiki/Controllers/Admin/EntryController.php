@@ -10,6 +10,7 @@ namespace Eva\Wiki\Controllers\Admin;
 // +----------------------------------------------------------------------
 // + EntryController.php
 // +----------------------------------------------------------------------
+use Eva\EvaEngine\Exception\ResourceNotFoundException;
 use Eva\Wiki\Forms;
 use Eva\Wiki\Models;
 
@@ -17,7 +18,7 @@ class EntryController extends AdminControllerBase
 {
     public function indexAction()
     {
-        return;
+//        return;
         $limit = $this->request->getQuery('per_page', 'int', 25);
         $limit = $limit > 100 ? 100 : $limit;
         $limit = $limit < 10 ? 10 : $limit;
@@ -33,25 +34,19 @@ class EntryController extends AdminControllerBase
             'limit' => $limit,
             'page' => $this->request->getQuery('page', 'int', 1),
         );
-
+//
         $form = new Forms\FilterForm();
         $form->setValues($this->request->getQuery());
         $this->view->setVar('form', $form);
+//
 
-        $post = new Models\Entry();
-        $posts = $post->findPosts($query);
-        $paginator = new \Eva\EvaEngine\Paginator(array(
-            "builder" => $posts,
-            "limit"=> $limit,
-            "page" => $query['page']
-        ));
-        $paginator->setQuery($query);
-        $pager = $paginator->getPaginate();
-        $this->view->setVar('pager', $pager);
+        $entry = new Models\Entry();
+        $this->view->setVar('pager', $entry->listEntries($query, $limit));
     }
 
     public function createAction()
     {
+        exit(p(json_encode($_POST)));
         $form = new Forms\EntryForm();
         $entry = new Models\Entry();
         $form->setModel($entry);
@@ -67,8 +62,7 @@ class EntryController extends AdminControllerBase
         if (!$form->isFullValid($data)) {
             return $this->showInvalidMessages($form);
         }
-        p($data);
-        exit();
+
         try {
             $form->save('createEntry');
         } catch (\Exception $e) {
@@ -76,11 +70,39 @@ class EntryController extends AdminControllerBase
         }
         $this->flashSession->success('SUCCESS_ENTRY_CREATED');
 
-        return $this->redirectHandler('/admin/entry/edit/' . $form->getModel()->id);
+        return $this->redirectHandler('/admin/wiki/edit/' . $form->getModel()->id);
     }
-    public function categoriesAction()
+    public function editAction()
     {
+        $this->view->changeRender('admin/entry/create');
+        $entry = Models\Entry::findFirst($this->dispatcher->getParam('id'));
+        if (!$entry) {
+            throw new ResourceNotFoundException('ERR_BLOG_POST_NOT_FOUND');
+        }
 
+        $form = new Forms\EntryForm();
+        $form->setModel($entry);
+        $form->addForm('text', 'Eva\Wiki\Forms\EntryTextForm');
+        $this->view->setVar('form', $form);
+        $this->view->setVar('item', $entry);
+
+        if (!$this->request->isPost()) {
+            return false;
+        }
+        $data = $this->request->getPost();
+
+        if (!$form->isFullValid($data)) {
+            return $this->showInvalidMessages($form);
+        }
+
+        try {
+            $form->save('updateEntry');
+        } catch (\Exception $e) {
+            return $this->showException($e, $form->getModel()->getMessages());
+        }
+        $this->flashSession->success('SUCCESS_POST_UPDATED');
+
+        return $this->redirectHandler('/admin/wiki/edit/' . $entry->id);
     }
 
 }
