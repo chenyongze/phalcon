@@ -2878,6 +2878,9 @@ img.lazy {
   border-bottom: 1px solid #ccc;
   margin-bottom: 20px;
 }
+.page-user > .body .pagingbar {
+  text-align: right;
+}
 .page-user > .body .comments > .comment {
   padding-bottom: 20px;
   border-bottom: 1px solid #ccc;
@@ -2885,7 +2888,7 @@ img.lazy {
 }
 .page-user > .body .comments > .comment .title {
   display: block;
-  color: #1395e5;
+  color: #0a62a3;
   font-size: 18px;
   line-height: 1.5em;
   font-weight: bold;
