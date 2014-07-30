@@ -1,0 +1,19 @@
+<ul class="news-list">
+    <?foreach($posts as $post):?>
+    <li class="news">
+    <a href="http://wallstreetcn.com/node/<?=$post->nid?>" target="_blank">
+        <img src="<?=$this->tag->wscnThumb($post->file_managed_file_usage_uri, 'c_fill,w_75,h_60')?>"/>
+        <dl>
+            <dd class="content"><?=$post->node_title?></dd>
+
+            <dd class="source"><?=$this->tag->datetime($post->node_created)?></dd>
+        </dl>
+    </a>
+    </li>
+    <?endforeach;?>
+</ul>
+<br/>
+<a class="news-more" data-action="show-info" href="/?page=<?=$page + 1?>">
+    <span class="news-font">加载更多</span>	
+</a>	
+<br/><br/>

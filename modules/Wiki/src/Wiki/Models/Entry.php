@@ -12,14 +12,56 @@ namespace Eva\Wiki\Models;
 // + Entry.php
 // +----------------------------------------------------------------------
 
+use Eva\EvaEngine\Exception\RuntimeException;
+use Eva\EvaFileSystem\Models\Upload;
 use Eva\Wiki\Entities\Entries;
+use Eva\Wiki\Entities\EntryKeywords;
+use Eva\Wiki\Entities\EntryTexts;
+use Eva\Wiki\Utils\Pinyin;
 
 class Entry extends Entries
 {
     public function getLinkedKeywords()
     {
-        return '';
+        $_keywords = '';
+        foreach ($this->keywords as $keyword) {
+            if ($_keywords != '') {
+                $_keywords .= ',';
+            }
+            $_keywords .= $keyword->keyword;
+        }
+        return $_keywords;
     }
+
+    public function removeEntry($id)
+    {
+        $this->id = $id;
+        //remove linked keywords
+        if ($this->keywords) {
+            $this->keywords->delete();
+        }
+        //remove categories relationship
+        if ($this->categoriesEntries) {
+            $this->categoriesEntries->delete();
+        }
+        $this->text->delete();
+        $this->delete();
+    }
+
+    public function listEntries(array $query, $limit)
+    {
+        $entries = $this->findEntries($query);
+        $paginator = new \Eva\EvaEngine\Paginator(array(
+            "builder" => $entries,
+            "limit" => $limit,
+            "page" => $query['page']
+        ));
+        $paginator->setQuery($query);
+        $this->findEntries($query);
+
+        return $paginator->getPaginate();
+    }
+
     public function findEntries(array $query = array())
     {
         $itemQuery = $this->getDI()->getModelsManager()->createBuilder();
@@ -61,10 +103,10 @@ class Entry extends Entries
         $order = 'createdAt DESC';
         if (!empty($query['order'])) {
             $orderArray = explode(',', $query['order']);
-            if(count($orderArray) > 1) {
+            if (count($orderArray) > 1) {
                 $order = array();
-                foreach($orderArray as $subOrder) {
-                    if($subOrder && !empty($orderMapping[$subOrder])) {
+                foreach ($orderArray as $subOrder) {
+                    if ($subOrder && !empty($orderMapping[$subOrder])) {
                         $order[] = $orderMapping[$subOrder];
                     }
                 }
@@ -80,30 +122,61 @@ class Entry extends Entries
         $itemQuery->orderBy($order);
         return $itemQuery;
     }
+
+    public function beforeValidationOnCreate()
+    {
+        $this->createdAt = $this->createdAt ? $this->createdAt : time();
+        $this->userId = $this->userId ? $this->userId : 1;
+
+    }
+
+    public function beforeSave()
+    {
+
+        if ($this->getDI()->getRequest()->hasFiles()) {
+            $upload = new Upload();
+            $files = $this->getDI()->getRequest()->getUploadedFiles();
+            if (!$files) {
+                return;
+            }
+            $file = $files[0];
+            $file = $upload->upload($file);
+            if ($file) {
+                $this->imageId = $file->id;
+                $this->image = $file->getLocalUrl();
+            }
+        }
+    }
+
     public function createEntry($data)
     {
-        $textData = isset($data['text']) ? $data['text'] : array();
-        $tagData = isset($data['tags']) ? $data['tags'] : array();
-        $categoryData = isset($data['categories']) ? $data['categories'] : array();
 
-        if($textData) {
+        $textData = isset($data['text']) ? $data['text'] : array();
+        $synonymies = isset($data['synonymies']) ? $data['synonymies'] : array();
+        $categoryData = isset($data['categories']) ? $data['categories'] : array();
+        $categoryNamesData = isset($data['categoryNames']) ? $data['categoryNames'] : array();
+        if ($textData) {
             unset($data['text']);
-            $text = new Text();
+            $text = new EntryTexts();
             $text->assign($textData);
             $this->text = $text;
         }
 
-        $tags = array();
-        if ($tagData) {
-            unset($data['tags']);
-            $tagArray = is_array($tagData) ? $tagData : explode(',', $tagData);
-            foreach ($tagArray as $tagName) {
-                $tag = new Tag();
-                $tag->tagName = $tagName;
-                $tags[] = $tag;
+        $keywords = array();
+        if ($synonymies) {
+            unset($data['synonymies']);
+            $synonymiesArray = is_array($synonymies) ? $synonymies : explode(',', $synonymies);
+            $mainKeyword = new EntryKeywords();
+            $mainKeyword->keyword = $data['title'];
+            $keywords[] = $mainKeyword;
+            foreach ($synonymiesArray as $_keyword) {
+                $keyword = new EntryKeywords();
+                $keyword->keyword = $_keyword;
+
+                $keywords[] = $keyword;
             }
-            if ($tags) {
-                $this->tags = $tags;
+            if ($keywords) {
+                $this->keywords = $keywords;
             }
         }
 
@@ -116,13 +189,62 @@ class Entry extends Entries
                     $categories[] = $category;
                 }
             }
+        }
+        // 通过分类名指定分类
+        if($categoryNamesData) {
+            unset($data['categoryNames']);
+            foreach($categoryNamesData as $_categoryName) {
+                $categories[] = Category::getOrCreate($_categoryName);
+            }
+        }
+        if($categories) {
             $this->categories = $categories;
+        }
+        $this->assign($data);
+        $pinyin = new Pinyin();
+        $this->initial = substr($pinyin->transformUcwords($this->title), 0, 1);
+
+        if (!$this->save()) {
+            throw new RuntimeException('Create post failed');
+        }
+
+        return $this;
+    }
+
+    public function updateEntry($data)
+    {
+        $textData = isset($data['text']) ? $data['text'] : array();
+        $synonymies = isset($data['synonymies']) ? $data['synonymies'] : array();
+        $categoryData = isset($data['categories']) ? $data['categories'] : array();
+
+        if ($textData) {
+            unset($data['text']);
+            $text = new EntryTexts();
+            $text->assign($textData);
+            $this->text = $text;
+        }
+
+        $keywords = array();
+        if ($synonymies) {
+            unset($data['synonymies']);
+            $synonymiesArray = is_array($synonymies) ? $synonymies : explode(',', $synonymies);
+            $synonymiesArray[] = $data['title'];
+            $entryKeyword = new EntryKeyword();
+            $entryKeyword->fullUpdateEntryKeywords($this->id, $synonymiesArray);
+        }
+
+        if ($categoryData) {
+            unset($data['categories']);
+            $cateEntry = new CategoryEntry();
+            $cateEntry->fullUpdateCategoriesEntries($this->id, $categoryData);
         }
 
 
         $this->assign($data);
+        $pinyin = new Pinyin();
+        $this->initial = substr($pinyin->transformUcwords($this->title), 0, 1);
         if (!$this->save()) {
-            throw new Exception\RuntimeException('Create post failed');
+            throw new RuntimeException('Create post failed');
         }
 
         return $this;

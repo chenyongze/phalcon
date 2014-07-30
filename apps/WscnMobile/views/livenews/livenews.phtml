@@ -1,0 +1,24 @@
+<div>
+    <?=$this->partial('partial/top_single', array('goback' => '/livenews'))?>
+    <div class="content-wrapper">
+		<div class="livenews-info">
+			<h2 class="head">
+				<i class="icon chart-line"></i>
+                <span class="time"><?=$this->tag->datetime($post->createdAt)?></span>
+                <img src="/wscnm/img/star-off.png" class="favorite"/>
+			</h2>
+			<div class="content red ">
+                <?=$post->getContentHtml()?>
+			</div>
+			<div class="sharebar">
+				<span class="item label">分享：</span>
+				<a class="item btn tsina" href="http://www.jiathis.com/send/?webid=tsina&amp;url=http://m.wallstreetcn.com/?route=livenews_info_98052&amp;title=【快讯】人民币兑美元中间价报6.1658；上周五中间价6.1642，收报6.2043。人民币中间价连续第四日走弱，并创下一个月低点。 ( 下载 @华尔街见闻 客户端:https://itunes.apple.com/us/app/hua-er-jie-jian-wen/id738227477)" target="_blank"></a>
+				<a class="item btn tqq" href="http://www.jiathis.com/send/?webid=tqq&amp;url=http://m.wallstreetcn.com/?route=livenews_info_98052&amp;title=【快讯】人民币兑美元中间价报6.1658；上周五中间价6.1642，收报6.2043。人民币中间价连续第四日走弱，并创下一个月低点。 ( 下载 @华尔街见闻 客户端:https://itunes.apple.com/us/app/hua-er-jie-jian-wen/id738227477)" target="_blank"></a>
+				<a class="item btn cqq" href="http://www.jiathis.com/send/?webid=cqq&amp;url=http://m.wallstreetcn.com/?route=livenews_info_98052&amp;title=【快讯】人民币兑美元中间价报6.1658；上周五中间价6.1642，收报6.2043。人民币中间价连续第四日走弱，并创下一个月低点。 ( 下载 @华尔街见闻 客户端:https://itunes.apple.com/us/app/hua-er-jie-jian-wen/id738227477)" target="_blank"></a>
+				<a class="item btn evernote" href="http://www.jiathis.com/send/?webid=evernote&amp;url=http://m.wallstreetcn.com/?route=livenews_info_98052&amp;title=【快讯】人民币兑美元中间价报6.1658；上周五中间价6.1642，收报6.2043。人民币中间价连续第四日走弱，并创下一个月低点。 ( 下载 @华尔街见闻 客户端:https://itunes.apple.com/us/app/hua-er-jie-jian-wen/id738227477)" target="_blank"></a>
+			</div>
+		</div>
+    </div>
+    <?=$this->partial('partial/footer')?>
+</div>
+<?=$this->partial('partial/js')?>

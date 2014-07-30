@@ -22,7 +22,7 @@ namespace WscnApiVer2\Controllers;
  *  apiVersion="0.2",
  *  swaggerVersion="1.2",
  *  resourcePath="/counter",
- *  basePath="/"
+ *  basePath="/v2"
  * )
  */
 class CounterController extends ControllerBase
@@ -60,12 +60,7 @@ class CounterController extends ControllerBase
      */
 
     public function getAction() {
-        $dispatcher = $this->dispatcher;
-        $group = $dispatcher->getParam('group');
-        $items = $dispatcher->getParam('items');
 
-        var_dump($group);
-        var_dump($items);
     }
     /**
      *

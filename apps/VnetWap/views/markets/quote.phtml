@@ -1,0 +1,85 @@
+<div class="market-detail market view info" data-type="forex">
+    <div class="datum" style="height: 134px !important;">
+        <h1 class="title">
+            <span class="value"></span>
+            <div style="display:none" class="btn" data-action="to-share" data-share-title="@华尔街见闻 [黄金] 实时行情,值得你关注。( 更多精彩尽在华尔街见闻:https://itunes.apple.com/us/app/hua-er-jie-jian-wen/id738227477 ) " data-share-url="http://m.wallstreetcn.com/?route=market_info_XAUUSD">
+                <span class="icon"></span>
+                <span class="text">分享</span>
+            </div>
+        </h1>
+        <div class="row trend">
+            <div class="span8">
+                <span class="price"></span>
+            </div>
+            <div class="span4" style="text-align: right;">
+                <span class="diff"></span>
+                <br>
+                <span class="diffPercent"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="cell left prevClose border-box">
+                <span class="label">昨收</span>
+                <span class="value"></span>
+            </div>
+            <div class="cell right open">
+                <span class="label">今开</span>
+                <span class="value"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="cell left high border-box">
+                <span class="label">最高</span>
+                <span class="value"></span>
+            </div>
+            <div class="cell right low">
+                <span class="label">最低</span>
+                <span class="value"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="chart" style="top: 0;bottom: 35px;position: absolute;left: 0;right: 0;margin-top: 173px;">
+
+        <div class="timerange-toolbar">
+            <div class="button nav active" data-type="minute">
+                <span class="badge" style="display: none;"></span>
+                <span class="button-icon"></span>
+                <span class="button-label">分时</span>
+            </div>
+            <div class="button nav" data-type="day">
+                <span class="badge" style="display: none;"></span>
+                <span class="button-icon"></span>
+                <span class="button-label">日K</span>
+            </div>
+            <div class="button nav" data-type="week">
+                <span class="badge" style="display: none;"></span>
+                <span class="button-icon"></span>
+                <span class="button-label">周K</span>
+            </div>
+            <div class="button nav" data-type="month">
+                <span class="badge" style="display: none;"></span>
+                <span class="button-icon"></span>
+                <span class="button-label">月K</span>
+            </div>
+        </div>
+        <div class="asset-chart">
+            <div style="position: relative;">
+                <div class="wrapper" style="position: absolute; left: 0px; top: 0px; width: 100%; z-index: 10;">
+                    <iframe width="100%" height="" scrolling="no" frameborder="0" src="about:blank"></iframe>
+                </div>
+                <div class="masking" style="position: absolute; left: 0px; top: 0px; width: 100%; z-index: 99;"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="full-screen" style="position:fixed;top:0;bottom:0;left:0;right:0;z-index:0;background-color:#fff;visibility:hidden">
+    <div style="position: relative;">
+        <div class="wrapper" style="position: absolute; left: 0px; top: 0px; height:0px;width: 100%; z-index: 9;">
+            <iframe width="0px" height="0px" scrolling="no" frameborder="0" src="about:blank"></iframe>
+        </div>
+        <div class="masking" style="position: absolute; left: 0px; top: 0px; height:0px;width: 100%; z-index: 10;"></div>
+    </div>
+</div>

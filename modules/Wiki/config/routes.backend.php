@@ -20,10 +20,11 @@ return array(
         'action' => 'index'
     ),
 
-    '/admin/wiki/:action' =>  array(
+    '/admin/wiki/:action(/(\d+))*' =>  array(
         'module' => 'Wiki',
         'controller' => 'Admin\Entry',
-        'action' => 1
+        'action' => 1,
+        'id' => 3
     ),
     '/admin/wiki/category' =>  array(
         'module' => 'Wiki',
@@ -35,17 +36,11 @@ return array(
         'action' => 1,
         'id' => 3,
     ),
-//    '/admin/post/:action(/(\d+))*' =>  array(
-//        'module' => 'EvaBlog',
-//        'controller' => 'Admin\Post',
-//        'action' => 1,
-//        'id' => 3,
-//    ),
-//    '/admin/post/process/:action(/(\d+))*' =>  array(
-//        'module' => 'EvaBlog',
-//        'controller' => 'Admin\Process',
-//        'action' => 1,
-//        'id' => 3,
-//    ),
+    '/admin/wiki/process/:action(/(\d+))*' =>  array(
+        'module' => 'Wiki',
+        'controller' => 'Admin\Process',
+        'action' => 1,
+        'id' => 3,
+    )
 );
 

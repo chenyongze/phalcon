@@ -35,12 +35,14 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <!-- for img-box loading   -->
+
+    <!-- for img-box loading
     <script type="text/javascript">
         function img_loading(element){
             element.style.display = 'block';
         }
     </script>
+    -->
 </head>
 <body>
 
@@ -79,7 +81,22 @@
                             <span class="glyphicon glyphicon-search form-control-feedback"></span>
                         </div>
                     </form>
-                    <a class="glyphicon glyphicon-user user-control" href="/login"></a>
+                    <span class="user-control login">
+                        <a class="icon glyphicon glyphicon-user" href="/login"></a>
+                        <a class="avatar" href="/user">
+                            <img src="/wscn/img/avatar-xs.png" alt=""/>
+                        </a>
+                        <div class="control">
+                            <nav class="content">
+                                <a class="item" href="">基本资料</a>
+                                <a class="item" href="">安全密码</a>
+                                <a class="item" href="">语言设置</a>
+                                <a class="item" href="">账号绑定</a>
+                                <hr class="line" />
+                                <a class="item" href="">注销登录</a>
+                            </nav>
+                        </div>
+                    </span>
                 </div>
 
                 <!--
@@ -427,7 +444,7 @@
                                         </div>
                                     </div>
                                     <div class="custom-span-4">
-                                        密码
+                                        用户名
                                     </div>
                                     <div class="custom-span-5">
                                         <div class="form-group has-feedback size-sm">
@@ -478,6 +495,11 @@
 <script src="/vendor/js/parsley.remote.js"></script>
 <script src="/vendor/js/parsley.i18n.zh_cn.js"></script>
 <script src="/vendor/js/jquery.blockUI.js"></script>
+<script src="/vendor/js/jquery.lazyload.js"></script>
+<!-- 图片延时加载 -->
+<script type="text/javascript">
+    $("img.lazy").lazyload();
+</script>
 <script src="/vendor/js/moment.min.js"></script>
 <script type="text/javascript">
     moment.lang('zh-cn', {
@@ -634,7 +656,7 @@ usrManager.onNotLogin(function(){
                     form.find('.alert').remove();
                     var messages = error.responseJSON.errors;
                     if(!messages || messages.length < 1) {
-                            form.prepend(showMessage('ERR_UNKNOW', '有未知错误发生，请稍候重试'));
+                            form.prepend(showMessage('ERR_UNKNOW', '连接服务器失败，请稍候重试'));
                     }
                     var i = 0;
                     for(i in messages) {

@@ -4,108 +4,19 @@
         <title><?=$this->placeholder->block('title', '华尔街见闻移动版');?></title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-        <link href="favicon.ico" rel="shortcut icon" type="image/x-icon">
-        <link rel="stylesheet" type="text/css" href="/wscnm/gmu/reset.css" />
-        <link rel="stylesheet" type="text/css" href="/wscnm/gmu/gmu.css" />
-        <link rel="stylesheet" type="text/css" href="/wscnm/css/style.css" />
-
+        <?=$this->partial('partial/head')?>
     </head>
     <body>
 
-        <div>
-            <div class="toolbar">
-                <button class="menu-icon">打开菜单</button>
-                <h3 class="title" style="display:none">华尔街见闻移动版</h3>
-                <a href="/" class="home"><div class="home"><img src="/wscnm/img/logo.png"/></div></a>
-                <a href="http://wallstreetcn.com/downloadapp.html" target="_blank" style="display:none"><div class="app-download"><img src="/wscnm/img/app-download.png" /></div></a>
-            </div>
-            <div class="content-wrapper">
-                <?=$this->getContent()?>
-            </div>
+        <?=$this->getContent()?>
 
-            <div class="left-menu">
-
-                <a href="/login"><img src="/wscnm/img/icon.png" class="person-icon" alt="登录" /></a>
-                <ul>
-                    <li>
-                    <a href="/news">
-                        <img src="/wscnm/img/txt.png" alt="" />
-                        <span>新闻资讯</span>
-                    </a>
-                    </li>
-                    <li>
-                    <a href="/livenews">
-                        <img src="/wscnm/img/ufo.png" alt="" />
-                        <span>实时新闻</span>
-                    </a>
-                    </li>
-                    <li>
-                    <a href="/markets">
-                        <img src="/wscnm/img/xls.png" alt="" />
-                        <span>全球行情</span>
-                    </a>
-                    </li>
-                    <li>
-                    <a href="/calendar">
-                        <img src="/wscnm/img/xls.png" alt="" />
-                        <span>财经日历</span>
-                    </a>
-                    </li>
-                    <li>
-                    <a href="/search">
-                        <img src="/wscnm/img/xls.png" />
-                        <span>搜索&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                    </a>
-                    </li>
-                </ul>
-
-            </div>
-
-
-
-            <div class="gotop"></div>
-            <div class="login-icon"></div>
-            <div class="footerbar-placeholder">&nbsp;</div>
-            <!--<div class="footerbar">广告</div>-->
-
-        </div>
-        <script type="text/javascript" src="/wscnm/gmu/zepto.js"></script>
-        <script type="text/javascript" src="/wscnm/gmu/gmu.js"></script>
-        <script type="text/javascript" src="/wscnm/js/nav.js"></script>
-        <script type="text/javascript" src="http://cdn.static.wallstreetcn.com/js/moment-with-langs.min.js"></script>
-        <script type="text/javascript" src="http://cdn.static.wallstreetcn.com/js/art-template-3.0.0.js"></script>
-        <script type="text/javascript" src="/wscnm/js/calendar.js"></script>
-        <script type="text/javascript" src="/wscnm/js/tagcloud.js"></script>
-        <script type="text/javascript" src="/wscnm/js/marketlist.js"></script>
+        <!--
         <script type="text/javascript" src="/wscnm/js/marketdetail.js" data-desc="depend on wscn_util.js & store.js"></script>
         <script type="text/javascript">  
             WSCN_UTIL.mobile.detectOrientation();
-
         </script> 
-<script type="text/javascript">
-    $(function ($) {
 
-		$(".nav span").click(function(){
-			//console.log("." + $(this).attr("data-target"));
-			$(".content-wrapper > div").css("display","none");
-			$("." + $(this).attr("data-target")).css("display","");
-		})
-	
-	 }(Zepto));
-	 
-	 
-</script>
-        <script type="text/javascript">
-            $(function ($) {
-
-                    $('#searchInput').suggestion({
-                            source: "/search/suggestion"
-                    });
-
-                    var tagCloud = new TagCould("tagcloud",{radius:parseInt(window.innerWidth)/2 - 20});
-                    tagCloud.start();
-            }(Zepto));
-        </script>
+        -->
 
 
         <script type="text/javascript">

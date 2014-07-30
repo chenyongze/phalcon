@@ -1,137 +1,78 @@
 .page-user {
-    .form-control {
-        height: 40px;
-        padding-top: 10px;
-        padding-bottom: 10px;
-        line-height: 20px;
-        &:focus + .help-block + .form-control-feedback {
-            color: #1395E5;
-        }
-    }
-    .form-control-feedback {
-        top: 0;
-        color: #999;
-        width: 40px;
-        height: 40px;
-        line-height: 40px;
-    }
-    .form-group {
-        &.size-sm {
-            font-size: 12px;
-            .form-control {
-                height: 30px;
-                font-size: 12px;
-                padding-top: 5px;
-                padding-bottom: 5px;
-            }
-            .form-control-feedback {
-                width: 30px;
-                height: 30px;
-                line-height: 30px;
-            }
-        }
-    }
-    .has-success .form-control-feedback {
-        color: #3c763d;
-    }
-    .has-warning .form-control-feedback {
-        color: #8a6d3b;
-    }
-    .has-error .form-control-feedback {
-        color: #a94442;
-    }
-    .form-avatar {
-        width: 75px;
-        height: 75px;
-        margin-bottom: 15px;
-    }
-    .form-title {
-        font-size: 14px;
-        line-height: 36px;
-        border-bottom: 1px solid #ccc;
-        margin-bottom: 15px;
-    }
-    .form-label {
-        color: @blue;
-        line-height: 20px;
-        font-size: 12px;
-        margin-bottom: 15px;
-    }
-    .form-footer {
+    & > .head {
         .clearfix;
-        padding-top: 5px;
-        margin-bottom: 20px;
-    }
-    .form-hr {
-        border-top: none;
-        border-bottom: 1px solid #ccc;
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
-    .br-title {
-        display: block;
-        width: 100%;
-        text-align: center;
-        height: 10px;
-        border-bottom: 1px solid #119BEF;
-        margin-bottom: 32px;
-        .text {
-            background-color: #fff;
-            padding: 0 10px;
-            color: #999;
-            font-size: 14px;
-            line-height: 20px;
+        margin-bottom: 50px;
+        & > .avatar {
+            display: block;
+            float: left;
+            background: #ccc;
+        }
+        & > .auth {
+            float: right;
+            text-align: right;
+            line-height: 1em;
+            .title {
+                font-size: 16px;
+                line-height: 1em;
+                color: #1395E5;
+                margin-bottom: 15px;
+            }
+            .info {
+                font-size: 14px;
+                margin-bottom: 15px;
+            }
+            .handle {
+                font-size: 12px;
+                color: @blue;
+            }
+        }
+        & > .info {
+            font-size: 12px;
+            color: #666;
+            .name {
+                font-size: 20px;
+                line-height: 1em;
+                margin-bottom: 10px;
+            }
+            .signature {
+                height: 3em;
+                overflow: hidden;
+                line-height: 1.5em;
+            }
+            .meta {
+                margin-top: 12px;
+                line-height: 16px;
+                position: relative;
+                padding-left: 40px;
+                .icon {
+                    position: absolute;
+                    color: @blue;
+                    font-size: 16px;
+                    left: 0;
+                }
+            }
+        }
+        @media (min-width: @screen-lg-min) {
+            & > .avatar {
+                width: 150px;
+                height: 150px;
+            }
+            & > .auth {
+                float: right;
+                width: 175px;
+                border-left: 1px solid #ccc;
+            }
+            & > .info {
+                float: right;
+                width: 450px;
+            }
         }
     }
-    .custom-button {
-        line-height: 20px;
-        border-radius: 5px;
-        &.type-qq {
-            background-color: #2384CC;
-        }
-        &.type-weibo {
-            background-color: #D04341;
-        }
-    }
-    .custom-button[type=submit] {
-        background-color: @blue;
-        width: 140px;
-        @media (max-width: @screen-xxs-max) {
-            width: 100px;
-        }
-    }
-    .custom-button[type=reset] {
-        background-color: #797979;
-        width: 140px;
-        @media (max-width: @screen-xxs-max) {
-            width: 100px;
-        }
+    & > .body {
+
     }
 }
 
 #user {
-    background-color: #eee;
-    padding: 40px 100px 100px;
-    .form-title {
-        font-size: 21px;
-        padding-bottom: 20px;
-        border-bottom: 1px solid #ccc;
-        margin-bottom: 30px;
-    }
-    .sub-title {
-        font-size: 16px;
-        margin-bottom: 30px;
-    }
-    .custom-span-1 {
-        width: 66%;
-    }
-    .custom-span-2 {
-        border-left: 1px solid #ccc;
-        padding-left: 30px;
-        padding-right: 100px;
-        width: 34%;
-        .custom-button {
-            margin-bottom: 15px;
-        }
-    }
+
 }

@@ -11,6 +11,10 @@
             text-decoration: none;
     }
 </style>
+
+<div>
+    <?=$this->partial('partial/top')?>
+    <div class="content-wrapper">
 <script id='cal_value_item_tpl' type='text/html'>
     <table class="details {{bg}}" data-currency="{{currency}}" data-id="{{id}}">
         <tbody>
@@ -100,3 +104,19 @@
         <a class="item btn evernote" href="http://www.jiathis.com/send/?webid=evernote&amp;url=http://m.wallstreetcn.com/?route=livenews_info_98052&amp;title=【快讯】人民币兑美元中间价报6.1658；上周五中间价6.1642，收报6.2043。人民币中间价连续第四日走弱，并创下一个月低点。 ( 下载 @华尔街见闻 客户端:https://itunes.apple.com/us/app/hua-er-jie-jian-wen/id738227477)" target="_blank"></a>
     </div>
 </div>
+    </div>
+    <?=$this->partial('partial/leftmenu')?>
+    <?=$this->partial('partial/footer')?>
+</div>
+<?=$this->partial('partial/js')?>
+
+<script type="text/javascript" src="http://cdn.static.wallstreetcn.com/js/moment-with-langs.min.js"></script>
+<script type="text/javascript" src="http://cdn.static.wallstreetcn.com/js/art-template-3.0.0.js"></script>
+<script type="text/javascript" src="/wscnm/js/calendar.js"></script>
+
+
+
+
+
+
+

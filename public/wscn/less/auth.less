@@ -1,0 +1,137 @@
+.page-auth {
+    .form-control {
+        height: 40px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        line-height: 20px;
+        &:focus + .help-block + .form-control-feedback {
+            color: #1395E5;
+        }
+    }
+    .form-control-feedback {
+        top: 0;
+        color: #999;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+    }
+    .form-group {
+        &.size-sm {
+            font-size: 12px;
+            .form-control {
+                height: 30px;
+                font-size: 12px;
+                padding-top: 5px;
+                padding-bottom: 5px;
+            }
+            .form-control-feedback {
+                width: 30px;
+                height: 30px;
+                line-height: 30px;
+            }
+        }
+    }
+    .has-success .form-control-feedback {
+        color: #3c763d;
+    }
+    .has-warning .form-control-feedback {
+        color: #8a6d3b;
+    }
+    .has-error .form-control-feedback {
+        color: #a94442;
+    }
+    .form-avatar {
+        width: 75px;
+        height: 75px;
+        margin-bottom: 15px;
+    }
+    .form-title {
+        font-size: 14px;
+        line-height: 36px;
+        border-bottom: 1px solid #ccc;
+        margin-bottom: 15px;
+    }
+    .form-label {
+        color: @blue;
+        line-height: 20px;
+        font-size: 12px;
+        margin-bottom: 15px;
+    }
+    .form-footer {
+        .clearfix;
+        padding-top: 5px;
+        margin-bottom: 20px;
+    }
+    .form-hr {
+        border-top: none;
+        border-bottom: 1px solid #ccc;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    .br-title {
+        display: block;
+        width: 100%;
+        text-align: center;
+        height: 10px;
+        border-bottom: 1px solid #119BEF;
+        margin-bottom: 32px;
+        .text {
+            background-color: #fff;
+            padding: 0 10px;
+            color: #999;
+            font-size: 14px;
+            line-height: 20px;
+        }
+    }
+    .custom-button {
+        line-height: 20px;
+        border-radius: 5px;
+        &.type-qq {
+            background-color: #2384CC;
+        }
+        &.type-weibo {
+            background-color: #D04341;
+        }
+    }
+    .custom-button[type=submit] {
+        background-color: @blue;
+        width: 140px;
+        @media (max-width: @screen-xxs-max) {
+            width: 100px;
+        }
+    }
+    .custom-button[type=reset] {
+        background-color: #797979;
+        width: 140px;
+        @media (max-width: @screen-xxs-max) {
+            width: 100px;
+        }
+    }
+}
+
+#auth {
+    background-color: #eee;
+    padding: 40px 100px 100px;
+    .form-title {
+        font-size: 21px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #ccc;
+        margin-bottom: 30px;
+    }
+    .sub-title {
+        font-size: 16px;
+        margin-bottom: 30px;
+    }
+    .custom-span-1 {
+        width: 66%;
+    }
+    .custom-span-2 {
+        border-left: 1px solid #ccc;
+        padding-left: 30px;
+        padding-right: 100px;
+        width: 34%;
+        .custom-button {
+            margin-bottom: 15px;
+        }
+    }
+}

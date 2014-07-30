@@ -1,0 +1,42 @@
+<style type="text/css">
+
+    body > div {
+            /*background-color:#f7f7f7;*/
+            height:100%;
+    }
+
+    a,a:hover {
+            text-decoration: none;
+    }
+</style>
+<script id='asset_list_item' type='text/html'>
+    {{each list}}
+    <tr class="market {{$value.type}} " data-symbol="{{$value.symbol}}">
+        <td class="title"><span class="value">{{$value.title}}</span></td>
+        <td class="price"><span class="value">{{$value.price}}</span></td>
+        <td class="diffPercent"><span class="value {{$value.trend}}">{{$value.diffPercent}}</span></td>
+    </tr>
+    {{/each}}
+
+</script>
+
+<div class="market-list markets view" data-type="forex">
+    <ul class="markets navs bar">
+        <li class="market nav " data-type="forex">
+        <span class="text">外汇</span>
+        </li>
+        <li class="market nav " data-type="commodity">
+        <span class="text">商品</span>
+        </li>
+        <li class="market nav " data-type="indice">
+        <span class="text">股指</span>
+        </li>
+        <li class="market nav " data-type="bond">
+        <span class="text">债券</span>
+        </li>
+    </ul>
+    <table class="markets table">
+        <tbody>
+        </tbody>
+    </table>
+</div>
