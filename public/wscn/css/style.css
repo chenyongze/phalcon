@@ -1012,11 +1012,20 @@ img.lazy {
   padding-right: 0;
 }
 #header .user-control {
+  z-index: 9999;
   display: inline-block;
   position: relative;
   width: 34px;
   height: 34px;
   vertical-align: middle;
+}
+#header .user-control .icon-inactive {
+  display: none;
+  width: 45px;
+  height: 16px;
+  vertical-align: middle;
+  margin-left: 5px;
+  background: url(../icon/inactive.png) 0 0 no-repeat;
 }
 #header .user-control > .icon {
   display: block;
@@ -1098,6 +1107,19 @@ img.lazy {
 }
 #header .user-control.login:hover > .control {
   display: block;
+}
+#header .user-control.inactive:before {
+  display: block;
+  position: absolute;
+  content: "";
+  width: 20px;
+  height: 20px;
+  top: -5px;
+  right: -5px;
+  background: url(../icon/warn.png) 0 0 no-repeat;
+}
+#header .user-control.inactive .icon-inactive {
+  display: inline-block;
 }
 #header .form-group {
   margin: 0;
@@ -1210,23 +1232,23 @@ img.lazy {
   font-size: 14px;
   line-height: 40px;
 }
-#breaking-news [data-action=close] {
+#breaking-news [data-action="hide-breaking-news"] {
   display: block;
   position: absolute;
   top: 0;
   bottom: 0;
   right: 3px;
   margin: auto 0;
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  font-size: 14px;
   border-radius: 50%;
   background-color: #fff;
   color: #646464;
   text-align: center;
-  line-height: 30px;
-  font-size: 16px;
 }
-#breaking-news [data-action=close]:hover {
+#breaking-news [data-action="hide-breaking-news"]:hover {
   color: #0a62a3;
 }
 @-webkit-keyframes market-trend-rise {
@@ -1748,10 +1770,27 @@ img.lazy {
   background-image: url(../icon/share-blue.png);
 }
 #main .news-list.with-img .news .collect {
-  background-image: url(../icon/collect-blue.png);
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #0a62a3;
 }
-#main .news-list.with-img .news .collect.active {
-  background-image: url(../icon/collect-blue-active.png);
+#main .news-list.with-img .news .collect:hover {
+  color: #1395e5;
+}
+#main .news-list.with-img .news .collect:before {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  text-align: center;
+  line-height: 16px;
+  font-size: 16px;
+  content: "\e007";
+}
+#main .news-list.with-img .news .collect.active:before {
+  content: "\e006";
 }
 #main .news-list.with-img .news .summary {
   color: #787878;
@@ -2768,6 +2807,27 @@ img.lazy {
   font-size: 16px;
   left: 0;
 }
+.page-user > .head > .info .meta .edit {
+  position: relative;
+  display: none;
+  cursor: pointer;
+  margin-left: 20px;
+  margin-top: -5px;
+  margin-bottom: -5px;
+  padding: 5px 10px;
+  padding-left: 35px;
+  color: #1395e5;
+}
+.page-user > .head > .info .meta .edit .icon {
+  top: 6px;
+  left: 10px;
+}
+.page-user > .head > .info .meta .edit:hover {
+  background-color: #eee;
+}
+.page-user > .head > .info .meta:hover .edit {
+  display: inline-block;
+}
 @media (min-width: 1280px) {
   .page-user > .head > .avatar {
     width: 150px;
@@ -2780,8 +2840,151 @@ img.lazy {
   }
   .page-user > .head > .info {
     float: right;
-    width: 450px;
+    width: 480px;
   }
+}
+.page-user > .body > .custom-nav-tabs {
+  margin-bottom: 40px;
+}
+.page-user > .body .leftbar {
+  padding-left: 30px;
+  width: 160px;
+  float: left;
+}
+.page-user > .body .leftbar .title {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #000;
+}
+.page-user > .body .leftbar .link {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: #333;
+}
+.page-user > .body .leftbar .link.active,
+.page-user > .body .leftbar .link:hover {
+  color: #1395e5;
+}
+.page-user > .body .main-content {
+  float: right;
+  width: 680px;
+  border-left: 1px solid #ccc;
+  padding-left: 60px;
+}
+.page-user > .body .main-content > .title {
+  font-size: 18px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+.page-user > .body .pagingbar {
+  text-align: right;
+}
+.page-user > .body .comments > .comment {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 15px;
+}
+.page-user > .body .comments > .comment .title {
+  display: block;
+  color: #0a62a3;
+  font-size: 18px;
+  line-height: 1.5em;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+.page-user > .body .comments > .comment .summary {
+  position: relative;
+  font-size: 14px;
+  padding-left: 50px;
+  line-height: 1.5em;
+  color: #666;
+  margin-bottom: 12px;
+}
+.page-user > .body .comments > .comment .summary:before {
+  display: block;
+  left: 0;
+  position: absolute;
+  content: "评论：";
+  font-weight: bold;
+  color: #333;
+}
+.page-user > .body .comments > .comment .time {
+  color: #999;
+}
+.page-user > .body .news-list .news {
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #ccc;
+}
+.page-user > .body .news-list .news .img {
+  display: block;
+  float: left;
+  width: 150px;
+  height: 100px;
+  margin-bottom: 15px;
+}
+.page-user > .body .news-list .news .content {
+  width: 660px;
+  float: right;
+}
+.page-user > .body .news-list .news .title {
+  display: block;
+  font-size: 18px;
+  color: #0a62a3;
+  line-height: 27px;
+  margin-bottom: 10px;
+}
+.page-user > .body .news-list .news .summary {
+  color: #666;
+  font-size: 14px;
+  line-height: 1.5em;
+  margin-bottom: 10px;
+}
+.page-user > .body .news-list .news .time {
+  color: #666;
+}
+.page-user > .body .news-list .news .collect {
+  color: #0a62a3;
+  display: block;
+  float: right;
+  font-size: 14px;
+  line-height: 20px;
+  cursor: pointer;
+}
+.page-user > .body .news-list .news .collect:hover {
+  color: #1395e5;
+}
+.page-user > .body .news-list .news .collect:before {
+  font-family: 'Glyphicons Halflings';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  vertical-align: middle;
+  width: 30px;
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+  font-size: 16px;
+  content: "\e007";
+}
+.page-user > .body .news-list .news .collect:after {
+  display: inline;
+  width: 4em;
+  height: 20px;
+  line-height: 20px;
+  vertical-align: middle;
+  content: "添加收藏";
+}
+.page-user > .body .news-list .news .collect.active:before {
+  content: "\e006";
+}
+.page-user > .body .news-list .news .collect.active:after {
+  display: inline;
+  width: 4em;
+  height: 20px;
+  content: "取消收藏";
 }
 #user-modal label {
   font-weight: normal;
