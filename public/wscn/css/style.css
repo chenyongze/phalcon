@@ -1304,6 +1304,9 @@ img.lazy {
   top: 90px;
   bottom: 30px;
   overflow: hidden;
+  -webkit-transition: top 0.3s, bottom 0.3s;
+  -moz-transition: top 0.3s, bottom 0.3s;
+  transition: top 0.3s, bottom 0.3s;
 }
 #leftbar:before {
   display: table;
@@ -1314,6 +1317,9 @@ img.lazy {
   display: table;
   content: '';
   clear: both;
+}
+#leftbar.moveout {
+  bottom: 100%;
 }
 #leftbar > .content {
   float: left;
@@ -3199,12 +3205,6 @@ body {
   -moz-transition: height 0.3s;
   -o-transition: height 0.3s;
   transition: height 0.3s;
-}
-#leftbar {
-  -webkit-transition: top 0.3s;
-  -moz-transition: top 0.3s;
-  -o-transition: top 0.3s;
-  transition: top 0.3s;
 }
 #wrapper {
   -webkit-transition: margin 0.3s;

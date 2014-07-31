@@ -57,6 +57,27 @@
     $('.fc-list').fcl();
 })(jQuery);
 
+(function(){
+    //左侧行情
+    var $leftbar = $('#leftbar');
+    if ($leftbar.length) {
+        //var height = $leftbar.height();
+        var $document = $(document);
+        var $footer = $('#footer');
+        var scrollMax = $document.height() - $footer.height() - $(window).height();
+        console.log(scrollMax);
+        $document.on('scroll', function(e){
+            var scroll = $document.scrollTop();
+            console.log(scroll);
+            if (scroll > scrollMax) {
+                $leftbar.addClass('moveout');
+            } else {
+                $leftbar.removeClass('moveout');
+            }
+        });
+    }
+})();
+
 (function($){
 
     //breaking-news
