@@ -9,7 +9,7 @@
                 <i class="icon common"></i>
                 <dl>
                     <dd class="datetime"><?=$this->tag->datetime($news->createdAt)?></dd>
-                    <dd class="content"><?=$news->title?></dd>
+                    <dd class="content"><?=$news->getContentHtml()?></dd>
                 </dl>
             </a>
             </li>

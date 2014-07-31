@@ -385,10 +385,11 @@ class Post extends Entities\Posts
 
     public function getUrl()
     {
-        $postUrl = $this->getDI()->getConfig()->baseUri;
-        $postPath = $this->getDI()->getConfig()->blog->postPath;
-
-        return $postUrl . sprintf($postPath, $this->slug);
+        $url = $this->getDI()->getUrl();
+        $self = $this;
+        return preg_replace_callback('/{{(.+?)}}/', function($matches) use ($self) {
+            return empty($self->$matches[1]) ? '' : $self->$matches[1];
+        }, $this->getDI()->getConfig()->blog->postPath);
     }
 
     public function getImageUrl()

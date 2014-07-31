@@ -112,8 +112,8 @@
             <ul class="hot-news row">
                 <?foreach($posts as $post):?>
                 <li class="col-lg-4 col-xs-6">
-                    <a href="/node/<?=$post->id?>" class="news">
-                        <img class="lazy full-width" src="/wscn/img/bg-img.gif" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_360,w_600') : '/img/article.jpg'?>" alt=""/>
+                    <a href="<?=$post->getUrl()?>" class="news">
+                        <img class="lazy full-width" src="/wscn/img/bg-img.gif" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_115,w_193') : '/img/article.jpg'?>" alt=""/>
                         <h3 class="title"><?=$post->title?></h3>
                     </a>
                 </li>
