@@ -213,6 +213,11 @@ class News extends \Eva\EvaEngine\Mvc\Model
         if ($this->codeType == 'markdown') {
             $parsedown = new \Parsedown();
             return $parsedown->text($this->content);
+        } elseif ($this->codeType == 'json') {
+            $data = json_decode($this->content);
+            return preg_replace_callback('/{{(.+?)}}/', function($matches) use ($data) {
+                return empty($data->$matches[1]) ? '' : $data->$matches[1];
+            }, '{{title}} {{actual}}，预期{{forecast}}，前值{{previous}}');
         } else {
             return $this->content;
         }
