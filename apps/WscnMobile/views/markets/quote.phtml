@@ -1,3 +1,6 @@
+<div>
+    <?=$this->partial('partial/top_single', array('goback' => '/markets'))?>
+    <div class="content-wrapper">
 <div class="market-detail market view info" data-type="forex">
     <div class="datum" style="height: 134px !important;">
         <h1 class="title">
@@ -83,3 +86,19 @@
         <div class="masking" style="position: absolute; left: 0px; top: 0px; height:0px;width: 100%; z-index: 10;"></div>
     </div>
 </div>
+    </div>
+    <?=$this->partial('partial/leftmenu')?>
+    <?=$this->partial('partial/footer')?>
+</div>
+<?=$this->partial('partial/js')?>
+<script type="text/javascript" src="http://cdn.static.wallstreetcn.com/js/store.min.js"></script>
+<script type="text/javascript" src="/wscnm/js/wscn_util.js"></script>
+<script type="text/javascript" src="/wscnm/js/marketdetail.js"></script>
+<script type="text/javascript">  
+	WSCN_UTIL.mobile.detectOrientation();
+</script>
+
+
+
+
+
