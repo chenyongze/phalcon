@@ -29,7 +29,7 @@
     "garlicjs" : "latest",
     "parsleyjs" : "latest",
     "uri.js" : "latest",
-    "highstock" : "latest",
+    "highcharts" : "latest",
     "respond" : "latest",
     "html5shiv" : "latest"
   },
