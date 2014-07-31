@@ -22,16 +22,3 @@
     })();
 </script>
 <!---- comment end   -->
-
-<script type="text/javascript" src="/vendor/js/moment.min.js"></script>
-<script type="text/javascript" src="/vendor/js/moment-with-langs.min.js"></script>
-
-<script type="text/javascript">
-    $(document).on('ws_comment_load_thread',function(){
-        $(".ws-comment-time").each(function(){
-            var time = $(this);
-            time.html(moment(time.data().time, "YYYY-MM-DDTHH:mm:ss ZZ").fromNow());
-        });
-    })
-
-</script>
