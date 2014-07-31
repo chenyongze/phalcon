@@ -587,4 +587,13 @@
 //        e.preventDefault();
 //    });
 
+    //将标准时间格式改为用户更友好的方式
+    $(document).on('ws_comment_load_thread',function(){
+        $(".ws-comment-time").each(function(){
+            var time = $(this);
+            time.html(moment(time.data().time, "YYYY-MM-DDTHH:mm:ss ZZ").fromNow());
+        });
+    })
+
+
 })(window, window.jQuery, window.easyXDM);
