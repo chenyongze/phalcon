@@ -7,9 +7,10 @@ return array(
     'EvaBlog',
     'EvaFileSystem',
     'EvaComment',
-    'EvaPermission',
+//    'EvaPermission',
     'EvaLivenews',
     'CounterRank',
+    'Wiki',
     //Load mobile module for checking controller / action whether exists, for mobile redirectiing
     'WscnMobile' => array(
         'className' => 'WscnMobile\Module',

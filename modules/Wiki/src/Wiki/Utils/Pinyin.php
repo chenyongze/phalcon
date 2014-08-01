@@ -42,7 +42,7 @@ class Pinyin
             $matches = array();
             if (preg_match('/^[\x{4e00}-\x{9fa5}]$/u', $word) && preg_match('/\,'.preg_quote($word).'(.*?)\,/', $chineseCharacters, $matches)) {
                 $outputChar .= $matches[1].$delimiter;
-            } elseif (!$outsideIgnore) {
+            } elseif (!$outsideIgnore && preg_match('/\w/', $word)) {
                 $outputChar .= $word;
             }
         }
@@ -55,7 +55,7 @@ class Pinyin
     * param $delimiter  String   转换之后拼音之间分隔符
     * param $outsideIgnore  Boolean     是否忽略非汉字内容
     */
-    public function transformWithoutTone($inputChar, $delimiter=' ', $outsideIgnore=true)
+    public function transformWithoutTone($inputChar, $delimiter=' ', $outsideIgnore=false)
     {
         $charWithTone = $this->transformWithTone($inputChar, $delimiter, $outsideIgnore);
 
@@ -76,7 +76,7 @@ class Pinyin
     */
     public function transformUcwords($inputChar, $delimiter='')
     {
-        $charWithoutTone = ucwords($this->transformWithoutTone($inputChar, ' ', true));
+        $charWithoutTone = ucwords($this->transformWithoutTone($inputChar, ' ', false));
         $ucwords = preg_replace('/[^A-Z]/', '', $charWithoutTone);
         if (!empty($delimiter)) {
             $ucwords = implode($delimiter, str_split($ucwords));

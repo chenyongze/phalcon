@@ -46,7 +46,6 @@ class EntryController extends AdminControllerBase
 
     public function createAction()
     {
-        exit(p(json_encode($_POST)));
         $form = new Forms\EntryForm();
         $entry = new Models\Entry();
         $form->setModel($entry);
@@ -64,13 +63,13 @@ class EntryController extends AdminControllerBase
         }
 
         try {
-            $form->save('createEntry');
+            $entry = $form->save('createEntry');
         } catch (\Exception $e) {
             return $this->showException($e, $form->getModel()->getMessages());
         }
         $this->flashSession->success('SUCCESS_ENTRY_CREATED');
 
-        return $this->redirectHandler('/admin/wiki/edit/' . $form->getModel()->id);
+        return $this->redirectHandler('/admin/wiki/edit/' . $entry->id);
     }
     public function editAction()
     {
@@ -100,7 +99,7 @@ class EntryController extends AdminControllerBase
         } catch (\Exception $e) {
             return $this->showException($e, $form->getModel()->getMessages());
         }
-        $this->flashSession->success('SUCCESS_POST_UPDATED');
+        $this->flashSession->success('SUCCESS_ENTRY_UPDATED');
 
         return $this->redirectHandler('/admin/wiki/edit/' . $entry->id);
     }

@@ -202,6 +202,7 @@ class Category extends Entities\Categories
         $pinyin = new Pinyin();
 
         if(!$category) {
+            $category = new Category();
             $category->categoryName = $categoryName;
             $category->initial = substr($pinyin->transformUcwords($category->categoryName), 0, 1);
 

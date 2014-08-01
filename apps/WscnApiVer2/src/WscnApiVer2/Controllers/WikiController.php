@@ -54,7 +54,7 @@ class WikiController extends ControllerBase
     {
         $category = new \Eva\Wiki\Models\Category();
         $categoryId = $category->createCategoryByNames($this->request->getPost("categoryName"), preg_split('/\s+/', $this->request->getPost("parentNames")));
-        $this->response->setJsonContent(array('categoryId' => $categoryId));
+        return $this->response->setJsonContent(array('categoryId' => $categoryId));
     }
 
     /**
@@ -88,8 +88,12 @@ class WikiController extends ControllerBase
         if (!$data = json_decode($data, true)) {
             throw new Exception\InvalidArgumentException('Data not able to decode as JSON');
         }
-        if($data['categoryNames']) {
+        if(isset($data['categoryNames'])) {
             $data['categoryNames'] = preg_split('/\s+/', $data['categoryNames']);
+        }
+        if(isset($data['keywords'])) {
+            $data['keywords'] = preg_split('/\n+/', $data['keywords']);
+
         }
         $entry = new \Eva\Wiki\Models\Entry();
         $form = new \Eva\Wiki\Forms\EntryForm();
@@ -100,10 +104,10 @@ class WikiController extends ControllerBase
         }
 
         try {
-            $form->save('createEntry');
+            $entry = $form->save('createEntry');
         } catch (\Exception $e) {
             return $this->showException($e, $form->getModel()->getMessages());
         }
-        $this->response->setJsonContent(array('id'=>$entry->id));
+        return $this->response->setJsonContent(array('id'=>$entry->id));
     }
 }

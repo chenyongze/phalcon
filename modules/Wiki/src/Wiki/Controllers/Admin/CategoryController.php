@@ -47,7 +47,7 @@ class CategoryController extends AdminControllerBase
         } catch (\Exception $e) {
             return $this->showException($e, $category->getMessages());
         }
-        $this->flashSession->success('SUCCESS_BLOG_CATEGORY_CREATED');
+        $this->flashSession->success('SUCCESS_WIKI_CATEGORY_CREATED');
 
         return $this->redirectHandler('/admin/wiki/category/edit/' . $category->id);
     }
@@ -76,7 +76,7 @@ class CategoryController extends AdminControllerBase
         } catch (\Exception $e) {
             return $this->showException($e, $category->getMessages());
         }
-        $this->flashSession->success('SUCCESS_BLOG_CATEGORY_UPDATED');
+        $this->flashSession->success('SUCCESS_WIKI_CATEGORY_UPDATED');
 
         return $this->redirectHandler('/admin/wiki/category/edit/' . $category->id);
     }

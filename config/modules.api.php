@@ -28,6 +28,10 @@ return array(
         'routesFrontend' => false,
         'routesBackend' => false,
     ),
+    'Wiki' => array(
+        'routesFrontend' => false,
+        'routesBackend' => false,
+    ),
     'WscnApiVer2' => array(
         'className' => 'WscnApiVer2\Module',
         'path' => __DIR__ . '/../apps/WscnApiVer2/Module.php',

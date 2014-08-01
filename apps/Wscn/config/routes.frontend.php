@@ -87,4 +87,10 @@ return array(
         'action' => 1,
         'id' => 3,
     ),
+    '/wiki/(.+)' =>  array(
+        'module' => 'Wscn',
+        'controller' => 'wiki',
+        'action' => 'wiki',
+        'keyword' => 1,
+    ),
 );
