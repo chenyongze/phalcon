@@ -51,7 +51,7 @@ class WikiUtil
         // $text =  preg_replace($searches, '$1<a href="/wiki/$2" target="_blank" class="wiki-highlighted-keyword">$2</a>', $text, 1);
         $text = preg_replace(
             $searches,
-            '<a href="/wiki/$1" target="_blank" class="wiki-highlighted-keyword">$1</a>',
+            '<a href="/wiki/$1" target="_blank" class="wiki-highlighted-keyword" title="点击查看关于「$1」的解释">$1</a>',
             $text,
             1
         );

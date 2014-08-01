@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `eva_wiki_categories` (
   `count` int(10) DEFAULT '0',
   `imageId` int(10) DEFAULT '0',
   `image` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1885 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `eva_wiki_entries` (
   `summary` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
   `sourceName` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `sourceUrl` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10646 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -157,9 +157,9 @@ ALTER TABLE `eva_wiki_entry_texts`
 -- AUTO_INCREMENT for table `eva_wiki_categories`
 --
 ALTER TABLE `eva_wiki_categories`
-MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1885;
+MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
 --
 -- AUTO_INCREMENT for table `eva_wiki_entries`
 --
 ALTER TABLE `eva_wiki_entries`
-MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10646;
+MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;

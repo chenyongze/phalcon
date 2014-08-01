@@ -32,17 +32,10 @@ class WikiController extends ControllerBase
      *       notes="Returns: category id",
      *       @SWG\Parameters(
      *         @SWG\Parameter(
-     *           name="categoryName",
-     *           description="name of category",
-     *           paramType="path",
-     *           required=true,
-     *           type="string"
-     *         ),
-     *         @SWG\Parameter(
-     *           name="parentNames",
-     *           description="parent category names",
+     *           name="category",
+     *           description="request json",
      *           paramType="body",
-     *           required=false,
+     *           required=true,
      *           type="string"
      *         )
      *       )
@@ -52,8 +45,14 @@ class WikiController extends ControllerBase
      */
     public function createCategoryAction()
     {
+        $data = $this->request->getRawBody();
+
+        if (!$data = json_decode($data, true)) {
+            throw new Exception\InvalidArgumentException('Data not able to decode as JSON');
+        }
         $category = new \Eva\Wiki\Models\Category();
-        $categoryId = $category->createCategoryByNames($this->request->getPost("categoryName"), preg_split('/\s+/', $this->request->getPost("parentNames")));
+        $parentNames = isset($data['parentNames']) ? preg_split('/\s+/', $data['parentNames']) : array();
+        $categoryId = $category->createCategoryByNames($data['categoryName'], $parentNames);
         return $this->response->setJsonContent(array('categoryId' => $categoryId));
     }
 
