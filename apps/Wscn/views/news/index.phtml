@@ -21,7 +21,7 @@
             <?foreach($posts as $post):?>
             <li class="item news">
             <img class="img " src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_77,w_120') : '/img/article.jpg'?>" alt=""/>
-            <a class="title" href="/node/<?=$post->id?>"><?=$post->title?></a>
+            <a class="title" href="<?=$post->getUrl()?>"><?=$post->title?></a>
             <div>
                 <span class="meta author">文/<span class="text-blue"><?=$post->user ? $post->user->username : '华尔街见闻'?> </span></span>
                 <span class="meta time"><?=$this->tag->datetime($post->createdAt)?></span>

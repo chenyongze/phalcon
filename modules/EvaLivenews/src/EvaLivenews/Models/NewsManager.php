@@ -247,22 +247,6 @@ class NewsManager extends Entities\News
         return $this;
     }
 
-    public function getContentHtml()
-    {
-        if (empty($this->content)) {
-            return '';
-        }
-
-        if ($this->codeType == 'markdown') {
-            $parsedown = new \Parsedown();
-            return $parsedown->text($this->content);
-        } elseif ($this->codeType == 'json') {
-            return '';
-        }
-
-        return $this->content;
-    }
-
     public function getData()
     {
         if (empty($this->content)) {

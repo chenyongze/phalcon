@@ -32,6 +32,14 @@
     bottom: 30px;
     overflow: hidden;
 
+    -webkit-transition: top 0.3s, bottom 0.3s;
+    -moz-transition: top 0.3s, bottom 0.3s;
+    transition: top 0.3s, bottom 0.3s;
+
+    &.moveout {
+        bottom: 100%;
+    }
+
     & > .content {
         float: left;
         width: 170px;

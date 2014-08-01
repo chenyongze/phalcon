@@ -2,7 +2,7 @@
 
 return array(
     'blog' => array(
-        'postPath' => '/post/%s',
+        'postPath' => '/post/{{slug}}',
         'postPreviewPath' => '',
     ),
 );

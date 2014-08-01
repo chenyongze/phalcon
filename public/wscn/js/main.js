@@ -49,13 +49,35 @@
 //滚动条部分初始化
 (function($){
     //页面右侧事实新闻
-    $('#right-side-livenews').nanoScroller({
-        //alwaysVisible: true,
+    $('#side-livenews').nanoScroller({
+        alwaysVisible: true,
+        preventPageScrolling: true,
         iOSNativeScrolling: true
     });
     //页面经济日历
     $('.fc-list').fcl();
 })(jQuery);
+
+(function(){
+    //左侧行情
+    var $leftbar = $('#leftbar');
+    if ($leftbar.length) {
+        //var height = $leftbar.height();
+        var $document = $(document);
+        var $footer = $('#footer');
+        var scrollMax = $document.height() - $footer.height() - $(window).height();
+        console.log(scrollMax);
+        $document.on('scroll', function(e){
+            var scroll = $document.scrollTop();
+            console.log(scroll);
+            if (scroll > scrollMax) {
+                $leftbar.addClass('moveout');
+            } else {
+                $leftbar.removeClass('moveout');
+            }
+        });
+    }
+})();
 
 (function($){
 
@@ -92,6 +114,8 @@
                 top: '+=5'
             }, 500, function(){
                 $sidebar.css('z-index', '4');
+                $('#hide-sidebar').show();
+                $('#show-sidebar').hide();
             })
             .animate({
                 right: '15px',
@@ -99,13 +123,15 @@
             });
         e.preventDefault();
     });
-    $('#close-sidebar').on('click', function(e){
+    $('#hide-sidebar').on('click', function(e){
         $sidebar
             .animate({
                 right: '-' + $sidebar.width(),
                 top: '+=5'
             }, 500, function(){
                 $sidebar.css('z-index', '1');
+                $('#hide-sidebar').hide();
+                $('#show-sidebar').show();
             })
             .animate({
                 right: '15px',

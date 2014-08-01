@@ -9,8 +9,8 @@
                 <div class="custom-span-1">
                     <?$posts->valid(); $post = $posts->current();?>
                     <?if($post):?>
-                    <a class="top1 cover-img" href="/node/<?=$post->id?>">
-                        <img class="lazy img" src="/wscn/img/bg-img.gif" data-original="<?=$post->image ? $this->tag->thumb($post->image) : '/img/article.jpg'?>" alt=""/>
+                    <a class="top1 cover-img" href="<?=$post->getUrl()?>">
+                        <img class="lazy img" src="/wscn/img/bg-img.gif" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_300,w_426') : '/img/article.jpg'?>" alt=""/>
                         <div class="cover">
                             <h3 class="title"><?=$post->title?></h3>
                             <!--
@@ -24,7 +24,7 @@
                     <div class="custom-span-3">
                         <?$posts->valid(); $post = $posts->current();?>
                         <?if($post):?>
-                        <a class="top2 cover-img" href="/node/<?=$post->id?>">
+                        <a class="top2 cover-img" href="<?=$post->getUrl()?>">
                             <img class="lazy img" src="/wscn/img/bg-img.gif" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_149,w_212') : '/img/article.jpg'?>" alt=""/>
                             <div class="cover">
                                 <h3 class="title"><?=$post->title?></h3>
@@ -35,7 +35,7 @@
                     <div class="custom-span-4">
                         <?$posts->valid(); $post = $posts->current();?>
                         <?if($post):?>
-                        <a class="top3 cover-img" href="/node/<?=$post->id?>">
+                        <a class="top3 cover-img" href="<?=$post->getUrl()?>">
                             <img class="lazy img" src="/wscn/img/bg-img.gif" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_149,w_212') : '/img/article.jpg'?>" alt=""/>
                             <div class="cover">
                                 <h3 class="title"><?=$post->title?></h3>
@@ -60,21 +60,21 @@
                     <li class="news">
                     <div class="row">
                         <div class="col-lg-4 col-sm-5 col-xs-5">
-                            <div class="cover-img" href="/node/<?=$post->id?>">
-                                <img class="lazy full-width" src="/wscn/img/bg-img.gif" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_360,w_600') : '/img/article.jpg'?>" alt=""/>
+                            <div class="cover-img" href="<?=$post->getUrl()?>">
+                                <img class="lazy full-width" src="/wscn/img/bg-img.gif" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_115,w_193') : '/img/article.jpg'?>" alt=""/>
                                 <div class="cover">
                                     <span title="点赞" class="endorse" data-action="endorse">123</span>
-                                    <a href="/node/<?=$post->id?>#comments" title="查看评论" class="discuss" data-action="discuss">89</a>
+                                    <a href="<?=$post->getUrl()?>#comments" title="查看评论" class="discuss" data-action="discuss">89</a>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-8 col-sm-7 col-xs-7">
-                            <a class="title" href="/node/<?=$post->id?>"><?=$post->title?></a>
+                            <a class="title" href="<?=$post->getUrl()?>"><?=$post->title?></a>
                             <div>
                                 <span class="meta author">文 / <?=$post->user ? $post->user->username : '华尔街见闻'?></span>
                                 <span class="meta time visible-lg-inline-block"><?=$this->tag->datetime($post->createdAt)?></span>
                                 <span class="meta pull-right visible-lg-inline-block"
-                                      onmouseover="jiathis_share('<?=$post->title?>', 'http://wallstreetcn.com/node/<?=$post->id?>')">
+                                      onmouseover="jiathis_share('<?=$post->title?>', 'http://wallstreetcn.com<?=$post->getUrl()?>')">
                                     <a class="share jiathis jiathis_txt jtico jtico_jiathis" target="_blank"
                                        href="http://www.jiathis.com/share/?uid=1393984262901745"></a>
                                     <!--
@@ -125,7 +125,7 @@
                     <li class="news">
                     <div class="row">
                         <div class="col-lg-4 col-sm-5 col-xs-5">
-                            <div class="cover-img" href="/node/<?=$post->id?>">
+                            <div class="cover-img" href="<?=$post->getUrl()?>">
                                 <!--
                                 <div class="img img-box">
                                     <img class="bg-img" src="/wscn/img/bg-img.gif" alt=""/>
@@ -135,17 +135,17 @@
                                 <img class="lazy full-width" src="/wscn/img/bg-img.gif" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_360,w_600') : '/img/article.jpg'?>" alt=""/>
                                 <div class="cover">
                                     <span title="点赞" class="endorse" data-action="endorse">123</span>
-                                    <a href="/node/<?=$post->id?>#comments" title="查看评论" class="discuss" data-action="discuss">89</a>
+                                    <a href="<?=$post->getUrl()?>#comments" title="查看评论" class="discuss" data-action="discuss">89</a>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-8 col-sm-7 col-xs-7">
-                            <a class="title" href="/node/<?=$post->id?>"><?=$post->title?></a>
+                            <a class="title" href="<?=$post->getUrl()?>"><?=$post->title?></a>
                             <div>
                                 <span class="meta author">文 / <?=$post->user ? $post->user->username : '华尔街见闻'?></span>
                                 <span class="meta time visible-lg-inline-block"><?=$this->tag->datetime($post->createdAt)?></span>
                                 <span class="meta pull-right visible-lg-inline-block"
-                                      onmouseover="jiathis_share('<?=$post->title?>', 'http://wallstreetcn.com/node/<?=$post->id?>')">
+                                      onmouseover="jiathis_share('<?=$post->title?>', 'http://wallstreetcn.com<?=$post->getUrl()?>')">
                                     <a class="share jiathis jiathis_txt jtico jtico_jiathis" target="_blank"
                                        href="http://www.jiathis.com/share/?uid=1393984262901745"></a>
                                     <a class="collect" title="收藏" data-action="collect" href=""></a>
@@ -174,16 +174,15 @@
             </div>
         </div>
         <div id="rightbar">
-            <h2 class="side-title">
-                头条新闻
-                <button id="show-sidebar" class="custom-button type-link pull-right">实时新闻</button>
-            </h2>
-
-            <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 1 ,'limit' => 5, 'page' => 2, 'has_image' => 1, 'order' => '-sort_order'));$posts = $pager->items;?>
-            <ul id="side-topnews" class=" news-list with-dot">
+            <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 1 ,'limit' => 6, 'page' => 2, 'has_image' => 1, 'order' => '-sort_order'));$posts = $pager->items;?>
+            <ul id="side-topnews" class="">
+                <li class="head">
+                    头条新闻
+                    <a id="show-sidebar" href="/livenews"></a>
+                </li>
                 <?foreach($posts as $post):?>
                 <li class="news">
-                <a class="title" href="/node/<?=$post->id?>">
+                <a class="title" href="<?=$post->getUrl()?>">
                     <strong><?=$post->title?></strong>
                 </a>
                 </li>
@@ -213,7 +212,7 @@
                 <ul class="news-list with-number">
                     <?foreach($posts as $post):?>
                     <li class="news">
-                    <a class="title" href="/node/<?=$post->id?>">
+                    <a class="title" href="<?=$post->getUrl()?>">
                         <strong><?=$post->title?></strong>
                     </a>
                     </li>
@@ -225,7 +224,7 @@
                 <ul class="news-list with-number">
                     <?foreach($posts as $post):?>
                     <li class="news">
-                    <a class="title" href="/node/<?=$post->id?>">
+                    <a class="title" href="<?=$post->getUrl()?>">
                         <strong><?=$post->title?></strong>
                     </a>
                     </li>
@@ -272,15 +271,35 @@
 
 <!-- main-content end -->
 <aside id="sidebar">
-<h2 class="side-title">
-    实时新闻
-    <button id="close-sidebar" class="custom-button type-link pull-right">头条新闻</button>
-</h2>
-<div id="side-livenews" class="nano">
-    <ul class="nano-content">
-        <li class="news"></li>
-    </ul>
-</div>
+    <a id="hide-sidebar" href=""></a>
+    <h2 class="main-title">
+        实时新闻
+    </h2>
+    <div id="side-livenews" class="nano">
+        <ul class="nano-content">
+            <li class="news">
+                <span class="time">18:22</span>国土部：不动产统一登记试点城市确定消息不实，目前尚未启动不动产统一登记试点工作。（凤凰财经）
+            </li>
+            <li class="news">
+                <span class="time">17:58</span>汇丰分析师：德债收益率或进一步下跌，接近1%，因欧洲央行很可能进一步采取包括QE在内的宽松政策。
+            </li>
+            <li class="news">
+                <span class="time">17:39</span>路透援引目击者称，5-6辆装甲运兵车驶入乌克兰东部城市Slaviansk，带头车辆插有俄罗斯国旗。
+            </li>
+            <li class="news">
+                <span class="time">17:31</span>人民币兑美元中间价报6.1589；昨日中间价报6.1571，昨日收盘报6.2220。
+            </li>
+            <li class="news">
+                <span class="time">18:22</span>国土部：不动产统一登记试点城市确定消息不实，目前尚未启动不动产统一登记试点工作。（凤凰财经）
+            </li>
+            <li class="news">
+                <span class="time">18:22</span>国土部：不动产统一登记试点城市确定消息不实，目前尚未启动不动产统一登记试点工作。（凤凰财经）
+            </li>
+            <li class="news">
+                <span class="time">18:22</span>国土部：不动产统一登记试点城市确定消息不实，目前尚未启动不动产统一登记试点工作。（凤凰财经）
+            </li>
+        </ul>
+    </div>
 </aside>
 <!-- sidebar end -->
 

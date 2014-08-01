@@ -1,25 +1,104 @@
 #sidebar {
     z-index: 1;
     position: absolute;
-    width: 524px;
-    padding-left: 30px;
+    width: 543px;
     right: 15px;
-    top: 0;
-    background-color: #fff;
-
-    .side-title {
-        .clearfix;
+    top: 0px;
+    padding-top: 10px;
+    background-color: #E4F2FB;
+    & > .main-title {
+        margin-left: 30px;
+        margin-right: 30px;
+        margin-bottom: 10px;
     }
-
 }
+
+#hide-sidebar {
+    position: absolute;
+    display: none;
+    width: 48px;
+    height: 44px;
+    top: -16px;
+    left: -13px;
+    background: url(../img/back-close.png) 0 0 no-repeat;
+    &:hover {
+        background-image: url(../img/back-close-hover.png);
+    }
+}
+
+#show-sidebar {
+    position: absolute;
+    top: 5px;
+    right: -13px;
+    width: 111px;
+    height: 44px;
+    background-image: url(../img/livenews-title.png);
+    &:hover {
+        background-image: url(../img/livenews-title-hover.png);
+    }
+}
+
 #side-topnews {
-    font-size: 14px;
-    background-color: #fff;
+    font-size: 12px;
+    background-color: #F9F9F9;
+    border: 2px solid #ddd;
+    border-left: none;
+    margin-left: -28px;
     height: 300px;
+    margin-bottom: 30px;
+    position: relative;
+    & > .head {
+        font-size: 16px;
+        line-height: 40px;
+        //margin-bottom: 10px;
+        margin-left: 28px;
+        color: @blue;
+        font-weight: bold;
+        width: 6em;
+        margin-bottom: 8px;
+        border-bottom: 3px solid @blue;
+    }
+    & > .news {
+        .ellipsis;
+        line-height: 40px;
+        border-bottom: 1px solid #dedede;
+        padding-left: 28px;
+        &:hover {
+            background-color: @blue;
+            color: #fff;
+        }
+    }
 }
 #side-livenews {
-    font-size: 14px;
-    height: 300px;
+    font-size: 12px;
+    line-height: 1.5em;
+    height: 240px;
+
+    .news {
+        padding: 8px 30px 10px;
+        position: relative;
+        &:before {
+            display: block;
+            position: absolute;
+            content: "";
+            top: 0;
+            left: 0;
+            right: 0;
+            border-top: 1px solid #C8D6DF;
+            border-bottom: 1px solid #F0FAFF;
+        }
+        &:hover {
+            background-color: #F0FAFF;
+        }
+        .time {
+            display: inline-block;
+            padding-right: 1em;
+            line-height: 1em;
+            vertical-align: middle;
+            border-right: 1px solid #BBBBBB;
+            margin-right: 1em;
+        }
+    }
 }
 
 #postbar {
