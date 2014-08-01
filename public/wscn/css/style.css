@@ -3341,9 +3341,13 @@ a.wiki-highlighted-keyword {
 .page-wiki .wikitable {
   border: 1px solid #aaa;
 }
-.page-wiki .wikitable td {
+.page-wiki .wikitable td,
+.page-wiki .wikitable th {
   padding: 12px;
   border: 1px solid #eee;
+}
+.page-wiki .wikitable th {
+  font-weight: bold;
 }
 @media (min-width: 768px) {
   #postbar {
