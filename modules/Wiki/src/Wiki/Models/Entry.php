@@ -173,7 +173,8 @@ class Entry extends Entries
     {
 
         $textData = isset($data['text']) ? $data['text'] : array();
-        $synonymies = isset($data['synonymies']) ? $data['synonymies'] : $data['keywords'];
+        $synonymies = isset($data['synonymies']) ? $data['synonymies'] : array();
+        $synonymies = !$synonymies && isset($data['keywords']) ? $data['keywords'] : $synonymies;
         $categoryData = isset($data['categories']) ? $data['categories'] : array();
         $categoryNamesData = isset($data['categoryNames']) ? $data['categoryNames'] : array();
         $entry = self::findFirst("title='{$data['title']}'");
@@ -229,6 +230,7 @@ class Entry extends Entries
 
         $pinyin = new Pinyin();
         $entry->initial = substr($pinyin->transformUcwords($entry->title), 0, 1);
+
         if (!$entry->save()) {
 
             throw new RuntimeException('Create post failed');

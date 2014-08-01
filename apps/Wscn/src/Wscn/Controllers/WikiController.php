@@ -29,6 +29,7 @@ class WikiController extends ControllerBase
         if (!$entry || $entry->status != 'published') {
             throw new Exception\ResourceNotFoundException('Request entry not found');
         }
+
         $this->view->setVar('keyword', $keyword);
     }
 } 

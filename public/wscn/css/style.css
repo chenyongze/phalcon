@@ -3300,6 +3300,51 @@ body.show-breaking-news #breaking-news {
 #content.unfold #wrapper {
   margin-left: 515px;
 }
+@charset "utf-8";
+/* wiki 高亮关键词 */
+a.wiki-highlighted-keyword {
+  color: #0a62a3;
+}
+.page-wiki h2 {
+  border-bottom: 1px solid #bbb;
+  line-height: 2.2em;
+  font-size: 1.3em;
+  margin-bottom: 0.5em;
+  font-weight: bold;
+}
+.page-wiki p {
+  color: #555;
+}
+.page-wiki i {
+  color: #888;
+  /*font-style: normal;*/
+}
+.page-wiki dl {
+  margin-bottom: 10px;
+}
+.page-wiki .article-content {
+  margin-top: 1em;
+}
+.page-wiki.page-post .article-title {
+  margin-bottom: 5px;
+  color: #0a62a3;
+  padding-bottom: 5px;
+  border-bottom: 2px solid #bbb;
+}
+.page-wiki.page-post h3 {
+  line-height: 1.8em;
+  font-size: 1.1em;
+  font-weight: 600;
+  margin-bottom: 0.3em;
+  color: #4f4f4f;
+}
+.page-wiki .wikitable {
+  border: 1px solid #aaa;
+}
+.page-wiki .wikitable td {
+  padding: 12px;
+  border: 1px solid #eee;
+}
 @media (min-width: 768px) {
   #postbar {
     margin-left: 745px;
@@ -3361,4 +3406,3 @@ body.show-breaking-news #breaking-news {
     width: 330px;
   }
 }
-/*# sourceMappingURL=style.css.map */
