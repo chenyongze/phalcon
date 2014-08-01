@@ -30,7 +30,8 @@ class EntryKeywords extends Model
 
     public function initialize()
     {
-        $this->belongsTo('entryId', 'Eva\Wiki\Entities\Entries', 'id',
+
+        $this->belongsTo('entryId', 'Eva\Wiki\Models\Entry', 'id',
             array('alias' => 'entry')
         );
 

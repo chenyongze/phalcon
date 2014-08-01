@@ -21,14 +21,35 @@ use Eva\Wiki\Utils\Pinyin;
 
 class Entry extends Entries
 {
-    public function getLinkedKeywords()
+    public function getEntryByKeyword($keyword)
     {
-        $_keywords = '';
+
+        return EntryKeyword::findFirst(array(
+            'keyword'=>$keyword
+        ));
+    }
+
+    /**
+     * 获取关联的关键词
+     *
+     * @param bool $asArray     是否作为数组，默认是 false ，将使用半角逗号分割关键词
+     * @return array|string
+     */
+    public function getLinkedKeywords($asArray=false)
+    {
+        $_keywords = $asArray ? array() : '';
         foreach ($this->keywords as $keyword) {
-            if ($_keywords != '') {
-                $_keywords .= ',';
+            if($asArray) {
+                $_keywords[] = $keyword->keyword;
+                continue;
             }
-            $_keywords .= $keyword->keyword;
+
+            if($keyword->keyword != $this->title) {
+                if ($_keywords != '') {
+                    $_keywords .= ',';
+                }
+                $_keywords .= $keyword->keyword;
+            }
         }
         return $_keywords;
     }
@@ -153,18 +174,24 @@ class Entry extends Entries
 
         $textData = isset($data['text']) ? $data['text'] : array();
         $synonymies = isset($data['synonymies']) ? $data['synonymies'] : array();
+        $synonymies = !$synonymies && isset($data['keywords']) ? $data['keywords'] : $synonymies;
         $categoryData = isset($data['categories']) ? $data['categories'] : array();
         $categoryNamesData = isset($data['categoryNames']) ? $data['categoryNames'] : array();
+        $entry = self::findFirst("title='{$data['title']}'");
+        $newEntry = false;
+        if(!$entry) {
+            $entry = $this;
+            $newEntry = true;
+        }
         if ($textData) {
             unset($data['text']);
             $text = new EntryTexts();
             $text->assign($textData);
-            $this->text = $text;
+            $entry->text = $text;
         }
 
         $keywords = array();
         if ($synonymies) {
-            unset($data['synonymies']);
             $synonymiesArray = is_array($synonymies) ? $synonymies : explode(',', $synonymies);
             $mainKeyword = new EntryKeywords();
             $mainKeyword->keyword = $data['title'];
@@ -175,11 +202,8 @@ class Entry extends Entries
 
                 $keywords[] = $keyword;
             }
-            if ($keywords) {
-                $this->keywords = $keywords;
-            }
         }
-
+        $entry->keywords = $keywords;
         $categories = array();
         if ($categoryData) {
             unset($data['categories']);
@@ -190,6 +214,7 @@ class Entry extends Entries
                 }
             }
         }
+
         // 通过分类名指定分类
         if($categoryNamesData) {
             unset($data['categoryNames']);
@@ -197,18 +222,20 @@ class Entry extends Entries
                 $categories[] = Category::getOrCreate($_categoryName);
             }
         }
-        if($categories) {
-            $this->categories = $categories;
-        }
-        $this->assign($data);
-        $pinyin = new Pinyin();
-        $this->initial = substr($pinyin->transformUcwords($this->title), 0, 1);
+        $entry->categories = $categories;
 
-        if (!$this->save()) {
+        if($newEntry) {
+            $entry->assign($data);
+        }
+
+        $pinyin = new Pinyin();
+        $entry->initial = substr($pinyin->transformUcwords($entry->title), 0, 1);
+
+        if (!$entry->save()) {
+
             throw new RuntimeException('Create post failed');
         }
-
-        return $this;
+        return $entry;
     }
 
     public function updateEntry($data)
@@ -248,5 +275,18 @@ class Entry extends Entries
         }
 
         return $this;
+    }
+    public function getContentHtml()
+    {
+        if (empty($this->text->content)) {
+            return '';
+        }
+        if ($this->codeType == 'markdown') {
+            $parsedown = new \Parsedown();
+
+            return $parsedown->text($this->text->content);
+        }
+
+        return $this->text->content;
     }
 }

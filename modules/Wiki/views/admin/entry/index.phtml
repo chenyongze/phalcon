@@ -130,7 +130,7 @@
                             <td>
                                 <a href="/admin/wiki/edit/<?=$item->id?>"><?=$item->title?></a>
                                 <?if($item->sourceName):?><a href="<?=$item->sourceUrl?>" target="_blank"><span class="label"><?=$item->sourceName?></span></a><?endif?>
-                                <span class="label"><?=$item->codeType?></span>
+                                <span class="label"><a href="/wiki/<?=$item->title?>" target="_blank"><?=$item->codeType?></a></span>
                             </td>
                             <td class="hidden-480">
                                 <?$status = array(
