@@ -7,7 +7,7 @@ return array(
     'EvaBlog',
     'EvaFileSystem',
     'EvaComment',
-//    'EvaPermission',
+    'EvaPermission',
     'EvaLivenews',
     'CounterRank',
     'Wiki',
