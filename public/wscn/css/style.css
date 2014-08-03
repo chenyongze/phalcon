@@ -421,6 +421,7 @@ img.lazy {
   color: #c8c8c8;
 }
 .side-title {
+  display: block;
   font-weight: bold;
   font-size: 16px;
   line-height: 40px;
@@ -437,6 +438,7 @@ img.lazy {
   clear: both;
 }
 .main-title {
+  display: block;
   color: #0a62a3;
   font-size: 16px;
   font-weight: bold;
@@ -3410,3 +3412,4 @@ a.wiki-highlighted-keyword {
     width: 330px;
   }
 }
+/*# sourceMappingURL=style.css.map */
