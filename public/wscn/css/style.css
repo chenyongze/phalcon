@@ -1811,11 +1811,13 @@ img.lazy {
   text-align: center;
   display: block;
   border: 1px solid #ccc;
-  background-color: #eee;
   margin: 20px auto 0;
   line-height: 40px;
   font-size: 16px;
   color: #1395e5;
+}
+#main .news-list.with-img .more:hover {
+  background-color: #f5f5f5;
 }
 #main .news-list.with-img .news {
   color: #323232;
