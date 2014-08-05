@@ -1810,13 +1810,12 @@ img.lazy {
 #main .news-list.with-img .more {
   text-align: center;
   display: block;
-  width: 120px;
+  border: 1px solid #ccc;
+  background-color: #eee;
   margin: 20px auto 0;
   line-height: 40px;
   font-size: 16px;
-  border: 2px solid #0a62a3;
-  color: #0a62a3;
-  border-radius: 5px;
+  color: #1395e5;
 }
 #main .news-list.with-img .news {
   color: #323232;
