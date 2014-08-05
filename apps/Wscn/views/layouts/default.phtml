@@ -65,13 +65,13 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="/news">新闻资讯</a></li>
-                    <li><a href="/livenews">实时新闻</a></li>
-                    <li><a href="http://markets.<?=$this->config->domain?>" target="_blank">实时行情</a></li>
-                    <li><a href="http://calendar.<?=$this->config->domain?>" target="_blank">财经日历</a></li>
-                    <li><a href="http://www.goldtoutiao.com/" target="_blank">贵金属</a></li>
-                    <li><a href="http://broker.<?=$this->config->domain?>" target="_blank">交易商</a></li>
-                    <li><a href="http://wallstreetcn.com/app/index.html" target="_blank">App下载</a></li>
+                    <li><a class="link" data-active-url="^\/news.*$" href="/news">新闻资讯</a></li>
+                    <li><a class="link" data-active-url="^\/livenews.*$" href="/livenews">实时新闻</a></li>
+                    <li><a class="link" data-active-url="^\/markets.*$" href="http://markets.<?=$this->config->domain?>" target="_blank">实时行情</a></li>
+                    <li><a class="link" data-active-url="^\/calendar.*$" href="http://calendar.<?=$this->config->domain?>" target="_blank">财经日历</a></li>
+                    <li><a class="link" href="http://www.goldtoutiao.com/" target="_blank">贵金属</a></li>
+                    <li><a class="link" data-active-url="^\/broker.*$" href="http://broker.<?=$this->config->domain?>" target="_blank">交易商</a></li>
+                    <li><a class="link" data-active-url="^\/app.*$" href="http://wallstreetcn.com/app/index.html" target="_blank">App下载</a></li>
                 </ul>
 
                 <div class="navbar-right relative">
@@ -91,7 +91,7 @@
                                 <a class="item" href="">基本资料</a>
                                 <a class="item" href="">
                                     安全密码
-                                    <span class="icon-inactive"></span>
+                                    <span class="icon-inactive">未激活</span>
                                 </a>
                                 <a class="item" href="">语言设置</a>
                                 <a class="item" href="">账号绑定</a>

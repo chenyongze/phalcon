@@ -11,8 +11,9 @@
         margin-bottom: 0;
         border: 0;
     }
-    .nav > li > a:focus,
-    .nav > li > a:hover {
+    .nav > li > a:focus ,
+    .nav > li > a:hover ,
+    .nav > li > a.active {
         background-color: #045587;
         color: #fff;
     }
@@ -55,11 +56,16 @@
 
         .icon-inactive {
             display: none;
-            width: 45px;
-            height: 16px;
-            vertical-align: middle;
             margin-left: 5px;
-            background: url(../icon/inactive.png) 0 0 no-repeat;
+            font-size: 10px;
+            line-height: 16px;
+            padding: 0 5px;
+            background-color: @red;
+            color: #fff;
+            //vertical-align: middle;
+            //width: 45px;
+            //height: 16px;
+            //background: url(../icon/inactive.png) 0 0 no-repeat;
         }
 
         & > .icon {
@@ -172,7 +178,7 @@
         margin: auto;
         width: 34px;
         height: 30px;
-        line-height: 30px;
+        line-height: 32px;
         font-size: 16px;
         z-index: -1;
     }

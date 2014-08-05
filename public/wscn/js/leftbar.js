@@ -8,6 +8,7 @@
     var TEST_DATUM_INDEX = 0;
 
     var timeout_fold = null;
+    var timeout_show = null;
     var timeout_show_datum = null;
     var timeout_show_chart = null;
     var interval_update = null;
@@ -78,6 +79,9 @@
      * @param symbol
      */
     function showInfo(symbol, $target) {
+        //todo
+        $content.addClass('unfold');
+        //
         if ($marketInfo.data('symbol') === symbol || $marketInfo.hasClass('loading')) {
             return;
         }
@@ -92,7 +96,9 @@
     };
     function showChart(symbol, $target) {
         //todo
-        //$marketChart
+        var src = $marketChart.attr('src');
+        src = src.replace(/symbol=\w+/, 'symbol=' + symbol);
+        $marketChart.attr('src', src);
     };
     function showDatum(symbol, $target) {
         //todo
@@ -154,21 +160,31 @@
 
     function initEvent() {
         //
-        $leftbar.on('mouseover', '[data-hover=unfold]', function(e){
+        $leftbar.on('mouseenter', '[data-hover=unfold]', function(e){
             clearTimeout(timeout_fold);
             $content.addClass('unfold');
         });
-        $leftbar.on('mouseout', '[data-hover=unfold]', function(e){
+        $leftbar.on('mouseleave', '[data-hover=unfold]', function(e){
             clearTimeout(timeout_fold);
             timeout_fold = setTimeout(function(){
                 $content.removeClass('unfold');
-            }, 300);
+            }, 200);
         });
         //监听显示行情对应的相关信息事件
         $leftbar.on('mouseenter', '[data-hover=related-info]', function(e){
+            clearTimeout(timeout_show);
+            clearTimeout(timeout_fold);
             var $target = $(this);
-            var symbol = $(this).attr('data-symbol');
-            showInfo(symbol, $target);
+            var symbol = $target.attr('data-symbol');
+            //showInfo(symbol, $target);
+            timeout_show = setTimeout($.proxy(showInfo, null, symbol, $target), 200);
+        });
+        //
+        $leftbar.on('mouseleave', '[data-hover=related-info]', function(e){
+            clearTimeout(timeout_show);
+            timeout_fold = setTimeout(function(){
+                $content.removeClass('unfold');
+            }, 200);
         });
     }
 

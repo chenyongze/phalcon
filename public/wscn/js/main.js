@@ -66,10 +66,10 @@
         var $document = $(document);
         var $footer = $('#footer');
         var scrollMax = $document.height() - $footer.height() - $(window).height();
-        console.log(scrollMax);
+        //console.log(scrollMax);
         $document.on('scroll', function(e){
             var scroll = $document.scrollTop();
-            console.log(scroll);
+            //console.log(scroll);
             if (scroll > scrollMax) {
                 $leftbar.addClass('moveout');
             } else {
@@ -80,6 +80,20 @@
 })();
 
 (function($){
+
+    /**
+     * 导航栏高亮
+     */
+    var fullPathUrl = window.location.pathname + window.location.search;
+    $('#navbar .link[data-active-url]').each(function(){
+        var $item = $(this);
+        var reg = new RegExp($item.attr("data-active-url"));
+        if(reg.test(fullPathUrl)) {
+            $item.addClass("active");
+            //跳出循环
+            return false;
+        }
+    });
 
     //breaking-news
     $('[data-action=hide-breaking-news]').click(function(e){
