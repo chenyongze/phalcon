@@ -6,8 +6,13 @@
     color: #333;
     padding-top: 30px;
     background-color: #fff;
+
+    .link:hover {
+        color: @blue;
+    }
+
     .wrapper {
-        padding: 80px 0 50px;
+        padding: 50px 0;
         background-color: #b0cde1;
     }
     .foot-title {
@@ -15,12 +20,49 @@
         line-height: 20px;
         color: @blue;
         margin-bottom: 30px;
+        margin-top: 10px;
     }
     .list {
         margin-bottom: 30px;
         .item {
             margin-bottom: 1em;
         }
+    }
+    .logo {
+        margin-bottom: 20px;
+    }
+    .qrcode {
+        margin-bottom: 20px;
+    }
+    .icon-group {
+        width: 165px;
+        .icon {
+            width: 32px;
+            height: 32px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-bottom: 15px;
+        }
+        .icon-tencent {
+            background-image: url(../img/footer-tencent.png);
+        }
+        .icon-wechat {
+            background-image: url(../img/footer-wechat.png);
+        }
+        .icon-weibo {
+            background-image: url(../img/footer-weibo.png);
+        }
+    }
+
+    .friend-links {
+        & > .title {
+            color: @blue;
+            margin-right: 80px;
+        }
+        & > .link {
+
+        }
+        margin-bottom: 20px;
     }
     @media (max-width: @screen-xxs-max) {
         text-align: center;
