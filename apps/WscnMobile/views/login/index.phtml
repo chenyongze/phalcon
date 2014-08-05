@@ -4,7 +4,7 @@
 
         <div class="login-form" style="display:">
             <section id="loginSection" class="login-section">
-            <form name="loginForm" data-validate action="/login"  method="POST" novalidate="novalidate">
+            <form name="loginForm" data-validate action="/login"  method="POST">
                 <h1>华尔街见闻帐号登录</h1>
                 <div>
                     <input type="text" name="identify" class="username" placeholder="用户名或邮箱" required>
@@ -26,7 +26,7 @@
 
         <div class="register-form" style="display:none">
             <section id="registerSection" class="register-section">
-            <form name="registerForm" data-validate action="/register"  method="POST" novalidate="novalidate">
+            <form name="registerForm" data-validate action="/register"  method="POST">
                 <h1>新用户注册</h1>
                 <div>
                     <input type="text" name="email" class="email" placeholder="邮箱" required
@@ -70,7 +70,7 @@
 
         <div class="reset-password-form" style="display:none">
             <section id="resetPasswordSection" class="reset-password-section">
-            <form name="resetPasswordForm" data-validate action="/reset"  method="POST" novalidate="novalidate">
+            <form name="resetPasswordForm" data-validate action="/reset"  method="POST">
                 <h1>重置密码</h1>
                 <div>
                     <input type="text" name="email" class="email" placeholder="注册邮箱" required>
@@ -87,12 +87,18 @@
         </div><!-- container -->
 
     </div>
+	<!--
+	<div id="dlgLoginTip" title="登陆提示">
+        <p>用户名和密码不能为空</p>
+    </div>
+	-->
+	<div id="dlgLoginErrorTip" title="登陆提示">
+        <p>用户名或者密码不正确</p>
+    </div>
     <?=$this->partial('partial/footer')?>
 </div>
-<?=$this->partial('partial/js', array(
-    'baseLib' => 'jQuery',
-))?>
-<script type="text/javascript" src="/vendor/js/parsley.js"></script>
+<?=$this->partial('partial/js')?>
+<!--<script type="text/javascript" src="/vendor/js/parsley.js"></script>-->
 <script type="text/javascript">
     (function ($) {
             $(".nav span").click(function(){
@@ -100,8 +106,18 @@
                     $("." + $(this).attr("data-target")).css("display","");
             })
 
-            $('form[data-validate]').parsley({
-            });
+            //$('form[data-validate]').parsley({
+            //});
+			
+			$('#dlgLoginErrorTip').dialog({
+				autoOpen: false,
+				closeBtn: false,
+				buttons: {
+					'确定': function(){
+						this.close();
+					}
+				}
+			}).dialog('this')._options['_wrap'].addClass('login-dialog');
 
-    }(window.jQuery));
+    }(Zepto));
 </script>
