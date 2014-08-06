@@ -3475,6 +3475,9 @@ a.wiki-highlighted-keyword {
   #qrcode {
     margin-left: 1200px;
   }
+  #main-content {
+    margin-right: 0;
+  }
   #main-content.columns-2 #wrapper {
     width: 1200px;
   }
