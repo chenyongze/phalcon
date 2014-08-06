@@ -4,7 +4,7 @@
     </aside>
     <div id="wrapper">
         <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 1 ,'limit' => 3, 'has_image' => 1, 'order' => '-sort_order'));$posts = $pager->items;?>
-        <div id="main">
+        <div id="main" class="page-index">
             <div class="top3-news custom-row hidden-xxs">
                 <div class="custom-span-1">
                     <?$posts->valid(); $post = $posts->current();?>
@@ -58,17 +58,16 @@
                     <?$pager = $this->tag->component('post', array('status' => 'published', 'limit' => 25, 'has_image' => 1, 'order' => '-created_at'));$posts = $pager->items;?>
                     <?foreach($posts as $post):?>
                     <li class="news">
-                    <div class="row">
-                        <div class="col-lg-4 col-sm-5 col-xs-5">
-                            <div class="cover-img" href="<?=$post->getUrl()?>">
+                        <div class="cover-img">
+                            <a href="<?=$post->getUrl()?>">
                                 <img class="lazy full-width" src="/wscn/img/bg-img.gif" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_115,w_193') : '/img/article.jpg'?>" alt=""/>
-                                <div class="cover">
-                                    <span title="点赞" class="endorse" data-action="endorse">123</span>
-                                    <a href="<?=$post->getUrl()?>#comments" title="查看评论" class="discuss" data-action="discuss">89</a>
-                                </div>
+                            </a>
+                            <div class="cover">
+                                <span title="点赞" class="endorse" data-action="endorse">123</span>
+                                <a href="<?=$post->getUrl()?>#comments" title="查看评论" class="discuss" data-action="discuss">89</a>
                             </div>
                         </div>
-                        <div class="col-lg-8 col-sm-7 col-xs-7">
+                        <div class="content">
                             <a class="title" href="<?=$post->getUrl()?>"><?=$post->title?></a>
                             <div>
                                 <span class="meta author">文 / <?=$post->user ? $post->user->username : '华尔街见闻'?></span>
@@ -77,31 +76,18 @@
                                       onmouseover="jiathis_share('<?=$post->title?>', 'http://wallstreetcn.com<?=$post->getUrl()?>')">
                                     <a class="share jiathis jiathis_txt jtico jtico_jiathis" target="_blank"
                                        href="http://www.jiathis.com/share/?uid=1393984262901745"></a>
-                                    <!--
-                                    <div class="share" onmouseover="jiathis_share('如何在一个页面中添加多组分享代码', 'http://www.jiathis.com/help/html/add-more-icons/');">
-                                        <div class="jiathis_style">
-                                            <a href="http://www.jiathis.com/share/?uid=1393984262901745" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
-                                        </div>
-                                    </div>
-                                    -->
                                     <a class="collect" title="收藏" data-action="collect" href=""></a>
                                 </span>
                                 <span class="meta time hidden-lg pull-right"><?=$this->tag->datetime($post->createdAt)?></span>
                             </div>
-                            <div class="summary hidden-xxs">
-                            <?if($post->summary):?>
-                            <?=$post->getSummaryHtml()?>
-                            <?else:?>
-                            <?=\Eva\EvaEngine\Text\Substring::substrCn(strip_tags($post->getContentHtml()), 100);?>
-                            <?endif?>
+                            <div class="summary">
+                                <?if($post->summary):?>
+                                    <?=$post->getSummaryHtml()?>
+                                <?else:?>
+                                    <?=\Eva\EvaEngine\Text\Substring::substrCn(strip_tags($post->getContentHtml()), 100);?>
+                                <?endif?>
                             </div>
                         </div>
-                        <div class="summary col-sm-12 visible-xxs">
-                        <?if($post->summary):?>
-                        <?=$post->getSummaryHtml()?>
-                        <?endif?>
-                        </div>
-                    </div>
                     </li>
                     <?endforeach;?>
                     <!--
@@ -111,13 +97,13 @@
                     ))?>
                     -->
                     <li class="news-big hide">
-                    <a class="cover-img" href="">
-                        <img class="img" src="/wscn/img/img-news-lg.jpg" alt=""/>
-                        <div class="cover">
-                            <h3 class="title">对话中国顶尖对冲基金！见闻俱乐部第2期主题沙龙火热报名中</h3>
-                            <h4 class="subtitle">沪港通”有望10月正式推出，A股与港股将迎来哪些投资机会？</h4>
-                        </div>
-                    </a>
+                        <a class="cover-img" href="">
+                            <img class="img" src="/wscn/img/img-news-lg.jpg" alt=""/>
+                            <div class="cover">
+                                <h3 class="title">对话中国顶尖对冲基金！见闻俱乐部第2期主题沙龙火热报名中</h3>
+                                <h4 class="subtitle">沪港通”有望10月正式推出，A股与港股将迎来哪些投资机会？</h4>
+                            </div>
+                        </a>
                     </li>
                     <li>
                         <a class="more" href="">加载更多</a>
@@ -127,23 +113,16 @@
                     <?$pager = $this->tag->component('post', array('status' => 'published', 'limit' => 25, 'order' => '-count'));$posts = $pager->items;?>
                     <?foreach($posts as $post):?>
                     <li class="news">
-                    <div class="row">
-                        <div class="col-lg-4 col-sm-5 col-xs-5">
-                            <div class="cover-img" href="<?=$post->getUrl()?>">
-                                <!--
-                                <div class="img img-box">
-                                    <img class="bg-img" src="/wscn/img/bg-img.gif" alt=""/>
-                                    <img class="front-img" onload="img_loading(this)" src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_360,w_600') : '/img/article.jpg'?>" alt=""/>
-                                </div>
-                                -->
-                                <img class="lazy full-width" src="/wscn/img/bg-img.gif" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_360,w_600') : '/img/article.jpg'?>" alt=""/>
-                                <div class="cover">
-                                    <span title="点赞" class="endorse" data-action="endorse">123</span>
-                                    <a href="<?=$post->getUrl()?>#comments" title="查看评论" class="discuss" data-action="discuss">89</a>
-                                </div>
+                        <div class="cover-img">
+                            <a href="<?=$post->getUrl()?>">
+                                <img class="lazy full-width" src="/wscn/img/bg-img.gif" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_115,w_193') : '/img/article.jpg'?>" alt=""/>
+                            </a>
+                            <div class="cover">
+                                <span title="点赞" class="endorse" data-action="endorse">123</span>
+                                <a href="<?=$post->getUrl()?>#comments" title="查看评论" class="discuss" data-action="discuss">89</a>
                             </div>
                         </div>
-                        <div class="col-lg-8 col-sm-7 col-xs-7">
+                        <div class="content">
                             <a class="title" href="<?=$post->getUrl()?>"><?=$post->title?></a>
                             <div>
                                 <span class="meta author">文 / <?=$post->user ? $post->user->username : '华尔街见闻'?></span>
@@ -156,27 +135,21 @@
                                 </span>
                                 <span class="meta time hidden-lg pull-right"><?=$this->tag->datetime($post->createdAt)?></span>
                             </div>
-                            <div class="summary hidden-xxs">
-                            <?if($post->summary):?>
-                            <?=$post->getSummaryHtml()?>
-                            <?else:?>
-                            <?=\Eva\EvaEngine\Text\Substring::substrCn(strip_tags($post->getContentHtml()), 100);?>
-                            <?endif?>
+                            <div class="summary">
+                                <?if($post->summary):?>
+                                <?=$post->getSummaryHtml()?>
+                                <?else:?>
+                                <?=\Eva\EvaEngine\Text\Substring::substrCn(strip_tags($post->getContentHtml()), 100);?>
+                                <?endif?>
                             </div>
                         </div>
-                        <div class="summary col-sm-12 visible-xxs">
-                        <?if($post->summary):?>
-                        <?=$post->getSummaryHtml()?>
-                        <?endif?>
-                        </div>
-                    </div>
                     </li>
                     <?endforeach;?>
                     <li>
                         <a class="more" href="">加载更多</a>
                     </li>
                 </ul>
-
+                <!--  -->
                 <ul class="tab-pane news-list with-img hide" id="main-special-news">main-special-news</ul>
             </div>
         </div>
@@ -185,7 +158,6 @@
             <ul id="side-topnews" class="">
                 <li class="head">
                     头条新闻
-                    <a id="show-sidebar" href="/livenews"></a>
                 </li>
                 <?foreach($posts as $post):?>
                 <li class="news">
@@ -276,6 +248,7 @@
     </div>
 </div>
 
+<a id="show-sidebar" href="/livenews"></a>
 <!-- main-content end -->
 <aside id="sidebar">
     <a id="hide-sidebar" href=""></a>
