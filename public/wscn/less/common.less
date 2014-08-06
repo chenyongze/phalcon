@@ -1,6 +1,22 @@
-//mixins
+@charset "utf-8";
 
-//清除浮动
+//
+[data-trend="rise"] {
+    .diff ,
+    .diff-pct {
+        color: @riseColor;
+    }
+}
+[data-trend="fall"] {
+    .diff ,
+    .diff-pct {
+        color: @fallColor;
+    }
+}
+
+/*
+    mixins 自定义 less 函数
+*/
 .clearfix {
     &:before {
         display: table;
@@ -17,20 +33,11 @@
 .relative {
     position: relative !important;
 }
-
 .absolute {
     position: absolute !important;
 }
-
 .fixed {
     position: fixed !important;
-}
-
-
-.ellipsis {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
 
 //转换
@@ -61,7 +68,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-//
+//文字折断 换行 （适用与英文、标点）
 .break-word {
     word-break: break-all;
 }
@@ -73,9 +80,7 @@
 .no-margin {
     margin: 0 !important;
 }
-.text-blue {
-    color: @blue !important;
-}
+//重置 box-sizing
 .reset-box-sizing {
     &,
     *,
@@ -90,14 +95,14 @@
     .reset-box-sizing();
 }
 
-//
-
+//文字颜色
 .text-blue {
     color: @blue !important;
 }
 .text-red {
     color: @red !important;
 }
+//行内元素对齐方式
 .text-left {
     text-align: left !important;
 }
@@ -108,7 +113,7 @@
     text-align: left !important;
 }
 
-//ie8 的bug checkbox 组件文字会换行，添加text类
+//todo ie8 的bug checkbox 组件文字会换行，添加text类
 .checkbox {
     .text {
         display: inline-block;
@@ -123,7 +128,7 @@ img.lazy {
     display: inline-block !important;
 }
 
-//
+//未知高度div 垂直 水平 居中
 .centerbox {
     font-size: 0;
     text-align: center;
@@ -142,6 +147,8 @@ img.lazy {
     height: 100%;
     vertical-align: middle;
 }
+
+//加载指示器
 .loader {
     display: none;
     position: absolute;
@@ -165,7 +172,8 @@ img.lazy {
         display: block;
     }
 }
-//
+
+//图片 + 覆盖层 组件
 .cover-img {
     display: block;
     position: relative;
@@ -204,35 +212,7 @@ img.lazy {
     }
 }
 
-.img-box {
-    width: 100%;
-    position: relative;
-    .bg-img {
-        width: 100%;
-        height: auto;
-    }
-    .front-img {
-        position: absolute;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        display: none;
-    }
-}
-
-[data-trend="rise"] {
-    .diff ,
-    .diff-pct {
-        color: @riseColor;
-    }
-}
-[data-trend="fall"] {
-    .diff ,
-    .diff-pct {
-        color: @fallColor;
-    }
-}
-
+// 分页工具栏
 .pagingbar,
 .toolbar.paging {
     .button {
@@ -265,6 +245,7 @@ img.lazy {
     }
 }
 
+//实时新闻列表
 .livenews-list {
     font-size: 12px;
     line-height: 1.5em;
@@ -281,7 +262,7 @@ img.lazy {
         }
     }
 }
-
+//财经日历 列表
 .fc-list {
     [data-trend=up] {
         .actual {
@@ -397,33 +378,10 @@ img.lazy {
         }
     }
 }
-.side-title {
-    .clearfix;
-    display: block;
-    font-weight: bold;
-    font-size: 16px;
-    line-height: 40px;
-    margin-bottom: 20px;
-}
-.main-title {
-    display: block;
-    color: @blue;
-    font-size: 16px;
-    font-weight: bold;
-    line-height: 30px;
-    padding-bottom: 6px;
-    border-bottom: 4px solid @blue;
-    margin-bottom: 20px;
 
-    .more {
-        float: right;
-        font-weight: normal;
-        font-size: 12px;
-        color: #333;
-    }
-}
+//新闻 列表
 .news-list {
-
+    // dot 类型
     &.with-dot {
         .news {
             position: relative;
@@ -445,6 +403,7 @@ img.lazy {
             }
         }
     }
+    // 数字排列 类
     &.with-number {
         counter-reset:sectioncounter;
         .news {
@@ -470,6 +429,7 @@ img.lazy {
             }
         }
     }
+    // 包含 图片类
     &.with-img {
         .news {
             .clearfix;
@@ -600,12 +560,42 @@ img.lazy {
         }
     }
 }
+//主 title
+.main-title {
+    display: block;
+    color: @blue;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 30px;
+    padding-bottom: 6px;
+    border-bottom: 4px solid @blue;
+    margin-bottom: 20px;
+
+    .more {
+        float: right;
+        font-weight: normal;
+        font-size: 12px;
+        color: #333;
+    }
+}
+
+//侧边拦 title
+.side-title {
+    .clearfix;
+    display: block;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 40px;
+    margin-bottom: 20px;
+}
+//侧边拦 广告
 .side-ad {
     margin-bottom: 30px;
     img {
         width: 100%;
     }
 }
+//侧边拦 评论列表
 .side-comments {
     .comment {
         position: relative;
@@ -637,13 +627,12 @@ img.lazy {
         }
     }
 }
-
+//工具栏
 .toolbar {
     .clearfix;
 }
 
-//custom
-
+//自定义 class 类
 .custom-row {
     display: block;
     .clearfix;
@@ -690,7 +679,7 @@ img.lazy {
     }
 }
 
-//
+//自定义 按钮
 .custom-button {
     display: inline-block;
     border: none;
@@ -738,7 +727,7 @@ img.lazy {
         }
     }
 }
-//
+//自定义 nav - tabs
 .custom-nav-tabs {
     .clearfix;
     border-bottom: 4px solid #dcdcdc;
@@ -766,7 +755,7 @@ img.lazy {
         border-bottom: 4px solid transparent;
     }
 }
-
+//自定义 下拉列表
 .custom-select {
     display: inline-block;
     /*position: relative;
@@ -817,7 +806,7 @@ img.lazy {
         -moz-padding-end: 20px;*/
     }
 }
-
+//自定义 checkbox -> switch-box （滑块切换）
 .switch-box {
     cursor: pointer;
     margin-bottom: 0;
@@ -868,7 +857,18 @@ img.lazy {
         }
     }
 }
-
+//ie9 以下 不支持 :checked 选择符，还原默认样式
+.lt-ie9 {
+    .switch-box {
+        input[type=checkbox] {
+            display: inline-block;
+        }
+        .box {
+            display: none;
+        }
+    }
+}
+//自定义 弹出层
 .custom-modal {
     .transition(opacity 0.5s);
     z-index: -1;
