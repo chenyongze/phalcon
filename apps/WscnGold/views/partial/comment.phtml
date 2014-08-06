@@ -1,0 +1,37 @@
+<!---- comment begin -->
+<link rel="stylesheet" href="/css/comment_goldtoutiao.css">
+<div class="user-comments" id="ws_comment_thread" style="width: 100%">
+
+</div>
+
+<script type="text/javascript">
+    // thread id
+    var ws_comment_thread_id = '<?=$uniqueKey?>';
+
+    // api base url to use for initial requests
+    var ws_comment_thread_api_base_url = '/thread/';
+
+    // Snippet for asynchronously loading the comments
+    (function() {
+        var ws_comment_script = document.createElement('script');
+        ws_comment_script.async = true;
+        ws_comment_script.src = '/js/comments.js';
+        ws_comment_script.type = 'text/javascript';
+
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ws_comment_script);
+    })();
+</script>
+<!---- comment end   -->
+
+<script type="text/javascript" src="/vendor/js/moment.min.js"></script>
+<script type="text/javascript" src="/vendor/js/moment-with-langs.min.js"></script>
+
+<script type="text/javascript">
+    $(document).on('ws_comment_load_thread',function(){
+        $(".ws-comment-time").each(function(){
+            var time = $(this);
+            time.html(moment(time.data().time, "YYYY-MM-DDTHH:mm:ss ZZ").fromNow());
+        });
+    })
+
+</script>
