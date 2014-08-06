@@ -1,0 +1,1 @@
+ALTER TABLE  `eva_comment_comments` CHANGE  `status`  `status` ENUM(  'approved',  'pending',  'spam',  'deleted',  'ham',  'dangerous' ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT  'pending';
