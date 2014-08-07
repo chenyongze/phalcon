@@ -1,3 +1,6 @@
 [submodule "public/vendor"]
 	path = public/vendor
 	url = https://github.com/wallstreetcn/frontendcdn.git
+[submodule "public/lib"]
+	path = public/lib
+	url = git@github.com:wallstreetcn/CDN.git
