@@ -509,6 +509,9 @@ img.lazy {
   height: 16px;
   line-height: 16px;
 }
+.news-list.with-img .news .meta:first-child {
+  margin-left: 0;
+}
 .news-list.with-img .news .author {
   color: #0a62a3;
   margin-left: 0;
@@ -784,7 +787,7 @@ img.lazy {
   display: block;
   font-size: 16px;
   line-height: 1em;
-  padding: 0 1em 1em;
+  padding: 0 1em 10px;
   color: #646464;
   border-bottom: 4px solid transparent;
 }
@@ -2359,10 +2362,6 @@ body.show-breaking-news #breaking-news {
   .page-index .news-list.with-img .news .title {
     font-size: 15px;
   }
-}
-.page-index .news-list.with-img .news .meta {
-  margin-top: 16px ;
-  margin-left: 16px;
 }
 @media (max-width: 1279px) {
   .page-index .news-list.with-img .news .summary {

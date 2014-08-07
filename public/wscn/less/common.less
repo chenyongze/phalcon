@@ -478,6 +478,9 @@ img.lazy {
                 font-size: 12px;
                 height: 16px;
                 line-height: 16px;
+                &:first-child {
+                    margin-left: 0;
+                }
             }
             .author {
                 color: @blue;
@@ -750,7 +753,7 @@ img.lazy {
         display: block;
         font-size: 16px;
         line-height: 1em;
-        padding: 0 1em 1em;
+        padding: 0 1em 10px;
         color: #646464;
         border-bottom: 4px solid transparent;
     }

@@ -63,12 +63,13 @@
     var $leftbar = $('#leftbar');
     if ($leftbar.length) {
         //var height = $leftbar.height();
-        var $document = $(document);
+        var $body = $('body');
         var $footer = $('#footer');
-        var scrollMax = $document.height() - $footer.height() - $(window).height();
+        var scrollMax = $body.height() - $footer.height() - $(window).height();
         //console.log(scrollMax);
-        $document.on('scroll', function(e){
-            var scroll = $document.scrollTop();
+        //
+        $(document).on('scroll', function(e){
+            var scroll = $body.scrollTop();
             //console.log(scroll);
             if (scroll > scrollMax) {
                 $leftbar.addClass('moveout');
@@ -99,6 +100,14 @@
     $('[data-action=hide-breaking-news]').click(function(e){
         $('body').removeClass('show-breaking-news');
         return false;
+    });
+
+    //goto top 返回顶部
+    $('#postbar .up').click(function(e){
+        $('body').animate({
+            scrollTop: 0
+        }, 800);
+        e.preventDefault();
     });
 
     //点赞

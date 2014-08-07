@@ -62,7 +62,7 @@
                             <a href="<?=$post->getUrl()?>">
                                 <img class="lazy full-width" src="/wscn/img/bg-img.gif" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_120,w_200') : '/img/article.jpg'?>" alt=""/>
                             </a>
-                            <div class="cover">
+                            <div class="cover hidden-xs hidden-xxs">
                                 <span title="点赞" class="endorse" data-action="endorse">123</span>
                                 <a href="<?=$post->getUrl()?>#comments" title="查看评论" class="discuss" data-action="discuss">89</a>
                             </div>
@@ -80,7 +80,7 @@
                                 </span>
                                 <span class="meta time hidden-lg pull-right"><?=$this->tag->datetime($post->createdAt)?></span>
                             </div>
-                            <div class="summary">
+                            <div class="summary hidden-xxs">
                                 <?if($post->summary):?>
                                     <?=$post->getSummaryHtml()?>
                                 <?else:?>
@@ -117,7 +117,7 @@
                             <a href="<?=$post->getUrl()?>">
                                 <img class="lazy full-width" src="/wscn/img/bg-img.gif" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_120,w_200') : '/img/article.jpg'?>" alt=""/>
                             </a>
-                            <div class="cover">
+                            <div class="cover hidden-xs hidden-xxs">
                                 <span title="点赞" class="endorse" data-action="endorse">123</span>
                                 <a href="<?=$post->getUrl()?>#comments" title="查看评论" class="discuss" data-action="discuss">89</a>
                             </div>
@@ -135,7 +135,7 @@
                                 </span>
                                 <span class="meta time hidden-lg pull-right"><?=$this->tag->datetime($post->createdAt)?></span>
                             </div>
-                            <div class="summary">
+                            <div class="summary hidden-xxs">
                                 <?if($post->summary):?>
                                 <?=$post->getSummaryHtml()?>
                                 <?else:?>
@@ -248,9 +248,9 @@
     </div>
 </div>
 
-<a id="show-sidebar" href="/livenews"></a>
+<a id="show-sidebar" class="hidden-xxs" href="/livenews"></a>
 <!-- main-content end -->
-<aside id="sidebar">
+<aside id="sidebar" class="hidden-xxs">
     <a id="hide-sidebar" href=""></a>
     <h3 class="main-title">
         实时新闻
