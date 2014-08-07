@@ -3,32 +3,24 @@
 .user-comments {
     font-family: "Microsoft YaHei";
     color: #999;
-    /*background-color: #f0f0f0;*/
-}
-
-.user-comments > .more {
-    background-color: #646464;
-    color: #fff;
-    line-height: 24px;
-    padding: 8px 30px;
+    padding: 10px 30px;
+    font-size: 15px;
+    line-height: 1.5em;
+    background-color: #f0f0f0;
+    box-sizing: border-box;
 }
 
 .ws-reply-box{
     padding-top: 10px;
-    position: relative;
 }
 
-.ws-reply-box > .ws-avatar {
-    position: absolute;
-    top:10px;
-    left: 0;
-}
 
 
 .ws-reply-box > form {
+    float: right;
     display: block;
+    width: 85%;
     border-radius: 5px;
-    padding-left: 70px;
 }
 
 .ws-reply-box > form .input {
@@ -38,21 +30,21 @@
     border-radius: 5px;
     font-size: 14px;
     padding: 10px;
-}
-
-.ws-reply-box > form .input:focus {
-    border: 1px solid #1395e5;
+    box-sizing: border-box;
 }
 
 .ws-reply-box > form .submit {
     display: block;
-    margin: 5px 0;
+    margin: 20px 0;
     float: right;
     color: #fff;
-    background: #1F65A1;
-    text-align: center;
-    width: 90px;
-    height: 32px;
+    width: 120px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 5px;
+    background-color: #005178;
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#3c80a1), to(#005077));
+    background: -moz-linear-gradient(top, #3c80a1, #005077);
 }
 
 .ws-reply-box:after{
@@ -64,8 +56,8 @@
 }
 
 .ws-title {
-    font-size: 14px;
-    margin-top: 30px;
+    font-size: 15px;
+    margin-top: 10px;
 }
 
 .ws-sort {
@@ -83,10 +75,11 @@
 }
 
 .ws-comment {
+    /*width: 100%;*/
     height: auto;
     clear: both;
     padding-top: 10px;
-    margin-top: 7px;
+    margin-top: 10px;
     border-top: 1px solid #ddd;
     position: relative;
 }
@@ -99,32 +92,52 @@
     visibility:hidden
 }
 
+.ws-avatar {
+    /*position: absolute;*/
+    /*top:10px;*/
+    /*left: 0;*/
+    float: left;
+    margin-right: 20px;
+}
+
+
 .ws-comment-body {
+    /*float: right;*/
+    /*width: 85%;*/
     padding-left: 65px;
 }
 
-.ws-comment > .ws-avatar {
+.ws-comment>.ws-avatar {
     position: absolute;
     top:10px;
     left: 0;
+
 }
 
+
+.ws-comment>.ws-avatar img {
+    width: 50px;
+    height: 50px;
+}
+
+
 .ws-user-name {
-    font-size: 15px;
-    /*font-weight: bold;*/
-    color: #0A61A3;
+    font-size: 16px;
+    color: #005178;
+    font-weight: bold;
 }
 
 .ws-comment-content {
-    color: #333;
-    font-size: 14px;
-    line-height: 1.6em;
-    margin:  10px 0;
+    /*width: 100%;*/
+    color: #323232;
+    font-size: 15px;
+    line-height: 1.75em;
+    margin: 5px 0;
 }
 
 .ws-comment-time {
     color: #969696;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 24px;
 }
 
@@ -138,11 +151,12 @@
 }
 
 .ws-comment-actions a{
-    color: #666;
+    color: #969696;
     /*width: 50px;*/
     margin-left: 15px;
     display: inline-block;
-    font-size: 12px;
+    /*float: left;*/
+    font-size: 14px;
     line-height: 24px;
 }
 
