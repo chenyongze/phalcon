@@ -15,10 +15,10 @@ test:
 	phpunit --bootstrap ./tests/Bootstrap.php ./tests
 
 git-pull:
-	git pull origin master
+	git pull
 
 git-push:
-	git push -u origin master
+	git push -u
 
 rollback:
 	git reset --hard HEAD~1
@@ -36,12 +36,12 @@ sendmail:
 	php workers/sendmail.php
 
 upgrade:
-	git pull origin master
+	git pull
 	composer update
 	git submodule update --init --recursive
 
 update:
-	git pull origin master
+	git pull
 	git submodule update --init --recursive
 
 install-dev:
