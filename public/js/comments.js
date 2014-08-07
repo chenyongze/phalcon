@@ -116,7 +116,7 @@
                     var form_data = $(this).data();
                     var that = $(this);
 
-                    if(that.hasClass('ds_comment_replying')) {
+                    if(that.hasClass('ws_comment_replying')) {
                         var current = $('#ws-comment-'+form_data.id+' .ws-comment-body .ws-reply-box');
                         if(current.is(':hidden')){
                             $('.ws-comment-body .ws-reply-box').hide();
@@ -134,7 +134,7 @@
                         form_data.url,
                         {parentId: form_data.id},
                         function(data) {
-                            that.addClass('ds_comment_replying');
+                            that.addClass('ws_comment_replying');
                             $('#ws-comment-'+form_data.id+' .ws-comment-body').append(data);
 //                            that.trigger('ws_comment_show_form', data);
                         }
@@ -554,38 +554,38 @@
     /**
      * 用户评论
      */
-//    function hiedUsernameModal() {
-//        var $modal = $('#comment-username-modal');
-//        $modal.find('[name=username]').val('');
-//        $modal.unwrap();
-//    }
-//    $(document).on('click', '.user-comments form.ws_comment_comment_new_form > [type=submit]', function(e){
-//
-//        var $form = $(this).parent();
-//        var formId = $form[0].id;
-//        var comment = $form.find('textarea').val();
-//        if (comment) {
-//            var $modal = $('#comment-username-modal');
-//            $modal.attr('data-form-id', formId);
-//            $modal.wrap('<div class="modal-wrap"></div>');
-//        }
-//        e.preventDefault();
-//    });
-//    $(document).on('click', '#comment-username-modal [data-action=close]', function(e){
-//        hiedUsernameModal();
-//    });
-//    $(document).on('click', '#comment-username-modal [type=submit]', function(e){
-//        var $modal = $('#comment-username-modal');
-//        var username = $modal.find('[name=username]').val();
-//        if (username) {
-//            var formId = $modal.attr('data-form-id');
-//            var $form = $('#' + formId);
-//            $form.find('[name=username]').val(username);
-//            $form.trigger('submit');
-//            hiedUsernameModal();
-//        }
-//        e.preventDefault();
-//    });
+    function hiedUsernameModal() {
+        var $modal = $('#comment-username-modal');
+        $modal.find('[name=username]').val('');
+        $modal.unwrap();
+    }
+    $(document).on('click', '.user-comments form.ws_comment_comment_new_form > [type=submit]', function(e){
+
+        var $form = $(this).parent();
+        var formId = $form[0].id;
+        var comment = $form.find('textarea').val();
+        if (comment) {
+            var $modal = $('#comment-username-modal');
+            $modal.attr('data-form-id', formId);
+            $modal.wrap('<div class="modal-wrap"></div>');
+        }
+        e.preventDefault();
+    });
+    $(document).on('click', '#comment-username-modal [data-action=close]', function(e){
+        hiedUsernameModal();
+    });
+    $(document).on('click', '#comment-username-modal [type=submit]', function(e){
+        var $modal = $('#comment-username-modal');
+        var username = $modal.find('[name=username]').val();
+        if (username) {
+            var formId = $modal.attr('data-form-id');
+            var $form = $('#' + formId);
+            $form.find('[name=username]').val(username);
+            $form.trigger('submit');
+            hiedUsernameModal();
+        }
+        e.preventDefault();
+    });
 
     //将标准时间格式改为用户更友好的方式
     $(document).on('ws_comment_load_thread',function(){
@@ -595,5 +595,10 @@
         });
     })
 
-
+    $(document).on('ws_comment_new_comment',function(){
+        $(".ws-comment-time").each(function(){
+            var time = $(this);
+            time.html(moment(time.data().time, "YYYY-MM-DDTHH:mm:ss ZZ").fromNow());
+        });
+    })
 })(window, window.jQuery, window.easyXDM);

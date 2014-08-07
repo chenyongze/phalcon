@@ -169,7 +169,7 @@ class CommentManager extends BaseModel
 
     function filterContent(Comments $comment)
     {
-        $phql = 'SELECT word FROM Eva\EvaComment\Entities\Filter AS f WHERE f.level = 2';
+        $phql = 'SELECT word FROM Eva\EvaComment\Entities\Filters AS f WHERE f.level = 2';
 
         $manager = $this->getModelsManager();
         $arr = $manager->executeQuery($phql);

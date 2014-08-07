@@ -1,16 +1,14 @@
 <div class="user-comments">
     <div class="ws-reply-box">
         <div class="ws-avatar">
-            <img src="/img/avatar.png" alt="ikk">
+            <img src="/wscn/img/avatar-md.png" alt="ikk">
         </div>
         <?= $this->tag->form(array('/thread/'.$thread->uniqueKey.'/comments/save','id'=>'ws_comment_form_0',
             'class'=>'ws_comment_comment_new_form','method'=>'post','data-parent')) ?>
             <textarea class="input" name="content" rows="4"></textarea>
             <input type="hidden" name="username" value="测试" />
-            <div style="margin-top: 5px;">
     <!--            <input type="text" class="form-control captcha" name="captcha" value="" /> <img src="/thread/captcha"  class="img-rounded" />-->
             <input class="submit btn btn-primary" type="submit" value="回复"/>
-            </div>
         </form>
     </div>
 
@@ -70,4 +68,15 @@
         <?endif?>
     </div>
     <?endif?>
+</div>
+
+<div id="comment-username-modal" class="modal" data-form-id="fos_comment_form_0">
+    <h2 class="head">提示 <i class="icon-remove" data-action="close"></i></h2>
+    <div class="content">
+        <h3 class="label">请填写您的名称：</h3>
+        <form class="fos_comment_comment_new_form" method="post">
+            <input class="input" name="username">
+            <input class="submit" type="submit" value="确认">
+        </form>
+    </div>
 </div>
