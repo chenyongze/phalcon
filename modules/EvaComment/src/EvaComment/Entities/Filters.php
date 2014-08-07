@@ -3,9 +3,9 @@ namespace Eva\EvaComment\Entities;
 
 use Eva\EvaEngine\Mvc\Model as BaseModel;
 
-class Filter extends BaseModel
+class Filters extends BaseModel
 {
-    protected $tableName = 'comment_filter';
+    protected $tableName = 'comment_filters';
 
     /**
      *
@@ -17,7 +17,7 @@ class Filter extends BaseModel
      *
      * @var string
      */
-    public $content;
+    public $word;
 
     /**
      *

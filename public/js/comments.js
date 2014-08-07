@@ -116,7 +116,7 @@
                     var form_data = $(this).data();
                     var that = $(this);
 
-                    if(that.hasClass('ds_comment_replying')) {
+                    if(that.hasClass('ws_comment_replying')) {
                         var current = $('#ws-comment-'+form_data.id+' .ws-comment-body .ws-reply-box');
                         if(current.is(':hidden')){
                             $('.ws-comment-body .ws-reply-box').hide();
@@ -134,7 +134,7 @@
                         form_data.url,
                         {parentId: form_data.id},
                         function(data) {
-                            that.addClass('ds_comment_replying');
+                            that.addClass('ws_comment_replying');
                             $('#ws-comment-'+form_data.id+' .ws-comment-body').append(data);
 //                            that.trigger('ws_comment_show_form', data);
                         }
@@ -595,5 +595,10 @@
         });
     })
 
-
+    $(document).on('ws_comment_new_comment',function(){
+        $(".ws-comment-time").each(function(){
+            var time = $(this);
+            time.html(moment(time.data().time, "YYYY-MM-DDTHH:mm:ss ZZ").fromNow());
+        });
+    })
 })(window, window.jQuery, window.easyXDM);
