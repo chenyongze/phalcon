@@ -1916,6 +1916,7 @@ img.lazy {
   z-index: 1;
   position: absolute;
   width: 543px;
+  max-width: 100%;
   height: 300px;
   right: 15px;
   top: 0px;
