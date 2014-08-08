@@ -1,12 +1,20 @@
 <!-- slider -->
 <div id="slider">
-    <?$num=1;foreach($postsTop as $postTop):if($num>5){break;}?>
+    <?
+    $num = 1;
+    foreach ($topNewsPosts as $topNewsPost) {
+        if ($num > 5) {
+            break;
+        }
+        ?>
         <div>
-            <a href="http://wallstreetcn.com/node/<?=$postTop->nid?>" target="_blank"><img src="<?=$this->tag->wscnThumb($postTop->file_managed_file_usage_uri, 'c_fill,w_320,h_180')?>"></a>
-            <p><?=$postTop->node_title?></p>
+            <a href="http://wallstreetcn.com/node/<?=$topNewsPost->nid?>" target="_blank"><img src="<?=$this->tag->wscnThumb($topNewsPost->file_managed_file_usage_uri, 'c_fill,w_320,h_180')?>"></a>
+            <p><?=$topNewsPost->node_title?></p>
         </div>
-        <?$num=$num+1;
-    endforeach;?>
+        <?
+        $num = $num + 1;
+    }
+    ?>
 </div>
 <!-- slider -->
 

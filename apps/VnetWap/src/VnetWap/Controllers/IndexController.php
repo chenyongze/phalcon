@@ -21,12 +21,11 @@ class IndexController extends ControllerBase
         $posts = json_decode($response->body);
         $this->view->setVar('posts', $posts);
         $this->view->setVar('page', $page);
-        /*获取头条*/
+        //获取头条
         $provider->setBaseUri('http://api.wallstreetcn.com/apiv1/');
-        $responseTop = $provider->get('topnews-list.json');
-        $postsTop = json_decode($responseTop->body);
-        $this->view->setVar('postsTop', $postsTop);
-        /*获取头条*/
+        $topNewsResponse = $provider->get('topnews-list.json');
+        $topNewsPosts = json_decode($topNewsResponse->body);
+        $this->view->setVar('topNewsPosts', $topNewsPosts);
     }
 
     public function liveAction()
@@ -61,3 +60,4 @@ class IndexController extends ControllerBase
         $this->view->setVar('post', $post);
     }
 }
+
