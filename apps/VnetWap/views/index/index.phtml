@@ -1,9 +1,9 @@
 <!-- slider -->
 <div id="slider">
-    <?$num=1;foreach($posts_top as $post_top):if($num>5){break;}?>
+    <?$num=1;foreach($postsTop as $postTop):if($num>5){break;}?>
         <div>
-            <a href="http://wallstreetcn.com/node/<?=$post_top->nid?>" target="_blank"><img src="<?=$this->tag->wscnThumb($post_top->file_managed_file_usage_uri, 'c_fill,w_320,h_180')?>"></a>
-            <p><?=$post_top->node_title?></p>
+            <a href="http://wallstreetcn.com/node/<?=$postTop->nid?>" target="_blank"><img src="<?=$this->tag->wscnThumb($postTop->file_managed_file_usage_uri, 'c_fill,w_320,h_180')?>"></a>
+            <p><?=$postTop->node_title?></p>
         </div>
         <?$num=$num+1;
     endforeach;?>

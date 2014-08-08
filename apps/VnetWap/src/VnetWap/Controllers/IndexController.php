@@ -22,11 +22,10 @@ class IndexController extends ControllerBase
         $this->view->setVar('posts', $posts);
         $this->view->setVar('page', $page);
         /*获取头条*/
-        $provider_top  = Request::getProvider();
-        $provider_top->setBaseUri('http://api.wallstreetcn.com/apiv1/');
-        $response_top = $provider_top->get('topnews-list.json');
-        $posts_top = json_decode($response_top->body);
-        $this->view->setVar('posts_top', $posts_top);
+        $provider->setBaseUri('http://api.wallstreetcn.com/apiv1/');
+        $responseTop = $provider->get('topnews-list.json');
+        $postsTop = json_decode($responseTop->body);
+        $this->view->setVar('postsTop', $postsTop);
         /*获取头条*/
     }
 
