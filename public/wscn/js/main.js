@@ -1,51 +1,3 @@
-(function(){
-    var usf = window.userForms || {};
-    usf.$element = $('#user-modal');
-    usf.show = function(name){
-        usf.$element.addClass('active');
-        $('#user-modal-carousel .item.active').removeClass('active');
-        switch(name) {
-            case 'register' :
-                $('#user-modal-carousel .item:eq(2)').addClass('active');
-                break;
-            case 'reset' :
-                $('#user-modal-carousel .item:eq(0)').addClass('active');
-                break;
-            case 'login-connect' :
-                $('#user-modal-carousel .item:eq(3)').addClass('active');
-                break;
-            case 'register-connect' :
-                $('#user-modal-carousel .item:eq(4)').addClass('active');
-                break;
-            case 'login' :
-            default:
-                $('#user-modal-carousel .item:eq(1)').addClass('active');
-                break;
-        }
-    };
-    usf.onConnectSuccess = function(token, user) {
-        console.log(token);
-        console.log(user);
-        if(user) {
-        }
-        if(token) {
-            usf.show('register-connect');
-            var site = {
-                'weibo' : '微博',
-                'tencent' : 'QQ'
-            }
-            usf.$element.find('[data-auth-avatar]').attr('src', token.remoteImageUrl);
-            usf.$element.find('[data-auth-user]').html(token.remoteUserName);
-            usf.$element.find('[data-auth-site]').html(site[token.adapterKey]);
-        }
-    };
-
-    usf.onConnectFailed = function(error, errorMsg) {
-        usf.$element.find('.item.active form').prepend('<div data-raw-message="' + error + '" class="alert alert alert-danger">' + errorMsg + '<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button></div>');
-    };
-    window.userForms = usf;
-})();
-
 //滚动条部分初始化
 (function($){
     //页面右侧事实新闻
@@ -164,10 +116,7 @@
     });
     // 页面侧边栏 end
     //
-    $(document).on('click', '[data-action=login]', function(e){
-        userForms.show();
-        return false;
-    });
+
     // custom-modal
     $(document).on('click', '[data-action=custom-modal]', function(e){
         var $this = $(this);

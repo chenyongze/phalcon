@@ -1,20 +1,41 @@
-(function () {
-    'use strict';
+(function(root, factory) {
+    if (typeof define === "function" && define.amd) {
+        define("UserManager", function (require, exports, module) {
+            var $ = require("jquery");
+            //Export to global anyway
+            root.UserManager = factory(root, exports, $);
+            return root.UserManager;
+        });
+    } else if (typeof exports !== "undefined") {
+        var $ = require("jquery");
+        factory(root, exports, $);
+    } else {
+        root.UserManager = factory(root, {}, root.jQuery);
+    }
 
+}(this, function(root, UserManager, $) {
+    "use strict";
     //Debug shortcut
     function p(){
-        if(typeof console === 'undefined') {
+        if(typeof console === "undefined") {
             return false;
         }
         console.info.apply(console, arguments);
     }
-        
-    /************************************
-        Constants
-    ************************************/
 
-    var usermanager = {}
-        , VERSION = '1.0.0'
+    /************************************
+      Constants
+     ************************************/
+    var instance = null
+        , options = {
+        }
+        , defaultOptions = {
+            debug : true,
+            dataType : "json",
+            userUrl : "/me.json",
+            cookiekey : "PHPSESSID"
+        }
+        , VERSION = "1.0.0"
         , status = {
             checked : false,
             login : false
@@ -22,67 +43,82 @@
         , debug = true
         , user = null
         , loginFunc = []
-        , notLoginFunc = []
-        , defaultOptions = {
-            debug : true,
-            dataType : 'json',
-            userUrl : '/me.json',
-            cookiekey : 'PHPSESSID'
+        , notLoginFunc = [];
+
+    var defautEvents = {
+        "login" : function(event, user)  {
+            status.checked = true;
+            status.login = true;
+            $(document).off("click", ".action-require-login");
+            $(document).ready(function(){
+                $(".action-show-after-login").removeClass("action-show-after-login");
+                $(".action-hide-after-login").hide();
+            });
+            var i = 0;
+            for(i in loginFunc) {
+                loginFunc[i](this, user);
+            }
+        },
+
+        "notlogin" : function(event) {
+            status.checked = true;
+            status.login = false;
+
+            //TODO:Remove session cookie
+            var i = 0;
+            for(i in notLoginFunc) {
+                notLoginFunc[i](this);
+            }
         }
-        , options = {}
-        , hasModule = (typeof module !== 'undefined' && module.exports);
+    }
 
 
     /************************************
-        Constructors
-    ************************************/
-    function UserManager(inputOptions) {
-        options = $.extend({}, defaultOptions, inputOptions);
-        debug = options.debug;
-        initEvent(this);
-    }
-
-    function initEvent(root) {
-        var events = $.extend(defautEvents, options.events),
-            key = 0;
-        for(key in events) {
-            root.on(key, events[key]);
+      Constructors
+     ************************************/
+    UserManager = function(options){
+        if(instance !== null){
+            throw new Error("Cannot instantiate more than one Singleton, use UserManager.getInstance()");
         }
-    }
+        this.initialize(options);
+    };
 
+    /************************************
+      Private Methods
+     ************************************/
     function cookie (name, value, options) {
-        if (typeof value != 'undefined') { // name and value given, set cookie
+        if (typeof value != "undefined") { // name and value given, set cookie
             options = options || {};
             if (value === null) {
-                value = '';
+                value = "";
                 options.expires = -1;
             }
-            var expires = '';
-            if (options.expires && (typeof options.expires == 'number' || options.expires.toUTCString)) {
+            var expires = "";
+            if (options.expires && (typeof options.expires == "number" || options.expires.toUTCString)) {
                 var date;
-                if (typeof options.expires == 'number') {
+                if (typeof options.expires == "number") {
                     date = new Date();
                     date.setTime(date.getTime() + (options.expires * 24 * 60 * 60 * 1000));
                 } else {
                     date = options.expires;
                 }
-                expires = '; expires=' + date.toUTCString(); // use expires attribute, max-age is not supported by IE
+                expires = "; expires=" + date.toUTCString(); // use expires attribute, max-age is not supported by IE
             }
             // CAUTION: Needed to parenthesize options.path and options.domain
             // in the following expressions, otherwise they evaluate to undefined
             // in the packed version for some reason...
-            var path = options.path ? '; path=' + (options.path) : '';
-            var domain = options.domain ? '; domain=' + (options.domain) : '';
-            var secure = options.secure ? '; secure' : '';
-            document.cookie = [name, '=', encodeURIComponent(value), expires, path, domain, secure].join('');
+            var path = options.path ? "; path=" + (options.path) : "";
+            var domain = options.domain ? "; domain=" + (options.domain) : "";
+            var secure = options.secure ? "; secure" : "";
+            document.cookie = [name, "=", encodeURIComponent(value), expires, path, domain, secure].join("");
         } else { // only name given, get cookie
             var cookieValue = null;
-            if (document.cookie && document.cookie != '') {
-                var cookies = document.cookie.split(';');
+            if (document.cookie && document.cookie != "") {
+                var cookies = document.cookie.split(";");
                 for (var i = 0; i < cookies.length; i++) {
                     var cookie = jQuery.trim(cookies[i]);
                     // Does this cookie string begin with the name we want?
-                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    if (cookie.substring(0, name.length + 1) == (name + "=")) {
                         cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
                         break;
                     }
@@ -92,24 +128,15 @@
         }
     };
 
-
-
     /************************************
-        Top Level Functions
-    ************************************/
-    usermanager = function (options) {
-        return new UserManager(options);
-    };
+      Public Methods
+     ************************************/
+    UserManager.prototype = {
+        getOptions : function(){
+            return this.options;
+        }
 
-    // version number
-    usermanager.version = VERSION;
-
-
-    /************************************
-        EvaFinanceChart Prototype
-    ************************************/
-    usermanager.fn = UserManager.prototype = {
-        isLogin : function() {
+        , isLogin : function() {
             return status.login;
         }
 
@@ -188,54 +215,24 @@
             $(document).off(eventName);
             return this;
         }
-    }
 
-
-    var defautEvents = {
-        'login' : function(event, user)  {
-            status.checked = true;
-            status.login = true;
-            $(document).off('click', '.action-require-login');
-            $(document).ready(function(){
-                $('.action-show-after-login').removeClass('action-show-after-login');
-                $('.action-hide-after-login').hide();
-            });
-            var i = 0;
-            for(i in loginFunc) {
-                loginFunc[i](this, user);
+        , initialize: function(opts){
+            options = $.extend({}, defaultOptions, opts);
+            var events = $.extend(defautEvents, options.events);
+            var key = 0;
+            for(key in events) {
+                this.on(key, events[key]);
             }
-        },
 
-        'notlogin' : function(event) {
-            status.checked = true;
-            status.login = false;
-
-            //TODO:Remove session cookie
-            var i = 0;
-            for(i in notLoginFunc) {
-                notLoginFunc[i](this);
-            }
+            this.start();
         }
-    }
+    };
 
-
-    // CommonJS module is defined
-    if (hasModule) {
-        module.exports = usermanager;
+    UserManager.getInstance  = function(options){
+        if(instance === null){
+            instance = new UserManager(options);
+        }
+        return instance;
     }
-
-    /*global ender:false */
-    if (typeof ender === 'undefined') {
-        // here, `this` means `window` in the browser, or `global` on the server
-        // add `efc` as a global object via a string identifier,
-        // for Closure Compiler 'advanced' mode
-        this['UserManager'] = usermanager;
-    }
-
-    /*global define:false */
-    if (typeof define === 'function' && define.amd) {
-        define([], function () {
-            return usermanager;
-        });
-    }
-}).call(this);
+    return UserManager;
+}));
