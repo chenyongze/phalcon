@@ -686,8 +686,7 @@ var userMessages = {
         'SUCCESS_OAUTH_USER_CONNECTED' : '绑定第三方帐号成功',
         'SUCCESS_OAUTH_AUTO_CONNECT_EXIST_EMAIL' : '登录成功'
 };
-var usrManager = new UserManager();
-usrManager.start();
+var usrManager = UserManager.getInstance();
 usrManager.onNotLogin(function(){
     var showMessage = function(messageCode, message) {
             return '<div data-raw-message="' + messageCode + '" class="alert alert-danger">' + message + '<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button></div>'
