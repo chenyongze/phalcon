@@ -1,51 +1,26 @@
 <div id="main-content" class="columns-2">
     <div id="main" class="page-livenews">
+        <?$newsPager = $this->tag->component('post', array('status' => 'published', 'limit' => 10, 'order' => '-created_at'));$posts = $newsPager->items;?>
+        <?if($posts):?>
         <div class="topbar hidden-xs hidden-xxs">
-            <a href="" class="custom-button type-link absolute">最新文章</a>
+            <a href="/news" class="custom-button type-link absolute">最新文章</a>
             <div class="control-box">
                 <span class="left  glyphicon glyphicon-chevron-left" data-action="left"></span>
                 <span class="right glyphicon glyphicon-chevron-right" data-action="right"></span>
             </div>
             <div id="news-list" class="news-list with-dot">
                 <div class="row content">
+                    <?foreach($posts as $post):?>
                     <div class="col-lg-6">
-                        <a class="news" href="">
-                            <strong>什么都怪房地产？别把中国经济想得太简单</strong>
+                        <a class="news" href="<?=$post->getUrl()?>" target="_blank">
+                            <strong><?=$post->title?></strong>
                         </a>
                     </div>
-                    <div class="col-lg-6">
-                        <a class="news" href="">
-                            <strong>德国放弃从美国运回黄金说明了什么？</strong>
-                        </a>
-                    </div>
-                    <div class="col-lg-6">
-                        <a class="news" href="">
-                            <strong>微刺激发力 汇丰中国制造业PMI创七个月新高</strong>
-                        </a>
-                    </div>
-                    <div class="col-lg-6">
-                        <a class="news" href="">
-                            <strong>今夏全球市场焦点——美国通胀是否已现？</strong>
-                        </a>
-                    </div>
-                    <div class="col-lg-6">
-                        <a class="news" href="">
-                            <strong>对话中国顶尖对冲基金！见闻俱乐部第2期主题沙龙火热报名中</strong>
-                        </a>
-                    </div>
-                    <div class="col-lg-6">
-                        <a class="news" href="">
-                            <strong>干旱席卷世界最大甘蔗产区 对冲基金押宝糖价上涨</strong>
-                        </a>
-                    </div>
-                    <div class="col-lg-6">
-                        <a class="news" href="">
-                            <strong>金属骗贷调查泼冷水，铜市六周以来首现净空头</strong>
-                        </a>
-                    </div>
+                    <?endforeach?>
                 </div>
             </div>
         </div>
+        <?endif?>
         <div id="livenews-box">
             <div class="header">
                 <div class="clearfix">
@@ -98,14 +73,22 @@
             </div>
             <div class="body">
                 <ul class="content">
-                    <li class="date">2014年7月15号  09:30:24</li>
+                    <?$lastday = ''?>
+                    <?foreach($pager->items as $item): //type-img  //type-video?>
+                    <?$currentday = $this->tag->datetime($item->createdAt, 'Y-m-d')?>
+                    <?if(!$lastday || $currentday !== $lastday):?>
+                    <li class="date"><?=$this->tag->datetime($item->createdAt, 'Y年m月d日')?></li>
+                    <?endif?>
+                    <?$lastday = $currentday?>
+
+                    <?if($item->codeType == 'markdown' || $item->codeType == 'html'):?>
                     <li class="news">
-                        <span class="icon"></span>
-                        <span class="time">10:35</span>
-                        <div class="content">
-                            上海高校毕业生就业签约超七成，自主创业增加上海市教委：2014年上海高校毕业生就业签约率为 72.24%，预计到8月底，总体就业率将与去年同期持平。
-                        </div>
-                        <div class="footer">
+                    <span class="icon"></span>
+                    <span class="time"><?=$this->tag->datetime($item->createdAt, 'H:i')?></span>
+                    <div class="content">
+                        <?=$item->getContentHtml()?>
+                    </div>
+                    <div class="footer">
                         <span class="meta">
                             <i class="icontext icontext-collect-blue"></i>
                         </span>
@@ -115,16 +98,20 @@
                         <span class="meta">
                             <i class="icontext icontext-discuss-blue"></i>&nbsp;32
                         </span>
-                        </div>
+                    </div>
                     </li>
+                    <?else:?>
+                    <?endif?>
+
+                    <?endforeach?>
                     <li class="news type-img">
-                        <span class="icon"></span>
-                        <span class="time">10:35</span>
-                        <div class="content">
-                            黄金亚太午盘跳水，跌幅近1.20%。【工行一级资本和总资产蝉联宇宙第一大行】英国《银行家》正式公布了2014年度的全球1000家大银行排名榜单。
-                            <div class="thumb"></div>
-                        </div>
-                        <div class="footer">
+                    <span class="icon"></span>
+                    <span class="time">10:35</span>
+                    <div class="content">
+                        黄金亚太午盘跳水，跌幅近1.20%。【工行一级资本和总资产蝉联宇宙第一大行】英国《银行家》正式公布了2014年度的全球1000家大银行排名榜单。
+                        <div class="thumb"></div>
+                    </div>
+                    <div class="footer">
                         <span class="meta">
                             <i class="icontext icontext-collect-blue"></i>
                         </span>
@@ -134,16 +121,16 @@
                         <span class="meta">
                             <i class="icontext icontext-discuss-blue"></i>&nbsp;32
                         </span>
-                        </div>
+                    </div>
                     </li>
                     <li class="news type-video">
-                        <span class="icon"></span>
-                        <span class="time">10:35</span>
-                        <div class="content">
-                            阿里携7银行推无抵押贷款：最高授信1000万；为中小企业启动基于网商信用的无抵押贷款计划，最高授信可达1000万元。业内人士认为，这一业务可被看作阿里银行主营业务的雏形。
-                            <div class="thumb"></div>
-                        </div>
-                        <div class="footer">
+                    <span class="icon"></span>
+                    <span class="time">10:35</span>
+                    <div class="content">
+                        阿里携7银行推无抵押贷款：最高授信1000万；为中小企业启动基于网商信用的无抵押贷款计划，最高授信可达1000万元。业内人士认为，这一业务可被看作阿里银行主营业务的雏形。
+                        <div class="thumb"></div>
+                    </div>
+                    <div class="footer">
                         <span class="meta">
                             <i class="icontext icontext-collect-blue"></i>
                         </span>
@@ -153,38 +140,38 @@
                         <span class="meta">
                             <i class="icontext icontext-discuss-blue"></i>&nbsp;32
                         </span>
-                        </div>
+                    </div>
                     </li>
                     <li class="news type-data" data-trend="rise">
-                        <span class="icon"></span>
-                        <div class="important">
-                            <i class="glyphicon glyphicon-star star active"></i>
-                            <i class="glyphicon glyphicon-star star active"></i>
-                            <i class="glyphicon glyphicon-star star"></i>
-                        </div>
-                        <div class="content">
-                            <span class="time">10:35</span>
-                            <img  class="flag" src="" alt=""/>
-                            <h3 class="title">
-                                <span class="country">英国</span>6月英国BRC同店零售销售 (年率)
-                            </h3>
-                            <div class="custom-row">
-                                <div class="col-custom-4">
-                                    <span class="text">今值：</span>
-                                    <span class="value current">1.1%</span>
-                                </div>
-                                <div class="col-custom-4">
-                                    <span class="text">预测：</span>
-                                    <span class="value">1.0%</span>
-                                </div>
-                                <div class="col-custom-4">
-                                    <span class="text">前值：</span>
-                                    <span class="value">0.5%</span>
-                                </div>
+                    <span class="icon"></span>
+                    <div class="important">
+                        <i class="glyphicon glyphicon-star star active"></i>
+                        <i class="glyphicon glyphicon-star star active"></i>
+                        <i class="glyphicon glyphicon-star star"></i>
+                    </div>
+                    <div class="content">
+                        <span class="time">10:35</span>
+                        <img  class="flag" src="" alt=""/>
+                        <h3 class="title">
+                            <span class="country">英国</span>6月英国BRC同店零售销售 (年率)
+                        </h3>
+                        <div class="custom-row">
+                            <div class="col-custom-4">
+                                <span class="text">今值：</span>
+                                <span class="value current">1.1%</span>
                             </div>
-                            <div class="verdict">利多金银</div>
+                            <div class="col-custom-4">
+                                <span class="text">预测：</span>
+                                <span class="value">1.0%</span>
+                            </div>
+                            <div class="col-custom-4">
+                                <span class="text">前值：</span>
+                                <span class="value">0.5%</span>
+                            </div>
                         </div>
-                        <div class="footer">
+                        <div class="verdict">利多金银</div>
+                    </div>
+                    <div class="footer">
                         <span class="meta">
                             <i class="icontext icontext-collect-blue"></i>
                         </span>
@@ -194,38 +181,38 @@
                         <span class="meta">
                             <i class="icontext icontext-discuss-blue"></i>&nbsp;32
                         </span>
-                        </div>
+                    </div>
                     </li>
                     <li class="news type-data" data-trend="fall">
-                        <span class="icon"></span>
-                        <div class="important">
-                            <i class="glyphicon glyphicon-star star active"></i>
-                            <i class="glyphicon glyphicon-star star active"></i>
-                            <i class="glyphicon glyphicon-star star active"></i>
-                        </div>
-                        <div class="content">
-                            <span class="time">10:35</span>
-                            <img  class="flag" src="" alt=""/>
-                            <h3 class="title">
-                                <span class="country">日本</span>5月所有产业活动指数月率
-                            </h3>
-                            <div class="custom-row">
-                                <div class="col-custom-4">
-                                    <span class="text">今值：</span>
-                                    <span class="value current">-0.8%</span>
-                                </div>
-                                <div class="col-custom-4">
-                                    <span class="text">预测：</span>
-                                    <span class="value">1.0%</span>
-                                </div>
-                                <div class="col-custom-4">
-                                    <span class="text">前值：</span>
-                                    <span class="value">0.5%</span>
-                                </div>
+                    <span class="icon"></span>
+                    <div class="important">
+                        <i class="glyphicon glyphicon-star star active"></i>
+                        <i class="glyphicon glyphicon-star star active"></i>
+                        <i class="glyphicon glyphicon-star star active"></i>
+                    </div>
+                    <div class="content">
+                        <span class="time">10:35</span>
+                        <img  class="flag" src="" alt=""/>
+                        <h3 class="title">
+                            <span class="country">日本</span>5月所有产业活动指数月率
+                        </h3>
+                        <div class="custom-row">
+                            <div class="col-custom-4">
+                                <span class="text">今值：</span>
+                                <span class="value current">-0.8%</span>
                             </div>
-                            <div class="verdict">利空金银</div>
+                            <div class="col-custom-4">
+                                <span class="text">预测：</span>
+                                <span class="value">1.0%</span>
+                            </div>
+                            <div class="col-custom-4">
+                                <span class="text">前值：</span>
+                                <span class="value">0.5%</span>
+                            </div>
                         </div>
-                        <div class="footer">
+                        <div class="verdict">利空金银</div>
+                    </div>
+                    <div class="footer">
                         <span class="meta">
                             <i class="icontext icontext-collect-blue"></i>
                         </span>
@@ -235,20 +222,13 @@
                         <span class="meta">
                             <i class="icontext icontext-discuss-blue"></i>&nbsp;32
                         </span>
-                        </div>
+                    </div>
                     </li>
                 </ul>
-                <div class="pagingbar">
-                    <a class="button" href="">1</a>
-                    <a class="button" href="">2</a>
-                    <a class="button" href="">3</a>
-                    <a class="button" href="">4</a>
-                    <a class="button" href="">5</a>
-                    <a class="button" href="">6</a>
-                    <a class="button" href="">7</a>
-                    <a class="button" href="">8</a>
-                    <a class="button" data-action="prev-page" href="">下一页</a>
-                </div>
+                <?$this->partial("partial/paginator", array(
+                    'pagerUrl' => '/livenews',
+                    'pager' => $pager,
+                ))?>
             </div>
             <!-- body end -->
         </div>
@@ -276,54 +256,54 @@
                     "width": "300",
                     "active": 0,
                     "tabs": [
-                        {
-                            "name": "综合",
-                            "symbols": [
-                                "XAUUSD",
-                                "UKOil",
-                                "SPX500",
-                                "000001",
-                                "EURUSD",
-                                "USDJPY",
-                                "US10Year"
-                            ]
-                        },
-                        {
-                            "name": "外汇",
-                            "symbols": [
-                                "EURUSD",
-                                "GBPUSD",
-                                "USDJPY",
-                                "USDCHF",
-                                "AUDUSD",
-                                "USDCAD",
-                                "USDollarIndex"
-                            ]
-                        },
-                        {
-                            "name": "期货",
-                            "symbols": [
-                                "XAUUSD",
-                                "XAGUSD",
-                                "UKOil",
-                                "USOil",
-                                "Copper",
-                                "CORN",
-                                "WHEAT"
-                            ]
-                        },
-                        {
-                            "name": "股指",
-                            "symbols": [
-                                "SPX500",
-                                "NAS100",
-                                "US30",
-                                "JPN225INDEX",
-                                "hkg33index",
-                                "UK100",
-                                "eustx50index"
-                            ]
-                        }
+                    {
+                        "name": "综合",
+                        "symbols": [
+                        "XAUUSD",
+                        "UKOil",
+                        "SPX500",
+                        "000001",
+                        "EURUSD",
+                        "USDJPY",
+                        "US10Year"
+                        ]
+                    },
+                    {
+                        "name": "外汇",
+                        "symbols": [
+                        "EURUSD",
+                        "GBPUSD",
+                        "USDJPY",
+                        "USDCHF",
+                        "AUDUSD",
+                        "USDCAD",
+                        "USDollarIndex"
+                        ]
+                    },
+                    {
+                        "name": "期货",
+                        "symbols": [
+                        "XAUUSD",
+                        "XAGUSD",
+                        "UKOil",
+                        "USOil",
+                        "Copper",
+                        "CORN",
+                        "WHEAT"
+                        ]
+                    },
+                    {
+                        "name": "股指",
+                        "symbols": [
+                        "SPX500",
+                        "NAS100",
+                        "US30",
+                        "JPN225INDEX",
+                        "hkg33index",
+                        "UK100",
+                        "eustx50index"
+                        ]
+                    }
                     ]
                 }/*endOptions*/
                 var sidebar = new WallstreetCN.embed.Sidebar(parentId, options, iframeId);
@@ -351,28 +331,28 @@
                 <li class="date" data-date="<%= record.date %>"><%= record.date %></li>
                 <% } %>
                 <li id="<%= record.id %>" class="item" data-cid="<%= record.cid %>" data-trend="<%= record.trend %>" data-utm="<%= record.utm %>">
-                    <div class="custom-row">
-                        <div class="col-custom-4 time"><%= record.time %></div>
-                        <div class="col-custom-8 important" data-value="<%= record.importance %>"><%= record.stars %></div>
+                <div class="custom-row">
+                    <div class="col-custom-4 time"><%= record.time %></div>
+                    <div class="col-custom-8 important" data-value="<%= record.importance %>"><%= record.stars %></div>
+                </div>
+                <div class="custom-row">
+                    <span class="col-custom-4 country"><%= record.country %></span>
+                    <a    class="col-custom-8 title" href=""><%= record.title %></a>
+                </div>
+                <div class="custom-row">
+                    <div class="col-custom-4 price actual">
+                        <span class="text">今值：</span>
+                        <span class="value"><%= record.actual %></span>
                     </div>
-                    <div class="custom-row">
-                        <span class="col-custom-4 country"><%= record.country %></span>
-                        <a    class="col-custom-8 title" href=""><%= record.title %></a>
+                    <div class="col-custom-4 price forecast">
+                        <span class="text">预测：</span>
+                        <span class="value"><%= record.forecast %></span>
                     </div>
-                    <div class="custom-row">
-                        <div class="col-custom-4 price actual">
-                            <span class="text">今值：</span>
-                            <span class="value"><%= record.actual %></span>
-                        </div>
-                        <div class="col-custom-4 price forecast">
-                            <span class="text">预测：</span>
-                            <span class="value"><%= record.forecast %></span>
-                        </div>
-                        <div class="col-custom-4 price previous">
-                            <span class="text">前值：</span>
-                            <span class="value"><%= record.previous %></span>
-                        </div>
+                    <div class="col-custom-4 price previous">
+                        <span class="text">前值：</span>
+                        <span class="value"><%= record.previous %></span>
                     </div>
+                </div>
                 </li>
                 <% } %>
             </script>
