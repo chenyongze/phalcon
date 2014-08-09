@@ -10,7 +10,7 @@ class LogoutController extends ControllerBase
         $this->getDI()->get('session')->remove('auth-identity');
         $this->view->disable();
 
-        return $this->response->redirect('/admin');
+        return $this->response->redirect('/');
     }
 
 }

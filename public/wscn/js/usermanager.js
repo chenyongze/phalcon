@@ -49,11 +49,7 @@
         "login" : function(event, user)  {
             status.checked = true;
             status.login = true;
-            $(document).off("click", ".action-require-login");
-            $(document).ready(function(){
-                $(".action-show-after-login").removeClass("action-show-after-login");
-                $(".action-hide-after-login").hide();
-            });
+            $('body').addClass('already-login');
             var i = 0;
             for(i in loginFunc) {
                 loginFunc[i](this, user);
@@ -64,6 +60,7 @@
             status.checked = true;
             status.login = false;
 
+            $('body').addClass('not-login');
             //TODO:Remove session cookie
             var i = 0;
             for(i in notLoginFunc) {
@@ -147,20 +144,17 @@
             } else {
                 $.ajax({
                     url : options.userUrl,
-                    dataType : options.dataType,
-                    error : function(response) {
+                    dataType : options.dataType
+                }).then(function(response) {
+                    if(response && response.id > 0) {
+                        user = response;
+                        status.login = true;
+                        root.trigger('login', [user]);
+                    } else {
                         root.trigger('notlogin');
-                    },
-                    success : function(response){
-                        if(response) {
-                            user = response;
-                            status.login = true;
-                            root.trigger('login', [user]);
-                        } else {
-                            root.trigger('notlogin');
-                        }
-                    
-                    }
+                    }              
+                }).fail(function(error) {
+                    root.trigger('notlogin');
                 });
             }
         }
