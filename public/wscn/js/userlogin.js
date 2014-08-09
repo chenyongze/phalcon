@@ -15,7 +15,11 @@
     "use strict";
     var instance = null,
         defaultOptions = {
-        };
+        },
+        user,
+        oauthUser,
+        oauthSuccess,
+        oauthError;
     var userMessages = {
             "ERR_USER_PASSWORD_WRONG" : "密码不匹配，请重试",
             "ERR_USER_PASSWORD_WRONG_MAX_TIMES" : "密码输入错误次数太多，用户已经被锁定，请稍后重试",
@@ -86,7 +90,8 @@
         });
     };
 
-    var login = function (form) {
+    var loginByPassword = function (url, data) {
+        /*
         var inactiveHandler = function(form){
             var username = form.find("input[name=identify]").val();
             form.find(".inactive-handle").html("，如未收到激活邮件，请<a href='/login/reactive?username=" + username + "'>点击重发</a>");
@@ -109,51 +114,68 @@
                 return false;
             });
         };
-        $.ajax({
-            url : form.attr("action"),
+        */
+        var loginDeferred = $.ajax({
+            url : url,
             dataType : "json",
-            data : form.serialize(),
+            data : data,
             type : "POST",
-            success : function(response){
-                    form.find(".alert").remove();
-            },
-            error : function(error) {
-                    form.find(".alert").remove();
-                    var messages = error.responseJSON.errors;
-                    if(!messages || messages.length < 1) {
-                            form.prepend(showMessage("ERR_UNKNOW", "有未知错误发生，请稍候重试"));
-                    }
-                    var i = 0;
-                    for(i in messages) {
-                        var message = messages[i];
-                        var messageCode = message.message;
-                        var errorMsg = userMessages[messageCode] || messageCode;
-                        form.prepend(showMessage(message.message, errorMsg));
-                        if(messageCode == "ERR_USER_NOT_ACTIVED") {
-                                inactiveHandler(form);
-                        }
-                    }
-            
+        }).then(function(response) {
+            loginUI.hideMessage();
+            loginUI.hideModal();
+            usrManager.setUser(response);
+            usrManager.trigger('login');
+        }).fail(function(error) {
+            var messages = error.responseJSON.errors;
+            if(!messages || messages.length < 1) {
+                loginUI.showMessage("ERR_UNKNOW", "有未知错误发生，请稍候重试");
             }
-        });   
+            var i = 0;
+            for(i in messages) {
+                var message = messages[i];
+                var messageCode = message.message;
+                var errorMsg = userMessages[messageCode] || messageCode;
+                loginUI.showMessage(messageCode, errorMsg);
+                /*
+                if(messageCode == "ERR_USER_NOT_ACTIVED") {
+                    inactiveHandler(form);
+                }
+               */
+            }
+        });
+        return loginDeferred;
     } 
 
     var notLoginFunctions = {
         initForm : function () {
             $("#user-modal-register, #user-modal-reset, #user-modal-connect-login").on("submit", "form", function() {
                 var form = $(this);
-                register(form);
+                register(form.attr('action'), form.serialize());
                 return false;    
             });
             $("#user-modal-login").on("submit", "form", function(){
                 var form = $(this);
-                login(form);
+                loginByPassword(form.attr('action'), form.serialize());
                 return false;
             });
+        },
+        initModal : function () {
+            $(document).on("click", "[data-action=login]", function(e){
+                loginUI.showModal();
+                return false;
+            });      
         }
     };
 
-    var loginFunctions = {};
+    var loginFunctions = {
+        replaceViews : function() {
+            var user = usrManager.getUser();
+            $("#leftbar .avatar").attr('src', user.avatar);
+            $("#leftbar [data-action=login]").remove();
+            $('.user-control').addClass(('login'));
+            $(".user-control img").attr('src', user.avatar);
+        }
+    };
 
     var initSocialBtn = function(){
         $(document).on("click", ".login-social-btn", function(){
@@ -162,12 +184,6 @@
         });
     };
 
-    var initLoginUI = function(){
-        $(document).on("click", "[data-action=login]", function(e){
-            loginUI.showModal();
-            return false;
-        });
-    };
 
     /************************************
       Public Methods
@@ -179,16 +195,16 @@
 
         , setOAuthResponse : function(token, user, success, error) {
             console.log(token, user, success, error);
-        
         }
+
+        , loginByPassword : loginByPassword
 
         , initialize: function(opts){
             this.options = $.extend({}, defaultOptions, opts);
             initSocialBtn();
-            initLoginUI();
             var i;
             for(i in notLoginFunctions) {
-                usrManager.onLogin(notLoginFunctions[i]);
+                usrManager.onNotLogin(notLoginFunctions[i]);
             }
             for(i in loginFunctions) {
                 usrManager.onLogin(loginFunctions[i]);
@@ -201,6 +217,6 @@
             instance = new UserLogin(options);
         }
         return instance;
-    }
+    };
     return UserLogin;
 }));

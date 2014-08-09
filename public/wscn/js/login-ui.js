@@ -77,15 +77,15 @@
             }      
         }
 
-        , hideModel : function() {
+        , hideModal : function() {
             this.rootUI.removeClass("active");
         }      
 
-        , showMessage : function(message, messageCode, messageType) {
-            var uiClass = messageType === "error" ? "alert-danger" : "alert-success";
-            this.rootUI.find(".item.active form")
-                .remove(".alert")
-                .prepend("<div data-raw-message='" + messageCode + "' class='alert " + uiClass + "'>" + message + "<button type='button' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button></div>");
+        , showMessage : function(messageCode, message, messageType) {
+            var uiClass = messageType === "success" ? "alert-success" : "alert-danger";
+            var form = this.rootUI.find(".item.active form");
+            form.find(".alert").remove();
+            form.prepend("<div data-raw-message='" + messageCode + "' class='alert " + uiClass + "'>" + message + "<button type='button' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button></div>");
         }
 
         , hideMessage : function() {

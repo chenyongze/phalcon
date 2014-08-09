@@ -93,4 +93,10 @@ return array(
         'action' => 'wiki',
         'keyword' => 1,
     ),
+
+    '/me' =>  array(
+        'module' => 'Wscn',
+        'controller' => 'me',
+        'action' => 'index'
+    ),
 );

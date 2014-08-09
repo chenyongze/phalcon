@@ -32,7 +32,7 @@
         , defaultOptions = {
             debug : true,
             dataType : "json",
-            userUrl : "/me.json",
+            userUrl : "/me",
             cookiekey : "PHPSESSID"
         }
         , VERSION = "1.0.0"
@@ -167,6 +167,10 @@
 
         , getUser : function() {
             return user;
+        }
+
+        , setUser : function(usr) {
+            user = usr;
         }
 
         , onNotLogin : function(func) {

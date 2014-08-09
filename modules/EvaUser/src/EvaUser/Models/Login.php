@@ -31,6 +31,7 @@ class Login extends Entities\Users
             'username' => 'Guest',
             'status' => '',
             'email' => '',
+            'avatar' => '',
         );
     }
 
@@ -112,6 +113,7 @@ class Login extends Entities\Users
             'username' => $userinfo->username,
             'status' => $userinfo->status,
             'email' => $userinfo->email,
+            'avatar' =>  'http://www.gravatar.com/avatar/' . md5(strtolower(trim($userinfo->email)))
         );
     }
 
