@@ -49,7 +49,7 @@
         "login" : function(event, user)  {
             status.checked = true;
             status.login = true;
-            $('body').addClass('already-login');
+            $("body").removeClass("user-not-login").addClass("user-already-login");
             var i = 0;
             for(i in loginFunc) {
                 loginFunc[i](this, user);
@@ -60,7 +60,7 @@
             status.checked = true;
             status.login = false;
 
-            $('body').addClass('not-login');
+            $("body").removeClass("user-already-login").addClass("user-not-login");
             //TODO:Remove session cookie
             var i = 0;
             for(i in notLoginFunc) {
@@ -140,7 +140,7 @@
         , start : function() {
             var root = this;
             if(null === cookie(options.cookiekey)) {
-                root.trigger('notlogin');
+                root.trigger("notlogin");
             } else {
                 $.ajax({
                     url : options.userUrl,
@@ -149,12 +149,12 @@
                     if(response && response.id > 0) {
                         user = response;
                         status.login = true;
-                        root.trigger('login', [user]);
+                        root.trigger("login", [user]);
                     } else {
-                        root.trigger('notlogin');
+                        root.trigger("notlogin");
                     }              
                 }).fail(function(error) {
-                    root.trigger('notlogin');
+                    root.trigger("notlogin");
                 });
             }
         }
@@ -168,7 +168,7 @@
         }
 
         , onNotLogin : function(func) {
-            if (typeof func !== 'function') {
+            if (typeof func !== "function") {
                 return false;
             } 
 
@@ -184,7 +184,7 @@
         }
 
         , onLogin : function(func) {
-            if (typeof func !== 'function') {
+            if (typeof func !== "function") {
                 return false;
             } 
 

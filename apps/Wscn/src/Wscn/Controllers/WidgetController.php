@@ -30,6 +30,7 @@ class WidgetController extends ControllerBase
             }
         }
         $this->view->setVar('quotes', $selectedQuotes);
+        //$this->view->changeRender('partial/sidebar');
         return $selectedQuotes;
     }
 

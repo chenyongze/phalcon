@@ -160,7 +160,7 @@
             });
         },
         initModal : function () {
-            $(document).on("click", "[data-action=login]", function(e){
+            $(document).on("click", ".user-not-login [data-action=login]", function(e){
                 loginUI.showModal();
                 return false;
             });      
@@ -171,7 +171,8 @@
         replaceViews : function() {
             var user = usrManager.getUser();
             $("#leftbar .avatar").attr('src', user.avatar);
-            $("#leftbar [data-action=login]").remove();
+            $("#leftbar [data-action=login]").attr('href', '/mine/dashboard');
+            $("#leftbar [data-action=login]:not(:has(img))").html("个人中心");
             $('.user-control').addClass(('login'));
             $(".user-control img").attr('src', user.avatar);
         }
