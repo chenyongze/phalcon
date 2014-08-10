@@ -100,9 +100,20 @@ return array(
         'keyword' => 1,
     ),
 
+
     '/me' =>  array(
         'module' => 'Wscn',
         'controller' => 'me',
         'action' => 'index'
+    ),
+
+    '/mine' => array(
+        'module' => 'Wscn',
+        'controller' => 'mine',
+    ),
+    '/mine/:action' => array(
+        'module' => 'Wscn',
+        'controller' => 'mine',
+        'action' => 1,
     ),
 );

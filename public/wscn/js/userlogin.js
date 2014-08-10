@@ -66,28 +66,51 @@
     
     }
 
-    var register = function (form) {
+    var defaultErrorHandle = function(error){
+        var messages = error.responseJSON.errors;
+        //loginUI.showMessage("连接服务器失败，请稍候重试", "ERR_UNKNOW", "error")
+        var i = 0;
+        if(!messages || messages.length < 1) {
+            loginUI.showMessage("ERR_UNKNOW", "连接服务器失败，请稍候重试");
+        }
+        for(i in messages) {
+            var message = messages[i];
+            var messageCode = message.message;
+            var errorMsg = userMessages[messageCode] || messageCode;
+            loginUI.showMessage(messageCode, errorMsg);
+        }
+    };
+
+    var register = function (url, data) {
         $.ajax({
-            url : form.attr("action"),
+            url : url,
             dataType : "json",
-            data : form.serialize(),
-            type : "POST",
-            success : function(response){
-                loginUI.hideMessage();
-            },
-            error : function(error) {
-                var messages = error.responseJSON.errors;
-                loginUI.showMessage("连接服务器失败，请稍候重试", "ERR_UNKNOW", "error")
-                var i = 0;
-                for(i in messages) {
-                    var message = messages[i];
-                    var messageCode = message.message;
-                    var errorMsg = userMessages[messageCode] || messageCode;
-                    loginUI.showMessage(errorMsg, message.message);
-                }
-        
-            }
-        });
+            data : data,
+            type : "POST"
+        }).then(function(response){
+            console.log(response);
+            loginUI.hideMessage();
+        }).fail(defaultErrorHandle);
+    };
+
+    var resetPassword = function(url, data) {
+        $.ajax({
+            url : url,
+            dataType : "json",
+            data : data,
+            type : "POST"
+        }).then(function(response){
+            console.log(response);
+            loginUI.hideMessage();
+        }).fail(defaultErrorHandle);
+    }
+
+    var loginByOAuth = function() {
+    
+    };
+
+    var registerByOAuth = function(url, data) {
+    
     };
 
     var loginByPassword = function (url, data) {
@@ -125,32 +148,25 @@
             loginUI.hideModal();
             usrManager.setUser(response);
             usrManager.trigger('login');
-        }).fail(function(error) {
-            var messages = error.responseJSON.errors;
-            if(!messages || messages.length < 1) {
-                loginUI.showMessage("ERR_UNKNOW", "有未知错误发生，请稍候重试");
-            }
-            var i = 0;
-            for(i in messages) {
-                var message = messages[i];
-                var messageCode = message.message;
-                var errorMsg = userMessages[messageCode] || messageCode;
-                loginUI.showMessage(messageCode, errorMsg);
-                /*
-                if(messageCode == "ERR_USER_NOT_ACTIVED") {
-                    inactiveHandler(form);
-                }
-               */
-            }
-        });
+        }).fail(defaultErrorHandle);
         return loginDeferred;
-    } 
+    };
 
     var notLoginFunctions = {
         initForm : function () {
-            $("#user-modal-register, #user-modal-reset, #user-modal-connect-login").on("submit", "form", function() {
+            $("#user-modal-register").on("submit", "form", function() {
                 var form = $(this);
                 register(form.attr('action'), form.serialize());
+                return false;    
+            });
+            $("#user-modal-reset").on("submit", "form", function() {
+                var form = $(this);
+                resetPassword(form.attr('action'), form.serialize());
+                return false;    
+            });
+            $("#user-modal-connect-register").on("submit", "form", function() {
+                var form = $(this);
+                registerByOAuth(form.attr('action'), form.serialize());
                 return false;    
             });
             $("#user-modal-login").on("submit", "form", function(){
@@ -195,10 +211,18 @@
         }
 
         , setOAuthResponse : function(token, user, success, error) {
+            if(token) {
+                loginUI.showUser(token.remoteUserName, token.remoteImageUrl, token.adapter);
+                loginUI.showModal('register-connect');
+            }
             console.log(token, user, success, error);
         }
 
         , loginByPassword : loginByPassword
+
+        , resetPassword : resetPassword
+
+        , register : register
 
         , initialize: function(opts){
             this.options = $.extend({}, defaultOptions, opts);
