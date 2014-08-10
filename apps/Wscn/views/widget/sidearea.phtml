@@ -1,0 +1,26 @@
+<?$newsPager = $this->tag->component('post', array('status' => 'published', 'limit' => 3, 'q' => $query['q'], 'order' => '-created_at'));$posts = $newsPager->items;?>
+<h3 class="side-title">
+    <a href="/news?q=<?=$query['q']?>" class="custom-button type-link">相关新闻</a>
+</h3>
+<ul class=" news-list with-dot">
+    <?foreach($posts as $post):?>
+    <li class="news">
+    <a class="title" href="<?=$post->getUrl()?>"><?=$post->title?></a>
+    </li>
+    <?endforeach?>
+</ul>
+<h3 class="side-title" style="margin-bottom: 15px; margin-top: 30px">
+    <a class="custom-button type-link" href="/livenews">实时新闻</a>
+</h3>
+
+<?$items = $pager->items;?>
+<ul id="left-side-livenews" class="livenews-list size-sm">
+    <?foreach($items as $item):?>
+    <li>
+    <a class="news" href="">
+        <span class="time"><?=$this->tag->datetime($item->createdAt, 'H:i')?></span>
+        <span class="title"> | <?=$item->getContentHtml()?></span>
+    </a>
+    </li>
+    <?endforeach?>
+</ul>

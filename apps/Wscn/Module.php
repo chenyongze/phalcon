@@ -49,6 +49,10 @@ class Module implements ModuleDefinitionInterface, StandardInterface
         $dispatcher = $di->getDispatcher();
         $dispatcher->setDefaultNamespace('Wscn\Controllers');
         View::registerComponent('post', 'Eva\EvaBlog\Components\Post');
+
+        $di->set('widget', function() {
+            return new Components\Widget();
+        });
     }
 
 }

@@ -1,6 +1,7 @@
 <div id="main-content">
+
     <aside id="leftbar">
-    <?$this->partial("partial/sidebar", array())?>
+    <?=$this->partial("partial/sidebar", array('quotes' => $this->widget->actionHelper('widget', 'quotes')))?>
     </aside>
     <div id="wrapper">
         <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 1 ,'limit' => 3, 'has_image' => 1, 'order' => '-sort_order'));$posts = $pager->items;?>
@@ -254,7 +255,7 @@
     <a id="hide-sidebar" href=""></a>
     <h3 class="main-title">
         实时新闻
-        <a class="more" href="/livenews">更多»</a>
+        <a class="more" href="/livenews" target="_blank">更多»</a>
     </h3>
     <div id="side-livenews" class="nano">
         <ul class="nano-content">

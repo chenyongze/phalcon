@@ -81,6 +81,12 @@ return array(
         'action' => 1,
     ),
 
+    '/widget/:action' =>  array(
+        'module' => 'Wscn',
+        'controller' => 'widget',
+        'action' => 1,
+    ),
+
     '/test/:action(/(\d+))*' =>  array(
         'module' => 'Wscn',
         'controller' => 'test',

@@ -1,13 +1,14 @@
 <div class="content">
     <div class="user box">
-        <img class="avatar" src="/wscn/img/avatar-md.png" alt=""/>
+        <a href="/login" data-action="login"><img class="avatar" src="/wscn/img/avatar-md.png" alt=""/></a>
         <a class="custom-button size-fluid" href="/login" data-action="login">登录</a>
     </div>
     <div id="left-market-list" class="nano">
         <nav class="nano-content">
-        <a class="market item" data-hover="related-info" data-symbol="SPX500INDEX" data-prev-close="1978.22" data-num-fixed="2" data-trend="fall" href="/news?symbol=SPX500INDEX&q=标普">
+        <?foreach($quotes as $quote):?>
+        <a class="market item" data-hover="related-info" data-symbol="<?=$quote->symbol?>" data-prev-close="<?=$quote->prevClose?>" data-num-fixed="2" data-trend="fall" href="/news?symbol=<?=$quote->symbol?>&q=<?=$quote->keyword?>">
             <span class="custom-row">
-                <span class="custom-span-1 name" title="标普500">标普500</span>
+                <span class="custom-span-1 name" title="<?=$quote->title?>"><?=$quote->subTitle?></span>
                 <span class="custom-span-2 diff">N/A</span>
             </span>
             <span class="custom-row">
@@ -15,66 +16,7 @@
                 <span class="custom-span-2 diff-pct">N/A</span>
             </span>
         </a>
-        <a class="market item" data-hover="related-info" data-symbol="XAUUSD" data-prev-close="1313.9" data-num-fixed="2" data-trend="rise">
-            <span class="custom-row">
-                <span class="custom-span-1 name" title="黄金">黄金</span>
-                <span class="custom-span-2 diff">N/A</span>
-            </span>
-            <span class="custom-row">
-                <span class="custom-span-1 value">N/A</span>
-                <span class="custom-span-2 diff-pct">N/A</span>
-            </span>
-        </a>
-        <a class="market item" data-hover="related-info" data-symbol="UKOil" data-prev-close="107.68" data-num-fixed="2" data-trend="rise">
-            <span class="custom-row">
-                <span class="custom-span-1 name" title="布油">布油</span>
-                <span class="custom-span-2 diff">N/A</span>
-            </span>
-            <span class="custom-row">
-                <span class="custom-span-1 value">N/A</span>
-                <span class="custom-span-2 diff-pct">N/A</span>
-            </span>
-        </a>
-        <a class="market item" data-hover="related-info" data-symbol="000001" data-prev-close="2054.479" data-num-fixed="2" data-trend="rise">
-            <span class="custom-row">
-                <span class="custom-span-1 name" title="上证指数">上证指数</span>
-                <span class="custom-span-2 diff">N/A</span>
-            </span>
-            <span class="custom-row">
-                <span class="custom-span-1 value">N/A</span>
-                <span class="custom-span-2 diff-pct">N/A</span>
-            </span>
-        </a>
-        <a class="market item" data-hover="related-info" data-symbol="EURUSD" data-prev-close="1.3522" data-num-fixed="4" data-trend="rise">
-            <span class="custom-row">
-                <span class="custom-span-1 name" title="欧元/美元">欧元/美元</span>
-                <span class="custom-span-2 diff">N/A</span>
-            </span>
-            <span class="custom-row">
-                <span class="custom-span-1 value">N/A</span>
-                <span class="custom-span-2 diff-pct">N/A</span>
-            </span>
-        </a>
-        <a class="market item" data-hover="related-info" data-symbol="USDJPY" data-prev-close="101.405" data-num-fixed="3" data-trend="fall">
-            <span class="custom-row">
-                <span class="custom-span-1 name" title="美元/日元">美元/日元</span>
-                <span class="custom-span-2 diff">N/A</span>
-            </span>
-            <span class="custom-row">
-                <span class="custom-span-1 value">N/A</span>
-                <span class="custom-span-2 diff-pct">N/A</span>
-            </span>
-        </a>
-        <a class="market item" data-hover="related-info" data-symbol="US10Year" data-prev-close="2.475" data-num-fixed="3" data-trend="rise">
-            <span class="custom-row">
-                <span class="custom-span-1 name" title="美国10年期国债">美债利率</span>
-                <span class="custom-span-2 diff">N/A</span>
-            </span>
-            <span class="custom-row">
-                <span class="custom-span-1 value">N/A</span>
-                <span class="custom-span-2 diff-pct">N/A</span>
-            </span>
-        </a>
+        <?endforeach?>
         </nav>
     </div>
 </div>
