@@ -38,13 +38,13 @@
      * 导航栏高亮
      */
     var fullPathUrl = window.location.pathname + window.location.search;
-    $('#navbar .link[data-active-url]').each(function(){
+    $('[data-active-url]').each(function(){
         var $item = $(this);
         var reg = new RegExp($item.attr("data-active-url"));
         if(reg.test(fullPathUrl)) {
             $item.addClass("active");
             //跳出循环
-            return false;
+            //return false;
         }
     });
 
@@ -156,7 +156,8 @@
 
     //city select
     $('#address').citySelect({
-        url : '/wscn/js/city.min.js'
+        url : '/wscn/js/city.min.js',
+        required: false
     });
 
 })(jQuery);
