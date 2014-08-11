@@ -23,10 +23,6 @@ class ChangePasswordForm extends Form
                 'min' => 6,
                 'messageMinimum' => 'Password is too short. Minimum 6 characters'
             )),
-            new Confirmation(array(
-                'message' => 'Password doesn\'t match confirmation',
-                'with' => 'passwordConfirm'
-            ))
         ));
         $this->add($password);
 
@@ -53,6 +49,10 @@ class ChangePasswordForm extends Form
         $confirmPassword->addValidators(array(
             new PresenceOf(array(
                 'message' => 'The confirmation password is required'
+            )),
+            new Confirmation(array(
+                'message' => 'Password doesn\'t match confirmation',
+                'with' => 'passwordNew'
             ))
         ));
         $this->add($confirmPassword);

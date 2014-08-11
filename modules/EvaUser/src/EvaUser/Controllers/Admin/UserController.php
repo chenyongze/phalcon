@@ -35,7 +35,7 @@ class UserController extends AdminControllerBase implements SessionAuthorityCont
         $form = new Forms\FilterForm();
         $form->setValues($this->request->getQuery());
         $this->view->setVar('form', $form);
-        $user = new Models\User();
+        $user = new Models\UserManager();
         $users = $user->findUsers($query);
         $paginator = new \Eva\EvaEngine\Paginator(array(
            "builder" => $users,
@@ -53,7 +53,7 @@ class UserController extends AdminControllerBase implements SessionAuthorityCont
     */
     public function createAction()
     {
-        $user = new Models\User();
+        $user = new Models\UserManager();
         $form = new \Eva\EvaUser\Forms\UserForm();
         $form->setModel($user);
         $form->addForm('profile', 'Eva\EvaUser\Forms\ProfileForm');
@@ -86,7 +86,7 @@ class UserController extends AdminControllerBase implements SessionAuthorityCont
     public function editAction()
     {
         $this->view->changeRender('admin/user/create');
-        $user = Models\User::findFirst($this->dispatcher->getParam('id'));
+        $user = Models\UserManager::findFirst($this->dispatcher->getParam('id'));
         if (!$user) {
         }
 
