@@ -63,6 +63,9 @@
     //行情更新数据url
     var updateUrl = 'http://api.markets.wallstreetcn.com/v1/price.json?symbol=';
 
+    //
+    var cache = {};
+
     /**
      *
      */
@@ -116,7 +119,7 @@
         //todo
         $content.addClass('unfold');
         //
-        if ($marketInfo.data('symbol') === symbol || $marketInfo.hasClass('loading')) {
+        if ($target.hasClass('active') || $marketInfo.data('symbol') === symbol || $marketInfo.hasClass('loading')) {
             return;
         }
         $marketInfo.data({
@@ -124,34 +127,50 @@
         });
         //todo
         $marketInfo.addClass('loading');
-        showChart(symbol, $target);
-        showDatum($target.attr('data-source'), $target);
+        showChart(symbol);
+        showDatum($target);
         //
     };
-    function showChart(symbol, $target) {
+    function showChart(symbol) {
         //todo
         var src = $marketChart.attr('src');
         src = src.replace(/symbol=\w+/, 'symbol=' + symbol);
         $marketChart.attr('src', src);
     };
-    function showDatum(url, $target) {
+    function showDatum($target) {
+        var url = $target.attr('data-source');
+        var symbol = $target.attr('data-symbol');
         //todo
-        $.ajax({
-            url: url ,
-            dataType: 'html' ,
-            success : function(data) {
-                $marketDatum.html(data);
-                //初始化滚动条
-                $marketInfo.nanoScroller({
-                    preventPageScrolling: true,
-                    alwaysVisible: true
-                });
-                //
-                $marketInfo.removeClass('loading');
-                $marketList.find('.active').removeClass('active');
-                $target.addClass('active');
-            }
-        });
+        if (cache[symbol]) {
+            $marketDatum.html(cache[symbol]);
+            //初始化滚动条
+            $marketInfo.nanoScroller({
+                preventPageScrolling: true,
+                alwaysVisible: true
+            });
+            //
+            $marketInfo.removeClass('loading');
+            $marketList.find('.active').removeClass('active');
+            $target.addClass('active');
+        } else {
+            $.ajax({
+                url: url ,
+                dataType: 'html' ,
+                success : function(data) {
+                    cache[symbol] = data;
+                    $marketDatum.html(data);
+                    //初始化滚动条
+                    $marketInfo.nanoScroller({
+                        preventPageScrolling: true,
+                        alwaysVisible: true
+                    });
+                    //
+                    $marketInfo.removeClass('loading');
+                    $marketList.find('.active').removeClass('active');
+                    $target.addClass('active');
+                }
+            });
+        }
     };
 
     function initDom() {
