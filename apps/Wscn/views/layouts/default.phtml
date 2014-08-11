@@ -552,6 +552,12 @@
 <!-- 图片延时加载 -->
 <script type="text/javascript">
     $("img.lazy").lazyload();
+    /*
+    $(window).on('click', '[data-trigger=lazyload]', function(e){
+        console.log('trigger lazyload');
+        $(window).trigger('resize.lazyload');
+    });
+    */
 </script>
 <script src="/vendor/js/moment.min.js"></script>
 <script type="text/javascript">
