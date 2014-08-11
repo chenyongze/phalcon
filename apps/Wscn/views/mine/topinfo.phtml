@@ -1,32 +1,40 @@
-<img class="avatar" src="/wscn/img/avatar-md.png" alt=""/>
+<img class="avatar" src="<?=$this->tag->gravatar($item->email, 200)?>" alt=""/>
 <div class="auth">
     <h3 class="title">
-        V 华尔街见闻认证
+        华尔街见闻用户
     </h3>
+    <!--
     <div class="info">华尔街见闻 美工</div>
     <a href="" class="handle">申请认证</a>
+    -->
 </div>
 <div class="info">
-    <h2 class="name">James </h2>
+    <h2 class="name"><?=$item->username?></h2>
     <p class="signature">
-    站在设计师背后，很不道德，you can you up, no can no bb
+    <?if($item->profile && $item->profile->bio):?>
+    <?=$item->profile->bio?>
+    <?endif?>
     </p>
     <div class="meta">
-        <i class="icon glyphicon glyphicon-envelope"></i>JamesNgai@hotmail.com
-        <span class="edit" data-action="edit">
+        <i class="icon glyphicon glyphicon-envelope"></i><?=$item->email?>
+        <a class="edit" data-action="edit" href="/mine/email">
             <i class="icon glyphicon glyphicon-pencil"></i> 修改
-        </span>
+        </a>
     </div>
+    <?if($item->profile && $item->profile->province):?>
     <div class="meta">
-        <i class="icon glyphicon glyphicon-map-marker"></i>上海 黄浦区
-        <span class="edit" data-action="edit">
+        <i class="icon glyphicon glyphicon-map-marker"></i>
+        <a class="edit" data-action="edit" href="/mine/profile">
             <i class="icon glyphicon glyphicon-pencil"></i> 修改
-        </span>
+        </a>
     </div>
+    <?endif?>
+    <?if($item->profile && $item->birthday):?>
     <div class="meta">
         <i class="icon glyphicon glyphicon-user"></i>巨蟹座 | 华尔街见闻
-        <span class="edit" data-action="edit">
+        <a class="edit" data-action="edit" href="/mine/profile">
             <i class="icon glyphicon glyphicon-pencil"></i> 修改
-        </span>
+        </a>
     </div>
+    <?endif?>
 </div>
