@@ -2254,6 +2254,9 @@ body.show-breaking-news #breaking-news {
   color: #0a62a3;
   margin-right: 80px;
 }
+#footer .copyright {
+  margin-top: 40px;
+}
 @media (max-width: 479px) {
   #footer {
     text-align: center;
