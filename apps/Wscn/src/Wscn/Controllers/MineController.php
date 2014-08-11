@@ -11,7 +11,9 @@ class MineController extends ControllerBase implements SessionAuthorityControlle
 {
     public function dashboardAction()
     {
-        $user = Login::getCurrentUser();
+        $me = Login::getCurrentUser();
+        $user = User::findFirstById($me['id']);
+        $this->view->setVar('item', $user);
     }
 
     public function profileAction()
