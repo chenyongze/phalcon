@@ -153,4 +153,10 @@
         $(this).toggleClass('active');
     });
     */
+
+    //city select
+    $('#address').citySelect({
+        url : '/wscn/js/city.min.js'
+    });
+
 })(jQuery);
