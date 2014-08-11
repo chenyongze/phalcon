@@ -49,7 +49,7 @@
         "login" : function(event, user)  {
             status.checked = true;
             status.login = true;
-            $("body").removeClass("user-not-login").addClass("user-already-login");
+            $("body").attr("data-logon", true);
             var i = 0;
             for(i in loginFunc) {
                 loginFunc[i](this, user);
@@ -60,7 +60,7 @@
             status.checked = true;
             status.login = false;
 
-            $("body").removeClass("user-already-login").addClass("user-not-login");
+            $("body").attr("data-logon", false);
             //TODO:Remove session cookie
             var i = 0;
             for(i in notLoginFunc) {
