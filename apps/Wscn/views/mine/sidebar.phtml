@@ -1,0 +1,41 @@
+<div class="side-ad">
+    <img src="/wscn/img/side-img-1.jpg" alt="">
+</div>
+<ul class="custom-nav-tabs custom-row">
+    <li class="col-custom-6 active">
+    <a data-toggle="tab" href="#side-day-rank-news"><strong>日排行</strong></a>
+    </li>
+    <li class="col-custom-6 ">
+    <a data-toggle="tab" href="#side-week-rank-news"><strong>周排行</strong></a>
+    </li>
+</ul>
+<ul class="tab-content">
+    <li class="tab-pane active" id="side-day-rank-news">
+    <?$pager = $this->tag->component('post', array('status' => 'published', 'limit' => 10, 'order' => '-count'));$posts = $pager->items;?>
+    <ul class="news-list with-number">
+        <?foreach($posts as $post):?>
+        <li class="news">
+        <a class="title" href="/node/<?=$post->id?>">
+            <strong><?=$post->title?></strong>
+        </a>
+        </li>
+        <?endforeach?>
+    </ul>
+    </li>
+    <?$pager = $this->tag->component('post', array('status' => 'published', 'limit' => 10, 'order' => '-sort_order'));$posts = $pager->items;?>
+    <li class="tab-pane " id="side-week-rank-news">
+    <ul class="news-list with-number">
+        <?foreach($posts as $post):?>
+        <li class="news">
+        <a class="title" href="/node/<?=$post->id?>">
+            <strong><?=$post->title?></strong>
+        </a>
+        </li>
+        <?endforeach?>
+    </ul>
+    </li>
+</ul>
+<div class="side-ad">
+    <img src="/wscn/img/side-img-1.jpg" alt="">
+</div>
+
