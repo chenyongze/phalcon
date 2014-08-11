@@ -112,7 +112,7 @@ class AuthController extends ControllerBase
         $this->view->suggestEmail = $email;
 
         if ($email) {
-            $userManager = new UserModels\User();
+            $userManager = new UserModels\UserManager();
             $userManager->assign(array(
                 'email' => $email,
             ));

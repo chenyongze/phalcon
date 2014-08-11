@@ -12,7 +12,7 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
     {
         $query = $this->request->get('query');
         if ($query) {
-            $users = Models\User::find(array(
+            $users = Models\UserManager::find(array(
                 "columns" => array('id', 'username', 'status'),
                 "conditions" => "username like '%$query%'",
                 "limit" => 10,
@@ -32,7 +32,7 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
         }
 
         $id = $this->dispatcher->getParam('id');
-        $user =  Models\User::findFirst($id);
+        $user =  Models\UserManager::findFirst($id);
         if (!$user) {
             return $this->showErrorMessageAsJson(404, 'ERR_USER_NOT_FOUND');
         }
@@ -54,7 +54,7 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
         }
 
         $id = $this->dispatcher->getParam('id');
-        $user =  Models\User::findFirst($id);
+        $user =  Models\UserManager::findFirst($id);
         try {
             if ($user) {
                 $user->delete();

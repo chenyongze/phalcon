@@ -9,6 +9,7 @@
                 <div class="tab-pane active" id="user-info">
                     <?include('navuser.phtml')?>
                     <div class="main-content">
+                        <?=$this->tag->flashOutput()?>
                         <h3 class="title">基本资料</h3>
                         <?$profileForm = $form->getForm('profile');?>
 
@@ -66,7 +67,7 @@
                                     <div class="input-medium">
                                         <div class="input-group">
                                             <?=$profileForm->render('birthday', array(
-                                                'placeholder' => 'yyyy-mm-dd',
+                                                'placeholder' => '如2014-01-31',
                                                 'data-date-format' => 'yyyy-mm-dd',
                                                 'class' => 'form-control input-medium date-picker',
                                             ))?>

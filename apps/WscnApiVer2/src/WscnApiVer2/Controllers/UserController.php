@@ -86,7 +86,7 @@ class UserController extends ControllerBase
         $form = new Forms\FilterForm();
         $form->setValues($this->request->getQuery());
 
-        $user = new Models\User();
+        $user = new Models\UserManager();
         $users = $user->findUsers($query);
         $paginator = new \Eva\EvaEngine\Paginator(array(
             "builder" => $users,
@@ -99,7 +99,7 @@ class UserController extends ControllerBase
         $userArray = array();
         if ($pager->items) {
             foreach ($pager->items as $key => $user) {
-                $userArray[] = $user->dump(Models\User::$defaultDump);
+                $userArray[] = $user->dump(Models\UserManager::$defaultDump);
             }
         }
 
@@ -137,12 +137,12 @@ class UserController extends ControllerBase
     public function getAction()
     {
         $id = $this->dispatcher->getParam('id');
-        $userModel = new Models\User();
+        $userModel = new Models\UserManager();
         $user = $userModel->findFirst($id);
         if (!$user) {
             throw new Exception\ResourceNotFoundException('Request user not exist');
         }
-        $user = $user->dump(Models\User::$defaultDump);
+        $user = $user->dump(Models\UserManager::$defaultDump);
         return $this->response->setJsonContent($user);
     }
 
@@ -190,7 +190,7 @@ class UserController extends ControllerBase
              throw new Exception\InvalidArgumentException('Data not able to decode as JSON');
          }
 
-         $user = Models\User::findFirst($id);
+         $user = Models\UserManager::findFirst($id);
          if (!$user) {
              throw new Exception\ResourceNotFoundException('Request user not exist');
          }
@@ -205,7 +205,7 @@ class UserController extends ControllerBase
 
         try {
             $form->save('updateUser');
-            $data = $user->dump(Models\User::$defaultDump);
+            $data = $user->dump(Models\UserManager::$defaultDump);
             return $this->response->setJsonContent($data);
         } catch (\Exception $e) {
             return $this->showExceptionAsJson($e, $form->getModel()->getMessages());
@@ -247,7 +247,7 @@ class UserController extends ControllerBase
         }
 
         $form = new Forms\UserForm();
-        $user = new Models\User();
+        $user = new Models\UserManager();
         $form->setModel($user);
         $form->addForm('profile', 'Eva\EvaUser\Forms\ProfileForm');
 
@@ -257,7 +257,7 @@ class UserController extends ControllerBase
 
         try {
             $form->save('createUser');
-            $data = $user->dump(Models\User::$defaultDump);
+            $data = $user->dump(Models\UserManager::$defaultDump);
             return $this->response->setJsonContent($data);
         } catch (\Exception $e) {
             return $this->showExceptionAsJson($e, $form->getModel()->getMessages());
@@ -291,11 +291,11 @@ class UserController extends ControllerBase
     public function deleteAction()
     {
          $id = $this->dispatcher->getParam('id');
-         $user = Models\User::findFirst($id);
+         $user = Models\UserManager::findFirst($id);
          if (!$user) {
              throw new Exception\ResourceNotFoundException('Request user not exist');
          }
-         $userinfo = $user->dump(Models\User::$defaultDump);
+         $userinfo = $user->dump(Models\UserManager::$defaultDump);
          try {
              $user->removeUser($id);
              return $this->response->setJsonContent($userinfo);
