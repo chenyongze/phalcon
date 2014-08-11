@@ -125,7 +125,7 @@
         //todo
         $marketInfo.addClass('loading');
         showChart(symbol, $target);
-        showDatum(symbol, $target);
+        showDatum($target.attr('data-source'), $target);
         //
     };
     function showChart(symbol, $target) {
@@ -134,23 +134,24 @@
         src = src.replace(/symbol=\w+/, 'symbol=' + symbol);
         $marketChart.attr('src', src);
     };
-    function showDatum(symbol, $target) {
+    function showDatum(url, $target) {
         //todo
-        //service
-        if (TEST_DATUM_INDEX ++ % 2) {
-            $marketDatum.html(TEST_DATUM_1);
-        } else {
-            $marketDatum.html(TEST_DATUM_2);
-        }
-        //初始化滚动条
-        $marketInfo.nanoScroller({
-            preventPageScrolling: true,
-            alwaysVisible: true
+        $.ajax({
+            url: url ,
+            dataType: 'html' ,
+            success : function(data) {
+                $marketDatum.html(data);
+                //初始化滚动条
+                $marketInfo.nanoScroller({
+                    preventPageScrolling: true,
+                    alwaysVisible: true
+                });
+                //
+                $marketInfo.removeClass('loading');
+                $marketList.find('.active').removeClass('active');
+                $target.addClass('active');
+            }
         });
-        //
-        $marketInfo.removeClass('loading');
-        $marketList.find('.active').removeClass('active');
-        $target.addClass('active');
     };
 
     function initDom() {
