@@ -26,7 +26,20 @@ class MineController extends ControllerBase implements SessionAuthorityControlle
 
     public function passwordAction()
     {
+        $me = Login::getCurrentUser();
+        $user = User::findFirstById($me['id']);
+        $form = new \Eva\EvaUser\Forms\ChangePasswordForm();
+        $this->view->setVar('item', $user);
+        $this->view->setVar('form', $form);
     
     }
 
+    public function emailAction()
+    {
+        $me = Login::getCurrentUser();
+        $user = User::findFirstById($me['id']);
+        $form = new \Eva\EvaUser\Forms\ChangeEmailForm();
+        $this->view->setVar('item', $user);
+        $this->view->setVar('form', $form);
+    }
 }

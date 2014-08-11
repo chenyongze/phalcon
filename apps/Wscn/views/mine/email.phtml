@@ -1,0 +1,134 @@
+<div id="main-content" class="columns-2">
+    <div id="main" class="page-user">
+        <div class="head">
+            <img class="avatar" src="/wscn/img/avatar-md.png" alt=""/>
+            <div class="auth">
+                <h3 class="title">
+                    V 华尔街见闻认证
+                </h3>
+                <div class="info">华尔街见闻 美工</div>
+                <a href="" class="handle">申请认证</a>
+            </div>
+            <div class="info">
+                <h2 class="name">James </h2>
+                <p class="signature">
+                    站在设计师背后，很不道德，you can you up, no can no bb
+                </p>
+                <div class="meta">
+                    <i class="icon glyphicon glyphicon-envelope"></i>JamesNgai@hotmail.com
+                    <span class="edit" data-action="edit">
+                        <i class="icon glyphicon glyphicon-pencil"></i> 修改
+                    </span>
+                </div>
+                <div class="meta">
+                    <i class="icon glyphicon glyphicon-map-marker"></i>上海 黄浦区
+                    <span class="edit" data-action="edit">
+                        <i class="icon glyphicon glyphicon-pencil"></i> 修改
+                    </span>
+                </div>
+                <div class="meta">
+                    <i class="icon glyphicon glyphicon-user"></i>巨蟹座 | 华尔街见闻
+                    <span class="edit" data-action="edit">
+                        <i class="icon glyphicon glyphicon-pencil"></i> 修改
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="body">
+            <ul class="custom-nav-tabs">
+                <li class="active">
+                    <a data-toggle="tab" href="#user-info">个人资料</a>
+                </li>
+                <li class="">
+                    <a data-toggle="tab" href="#user-comments">个人评论</a>
+                </li>
+                <li class="">
+                    <a data-toggle="tab" href="#user-collect">文章收藏</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="user-info">
+                    <nav class="leftbar">
+                    <h3 class="title">个人资料</h3>
+                    <a class="link active" href="">基本资料</a>
+                    <a class="link" href="">安全密码</a>
+                    <a class="link" href="">语言设置</a>
+                    <a class="link" href="">账号绑定</a>
+                    </nav>
+                    <div class="main-content">
+                        <h3 class="title">修改邮箱</h3>
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right">当前邮箱</label>
+                                <div class="col-sm-9">
+                                    <?=$item->email?>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email" class="col-sm-3 control-label no-padding-right">新邮箱</label>
+                                <div class="col-sm-9">
+                                    <?=$form->render('email', array(
+                                        'class' => 'form-control input-medium ',
+                                    ))?>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <button type="submit" class="btn btn-primary btn-block">修改邮箱</button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+                <div class="tab-pane" id="user-endorse"></div>
+            </div>
+        </div>
+        <div class="foot"></div>
+    </div>
+    <div id="rightbar">
+        <div class="side-ad">
+            <img src="/wscn/img/side-img-1.jpg" alt="">
+        </div>
+        <ul class="custom-nav-tabs custom-row">
+            <li class="col-custom-6 active">
+            <a data-toggle="tab" href="#side-day-rank-news"><strong>日排行</strong></a>
+            </li>
+            <li class="col-custom-6 ">
+            <a data-toggle="tab" href="#side-week-rank-news"><strong>周排行</strong></a>
+            </li>
+        </ul>
+        <ul class="tab-content">
+            <li class="tab-pane active" id="side-day-rank-news">
+            <?$pager = $this->tag->component('post', array('status' => 'published', 'limit' => 10, 'order' => '-count'));$posts = $pager->items;?>
+            <ul class="news-list with-number">
+                <?foreach($posts as $post):?>
+                <li class="news">
+                <a class="title" href="/node/<?=$post->id?>">
+                    <strong><?=$post->title?></strong>
+                </a>
+                </li>
+                <?endforeach?>
+            </ul>
+            </li>
+            <?$pager = $this->tag->component('post', array('status' => 'published', 'limit' => 10, 'order' => '-sort_order'));$posts = $pager->items;?>
+            <li class="tab-pane " id="side-week-rank-news">
+            <ul class="news-list with-number">
+                <?foreach($posts as $post):?>
+                <li class="news">
+                <a class="title" href="/node/<?=$post->id?>">
+                    <strong><?=$post->title?></strong>
+                </a>
+                </li>
+                <?endforeach?>
+            </ul>
+            </li>
+        </ul>
+        <div class="side-ad">
+            <img src="/wscn/img/side-img-1.jpg" alt="">
+        </div>
+    </div>
+    <!-- rightbar end -->
+</div>
