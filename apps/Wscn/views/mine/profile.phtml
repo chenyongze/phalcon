@@ -168,24 +168,15 @@
                                 <label for="form-field-first" class="col-sm-3 control-label no-padding-right">所在地区</label>
 
                                 <div class="col-sm-9">
-                                    <div class="row">
+                                    <div id="address" class="row">
                                         <div class="col-xs-4">
-                                            <?=$profileForm->render('province', array(
-                                                'placeholder' => '省',
-                                                'class' => 'form-control',
-                                            ))?>
+                                            <select class="prov form-control"></select>
                                         </div>
                                         <div class="col-xs-4">
-                                            <?=$profileForm->render('city', array(
-                                                'placeholder' => '市',
-                                                'class' => 'form-control',
-                                            ))?>
+                                            <select class="city form-control" disabled="disabled"></select>
                                         </div>
                                         <div class="col-xs-4">
-                                            <?=$profileForm->render('state', array(
-                                                'placeholder' => '区',
-                                                'class' => 'form-control',
-                                            ))?>
+                                            <select class="dist form-control" disabled="disabled"></select>
                                         </div>
                                     </div>
                                 </div>
@@ -297,3 +288,4 @@
     </div>
     <!-- rightbar end -->
 </div>
+
