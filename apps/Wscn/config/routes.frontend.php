@@ -27,6 +27,43 @@ return array(
         'id' => 3,
     ),
 
+    '/stars' =>  array(
+        'module' => 'Wscn',
+        'controller' => 'stars',
+    ),
+
+    'getstar' =>  array(
+        'pattern' => '/stars/(\d+)',
+        'paths' => array(
+            'module' => 'Wscn',
+            'controller' => 'stars',
+            'action' => 'get',
+            'id' => 1,
+        ),
+        'httpMethods' => 'GET'
+    ),
+    'putstar' =>  array(
+        'pattern' => '/stars/(\d+)',
+        'paths' => array(
+            'module' => 'Wscn',
+            'controller' => 'stars',
+            'action' => 'put',
+            'id' => 1,
+        ),
+        'httpMethods' => 'PUT'
+    ),
+    'deletestar' =>  array(
+        'pattern' => '/stars/(\d+)',
+        'paths' => array(
+            'module' => 'Wscn',
+            'controller' => 'stars',
+            'action' => 'delete',
+            'id' => 1,
+        ),
+        'httpMethods' => 'DELETE'
+    ),
+
+
 
     '/livenews' =>  array(
         'module' => 'Wscn',

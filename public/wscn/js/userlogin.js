@@ -176,7 +176,7 @@
             });
         },
         initModal : function () {
-            $(document).on("click", ".user-not-login [data-action=login]", function(e){
+            $(document).on("click", "body[data-logon=false] [data-action=login]", function(e){
                 loginUI.showModal();
                 return false;
             });      
