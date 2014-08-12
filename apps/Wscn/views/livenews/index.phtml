@@ -229,6 +229,48 @@
                     </div>
                     </li>
                     <?else:?>
+                    <?$data = $item->getData()?>
+                    <li class="news type-data" data-trend="rise">
+                    <span class="icon"></span>
+                    <div class="important">
+                        <i class="glyphicon glyphicon-star star active"></i>
+                        <i class="glyphicon glyphicon-star star <?=$data->importance > 1 ? 'active' : ''?>"></i>
+                        <i class="glyphicon glyphicon-star star <?=$data->importance > 2 ? 'active' : ''?>"></i>
+                    </div>
+                    <div class="content">
+                        <span class="time"><?=$this->tag->datetime($item->createdAt, 'H:i')?></span>
+                        <img  class="flag" src="" alt="<?=$data->country?>"/>
+                        <h3 class="title">
+                            <?=$data->title?>
+                        </h3>
+                        <div class="custom-row">
+                            <div class="col-custom-4">
+                                <span class="text">今值：</span>
+                                <span class="value current"><?=$data->actual?></span>
+                            </div>
+                            <div class="col-custom-4">
+                                <span class="text">预测：</span>
+                                <span class="value"><?=$data->forecast?></span>
+                            </div>
+                            <div class="col-custom-4">
+                                <span class="text">前值：</span>
+                                <span class="value"><?=$data->previous?></span>
+                            </div>
+                        </div>
+                        <div class="verdict">利多金银</div>
+                    </div>
+                    <div class="footer">
+                        <span class="meta">
+                            <i class="icontext icontext-collect-blue"></i>
+                        </span>
+                        <span class="meta">
+                            <i class="icontext icontext-share-blue"></i>
+                        </span>
+                        <span class="meta">
+                            <i class="icontext icontext-discuss-blue"></i>&nbsp;32
+                        </span>
+                    </div>
+                    </li>
                     <?endif?>
 
                     <?endforeach?>
@@ -270,47 +312,7 @@
                         </span>
                     </div>
                     </li>
-                    <li class="news type-data" data-trend="rise">
-                    <span class="icon"></span>
-                    <div class="important">
-                        <i class="glyphicon glyphicon-star star active"></i>
-                        <i class="glyphicon glyphicon-star star active"></i>
-                        <i class="glyphicon glyphicon-star star"></i>
-                    </div>
-                    <div class="content">
-                        <span class="time">10:35</span>
-                        <img  class="flag" src="" alt=""/>
-                        <h3 class="title">
-                            <span class="country">英国</span>6月英国BRC同店零售销售 (年率)
-                        </h3>
-                        <div class="custom-row">
-                            <div class="col-custom-4">
-                                <span class="text">今值：</span>
-                                <span class="value current">1.1%</span>
-                            </div>
-                            <div class="col-custom-4">
-                                <span class="text">预测：</span>
-                                <span class="value">1.0%</span>
-                            </div>
-                            <div class="col-custom-4">
-                                <span class="text">前值：</span>
-                                <span class="value">0.5%</span>
-                            </div>
-                        </div>
-                        <div class="verdict">利多金银</div>
-                    </div>
-                    <div class="footer">
-                        <span class="meta">
-                            <i class="icontext icontext-collect-blue"></i>
-                        </span>
-                        <span class="meta">
-                            <i class="icontext icontext-share-blue"></i>
-                        </span>
-                        <span class="meta">
-                            <i class="icontext icontext-discuss-blue"></i>&nbsp;32
-                        </span>
-                    </div>
-                    </li>
+
                     <li class="news type-data" data-trend="fall">
                     <span class="icon"></span>
                     <div class="important">
