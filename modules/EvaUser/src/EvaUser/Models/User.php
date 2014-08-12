@@ -30,7 +30,7 @@ class User extends Entities\Users
 
         $user->password = password_hash($newPassword, PASSWORD_DEFAULT, array('cost' => 10));
         if(!$user->save()) {
-            throw new Exception\RuntimeException('Change user password failed');
+            throw new Exception\RuntimeException('ERR_USER_CHANGE_PASSWORD_FAILED');
         }
         return $user;
     }
@@ -45,7 +45,7 @@ class User extends Entities\Users
     
     }
 
-    public function changeEmail($newEmail, $forceSend = false)
+    public function requestChangeEmail($newEmail, $forceSend = false)
     {
         $me = Login::getCurrentUser();
         $userId = $me['id'];
@@ -58,7 +58,6 @@ class User extends Entities\Users
             throw new Exception\ResourceNotFoundException('ERR_USER_NOT_EXIST');
         }
         return $this->sendChangeEmailVerificationEmail($user->username, $newEmail);
-
     }
 
     public function sendChangeEmailVerificationEmail($username, $newEmail, $forceSend = false)
@@ -84,7 +83,8 @@ class User extends Entities\Users
             $newEmail => $user->username
         ));
 
-        $verifyCode = md5($user->id . $user->password . $newEmail);
+        //Change email hash will expired when password / email changed
+        $verifyCode = md5($user->id . $user->password . $user->email . $newEmail);
         $message->setTemplate($this->getDI()->getConfig()->user->changeEmailTemplate);
         $message->assign(array(
             'user' => $user->toArray(),
@@ -94,9 +94,24 @@ class User extends Entities\Users
         $mailer->send($message->getMessage());
     }
 
-    public function verifyNewEmail($newEmail, $verifyCode)
+    public function changeEmail($username, $newEmail, $verifyCode)
     {
-    
+        $user = self::findFirst("username = '$username'");
+        if (!$user) {
+            throw new Exception\ResourceNotFoundException('ERR_USER_NOT_EXIST');
+        }
+
+        $hash = md5($user->id . $user->password . $user->email . $newEmail);
+        if($hash !== $verifyCode) {
+            throw new Exception\VerifyFailedException('ERR_USER_CHANGE_EMAIL_VERIFY_CODE_NOT_MATCH');
+        }
+
+        $user->email = $newEmail;
+        if(!$user->save()) {
+            throw new Exception\RuntimeException('ERR_USER_CHANGE_EMAIL_FAILED');
+        }
+
+        return $user;
     }
 
 }

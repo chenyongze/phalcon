@@ -81,7 +81,7 @@ class MineController extends ControllerBase implements SessionAuthorityControlle
 
         if ($this->request->isAjax()) {
             try {
-                $user->changeEmail($this->request->getPost('email'));
+                $user->requestChangeEmail($this->request->getPost('email'));
                 return $this->showResponseAsJson(Login::getCurrentUser());
             } catch (\Exception $e) {
                 return $this->showExceptionAsJson($e, $user->getMessages());
@@ -89,7 +89,7 @@ class MineController extends ControllerBase implements SessionAuthorityControlle
 
         } else {
             try {
-                $user->changeEmail($this->request->getPost('email'));
+                $user->requestChangeEmail($this->request->getPost('email'));
                 $this->flashSession->success('新邮箱验证邮件已发送，请登录邮箱验证');
                 return $this->redirectHandler('/mine/email');
             } catch (\Exception $e) {

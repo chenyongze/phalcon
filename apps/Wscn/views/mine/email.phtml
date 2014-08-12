@@ -9,6 +9,7 @@
                 <div class="tab-pane active" id="user-info">
                     <?include('navuser.phtml')?>
                     <div class="main-content">
+                        <?=$this->tag->flashOutput()?>
                         <h3 class="title">修改邮箱</h3>
                         <form method="POST" class="form-horizontal" data-validate  novalidate="novalidate">
                             <div class="form-group">
