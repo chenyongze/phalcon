@@ -11,7 +11,9 @@ class MineController extends ControllerBase implements SessionAuthorityControlle
 {
     public function dashboardAction()
     {
-        $user = Login::getCurrentUser();
+        $me = Login::getCurrentUser();
+        $user = User::findFirstById($me['id']);
+        $this->view->setVar('item', $user);
     }
 
     public function profileAction()
@@ -72,5 +74,28 @@ class MineController extends ControllerBase implements SessionAuthorityControlle
         $form = new \Eva\EvaUser\Forms\ChangeEmailForm();
         $this->view->setVar('item', $user);
         $this->view->setVar('form', $form);
+
+        if (!$this->request->isPost()) {
+            return;
+        }
+
+        if ($this->request->isAjax()) {
+            try {
+                $user->changeEmail($this->request->getPost('email'));
+                return $this->showResponseAsJson(Login::getCurrentUser());
+            } catch (\Exception $e) {
+                return $this->showExceptionAsJson($e, $user->getMessages());
+            }
+
+        } else {
+            try {
+                $user->changeEmail($this->request->getPost('email'));
+                $this->flashSession->success('新邮箱验证邮件已发送，请登录邮箱验证');
+                return $this->redirectHandler('/mine/email');
+            } catch (\Exception $e) {
+                $this->showException($e, $user->getMessages());
+                return $this->redirectHandler('/mine/email');
+            }
+        }
     }
 }

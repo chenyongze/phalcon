@@ -88,13 +88,15 @@
                         </a>
                         <div class="control">
                             <nav class="content">
-                            <a class="item" href="/mine/profile">基本资料</a>
-                            <a class="item" href="/mine/security">
-                                安全密码
+                            <a class="item" href="/mine/stars">我的收藏</a>
+                            <a class="item" href="/mine/comments">我的评论</a>
+                            <a class="item" href="/mine/profile">用户资料</a>
+                            <a class="item" href="/mine/password">
+                                密码安全
                                 <span class="icon-inactive">未激活</span>
                             </a>
                             <hr class="line" />
-                            <a class="item" href="/logout">注销登录</a>
+                            <a class="item" href="/logout">退出登录</a>
                             </nav>
                         </div>
                     </span>
@@ -286,11 +288,25 @@
                         <div class="custom-modal-body">
                             <form data-validate action="/login"  method="POST" novalidate="novalidate">
                                 <div class="form-group has-feedback">
-                                    <input type="text" name="identify" class="form-control" placeholder="用户名或邮箱" required>
+                                    <input type="text" name="identify" class="form-control" placeholder="用户名或邮箱" required
+                                        data-parsley-trigger="blur change"
+                                        maxlength="24"
+                                        data-parsley-minlength="4"
+                                        data-parsley-minlength-message="用户名最短4个字符"
+                                        data-parsley-pattern="^(?![0-9]+$)"
+                                        data-parsley-pattern-message="不支持纯数字用户名"
+                                    >
                                     <span class="glyphicon glyphicon-user form-control-feedback"></span>
                                 </div>
                                 <div class="form-group has-feedback">
-                                    <input type="password" name="password" class="form-control password-previewer" placeholder="密码" required>
+                                    <input type="password" name="password" class="form-control password-previewer" placeholder="密码" required
+                                        data-parsley-trigger="blur change"
+                                        data-parsley-minlength="6"
+                                        data-parsley-minlength-message="密码最短6位"
+                                        maxlength="26"
+                                        data-parsley-maxlength="26"
+                                        data-parsley-max-length="密码最长26位"
+                                    >
                                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                                 </div>
                                 <div class="form-footer">
