@@ -564,13 +564,13 @@
             //
             switch (parseInt(result['importance'])) {
                 case 1:
-                    result['stars'] = '<i class="glyphicon glyphicon-star star active"></i><i class="glyphicon glyphicon-star star"></i><i class="glyphicon glyphicon-star star"></i>';
+                    result['stars'] = '<i class="fa fa-star star active"></i><i class="fa fa-star star"></i><i class="fa fa-star star"></i>';
                     break;
                 case 2:
-                    result['stars'] = '<i class="glyphicon glyphicon-star star active"></i><i class="glyphicon glyphicon-star star active"></i><i class="glyphicon glyphicon-star star"></i>';
+                    result['stars'] = '<i class="fa fa-star star active"></i><i class="fa fa-star star active"></i><i class="fa fa-star star"></i>';
                     break;
                 case 3:
-                    result['stars'] = '<i class="glyphicon glyphicon-star star active"></i><i class="glyphicon glyphicon-star star active"></i><i class="glyphicon glyphicon-star star active"></i>';
+                    result['stars'] = '<i class="fa fa-star star active"></i><i class="fa fa-star star active"></i><i class="fa fa-star star active"></i>';
                     break;
             }
             //
