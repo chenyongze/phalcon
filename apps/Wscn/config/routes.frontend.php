@@ -98,6 +98,20 @@ return array(
         'module' => 'Wscn',
         'controller' => 'logout',
     ),
+    '/session/reset/(\w+)/(\w+)' => array(
+        'module' => 'Wscn',
+        'controller' => 'session',
+        'action' => 'reset',
+        'username' => 1,
+        'code' => 2,
+    ),
+    '/session/verify/(\w+)/(\w+)' => array(
+        'module' => 'Wscn',
+        'controller' => 'session',
+        'action' => 'verify',
+        'username' => 1,
+        'code' => 2,
+    ),
     '/session/:action' => array(
         'module' => 'Wscn',
         'controller' => 'session',

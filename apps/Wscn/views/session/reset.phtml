@@ -1,0 +1,38 @@
+<div id="auth" class="page-auth">
+    <h2 class="form-title">重置密码</h2>
+    <div class="custom-row">
+        <div class="custom-span-1">
+            <div class="row">
+                <div class="col-md-8">
+                    <?=$this->tag->flashOutput()?>
+                    <form data-validate action="/session/reset"  method="POST" novalidate="novalidate" role="form">
+                        <label for="reset-form-password" class="control-label">输入新密码</label>
+                        <div class="form-group has-feedback">
+                            <input id="reset-form-password" type="password" name="password" class="form-control" placeholder="" required
+                                        data-parsley-trigger="blur change"
+                                        data-parsley-minlength="6"
+                                        data-parsley-minlength-message="密码最短6位"
+                                        maxlength="26"
+                                        data-parsley-maxlength="26"
+                                        data-parsley-max-length="密码最长26位"
+                                    >
+                            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                        </div>
+                        <label for="reset-form-password-repeat" class="control-label">重复输入</label>
+                        <div class="form-group has-feedback">
+                            <input id="reset-form-password-repeat" type="password" name="passwordConfirm" class="form-control" placeholder="" required
+                                        data-parsley-equalto="#reset-form-password"
+                                        data-parsley-equalto-message="两次输入不匹配"
+                                    >
+                            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                        </div>
+                        <div class="form-footer">
+                            <input name="__redirect" type="hidden" value="" >
+                            <button type="submit" class="custom-button pull-right">重置密码</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -54,7 +54,6 @@ class SessionController extends ControllerBase
 
     public function resetAction()
     {
-        $this->view->changeRender('admin/session/reset');
         $code = $this->dispatcher->getParam('code');
         $username = $this->dispatcher->getParam('username');
         $user = new Models\ResetPassword();

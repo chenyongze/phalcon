@@ -10,7 +10,7 @@
                     <?include('navuser.phtml')?>
                     <div class="main-content">
                         <h3 class="title">修改邮箱</h3>
-                        <form class="form-horizontal">
+                        <form method="POST" class="form-horizontal" data-validate  novalidate="novalidate">
                             <div class="form-group">
                                 <label class="col-sm-3 control-label no-padding-right">当前邮箱</label>
                                 <div class="col-sm-9">
@@ -21,9 +21,12 @@
                             <div class="form-group">
                                 <label for="email" class="col-sm-3 control-label no-padding-right">新邮箱</label>
                                 <div class="col-sm-9">
-                                    <?=$form->render('email', array(
-                                        'class' => 'form-control input-medium ',
-                                    ))?>
+                                    <input type="email" name="email" class="form-control" placeholder="" required
+                                        data-parsley-trigger="blur change"
+                                        data-parsley-remote="/register/check"
+                                        data-parsley-remote-options='{ method: "GET", dataType: "json"}'
+                                        data-parsley-remote-message="输入的邮箱已被占用"
+                                    >
                                 </div>
                             </div>
 
