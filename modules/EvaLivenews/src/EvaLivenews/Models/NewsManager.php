@@ -43,7 +43,8 @@ class NewsManager extends Entities\News
             $this->slug = \Phalcon\Text::random(\Phalcon\Text::RANDOM_ALNUM, 8);
         }
         if(!$this->title) {
-            $this->title = \Eva\EvaEngine\Text\Substring::substrCn($this->content, 100);
+
+            $this->title = \Eva\EvaEngine\Text\Substring::substrCn(strip_tags($this->getContentHtml()), 100);
         }
     }
 
