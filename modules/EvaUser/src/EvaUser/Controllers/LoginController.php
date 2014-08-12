@@ -52,7 +52,7 @@ class LoginController extends ControllerBase
                         $this->flashSession->error($user->getMessages());
                     }
                 }
-                $this->flashSession->success('SUCCESS_USER_LOGGED_IN');
+                //$this->flashSession->success('SUCCESS_USER_LOGGED_IN');
                 return $this->redirectHandler($this->getDI()->getConfig()->user->loginSuccessRedirectUri);
             } catch (\Exception $e) {
                 $this->showException($e, $user->getMessages());
