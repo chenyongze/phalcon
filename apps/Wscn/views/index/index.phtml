@@ -4,7 +4,7 @@
     <?=$this->partial("partial/sidebar", array('quotes' => $this->widget->actionHelper('widget', 'quotes')))?>
     </aside>
     <div id="wrapper">
-        <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 2 ,'limit' => 3, 'has_image' => 1, 'order' => '-sort_order'));$posts = $pager->items;?>
+        <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 4 ,'limit' => 3, 'has_image' => 1, 'order' => '-sort_order'));$posts = $pager->items;?>
         <div id="main" class="page-index">
             <div class="top3-news custom-row hidden-xxs">
                 <div class="custom-span-1">
@@ -155,7 +155,7 @@
             </div>
         </div>
         <div id="rightbar">
-            <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 1 ,'limit' => 6, 'page' => 2, 'has_image' => 1, 'order' => '-sort_order'));$posts = $pager->items;?>
+            <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 4 ,'limit' => 6, 'page' => 2, 'has_image' => 1, 'order' => '-sort_order'));$posts = $pager->items;?>
             <ul id="side-topnews" class="">
                 <li class="head">
                     头条新闻
