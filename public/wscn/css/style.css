@@ -2718,6 +2718,9 @@ body.show-breaking-news #breaking-news {
     margin-right: 360px;
   }
 }
+#search .keyword {
+  background-color: #FFDB8C;
+}
 #search .custom-nav-tabs a {
   font-size: 14px;
   padding-left: 0;
