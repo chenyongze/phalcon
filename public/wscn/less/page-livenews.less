@@ -47,6 +47,33 @@
             }
         }
     }
+
+    .checkbox-group {
+        font-size: 12px;
+        line-height: 20px;
+        border-bottom: 1px solid @borderColor;
+        .title {
+            color: #333;
+            margin-right: 10px;
+        }
+        .more {
+            color: #999;
+            cursor: pointer;
+            margin-left: 10px;
+            .fa {
+                margin-left: 5px;
+                color: @blue;
+            }
+            .fa:before {
+                content: "\f078";
+            }
+            &.active {
+                .fa:before {
+                    content: "\f077";
+                }
+            }
+        }
+    }
 }
 
 #livenews-box {
@@ -63,7 +90,7 @@
             text-align: center;
             line-height: 36px;
             font-size: 24px;
-            background-color: #1395E5;
+            background-color: @skyblue;
         }
         .switch-box {
             display: block;
@@ -84,12 +111,7 @@
             }
         }
         .checkbox-group {
-            padding: 5px 30px;
-            border-top: 1px solid #eee;
-            .checkbox {
-                display: inline-block;
-                margin-right: 10px;
-            }
+
         }
     }
     & > .body {
@@ -181,7 +203,7 @@
                 left: 30px;
                 .star {
                     font-size: 14px;
-                    color: #ccc;
+                    color: @borderColor;
                     line-height: 20px;
                 }
                 .active {
@@ -202,7 +224,7 @@
                 color: #fff;
                 line-height: 40px;
                 text-align: center;
-                background-color: #ccc;
+                background-color: @borderColor;
             }
             .flag {
                 position: absolute;

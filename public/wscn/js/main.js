@@ -35,7 +35,7 @@
 //搜索列表 高亮 关键字
 $(function(){
     var $search = $('#search');
-    if ($search.length == 0) {
+    if ($search.length == 0 || window.location.search.indexOf('?q=') == -1) {
         return;
     }
     var dom = $search[0];

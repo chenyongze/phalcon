@@ -809,6 +809,54 @@ img.lazy {
         -moz-padding-end: 20px;*/
     }
 }
+
+//自定义 checkbox
+.custom-checkbox {
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 20px;
+    padding-left: 20px;
+    margin: 10px;
+    color: #666;
+    position: relative;
+    & > input {
+        position: absolute;
+        left: 0;
+        visibility: hidden;
+        &:checked {
+            & + .fa {
+                color: @blue;
+                &:before {
+                    content: "\f14a";
+                }
+            }
+            & + .fa + .text {
+                color: @blue;
+            }
+        }
+    }
+    & > .fa {
+        position: absolute;
+        left: 0;
+        top: 4px;
+        font-size: 14px;
+        &:before {
+            content: "\f096";
+        }
+    }
+}
+
+.lt-ie9 {
+    .custom-checkbox {
+        & > input {
+            visibility: visible;
+        }
+        & > .icon {
+            display: none;
+        }
+    }
+}
 //自定义 checkbox -> switch-box （滑块切换）
 .switch-box {
     cursor: pointer;
@@ -827,7 +875,7 @@ img.lazy {
         width: 40px;
         height: 24px;
         border-radius: 12px;
-        background-color: #ccc;
+        background-color: @borderColor;
         box-shadow: 0 0 2px rgba(0,0,0,.3);
         &:after {
             .transition(margin 0.3s);
