@@ -335,8 +335,8 @@
                         //todo
                         root.timerTargetId = item.id;
                         root.timerTargetUtm = item.getAttribute('data-utm');
-                        console.log('the timer target id is : ' + root.timerTargetId);
-                        console.log('the timer target utm is : ' + root.timerTargetUtm);
+                        //console.log('the timer target id is : ' + root.timerTargetId);
+                        //console.log('the timer target utm is : ' + root.timerTargetUtm);
                         break;
                     }
                 }
@@ -390,7 +390,7 @@
         if (! (this.refresh_price_param && this.config.refreshPrice)) {
             return;
         }
-        console.log('refresh these item [ ' + this.refresh_price_param +  ' ] price');
+        //console.log('refresh these item [ ' + this.refresh_price_param +  ' ] price');
         var root = this;
         var $target = this.$target;
         $.ajax({
@@ -503,7 +503,7 @@
                 $target.removeClass('loading');
             },
             error: function() {
-                console.log('do it again!');
+                //console.log('do it again!');
                 root.getData(start, end, arg);
             }
         });
@@ -603,19 +603,19 @@
         return data;
     };
     Fcl.prototype.prevDay = function() {
-        console.log('fcl prev day');
+        //console.log('fcl prev day');
         var end = this.unixTimeFrame().start;
         var start = moment(end, 'YYYY-MM-DD').subtract('days', 1).format('YYYY-MM-DD');
         this.getData(start, end, 'prev');
     };
     Fcl.prototype.nextDay = function() {
-        console.log('fcl next day');
+        //console.log('fcl next day');
         var start = this.unixTimeFrame().end;
         var end = moment(start, 'YYYY-MM-DD').add('days', 1).format('YYYY-MM-DD');
         this.getData(start, end, 'next');
     };
     Fcl.prototype.prevDate = function() {
-        console.log('fcl prev date');
+        //console.log('fcl prev date');
         var start = moment(this.unixTimeFrame().start, 'YYYY-MM-DD');
         var end   = moment(this.unixTimeFrame().end, 'YYYY-MM-DD');
         var days  = parseInt((end - start) / (1000*60*60*24));
@@ -624,7 +624,7 @@
         this.getData(start, end);
     };
     Fcl.prototype.nextDate = function() {
-        console.log('fcl next date');
+        //console.log('fcl next date');
         var start = moment(this.unixTimeFrame().start, 'YYYY-MM-DD');
         var end   = moment(this.unixTimeFrame().end, 'YYYY-MM-DD');
         var days  = parseInt((end - start) / (1000*60*60*24));
