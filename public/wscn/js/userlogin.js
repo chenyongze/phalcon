@@ -100,13 +100,24 @@
             data : data,
             type : "POST"
         }).then(function(response){
-            console.log(response);
-            loginUI.hideMessage();
+            loginUI.showMessage(response);
         }).fail(defaultErrorHandle);
     }
 
-    var loginByOAuth = function() {
-    
+    var loginByOAuth = function(url, data) {
+        var deferred = $.ajax({
+            url : url,
+            dataType : "json",
+            data : data,
+            type : "POST",
+        }).then(function(response) {
+            loginUI.hideMessage();
+            loginUI.hideModal();
+            usrManager.setUser(response);
+            usrManager.trigger('login');
+            p("triggered login by post & connect oauth");
+        }).fail(defaultErrorHandle);
+        return deferred;
     };
 
     var registerByOAuth = function(url, data) {
@@ -177,15 +188,20 @@
                 resetPassword(form.attr('action'), form.serialize());
                 return false;    
             });
+            $("#user-modal-login").on("submit", "form", function(){
+                var form = $(this);
+                loginByPassword(form.attr('action'), form.serialize());
+                return false;
+            });
             $("#user-modal-connect-register").on("submit", "form", function() {
                 var form = $(this);
                 registerByOAuth(form.attr('action'), form.serialize());
                 return false;    
             });
-            $("#user-modal-login").on("submit", "form", function(){
+            $("#user-modal-connect-login").on("submit", "form", function() {
                 var form = $(this);
-                loginByPassword(form.attr('action'), form.serialize());
-                return false;
+                loginByOAuth(form.attr('action'), form.serialize());
+                return false;    
             });
         },
         initModal : function () {
@@ -241,9 +257,13 @@
 
         , loginByPassword : loginByPassword
 
+        , loginByOAuth : loginByOAuth
+
         , resetPassword : resetPassword
 
         , register : register
+
+        , registerByOAuth : registerByOAuth
 
         , initialize: function(opts){
             this.options = $.extend({}, defaultOptions, opts);

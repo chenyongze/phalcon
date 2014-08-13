@@ -196,6 +196,10 @@ class Login extends Entities\Users
             throw new Exception\RuntimeException('ERR_USER_PASSWORD_WRONG_MAX_TIMES');
         }
 
+        if (!$userinfo->password) {
+            throw new Exception\RuntimeException('ERR_USER_PASSWORD_EMPTY');
+        }
+
         // check if hash of provided password matches the hash in the database
         if (!password_verify($this->password, $userinfo->password)) {
             //MUST be string type here
