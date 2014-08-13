@@ -81,11 +81,11 @@
                     <form class="search-form navbar-form" action="/news" role="search" novalidate="novalidate">
                         <div class="form-group has-feedback">
                             <input type="text" class="search-field" name="q" placeholder="请按回车键立即搜索">
-                            <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                            <span class="fa fa-search form-control-feedback"></span>
                         </div>
                     </form>
                     <span class="user-control">
-                        <a class="icon glyphicon glyphicon-user" href="/login"></a>
+                        <a class="icon fa fa-user" href="/login"></a>
                         <a class="avatar" href="/mine/dashboard">
                             <img src="/wscn/img/avatar-md.png" alt=""/>
                         </a>
@@ -129,7 +129,9 @@
         </div>
     </a>
 </header>
-
+<div class="container">
+    <img class="main-ad" src="/wscn/img/ad/main-ad.png" alt=""/>
+</div>
 <div id="content" class="container">
     <?=$this->getContent()?>
     <!-- qr code -->

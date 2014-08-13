@@ -18,11 +18,17 @@
         var $body = $('body');
         var $footer = $('#footer');
         var scrollMax = $body.height() - $footer.height() - $(window).height();
+        var unwindPoint = 120/*$('#content').offset().top*/;
         //console.log(scrollMax);
         //
         $(document).on('scroll', function(e){
             var scroll = $body.scrollTop();
             //console.log(scroll);
+            if (scroll > unwindPoint) {
+                $leftbar.addClass('unwind');
+            } else {
+                $leftbar.removeClass('unwind');
+            }
             if (scroll > scrollMax) {
                 $leftbar.addClass('moveout');
             } else {

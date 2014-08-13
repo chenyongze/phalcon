@@ -30,7 +30,7 @@
     z-index: 2;
     width: 530px;
     padding-left: 15px;
-    top: 90px;
+    top: 210px;
     bottom: 30px;
     overflow: hidden;
 
@@ -38,9 +38,19 @@
     -moz-transition: top 0.3s, bottom 0.3s;
     transition: top 0.3s, bottom 0.3s;
 
+    &.unwind {
+        top: 90px;
+    }
+
     &.moveout {
         bottom: 100%;
     }
+
+    /*&:hover {
+        & > .sidebar {
+            visibility: visible;
+        }
+    }*/
 
     & > .content {
         float: left;
@@ -56,6 +66,7 @@
     }
     & > .sidebar {
         position: relative;
+        //visibility: hidden;
         float: left;
         width: 330px;
         height: 100%;
