@@ -54,6 +54,7 @@
             for(i in loginFunc) {
                 loginFunc[i](this, user);
             }
+            p("login triggered, loginFunc : %o", loginFunc);
         },
 
         "notlogin" : function(event) {
@@ -141,6 +142,7 @@
             var root = this;
             if(null === cookie(options.cookiekey)) {
                 root.trigger("notlogin");
+                p("triggered notlogin by no cookie");
             } else {
                 $.ajax({
                     url : options.userUrl,
@@ -150,11 +152,14 @@
                         user = response;
                         status.login = true;
                         root.trigger("login", [user]);
+                        p("triggered login by session");
                     } else {
                         root.trigger("notlogin");
+                        p("triggered notlogin by empty response");
                     }              
                 }).fail(function(error) {
                     root.trigger("notlogin");
+                    p("triggered notlogin by error response");
                 });
             }
         }
@@ -167,7 +172,8 @@
             user = usr;
         }
 
-        , onNotLogin : function(func) {
+        //只执行一次
+        , onceNotLogin : function(func) {
             if (typeof func !== "function") {
                 return false;
             } 
@@ -183,7 +189,8 @@
             return this;
         }
 
-        , onLogin : function(func) {
+        //只执行一次
+        , onceLogin : function(func) {
             if (typeof func !== "function") {
                 return false;
             } 

@@ -148,6 +148,7 @@
             loginUI.hideModal();
             usrManager.setUser(response);
             usrManager.trigger('login');
+            p("triggered login by post");
         }).fail(defaultErrorHandle);
         return loginDeferred;
     };
@@ -229,10 +230,12 @@
             initSocialBtn();
             var i;
             for(i in notLoginFunctions) {
-                usrManager.onNotLogin(notLoginFunctions[i]);
+                //只执行一次
+                usrManager.onceNotLogin(notLoginFunctions[i]);
             }
             for(i in loginFunctions) {
-                usrManager.onLogin(loginFunctions[i]);
+                //每次执行
+                usrManager.on("login", loginFunctions[i]);
             }
         }
     };
