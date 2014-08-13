@@ -173,9 +173,17 @@ $(function(){
     */
 
     //city select
-    $('#address').citySelect({
+    $('#profile-form-location-group').citySelect({
         url : '/wscn/js/city.min.js',
+        prov : $("#province").val(),
+        city : $("#city").val(),
+        dist : $("#state").val(),
         required: false
+    });
+    $('#profile-form-location-group').on('change', 'select', function(){
+        console.log(1);
+        var selector = $(this).attr('data-connect');
+        $(selector).val($(this).val());
     });
 
 })(jQuery);

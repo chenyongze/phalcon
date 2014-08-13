@@ -3,6 +3,7 @@
 namespace Eva\EvaUser\Models;
 
 use Eva\EvaUser\Entities;
+use Eva\EvaFileSystem\Models\Upload as UploadModel;
 
 class UserManager extends Entities\Users
 {

@@ -5,6 +5,7 @@ namespace Wscn\Controllers;
 use Eva\EvaUser\Models\Login;
 use Eva\EvaUser\Models\User;
 use Eva\EvaUser\Forms;
+use Wscn\Forms\UserForm;
 use Eva\EvaEngine\Mvc\Controller\SessionAuthorityControllerInterface;
 
 class MineController extends ControllerBase implements SessionAuthorityControllerInterface
@@ -20,11 +21,27 @@ class MineController extends ControllerBase implements SessionAuthorityControlle
     {
         $me = Login::getCurrentUser();
         $user = User::findFirstById($me['id']);
-        $form = new \Eva\EvaUser\Forms\UserForm();
+        $form = new UserForm();
         $form->setModel($user);
         $form->addForm('profile', 'Eva\EvaUser\Forms\ProfileForm');
         $this->view->setVar('item', $user);
         $this->view->setVar('form', $form);
+        if (!$this->request->isPost()) {
+            return;
+        }
+
+        $data = $this->request->getPost();
+        if (!$form->isFullValid($data)) {
+            return $this->showInvalidMessages($form);
+        }
+
+        try {
+            $form->save('changeProfile');
+        } catch (\Exception $e) {
+            return $this->showException($e, $form->getModel()->getMessages());
+        }
+        $this->flashSession->success('SUCCESS_USER_UPDATED');
+        return $this->redirectHandler('/mine/profile');
     }
 
     public function passwordAction()
@@ -97,5 +114,18 @@ class MineController extends ControllerBase implements SessionAuthorityControlle
                 return $this->redirectHandler('/mine/email');
             }
         }
+    }
+
+    public function oauthAction()
+    {
+    }
+
+    public function commentsAction()
+    {
+    
+    }
+
+    public function starsAction()
+    {
     }
 }

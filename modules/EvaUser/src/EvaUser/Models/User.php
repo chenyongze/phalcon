@@ -4,9 +4,27 @@ namespace Eva\EvaUser\Models;
 
 use Eva\EvaUser\Entities;
 use Eva\EvaEngine\Exception;
+use Eva\EvaFileSystem\Models\Upload as UploadModel;
 
 class User extends Entities\Users
 {
+    public function beforeSave()
+    {
+        if ($this->getDI()->getRequest()->hasFiles()) {
+            $upload = new UploadModel();
+            $files = $this->getDI()->getRequest()->getUploadedFiles();
+            if (!$files) {
+                return;
+            }
+            $file = $files[0];
+            $file = $upload->upload($file);
+            if ($file) {
+                $this->avatarId = $file->id;
+                $this->avatar = $file->getFullUrl();
+            }
+        }
+    }
+
     public function getAvatar()
     {
     }
@@ -41,8 +59,22 @@ class User extends Entities\Users
 
     public function changeProfile($data)
     {
+        $user = Login::getCurrentUser();
+        if($user['id'] != $this->id) {
+            throw new Exception\UnauthorizedException('ERR_USER_NO_ALLOW_TO_ACCESS_OTHER_USER');
+        }
 
-    
+        $profileData = empty($data['profile']) ? array() : $data['profile'];
+        $profile = new Profile();
+        $profile->assign($profileData);
+        $this->profile = $profile;
+
+        $this->assign($data);
+        if (!$this->save()) {
+            throw new Exception\RuntimeException('Create user failed');
+        }
+
+        return $this;
     }
 
     public function requestChangeEmail($newEmail, $forceSend = false)
@@ -113,5 +145,4 @@ class User extends Entities\Users
 
         return $user;
     }
-
 }
