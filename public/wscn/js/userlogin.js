@@ -230,12 +230,10 @@
             initSocialBtn();
             var i;
             for(i in notLoginFunctions) {
-                //只执行一次
                 usrManager.onceNotLogin(notLoginFunctions[i]);
             }
             for(i in loginFunctions) {
-                //每次执行
-                usrManager.on("login", loginFunctions[i]);
+                usrManager.onceLogin(loginFunctions[i]);
             }
         }
     };

@@ -37,7 +37,7 @@
         }
         , VERSION = "1.0.0"
         , status = {
-            checked : false,
+            checked : 0,
             login : false
         }
         , debug = true
@@ -47,14 +47,15 @@
 
     var defautEvents = {
         "login" : function(event, user)  {
-            status.checked = true;
+            p("login triggered, loginFunc : %o", loginFunc);
+            status.checked++;
             status.login = true;
             $("body").attr("data-logon", true);
             var i = 0;
             for(i in loginFunc) {
-                loginFunc[i](this, user);
+                var func = loginFunc.pop();
+                func(this, user);
             }
-            p("login triggered, loginFunc : %o", loginFunc);
         },
 
         "notlogin" : function(event) {
@@ -65,7 +66,8 @@
             //TODO:Remove session cookie
             var i = 0;
             for(i in notLoginFunc) {
-                notLoginFunc[i](this);
+                var func = notLoginFunc.pop();
+                func(this, user);
             }
         }
     }
@@ -172,36 +174,40 @@
             user = usr;
         }
 
-        //只执行一次
+        //Run only once
         , onceNotLogin : function(func) {
             if (typeof func !== "function") {
                 return false;
             } 
 
-            if(true === status.checked) {
-                //already checked, run func immediately
-                if(false === status.login) {
-                    func(this, null);
-                }
+            if(false === status.login) {
+                func(this, null);
             } else {
                 notLoginFunc.push(func);
             }
             return this;
         }
 
-        //只执行一次
+        , getLoginFunctions : function() {
+            return loginFunc;
+        }
+
+        , getNotLoginFunctions : function() {
+            return notLoginFunc;
+        }
+
+        //Run only once
         , onceLogin : function(func) {
             if (typeof func !== "function") {
                 return false;
             } 
 
-            if(true === status.checked) {
-                //already checked, run func immediately
-                if(true === status.login) {
-                    func(this, user);
-                }
+            if(true === status.login) {
+                func(this, user);
+                p("run loginFunc : %o", func);
             } else {
                 loginFunc.push(func);
+                p("added loginFunc : %o", func);
             }
             return this;
         }
