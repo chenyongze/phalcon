@@ -9,7 +9,7 @@
         $('.topbar').on('click', '[data-action]', function(e){
             var action = $(this).attr('data-action');
             var mTop = parseInt($content.css('margin-top'));
-            if (action === 'left') {
+            if (action === 'up') {
                 if (mTop == 0) {
                     $content.stop().animate({
                         'margin-top': margin
@@ -19,7 +19,7 @@
                         'margin-top': '+=40'
                     }, 300);
                 }
-            } else if (action === 'right') {
+            } else if (action === 'down') {
                 if (mTop == margin) {
                     $content.stop().animate({
                         'margin-top': 0

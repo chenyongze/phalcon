@@ -4,10 +4,12 @@
         <?if($posts):?>
         <div class="topbar hidden-xs hidden-xxs">
             <a href="/news" class="custom-button type-link absolute">最新文章</a>
-            <div class="control-box">
-                <span class="left  glyphicon glyphicon-chevron-left" data-action="left"></span>
-                <span class="right glyphicon glyphicon-chevron-right" data-action="right"></span>
-            </div>
+            <!--<div class="control-box">
+                <span class="up" data-action="up"></span>
+                <span class="down" data-action="down"></span>
+            </div>-->
+            <span class="fa up fa-chevron-up" data-action="up"></span>
+            <span class="fa down fa-chevron-down" data-action="down"></span>
             <div id="news-list" class="news-list with-dot">
                 <div class="row content">
                     <?foreach($posts as $post):?>
@@ -180,8 +182,90 @@
         </div>
 
         <ul id="livenews-list">
+            <li class="date">2014年07月15号 11:02:24</li>
             <li class="news">
-
+                <span class="time">16:36</span>
+                <span class="icon"></span>
+                <div class="control-box">
+                    <div class="meta comments">
+                        <span class="fa fa-comment"></span>
+                        <span class="text">23</span>
+                    </div>
+                    <hr class="vr"/>
+                    <div class="meta">
+                        <span class="fa fa-share-square-o"></span>
+                    </div>
+                    <hr class="vr"/>
+                    <div class="meta">
+                        <span class="fa fa-heart"></span>
+                    </div>
+                </div>
+                <div class="content">黄金亚太午盘跳水，跌幅近1.20%。【工行一级资本和总资产蝉联宇宙第一大行】英国《银行家》正式公布了2014年度的全球1000家大银行排名榜单。</div>
+            </li>
+            <li class="news type-img">
+                <span class="time">16:36</span>
+                <span class="icon"></span>
+                <div class="control-box">
+                    <div class="meta comments">
+                        <span class="fa fa-comment"></span>
+                        <span class="text">23</span>
+                    </div>
+                    <hr class="vr"/>
+                    <div class="meta">
+                        <span class="fa fa-share-square-o"></span>
+                    </div>
+                    <hr class="vr"/>
+                    <div class="meta">
+                        <span class="fa fa-heart"></span>
+                    </div>
+                </div>
+                <div class="content">
+                    黄金亚太午盘跳水，跌幅近1.20%。【工行一级资本和总资产蝉联宇宙第一大行】英国《银行家》正式公布了2014年度的全球1000家大银行排名榜单。
+                    <img class="thumb" src="" alt=""/>
+                </div>
+            </li>
+            <li class="news type-data" data-trend="fall">
+                <span class="time">16:36</span>
+                <span class="important">
+                    <i class="fa fa-star star active"></i>
+                    <i class="fa fa-star star active"></i>
+                    <i class="fa fa-star star"></i>
+                </span>
+                <div class="control-box">
+                    <div class="meta comments">
+                        <span class="fa fa-comment"></span>
+                        <span class="text">23</span>
+                    </div>
+                    <hr class="vr"/>
+                    <div class="meta">
+                        <span class="fa fa-share-square-o"></span>
+                    </div>
+                    <hr class="vr"/>
+                    <div class="meta">
+                        <span class="fa fa-heart"></span>
+                    </div>
+                </div>
+                <div class="content">
+                    <img  class="flag" src="" alt=""/>
+                    <h3 class="title">
+                        <span class="country">日本</span>5月所有产业活动指数月率
+                    </h3>
+                    <div class="custom-row">
+                        <div class="col-custom-4">
+                            <span class="text">今值：</span>
+                            <span class="value current">-0.8%</span>
+                        </div>
+                        <div class="col-custom-4">
+                            <span class="text">预测：</span>
+                            <span class="value">1.0%</span>
+                        </div>
+                        <div class="col-custom-4">
+                            <span class="text">前值：</span>
+                            <span class="value">0.5%</span>
+                        </div>
+                    </div>
+                    <div class="verdict">利空金银</div>
+                </div>
             </li>
         </ul>
 
@@ -365,7 +449,7 @@
     </div>
     <div id="rightbar">
         <h2 class="main-title">实时行情</h2>
-        <!-- Start: Wallstreetcn.com sidebar widget -->
+        <!-- Start: Wallstreetcn.com sidebar widget
         <div id="js-wscn-sidebar-wrapper" class="hidden-xxs" style="margin-bottom: 15px;"></div>
         <script src="http://markets.static.wallstreetcn.com/embed/sidebar.js" type='text/javascript'></script>
 
