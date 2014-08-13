@@ -3,6 +3,7 @@
 namespace Eva\EvaOAuthClient\Controllers;
 
 use Eva\EvaOAuthClient\Models;
+use Eva\EvaOAuthClient\Models\OAuthManager;
 use Eva\EvaUser\Models as UserModels;
 use EvaOAuth\Service as OAuthService;
 
@@ -32,15 +33,10 @@ class AuthController extends ControllerBase
             'timeout' => 2
         ));
 
-        $session = $this->getDI()->get('session');
-        $session->remove('request-token');
-
         $requestToken = $oauth->getAdapter()->getRequestToken();
-
-        $session->set('request-token', $requestToken);
+        OAuthManager::saveRequestToken($requestToken);
         $requestTokenUrl = $oauth->getAdapter()->getRequestTokenUrl();
-        $this->view->disable();
-        $this->response->redirect($requestTokenUrl, true);
+        return $this->response->redirect($requestTokenUrl, true);
     }
 
     public function accessAction()

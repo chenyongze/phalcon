@@ -8,7 +8,7 @@ use Eva\EvaEngine\Exception;
 
 class Register extends Entities\Users
 {
-    public function register()
+    public function register($disablePassword = false)
     {
         $this->getDI()->getEventsManager()->fire('user:beforeRegister', $this);
 
@@ -22,18 +22,14 @@ class Register extends Entities\Users
             throw new Exception\ResourceConflictException('ERR_USER_EMAIL_ALREADY_TAKEN');
         }
 
-        $this->status = 'inactive';
-        $this->emailStatus = 'inactive';
-        $this->accountType = 'basic';
-        // crypt the user's password with the PHP 5.5's password_hash() function, results in a 60 character
-        // how those PHP 5.5 functions want the parameter: as an array with, currently only used with 'cost' => XX
-        $this->password = password_hash($this->password, PASSWORD_DEFAULT, array('cost' => 10));
-
-        // generate random hash for email verification (40 char string)
+        $this->status = $this->status ?: 'inactive';
+        $this->emailStatus = $this->emailStatus ?: 'inactive';
+        $this->accountType = $this->accountType ?: 'basic';
+        $this->password = $disablePassword ? null : password_hash($this->password, PASSWORD_DEFAULT, array('cost' => 10));
         $this->activationHash = sha1(uniqid(mt_rand(), true));
-        // generate integer-timestamp for saving of account-creating date
         $this->createdAt = time();
         $this->providerType = $this->providerType ?: 'DEFAULT';
+
         if ($this->save() == false) {
             throw new Exception\RuntimeException('ERR_USER_CREATE_FAILED');
         }
@@ -42,7 +38,7 @@ class Register extends Entities\Users
         if (!$userinfo) {
             throw new Exception\RuntimeException('ERR_USER_CREATE_FAILED');
         }
-        $this->sendVerificationEmail($userinfo->username);
+        //$this->sendVerificationEmail($userinfo->username);
 
         $this->getDI()->getEventsManager()->fire('user:afterRegister', $this);
         return $userinfo;
@@ -51,7 +47,7 @@ class Register extends Entities\Users
     public function sendVerificationEmail($username, $forceSend = false)
     {
         if (false === $forceSend && $this->getDI()->getConfig()->mailer->async) {
-            $queue = $this->getDI()->get('queue');
+            $queue = $this->getDI()->getQueue();
             $result = $queue->doBackground('sendmailAsync', json_encode(array(
                 'class' => __CLASS__,
                 'method' => __FUNCTION__,
@@ -70,8 +66,8 @@ class Register extends Entities\Users
             throw new Exception\OperationNotPermitedException('ERR_USER_ALREADY_ACTIVED');
         }
 
-        $mailer = $this->getDI()->get('mailer');
-        $message = $this->getDI()->get('mailMessage');
+        $mailer = $this->getDI()->getMailer();
+        $message = $this->getDI()->getMailMessage();
         $message->setTo(array(
             $userinfo->email => $userinfo->username
         ));

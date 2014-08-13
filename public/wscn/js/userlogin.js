@@ -110,7 +110,19 @@
     };
 
     var registerByOAuth = function(url, data) {
-    
+        var deferred = $.ajax({
+            url : url,
+            dataType : "json",
+            data : data,
+            type : "POST",
+        }).then(function(response) {
+            loginUI.hideMessage();
+            loginUI.hideModal();
+            usrManager.setUser(response);
+            usrManager.trigger('login');
+            p("triggered login by post");
+        }).fail(defaultErrorHandle);
+        return deferred;
     };
 
     var loginByPassword = function (url, data) {
@@ -211,12 +223,20 @@
             return this.options;
         }
 
-        , setOAuthResponse : function(token, user, success, error) {
+        , setOAuthResponse : function(token, user, error, exception) {
+            console.log(token, user, error, exception);
+            //Direct login
+            if(user) {
+                usrManager.setUser(user);
+                usrManager.trigger('login');
+                loginUI.hideModal();
+                loginUI.hideMessage();
+                return;
+            }
             if(token) {
                 loginUI.showUser(token.remoteUserName, token.remoteImageUrl, token.adapter);
                 loginUI.showModal('register-connect');
             }
-            console.log(token, user, success, error);
         }
 
         , loginByPassword : loginByPassword

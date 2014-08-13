@@ -1,6 +1,7 @@
 <?php
 return array(
     'permission' => array(
+        'disableAll' => false,
         'superusers' => array(
             1,
         ),
