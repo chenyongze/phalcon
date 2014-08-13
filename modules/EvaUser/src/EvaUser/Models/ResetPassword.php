@@ -31,7 +31,9 @@ class ResetPassword extends Entities\Users
         // generate random hash for email password reset verification (40 char string)
         $userinfo->passwordResetHash = sha1(uniqid(mt_rand(), true));
         $userinfo->passwordResetAt = time();
-        $userinfo->save();
+        if(!$userinfo->save()) {
+            throw new Exception\RuntimeException('ERR_USER_REQUEST_RESET_PASSWORD_FAILED');
+        }
 
         $this->sendPasswordResetMail($userinfo->email);
 
@@ -112,7 +114,9 @@ class ResetPassword extends Entities\Users
         $userinfo->password = password_hash($this->password, PASSWORD_DEFAULT, array('cost' => 10));
         //make last hash expire
         $userinfo->passwordResetHash = sha1(uniqid(mt_rand(), true));
-        $userinfo->save();
+        if(!$userinfo->save()) {
+            throw new Exception\RuntimeException('ERR_USER_RESET_PASSWORD_FAILED');
+        }
 
         return true;
     }

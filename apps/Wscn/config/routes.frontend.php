@@ -112,6 +112,14 @@ return array(
         'username' => 1,
         'code' => 2,
     ),
+    '/session/changemail/(\w+)/([^/]+)/(\w+)' => array(
+        'module' => 'Wscn',
+        'controller' => 'session',
+        'action' => 'changemail',
+        'username' => 1,
+        'email' => 2,
+        'code' => 3,
+    ),
     '/session/:action' => array(
         'module' => 'Wscn',
         'controller' => 'session',

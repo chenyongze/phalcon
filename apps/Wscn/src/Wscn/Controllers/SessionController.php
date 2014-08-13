@@ -91,4 +91,19 @@ class SessionController extends ControllerBase
 
         return $this->response->redirect($this->getDI()->getConfig()->user->resetSuccessRedirectUri);
     }
+
+    public function changemailAction()
+    {
+        $code = $this->dispatcher->getParam('code');
+        $username = $this->dispatcher->getParam('username');
+        $email = $this->dispatcher->getParam('email');
+        $user = new Models\User();
+
+        try {
+            $user->changeEmail($username, $email, $code);
+            $this->flash->success('用户邮箱已更改');
+        } catch (\Exception $e) {
+            $this->showException($e, $user->getMessages());
+        }
+    }
 }

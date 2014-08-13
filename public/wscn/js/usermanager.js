@@ -37,7 +37,7 @@
         }
         , VERSION = "1.0.0"
         , status = {
-            checked : false,
+            checked : 0,
             login : false
         }
         , debug = true
@@ -47,12 +47,14 @@
 
     var defautEvents = {
         "login" : function(event, user)  {
-            status.checked = true;
+            p("login triggered, loginFunc : %o", loginFunc);
+            status.checked++;
             status.login = true;
             $("body").attr("data-logon", true);
             var i = 0;
             for(i in loginFunc) {
-                loginFunc[i](this, user);
+                var func = loginFunc.pop();
+                func(this, user);
             }
         },
 
@@ -64,7 +66,8 @@
             //TODO:Remove session cookie
             var i = 0;
             for(i in notLoginFunc) {
-                notLoginFunc[i](this);
+                var func = notLoginFunc.pop();
+                func(this, user);
             }
         }
     }
@@ -141,6 +144,7 @@
             var root = this;
             if(null === cookie(options.cookiekey)) {
                 root.trigger("notlogin");
+                p("triggered notlogin by no cookie");
             } else {
                 $.ajax({
                     url : options.userUrl,
@@ -150,11 +154,14 @@
                         user = response;
                         status.login = true;
                         root.trigger("login", [user]);
+                        p("triggered login by session");
                     } else {
                         root.trigger("notlogin");
+                        p("triggered notlogin by empty response");
                     }              
                 }).fail(function(error) {
                     root.trigger("notlogin");
+                    p("triggered notlogin by error response");
                 });
             }
         }
@@ -167,34 +174,40 @@
             user = usr;
         }
 
-        , onNotLogin : function(func) {
+        //Run only once
+        , onceNotLogin : function(func) {
             if (typeof func !== "function") {
                 return false;
             } 
 
-            if(true === status.checked) {
-                //already checked, run func immediately
-                if(false === status.login) {
-                    func(this, null);
-                }
+            if(false === status.login) {
+                func(this, null);
             } else {
                 notLoginFunc.push(func);
             }
             return this;
         }
 
-        , onLogin : function(func) {
+        , getLoginFunctions : function() {
+            return loginFunc;
+        }
+
+        , getNotLoginFunctions : function() {
+            return notLoginFunc;
+        }
+
+        //Run only once
+        , onceLogin : function(func) {
             if (typeof func !== "function") {
                 return false;
             } 
 
-            if(true === status.checked) {
-                //already checked, run func immediately
-                if(true === status.login) {
-                    func(this, user);
-                }
+            if(true === status.login) {
+                func(this, user);
+                p("run loginFunc : %o", func);
             } else {
                 loginFunc.push(func);
+                p("added loginFunc : %o", func);
             }
             return this;
         }
