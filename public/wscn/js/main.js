@@ -68,14 +68,14 @@
     var $leftbar = $('#leftbar');
     if ($leftbar.length) {
         //var height = $leftbar.height();
-        var $body = $('body');
+        var $document = $(document);
         var $footer = $('#footer');
-        var scrollMax = $body.height() - $footer.height() - $(window).height();
+        var scrollMax = $document.height() - $footer.height() - $(window).height();
         var unwindPoint = 120/*$('#content').offset().top*/;
         //console.log(scrollMax);
         //
-        $(document).on('scroll', function(e){
-            var scroll = $body.scrollTop();
+        $document.on('scroll', function(e){
+            var scroll = $document.scrollTop();
             //console.log(scroll);
             if (scroll > unwindPoint) {
                 $leftbar.addClass('unwind');
@@ -127,7 +127,7 @@ $(function(){
 
     //goto top 返回顶部
     $('#postbar .up').click(function(e){
-        $('body').animate({
+        $('html, body').animate({
             scrollTop: 0
         }, 800);
         e.preventDefault();
@@ -146,10 +146,12 @@ $(function(){
         e.preventDefault();
     });
     //收藏
+    /*
     $('[data-action=collect]').on('click', function(e){
         $(this).toggleClass('active');
         e.preventDefault();
     });
+    */
 
     // 页面侧边栏 start
     var $sidebar = $('#sidebar');

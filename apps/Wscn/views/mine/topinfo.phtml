@@ -16,24 +16,24 @@
     <?endif?>
     </p>
     <div class="meta">
-        <i class="icon glyphicon glyphicon-envelope"></i><?=$item->email?>
+        <i class="icon fa fa-envelope"></i><?=$item->email?>
         <a class="edit" data-action="edit" href="/mine/email">
-            <i class="icon glyphicon glyphicon-pencil"></i> 修改
+            <i class="icon fa fa-pencil"></i> 修改
         </a>
     </div>
     <?if($item->profile && $item->profile->province):?>
     <div class="meta">
-        <i class="icon glyphicon glyphicon-map-marker"></i>
+        <i class="icon fa fa-map-marker"></i>
         <a class="edit" data-action="edit" href="/mine/profile">
-            <i class="icon glyphicon glyphicon-pencil"></i> 修改
+            <i class="icon fa fa-pencil"></i> 修改
         </a>
     </div>
     <?endif?>
     <?if($item->profile && $item->profile->birthday):?>
     <div class="meta">
-        <i class="icon glyphicon glyphicon-user"></i>巨蟹座 | 华尔街见闻
+        <i class="icon fa fa-user"></i>巨蟹座 | 华尔街见闻
         <a class="edit" data-action="edit" href="/mine/profile">
-            <i class="icon glyphicon glyphicon-pencil"></i> 修改
+            <i class="icon fa fa-pencil"></i> 修改
         </a>
     </div>
     <?endif?>
