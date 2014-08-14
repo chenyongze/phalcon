@@ -2,7 +2,7 @@
 
 namespace Eva\EvaBlog\Entities;
 
-class Favors extends \Eva\EvaEngine\Mvc\Model
+class Stars extends \Eva\EvaEngine\Mvc\Model
 {
 
     /**

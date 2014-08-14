@@ -255,6 +255,10 @@
             }
         }
 
+        , getLoginUI : function() {
+            return loginUI;
+        }
+
         , loginByPassword : loginByPassword
 
         , loginByOAuth : loginByOAuth

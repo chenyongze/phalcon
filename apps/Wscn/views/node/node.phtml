@@ -1,7 +1,7 @@
 <div id="main-content" >
     <aside id="leftbar">
         <div class="sharebar">
-            <a class="collect" href="">收藏</a>
+            <a class="collect not-stared" href="" data-action="star" data-post-id="<?=$post->id?>" data-message="登录后收藏">收藏</a>
             <a class="discuss" href="#comments">评论
                 <?if($post->commentCount > 0):?>
                 （<?=$post->commentCount?>）
