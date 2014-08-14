@@ -220,6 +220,11 @@
             $("#leftbar [data-action=login]:not(:has(img))").html("个人中心");
             $('.user-control').addClass(('login'));
             $(".user-control img").attr('src', user.avatar);
+
+            var path = window.location.pathname;
+            if($.inArray(path, ["/login", "/register", "reset"]) !== -1) {
+                window.location.href = '/mine/dashboard';
+            }
         }
     };
 

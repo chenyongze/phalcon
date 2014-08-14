@@ -31,4 +31,11 @@ class Stars extends \Eva\EvaEngine\Mvc\Model
 
 
     protected $tableName = 'blog_stars';
+
+    public function initialize()
+    {
+        $this->hasOne('postId', 'Eva\EvaBlog\Entities\Posts', 'id', array(
+            'alias' => 'post'
+        ));
+    }
 }

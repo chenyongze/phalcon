@@ -4,6 +4,7 @@ namespace Wscn\Controllers;
 
 use Eva\EvaUser\Models\Login;
 use Eva\EvaUser\Models\User;
+use Eva\EvaBlog\Models\Star;
 use Eva\EvaUser\Forms;
 use Wscn\Forms\UserForm;
 use Eva\EvaEngine\Mvc\Controller\SessionAuthorityControllerInterface;
@@ -12,9 +13,9 @@ class MineController extends ControllerBase implements SessionAuthorityControlle
 {
     public function dashboardAction()
     {
-        $me = Login::getCurrentUser();
-        $user = User::findFirstById($me['id']);
-        $this->view->setVar('item', $user);
+        $this->dispatcher->forward(array(
+            'action' => 'stars'
+        ));
     }
 
     public function profileAction()
@@ -118,15 +119,39 @@ class MineController extends ControllerBase implements SessionAuthorityControlle
 
     public function oauthAction()
     {
+        $me = Login::getCurrentUser();
+        $user = User::findFirstById($me['id']);
+        $this->view->setVar('item', $user);
     }
 
     public function commentsAction()
     {
+        $me = Login::getCurrentUser();
+        $user = User::findFirstById($me['id']);
+        $this->view->setVar('item', $user);
     
     }
 
     public function starsAction()
     {
+        $me = Login::getCurrentUser();
+        $user = User::findFirstById($me['id']);
+        $this->view->setVar('item', $user);
+        $userId = $user->id;
+
+        $query = array(
+            'page' => $this->request->getQuery('page', 'int', 1),
+        );
+        $star = new Star();
+        $starsItemQuery = $star->getStars($userId);
+        $paginator = new \Eva\EvaEngine\Paginator(array(
+            "builder" => $starsItemQuery,
+            "limit"=> 5,
+            "page" => $query['page']
+        ));
+        $paginator->setQuery($query);
+        $pager = $paginator->getPaginate();
+        $this->view->setVar('pager', $pager);
     }
 
     public function quotesAction()

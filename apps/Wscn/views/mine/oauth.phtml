@@ -1,0 +1,52 @@
+<div id="main-content" class="columns-2">
+    <div id="main" class="page-user">
+        <div class="head">
+            <?include('topinfo.phtml')?>
+        </div>
+        <div class="body">
+            <?include('navmain.phtml')?>
+            <div class="tab-content">
+                <div class="tab-pane active" id="user-info">
+                    <?include('navuser.phtml')?>
+                    <div class="main-content">
+                        <?=$this->tag->flashOutput()?>
+                        <h3 class="title">修改邮箱</h3>
+                        <form method="POST" class="form-horizontal" data-validate  novalidate="novalidate">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right">当前邮箱</label>
+                                <div class="col-sm-9">
+                                    <?=$item->email?>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email" class="col-sm-3 control-label no-padding-right">新邮箱</label>
+                                <div class="col-sm-9">
+                                    <input type="email" name="email" class="form-control" placeholder="" required
+                                        data-parsley-trigger="blur change"
+                                        data-parsley-remote="/register/check"
+                                        data-parsley-remote-options='{ method: "GET", dataType: "json"}'
+                                        data-parsley-remote-message="输入的邮箱已被占用"
+                                    >
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <button type="submit" class="btn btn-primary btn-block">修改邮箱</button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+                <div class="tab-pane" id="user-endorse"></div>
+            </div>
+        </div>
+        <div class="foot"></div>
+    </div>
+    <div id="rightbar">
+        <?include('sidebar.phtml')?>
+    </div>
+    <!-- rightbar end -->
+</div>
