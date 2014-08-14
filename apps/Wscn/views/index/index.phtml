@@ -1,7 +1,7 @@
 <div id="main-content">
 
     <aside id="leftbar">
-    <?=$this->partial("partial/sidebar", array('quotes' => $this->widget->actionHelper('widget', 'quotes')))?>
+        <?=$this->partial("partial/sidebar", array('quotes' => $this->widget->actionHelper('widget', 'quotes')))?>
     </aside>
     <div id="wrapper">
         <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 4 ,'limit' => 3, 'has_image' => 1, 'order' => '-sort_order'));$posts = $pager->items;?>
@@ -59,27 +59,17 @@
                     <?$pager = $this->tag->component('post', array('status' => 'published', 'limit' => 25, 'has_image' => 1, 'order' => '-created_at'));$posts = $pager->items;?>
                     <?foreach($posts as $post):?>
                     <li class="news">
-                        <div class="cover-img">
-                            <a href="<?=$post->getUrl()?>">
-                                <img class="lazy full-width" src="/wscn/img/bg-img.gif" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_120,w_200') : '/img/article.jpg'?>" alt=""/>
-                            </a>
-                            <div class="cover hidden-xs hidden-xxs">
-                                <span title="点赞" class="endorse" data-action="endorse">123</span>
-                                <a href="<?=$post->getUrl()?>#comments" title="查看评论" class="discuss" data-action="discuss">89</a>
-                            </div>
-                        </div>
+                        <a href="<?=$post->getUrl()?>">
+                            <img class="lazy img" src="/wscn/img/bg-img.gif" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_140,w_200') : '/img/article.jpg'?>" alt=""/>
+                        </a>
                         <div class="content">
                             <a class="title" href="<?=$post->getUrl()?>"><?=$post->title?></a>
                             <div>
                                 <span class="meta author">文 / <?=$post->user ? $post->user->username : '华尔街见闻'?></span>
                                 <span class="meta time visible-lg-inline-block"><?=$this->tag->datetime($post->createdAt)?></span>
-                                <span class="meta pull-right visible-lg-inline-block"
-                                      onmouseover="jiathis_share('<?=$post->title?>', 'http://wallstreetcn.com<?=$post->getUrl()?>')">
-                                    <a class="share jiathis jiathis_txt jtico jtico_jiathis" target="_blank"
-                                       href="http://www.jiathis.com/share/?uid=1393984262901745"></a>
-                                    <a class="collect" title="收藏" data-action="collect" href=""></a>
+                                <span class="meta endorse pull-right">
+                                    <i class="fa fa-thumbs-up"></i> 3
                                 </span>
-                                <span class="meta time hidden-lg pull-right"><?=$this->tag->datetime($post->createdAt)?></span>
                             </div>
                             <div class="summary hidden-xxs">
                                 <?if($post->summary):?>
@@ -114,27 +104,17 @@
                     <?$pager = $this->tag->component('post', array('status' => 'published', 'limit' => 25, 'order' => '-count'));$posts = $pager->items;?>
                     <?foreach($posts as $post):?>
                     <li class="news">
-                        <div class="cover-img">
-                            <a href="<?=$post->getUrl()?>">
-                                <img class="lazy full-width" src="/wscn/img/bg-img.gif" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_120,w_200') : '/img/article.jpg'?>" alt=""/>
-                            </a>
-                            <div class="cover hidden-xs hidden-xxs">
-                                <span title="点赞" class="endorse" data-action="endorse">123</span>
-                                <a href="<?=$post->getUrl()?>#comments" title="查看评论" class="discuss" data-action="discuss">89</a>
-                            </div>
-                        </div>
+                        <a href="<?=$post->getUrl()?>">
+                            <img class="lazy img" src="/wscn/img/bg-img.gif" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_140,w_200') : '/img/article.jpg'?>" alt=""/>
+                        </a>
                         <div class="content">
                             <a class="title" href="<?=$post->getUrl()?>"><?=$post->title?></a>
                             <div>
                                 <span class="meta author">文 / <?=$post->user ? $post->user->username : '华尔街见闻'?></span>
                                 <span class="meta time visible-lg-inline-block"><?=$this->tag->datetime($post->createdAt)?></span>
-                                <span class="meta pull-right visible-lg-inline-block"
-                                      onmouseover="jiathis_share('<?=$post->title?>', 'http://wallstreetcn.com<?=$post->getUrl()?>')">
-                                    <a class="share jiathis jiathis_txt jtico jtico_jiathis" target="_blank"
-                                       href="http://www.jiathis.com/share/?uid=1393984262901745"></a>
-                                    <a class="collect" title="收藏" data-action="collect" href=""></a>
+                                <span class="meta endorse pull-right">
+                                    <i class="fa fa-thumbs-up"></i> 3
                                 </span>
-                                <span class="meta time hidden-lg pull-right"><?=$this->tag->datetime($post->createdAt)?></span>
                             </div>
                             <div class="summary hidden-xxs">
                                 <?if($post->summary):?>
@@ -284,15 +264,3 @@
     </div>
 </aside>
 <!-- sidebar end -->
-
-<script type="text/javascript">
-    var jiathis_config = {}
-    function jiathis_share(title, url) {
-        jiathis_config.title = title;
-        jiathis_config.url = url;
-        //console.log(jiathis_config);
-    }
-</script>
-<!--分享参数代码结束-->
-<!--分享功能代码统一放到页尾-->
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1393984262901745" charset="utf-8"></script>
