@@ -53,9 +53,11 @@
             $("body").attr("data-logon", true);
             var i = 0;
             for(i in loginFunc) {
-                var func = loginFunc.pop();
+                var func = loginFunc[i];
                 func(this, user);
             }
+            //clear all
+            loginFunc = [];
         },
 
         "notlogin" : function(event) {
@@ -63,12 +65,12 @@
             status.login = false;
 
             $("body").attr("data-logon", false);
-            //TODO:Remove session cookie
             var i = 0;
             for(i in notLoginFunc) {
-                var func = notLoginFunc.pop();
+                var func = notLoginFunc[i];
                 func(this, user);
             }
+            notLoginFunc = [];
         }
     }
 
