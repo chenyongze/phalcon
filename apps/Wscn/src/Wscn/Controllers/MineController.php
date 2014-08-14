@@ -5,6 +5,7 @@ namespace Wscn\Controllers;
 use Eva\EvaUser\Models\Login;
 use Eva\EvaUser\Models\User;
 use Eva\EvaBlog\Models\Star;
+use Eva\EvaOAuthClient\Models\OAuthManager;
 use Eva\EvaUser\Forms;
 use Wscn\Forms\UserForm;
 use Eva\EvaEngine\Mvc\Controller\SessionAuthorityControllerInterface;
@@ -122,6 +123,25 @@ class MineController extends ControllerBase implements SessionAuthorityControlle
         $me = Login::getCurrentUser();
         $user = User::findFirstById($me['id']);
         $this->view->setVar('item', $user);
+
+        $oauthManager = new OAuthManager();
+        $tokens = $oauthManager->getUserOAuth($user->id);
+        $supportedServices = array(
+            'tencent' => array(
+                'title' => 'QQ',
+            ),
+            'weibo' => array(
+                'title' => '微博'
+            ),
+        );
+        foreach($tokens as $token) {
+            $adapterKey = $token->adapterKey;
+            if(empty($supportedServices[$adapterKey])) {
+                continue;
+            }
+            $supportedServices[$adapterKey]['token'] = $token->toArray();
+        }
+        $this->view->setVar('services', $supportedServices);
     }
 
     public function commentsAction()

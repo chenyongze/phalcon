@@ -4,6 +4,7 @@ namespace Eva\EvaOAuthClient\Models;
 
 use Phalcon\DI;
 use Eva\EvaEngine\Exception;
+use Eva\EvaOAuthClient\Entities\AccessTokens;
 use Eva\EvaEngine\Mvc\Model as BaseModel;
 
 class OAuthManager extends BaseModel 
@@ -45,5 +46,18 @@ class OAuthManager extends BaseModel
     {
         $session = DI::getDefault()->getSession();
         $session->remove(self::ACCESS_TOKEN_KEY);
+    }
+
+    public function getUserOAuth($userId)
+    {
+        $tokens = AccessTokens::find(array(
+            "conditions" => "userId = :userId:",
+            "bind"       => array(
+                'userId' => $userId
+            )
+        ));
+        return $tokens;
+
+    
     }
 }
