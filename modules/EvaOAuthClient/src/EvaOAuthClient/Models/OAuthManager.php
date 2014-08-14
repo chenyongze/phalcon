@@ -57,7 +57,51 @@ class OAuthManager extends BaseModel
             )
         ));
         return $tokens;
-
-    
     }
+
+    public function bindUserOAuth($userId, array $accessToken)
+    {
+        $token = AccessTokens::findFirst(array(
+            "conditions" => "adapterKey = :adapterKey: AND version = :version: AND remoteUserId = :remoteUserId:",
+            "bind"       => array(
+                'adapterKey' => $accessToken['adapterKey'],
+                'version' => $accessToken['version'],
+                'remoteUserId' => $accessToken['remoteUserId'],
+            )
+        ));
+        if ($token) {
+            $token->userId = $userId;
+            if (!$token->save()) {
+                throw new Exception\RuntimeException('ERR_OAUTH_TOKEN_UPDATE_FAILED');
+            }
+            return $token;
+        } else {
+            $accessTokenEntity = new AccessTokens();
+            $accessTokenEntity->assign($accessToken);
+            $accessTokenEntity->tokenStatus = 'active';
+            $accessTokenEntity->userId = $userId;
+            if (!$accessTokenEntity->save()) {
+                throw new Exception\RuntimeException('ERR_OAUTH_TOKEN_UPDATE_FAILED');
+            }
+            return $token;
+        }
+    }
+
+    public function unbindUserOAuth($userId, $adapterKey)
+    {
+        $tokens = AccessTokens::find(array(
+            "conditions" => "userId = :userId: AND adapterKey = :adapterKey:",
+            "bind"       => array(
+                'userId' => $userId,
+                'adapterKey' => $adapterKey,
+            )
+        ));
+        if($tokens) {
+            foreach($tokens as $token) {
+                $token->delete();
+            }
+        }
+        return $tokens;
+    }
+
 }

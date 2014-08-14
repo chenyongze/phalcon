@@ -129,9 +129,11 @@ class MineController extends ControllerBase implements SessionAuthorityControlle
         $supportedServices = array(
             'tencent' => array(
                 'title' => 'QQ',
+                'version' => 'oauth2',
             ),
             'weibo' => array(
-                'title' => '微博'
+                'title' => '微博',
+                'version' => 'oauth2',
             ),
         );
         foreach($tokens as $token) {
