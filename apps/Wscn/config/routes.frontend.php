@@ -134,12 +134,6 @@ return array(
         'auth' => 3,
     ),
 
-    '/auth/:action' =>  array(
-        'module' => 'Wscn',
-        'controller' => 'auth',
-        'action' => 1,
-    ),
-
     '/widget/:action' =>  array(
         'module' => 'Wscn',
         'controller' => 'widget',

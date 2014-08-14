@@ -29,7 +29,9 @@
                                 </td>
                                 <td class="text-right">
                                     <?if(!empty($service['token'])):?>
-                                    <a href="/auth/token/<?=$key?>" class="btn btn-default" data-action="unbind-token">解除绑定</a>
+                                    <a href="/auth/remove/<?=$key?>/<?=strtolower($service['token']['version'])?>" class="btn btn-default btn-mini pull-right" data-action="unbind-token">解除绑定</a>
+                                    <?else:?>
+                                    <a href="/auth/request/<?=$key?>/<?=strtolower($service['version'])?>" class="btn btn-info btn-mini pull-right" data-action="bind-token" target="_blank">立即绑定</a>
                                     <?endif?>
                                 </td>
                             </tr>

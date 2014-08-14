@@ -248,10 +248,14 @@
             console.log(token, user, error, exception);
             //Direct login
             if(user) {
-                usrManager.setUser(user);
-                usrManager.trigger('login');
-                loginUI.hideModal();
-                loginUI.hideMessage();
+                if(usrManager.isLogin()) {
+                    window.location.reload();
+                } else {
+                    usrManager.setUser(user);
+                    usrManager.trigger('login');
+                    loginUI.hideModal();
+                    loginUI.hideMessage();                
+                }
                 return;
             }
             if(token) {

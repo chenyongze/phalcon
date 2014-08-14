@@ -23,6 +23,22 @@ class AuthController extends ControllerBase
         ));
     }
 
+    public function removeAction()
+    {
+        $service = $this->dispatcher->getParam('service');
+        $user = UserModels\Login::getCurrentUser();
+        if(!$user) {
+            throw new Exception\UnauthorizedException('User not login');
+        }
+        $oauthManager = new OAuthManager();
+        try {
+            $oauthManager->unbindUserOAuth($user['id'], $service);
+        } catch (\Exception $e) {
+            $this->showException($e);
+        }
+        return $this->redirectHandler('/mine/oauth');
+    }
+
     public function accessAction()
     {
         $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
@@ -65,20 +81,31 @@ class AuthController extends ControllerBase
             return $this->view->setVar('error', 'ERR_OAUTH_AUTHORIZATION_FAILED');
         }
 
-        $accessTokenArray['suggestUsername'] = $this->getSuggestUsername($accessTokenArray);
-        $accessTokenArray['suggestEmail'] = isset($accessTokenArray['remoteEmail']) ? $accessTokenArray['remoteEmail'] : '';
-        $this->view->setVar('token', $accessTokenArray);
-
-        $user = new OAuthModels\Login();
-        try {
-            if ($user->loginWithAccessToken($accessTokenArray)) {
-                $this->view->setVar('user', UserModels\Login::getCurrentUser());
+        $loginUser = UserModels\Login::getCurrentUser();
+        if($loginUser) {
+            $oauthManager = new OAuthManager();
+            try {
+                $oauthManager->bindUserOAuth($loginUser['id'], $accessTokenArray);
+                OAuthManager::removeAccessToken();
+                $this->view->setVar('user', $loginUser);
+            } catch (\Exception $e) {
+                $this->view->setVar('exception', $e->__toString());
+                $this->view->setVar('error', 'ERR_OAUTH_LOGIN_FAILED');
             }
-        } catch (\Exception $e) {
-            $this->view->setVar('exception', $e->__toString());
-            $this->view->setVar('error', 'ERR_OAUTH_LOGIN_FAILED');
+        } else {
+            $accessTokenArray['suggestUsername'] = $this->getSuggestUsername($accessTokenArray);
+            $accessTokenArray['suggestEmail'] = isset($accessTokenArray['remoteEmail']) ? $accessTokenArray['remoteEmail'] : '';
+            $this->view->setVar('token', $accessTokenArray);
+            $user = new OAuthModels\Login();
+            try {
+                if ($user->loginWithAccessToken($accessTokenArray)) {
+                    $this->view->setVar('user', UserModels\Login::getCurrentUser());
+                }
+            } catch (\Exception $e) {
+                $this->view->setVar('exception', $e->__toString());
+                $this->view->setVar('error', 'ERR_OAUTH_LOGIN_FAILED');
+            }
         }
-
     }
 
     public function registerAction()
