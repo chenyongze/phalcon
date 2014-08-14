@@ -72,13 +72,13 @@
                 <div class="toolbar hidden-xxs" data-action="post">
                     <?if($prevPost = $post->getPrevPost()):?>
                     <a class="prev-post" href="/node/<?=$prevPost->id?>">
-                        <span class="icon glyphicon glyphicon-chevron-left"></span>
+                        <span class="icon fa fa-chevron-left"></span>
                         <img class="img" src="<?=$prevPost->image ? $this->tag->thumb($prevPost->image, 'c_fill,h_80,w_120') : '/img/article.jpg'?>" alt=""/>
                         <h3 class="title"><?=$prevPost->title?></h3>
                     </a>
                     <?else:?>
                     <a class="prev-post" href="/news">
-                        <span class="icon glyphicon glyphicon-chevron-left"></span>
+                        <span class="icon fa fa-chevron-left"></span>
                         <img class="img" src="/img/article.jpg" alt=""/>
                         <h3 class="title">没有更多文章了，看看大家在关注什么</h3>
                     </a>
@@ -86,13 +86,13 @@
                     <div class="separator"></div>
                     <?if($nextPost = $post->getNextPost()):?>
                     <a class="next-post" href="/node/<?=$nextPost->id?>">
-                        <span class="icon glyphicon glyphicon-chevron-right"></span>
+                        <span class="icon fa fa-chevron-right"></span>
                         <img class="img" src="<?=$nextPost->image ? $this->tag->thumb($nextPost->image, 'c_fill,h_80,w_120') : '/img/article.jpg'?>" alt=""/>
                         <h3 class="title"><?=$nextPost->title?></h3>
                     </a>
                     <?else:?>
                     <a class="next-post" href="/news">
-                        <span class="icon glyphicon glyphicon-chevron-right"></span>
+                        <span class="icon fa fa-chevron-right"></span>
                         <img class="img" src="/img/article.jpg" alt=""/>
                         <h3 class="title" style="color:gray">没有更多文章了，看大家在关注什么</h3>
                     </a>
