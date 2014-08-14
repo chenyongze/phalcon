@@ -10,6 +10,59 @@
     $('.fc-list').fcl();
 })(jQuery);
 
+//收藏
+(function($){
+    var loginUI = UserLogin.getInstance().getLoginUI();
+    var usrManager = UserManager.getInstance();
+
+    usrManager.onceLogin(function(user) {
+        $("[data-action=star]").each(function(){
+            var btn = $(this);
+            var postId = btn.attr("data-post-id");
+            $.ajax({
+                url : '/stars/' + postId
+            }).then(function(response) {
+                btn.removeClass("not-stared").addClass("stared");
+            }).fail(function(error) {
+                btn.removeClass("stared").addClass("not-stared");
+            });
+        });
+    });
+
+    $(document).on("click", "body[data-logon=false] [data-action=star]", function(e) {
+        loginUI.showModal();
+        //loginUI.showMessage($(this).attr("data-message"), $(this).attr("data-message"));
+        return false;
+    });
+
+    $(document).on("click", "body[data-logon=true] .not-stared[data-action=star]", function(){
+        var btn = $(this);
+        var postId = btn.attr('data-post-id');
+        $.ajax({
+            url : '/stars/' + postId,
+            method : 'PUT'
+        }).then(function(response) {
+            btn.removeClass("not-stared").addClass("stared");
+        }).fail(function(error) {
+        });
+        return false;
+    });
+
+    $(document).on("click", "body[data-logon=true] .stared[data-action=star]", function(){
+        var btn = $(this);
+        var postId = btn.attr('data-post-id');
+        $.ajax({
+            url : '/stars/' + postId,
+            method : 'DELETE'
+        }).then(function(response) {
+            btn.removeClass("stared").addClass("not-stared");
+        }).fail(function(error) {
+        });
+        return false;
+    });
+
+})(jQuery);
+
 (function(){
     //左侧行情
     var $leftbar = $('#leftbar');
@@ -175,9 +228,17 @@ $(function(){
     */
 
     //city select
-    $('#address').citySelect({
+    $('#profile-form-location-group').citySelect({
         url : '/wscn/js/city.min.js',
+        prov : $("#province").val(),
+        city : $("#city").val(),
+        dist : $("#state").val(),
         required: false
+    });
+    $('#profile-form-location-group').on('change', 'select', function(){
+        console.log(1);
+        var selector = $(this).attr('data-connect');
+        $(selector).val($(this).val());
     });
 
 })(jQuery);

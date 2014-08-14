@@ -1,0 +1,55 @@
+<div id="main-content" class="columns-2">
+    <div id="main" class="page-user">
+        <div class="head">
+            <?include('topinfo.phtml')?>
+        </div>
+        <div class="body">
+            <?include('navmain.phtml')?>
+            <div class="tab-content">
+                <div class="tab-pane active">
+                    <?=$this->tag->flashOutput()?>
+                    <?$stars = $pager->items;?>
+                    <?if($stars->count() > 0):?>
+                    <ul class="news-list">
+                    <?foreach($stars as $star):?>
+                    <?$post = $star->post;?>
+                    <?if($post):?>
+                        <li class="news">
+                        <div class="clearfix">
+                            <a href="<?=$post->getUrl()?>">
+                                <img class="lazy img" src="/wscn/img/bg-img.gif" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_120,w_200') : '/img/article.jpg'?>" alt=""/>
+                            </a>
+                            <div class="content">
+                                <a class="title" href="<?=$post->getUrl()?>"><?=$post->title?><a>
+                                <p class="summary">
+                                <?if($post->summary):?>
+                                    <?=$post->getSummaryHtml()?>
+                                <?else:?>
+                                    <?=\Eva\EvaEngine\Text\Substring::substrCn(strip_tags($post->getContentHtml()), 100);?>
+                                <?endif?>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="clearfix">
+                            <span class="time"><?=$this->tag->datetime($post->createdAt)?></span>
+                            <span class="collect active"></span>
+                        </div>
+                        </li>
+                    <?endif?>
+                    <?endforeach?>
+                    </ul>
+                    <?endif?>
+            <?$this->partial("partial/paginator", array(
+                'pagerUrl' => '/mine/stars',
+                'pager' => $pager,
+            ))?>
+                </div>
+            </div>
+        </div>
+        <div class="foot"></div>
+    </div>
+    <div id="rightbar">
+        <?include('sidebar.phtml')?>
+    </div>
+    <!-- rightbar end -->
+</div>

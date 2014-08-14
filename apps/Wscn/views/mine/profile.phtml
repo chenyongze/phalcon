@@ -13,7 +13,7 @@
                         <h3 class="title">基本资料</h3>
                         <?$profileForm = $form->getForm('profile');?>
 
-                        <form class="form-horizontal">
+                        <form action="" class="form-horizontal" method="POST">
                             <div class="form-group">
                                 <?=$form->render('id', array(
                                     'placeholder' => 'ID',
@@ -83,20 +83,14 @@
                                 <label class="col-sm-3 control-label no-padding-right">性别</label>
 
                                 <div class="col-sm-9">
+                                    <?$genders = $form->getGender();?>
+                                    <?foreach($genders as $gender):?>
                                     <label class="inline">
-                                        <input type="radio" class="ace" name="form-field-radio" value="male">
-                                        <span class="lbl"> 男士</span>
+                                        <?=$gender->render()?>
+                                        <span class="lbl"> <?=$gender->getLabel()?></span>
                                     </label>
                                     &nbsp; &nbsp; &nbsp;
-                                    <label class="inline">
-                                        <input type="radio" class="ace" name="form-field-radio" value="female">
-                                        <span class="lbl"> 女士</span>
-                                    </label>
-                                    &nbsp; &nbsp; &nbsp;
-                                    <label class="inline">
-                                        <input type="radio" class="ace" name="form-field-radio" value="other">
-                                        <span class="lbl"> 其他</span>
-                                    </label>
+                                    <?endforeach?>
                                 </div>
                             </div>
 
@@ -120,17 +114,21 @@
 
                             <div class="form-group">
                                 <label for="form-field-first" class="col-sm-3 control-label no-padding-right">所在地区</label>
-
                                 <div class="col-sm-9">
-                                    <div id="address" class="row">
+                                    <div id="profile-form-location-group" class="row">
                                         <div class="col-xs-4">
-                                            <select class="prov form-control"></select>
+                                            <select id="profile-form-province" class="prov form-control" data-connect="#province"></select>
                                         </div>
                                         <div class="col-xs-4">
-                                            <select class="city form-control" disabled="disabled"></select>
+                                            <select id="profile-form-city" class="city form-control" disabled="disabled" data-connect="#city"></select>
                                         </div>
                                         <div class="col-xs-4">
-                                            <select class="dist form-control" disabled="disabled"></select>
+                                            <select id="profile-form-state" class="dist form-control" disabled="disabled" data-connect="#state"></select>
+                                        </div>
+                                        <div class="hide">
+                                        <?=$profileForm->render('province')?>
+                                        <?=$profileForm->render('city')?>
+                                        <?=$profileForm->render('state')?>
                                         </div>
                                     </div>
                                 </div>

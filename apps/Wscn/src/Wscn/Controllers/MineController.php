@@ -4,27 +4,46 @@ namespace Wscn\Controllers;
 
 use Eva\EvaUser\Models\Login;
 use Eva\EvaUser\Models\User;
+use Eva\EvaBlog\Models\Star;
+use Eva\EvaOAuthClient\Models\OAuthManager;
 use Eva\EvaUser\Forms;
+use Wscn\Forms\UserForm;
 use Eva\EvaEngine\Mvc\Controller\SessionAuthorityControllerInterface;
 
 class MineController extends ControllerBase implements SessionAuthorityControllerInterface
 {
     public function dashboardAction()
     {
-        $me = Login::getCurrentUser();
-        $user = User::findFirstById($me['id']);
-        $this->view->setVar('item', $user);
+        $this->dispatcher->forward(array(
+            'action' => 'stars'
+        ));
     }
 
     public function profileAction()
     {
         $me = Login::getCurrentUser();
         $user = User::findFirstById($me['id']);
-        $form = new \Eva\EvaUser\Forms\UserForm();
+        $form = new UserForm();
         $form->setModel($user);
         $form->addForm('profile', 'Eva\EvaUser\Forms\ProfileForm');
         $this->view->setVar('item', $user);
         $this->view->setVar('form', $form);
+        if (!$this->request->isPost()) {
+            return;
+        }
+
+        $data = $this->request->getPost();
+        if (!$form->isFullValid($data)) {
+            return $this->showInvalidMessages($form);
+        }
+
+        try {
+            $form->save('changeProfile');
+        } catch (\Exception $e) {
+            return $this->showException($e, $form->getModel()->getMessages());
+        }
+        $this->flashSession->success('SUCCESS_USER_UPDATED');
+        return $this->redirectHandler('/mine/profile');
     }
 
     public function passwordAction()
@@ -98,4 +117,65 @@ class MineController extends ControllerBase implements SessionAuthorityControlle
             }
         }
     }
+
+    public function oauthAction()
+    {
+        $me = Login::getCurrentUser();
+        $user = User::findFirstById($me['id']);
+        $this->view->setVar('item', $user);
+
+        $oauthManager = new OAuthManager();
+        $tokens = $oauthManager->getUserOAuth($user->id);
+        $supportedServices = array(
+            'tencent' => array(
+                'title' => 'QQ',
+            ),
+            'weibo' => array(
+                'title' => '微博'
+            ),
+        );
+        foreach($tokens as $token) {
+            $adapterKey = $token->adapterKey;
+            if(empty($supportedServices[$adapterKey])) {
+                continue;
+            }
+            $supportedServices[$adapterKey]['token'] = $token->toArray();
+        }
+        $this->view->setVar('services', $supportedServices);
+    }
+
+    public function commentsAction()
+    {
+        $me = Login::getCurrentUser();
+        $user = User::findFirstById($me['id']);
+        $this->view->setVar('item', $user);
+    
+    }
+
+    public function starsAction()
+    {
+        $me = Login::getCurrentUser();
+        $user = User::findFirstById($me['id']);
+        $this->view->setVar('item', $user);
+        $userId = $user->id;
+
+        $query = array(
+            'page' => $this->request->getQuery('page', 'int', 1),
+        );
+        $star = new Star();
+        $starsItemQuery = $star->getStars($userId);
+        $paginator = new \Eva\EvaEngine\Paginator(array(
+            "builder" => $starsItemQuery,
+            "limit"=> 5,
+            "page" => $query['page']
+        ));
+        $paginator->setQuery($query);
+        $pager = $paginator->getPaginate();
+        $this->view->setVar('pager', $pager);
+    }
+
+    public function quotesAction()
+    {
+    }
+
 }

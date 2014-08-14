@@ -24,17 +24,20 @@ class RegisterController extends ControllerBase
                 'email' => $this->request->getPost('email'),
                 'password' => $this->request->getPost('password'),
             ));
+            $transaction = $this->getDI()->getTransactions()->get();
             try {
+                $transaction->begin();
                 $registerUser = $user->register();
+                $transaction->commit();
                 return $this->showResponseAsJson($registerUser);
             } catch (\Exception $e) {
+                $transaction->rollback();
                 return $this->showExceptionAsJson($e, $user->getMessages());
             }
         } else {
             $form = new Forms\RegisterForm();
             if ($form->isValid($this->request->getPost()) === false) {
                 $this->showInvalidMessages($form);
-
                 return $this->redirectHandler($this->getDI()->getConfig()->user->registerFailedRedirectUri);
             }
             $user = new Models\Register();
@@ -43,11 +46,16 @@ class RegisterController extends ControllerBase
                 'email' => $this->request->getPost('email'),
                 'password' => $this->request->getPost('password'),
             ));
-            try {
-                $user->register();
-            } catch (\Exception $e) {
-                $this->showException($e, $user->getMessages());
 
+            $transaction = $this->getDI()->getTransactions()->get();
+            try {
+                $transaction->begin();
+                $user->register();
+                throw new \Exception('abc');
+                $transaction->commit();
+            } catch (\Exception $e) {
+                $transaction->rollback();
+                $this->showException($e, $user->getMessages());
                 return $this->redirectHandler($this->getDI()->getConfig()->user->registerFailedRedirectUri);
             }
             $this->flashSession->success('SUCCESS_USER_REGISTERED_ACTIVE_MAIL_SENT');

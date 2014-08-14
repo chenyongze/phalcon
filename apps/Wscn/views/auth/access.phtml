@@ -14,10 +14,10 @@
                     window.location.href = '<?=$this->url->get('/')?>';
                 } else {
                     var error = <?=json_encode($error);?>;
-                    var success = <?=json_encode($success);?>;
+                    var exception = <?=json_encode($exception);?>;
                     var token = <?=json_encode($token);?>;
                     var user = <?=json_encode($user);?>;
-                    window.opener.UserLogin.getInstance().setOAuthResponse(token, user, success, error);
+                    window.opener.UserLogin.getInstance().setOAuthResponse(token, user, error, exception);
                 }
             } catch(err) {
                 console.log(err);

@@ -2,7 +2,7 @@
 
 namespace Eva\EvaBlog\Entities;
 
-class Favors extends \Eva\EvaEngine\Mvc\Model
+class Stars extends \Eva\EvaEngine\Mvc\Model
 {
 
     /**
@@ -30,5 +30,12 @@ class Favors extends \Eva\EvaEngine\Mvc\Model
     public $createdAt = 0;
 
 
-    protected $tableName = 'blog_favors';
+    protected $tableName = 'blog_stars';
+
+    public function initialize()
+    {
+        $this->hasOne('postId', 'Eva\EvaBlog\Entities\Posts', 'id', array(
+            'alias' => 'post'
+        ));
+    }
 }

@@ -32,6 +32,12 @@ return array(
         'routesFrontend' => false,
         'routesBackend' => false,
     ),
+    'WscnApiVer1' => array(
+        'className' => 'WscnApiVer1\Module',
+        'path' => __DIR__ . '/../apps/WscnApiVer1/Module.php',
+        'routesFrontend' => __DIR__ . '/../apps/WscnApiVer1/config/routes.frontend.php',
+        'routesBackend' => __DIR__ . '/../apps/WscnApiVer1/config/routes.backend.php',
+    ),
     'WscnApiVer2' => array(
         'className' => 'WscnApiVer2\Module',
         'path' => __DIR__ . '/../apps/WscnApiVer2/Module.php',

@@ -7,6 +7,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta property="qc:admins" content="2540516740124067144342554366375747716" />
     <title><?=$this->placeholder->block('title', '华尔街见闻');?></title>
 
     <!-- Bootstrap -->
@@ -23,7 +24,6 @@
             document.querySelector('head').appendChild(msViewportStyle);
         }
     </script>
-
     <!-- font-awesome -->
     <link href="/wscn/css/font-awesome.min.css" rel="stylesheet">
     <!-- nanoScroller -->
@@ -455,11 +455,25 @@
                                     <div class="custom-span-3">
                                         <h3 class="form-title">华尔街见闻</h3>
                                         <div class="form-group has-feedback size-sm">
-                                            <input type="text" name="identify" class="form-control" placeholder="用户名或邮箱" required>
+                                            <input type="text" name="identify" class="form-control" placeholder="用户名或邮箱" required
+                                                data-parsley-trigger="blur change"
+                                                maxlength="24"
+                                                data-parsley-minlength="4"
+                                                data-parsley-minlength-message="用户名最短4个字符"
+                                                data-parsley-pattern="^(?![0-9]+$)"
+                                                data-parsley-pattern-message="不支持纯数字用户名"
+                                            >
                                             <span class="glyphicon glyphicon-user form-control-feedback"></span>
                                         </div>
                                         <div class="form-group has-feedback size-sm">
-                                            <input type="password" name="password" class="form-control password-previewer" placeholder="密码" required>
+                                            <input type="password" name="password" class="form-control" placeholder="密码" required
+                                                data-parsley-trigger="blur change"
+                                                data-parsley-minlength="6"
+                                                data-parsley-minlength-message="密码最短6位"
+                                                maxlength="26"
+                                                data-parsley-maxlength="26"
+                                                data-parsley-max-length="密码最长26位"
+                                            >
                                             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                                         </div>
                                         <label class="form-label">请验证需要绑定的帐号信息</label>

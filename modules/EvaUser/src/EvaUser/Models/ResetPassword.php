@@ -28,6 +28,10 @@ class ResetPassword extends Entities\Users
             throw new Exception\OperationNotPermitedException('ERR_USER_NOT_ACTIVED');
         }
 
+        if ($userinfo->emailStatus != 'active') {
+            throw new Exception\OperationNotPermitedException('ERR_USER_EMAIL_NOT_ACTIVED');
+        }
+
         // generate random hash for email password reset verification (40 char string)
         $userinfo->passwordResetHash = sha1(uniqid(mt_rand(), true));
         $userinfo->passwordResetAt = time();

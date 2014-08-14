@@ -9,6 +9,10 @@ return array(
     
     'debug' => 1, //Global debug switcher
 
+    'permission' => array(
+        'disableAll' => true
+    ),
+
     'modelsMetadata' => array(
         'enable' => true,
         'adapter' => 'files',

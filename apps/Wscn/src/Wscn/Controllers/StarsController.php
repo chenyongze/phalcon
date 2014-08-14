@@ -3,7 +3,7 @@
 namespace Wscn\Controllers;
 
 use Eva\EvaUser\Models\Login;
-use Eva\EvaBlog\Entities\Favors;
+use Eva\EvaBlog\Entities\Stars;
 //use Eva\EvaEngine\Mvc\Controller\SessionAuthorityControllerInterface;
 use Eva\EvaEngine\Mvc\Controller\JsonControllerInterface;
 
@@ -18,7 +18,7 @@ class StarsController extends ControllerBase implements JsonControllerInterface
         if($userId < 1 || $postId < 1) {
             return;
         }
-        $star = Favors::findFirst("userId = $userId AND postId = $postId");
+        $star = Stars::findFirst("userId = $userId AND postId = $postId");
         if($star) {
             return $this->response->setJsonContent($star);
         } else {
@@ -34,11 +34,11 @@ class StarsController extends ControllerBase implements JsonControllerInterface
         if($userId < 1 || $postId < 1) {
             return;
         }
-        $star = Favors::findFirst("userId = $userId AND postId = $postId");
+        $star = Stars::findFirst("userId = $userId AND postId = $postId");
         if($star) {
             return $this->response->setJsonContent($star);
         }
-        $star = new Favors();
+        $star = new Stars();
         $star->userId = $userId;
         $star->postId = $postId;
         $star->createdAt = time();
@@ -54,11 +54,11 @@ class StarsController extends ControllerBase implements JsonControllerInterface
         if($userId < 1 || $postId < 1) {
             return;
         }
-        $star = Favors::findFirst("userId = $userId AND postId = $postId");
+        $star = Stars::findFirst("userId = $userId AND postId = $postId");
         if($star) {
             $star->delete();
         } else {
-            $star = new Favors();
+            $star = new Stars();
             $star->userId = $userId;
             $star->postId = $postId;
         }

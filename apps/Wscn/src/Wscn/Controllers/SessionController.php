@@ -21,7 +21,6 @@ class SessionController extends ControllerBase
             return $this->response->redirect($this->getDI()->getConfig()->user->activeFailedRedirectUri);
         }
         $this->flashSession->success('SUCCESS_USER_ACTIVED');
-
         return $this->response->redirect($this->getDI()->getConfig()->user->activeSuccessRedirectUri);
     }
 
@@ -32,24 +31,38 @@ class SessionController extends ControllerBase
         }
 
         $email = $this->request->getPost('email');
-        if (!$email || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            return $this->response->redirect($this->getDI()->getConfig()->user->resetFailedRedirectUri);
+        if($this->request->isAjax()) {
+            if (!$email || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                return $this->showErrorMessageAsJson(401, 'ERR_EMAIL_FORMAT_NOT_CORRECT');
+            }
+            $user = new Models\ResetPassword();
+            $user->assign(array(
+                'email' => $email,
+            ));
+            try {
+                $user->requestResetPassword();
+                return $this->showResponseAsJson('SUCCESS_USER_RESET_MAIL_SENT');
+            } catch (\Exception $e) {
+                return $this->showExceptionAsJson($e, $user->getMessages());
+            }
+        } else {
+            if (!$email || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                return $this->redirectHandler($this->getDI()->getConfig()->user->resetFailedRedirectUri);
+            }
+            $user = new Models\ResetPassword();
+            $user->assign(array(
+                'email' => $email,
+            ));
+            try {
+                $user->requestResetPassword();
+                $this->flashSession->success('SUCCESS_USER_RESET_MAIL_SENT');
+            } catch (\Exception $e) {
+                $this->showException($e, $user->getMessages());
+                return $this->redirectHandler($this->getDI()->getConfig()->user->resetFailedRedirectUri);
+            }
+            return $this->redirectHandler($this->getDI()->getConfig()->user->resetSuccessRedirectUri);
         }
 
-        $user = new Models\ResetPassword();
-        $user->assign(array(
-            'email' => $email,
-        ));
-        try {
-            $user->requestResetPassword();
-            $this->flashSession->success('SUCCESS_USER_RESET_MAIL_SENT');
-        } catch (\Exception $e) {
-            $this->showException($e, $user->getMessages());
-
-            return $this->response->redirect($this->getDI()->getConfig()->user->resetFailedRedirectUri);
-        }
-
-        return $this->response->redirect($this->getDI()->getConfig()->user->resetSuccessRedirectUri);
     }
 
     public function resetAction()
