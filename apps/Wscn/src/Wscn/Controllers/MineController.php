@@ -128,4 +128,9 @@ class MineController extends ControllerBase implements SessionAuthorityControlle
     public function starsAction()
     {
     }
+
+    public function quotesAction()
+    {
+    }
+
 }

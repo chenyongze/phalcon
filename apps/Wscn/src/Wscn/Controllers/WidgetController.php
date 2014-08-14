@@ -15,7 +15,11 @@ class WidgetController extends ControllerBase
         $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
         $provider  = Request::getProvider();
         $provider->setBaseUri('http://api.markets.wallstreetcn.com/v1/');
-        $response = $provider->get('quotes.json');
+        try {
+            $response = $provider->get('quotes.json');
+        } catch (\Exception $e) {
+            return $this->view->setVar('quotes', array());
+        }
         if($response->header->statusCode != 200) {
             return $this->view->setVar('quotes', array());
         }

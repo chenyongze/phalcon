@@ -30,5 +30,5 @@ class Favors extends \Eva\EvaEngine\Mvc\Model
     public $createdAt = 0;
 
 
-    protected $tableName = 'blog_favors';
+    protected $tableName = 'blog_stars';
 }

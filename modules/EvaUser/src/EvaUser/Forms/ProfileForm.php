@@ -138,7 +138,7 @@ class ProfileForm extends Form
     public $phoneHome;
 
     /**
-     *
+     * @Type(Textarea)
      * @var string
      */
     public $fax;
