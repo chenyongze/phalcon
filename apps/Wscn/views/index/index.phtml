@@ -5,47 +5,56 @@
     </aside>
     <div id="wrapper">
         <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 4 ,'limit' => 3, 'has_image' => 1, 'order' => '-sort_order'));$posts = $pager->items;?>
-        <div id="main" class="page-index">
-            <div class="top3-news custom-row hidden-xxs">
-                <div class="custom-span-1">
-                    <?$posts->valid(); $post = $posts->current();?>
-                    <?if($post):?>
-                    <a class="top1 cover-img" href="<?=$post->getUrl()?>">
-                        <img class="lazy img" src="/wscn/img/bg-img.gif" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_300,w_426') : '/img/article.jpg'?>" alt=""/>
-                        <div class="cover">
-                            <h3 class="title"><?=$post->title?></h3>
-                            <!--
-                            <h4 class="subtitle">MSCI将A股纳入新兴市场指数意味着什么？120亿美元入场</h4>
-                            -->
-                        </div>
+
+        <!--  -->
+        <div id="index-top-news">
+            <?$posts->valid(); $post = $posts->current();?>
+            <?if($post):?>
+            <a class="top1 cover-img" href="<?=$post->getUrl()?>">
+                <img class="lazy img" src="/wscn/img/bg-img.gif" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_300,w_426') : '/img/article.jpg'?>" alt=""/>
+                <div class="cover">
+                    <h3 class="title"><?=$post->title?></h3>
+                    <!--
+                    <h4 class="subtitle">MSCI将A股纳入新兴市场指数意味着什么？120亿美元入场</h4>
+                    -->
+                </div>
+            </a>
+            <?endif?>
+            <?$posts->valid(); $post = $posts->current();?>
+            <?if($post):?>
+            <a class="top2 cover-img" href="<?=$post->getUrl()?>">
+                <img class="lazy img" src="/wscn/img/bg-img.gif" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_149,w_212') : '/img/article.jpg'?>" alt=""/>
+                <div class="cover">
+                    <h3 class="title"><?=$post->title?></h3>
+                </div>
+            </a>
+            <?endif?>
+            <?$posts->valid(); $post = $posts->current();?>
+            <?if($post):?>
+            <a class="top3 cover-img" href="<?=$post->getUrl()?>">
+                <img class="lazy img" src="/wscn/img/bg-img.gif" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_149,w_212') : '/img/article.jpg'?>" alt=""/>
+                <div class="cover">
+                    <h3 class="title"><?=$post->title?></h3>
+                </div>
+            </a>
+            <?endif?>
+            <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 4 ,'limit' => 6, 'page' => 2, 'has_image' => 1, 'order' => '-sort_order'));$posts = $pager->items;?>
+            <ul class="content">
+                <li class="head">
+                    头条新闻
+                </li>
+                <?foreach($posts as $post):?>
+                <li class="news">
+                    <a class="title" href="<?=$post->getUrl()?>">
+                        <strong><?=$post->title?></strong>
                     </a>
-                    <?endif?>
-                </div>
-                <div class="custom-span-2">
-                    <div class="custom-span-3">
-                        <?$posts->valid(); $post = $posts->current();?>
-                        <?if($post):?>
-                        <a class="top2 cover-img" href="<?=$post->getUrl()?>">
-                            <img class="lazy img" src="/wscn/img/bg-img.gif" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_149,w_212') : '/img/article.jpg'?>" alt=""/>
-                            <div class="cover">
-                                <h3 class="title"><?=$post->title?></h3>
-                            </div>
-                        </a>
-                        <?endif?>
-                    </div>
-                    <div class="custom-span-4">
-                        <?$posts->valid(); $post = $posts->current();?>
-                        <?if($post):?>
-                        <a class="top3 cover-img" href="<?=$post->getUrl()?>">
-                            <img class="lazy img" src="/wscn/img/bg-img.gif" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_149,w_212') : '/img/article.jpg'?>" alt=""/>
-                            <div class="cover">
-                                <h3 class="title"><?=$post->title?></h3>
-                            </div>
-                        </a>
-                        <?endif?>
-                    </div>
-                </div>
-            </div>
+                </li>
+                <?endforeach?>
+            </ul>
+        </div>
+
+        <div id="main" class="page-index">
+
             <ul class="custom-nav-tabs">
                 <li class="active"><a data-toggle="tab" data-trigger="lazyload" href="#main-news">最新文章</a></li>
                 <!--<li><a data-toggle="tab" href="#main-hot-news">热门排行</a></li>-->
@@ -135,19 +144,7 @@
             </div>
         </div>
         <div id="rightbar">
-            <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 4 ,'limit' => 6, 'page' => 2, 'has_image' => 1, 'order' => '-sort_order'));$posts = $pager->items;?>
-            <ul id="side-topnews" class="">
-                <li class="head">
-                    头条新闻
-                </li>
-                <?foreach($posts as $post):?>
-                <li class="news">
-                <a class="title" href="<?=$post->getUrl()?>">
-                    <strong><?=$post->title?></strong>
-                </a>
-                </li>
-                <?endforeach?>
-            </ul>
+
             <!--  -->
             <div class="side-ad">
                 <img src="/wscn/img/side-img-1.jpg" alt=""/>
