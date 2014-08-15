@@ -78,9 +78,15 @@
             var scroll = $document.scrollTop();
             //console.log(scroll);
             if (scroll > unwindPoint) {
-                $leftbar.addClass('unwind');
+                if (! $leftbar.hasClass('unwind')) {
+                    $leftbar.addClass('unwind');
+                    //$leftbar.trigger('height_change');
+                }
             } else {
-                $leftbar.removeClass('unwind');
+                if ($leftbar.hasClass('unwind')) {
+                    $leftbar.removeClass('unwind');
+                    //$leftbar.trigger('height_change');
+                }
             }
             if (scroll > scrollMax) {
                 $leftbar.addClass('moveout');

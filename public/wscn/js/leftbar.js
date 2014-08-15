@@ -256,6 +256,7 @@
         });
         //
         $leftbar.on('mouseleave', '[data-hover=related-info]', function(e){
+            clearTimeout(timeout_show);
             fold();
         });
         //实时新闻列表 展开
@@ -263,6 +264,13 @@
             var $content = $(this).parent();
             $content.toggleClass('fullsize');
             //更新 滚动条
+            $marketInfo.nanoScroller();
+        });
+
+        //监听 leftbar 过度变化，更新滚动条
+        $leftbar.on('transitionend', function(e){
+            console.log('$leftbar transitionend');
+            $marketList.nanoScroller();
             $marketInfo.nanoScroller();
         });
     }
