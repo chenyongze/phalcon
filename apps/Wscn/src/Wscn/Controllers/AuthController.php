@@ -82,7 +82,7 @@ class AuthController extends ControllerBase
         }
 
         $loginUser = UserModels\Login::getCurrentUser();
-        if($loginUser) {
+        if($loginUser && $loginUser['id'] > 0) {
             $oauthManager = new OAuthManager();
             try {
                 $oauthManager->bindUserOAuth($loginUser['id'], $accessTokenArray);

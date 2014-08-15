@@ -7,9 +7,7 @@ class LogoutController extends ControllerBase
     public function indexAction()
     {
         $this->cookies->delete('realm');
-        $this->getDI()->get('session')->remove('auth-identity');
-        $this->view->disable();
-
+        $this->getDI()->getSession()->remove('auth-identity');
         return $this->response->redirect('/');
     }
 
