@@ -8,6 +8,18 @@ use Eva\EvaEngine\Exception;
 
 class Register extends Entities\Users
 {
+    protected static $verificationEmailTemplate;
+
+    public static function setVerificationEmailTemplate($template)
+    {
+        self::$verificationEmailTemplate = $template;
+    }
+
+    public static function getVerificationEmailTemplate()
+    {
+        return self::$verificationEmailTemplate;
+    }
+
     public function register($disablePassword = false)
     {
         $this->getDI()->getEventsManager()->fire('user:beforeRegister', $this);
@@ -38,7 +50,7 @@ class Register extends Entities\Users
         if (!$userinfo) {
             throw new Exception\RuntimeException('ERR_USER_CREATE_FAILED');
         }
-        //$this->sendVerificationEmail($userinfo->username);
+        $this->sendVerificationEmail($userinfo->username);
 
         $this->getDI()->getEventsManager()->fire('user:afterRegister', $this);
         return $userinfo;
@@ -71,7 +83,9 @@ class Register extends Entities\Users
         $message->setTo(array(
             $userinfo->email => $userinfo->username
         ));
-        $message->setTemplate($this->getDI()->getConfig()->user->activeMailTemplate);
+        $template = self::getVerificationEmailTemplate();
+        $template = $template ?: $this->getDI()->getConfig()->user->activeMailTemplate;
+        $message->setTemplate($template);
         $message->assign(array(
             'user' => $userinfo->toArray(),
             'url' => $message->toSystemUrl('/session/verify/' . urlencode($userinfo->username) . '/' . $userinfo->activationHash)

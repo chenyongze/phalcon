@@ -1,4 +1,4 @@
-重置密码
+设置华尔街见闻帐号密码
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -787,10 +787,15 @@ body.outlook p {
                       <table class="twelve columns">
                         <tr>
                           <td>
-                              <h1>Hi, <?=$user['username']?></h1>
-                                <p>You recently requested a link to reset your password.</p>
-                                <p>Please set a new password by following the link below:</p>
-                                <p><a href="<?=$url?>"><?=$url?></a></p>
+                              <h1><?=$user['username']?></h1>
+                              <p>您只需点击下面的链接即可重设您的密码：</p>
+<p><a href="<?=$url?>"><?=$url?></a></p>
+                              <p>(如果链接无法点击，请手工粘贴以下地址到浏览器地址栏再访问)</p>
+
+                              <p>----------------------------------------------------------------------<p>
+                              <p>这封信是由华尔街见闻发送的。</p>
+                              <p>您收到这封邮件，是由于用户在华尔街见闻提交了一个取回密码的请求。</p>
+                              <p>如果您并没有访问过华尔街见闻，或没有进行上述操作，请忽略这封邮件。</p>
                           </td>
                           <td class="expander"></td>
                         </tr>
