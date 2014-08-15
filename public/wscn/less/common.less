@@ -444,6 +444,7 @@ img.lazy {
                 width: 200px;
                 @media (max-width: @screen-xs-max) {
                     width: 120px;
+                    margin-top: 0;
                 }
                 @media (max-width: @screen-xxs-max) {
                     width: 80px;
@@ -473,6 +474,10 @@ img.lazy {
                 &:first-child {
                     margin-left: 0;
                 }
+                @media (max-width: @screen-xs-max) {
+                    margin-top: 5px ;
+                }
+
             }
             .author {
                 color: @blue;
