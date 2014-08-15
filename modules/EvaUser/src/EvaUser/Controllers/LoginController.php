@@ -38,7 +38,7 @@ class LoginController extends ControllerBase
             $form = new Forms\LoginForm();
             if ($form->isValid($this->request->getPost()) === false) {
                 $this->showInvalidMessages($form);
-                return $this->redirectHandler($this->getDI()->getConfig()->user->loginFailedRedirectUri);
+                return $this->redirectHandler($this->getDI()->getConfig()->user->loginFailedRedirectUri, 'error');
             }
 
             $user = new Login();
@@ -56,7 +56,7 @@ class LoginController extends ControllerBase
                 return $this->redirectHandler($this->getDI()->getConfig()->user->loginSuccessRedirectUri);
             } catch (\Exception $e) {
                 $this->showException($e, $user->getMessages());
-                return $this->redirectHandler($this->getDI()->getConfig()->user->loginFailedRedirectUri);
+                return $this->redirectHandler($this->getDI()->getConfig()->user->loginFailedRedirectUri, 'error');
             }
 
         }

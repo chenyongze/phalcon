@@ -38,7 +38,7 @@ class RegisterController extends ControllerBase
             $form = new Forms\RegisterForm();
             if ($form->isValid($this->request->getPost()) === false) {
                 $this->showInvalidMessages($form);
-                return $this->redirectHandler($this->getDI()->getConfig()->user->registerFailedRedirectUri);
+                return $this->redirectHandler($this->getDI()->getConfig()->user->registerFailedRedirectUri, 'error');
             }
             $user = new Models\Register();
             $user->assign(array(
@@ -47,19 +47,14 @@ class RegisterController extends ControllerBase
                 'password' => $this->request->getPost('password'),
             ));
 
-            $transaction = $this->getDI()->getTransactions()->get();
             try {
-                $transaction->begin();
                 $user->register();
-                throw new \Exception('abc');
-                $transaction->commit();
             } catch (\Exception $e) {
-                $transaction->rollback();
                 $this->showException($e, $user->getMessages());
-                return $this->redirectHandler($this->getDI()->getConfig()->user->registerFailedRedirectUri);
+                return $this->redirectHandler($this->getDI()->getConfig()->user->registerFailedRedirectUri, 'error');
             }
             $this->flashSession->success('SUCCESS_USER_REGISTERED_ACTIVE_MAIL_SENT');
-            return $this->redirectHandler($this->getDI()->getConfig()->user->registerFailedRedirectUri);
+            return $this->redirectHandler($this->getDI()->getConfig()->user->registerSuccessRedirectUri);
         }
     }
 
