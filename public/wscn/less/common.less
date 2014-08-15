@@ -461,12 +461,13 @@ img.lazy {
             }
             .title {
                 display: block;
+                color: #000;
                 font-size: 18px;
                 line-height: 25px;
             }
             .meta {
                 display: inline-block;
-                margin-top: 16px ;
+                margin-top: 10px ;
                 margin-left: 16px;
                 font-size: 12px;
                 height: 16px;
@@ -480,8 +481,11 @@ img.lazy {
 
             }
             .author {
-                color: @blue;
+                color: #999;
                 margin-left: 0;
+                &:hover {
+                    color: @blue;
+                }
             }
             .time {
                 color: #999;

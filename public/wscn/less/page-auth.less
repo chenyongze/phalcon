@@ -113,7 +113,16 @@
 
 #auth {
     background-color: #eee;
-    padding: 40px 100px 100px;
+    padding: 20px;
+    @media (min-width: @screen-sm-min) {
+        padding: 25px 30px;
+    }
+    @media (min-width: @screen-md-min) {
+        padding: 30px 60px;
+    }
+    @media (min-width: @screen-lg-min) {
+        padding: 40px 100px 100px;
+    }
     .form-title {
         font-size: 21px;
         padding-bottom: 20px;
@@ -125,15 +134,25 @@
         margin-bottom: 30px;
     }
     .custom-span-1 {
-        width: 66%;
+        @media (min-width: @screen-sm-min) {
+            width: 50%;
+        }
+        @media (min-width: @screen-md-min) {
+            width: 50%;
+        }
+        @media (min-width: @screen-lg-min) {
+            width: 66%;
+        }
     }
     .custom-span-2 {
-        border-left: 1px solid @borderColor;
-        padding-left: 30px;
-        padding-right: 100px;
-        width: 34%;
+
         .custom-button {
             margin-bottom: 15px;
         }
+        @media (min-width: @screen-sm-min) {
+            border-left: 1px solid @borderColor;
+            padding-left: 30px;
+        }
+
     }
 }

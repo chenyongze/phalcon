@@ -492,12 +492,13 @@ img.lazy {
 }
 .news-list.with-img .news .title {
   display: block;
+  color: #000;
   font-size: 18px;
   line-height: 25px;
 }
 .news-list.with-img .news .meta {
   display: inline-block;
-  margin-top: 16px ;
+  margin-top: 10px ;
   margin-left: 16px;
   font-size: 12px;
   height: 16px;
@@ -512,8 +513,11 @@ img.lazy {
   }
 }
 .news-list.with-img .news .author {
-  color: #0078d2;
+  color: #999;
   margin-left: 0;
+}
+.news-list.with-img .news .author:hover {
+  color: #0078d2;
 }
 .news-list.with-img .news .time {
   color: #999;
@@ -1759,11 +1763,18 @@ img.lazy {
   width: 300px;
   margin-bottom: 30px;
 }
+#leftbar > .sidebar .news-list {
+  margin-bottom: 30px;
+}
+#leftbar > .sidebar .news-list .news {
+  margin-bottom: 15px;
+}
 #leftbar .side-title {
   font-size: 16px;
   color: #0078d2;
   line-height: 1em;
   padding-bottom: 8px;
+  margin-bottom: 10px;
   border-bottom: 1px solid #dddddd;
 }
 #leftbar .side-title .more {
@@ -3448,7 +3459,22 @@ body.show-breaking-news #breaking-news {
 }
 #auth {
   background-color: #eee;
-  padding: 40px 100px 100px;
+  padding: 20px;
+}
+@media (min-width: 768px) {
+  #auth {
+    padding: 25px 30px;
+  }
+}
+@media (min-width: 992px) {
+  #auth {
+    padding: 30px 60px;
+  }
+}
+@media (min-width: 1280px) {
+  #auth {
+    padding: 40px 100px 100px;
+  }
 }
 #auth .form-title {
   font-size: 21px;
@@ -3460,17 +3486,29 @@ body.show-breaking-news #breaking-news {
   font-size: 16px;
   margin-bottom: 30px;
 }
-#auth .custom-span-1 {
-  width: 66%;
+@media (min-width: 768px) {
+  #auth .custom-span-1 {
+    width: 50%;
+  }
 }
-#auth .custom-span-2 {
-  border-left: 1px solid #dddddd;
-  padding-left: 30px;
-  padding-right: 100px;
-  width: 34%;
+@media (min-width: 992px) {
+  #auth .custom-span-1 {
+    width: 50%;
+  }
+}
+@media (min-width: 1280px) {
+  #auth .custom-span-1 {
+    width: 66%;
+  }
 }
 #auth .custom-span-2 .custom-button {
   margin-bottom: 15px;
+}
+@media (min-width: 768px) {
+  #auth .custom-span-2 {
+    border-left: 1px solid #dddddd;
+    padding-left: 30px;
+  }
 }
 .page-user > .head {
   margin-bottom: 50px;
