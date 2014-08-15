@@ -66,16 +66,16 @@
     
     }
 
-    var defaultErrorHandle = function(error){
+    var defaultErrorHandle = function(error, callback){
         var messages = error.responseJSON.errors;
         var i = 0;
         if(!messages || messages.length < 1) {
             loginUI.showMessage("ERR_UNKNOW", "连接服务器失败，请稍候重试");
         }
         for(i in messages) {
-            var message = messages[i];
-            var messageCode = message.message;
-            var errorMsg = userMessages[messageCode] || messageCode;
+            var message = messages[i],
+                messageCode = message.message,
+                errorMsg = userMessages[messageCode] || messageCode;
             loginUI.showMessage(messageCode, errorMsg);
         }
     };
@@ -101,19 +101,19 @@
         }).then(function(response){
             loginUI.showMessage("SUCCESS_USER_RESET_MAIL_SENT", userMessages.SUCCESS_USER_RESET_MAIL_SENT, "success");
         }).fail(defaultErrorHandle);
-    }
+    };
 
     var loginByOAuth = function(url, data) {
         var deferred = $.ajax({
             url : url,
             dataType : "json",
             data : data,
-            type : "POST",
+            type : "POST"
         }).then(function(response) {
             loginUI.hideMessage();
             loginUI.hideModal();
             usrManager.setUser(response);
-            usrManager.trigger('login');
+            usrManager.trigger("login");
             p("triggered login by post & connect oauth");
         }).fail(defaultErrorHandle);
         return deferred;
@@ -129,77 +129,82 @@
             loginUI.hideMessage();
             loginUI.hideModal();
             usrManager.setUser(response);
-            usrManager.trigger('login');
+            usrManager.trigger("login");
             p("triggered login by post");
         }).fail(defaultErrorHandle);
         return deferred;
     };
 
     var loginByPassword = function (url, data) {
-        /*
-        var inactiveHandler = function(form){
-            var username = form.find("input[name=identify]").val();
-            form.find(".inactive-handle").html("，如未收到激活邮件，请<a href='/login/reactive?username=" + username + "'>点击重发</a>");
-            form.find(".inactive-handle").on("click", "a", function(){
-                var inactiveLink = $(this);
-                $.ajax({
-                    url : inactiveLink.attr("href"),
-                    type : "GET",
-                    success : function(response){
-                        inactiveLink.closest(".alert")
-                        .removeClass("alert-danger")
-                        .addClass("alert-success")
-                        .html("激活邮件已发送，请登录邮箱查收");
-                    },
-                    error : function(error) {
-                        inactiveLink.closest(".alert")
-                        .html("激活邮件发送失败，请<a href='/login/reactive?username=" + username + "'>重试</a>");
-                    }
-                });
-                return false;
-            });
-        };
-        */
         var loginDeferred = $.ajax({
             url : url,
             dataType : "json",
             data : data,
-            type : "POST",
+            type : "POST"
         }).then(function(response) {
             loginUI.hideMessage();
             loginUI.hideModal();
             usrManager.setUser(response);
-            usrManager.trigger('login');
+            usrManager.trigger("login");
             p("triggered login by post");
-        }).fail(defaultErrorHandle);
+        }).fail(function(error) {
+            defaultErrorHandle(error);
+            initInactive();
+        });
         return loginDeferred;
+    };
+
+    var initInactive =  function(){
+        var handler = $(".inactive-handle");
+        if(!$(".inactive-handle")[0]) {
+            return;
+        }
+        var username = $("input[name=identify]").val();
+        handler.html("，如未收到激活邮件，请<a href='/login/reactive?username=" + username + "' target='blank'>点击重发</a>");
+        /*
+        $(document).on("click", ".inactive-handle a", function() {
+            var inactiveLink = $(this);
+            $.ajax({
+                url : inactiveLink.attr("href"),
+                type : "GET"
+            }).then(function(response){
+                inactiveLink.closest(".alert")
+                .removeClass("alert-danger")
+                .addClass("alert-success")
+                .html("激活邮件已发送，请登录邮箱查收");
+            }).fail(function(){
+                inactiveLink.closest(".alert")
+                .html("激活邮件发送失败，请<a href='/login/reactive?username=" + username + "'>重试</a>");
+            });
+        });
+       */
     };
 
     var notLoginFunctions = {
         initForm : function () {
             $("#user-modal-register").on("submit", "form", function() {
                 var form = $(this);
-                register(form.attr('action'), form.serialize());
+                register(form.attr("action"), form.serialize());
                 return false;    
             });
             $("#user-modal-reset").on("submit", "form", function() {
                 var form = $(this);
-                resetPassword(form.attr('action'), form.serialize());
+                resetPassword(form.attr("action"), form.serialize());
                 return false;    
             });
             $("#user-modal-login").on("submit", "form", function(){
                 var form = $(this);
-                loginByPassword(form.attr('action'), form.serialize());
+                loginByPassword(form.attr("action"), form.serialize());
                 return false;
             });
             $("#user-modal-connect-register").on("submit", "form", function() {
                 var form = $(this);
-                registerByOAuth(form.attr('action'), form.serialize());
+                registerByOAuth(form.attr("action"), form.serialize());
                 return false;    
             });
             $("#user-modal-connect-login").on("submit", "form", function() {
                 var form = $(this);
-                loginByOAuth(form.attr('action'), form.serialize());
+                loginByOAuth(form.attr("action"), form.serialize());
                 return false;    
             });
         },
@@ -214,15 +219,15 @@
     var loginFunctions = {
         replaceViews : function() {
             var user = usrManager.getUser();
-            $("#leftbar .avatar").attr('src', user.avatar);
-            $("#leftbar [data-action=login]").attr('href', '/mine/dashboard');
+            $("#leftbar .avatar").attr("src", user.avatar);
+            $("#leftbar [data-action=login]").attr("href", "/mine/dashboard");
             $("#leftbar [data-action=login]:not(:has(img))").html("个人中心");
-            $('.user-control').addClass(('login'));
-            $(".user-control img").attr('src', user.avatar);
+            $(".user-control").addClass(("login"));
+            $(".user-control img").attr("src", user.avatar);
 
             var path = window.location.pathname;
             if($.inArray(path, ["/login", "/register", "reset"]) !== -1) {
-                window.location.href = '/mine/dashboard';
+                window.location.href = "/mine/dashboard";
             }
         }
     };
@@ -251,7 +256,7 @@
                     window.location.reload();
                 } else {
                     usrManager.setUser(user);
-                    usrManager.trigger('login');
+                    usrManager.trigger("login");
                     loginUI.hideModal();
                     loginUI.hideMessage();                
                 }
@@ -259,7 +264,7 @@
             }
             if(token) {
                 loginUI.showUser(token.remoteUserName, token.remoteImageUrl, token.adapter);
-                loginUI.showModal('register-connect');
+                loginUI.showModal("register-connect");
             }
         }
 
@@ -276,6 +281,8 @@
         , register : register
 
         , registerByOAuth : registerByOAuth
+
+        , initInactive : initInactive
 
         , initialize: function(opts){
             this.options = $.extend({}, defaultOptions, opts);
