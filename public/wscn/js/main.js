@@ -1,11 +1,11 @@
 //滚动条部分初始化
 (function($){
     //页面右侧事实新闻
-    $('#side-livenews').nanoScroller({
+    /*$('#side-livenews').nanoScroller({
         alwaysVisible: true,
         preventPageScrolling: true,
         iOSNativeScrolling: true
-    });
+    });*/
     //页面经济日历
     $('.fc-list').fcl();
 })(jQuery);
@@ -168,6 +168,7 @@ $(function(){
                 top: '+=5'
             }, 500, function(){
                 $sidebar.css('z-index', '4');
+                $sidebar.addClass('active');
                 $('#hide-sidebar').show();
                 $('#show-sidebar').hide();
             })
@@ -184,6 +185,7 @@ $(function(){
                 top: '+=5'
             }, 500, function(){
                 $sidebar.css('z-index', '1');
+                $sidebar.removeClass('active');
                 $('#hide-sidebar').hide();
                 $('#show-sidebar').show();
             })

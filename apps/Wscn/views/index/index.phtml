@@ -150,78 +150,76 @@
                 <img src="/wscn/img/side-img-1.jpg" alt=""/>
             </div>
             <!--  -->
-            <div class="row">
-                <div class="col-sm-12">
+            <div class="custom-box">
+                <ul class="custom-nav-tabs custom-row">
+                    <li class="col-custom-6 active">
+                        <a data-toggle="tab" href="#side-day-rank-news"><strong>日排行</strong></a>
+                    </li>
+                    <li class="col-custom-6 ">
+                        <a data-toggle="tab" href="#side-week-rank-news"><strong>周排行</strong></a>
+                    </li>
+                </ul>
+                <ul class="tab-content">
+                    <li class="tab-pane active" id="side-day-rank-news">
+                        <?$pager = $this->tag->component('post', array('status' => 'published', 'limit' => 10, 'order' => '-count'));$posts = $pager->items;?>
+                        <ul class="news-list with-number">
+                            <?foreach($posts as $post):?>
+                            <li class="news">
+                                <a class="title" href="<?=$post->getUrl()?>">
+                                    <strong><?=$post->title?></strong>
+                                </a>
+                            </li>
+                            <?endforeach?>
+                        </ul>
+                    </li>
+                    <?$pager = $this->tag->component('post', array('status' => 'published', 'limit' => 10, 'order' => '-sort_order'));$posts = $pager->items;?>
+                    <li class="tab-pane " id="side-week-rank-news">
+                        <ul class="news-list with-number">
+                            <?foreach($posts as $post):?>
+                            <li class="news">
+                                <a class="title" href="<?=$post->getUrl()?>">
+                                    <strong><?=$post->title?></strong>
+                                </a>
+                            </li>
+                            <?endforeach?>
+                        </ul>
+                    </li>
+                </ul>
+                <!--  -->
+                <h2 class="main-title">最新留言</h2>
+                <ul class="side-comments">
+                    <li class="comment">
+                        <img class="avatar" src="" alt=""/>
+                        <div>
+                            <a class="name" href="">smartisan</a> 评论了
+                            <a class="title" href="">希尔顿酒店准备在纽约上市融资</a>
+                        </div>
+                        <p class="content">
+                            找中央啊！津京一体化，然后就没有问题了。但无论如何，财政纪律得重新抓，得狠抓，没有问题啊。
+                        </p>
+                        <div>
+                            <span class="time">2014年06月25日 05:58</span>
+                            <a class="text-blue pull-right" href="" data-action="reply">回复</a>
+                        </div>
+                    </li>
 
-                </div>
+                    <li class="comment">
+                        <img class="avatar" src="" alt=""/>
+                        <div>
+                            <a class="name" href="">天才小熊猫</a> 评论了
+                            <a class="title" href="">希尔顿酒店准备在纽约上市融资</a>
+                        </div>
+                        <p class="content">
+                            无言的秘密，美国收水，伊拉克开打不暴跌才怪呢。
+                        </p>
+                        <div>
+                            <span class="time">2014年06月25日 06:03</span>
+                            <a class="text-blue pull-right" href="" data-action="reply">回复</a>
+                        </div>
+                    </li>
+                </ul>
             </div>
-            <ul class="custom-nav-tabs custom-row">
-                <li class="col-custom-6 active">
-                <a data-toggle="tab" href="#side-day-rank-news"><strong>日排行</strong></a>
-                </li>
-                <li class="col-custom-6 ">
-                <a data-toggle="tab" href="#side-week-rank-news"><strong>周排行</strong></a>
-                </li>
-            </ul>
-            <ul class="tab-content">
-                <li class="tab-pane active" id="side-day-rank-news">
-                <?$pager = $this->tag->component('post', array('status' => 'published', 'limit' => 10, 'order' => '-count'));$posts = $pager->items;?>
-                <ul class="news-list with-number">
-                    <?foreach($posts as $post):?>
-                    <li class="news">
-                    <a class="title" href="<?=$post->getUrl()?>">
-                        <strong><?=$post->title?></strong>
-                    </a>
-                    </li>
-                    <?endforeach?>
-                </ul>
-                </li>
-                <?$pager = $this->tag->component('post', array('status' => 'published', 'limit' => 10, 'order' => '-sort_order'));$posts = $pager->items;?>
-                <li class="tab-pane " id="side-week-rank-news">
-                <ul class="news-list with-number">
-                    <?foreach($posts as $post):?>
-                    <li class="news">
-                    <a class="title" href="<?=$post->getUrl()?>">
-                        <strong><?=$post->title?></strong>
-                    </a>
-                    </li>
-                    <?endforeach?>
-                </ul>
-                </li>
-            </ul>
-            <!--  -->
-            <h2 class="main-title">最新留言</h2>
-            <ul class="side-comments">
-                <li class="comment">
-                <img class="avatar" src="" alt=""/>
-                <div>
-                    <a class="name" href="">smartisan</a> 评论了
-                    <a class="title" href="">希尔顿酒店准备在纽约上市融资</a>
-                </div>
-                <p class="content">
-                找中央啊！津京一体化，然后就没有问题了。但无论如何，财政纪律得重新抓，得狠抓，没有问题啊。
-                </p>
-                <div>
-                    <span class="time">2014年06月25日 05:58</span>
-                    <a class="text-blue pull-right" href="" data-action="reply">回复</a>
-                </div>
-                </li>
 
-                <li class="comment">
-                <img class="avatar" src="" alt=""/>
-                <div>
-                    <a class="name" href="">天才小熊猫</a> 评论了
-                    <a class="title" href="">希尔顿酒店准备在纽约上市融资</a>
-                </div>
-                <p class="content">
-                无言的秘密，美国收水，伊拉克开打不暴跌才怪呢。
-                </p>
-                <div>
-                    <span class="time">2014年06月25日 06:03</span>
-                    <a class="text-blue pull-right" href="" data-action="reply">回复</a>
-                </div>
-                </li>
-            </ul>
         </div><!--right bar-->
     </div><!--/wrapper-->
 </div><!--/main content-->
@@ -230,34 +228,33 @@
 <!-- main-content end -->
 <aside id="sidebar" class="hidden-xxs hidden-xs">
     <a id="hide-sidebar" href=""></a>
-    <h3 class="main-title">
+    <h3 class="title">
         实时新闻
         <a class="more" href="/livenews" target="_blank">更多»</a>
     </h3>
-    <div id="side-livenews" class="nano">
-        <ul class="nano-content">
-            <li class="news">
-                <span class="time">18:22</span>国土部：不动产统一登记试点城市确定消息不实，目前尚未启动不动产统一登记试点工作。（凤凰财经）
-            </li>
-            <li class="news">
-                <span class="time">17:58</span>汇丰分析师：德债收益率或进一步下跌，接近1%，因欧洲央行很可能进一步采取包括QE在内的宽松政策。
-            </li>
-            <li class="news">
-                <span class="time">17:39</span>路透援引目击者称，5-6辆装甲运兵车驶入乌克兰东部城市Slaviansk，带头车辆插有俄罗斯国旗。
-            </li>
-            <li class="news">
-                <span class="time">17:31</span>人民币兑美元中间价报6.1589；昨日中间价报6.1571，昨日收盘报6.2220。
-            </li>
-            <li class="news">
-                <span class="time">18:22</span>国土部：不动产统一登记试点城市确定消息不实，目前尚未启动不动产统一登记试点工作。（凤凰财经）
-            </li>
-            <li class="news">
-                <span class="time">18:22</span>国土部：不动产统一登记试点城市确定消息不实，目前尚未启动不动产统一登记试点工作。（凤凰财经）
-            </li>
-            <li class="news">
-                <span class="time">18:22</span>国土部：不动产统一登记试点城市确定消息不实，目前尚未启动不动产统一登记试点工作。（凤凰财经）
-            </li>
-        </ul>
-    </div>
+    <table id="side-livenews">
+        <tbody>
+        <tr class="news">
+            <td class="time">18:22</td>
+            <td class="content">国土部：不动产统一登记试点城市确定消息不实，目前尚未启动不动产统一登记试点工作。（凤凰财经）</td>
+        </tr>
+        <tr class="news">
+            <td class="time">18:13</td>
+            <td class="content">汇丰分析师：德债收益率或进一步下跌，接近1%，因欧洲央行很可能进一步采取包括QE在内的宽松政策。</td>
+        </tr>
+        <tr class="news">
+            <td class="time">18:02</td>
+            <td class="content">人民币兑美元中间价报6.1589；昨日中间价报6.1571，昨日收盘报6.2220。</td>
+        </tr>
+        <tr class="news">
+            <td class="time">17:31</td>
+            <td class="content">路透援引目击者称，5-6辆装甲运兵车驶入乌克兰东部城市Slaviansk，带头车辆插有俄罗斯国旗。</td>
+        </tr>
+        <tr class="news">
+            <td class="time">15:22</td>
+            <td class="content">人民币兑美元中间价报6.1589</td>
+        </tr>
+        </tbody>
+    </table>
 </aside>
 <!-- sidebar end -->
