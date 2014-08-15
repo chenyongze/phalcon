@@ -2,7 +2,7 @@
 <?if($posts->count() > 0):?>
 <h3 class="side-title">
     相关新闻
-    <a a class="more" href="/news?q=<?=$query['q']?>">更多&gt;&gt;</a>
+    <a a class="more" href="/news?q=<?=$query['q']?>">更多»</a>
 </h3>
 <ul class=" news-list with-dot">
     <?foreach($posts as $post):?>
@@ -17,7 +17,7 @@
 <?if($items->count() > 0):?>
 <h3 class="side-title" style="margin-bottom: 5px; margin-top: 30px">
     实时新闻
-    <a class="more" href="/livenews">更多&gt;&gt;</a>
+    <a class="more" href="/livenews">更多»</a>
 </h3>
 <ul id="left-side-livenews" class="livenews-list size-sm">
     <?foreach($items as $item):?>
