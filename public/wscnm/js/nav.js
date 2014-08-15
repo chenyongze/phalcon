@@ -8,7 +8,7 @@ $(function ($) {
 		}
     });
 	
-    $('.menu-icon').length > 0 && $('.menu-icon').on('click', function (e) {
+    $('.menu-indicator').length > 0 && $('.menu-indicator').on('click', function (e) {
         $('.left-menu').panel('toggle', 'push');
     });
 	
