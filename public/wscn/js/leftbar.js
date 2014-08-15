@@ -249,19 +249,34 @@
         $leftbar.on('mouseenter', '[data-hover=related-info]', function(e){
             clearTimeout(timeout_show);
             clearTimeout(timeout_fold);
-            var $target = $(this);
-            var symbol = $target.attr('data-symbol');
-            //showInfo(symbol, $target);
-            timeout_show = setTimeout($.proxy(showInfo, null, symbol, $target), 200);
+            //timeout_show = setTimeout($.proxy(showInfo, null, symbol, $target), 200);
+            var element = this;
+            timeout_show = setTimeout(function(){
+                var $target = $(element);
+                var symbol = $target.attr('data-symbol');
+                showInfo(symbol, $target);
+            }, 200);
         });
         //
         $leftbar.on('mouseleave', '[data-hover=related-info]', function(e){
+            clearTimeout(timeout_show);
             fold();
         });
         //实时新闻列表 展开
         $leftbar.on('click', '.livenews-list .sign', function(e){
-            var $news = $(this).parent();
-            $news.toggleClass('fullsize');
+            var $content = $(this).parent();
+            $content.toggleClass('fullsize');
+            //更新 滚动条
+            $marketInfo.nanoScroller();
+        });
+
+        //监听 leftbar 过度变化，更新滚动条
+        $leftbar.on('transitionend', function(e){
+            if (e.target == this) {
+                console.log('$leftbar transitionend');
+                $marketList.nanoScroller();
+                $marketInfo.nanoScroller();
+            }
         });
     }
 
@@ -274,4 +289,8 @@
     if ($('#left-market-list').length) {
         init();
     }
+
+
+
+
 })();
