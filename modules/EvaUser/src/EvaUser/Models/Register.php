@@ -74,10 +74,6 @@ class Register extends Entities\Users
             throw new Exception\ResourceNotFoundException('ERR_USER_NOT_EXIST');
         }
 
-        if ($userinfo->status == 'active') {
-            throw new Exception\OperationNotPermitedException('ERR_USER_ALREADY_ACTIVED');
-        }
-
         $mailer = $this->getDI()->getMailer();
         $message = $this->getDI()->getMailMessage();
         $message->setTo(array(
@@ -109,12 +105,11 @@ class Register extends Entities\Users
             throw new Exception\ResourceNotFoundException('ERR_USER_NOT_EXIST');
         }
 
-        if ($userinfo->status == 'active') {
+        if ($userinfo->status == 'active' && $userinfo->emailStatus == 'active') {
             throw new Exception\OperationNotPermitedException('ERR_USER_ALREADY_ACTIVED');
         }
 
-        //status tranfer only allow inactive => active
-        if ($userinfo->status != 'inactive') {
+        if ($userinfo->status == 'deleted') {
             throw new Exception\OperationNotPermitedException('ERR_USER_BE_BANNED');
         }
 

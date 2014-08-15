@@ -68,7 +68,6 @@
 
     var defaultErrorHandle = function(error){
         var messages = error.responseJSON.errors;
-        //loginUI.showMessage("连接服务器失败，请稍候重试", "ERR_UNKNOW", "error")
         var i = 0;
         if(!messages || messages.length < 1) {
             loginUI.showMessage("ERR_UNKNOW", "连接服务器失败，请稍候重试");
@@ -81,15 +80,15 @@
         }
     };
 
-    var register = function (url, data) {
+    var register = function (url, data, successCallback, errorCallback) {
         $.ajax({
             url : url,
             dataType : "json",
             data : data,
             type : "POST"
         }).then(function(response){
-            console.log(response);
-            loginUI.hideMessage();
+            successCallback ? successCallback() : null;
+            loginUI.showMessage("SUCCESS_USER_REGISTERED_ACTIVE_MAIL_SENT", userMessages.SUCCESS_USER_REGISTERED_ACTIVE_MAIL_SENT, "success");
         }).fail(defaultErrorHandle);
     };
 
@@ -100,7 +99,7 @@
             data : data,
             type : "POST"
         }).then(function(response){
-            loginUI.showMessage(response);
+            loginUI.showMessage("SUCCESS_USER_RESET_MAIL_SENT", userMessages.SUCCESS_USER_RESET_MAIL_SENT, "success");
         }).fail(defaultErrorHandle);
     }
 
