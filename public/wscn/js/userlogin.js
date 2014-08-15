@@ -115,7 +115,10 @@
             usrManager.setUser(response);
             usrManager.trigger("login");
             p("triggered login by post & connect oauth");
-        }).fail(defaultErrorHandle);
+        }).fail(function(error) {
+            defaultErrorHandle(error);
+            initInactive();
+        });
         return deferred;
     };
 

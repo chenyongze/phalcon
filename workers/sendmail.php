@@ -15,7 +15,8 @@ $engine
 $worker = $engine->getDI()->getWorker();
 $worker->addFunction('sendmailAsync', 'sendmailAsync');
 
-$logger = new Phalcon\Logger\Adapter\File($engine->getDI()->getConfig()->logger->path . 'worker_sendmail_' .  date('Y-m-d') . '.log');
+$logger = new Phalcon\Logger\Adapter\File($engine->getDI()->getConfig()->logger->path . 'worker_sendmail.log');
+$logger->info(sprintf("Sendmail worker started by appname %s", $engine->getAppName()));
 
 function sendmailAsync($job)
 {
