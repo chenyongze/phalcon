@@ -260,8 +260,10 @@
         });
         //实时新闻列表 展开
         $leftbar.on('click', '.livenews-list .sign', function(e){
-            var $news = $(this).parent();
-            $news.toggleClass('fullsize');
+            var $content = $(this).parent();
+            $content.toggleClass('fullsize');
+            //更新 滚动条
+            $marketInfo.nanoScroller();
         });
     }
 
@@ -274,4 +276,8 @@
     if ($('#left-market-list').length) {
         init();
     }
+
+
+
+
 })();

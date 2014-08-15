@@ -1,10 +1,5 @@
-<div class="content">
-    <div class="user box">
-        <a href="/login" data-action="login"><img class="avatar" src="/wscn/img/avatar-md.png" alt=""/></a>
-        <a class="custom-button size-fluid" href="/login" data-action="login">登录</a>
-    </div>
-    <div id="left-market-list" class="nano">
-        <nav class="nano-content">
+<div id="left-market-list" class="nano">
+    <nav class="nano-content">
         <?foreach($quotes as $quote):?>
         <a class="market item" data-hover="related-info" data-symbol="<?=$quote->symbol?>" data-prev-close="<?=$quote->prevClose?>" data-num-fixed="2" data-trend="fall" href="/news?symbol=<?=$quote->symbol?>&q=<?=$quote->keyword?>" data-source="/widget/sidearea?symbol=<?=$quote->symbol?>&q=<?=$quote->keyword?>">
             <span class="custom-row">
@@ -18,8 +13,7 @@
             <span class="direction fa fa-angle-right"></span>
         </a>
         <?endforeach?>
-        </nav>
-    </div>
+    </nav>
 </div>
 <div class="sidebar nano" data-hover="unfold">
     <div class="nano-content">

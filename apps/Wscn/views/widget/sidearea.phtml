@@ -23,8 +23,10 @@
     <?foreach($items as $item):?>
     <li class="news">
         <span class="time"><?=$this->tag->datetime($item->createdAt, 'H:i')?></span>
-        <div class="content"><?=$item->getContentHtml()?></div>
-        <span class="sign"></span>
+        <div class="content">
+            <?=$item->getContentHtml()?>
+            <div class="sign"></div>
+        </div>
     </li>
     <?endforeach?>
 </ul>

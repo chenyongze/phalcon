@@ -76,18 +76,12 @@
             //color: @blue;
         }
     }
-
+    /*
     & > .content {
         float: left;
         width: 170px;
         height: 100%;
-        position: relative;
-        //background-color: #dae8f1;
-        //
-        & > .inner {
-
-        }
-    }
+    }*/
     & > .sidebar {
         position: relative;
         //visibility: hidden;
@@ -148,17 +142,16 @@
 }
 
 #left-market-list {
-    position: absolute;
-    top: 145px;
-    bottom: 20px;
-    left: 0;
-    right: 0;
+    float: left;
+    width: 170px;
+    height: 100%;
     font-size: 12px;
     color: #000;
+    border-top: 1px solid @borderColor;
     //
 
     .nano-content {
-        padding-top: 3px;
+        //padding-top: 3px;
         padding-bottom: 3px;
     }
 
@@ -170,9 +163,9 @@
         line-height: 16px;
         background-color: #fff;
         border-bottom: 1px solid @borderColor;
-        &:first-child {
+        /*&:first-child {
             border-top: 1px solid @borderColor;
-        }
+        }*/
         &[data-trend=rise] {
             /*.name {
                 background: url(../icon/rise.png) right center no-repeat;
@@ -262,7 +255,7 @@
 
     .news {
         border-color: @borderColor;
-        position: relative;
+        //position: relative;
         overflow: hidden;
         color: #666;
 
@@ -270,19 +263,29 @@
             float: left;
         }
         .content {
-            //position: relative;
+            position: relative;
             margin-left: 4em;
             max-height: 6em;
             line-height: 1.5em;
             overflow: hidden;
+            &.fullsize {
+                max-height: none;
+                .sign {
+                    position: static;
+                    &:before {
+                        content: "\f077";
+                    }
+                }
+            }
         }
         .sign {
             display: block;
             cursor: pointer;
             position: absolute;
             background-color: #fff;
-            top: 64px;
-            width: 100%;
+            top: 54px;
+            margin-left: -48px;
+            width: 300px;
             text-align: center;
             height: 18px;
             padding-top: 3px;
@@ -301,17 +304,7 @@
         &:hover {
             color: #000;
         }
-        &.fullsize {
-            .content {
-                max-height: none;
-            }
-            .sign {
-                position: static;
-                &:before {
-                    content: "\f077";
-                }
-            }
-        }
+
     }
 }
 
