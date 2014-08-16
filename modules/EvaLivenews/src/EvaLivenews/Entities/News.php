@@ -214,13 +214,34 @@ class News extends \Eva\EvaEngine\Mvc\Model
             $parsedown = new \Parsedown();
             return $parsedown->text($this->content);
         } elseif ($this->codeType == 'json') {
-            $data = json_decode($this->content);
+            $data = $this->getData();
             return preg_replace_callback('/{{(.+?)}}/', function($matches) use ($data) {
                 return empty($data->$matches[1]) ? '' : $data->$matches[1];
             }, '{{title}} {{actual}}，预期{{forecast}}，前值{{previous}}。');
         } else {
             return $this->content;
         }
+    }
+
+    public function getData()
+    {
+        if (empty($this->content)) {
+            return null;
+        }
+
+        if ($this->codeType == 'json') {
+            return json_decode($this->content);
+        }
+        return null;
+    }
+
+    public function getImageUrl()
+    {
+        if (!$this->image) {
+            return '';
+        }
+
+        return $this->image;
     }
 
     public function initialize()

@@ -227,8 +227,8 @@
             <span class="time"><?=$this->tag->datetime($item->createdAt, 'H:i')?></span>
             <span class="important">
                 <i class="fa fa-star star active"></i>
-                <i class="fa fa-star star <?=$data->importance > 1 ? 'active' : ''?>"></i>
-                <i class="fa fa-star star <?=$data->importance > 2 ? 'active' : ''?>"></i>
+                <i class="fa fa-star star <?=$item->importance > 1 ? 'active' : ''?>"></i>
+                <i class="fa fa-star star <?=$item->importance > 2 ? 'active' : ''?>"></i>
             </span>
             <div class="control-box">
                 <div class="meta comments">

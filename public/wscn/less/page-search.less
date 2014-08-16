@@ -1,121 +1,100 @@
 @charset "utf-8";
 
-#search {
-    font-size: 14px;
-    @media (min-width: @screen-lg-min) {
-        margin-left: 200px;
-        margin-right: 360px;
-    }
-
-    .keyword {
-        background-color: #FFDB8C;
-    }
-    .custom-nav-tabs {
-        a {
+.page-search {
+    .crumbs-title {
+        font-size: 16px;
+        line-height: 16px;
+        font-weight: bold;
+        margin-bottom: 0;
+        & > .fa {
+            margin-left: 3px;
+            margin-right: 6px;
+        }
+        & > .sub {
             font-size: 14px;
-            padding-left: 0;
-            padding-right: 0;
-            margin-right: 1.5em;
+            font-weight: normal;
         }
     }
-    .search-list {
-        margin-bottom: 30px;
-        .item {
-            padding: 15px 0;
-            border-bottom: 1px solid @borderColor;
+    .search-title {
+        font-size: 16px;
+        line-height: 1em;
+        font-weight: normal;
+    }
+    .categories {
+        line-height: 22px;
+        font-size: 0;
+        & > .title {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 16px;
+            margin-right: 30px;
         }
-        .news {
-            position: relative;
-            padding-left: 150px;
-            .img {
-                position: absolute;
-                display: block;
-                width: 120px;
-                //height: 80px;
-                left: 0;
-                top: 21px;
+        & > .item {
+            display: inline-block;
+            vertical-align: middle;
+            color: #666;
+            font-size: 14px;
+            padding: 0 8px;
+            &:hover {
+                color: @blue;
             }
-            .title {
-                display: block;
-                font-size: 18px;
-                line-height: 1.5em;
-                margin-bottom: 15px;
+            &.active {
+                color: #fff;
+                background-color: @blue;
             }
-            .meta {
-                display: inline-block;
-                font-size: 12px;
-                line-height: 16px;
-                margin-bottom: 15px;
-                color: #787878;
-            }
-            .author ,
-            .endorse {
-                margin-right: 1.25em;
-            }
-            .summary {
-                font-size: 14px;
-                line-height: 1.5em;
-                margin-bottom: 15px;
-            }
-            .share,
-            .collect {
-                display: block;
-                float: left;
-                width: 16px;
-                height: 16px;
-                margin-left: 1em;
-            }
-            .share {
-                background-image: url(../icon/share-blue.png);
-            }
-            .collect {
-                background-image: url(../icon/collect-blue.png);
-            }
-            @media (max-width: @screen-xxs-max) {
-                padding-left: 0;
-                .title {
-                    font-size: 14px;
-                }
-                .meta {
-                    margin-bottom: 0;
-                }
-            }
+        }
+        & > .span {
+            display: inline-block;
+            vertical-align: middle;
+            border-left: 1px solid @borderColor;
+            height: 14px;
+            width: 30px;
+        }
+        & > .group {
+            font-size: 14px;
+            border-left: 1px solid @borderColor;
         }
     }
-}
-
-#search-form {
-    position: relative;
-    padding-right: 100px;
-    margin-bottom: 30px;
-    .search-field {
-        display: block;
-        height: 30px;
-        padding: 5px 15px;
-        line-height: 20px;
-        border-radius: 3px;
-        border: 1px solid #999;
-        width: 100%;
-        &:focus {
-            border-color: @skyblue;
-        }
-    }
-    .submit {
-        display: block;
-        position: absolute;
-        width: 67px;
-        height: 30px;
-        border: 1px solid @blue;
+    .keyword {
         color: @blue;
-        background-color: #fff;
-        border-radius: 5px;
-        line-height: 28px;
-        text-align: center;
-        top: 0;
-        right: 0;
-        &:hover {
+    }
+    .search-highlight {
+        color: @red;
+    }
+    .search-form {
+        position: relative;
+        padding-right: 80px;
+        margin-bottom: 30px;
+        .search-field {
+            display: block;
+            height: 30px;
+            padding: 5px 15px;
+            line-height: 20px;
+            border-radius: 3px;
+            border: 1px solid #999;
+            width: 100%;
+            &:focus {
+                border-color: @skyblue;
+            }
+        }
+        .submit {
+            display: block;
+            position: absolute;
+            width: 70px;
+            height: 30px;
+            line-height: 30px;
+            font-size: 15px;
             color: #fff;
             background-color: @blue;
+            border-radius: 5px;
+            text-align: center;
+            top: 0;
+            right: 0;
+            &:hover {
+
+            }
         }
     }
 }
+
+

@@ -98,7 +98,7 @@ class LivenewsController extends ControllerBase
             'status' => $this->request->getQuery('status', 'string'),
             'codeType' => $this->request->getQuery('code_type', 'string'),
             'uid' => $this->request->getQuery('uid', 'int'),
-            'cid' => $this->request->getQuery('cid', 'int'),
+            'cid' => $this->request->getQuery('cid', 'string'),
             'username' => $this->request->getQuery('username', 'string'),
             'order' => $order,
             'limit' => $limit,

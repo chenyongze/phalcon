@@ -464,6 +464,14 @@ img.lazy {
                 color: #000;
                 font-size: 18px;
                 line-height: 25px;
+                @media (max-width: (@screen-sm-max)) {
+                    font-size: 15px;
+                }
+                @media (max-width: (@screen-xxs-max)) {
+                    font-size: 13px;
+                    line-height: 18px;
+                    min-height: 36px;
+                }
             }
             .meta {
                 display: inline-block;
@@ -503,10 +511,17 @@ img.lazy {
                 line-height: 1.6em;
                 //height: 4.5em;
                 //overflow: hidden;
+                @media (max-width: (@screen-md-max)) {
+                    font-size: 13px;
+                }
+                @media (max-width: (@screen-sm-max)) {
+                    font-size: 12px;
+                }
             }
         }
     }
 }
+
 //主 title
 .main-title {
     display: block;
@@ -558,20 +573,55 @@ img.lazy {
             left: 0;
         }
         .name {
-            color: @blue;
+            //color: @blue;
         }
         .title {
-            color: #c11;
+            color: @blue;
+            display: block;
+            margin-top: 3px;
         }
         .content {
-            padding: 12px 14px;
-            margin: 15px 0;
-            color: #787878;
+            padding: 12px;
+            margin: 12px 0;
+            color: #666;
             background-color: #dae8f1;
         }
         .time {
-            color: #787878;
+            color: #999;
+            text-align: right;
         }
+    }
+}
+
+.side-tags {
+    .clearfix;
+    & > .title {
+        font-size: 16px;
+        font-weight: bold;
+        line-height: 1em;
+        margin-bottom: 30px;
+    }
+    & > .tag {
+        display: block;
+        float: left;
+        width: 90px;
+        text-align: center;
+        font-size: 14px;
+        line-height: 28px;
+        color: #333;
+        border: 1px solid @borderColor;
+        margin-right: 15px;
+        margin-bottom: 15px;
+        &:hover {
+            color: @blue;
+        }
+        &.active {
+            color: @blue;
+            border-color: @blue;
+        }
+    }
+    @media (min-width: @screen-lg-min) {
+        margin-right: -15px;
     }
 }
 //工具栏

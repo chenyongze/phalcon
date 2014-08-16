@@ -38,6 +38,8 @@
                     <?endif?>
                     <?endforeach?>
                     </ul>
+                    <?else:?>
+                    <p>还没有收藏文章，<a href="/news">去看看</a></p>
                     <?endif?>
             <?$this->partial("partial/paginator", array(
                 'pagerUrl' => '/mine/stars',
