@@ -13,7 +13,8 @@
     "require": {
         "php": ">=5.3.10",
         "ext-redis": "*",
-	"allovince/evaengine": "dev-master",
+
+        "allovince/evaengine": "dev-master",
         "ircmaxell/password-compat": "dev-master",
         "zircote/swagger-php": "*",
         "allovince/evaoauth": "dev-master",
@@ -21,8 +22,9 @@
         "imagine/imagine": "dev-master",
         "rase/socket.io-emitter": "dev-master",
         "erusev/parsedown": "dev-master",
-	"mobiledetect/mobiledetectlib" : "dev-master",
-        "mr5/counter-rank": "dev-master"
+        "mobiledetect/mobiledetectlib": "dev-master",
+        "mr5/counter-rank": "dev-master",
+        "elasticsearch/elasticsearch": "~1.0"
     },
     "suggest": {
         "ext-gearman": "*"
@@ -42,7 +44,7 @@
         }
     ],
     "require-dev": {
-	"league/oauth2-server": "*",
-	"symfony/finder": "*"
+        "league/oauth2-server": "*",
+        "symfony/finder": "*"
     }
 }

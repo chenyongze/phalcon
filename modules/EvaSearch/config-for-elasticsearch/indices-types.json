@@ -1,0 +1,89 @@
+{
+    "settings": {
+        "index": {
+            "refresh_interval": "60s"
+        }
+    },
+    "mappings": {
+        "article": {
+            "dynamic": "true",
+            "properties": {
+                "content": {
+                    "index_analyzer": "ik",
+                    "search_analyzer": "ik",
+                    "type": "string"
+                },
+                "title": {
+                    "index_analyzer": "ik",
+                    "search_analyzer": "ik",
+                    "type": "string"
+                },
+                "summary": {
+                    "index_analyzer": "ik",
+                    "search_analyzer": "ik",
+                    "type": "string"
+                },
+                "categoryIds": {
+                    "index_analyzer": "comma_split",
+                    "search_analyzer": "comma_split",
+                    "type": "string"
+                },
+                "tagNames": {
+                    "index_analyzer": "comma_split",
+                    "search_analyzer": "comma_split",
+                    "type": "string"
+                }
+            }
+        },
+        "livenews": {
+            "dynamic": "true",
+            "properties": {
+                "title": {
+                    "type": "string",
+                    "search_analyzer": "ik",
+                    "index_analyzer": "ik"
+                },
+                "content": {
+                    "type": "string",
+                    "search_analyzer": "ik",
+                    "index_analyzer": "ik"
+                },
+                "contentExtra": {
+                    "type": "string",
+                    "search_analyzer": "ik",
+                    "index_analyzer": "ik"
+                },
+                "categoryIds": {
+                    "index_analyzer": "comma_split",
+                    "search_analyzer": "comma_split",
+                    "type": "string"
+                }
+            }
+        },
+        "wiki": {
+            "dynamic": "true",
+            "properties": {
+                "title": {
+                    "type": "string",
+                    "search_analyzer": "ik",
+                    "index_analyzer": "ik"
+                },
+                "content": {
+                    "type": "string",
+                    "search_analyzer": "ik",
+                    "index_analyzer": "ik"
+                },
+                "categoryIds": {
+                    "index_analyzer": "comma_split",
+                    "search_analyzer": "comma_split",
+                    "type": "string"
+                },
+                "keywords": {
+                    "index_analyzer": "comma_split",
+                    "search_analyzer": "comma_split",
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta property="qc:admins" content="2540516740124067144342554366375747716" />
     <title><?=$this->placeholder->block('title', '华尔街见闻');?></title>
+    <link rel="search" type="application/opensearchdescription+xml" href="/search/opensearch.xml" title="华尔街见闻">
 
     <!-- Bootstrap -->
     <link href="/wscn/css/bootstrap.min.css" rel="stylesheet">
@@ -78,7 +79,7 @@
                 </ul>
 
                 <div class="navbar-right relative">
-                    <form class="search-form navbar-form" action="/news" role="search" novalidate="novalidate">
+                    <form class="search-form navbar-form" action="/search" role="search" novalidate="novalidate">
                         <div class="form-group has-feedback">
                             <input type="text" class="search-field" name="q" placeholder="请按回车键立即搜索">
                             <span class="fa fa-search form-control-feedback"></span>

@@ -1,5 +1,5 @@
 #!/bin/sh
-# 博客文章计数器持久化任务
+# 文章索引任务
 ###### S: 定位工作路径 ######
 work_root=${0}
 # aboslute path
@@ -11,4 +11,4 @@ else
 fi
 cd ${work_root}
 ###### E: 定位工作路径 ######
-./console.php  EvaBlog Counter:persist posts
+./console.php  EvaSearch Index:article
