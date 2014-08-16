@@ -43,7 +43,6 @@ class NewsManager extends Entities\News
             $this->slug = \Phalcon\Text::random(\Phalcon\Text::RANDOM_ALNUM, 8);
         }
         if(!$this->title) {
-
             $this->title = \Eva\EvaEngine\Text\Substring::substrCn(strip_tags($this->getContentHtml()), 100);
         }
     }
@@ -69,12 +68,16 @@ class NewsManager extends Entities\News
             $this->editorId = $userinfo['id'];
             $this->editorName = $userinfo['username'];
         }
-
         $this->updatedAt = time();
     }
 
     public function beforeSave()
     {
+        //Data importance will overwrite news importance
+        if($data = $this->getData()) {
+            $this->importance = $data->importance;
+        }
+
         if ($this->getDI()->getRequest()->hasFiles()) {
             $upload = new UploadModel();
             $files = $this->getDI()->getRequest()->getUploadedFiles();
@@ -133,8 +136,19 @@ class NewsManager extends Entities\News
         }
 
         if (!empty($query['cid'])) {
+            $cidArray = explode(',', $query['cid']);
+            $setArray = array();
+            $valueArray = array();
+            foreach($cidArray as $key => $cid) {
+                $setArray[] = "FIND_IN_SET(:cid_$key:, categorySet)";
+                $valueArray["cid_$key"] = $cid;
+            }
+
+            $itemQuery->andWhere(implode(' OR ', $setArray), $valueArray);
+            /*
             $itemQuery->join('Eva\EvaLivenews\Entities\CategoriesNews', 'id = r.newsId', 'r')
             ->andWhere('r.categoryId = :cid:', array('cid' => $query['cid']));
+            */
         }
 
         $order = 'createdAt DESC';
@@ -183,6 +197,7 @@ class NewsManager extends Entities\News
                     $categories[] = $category;
                 }
             }
+            $this->categorySet = implode(',', $categoryData);
             $this->categories = $categories;
         }
 
@@ -223,6 +238,7 @@ class NewsManager extends Entities\News
                     $categories[] = $category;
                 }
             }
+            $this->categorySet = implode(',', $categoryData);
             $this->categories = $categories;
         }
 
@@ -246,27 +262,5 @@ class NewsManager extends Entities\News
         $this->delete();
         $this->getDI()->getEventsManager()->fire('livenews:afterRemove', $this);
         return $this;
-    }
-
-    public function getData()
-    {
-        if (empty($this->content)) {
-            return null;
-        }
-
-        if ($this->codeType == 'json') {
-            return json_decode($this->content);
-        }
-
-        return null;
-    }
-
-    public function getImageUrl()
-    {
-        if (!$this->image) {
-            return '';
-        }
-
-        return $this->image;
     }
 }
