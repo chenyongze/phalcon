@@ -6,17 +6,36 @@
 
     <div id="wrapper">
         <div id="main" class="page-search">
-
-            <form class="search-form" action="" novalidate="novalidate">
-                <input class="search-field" type="text"/>
+            <?if($query['cid'] && !empty($category)):?>
+            <h2 class="crumbs-title">
+                <a href="/">首页</a>
+                <span class="fa fa-angle-right"></span>
+                <span class="sub">阅读分类 <?=$category->categoryName?></span>
+            </h2>
+            <?elseif($query['uid'] && !empty($author)):?>
+            <h2 class="search-title">
+                作者 <span class="text-blue"><?=$author->screenName ?: $author->username?></span> 的所有文章
+            </h2>
+            <?elseif($query['q']):?>
+            <form class="search-form" action="/search" novalidate="novalidate">
+                <input class="search-field" type="text" value="<?=$this->escaper->escapeHtmlAttr($query['q'])?>"/>
                 <button class="submit fa fa-search" type="submit"></button>
             </form>
             <h2 class="search-title">
-                <span class="text-red">黄金</span> 的搜索结果
+                <span class="text-red"><?=$query['q']?></span> 的搜索结果
                 <span class="pull-right">
-                    约找到 <span class="text-red">13725</span> 个结果
+                    约找到 <span class="text-red"><?=$pager->total_items?></span> 个结果
                 </span>
             </h2>
+            <?else:?>
+            <h2 class="crumbs-title">
+                <a href="/">首页</a>
+                <span class="fa fa-angle-right"></span>
+                <span class="sub">最新文章</span>
+            </h2>
+            <?endif?>
+            <?if(0):?>
+
             <h6 style="line-height: 50px; color: #999;">样式一：</h6>
             <nav class="categories">
                 <span class="title">阅读分类</span>
@@ -33,19 +52,13 @@
                 <a class="item" href="">公司</a>
             </nav>
             <h6 style="line-height: 50px; color: #999;">样式二：</h6>
-            <h2 class="search-title">
-                作者 <span class="text-blue">维尔京</span> 的所有文章
-            </h2>
+           
             <h6 style="line-height: 50px; color: #999;">样式三：</h6>
             <h2 class="search-title">
                 标签为 <span class="text-blue">美股</span> 的所有文章
             </h2>
             <h6 style="line-height: 50px; color: #999;">样式四：</h6>
-            <h2 class="crumbs-title">
-                首页
-                <span class="fa fa-angle-right"></span>
-                <span class="sub">阅读分类 头条</span>
-            </h2>
+            <?endif?>
             <?$posts = $pager->items;?>
             <ul class="news-list with-img" id="search-result">
                 <?foreach($posts as $post):?>
