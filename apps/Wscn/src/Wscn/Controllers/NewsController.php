@@ -4,6 +4,7 @@ namespace Wscn\Controllers;
 
 use Eva\EvaBlog\Models\Post;
 use Eva\EvaBlog\Models\Category;
+use Eva\EvaBlog\Models\Tag;
 use Eva\EvaUser\Models\UserManager;
 use Eva\EvaEngine\Exception;
 
@@ -45,9 +46,11 @@ class NewsController extends ControllerBase
         $pager = $paginator->getPaginate();
         $this->view->setVar('pager', $pager);
         $this->view->setVar('query', $query);
-    }
 
-    public function nodeAction()
-    {
+        /*
+        $tag = new Tag();
+        $tags = $tag->findTags()->getQuery()->execute();
+        $this->view->setVar('tags', $tags);
+        */
     }
 }
