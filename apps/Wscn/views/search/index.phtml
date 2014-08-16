@@ -2,65 +2,85 @@
     .search-list em {
         color: #dd4b39;
     }
+
     .search-list a.title:hover {
         text-decoration: underline;
     }
+
     .search-list .title {
         color: #0a62a3;
     }
+
     .search-list .title:visited {
         color: #609;
     }
+
     .search-list .summary {
         color: #545454;
     }
 </style>
 <div id="search">
     <form id="search-form" action="">
-        <input class="search-field" name="q" type="text" value="<?=$this->escaper->escapeHtmlAttr($keyword)?>"/>
+        <input class="search-field" name="q" placeholder="请输入您要查询的关键词" type="text"
+               value="<?= $this->escaper->escapeHtmlAttr(isset($keyword) ? $keyword : '') ?>"/>
         <input class="submit" type="submit" value="查询"/>
     </form>
-<!--    <ul class="custom-nav-tabs">-->
-<!--        <li class="active"><a data-toggle="tab" href="#search-news">新闻（--><?//=$hits['total']?><!--）</a></li>-->
-<!--        <li><a data-toggle="tab" href="#search-market">资产（30）</a></li>-->
-<!--        <li><a data-toggle="tab" href="#search-user">用户（5）</a></li>-->
-<!--        <li class="pull-right custom-select hidden-xxs" style="width: 200px; text-align: right;">-->
-<!--            <label>排序：</label>-->
-<!--            <select>-->
-<!--                <option value="asc">正序</option>-->
-<!--                <option value="desc">倒序</option>-->
-<!--            </select>-->
-<!--        </li>-->
-<!--    </ul>-->
-    <?$posts = $pager->items;?>
-    <div class="tab-content">
-        <ul class="tab-pane search-list active" id="search-news">
-            <?foreach($hits['hits'] as $hit):?>
-               <?$post = json_decode(json_encode($hit['_source']));?>
-                <li class="item news">
-                    <img class="img " src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_77,w_120') : '/img/article.jpg'?>" alt=""/>
-                    <a class="title" target="_blank" href="/node/<?=$post->id?>"><?=isset($hit['highlight']['title']) ? $hit['highlight']['title'][0] : $post->title?></a>
-                    <div>
-                        <span class="meta author">文/<span class="text-blue"><?=$post->username?$post->username : '华尔街见闻'?> </span></span>
-                        <span class="meta time"><?=$this->tag->datetime($post->createdAt)?></span>
+    <!--    <ul class="custom-nav-tabs">-->
+    <!--        <li class="active"><a data-toggle="tab" href="#search-news">新闻（-->
+    <? //=$hits['total']?><!--）</a></li>-->
+    <!--        <li><a data-toggle="tab" href="#search-market">资产（30）</a></li>-->
+    <!--        <li><a data-toggle="tab" href="#search-user">用户（5）</a></li>-->
+    <!--        <li class="pull-right custom-select hidden-xxs" style="width: 200px; text-align: right;">-->
+    <!--            <label>排序：</label>-->
+    <!--            <select>-->
+    <!--                <option value="asc">正序</option>-->
+    <!--                <option value="desc">倒序</option>-->
+    <!--            </select>-->
+    <!--        </li>-->
+    <!--    </ul>-->
+    <? if (isset($hits)): ?>
+        <div class="tab-content">
+            <ul class="tab-pane search-list active" id="search-news">
+                <? foreach ($hits['hits'] as $hit): ?>
+                    <? $post = json_decode(json_encode($hit['_source'])); ?>
+                    <li class="item news">
+                        <img class="img " src="<?= $post->image ? $this->tag->thumb(
+                            $post->image,
+                            'c_fill,h_77,w_120'
+                        ) : '/img/article.jpg' ?>" alt=""/>
+                        <a class="title" target="_blank"
+                           href="/node/<?= $post->id ?>"><?= isset($hit['highlight']['title']) ? $hit['highlight']['title'][0] : $post->title ?></a>
+
+                        <div>
+                            <span class="meta author">文/<span
+                                    class="text-blue"><?= $post->username ? $post->username : '华尔街见闻' ?> </span></span>
+                            <span class="meta time"><?= $this->tag->datetime($post->createdAt) ?></span>
                 <span class="pull-right">
-                    <span class="meta endorse icontext icontext-endorse-blue">(<?=$post->upVote > 0 ?: 0?>)</span>
-                    <span class="meta discuss icontext icontext-discuss-blue">(<?=$post->commentCount > 0 ?: 0?>)</span>
+                    <span class="meta endorse icontext icontext-endorse-blue">(<?= $post->upVote > 0 ? : 0 ?>)</span>
+                    <span class="meta discuss icontext icontext-discuss-blue">(<?= $post->commentCount > 0 ? : 0 ?>
+                        )</span>
                 </span>
-                    </div>
-                    <p class="summary hidden-xxs">
-                        <?=isset($hit['highlight']['content']) ? implode(' ... ', $hit['highlight']['content']).'  ... ' : \Eva\EvaEngine\Text\Substring::substrCn( $post->content, 100)?>
-                    </p>
+                        </div>
+                        <p class="summary hidden-xxs">
+                            <?= isset($hit['highlight']['content']) ? implode(
+                                    ' ... ',
+                                    $hit['highlight']['content']
+                                ) . '  ... ' : \Eva\EvaEngine\Text\Substring::substrCn($post->content, 100) ?>
+                        </p>
+                    </li>
+                <? endforeach ?>
+                <li class="center">
+                    <?$this->partial(
+                        "partial/paginator",
+                        array(
+                            'pagerUrl' => '/search',
+                            'pager' => $pager,
+                        )
+                    )?>
                 </li>
-            <?endforeach?>
-            <li class="center">
-                <?$this->partial("partial/paginator", array(
-                        'pagerUrl' => '/search',
-                        'pager' => $pager,
-                    ))?>
-            </li>
-        </ul>
-        <ul class="tab-pane search-list" id="search-user"></ul>
-        <ul class="tab-pane search-list" id="search-market"></ul>
-    </div>
+            </ul>
+            <ul class="tab-pane search-list" id="search-user"></ul>
+            <ul class="tab-pane search-list" id="search-market"></ul>
+        </div>
+    <? endif; ?>
 </div>

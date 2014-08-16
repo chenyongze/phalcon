@@ -20,8 +20,10 @@ class SearchController extends ControllerBase
 {
     public function indexAction()
     {
-        $keyword = $this->request->getQuery("q");
-
+        $keyword = trim($this->request->getQuery("q"));
+        if(!$keyword) {
+            return;
+        }
         $client = new \Elasticsearch\Client(array('hosts' => $this->getDI()->getConfig()->EvaSearch->elasticsearch->servers->toArray()));
         $searchParams['index'] = 'wallstreetcn';
         $type = $this->request->getQuery('type');
