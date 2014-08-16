@@ -205,8 +205,14 @@ class Post extends Entities\Posts
             unset($data['tags']);
             $tagArray = is_array($tagData) ? $tagData : explode(',', $tagData);
             foreach ($tagArray as $tagName) {
-                $tag = new Tag();
-                $tag->tagName = $tagName;
+                $tag = Entities\Tags::findFirst(array(
+                    "conditions" => "tagName = :tagName:",
+                    "bind"       => array('tagName' => $tagName)
+                ));
+                if (!$tag) {
+                    $tag = new Entities\Tags();
+                    $tag->tagName = $tagName;
+                }
                 $tags[] = $tag;
             }
             if ($tags) {
@@ -259,8 +265,14 @@ class Post extends Entities\Posts
             unset($data['tags']);
             $tagArray = is_array($tagData) ? $tagData : explode(',', $tagData);
             foreach ($tagArray as $tagName) {
-                $tag = new Tag();
-                $tag->tagName = $tagName;
+                $tag = Entities\Tags::findFirst(array(
+                    "conditions" => "tagName = :tagName:",
+                    "bind"       => array('tagName' => $tagName)
+                ));
+                if (!$tag) {
+                    $tag = new Entities\Tags();
+                    $tag->tagName = $tagName;
+                }
                 $tags[] = $tag;
             }
             if ($tags) {
