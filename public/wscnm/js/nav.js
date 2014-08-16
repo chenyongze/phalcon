@@ -2,13 +2,13 @@ $(function ($) {
     $('.left-menu').length > 0 && $('.left-menu').panel({
         contentWrap: $('.content-wrapper,.toolbar,.footerbar'),
 		position:"left",
-		scrollMode:"hide",
+		scrollMode:"fix",
 		close:function(){
 			$(".toolbar").css("-webkit-transform","");
 		}
     });
 	
-    $('.menu-icon').length > 0 && $('.menu-icon').on('click', function (e) {
+    $('.menu-indicator').length > 0 && $('.menu-indicator img').on('click', function (e) {
         $('.left-menu').panel('toggle', 'push');
     });
 	

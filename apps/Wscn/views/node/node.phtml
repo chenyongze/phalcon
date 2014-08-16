@@ -119,35 +119,25 @@
                 </li>
                 <?endforeach?>
             </ul>
+            <?if($post->tags):?>
             <h2 class="main-title">关键字阅读</h2>
             <ul class="custom-tabs">
-                <li class="active"><a data-toggle="tab" href="#keyword-1">科技</a></li>
-                <li><a data-toggle="tab" href="#keyword-2">华尔街</a></li>
-                <li><a data-toggle="tab" href="#keyword-3">金融</a></li>
-                <li><a data-toggle="tab" href="#keyword-4">沙龙</a></li>
+                <?foreach($post->tags as $key => $tag):?>
+                <li class=""><a data-toggle="tab" href="#post-tag-<?=$key?>"><?=$tag->tagName?></a></li>
+                <?endforeach?>
             </ul>
             <div class="tab-content">
-                <ul class="tab-pane active news-list with-dot" id="keyword-1">
+                <?foreach($post->tags as $key => $tag):?>
+                <div id="post-tag-<?=$key?>" class="tab-pane news-list with-dot">
+                <ul>
                     <li class="news">
                         <a class="title" href="">中韩将签署货币直接交易协议，人民币国际化又落一子</a>
                     </li>
                 </ul>
-                <ul class="tab-pane news-list with-dot" id="keyword-2">
-                    <li class="news">
-                        <a class="title" href="">日本——“货币战”幕后真正发动者的替罪羊？</a>
-                    </li>
-                </ul>
-                <ul class="tab-pane news-list with-dot" id="keyword-3">
-                    <li class="news">
-                        <a class="title" href="">韩国执政党呼吁加快韩元人民币直接兑换进程</a>
-                    </li>
-                </ul>
-                <ul class="tab-pane news-list with-dot" id="keyword-4">
-                    <li class="news">
-                        <a class="title" href="">亚洲货币9月表现1997年以来最差</a>
-                    </li>
-                </ul>
+                </div>
+                <?endforeach?>
             </div>
+            <?endif?>
         </div>
         <div id="rightbar">
             <h3 class="side-title">

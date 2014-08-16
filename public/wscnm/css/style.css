@@ -3,6 +3,11 @@ html,body{
 	width:100%;
 }
 
+.ui-panel{
+	background-color: #002040;
+	background:-webkit-gradient(linear, left top, left bottom, from(#002040), to(#002040));
+}
+
 .bold{
 	font-weight:bold;
 }
@@ -119,30 +124,48 @@ a,a:hover {
 }
 
 .toolbar{
-	position: relative;
-	background-color: #0f496d;
+	position: fixed;
+	top:0;
+	left:0;
+	right:0;
+	background-color: #fff;
 	background-image: none;
 	border: 0;
 	margin: 0;
 	padding: 0;
-	height: 36px;
+	height: 48px;
 	width:100%;
 	min-height: 36px;
 	font-size: 18px;
 	font-weight: normal;
+	z-index:9999;
+	border-bottom:1px solid #ccc;
 }
 
 .toolbar .back{
 	position: absolute;
-	left: 4px;
-	
-	width: 32px;
-	height: 32px;
+	left: 10px;
+	width: 20px;
+	height: 26px;
+	top: 10px;
 	padding: 0;
 	display: inline-block;
 	border-radius: 3px;
 	background: url(../img/back.png) center center;
 	background-size: 100% 100%;
+}
+
+.toolbar .menu-indicator{
+	cursor:pointer;
+}
+
+.toolbar .menu-indicator img{
+	width:30px;
+	height:30px;
+	margin-top:10px;
+	padding-left:10px;
+	padding-right:10px;
+
 }
 
 .toolbar .menu-icon {
@@ -170,19 +193,34 @@ a,a:hover {
 
 .toolbar .home{
 	color:white;
-	left:15px;
+	left:25px;
 	font-size:22px;
 	position:absolute;
+	padding-left: 10px;
+	border-left: 1px solid #ccc;
+	height: 48px;
 }
 
 .toolbar .home img{
-	max-height: 80%;
+	max-height: 60%;
+	margin-top:10px;
+}
+
+.toolbar a.home{
+	border:none;
 }
 
 .toolbar .app-download{
-	right:5px;
-	position:absolute;
-	top: 5px;
+	right: 5px;
+	position: absolute;
+	top: 10px;
+	background: #0076d5;
+	color: white;
+	border-radius: 5px;
+	padding-left: 15px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-right: 15px;
 }
 
 .toolbar .app-download img{
@@ -223,6 +261,12 @@ a,a:hover {
 	width:100%;
 }
 
+.content-wrapper{
+	position:absolute;
+	top:48px;
+	width: 100%;
+}
+
 .login-icon{
 	margin-bottom:5px;
 }
@@ -235,9 +279,15 @@ a,a:hover {
 	-o-background-size: initial;
 }
 
+.favorite{
+	width:24px;
+	height:24px;
+}
+
 /**Left Menu**/
 .left-menu{
 	width:10em;
+	padding-top: 20px;
 }
 
 .left-menu .person-icon{
@@ -250,7 +300,7 @@ a,a:hover {
 }
 
 .left-menu ul{
-	top: 15%;
+	top: 18%;
 	position: absolute;
 	width: 80%;
 	text-align: center;
@@ -258,7 +308,7 @@ a,a:hover {
 
 .left-menu ul li{
 	padding:10px;
-	border-bottom: 1px dashed #fff;
+	/*border-bottom: 1px dashed #fff;*/
 	padding-top: 20px;
 }
 

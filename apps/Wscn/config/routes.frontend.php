@@ -126,6 +126,11 @@ return array(
         'action' => 1,
     ),
 
+    '/auth/:action' =>  array(
+        'module' => 'Wscn',
+        'controller' => 'auth',
+        'action' => 1,
+    ),
     '/auth/:action/(\w+)/(oauth1|oauth2)*' =>  array(
         'module' => 'Wscn',
         'controller' => 'auth',

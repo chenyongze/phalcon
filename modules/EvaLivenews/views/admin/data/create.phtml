@@ -122,7 +122,30 @@
                                                         <td>
                                                             <select class="form-control select2 input-medium" data-name="country" >
                                                                 <option value="-1">选择国家</option>
-                                                                <option value="美国">美国|USD</option><option value="欧元区">欧元区|EUR</option><option value="德国">德国|EUR</option><option value="日本">日本|JPY</option><option value="法国">法国|EUR</option><option value="英国">英国|GBP</option><option value="西班牙">西班牙|EUR</option><option value="意大利">意大利|EUR</option><option value="中国">中国|CNY</option><option value="加拿大">加拿大|CAD</option><option value="中国台北">中国台北|TWD</option><option value="南非">南非|ZAR</option><option value="印度">印度|INR</option><option value="印度尼西亚">印度尼西亚|IDR</option><option value="巴西">巴西|BRL</option><option value="挪威">挪威|NOK</option><option value="新加坡">新加坡|SGD</option><option value="澳大利亚">澳大利亚|AUD</option><option value="泰国">泰国|THB</option><option value="瑞士">瑞士|CHF</option><option value="纽西兰">纽西兰|NZD</option><option value="韩国">韩国|KRW</option><option value="香港">香港|HKD</option><option value="马来西亚">马来西亚|MYR</option>
+                                                                <option value="us">美国|USD</option>
+                                                                <option value="eu">欧元区|EUR</option>
+                                                                <option value="de">德国|EUR</option>
+                                                                <option value="jp">日本|JPY</option>
+                                                                <option value="fr">法国|EUR</option>
+                                                                <option value="gb">英国|GBP</option>
+                                                                <option value="es">西班牙|EUR</option>
+                                                                <option value="it">意大利|EUR</option>
+                                                                <option value="cn">中国|CNY</option>
+                                                                <option value="ca">加拿大|CAD</option>
+                                                                <option value="tw">中国台北|TWD</option>
+                                                                <option value="za">南非|ZAR</option>
+                                                                <option value="in">印度|INR</option>
+                                                                <option value="id">印度尼西亚|IDR</option>
+                                                                <option value="br">巴西|BRL</option>
+                                                                <option value="no">挪威|NOK</option>
+                                                                <option value="sg">新加坡|SGD</option>
+                                                                <option value="au">澳大利亚|AUD</option>
+                                                                <option value="th">泰国|THB</option>
+                                                                <option value="ch">瑞士|CHF</option>
+                                                                <option value="nz">纽西兰|NZD</option>
+                                                                <option value="kr">韩国|KRW</option>
+                                                                <option value="hk">香港|HKD</option>
+                                                                <option value="my">马来西亚|MYR</option>
                                                             </select>
                                                         </td>
                                                         <td>
@@ -260,117 +283,117 @@
 <script type="text/javascript" src="/assets/js/jquery.slimscroll.min.js"></script>
 <script>
     $(document).ready(function(){
-            <?include __DIR__ . '/../partial/reporter.js'?>
-            //Finance data reporter init
-            var reporter = $('.finance-data-reporter');
-            var form = reporter.closest('form');
-            var jsonContainer = form.find('textarea[name=content]');
+        <?include __DIR__ . '/../partial/reporter.js'?>
+        //Finance data reporter init
+        var reporter = $('.finance-data-reporter');
+        var form = reporter.closest('form');
+        var jsonContainer = form.find('textarea[name=content]');
 
-            var setFinanceData = function() {
-                    var jsonString = jsonContainer.text().trim();
-                    if(jsonString == '') {
-                        return false;
-                    }
-                    var data = $.parseJSON(jsonString);
-                    if(!data) {
-                            return false;
-                    }
-                    var row = reporter.find('.finance-data-row').eq(0);
-                    for(var key in data) {
-                            row.find("[data-name='" + key + "']").val(data[key]);
-                    }
+        var setFinanceData = function() {
+            var jsonString = jsonContainer.text().trim();
+            if(jsonString == '') {
+                return false;
+            }
+            var data = $.parseJSON(jsonString);
+            if(!data) {
+                return false;
+            }
+            var row = reporter.find('.finance-data-row').eq(0);
+            for(var key in data) {
+                row.find("[data-name='" + key + "']").val(data[key]);
+            }
+        }
+
+
+        var submitFinance = function(index){
+            var row = reporter.find('.finance-data-row').eq(index);
+            var res = {};
+            row.find("*[data-name]").each(function(){
+                var column = $(this);
+                res[column.attr('data-name')] = column.val();
+            });
+            if(res.title.trim() == '') {
+                return false;
             }
 
-
-            var submitFinance = function(index){
-                    var row = reporter.find('.finance-data-row').eq(index);
-                    var res = {};
-                    row.find("*[data-name]").each(function(){
-                            var column = $(this);
-                            res[column.attr('data-name')] = column.val();
-                    });
-                    if(res.title.trim() == '') {
-                            return false;
-                    }
-
-                    var newsId = form.find('input[name=id]').val();
-                    newsId = newsId == '' ? 0 : parseInt(newsId);
-                    var data = form.serializeArray();
-                    $.each(data, function(i, item){
-                            if(item.name === "content") {
-                                    item.value = JSON.stringify(res);
-                            }
-                            if(item.name === "importance") {
-                                item.value = res.importance;
-                            }
-                    });
-                    row.block();
-                    $.ajax({
-                            type : 'POST',
-                            dataType : 'json',
-                            data : $.param(data),
-                            success : function(response) {
-                                    row.unblock();
-                                    //Edit page not reset form
-                                    if(newsId < 1) {
-                                            row.find('input[data-name=title], input[data-name=forecast], input[data-name=previous], input[data-name=correction], input[data-name=actual]').val('');
-                                    }
-                                    loadLivenews();
-                            },
-                            error : function() {
-                                    row.unblock();
-                            }
-                    });
-
-            }
-
-            var submitAll = function(){
-                    var max = reporter.find('.finance-data-row').length,
-                        i = 0;
-                    for(i; i < max; i++) {
-                        submitFinance(i);
-                    }
-            }
-
-            var initReporter = function(){
-                    if(!reporter[0]) {
-                            return;
-                    }
-                    form.find('input[name=codeType]').val('json');
-                    var newsId = form.find('input[name=id]').val();
-                    newsId = newsId == '' ? 0 : parseInt(newsId);
-                    if(newsId > 0) {
-                            setFinanceData();
-                    }
-
-
+            var newsId = form.find('input[name=id]').val();
+            newsId = newsId == '' ? 0 : parseInt(newsId);
+            var data = form.serializeArray();
+            $.each(data, function(i, item){
+                if(item.name === "content") {
+                    item.value = JSON.stringify(res);
+                }
+                if(item.name === "importance") {
+                    item.value = res.importance;
+                }
+            });
+            row.block();
+            $.ajax({
+                type : 'POST',
+                dataType : 'json',
+                data : $.param(data),
+                success : function(response) {
+                    row.unblock();
+                    //Edit page not reset form
                     if(newsId < 1) {
-                            var timestamp = parseInt(moment().format('X'));
-                            var next15Min = timestamp + (60 * 15 - timestamp % (60 * 15));
-                            var nextTime = moment.unix(next15Min).format('hh:mm');
-                            reporter.find('input[data-name=timestamp]').each(function(){
-                                    $(this).val(nextTime);
-                            });
+                        row.find('input[data-name=title], input[data-name=forecast], input[data-name=previous], input[data-name=correction], input[data-name=actual]').val('');
                     }
-                    reporter.find('input[data-name=timestamp]').timepicker({
-                            minuteStep: 5,
-                            showMeridian: false
-                    });
+                    loadLivenews();
+                },
+                error : function() {
+                    row.unblock();
+                }
+            });
 
-                    //bind events at last
-                    reporter.on('click', '.row-submiter', function(){
-                            var submiter = $(this);
-                            var index = submiter.closest('.finance-data-row').index();
-                            submitFinance(index);
+        }
 
-                    });
-                    $(document).on('click', ".batch-submiter", function(){
-                        submitAll();
-                    });
-
-                    //reporter.on('change', 'input, select', updateFinanceData);
-                    //$("#reporter-cleaner").on('click', removeFinanceData);
+        var submitAll = function(){
+            var max = reporter.find('.finance-data-row').length,
+            i = 0;
+            for(i; i < max; i++) {
+                submitFinance(i);
             }
-            initReporter();
+        }
+
+        var initReporter = function(){
+            if(!reporter[0]) {
+                return;
+            }
+            form.find('input[name=codeType]').val('json');
+            var newsId = form.find('input[name=id]').val();
+            newsId = newsId == '' ? 0 : parseInt(newsId);
+            if(newsId > 0) {
+                setFinanceData();
+            }
+
+
+            if(newsId < 1) {
+                var timestamp = parseInt(moment().format('X'));
+                var next15Min = timestamp + (60 * 15 - timestamp % (60 * 15));
+                var nextTime = moment.unix(next15Min).format('hh:mm');
+                reporter.find('input[data-name=timestamp]').each(function(){
+                    $(this).val(nextTime);
+                });
+            }
+            reporter.find('input[data-name=timestamp]').timepicker({
+                minuteStep: 5,
+                showMeridian: false
+            });
+
+            //bind events at last
+            reporter.on('click', '.row-submiter', function(){
+                var submiter = $(this);
+                var index = submiter.closest('.finance-data-row').index();
+                submitFinance(index);
+
+            });
+            $(document).on('click', ".batch-submiter", function(){
+                submitAll();
+            });
+
+            //reporter.on('change', 'input, select', updateFinanceData);
+            //$("#reporter-cleaner").on('click', removeFinanceData);
+        }
+        initReporter();
     });
 </script>

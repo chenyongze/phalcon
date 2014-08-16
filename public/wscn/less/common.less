@@ -415,6 +415,9 @@ img.lazy {
                 position: absolute;
                 left: 0;
                 color: @blue;
+                font-size: 16px;
+                font-family: "Times New Roman",Georgia,Serif;
+                font-style: italic;
                 font-weight: bold;
                 content:counter(sectioncounter) " .";
                 counter-increment:sectioncounter;
@@ -441,6 +444,7 @@ img.lazy {
                 width: 200px;
                 @media (max-width: @screen-xs-max) {
                     width: 120px;
+                    margin-top: 0;
                 }
                 @media (max-width: @screen-xxs-max) {
                     width: 80px;
@@ -457,12 +461,13 @@ img.lazy {
             }
             .title {
                 display: block;
+                color: #000;
                 font-size: 18px;
                 line-height: 25px;
             }
             .meta {
                 display: inline-block;
-                margin-top: 16px ;
+                margin-top: 10px ;
                 margin-left: 16px;
                 font-size: 12px;
                 height: 16px;
@@ -470,10 +475,17 @@ img.lazy {
                 &:first-child {
                     margin-left: 0;
                 }
+                @media (max-width: @screen-xs-max) {
+                    margin-top: 5px ;
+                }
+
             }
             .author {
-                color: @blue;
+                color: #999;
                 margin-left: 0;
+                &:hover {
+                    color: @blue;
+                }
             }
             .time {
                 color: #999;
@@ -488,7 +500,7 @@ img.lazy {
                 color: #666;
                 margin-top: 10px;
                 font-size: 14px;
-                line-height: 1.5em;
+                line-height: 1.6em;
                 //height: 4.5em;
                 //overflow: hidden;
             }

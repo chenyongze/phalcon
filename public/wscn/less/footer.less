@@ -37,6 +37,7 @@
         margin-bottom: 20px;
     }
     .icon-group {
+        display: inline-block;
         width: 165px;
         .icon {
             width: 32px;
@@ -59,7 +60,20 @@
     .friend-links {
         & > .title {
             color: @blue;
-            margin-right: 80px;
+            display: block;
+            text-align: center;
+            margin-bottom: 15px;
+            @media (min-width: @screen-sm-min) {
+                display: inline;
+                text-align: left;
+                margin-right: 30px;
+            }
+            @media (min-width: @screen-md-min) {
+                margin-right: 50px;
+            }
+            @media (min-width: @screen-lg-min) {
+                margin-right: 80px;
+            }
         }
         & > .link {
 
