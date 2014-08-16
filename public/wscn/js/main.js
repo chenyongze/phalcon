@@ -61,6 +61,11 @@
         return false;
     });
 
+    //用户注册
+    $(document).on('click', '[data-action=register]', function(e){
+        loginUI.showModal('register');
+    });
+
 })(jQuery);
 
 (function(){
@@ -99,14 +104,14 @@
 
 //搜索列表 高亮 关键字
 $(function(){
-    var $search = $('#search');
+    var $search = $('#search-result');
     if ($search.length == 0 || window.location.search.indexOf('?q=') == -1) {
         return;
     }
     var dom = $search[0];
     var keyword = decodeURI(window.location.search.substring(3));
     var html = dom.innerHTML;
-    dom.innerHTML = html.replace(new RegExp(keyword, 'gm'), '<span class="keyword">' + keyword + '</span>');
+    dom.innerHTML = html.replace(new RegExp(keyword, 'gm'), '<span class="search-highlight">' + keyword + '</span>');
 });
 
 (function($){
@@ -129,6 +134,12 @@ $(function(){
     $('[data-action=hide-breaking-news]').click(function(e){
         $('body').removeClass('show-breaking-news');
         return false;
+    });
+
+    //搜索框
+    var $searchForm = $('#header .search-form');
+    $('#header').on('click', '[data-toggle=search-form]', function(e){
+        $searchForm.toggleClass('active');
     });
 
     //goto top 返回顶部

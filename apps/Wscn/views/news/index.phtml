@@ -5,58 +5,93 @@
     </aside>
 
     <div id="wrapper">
-        <div id="search">
-            <form id="search-form" action="">
-                <input class="search-field" name="q" type="text"/>
-                <input class="submit" type="submit" value="查询"/>
+        <div id="main" class="page-search">
+
+            <form class="search-form" action="" novalidate="novalidate">
+                <input class="search-field" type="text"/>
+                <button class="submit fa fa-search" type="submit"></button>
             </form>
-            <ul class="custom-nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#search-news">新闻（<?=$pager->total_items?>）</a></li>
-                <li><a data-toggle="tab" href="#search-market">资产（30）</a></li>
-                <li><a data-toggle="tab" href="#search-user">用户（5）</a></li>
-                <li class="pull-right custom-select hidden-xxs" style="width: 200px; text-align: right;">
-                <label>排序：</label>
-                <select>
-                    <option value="asc">正序</option>
-                    <option value="desc">倒序</option>
-                </select>
+            <h2 class="search-title">
+                <span class="text-red">黄金</span> 的搜索结果
+                <span class="pull-right">
+                    约找到 <span class="text-red">13725</span> 个结果
+                </span>
+            </h2>
+            <h6 style="line-height: 50px; color: #999;">样式一：</h6>
+            <nav class="categories">
+                <span class="title">阅读分类</span>
+                <a class="item active" href="">头条</a>
+                <a class="item" href="">编辑推荐</a>
+                <span class="span"></span>
+                <a class="item" href="">美国</a>
+                <a class="item" href="">中国</a>
+                <a class="item" href="">欧洲</a>
+                <span class="span"></span>
+                <a class="item" href="">市场</a>
+                <a class="item" href="">经济</a>
+                <a class="item" href="">央行</a>
+                <a class="item" href="">公司</a>
+            </nav>
+            <h6 style="line-height: 50px; color: #999;">样式二：</h6>
+            <h2 class="search-title">
+                作者 <span class="text-blue">维尔京</span> 的所有文章
+            </h2>
+            <h6 style="line-height: 50px; color: #999;">样式三：</h6>
+            <h2 class="search-title">
+                标签为 <span class="text-blue">美股</span> 的所有文章
+            </h2>
+            <h6 style="line-height: 50px; color: #999;">样式四：</h6>
+            <h2 class="crumbs-title">
+                首页
+                <span class="fa fa-angle-right"></span>
+                <span class="sub">阅读分类 头条</span>
+            </h2>
+            <?$posts = $pager->items;?>
+            <ul class="news-list with-img" id="search-result">
+                <?foreach($posts as $post):?>
+                <li class="news">
+                    <a href="<?=$post->getUrl()?>">
+                        <img class="lazy img" src="/wscn/img/bg-img.gif" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_140,w_200') : '/img/article.jpg'?>" alt=""/>
+                    </a>
+                    <div class="content">
+                        <a class="title" href="<?=$post->getUrl()?>"><?=$post->title?></a>
+                        <div>
+                            <span class="meta author">文 / <?=$post->user ? $post->user->username : '华尔街见闻'?></span>
+                            <span class="meta time visible-lg-inline-block"><?=$this->tag->datetime($post->createdAt)?></span>
+                                <span class="meta endorse pull-right">
+                                    <i class="fa fa-thumbs-up"></i> 3
+                                </span>
+                        </div>
+                        <div class="summary hidden-xxs">
+                            <?if($post->summary):?>
+                            <?=$post->getSummaryHtml()?>
+                            <?else:?>
+                            <?=\Eva\EvaEngine\Text\Substring::substrCn(strip_tags($post->getContentHtml()), 100);?>
+                            <?endif?>
+                        </div>
+                    </div>
+                </li>
+                <?endforeach;?>
+                <li class="center">
+                    <?$this->partial("partial/paginator", array(
+                    'pagerUrl' => '/news',
+                    'pager' => $pager,
+                    ))?>
                 </li>
             </ul>
-            <?$posts = $pager->items;?>
-            <div class="tab-content">
-                <ul class="tab-pane search-list active" id="search-news">
-                    <?foreach($posts as $post):?>
-                    <li class="item news">
-                    <img class="img " src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_77,w_120') : '/img/article.jpg'?>" alt=""/>
-                    <a class="title" href="<?=$post->getUrl()?>"><?=$post->title?></a>
-                    <div>
-                        <span class="meta author">文/<span class="text-blue"><?=$post->user ? $post->user->username : '华尔街见闻'?> </span></span>
-                        <span class="meta time"><?=$this->tag->datetime($post->createdAt)?></span>
-                        <span class="pull-right">
-                            <span class="meta endorse icontext icontext-endorse-blue">(25)</span>
-                            <span class="meta discuss icontext icontext-discuss-blue">(<?=$post->commentCount > 0 ?: 0?>)</span>
-                        </span>
-                    </div>
-                    <p class="summary hidden-xxs">
-                    <?if($post->summary):?>
-                    <?=$post->getSummaryHtml()?>
-                    <?else:?>
-                    <?=\Eva\EvaEngine\Text\Substring::substrCn(strip_tags($post->getContentHtml()), 100);?>
-                    <?endif?>
-                    </p>
-                    </li>
-                    <?endforeach?>
-                    <li class="center">
-                    <?$this->partial("partial/paginator", array(
-                        'pagerUrl' => '/news',
-                        'pager' => $pager,
-                    ))?>
-                    </li>
-                </ul>
-                <ul class="tab-pane search-list" id="search-user"></ul>
-                <ul class="tab-pane search-list" id="search-market"></ul>
+        </div>
+        <div id="rightbar">
+            <div class="side-tags">
+                <h3 class="title">
+                    热门标签
+                </h3>
+                <a class="tag" href="">美国</a>
+                <a class="tag active" href="">石油</a>
+                <a class="tag" href="">黄金</a>
+                <a class="tag" href="">美元</a>
+                <a class="tag" href="">欧元</a>
+                <a class="tag" href="">日元</a>
             </div>
         </div>
-
     </div><!--/wrapper-->
 </div><!--/main content-->

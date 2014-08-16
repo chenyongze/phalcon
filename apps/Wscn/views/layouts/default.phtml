@@ -66,7 +66,7 @@
                 </a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div id="navbar" class="collapse navbar-collapse">
+            <div id="navbar" class="collapse navbar-collapse relative">
                 <ul class="nav navbar-nav">
                     <li><a class="link" data-active-url="^\/news.*$" href="/news"><span class="text">新闻资讯</span></a></li>
                     <li><a class="link" data-active-url="^\/livenews.*$" href="/livenews"><span class="text">实时新闻</span></a></li>
@@ -77,14 +77,13 @@
                     <li><a class="link" data-active-url="^\/app.*$" href="http://wallstreetcn.com/app/index.html" target="_blank"><span class="text">App下载</span></a></li>
                 </ul>
 
-                <div class="navbar-right relative">
-                    <form class="search-form navbar-form" action="/news" role="search" novalidate="novalidate">
-                        <div class="form-group has-feedback">
-                            <input type="text" class="search-field" name="q" placeholder="请按回车键立即搜索">
-                            <span class="fa fa-search form-control-feedback"></span>
-                        </div>
-                    </form>
-                    <span class="user-control">
+                <div id="navbar-right">
+                    <div class="user-bar">
+                        <span data-action="login">登录</span>
+                        <span data-action="register">注册</span>
+                    </div>
+
+                    <div class="user-control">
                         <a class="icon fa fa-user" href="/login"></a>
                         <a class="avatar" href="/mine/dashboard">
                             <img src="/wscn/img/avatar-md.png" alt=""/>
@@ -102,9 +101,14 @@
                             <a class="item" href="/logout">退出登录</a>
                             </nav>
                         </div>
-                    </span>
+                    </div>
+
+                    <span data-toggle="search-form" class="button-search fa fa-search"></span>
                 </div>
 
+                <form class="search-form" action="/news" role="search" novalidate="novalidate">
+                    <input type="text" class="search-field" name="q" placeholder="请按回车键立即搜索">
+                </form>
                 <!--
                 <form class="navbar-form navbar-left navbar-right" role="search">
                     <div class="form-group">
@@ -234,9 +238,9 @@
             </div>
             <!-- postbar -->
             <aside id="postbar" class="hidden-xs hidden-xxs">
-                <a class="item suggest"></a>
-                <a class="item wechat"></a>
-                <a class="item up" href="#"></a>
+                <a class="fa fa-pencil"></a>
+                <a class="fa fa-wechat"></a>
+                <a class="fa fa-chevron-up" href="#"></a>
             </aside>
             <!-- postbar ebd -->
         </div>
