@@ -21,3 +21,14 @@ function p($r)
         echo '</pre>';
     }
 }
+
+/**
+ * 方便链式调用，避免过多的中间变量，例如：with(new Post())->findPosts()
+ *
+ * @param $obj
+ * @return mixed
+ */
+function with($obj)
+{
+    return $obj;
+}

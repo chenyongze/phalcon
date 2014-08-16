@@ -169,4 +169,13 @@ return array(
         'controller' => 'mine',
         'action' => 1,
     ),
+    '/search' =>  array(
+        'module' => 'Wscn',
+        'controller' => 'Search'
+    ),
+    '/search/opensearch.xml' =>  array(
+        'module' => 'Wscn',
+        'controller' => 'Search',
+        'action'=>'opensearchxml'
+    ),
 );

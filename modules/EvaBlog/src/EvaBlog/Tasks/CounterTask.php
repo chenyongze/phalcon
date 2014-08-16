@@ -16,7 +16,6 @@ use Eva\CounterRank\Utils\CounterRankUtil;
 use Eva\EvaBlog\Models\Post;
 use mr5\CounterRank\CounterRank;
 use Eva\EvaEngine\Tasks\TaskBase;
-use Phalcon\Db\Adapter\Cacheable\Mysql;
 use Phalcon\Mvc\Model\Query;
 
 class CounterTask extends TaskBase

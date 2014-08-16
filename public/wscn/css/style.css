@@ -3664,13 +3664,13 @@ a.wiki-highlighted-keyword {
 .page-wiki .article-content {
   margin-top: 1em;
 }
-.page-wiki.page-post .article-title {
+.page-wiki.page-article .article-title {
   margin-bottom: 5px;
   color: #0a62a3;
   padding-bottom: 5px;
   border-bottom: 2px solid #bbb;
 }
-.page-wiki.page-post h3 {
+.page-wiki.page-article h3 {
   line-height: 1.8em;
   font-size: 1.1em;
   font-weight: 600;
@@ -3688,4 +3688,3 @@ a.wiki-highlighted-keyword {
 .page-wiki .wikitable th {
   font-weight: bold;
 }
-/*# sourceMappingURL=style.css.map */
