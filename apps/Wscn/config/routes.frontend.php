@@ -176,11 +176,11 @@ return array(
     ),
     '/search' =>  array(
         'module' => 'Wscn',
-        'controller' => 'Search'
+        'controller' => 'search'
     ),
     '/search/opensearch.xml' =>  array(
         'module' => 'Wscn',
-        'controller' => 'Search',
+        'controller' => 'search',
         'action'=>'opensearchxml'
     ),
 );
