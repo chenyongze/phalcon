@@ -14,6 +14,7 @@ class MineController extends ControllerBase implements SessionAuthorityControlle
 {
     public function dashboardAction()
     {
+        return $this->redirectHandler('/mine/stars');
         $this->dispatcher->forward(array(
             'action' => 'stars'
         ));

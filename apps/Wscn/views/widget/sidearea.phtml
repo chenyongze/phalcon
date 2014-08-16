@@ -24,7 +24,7 @@
     <li class="news">
         <span class="time"><?=$this->tag->datetime($item->createdAt, 'H:i')?></span>
         <div class="content">
-            <?=$item->getContentHtml()?>
+            <?=str_replace("\n", '<br />', strip_tags($item->getContentHtml()))?>
             <div class="sign"></div>
         </div>
     </li>
