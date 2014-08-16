@@ -10,6 +10,7 @@ return array(
     'EvaPermission',
     'EvaLivenews',
     'CounterRank',
+    'EvaSearch',
     'Wiki',
     //Load mobile module for checking controller / action whether exists, for mobile redirectiing
     'WscnMobile' => array(

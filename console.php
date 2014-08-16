@@ -10,8 +10,8 @@
 // + console.php 控制台入口文件
 // +----------------------------------------------------------------------
 
+set_time_limit(0);
 $_start_time = microtime(true);
-
 require __DIR__ . '/init_autoloader.php';
 
 /*
@@ -26,35 +26,43 @@ require __DIR__ . '/init_autoloader.php';
 |
 |
 */
-$engine = new \Eva\EvaEngine\Engine(__DIR__ . '/', 'evaengine', 'cli');
+$engine = new \Eva\EvaEngine\Engine(__DIR__ . '/', 'wscn', 'cli');
 $engine
     ->loadModules(include __DIR__ . '/config/modules.' . $engine->getAppName() . '.php')
     ->bootstrap();
 
 
-$output = new \Eva\EvaEngine\CLI\Output\ConsoleOutput(\Eva\EvaEngine\CLI\Output\OutputInterface::VERBOSITY_DEBUG);
+/** @var  $output Eva\EvaEngine\CLI\Output\ConsoleOutput */
+$output = $engine->getDI()->getOutput();
 
 
 try {
+    /** @var  $dispatcher Phalcon\CLI\Dispatcher */
     $dispatcher = $engine->getDI()->getDispatcher();
 
-    $engine->getApplication()->handle(array(
-        'module' => $dispatcher->getModuleName(),
-        'task' => $dispatcher->getTaskName(),
-        'action' => $dispatcher->getActionName(),
-        'params' => $dispatcher->getParams()
-    ));
+    $engine->getApplication()->handle(
+        array(
+            'module' => $dispatcher->getModuleName(),
+            'task' => $dispatcher->getTaskName(),
+            'action' => $dispatcher->getActionName(),
+            'params' => $dispatcher->getParams()
+        )
+    );
 
 } catch (\Phalcon\Exception $e) {
     $output->writeln('<error>  [ERROR]：' . $e->getMessage() . '  </error>');
+    $output->writeln('');
     $output->writeln('<comment>' . $e->getTraceAsString() . '</comment>');
+    exit(255);
 }
 
 
 // 输出内存使用情况，
-$output->writelnInfo(sprintf(
-    "\n".'Memory usage: %sMB (peak: %sMB), time cost: %ss',
-    memory_get_usage(true) / 1024 / 1024,
-    memory_get_peak_usage(true) / 1024 / 1024,
-    microtime(true) - $_start_time
-));
+$output->writelnInfo(
+    sprintf(
+        "\n" . 'Memory usage: %sMB (peak: %sMB), time cost: %ss',
+        memory_get_usage(true) / 1024 / 1024,
+        memory_get_peak_usage(true) / 1024 / 1024,
+        microtime(true) - $_start_time
+    )
+);

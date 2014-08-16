@@ -16,7 +16,7 @@ class Login extends Entities\Users
 
     protected $rememberMeTokenExpires = 5184000; //60 days
 
-    protected $maxLoginRetry = 3;
+    protected $maxLoginRetry = 5;
 
     public static function getCurrentUser()
     {

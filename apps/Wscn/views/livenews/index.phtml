@@ -1,3 +1,4 @@
+<link href="/wscn/css/flags/css/flag-icon.min.css" rel="stylesheet">
 <div id="main-content" class="columns-2">
     <div id="main" class="page-livenews">
         <?$newsPager = $this->tag->component('post', array('status' => 'published', 'limit' => 10, 'order' => '-created_at'));$posts = $newsPager->items;?>
@@ -182,95 +183,132 @@
         </div>
 
         <ul id="livenews-list">
-            <li class="date">2014年07月15号 11:02:24</li>
+            <?$lastday = ''?>
+            <?foreach($pager->items as $item): //type-img  //type-video?>
+            <?$currentday = $this->tag->datetime($item->createdAt, 'Y-m-d')?>
+            <?if(!$lastday || $currentday !== $lastday):?>
+            <li class="date"><?=$this->tag->datetime($item->createdAt, 'Y年m月d日')?></li>
+            <?endif?>
+            <?$lastday = $currentday?>
+
+            <?if($item->codeType == 'markdown'):?>
+
             <li class="news">
-                <span class="time">16:36</span>
-                <span class="icon"></span>
-                <div class="control-box">
-                    <div class="meta comments">
+            <span class="time"><?=$this->tag->datetime($item->createdAt, 'H:i')?></span>
+            <span class="icon"></span>
+            <div class="control-box">
+                <div class="meta comments">
+                    <a href="">
                         <span class="fa fa-comment"></span>
                         <span class="text">23</span>
-                    </div>
-                    <hr class="vr"/>
-                    <div class="meta">
-                        <span class="fa fa-share-square-o"></span>
-                    </div>
-                    <hr class="vr"/>
-                    <div class="meta">
-                        <span class="fa fa-heart"></span>
-                    </div>
+                    </a>
                 </div>
-                <div class="content">黄金亚太午盘跳水，跌幅近1.20%。【工行一级资本和总资产蝉联宇宙第一大行】英国《银行家》正式公布了2014年度的全球1000家大银行排名榜单。</div>
-            </li>
-            <li class="news type-img">
-                <span class="time">16:36</span>
-                <span class="icon"></span>
-                <div class="control-box">
-                    <div class="meta comments">
-                        <span class="fa fa-comment"></span>
+                <hr class="vr"/>
+                <div class="meta">
+                    <a href="">
+                        <span class="fa fa-share-square-o"></span>
                         <span class="text">23</span>
-                    </div>
-                    <hr class="vr"/>
-                    <div class="meta">
-                        <span class="fa fa-share-square-o"></span>
-                    </div>
-                    <hr class="vr"/>
-                    <div class="meta">
+                    </a>
+                </div>
+                <hr class="vr"/>
+                <div class="meta">
+                    <a href="">
                         <span class="fa fa-heart"></span>
-                    </div>
+                        <span class="text">23</span>
+                    </a>
                 </div>
-                <div class="content">
-                    黄金亚太午盘跳水，跌幅近1.20%。【工行一级资本和总资产蝉联宇宙第一大行】英国《银行家》正式公布了2014年度的全球1000家大银行排名榜单。
-                    <img class="thumb" src="" alt=""/>
-                </div>
+            </div>
+            <div class="content"><?=$item->getContentHtml()?></div>
             </li>
+
+            <?else:?>
+            <?$data = $item->getData()?>
             <li class="news type-data" data-trend="fall">
-                <span class="time">16:36</span>
-                <span class="important">
-                    <i class="fa fa-star star active"></i>
-                    <i class="fa fa-star star active"></i>
-                    <i class="fa fa-star star"></i>
-                </span>
-                <div class="control-box">
-                    <div class="meta comments">
+            <span class="time"><?=$this->tag->datetime($item->createdAt, 'H:i')?></span>
+            <span class="important">
+                <i class="fa fa-star star active"></i>
+                <i class="fa fa-star star <?=$item->importance > 1 ? 'active' : ''?>"></i>
+                <i class="fa fa-star star <?=$item->importance > 2 ? 'active' : ''?>"></i>
+            </span>
+            <div class="control-box">
+                <div class="meta comments">
+                    <a href="">
                         <span class="fa fa-comment"></span>
                         <span class="text">23</span>
-                    </div>
-                    <hr class="vr"/>
-                    <div class="meta">
+                    </a>
+                </div>
+                <hr class="vr"/>
+                <div class="meta">
+                    <a href="">
                         <span class="fa fa-share-square-o"></span>
-                    </div>
-                    <hr class="vr"/>
-                    <div class="meta">
+                        <span class="text">23</span>
+                    </a>
+                </div>
+                <hr class="vr"/>
+                <div class="meta">
+                    <a href="">
                         <span class="fa fa-heart"></span>
+                        <span class="text">23</span>
+                    </a>
+                </div>
+            </div>
+            <div class="content">
+                <img  class="flag" src="/wscn/css/flags/flags/4x3/<?=$data->country?>.svg" alt="<?=$data->country?>"/>
+                <h3 class="title">
+                    <?=$data->title?>
+                </h3>
+                <div class="custom-row">
+                    <div class="col-custom-4">
+                        <span class="text">今值：</span>
+                        <span class="value current"><?=$data->actual?></span>
+                    </div>
+                    <div class="col-custom-4">
+                        <span class="text">预测：</span>
+                        <span class="value"><?=$data->forecast?></span>
+                    </div>
+                    <div class="col-custom-4">
+                        <span class="text">前值：</span>
+                        <span class="value"><?=$data->previous?></span>
                     </div>
                 </div>
-                <div class="content">
-                    <img  class="flag" src="" alt=""/>
-                    <h3 class="title">
-                        <span class="country">日本</span>5月所有产业活动指数月率
-                    </h3>
-                    <div class="custom-row">
-                        <div class="col-custom-4">
-                            <span class="text">今值：</span>
-                            <span class="value current">-0.8%</span>
-                        </div>
-                        <div class="col-custom-4">
-                            <span class="text">预测：</span>
-                            <span class="value">1.0%</span>
-                        </div>
-                        <div class="col-custom-4">
-                            <span class="text">前值：</span>
-                            <span class="value">0.5%</span>
-                        </div>
-                    </div>
-                    <div class="verdict">利空金银</div>
-                </div>
+                <div class="verdict">利空金银</div>
+            </div>
             </li>
+
+            <?endif?>
+
+            <?endforeach?>
+
+
+
+            <li class="news type-img hide">
+            <span class="time">16:36</span>
+            <span class="icon"></span>
+            <div class="control-box">
+                <div class="meta comments">
+                    <span class="fa fa-comment"></span>
+                    <span class="text">23</span>
+                </div>
+                <hr class="vr"/>
+                <div class="meta">
+                    <span class="fa fa-share-square-o"></span>
+                </div>
+                <hr class="vr"/>
+                <div class="meta">
+                    <span class="fa fa-heart"></span>
+                </div>
+            </div>
+            <div class="content">
+                黄金亚太午盘跳水，跌幅近1.20%。【工行一级资本和总资产蝉联宇宙第一大行】英国《银行家》正式公布了2014年度的全球1000家大银行排名榜单。
+                <img class="thumb" src="" alt=""/>
+            </div>
+            </li>
+
         </ul>
-
-        <!--  -->
-
+        <?$this->partial("partial/paginator", array(
+            'pagerUrl' => '/livenews',
+            'pager' => $pager,
+        ))?>
     </div>
     <div id="rightbar">
         <h2 class="main-title">实时行情</h2>
