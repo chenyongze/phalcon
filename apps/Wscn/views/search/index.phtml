@@ -1,86 +1,105 @@
 <style>
-    .search-list em {
+    #search-result em {
         color: #dd4b39;
     }
-
-    .search-list a.title:hover {
-        text-decoration: underline;
-    }
-
-    .search-list .title {
-        color: #0a62a3;
-    }
-
-    .search-list .title:visited {
-        color: #609;
-    }
-
-    .search-list .summary {
-        color: #545454;
-    }
 </style>
-<div id="search">
-    <form id="search-form" action="">
-        <input class="search-field" name="q" placeholder="请输入您要查询的关键词" type="text"
-               value="<?= $this->escaper->escapeHtmlAttr(isset($keyword) ? $keyword : '') ?>"/>
-        <input class="submit" type="submit" value="查询"/>
-    </form>
-    <!--    <ul class="custom-nav-tabs">-->
-    <!--        <li class="active"><a data-toggle="tab" href="#search-news">新闻（-->
-    <? //=$hits['total']?><!--）</a></li>-->
-    <!--        <li><a data-toggle="tab" href="#search-market">资产（30）</a></li>-->
-    <!--        <li><a data-toggle="tab" href="#search-user">用户（5）</a></li>-->
-    <!--        <li class="pull-right custom-select hidden-xxs" style="width: 200px; text-align: right;">-->
-    <!--            <label>排序：</label>-->
-    <!--            <select>-->
-    <!--                <option value="asc">正序</option>-->
-    <!--                <option value="desc">倒序</option>-->
-    <!--            </select>-->
-    <!--        </li>-->
-    <!--    </ul>-->
-    <? if (isset($hits)): ?>
-        <div class="tab-content">
-            <ul class="tab-pane search-list active" id="search-news">
+<div id="main-content">
+
+    <aside id="leftbar">
+        <?=$this->partial("partial/sidebar", array('quotes' => $this->widget->actionHelper('widget', 'quotes')))?>
+    </aside>
+
+    <div id="wrapper">
+        <div id="main" class="page-search">
+
+            <form class="search-form" action="" novalidate="novalidate">
+                <input class="search-field" type="text" name="q" placeholder="请输入关键词" value="<?= $this->escaper->escapeHtmlAttr(isset($keyword) ? $keyword : '') ?>"/>
+                <button class="submit fa fa-search" type="submit"></button>
+            </form>
+            <h2 class="search-title">
+                <?if(isset($keyword)):?>
+                <span class="text-red"><?= $this->escaper->escapeHtmlAttr($keyword) ?></span> 的搜索结果
+                <?endif?>
+                <span class="pull-right">
+                    约找到 <span class="text-red"><?=isset($pager) ? $pager->total_items:0?></span> 个结果
+                </span>
+            </h2>
+<!--            <h6 style="line-height: 50px; color: #999;">样式一：</h6>-->
+<!--            <nav class="categories">-->
+<!--                <span class="title">阅读分类</span>-->
+<!--                <a class="item active" href="">头条</a>-->
+<!--                <a class="item" href="">编辑推荐</a>-->
+<!--                <span class="span"></span>-->
+<!--                <a class="item" href="">美国</a>-->
+<!--                <a class="item" href="">中国</a>-->
+<!--                <a class="item" href="">欧洲</a>-->
+<!--                <span class="span"></span>-->
+<!--                <a class="item" href="">市场</a>-->
+<!--                <a class="item" href="">经济</a>-->
+<!--                <a class="item" href="">央行</a>-->
+<!--                <a class="item" href="">公司</a>-->
+<!--            </nav>-->
+<!--            <h6 style="line-height: 50px; color: #999;">样式二：</h6>-->
+<!--            <h2 class="search-title">-->
+<!--                作者 <span class="text-blue">维尔京</span> 的所有文章-->
+<!--            </h2>-->
+<!--            <h6 style="line-height: 50px; color: #999;">样式三：</h6>-->
+<!--            <h2 class="search-title">-->
+<!--                标签为 <span class="text-blue">美股</span> 的所有文章-->
+<!--            </h2>-->
+<!--            <h6 style="line-height: 50px; color: #999;">样式四：</h6>-->
+<!--            <h2 class="crumbs-title">-->
+<!--                首页-->
+<!--                <span class="fa fa-angle-right"></span>-->
+<!--                <span class="sub">阅读分类 头条</span>-->
+<!--            </h2>-->
+            <? if(isset($hits)):?>
+            <ul class="news-list with-img" id="search-result">
                 <? foreach ($hits['hits'] as $hit): ?>
                     <? $post = json_decode(json_encode($hit['_source'])); ?>
-                    <li class="item news">
-                        <img class="img " src="<?= $post->image ? $this->tag->thumb(
-                            $post->image,
-                            'c_fill,h_77,w_120'
-                        ) : '/img/article.jpg' ?>" alt=""/>
-                        <a class="title" target="_blank"
-                           href="/node/<?= $post->id ?>"><?= isset($hit['highlight']['title']) ? $hit['highlight']['title'][0] : $post->title ?></a>
-
-                        <div>
-                            <span class="meta author">文/<span
-                                    class="text-blue"><?= $post->username ? $post->username : '华尔街见闻' ?> </span></span>
-                            <span class="meta time"><?= $this->tag->datetime($post->createdAt) ?></span>
-                <span class="pull-right">
-                    <span class="meta endorse icontext icontext-endorse-blue">(<?= $post->upVote > 0 ? : 0 ?>)</span>
-                    <span class="meta discuss icontext icontext-discuss-blue">(<?= $post->commentCount > 0 ? : 0 ?>
-                        )</span>
-                </span>
+                    <li class="news">
+                        <a href="/node/<?=$post->id?>">
+                            <img class="lazy img" src="/wscn/img/bg-img.gif" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_140,w_200') : '/img/article.jpg'?>" alt=""/>
+                        </a>
+                        <div class="content">
+                            <a class="title" href="/node/<?=$post->id?>"><?=$post->title?></a>
+                            <div>
+                                <span class="meta author">文 / <?=$post->username ? $post->username : '华尔街见闻'?></span>
+                                <span class="meta time visible-lg-inline-block"><?=$this->tag->datetime($post->createdAt)?></span>
+                                <span class="meta endorse pull-right">
+                                    <i class="fa fa-thumbs-up"></i> <?=$post->upVote?>
+                                </span>
+                            </div>
+                            <div class="summary hidden-xxs">
+                                <?= isset($hit['highlight']['content']) ? implode(
+                                        ' ... ',
+                                        $hit['highlight']['content']
+                                    ) . '  ... ' : \Eva\EvaEngine\Text\Substring::substrCn($post->content, 100) ?>
+                            </div>
                         </div>
-                        <p class="summary hidden-xxs">
-                            <?= isset($hit['highlight']['content']) ? implode(
-                                    ' ... ',
-                                    $hit['highlight']['content']
-                                ) . '  ... ' : \Eva\EvaEngine\Text\Substring::substrCn($post->content, 100) ?>
-                        </p>
                     </li>
-                <? endforeach ?>
+                <?endforeach;?>
                 <li class="center">
-                    <?$this->partial(
-                        "partial/paginator",
-                        array(
+                    <?$this->partial("partial/paginator", array(
                             'pagerUrl' => '/search',
                             'pager' => $pager,
-                        )
-                    )?>
+                        ))?>
                 </li>
             </ul>
-            <ul class="tab-pane search-list" id="search-user"></ul>
-            <ul class="tab-pane search-list" id="search-market"></ul>
+            <?endif;?>
         </div>
-    <? endif; ?>
-</div>
+        <div id="rightbar">
+            <div class="side-tags">
+                <h3 class="title">
+                    热门标签
+                </h3>
+                <? $hots= array('美国','石油', '黄金', '美元', '欧元', '日元')?>
+                <? foreach($hots as $tag):?>
+                <a class="tag <?=$tag==$keyword ? 'active':''?>" href="/search?q=<?=$tag?>"><?=$tag?></a>
+                <?endforeach?>
+            </div>
+        </div>
+    </div><!--/wrapper-->
+</div><!--/main content-->
+
+
