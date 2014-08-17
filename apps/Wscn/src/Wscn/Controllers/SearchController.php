@@ -94,13 +94,14 @@ class SearchController extends ControllerBase
             )
         );
         $searchParams['body']['sort'] = array(
+            'createdAt' => array(
+                'order' => 'desc',
+//                'mode' => 'avg'
+            ),
             '_score' => array(
                 'order' => 'desc'
             ),
-            'createdAt' => array(
-                'order' => 'desc',
-                'mode' => 'avg'
-            )
+
         );
 //        "sort" : [
 //      {"price" : {"order" : "asc", "mode" : "avg"}}
