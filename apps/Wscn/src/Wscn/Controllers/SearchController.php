@@ -34,17 +34,14 @@ class SearchController extends ControllerBase
         $page = isset($_REQUEST['page']) ? intval($_REQUEST['page']) : 1;
         $page = $page > 0 ? $page : 1;
         $searchParams['from'] = ($page - 1) * $searchParams['size'];
-//        $searchParams['body']['query']['multi_match'] = array(
-//            'query' => $keyword,
-//            "fields" => array("title", "content"),
-//            "tie_breaker" => 0.3
-//        );
-//        $searchParams['body']['query']['multi_match'] = array(
-//            'query' => $keyword,
-//            "fields" => array("title", "content"),
-//            "tie_breaker" => 0.3
-////        "content"=>$keyword
-//        );
+//        p($searchParams);
+
+        $searchParams['body']['query']['multi_match'] = array(
+            'query' => $keyword,
+            "fields" => array("title", "content"),
+            "tie_breaker" => 0.3
+        );
+
 //        "query": {
 //        "bool": {
 //            "must": [
@@ -58,48 +55,63 @@ class SearchController extends ControllerBase
 //            "should": []
 //        }
 //    },
-        $searchParams['body']['fields'] = array(
-            '_parent',
-            '_source'
-        );
-        $searchParams['body']['query']['bool'] = array(
-            "must" => array(
-                array(
-                    'wildcard' => array(
-                        "content" => $keyword . '*'
-                    )
-                )
-            ),
-            "must_not" => array(),
-            'should' => array()
-        );
-//        $searchParams['body']['highlight'] = array(
-//            "fields" => array(
-//                "content" => array(
-//                    "fragment_size" => 50,
-//                    "number_of_fragments" => 2,
-//                    "type" => "plain"
-//                ),
-//                "title" => array(
-//                    "type" => "plain"
-//                )
-//            )
+//        $searchParams['body']['fields'] = array(
+//            '_parent',
+//            '_source'
 //        );
-//        $searchParams['body']['filter'] = array(
-//            "bool" => array(
-//                "should" => array(
-//                    "term" => array(
-//                        "status" => "published"
+//        $searchParams['body']['query']['bool'] = array(
+//            "must" => array(
+//                array(
+//                    'wildcard' => array(
+//                        "content" => $keyword . '*'
 //                    )
 //                )
-//            )
+//            ),
+//            "must_not" => array(),
+//            'should' => array()
 //        );
+        $searchParams['body']['highlight'] = array(
+
+            "fields" => array(
+                "title" => array(
+                    "type" => "plain"
+                ),
+                "content" => array(
+                    "fragment_size" => 50,
+                    "number_of_fragments" => 3,
+                    "type" => "plain"
+                ),
+
+            )
+        );
+        $searchParams['body']['filter'] = array(
+            "bool" => array(
+                "should" => array(
+                    "term" => array(
+                        "status" => "published"
+                    )
+                )
+            )
+        );
+        $searchParams['body']['sort'] = array(
+            '_score' => array(
+                'order' => 'desc'
+            ),
+            'createdAt' => array(
+                'order' => 'desc',
+                'mode' => 'avg'
+            )
+        );
+//        "sort" : [
+//      {"price" : {"order" : "asc", "mode" : "avg"}}
+//   ]
 
         $ret = $client->search($searchParams);
         $this->view->setVar('hits', $ret['hits']);
         $pager = new PurePaginator($searchParams['size'], $ret['hits']['total'], $ret['hits']['hits']);
         $this->view->setVar('pager', $pager);
         $this->view->setVar('keyword', $keyword);
+
     }
 
     public function opensearchxmlAction()

@@ -9,18 +9,18 @@
             "dynamic": "true",
             "properties": {
                 "content": {
-                    "index_analyzer": "ik",
-                    "search_analyzer": "ik",
+                    "index_analyzer": "mmseg_maxword",
+                    "search_analyzer": "mmseg_maxword",
                     "type": "string"
                 },
                 "title": {
-                    "index_analyzer": "ik",
-                    "search_analyzer": "ik",
+                    "index_analyzer": "mmseg_maxword",
+                    "search_analyzer": "mmseg_maxword",
                     "type": "string"
                 },
                 "summary": {
-                    "index_analyzer": "ik",
-                    "search_analyzer": "ik",
+                    "index_analyzer": "mmseg_maxword",
+                    "search_analyzer": "mmseg_maxword",
                     "type": "string"
                 },
                 "categoryIds": {
@@ -40,18 +40,18 @@
             "properties": {
                 "title": {
                     "type": "string",
-                    "search_analyzer": "ik",
-                    "index_analyzer": "ik"
+                    "search_analyzer": "mmseg_maxword",
+                    "index_analyzer": "mmseg_maxword"
                 },
                 "content": {
                     "type": "string",
-                    "search_analyzer": "ik",
-                    "index_analyzer": "ik"
+                    "search_analyzer": "mmseg_maxword",
+                    "index_analyzer": "mmseg_maxword"
                 },
                 "contentExtra": {
                     "type": "string",
-                    "search_analyzer": "ik",
-                    "index_analyzer": "ik"
+                    "search_analyzer": "mmseg_maxword",
+                    "index_analyzer": "mmseg_maxword"
                 },
                 "categoryIds": {
                     "index_analyzer": "comma_split",
@@ -60,18 +60,18 @@
                 }
             }
         },
-        "wiki": {
+        "windex_ansji": {
             "dynamic": "true",
             "properties": {
                 "title": {
                     "type": "string",
-                    "search_analyzer": "ik",
-                    "index_analyzer": "ik"
+                    "search_analyzer": "mmseg_maxword",
+                    "index_analyzer": "mmseg_maxword"
                 },
                 "content": {
                     "type": "string",
-                    "search_analyzer": "ik",
-                    "index_analyzer": "ik"
+                    "search_analyzer": "mmseg_maxword",
+                    "index_analyzer": "mmseg_maxword"
                 },
                 "categoryIds": {
                     "index_analyzer": "comma_split",

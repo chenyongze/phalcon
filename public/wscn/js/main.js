@@ -103,16 +103,16 @@
 })();
 
 //搜索列表 高亮 关键字
-$(function(){
-    var $search = $('#search-result');
-    if ($search.length == 0 || window.location.search.indexOf('?q=') == -1) {
-        return;
-    }
-    var dom = $search[0];
-    var keyword = decodeURI(window.location.search.substring(3));
-    var html = dom.innerHTML;
-    dom.innerHTML = html.replace(new RegExp(keyword, 'gm'), '<span class="search-highlight">' + keyword + '</span>');
-});
+//$(function(){
+//    var $search = $('#search-result');
+//    if ($search.length == 0 || window.location.search.indexOf('?q=') == -1) {
+//        return;
+//    }
+//    var dom = $search[0];
+//    var keyword = decodeURI(window.location.search.substring(3));
+//    var html = dom.innerHTML;
+//    dom.innerHTML = html.replace(new RegExp(keyword, 'gm'), '<span class="search-highlight">' + keyword + '</span>');
+//});
 
 (function($){
 
