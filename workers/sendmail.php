@@ -18,13 +18,13 @@ $worker->addFunction('sendmailAsync', 'sendmailAsync');
 $logger = new Phalcon\Logger\Adapter\File($engine->getDI()->getConfig()->logger->path . 'worker_sendmail.log');
 $logger->info(sprintf("Sendmail worker started by appname %s", $engine->getAppName()));
 
-//Worker如果长时间不连接DB可能会丢失DB链接，因此不能采用DI，应当每次重新链接
+//MySQL interactive_timeout after 8 hours
 function refreshDbConnect()
 {
     global $engine;
     $di = $engine->getDI();
-    $di->set('dbMaster', $engine->diDbMaster());
-    $di->set('dbSlave', $engine->diDbSlave());
+    $di->getDbMaster()->connect();
+    $di->getDbSlave()->connect();
 }
 
 function sendmailAsync($job)
