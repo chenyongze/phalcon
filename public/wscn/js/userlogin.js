@@ -25,6 +25,7 @@
             "ERR_USER_PASSWORD_WRONG_MAX_TIMES" : "密码输入错误次数太多，用户已经被锁定，请稍后重试",
             "ERR_USER_NOT_EXIST" : "用户不存在",
             "ERR_USER_NOT_ACTIVED" : "用户未激活<span class='inactive-handle'></span>",
+            "ERR_USER_EMAIL_NOT_ACTIVED" : "用户邮箱未激活<span class='inactive-handle'></span>",
             "ERR_USER_RESET_CODE_NOT_MATCH" : "验证码不匹配",
             "ERR_USER_RESET_CODE_EXPIRED" : "验证码已过期",
             "ERR_USER_USERNAME_ALREADY_TAKEN" : "用户名已存在",
