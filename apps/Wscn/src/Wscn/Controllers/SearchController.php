@@ -73,15 +73,13 @@ class SearchController extends ControllerBase
         $searchParams['body']['highlight'] = array(
 
             "fields" => array(
-                "_all",
                 "title" => array(
-
                     "type" => "plain"
                 ),
                 "content" => array(
                     "fragment_size" => 50,
-                    "number_of_fragments" => 2,
-//                    "type" => "plain"
+                    "number_of_fragments" => 3,
+                    "type" => "plain"
                 ),
 
             )
