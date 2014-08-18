@@ -139,18 +139,24 @@
         & > .button {
             display: inline-block;
             width: 64px;
-            height: 34px;
+            border: 1px solid #fff;
             font-size: 14px;
-            line-height: 34px;
+            line-height: 32px;
             color: #fff;
             text-align: center;
             border-radius: 5px;
             margin-right: 5px;
             &[data-action=register] {
                 background-color: #00AAFF;
+                &:hover {
+                    background-color: #00aaff;
+                }
             }
             &[data-action=login] {
                 background-color: @blue;
+                &:hover {
+                    background-color: #0097f4;
+                }
             }
         }
         & > .avatar {

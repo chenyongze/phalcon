@@ -1493,9 +1493,9 @@ img.lazy {
 #header .user-control > .button {
   display: inline-block;
   width: 64px;
-  height: 34px;
+  border: 1px solid #fff;
   font-size: 14px;
-  line-height: 34px;
+  line-height: 32px;
   color: #fff;
   text-align: center;
   border-radius: 5px;
@@ -1504,8 +1504,14 @@ img.lazy {
 #header .user-control > .button[data-action=register] {
   background-color: #00AAFF;
 }
+#header .user-control > .button[data-action=register]:hover {
+  background-color: #00aaff;
+}
 #header .user-control > .button[data-action=login] {
   background-color: #0078d2;
+}
+#header .user-control > .button[data-action=login]:hover {
+  background-color: #0097f4;
 }
 #header .user-control > .avatar {
   display: none;
