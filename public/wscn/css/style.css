@@ -3248,10 +3248,10 @@ body.show-breaking-news #breaking-news {
 #livenews-list .news.type-data .flag {
   position: absolute;
   display: block;
-  top: 3px;
+  top: 2px;
   left: 45px;
-  width: 60px;
-  height: 40px;
+  width: 56px;
+  height: 42px;
 }
 #livenews-list .news.type-data .verdict {
   position: absolute;
