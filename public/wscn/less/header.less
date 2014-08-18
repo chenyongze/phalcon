@@ -84,7 +84,7 @@
         text-align: center;
         width: 34px;
         line-height: 34px;
-        //margin-top: 13px;
+        margin-right: 10px;
         font-size: 17px;
         color: #666;
         &:hover {
@@ -115,13 +115,12 @@
     .user-control {
         z-index: 9999;
         font-size: 14px;
-        //display: inline-block;
+        display: inline-block;
         text-align: left;
-        display: none;
         vertical-align: middle;
         position: relative;
         padding: 13px 0;
-        width: 34px;
+        //width: 34px;
 
         .icon-inactive {
             display: none;
@@ -137,23 +136,25 @@
             //background: url(../icon/inactive.png) 0 0 no-repeat;
         }
 
-        & > .icon {
-            //display: block;
-            display: none;
-            width: 100%;
-            height: 100%;
-            font-size: 21px;
+        & > .button {
+            display: inline-block;
+            width: 64px;
+            height: 34px;
+            font-size: 14px;
             line-height: 34px;
-            color: #666;
+            color: #fff;
             text-align: center;
-            top: 0;
-            &:hover {
-                color: @blue;
+            border-radius: 5px;
+            margin-right: 5px;
+            &[data-action=register] {
+                background-color: #00AAFF;
+            }
+            &[data-action=login] {
+                background-color: @blue;
             }
         }
         & > .avatar {
-            //display: none;
-            display: block;
+            display: none;
             img {
                 width: 24px;
                 height: 24px;
@@ -214,7 +215,7 @@
             }
         }
         &.login {
-            & > .icon {
+            & > .button {
                 display: none;
             }
             & > .avatar {
@@ -226,11 +227,7 @@
                 }
             }
         }
-        &:hover {
-            & > .control {
-                display: block;
-            }
-        }
+
         &.inactive {
             &:before {
                 display: block;
@@ -280,7 +277,8 @@
 }
 
 #navbar-right {
-    margin-right: -23px;
+    margin-right: -20px;
+    //padding-right: 5px;
     float: right;
     position: relative;
     z-index: 9;
@@ -291,19 +289,6 @@
     background-color: #fff;
 }
 
-/**
- *
- */
-body[data-logon=false] {
-    #header .user-bar {
-        display: inline-block;
-    }
-}
-body[data-logon=true] {
-    #header .user-control {
-        display: inline-block;
-    }
-}
 @media(max-width: @navbar-breakpoint) {
     #header {
         .button-search {

@@ -380,6 +380,11 @@ img.lazy {
 
 //新闻 列表
 .news-list {
+
+    .news {
+        font-size: 14px;
+        line-height: 21px;
+    }
     // dot 类型
     &.with-dot {
         .news {
@@ -387,8 +392,7 @@ img.lazy {
             display: block;
             padding-left: 1em;
             margin-bottom: 20px;
-            font-size: 14px;
-            line-height: 21px;
+
             &:before {
                 display: inline-block;
                 position: absolute;
@@ -409,8 +413,7 @@ img.lazy {
             position: relative;
             padding-left: 2em;
             margin-bottom: 20px;
-            font-size: 14px;
-            line-height: 21px;
+
             &:before {
                 position: absolute;
                 left: 0;
@@ -419,7 +422,7 @@ img.lazy {
                 font-family: "Times New Roman",Georgia,Serif;
                 font-style: italic;
                 font-weight: bold;
-                content:counter(sectioncounter) " .";
+                content:counter(sectioncounter);
                 counter-increment:sectioncounter;
             }
             .number {
@@ -614,6 +617,7 @@ img.lazy {
         margin-bottom: 15px;
         &:hover {
             color: @blue;
+            border-color: @blue;
         }
         &.active {
             color: @blue;

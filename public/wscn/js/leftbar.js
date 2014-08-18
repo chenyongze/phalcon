@@ -146,7 +146,7 @@
     };
     function showChart(symbol) {
         //todo
-        var src = $marketChart.attr('src');
+        var src = $marketChart.attr('src') || 'http://markets.wallstreetcn.com/embed/hs?waterMark=1&rows=50&width=300&height=150&symbol=XAUUSD&interval=5&chartTheme=lightRugd&type=area';
         src = src.replace(/symbol=\w+/, 'symbol=' + symbol);
         $marketChart.attr('src', src);
     };
@@ -159,7 +159,7 @@
             //初始化滚动条
             $marketInfo.nanoScroller({
                 preventPageScrolling: true,
-                alwaysVisible: true
+                iOSNativeScrolling: true
             });
             //
             $marketInfo.removeClass('loading');
@@ -175,7 +175,7 @@
                     //初始化滚动条
                     $marketInfo.nanoScroller({
                         preventPageScrolling: true,
-                        alwaysVisible: true
+                        iOSNativeScrolling: true
                     });
                     //
                     $marketInfo.removeClass('loading');
