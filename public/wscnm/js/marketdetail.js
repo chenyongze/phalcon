@@ -124,12 +124,14 @@ $(function ($) {
 		$(".full-screen").css({"visibility":"visible","z-index":999});
 		$(".full-screen .wrapper,.full-screen .masking").css("height",height+"px");
 		$(".footerbar").css("display","none");
+		$(".toolbar").css("display","none");
 		 
 	}
 
 	function hideFullScreen(){
 		console.log("hideFullScreen");
 		$(".footerbar").css("display","");
+		$(".toolbar").css("display","");
 		$(".full-screen").css({"visibility":"hidden","z-index":0});
 		$(".full-screen .wrapper,.full-screen .masking").css("height","0px");
 		$(".full-screen iframe").attr("src","about:blank");

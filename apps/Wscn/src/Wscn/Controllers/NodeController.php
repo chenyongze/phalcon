@@ -3,6 +3,7 @@
 namespace Wscn\Controllers;
 
 use Eva\EvaBlog\Models\Post;
+use Eva\EvaBlog\Models\Tag;
 use Eva\EvaEngine\Exception;
 use Eva\Wiki\Utils\WikiUtil;
 
@@ -28,5 +29,10 @@ class NodeController extends ControllerBase
             $post->text->content = WikiUtil::highlight($post->text->content);
         }
         $this->view->setVar('post', $post);
+
+        if($post->tags->count() > 0) {
+            $tag = new Tag();
+            $relatedPosts = $tag->getRelatedPosts($post->id);
+        }
     }
 }
