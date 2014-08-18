@@ -20,7 +20,7 @@ use Eva\EvaEngine\Exception;
  *  basePath="/apiv1"
  * )
  */
-class PostController extends ControllerBase
+class NodeController extends ControllerBase
 {
     /**
      *

@@ -21,7 +21,7 @@ return array(
         'pattern' => '/apiv1/news-list.json(p)*',
         'paths' => array(
             'module' => 'WscnApiVer1',
-            'controller' => 'post',
+            'controller' => 'node',
             'action' => 'index',
         ),
         'httpMethods' => 'GET'
@@ -31,7 +31,7 @@ return array(
         'pattern' => '/apiv1/rank-twodays-list.json(p)*',
         'paths' => array(
             'module' => 'WscnApiVer1',
-            'controller' => 'post',
+            'controller' => 'node',
             'action' => 'ranktwodays',
         ),
         'httpMethods' => 'GET'
@@ -41,7 +41,7 @@ return array(
         'pattern' => '/apiv1/node/(\d+).json(p)*',
         'paths' => array(
             'module' => 'WscnApiVer1',
-            'controller' => 'post',
+            'controller' => 'node',
             'action' => 'get',
             'id' => 1,
         ),
@@ -52,7 +52,7 @@ return array(
         'pattern' => '/apiv1/topnews-list.json(p)*',
         'paths' => array(
             'module' => 'WscnApiVer1',
-            'controller' => 'post',
+            'controller' => 'node',
             'action' => 'topnews',
         ),
         'httpMethods' => 'GET'
@@ -63,7 +63,7 @@ return array(
         'pattern' => '/apiv1/livenews-list-v2.json(p)*',
         'paths' => array(
             'module' => 'WscnApiVer1',
-            'controller' => 'post',
+            'controller' => 'node',
             'action' => 'live',
         ),
         'httpMethods' => 'GET'

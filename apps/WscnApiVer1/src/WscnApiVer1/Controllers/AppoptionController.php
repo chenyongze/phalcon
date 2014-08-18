@@ -41,12 +41,12 @@ class AppoptionController extends ControllerBase
      *
      * @SWG\Api(
      *   path="/android_version.json",
-     *   description="安卓版本",
+     *   description="App相关接口",
      *   produces="['application/json']",
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       method="GET",
-     *       summary="",
+     *       summary="安卓版本",
      *       notes="",
      *       @SWG\Parameters(
      *       )
@@ -59,11 +59,26 @@ class AppoptionController extends ControllerBase
         return $this->showApi();
     }
 
-    // ios升级版本
+    /**
+     *
+     * @SWG\Api(
+     *   path="/ios_version.json",
+     *   description="App相关接口",
+     *   produces="['application/json']",
+     *   @SWG\Operations(
+     *     @SWG\Operation(
+     *       method="GET",
+     *       summary="iOS版本",
+     *       notes="",
+     *       @SWG\Parameters(
+     *       )
+     *     )
+     *   )
+     * )
+     */
     public function iosVersionAction()
     {
-        include_once  $this->path . 'ios_version.php';
-        return $this->response->setJsonContent($json);
+        return $this->showApi();
     }
 
     // ios gold升级版本
