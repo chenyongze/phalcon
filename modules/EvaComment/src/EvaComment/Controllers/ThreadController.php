@@ -10,6 +10,8 @@ use Eva\EvaComment\Models\CommentManager;
 use Eva\EvaEngine\Mvc\Controller\ControllerBase;
 use Eva\EvaBlog\Forms;
 
+use Eva\EvaUser\Models\Login as LoginModel;
+
 use Gregwar\Captcha\CaptchaBuilder;
 
 
@@ -120,18 +122,23 @@ class ThreadController extends ControllerBase
         );
     }
 
+    public function dialog()
+    {
+
+    }
+
     /**
      * Creates a new Comment for the Thread from the submitted data.
      *
      * @param string $uniqueKey The id of the thread
-     *
+     * @throws \Exception
      */
     public function postThreadCommentsAction($uniqueKey)
     {
         $threadManager = new ThreadManager();
         $thread = $threadManager->findThreadByUniqueKey($uniqueKey);
         if (!$thread) {
-            throw new \Exception(sprintf('Thread with identifier of "%s" does not exist', $threadKey));
+            throw new \Exception(sprintf('Thread with identifier of "%s" does not exist', $uniqueKey));
         }
 
 //        if (!$thread->isCommentable()) {
@@ -139,7 +146,7 @@ class ThreadController extends ControllerBase
 //        }
 
 
-        $parentId = $this->request->getQuery('parentId');
+        $parentId = $this->request->getPost('parentId');
         $parent = $this->getValidCommentParent($thread, $parentId);
 
         $content = $this->request->getPost('content');
@@ -149,7 +156,15 @@ class ThreadController extends ControllerBase
 
 //        if ($form->isValid()) {
         $comment->content = $content;
-        if(!empty($username)) $comment->username = $username;
+//        if(!empty($username)) $comment->username = $username;
+
+        $user = new LoginModel();
+        if ($user->isUserLoggedIn()) {
+            $userinfo = $user->getCurrentUser();
+            $comment->userId =  $userinfo['id'];
+            $comment->username =  $userinfo['username'];
+        }
+
         $commentManager->filterContent($comment);  //政治敏感词过滤
         if ($commentManager->saveComment($comment) !== false) {
             $errors = $comment->getMessages();
@@ -170,9 +185,8 @@ class ThreadController extends ControllerBase
 
     /**
      * Presents the form to use to create a new Comment for a Thread.
-     *
-     * @param string $uniqueKey
-     *
+     * @param $uniqueKey
+     * @throws \Exception
      */
     public function newThreadCommentsAction($uniqueKey)
     {
@@ -222,11 +236,12 @@ class ThreadController extends ControllerBase
      */
     private function getValidCommentParent($thread, $commentId)
     {
-        if (null !== $commentId) {
+        if (!empty($commentId)) {
             $commentManager = new CommentManager();
             $comment = $commentManager->findCommentById($commentId);
             if (!$comment) {
-                exit('Parent comment with identifier "%s" does not exist');
+                //todo throw exception
+                exit(sprintf('Parent comment with identifier "%s" does not exist',$commentId));
 //                throw new NotFoundHttpException(sprintf('Parent comment with identifier "%s" does not exist', $commentId));
             }
 
