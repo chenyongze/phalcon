@@ -79,14 +79,12 @@
                 </ul>
 
                 <div id="navbar-right">
-                    <div class="user-bar">
-                        <span data-action="login">登录</span>
-                        <span data-action="register">注册</span>
-                    </div>
+
+                    <span data-toggle="search-form" class="button-search fa fa-search"></span>
 
                     <div class="user-control">
-
-                        <a class="icon fa fa-user" href="/login"></a>
+                        <a class="button" data-action="register" href="/register">注册</a>
+                        <a class="button" data-action="login" href="/login">登录</a>
                         <a class="avatar" href="/mine/dashboard">
                             <img src="/wscn/img/avatar-md.png" alt=""/>
                         </a>
@@ -105,7 +103,6 @@
                         </div>
                     </div>
 
-                    <span data-toggle="search-form" class="button-search fa fa-search"></span>
                 </div>
 
                 <form class="search-form" action="/search" role="search" novalidate="novalidate">

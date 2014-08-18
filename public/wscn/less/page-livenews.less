@@ -181,11 +181,15 @@
                 }
                 &.comments {
                     margin-top: -1px;
+                    .text {
+                        margin-top: 1px;
+                    }
                 }
             }
         }
         & > .content {
             position: relative;
+            min-height: 40px;
         }
 
         &.type-img ,
@@ -204,10 +208,7 @@
             }
         }
         &.type-data {
-            & > .content {
-                padding-left: 150px;
-                padding-right: 120px;
-            }
+
             .important {
                 position: absolute;
                 top: 40px;
@@ -240,25 +241,30 @@
                 text-align: center;
                 border: 1px solid @borderColor;
             }
-            .title {
-                color: @blue;
-                font-weight: bold;
-                font-size: 13px;
-                line-height: 20px;
-                //height: 40px;
-                overflow: hidden;
-                margin-bottom: 6px;
+            & > .content {
+                padding-left: 150px;
+                padding-right: 120px;
+                .title {
+                    color: @blue;
+                    font-weight: bold;
+                    font-size: 13px;
+                    line-height: 20px;
+                    //height: 40px;
+                    overflow: hidden;
+                    margin-bottom: 6px;
+                }
+                .country {
+                    display: inline-block;
+                    margin-right: 1em;
+                }
+                .text {
+                    color: #666;
+                }
+                .value {
+                    font-weight: bold;
+                }
             }
-            .country {
-                display: inline-block;
-                margin-right: 1em;
-            }
-            .text {
-                color: #666;
-            }
-            .value {
-                font-weight: bold;
-            }
+
             &[data-trend=rise] {
                 .current {
                     color: @riseColor;
