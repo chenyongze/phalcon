@@ -9,96 +9,18 @@
                 <div class="tab-pane active">
                     <?=$this->tag->flashOutput()?>
                     <ul class="comments">
+                        <?foreach($pager->items as $comment):?>
                         <li class="comment">
-                            <a class="title" href="">黄金暂时承压1330下方，等待非农消息</a>
+                            <a class="title" href="<?=$comment->thread->permalink?>"><?=$comment->thread->getTitle(); ?></a>
                             <p class="summary">
-                                周四(7月3日)亚市盘中，国际现货黄金价格暂时承压于1330美元/盎司下方。
+                                <?=$comment->content ?>
                             </p>
                             <div>
-                                <span class="time">2014年6月20号  12:24</span>
-                                <a class="text-blue pull-right" data-action="delete">删除</a>
+                                <span class="time"><?=date('Y年m月d日 H:i',$comment->createdAt) ?></span>
+<!--                                <a class="text-blue pull-right" data-action="delete">删除</a>-->
                             </div>
                         </li>
-                        <li class="comment">
-                            <a class="title" href="">彭博调查：多数黄金交易员及分析师看跌下周金价</a>
-                            <p class="summary">
-                                周四(7月3日)亚市盘中，国际现货黄金价格暂时承压于1330美元/盎司下方。黄金自6月份以来维持的涨势将面临今晚非农的层层考虑，同时晚间还将...
-                            </p>
-                            <div>
-                                <span class="time">2014年6月20号  12:24</span>
-                                <a class="text-blue pull-right" data-action="delete">删除</a>
-                            </div>
-                        </li>
-                        <li class="comment">
-                            <a class="title" href="">彭博调查：多数黄金交易员及分析师看跌下周金价，布伦特原油大涨，欧盟就严厉制裁俄罗斯新措施达成初步协议</a>
-                            <p class="summary">
-                                周四(7月3日)亚市盘中，国际现货黄金价格暂时承压于1330美元/盎司下方。黄金自6月份以来维持的涨势将面临今晚非农的层层考虑，同时晚间还将...
-                            </p>
-                            <div>
-                                <span class="time">2014年6月20号  12:24</span>
-                                <a class="text-blue pull-right" data-action="delete">删除</a>
-                            </div>
-                        </li>
-                        <li class="comment">
-                            <a class="title" href="">黄金暂时承压1330下方，等待非农消息</a>
-                            <p class="summary">
-                                周四(7月3日)亚市盘中，国际现货黄金价格暂时承压于1330美元/盎司下方。
-                            </p>
-                            <div>
-                                <span class="time">2014年6月20号  12:24</span>
-                                <a class="text-blue pull-right" data-action="delete">删除</a>
-                            </div>
-                        </li>
-                        <li class="comment">
-                            <a class="title" href="">彭博调查：多数黄金交易员及分析师看跌下周金价</a>
-                            <p class="summary">
-                                周四(7月3日)亚市盘中，国际现货黄金价格暂时承压于1330美元/盎司下方。黄金自6月份以来维持的涨势将面临今晚非农的层层考虑，同时晚间还将...
-                            </p>
-                            <div>
-                                <span class="time">2014年6月20号  12:24</span>
-                                <a class="text-blue pull-right" data-action="delete">删除</a>
-                            </div>
-                        </li>
-                        <li class="comment">
-                            <a class="title" href="">彭博调查：多数黄金交易员及分析师看跌下周金价，布伦特原油大涨，欧盟就严厉制裁俄罗斯新措施达成初步协议</a>
-                            <p class="summary">
-                                周四(7月3日)亚市盘中，国际现货黄金价格暂时承压于1330美元/盎司下方。黄金自6月份以来维持的涨势将面临今晚非农的层层考虑，同时晚间还将...
-                            </p>
-                            <div>
-                                <span class="time">2014年6月20号  12:24</span>
-                                <a class="text-blue pull-right" data-action="delete">删除</a>
-                            </div>
-                        </li>
-                        <li class="comment">
-                            <a class="title" href="">黄金暂时承压1330下方，等待非农消息</a>
-                            <p class="summary">
-                                周四(7月3日)亚市盘中，国际现货黄金价格暂时承压于1330美元/盎司下方。
-                            </p>
-                            <div>
-                                <span class="time">2014年6月20号  12:24</span>
-                                <a class="text-blue pull-right" data-action="delete">删除</a>
-                            </div>
-                        </li>
-                        <li class="comment">
-                            <a class="title" href="">彭博调查：多数黄金交易员及分析师看跌下周金价</a>
-                            <p class="summary">
-                                周四(7月3日)亚市盘中，国际现货黄金价格暂时承压于1330美元/盎司下方。黄金自6月份以来维持的涨势将面临今晚非农的层层考虑，同时晚间还将...
-                            </p>
-                            <div>
-                                <span class="time">2014年6月20号  12:24</span>
-                                <a class="text-blue pull-right" data-action="delete">删除</a>
-                            </div>
-                        </li>
-                        <li class="comment">
-                            <a class="title" href="">彭博调查：多数黄金交易员及分析师看跌下周金价，布伦特原油大涨，欧盟就严厉制裁俄罗斯新措施达成初步协议</a>
-                            <p class="summary">
-                                周四(7月3日)亚市盘中，国际现货黄金价格暂时承压于1330美元/盎司下方。黄金自6月份以来维持的涨势将面临今晚非农的层层考虑，同时晚间还将...
-                            </p>
-                            <div>
-                                <span class="time">2014年6月20号  12:24</span>
-                                <a class="text-blue pull-right" data-action="delete">删除</a>
-                            </div>
-                        </li>
+                        <? endforeach ?>
                     </ul>
                 </div>
             </div>
