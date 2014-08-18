@@ -122,6 +122,7 @@ class CommentManager extends BaseModel
         return $comment;
     }
 
+
     function updateCommentStatus(Comments $comment,$status)
     {
         $comment->status = $status;
@@ -132,6 +133,17 @@ class CommentManager extends BaseModel
         $comment->thread->save();
 
         return $comment;
+    }
+
+    function findCommentsByUser($user)
+    {
+        $builder = $this->getModelsManager()->createBuilder();
+
+        $builder->from('Eva\EvaComment\Entities\Comments');
+
+        $builder->andWhere('userId = '.$user->id);
+        $builder->andWhere('status = "' . Comments::STATE_APPROVED . '"');
+        return $builder;
     }
 
 

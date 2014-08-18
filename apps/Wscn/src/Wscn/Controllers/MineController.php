@@ -5,10 +5,13 @@ namespace Wscn\Controllers;
 use Eva\EvaUser\Models\Login;
 use Eva\EvaUser\Models\User;
 use Eva\EvaBlog\Models\Star;
+use Eva\EvaComment\Models\CommentManager as Comment;
 use Eva\EvaOAuthClient\Models\OAuthManager;
 use Eva\EvaUser\Forms;
 use Wscn\Forms\UserForm;
 use Eva\EvaEngine\Mvc\Controller\SessionAuthorityControllerInterface;
+
+use Eva\EvaEngine\Paginator;
 
 class MineController extends ControllerBase implements SessionAuthorityControllerInterface
 {
@@ -152,6 +155,17 @@ class MineController extends ControllerBase implements SessionAuthorityControlle
         $me = Login::getCurrentUser();
         $user = User::findFirstById($me['id']);
         $this->view->setVar('item', $user);
+
+        $comment = new Comment();
+        $comments = $comment->findCommentsByUser($user);
+        $paginator = new Paginator(array(
+            "builder" => $comments,
+            "limit"=> 10,
+            "page" => 1
+        ));
+//        $paginator->setQuery($query);
+        $pager = $paginator->getPaginate();
+        $this->view->setVar('pager', $pager);
     
     }
 

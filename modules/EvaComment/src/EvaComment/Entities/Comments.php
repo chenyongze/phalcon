@@ -167,6 +167,15 @@ class Comments extends BaseModel
             )
         );
 
+        $this->belongsTo(
+            'parentId',
+            '\Eva\EvaComment\Entities\Comments',
+            'id',
+            array(
+                'alias' => 'parent'
+            )
+        );
+
     }
 
     public function onConstruct()

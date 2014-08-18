@@ -1,12 +1,12 @@
 <div class="user-comments">
-    <div class="ws-reply-box">
+    <div class="ws-reply-box ws-first-reply-box">
         <div class="ws-avatar">
             <img src="/wscn/img/avatar-md.png" alt="ikk">
         </div>
-        <?= $this->tag->form(array('/thread/'.$thread->uniqueKey.'/comments/save','id'=>'ws_comment_form_0',
-            'class'=>'ws_comment_comment_new_form','method'=>'post','data-parent')) ?>
+        <?= $this->tag->form(array('/thread/'.$thread->uniqueKey.'/comments/save',
+            'class'=>'ws-comment-new-form','method'=>'post')) ?>
             <textarea class="input" name="content" rows="4"></textarea>
-            <input type="hidden" name="username" value="测试" />
+            <input name="parentId" type="hidden" value="0" />
     <!--            <input type="text" class="form-control captcha" name="captcha" value="" /> <img src="/thread/captcha"  class="img-rounded" />-->
             <input class="submit btn btn-primary" type="submit" value="回复"/>
         </form>
@@ -18,10 +18,10 @@
         <div class="ws-sort">
             <a class="ws-order-desc <?if($sorter=='-created_at') echo 'ws-current' ?>" data-sort="-created_at">最新</a>
             <a class="ws-order-asc <?if($sorter=='created_at') echo 'ws-current' ?>" data-sort="created_at">最早</a>
-            <a class="ws-order-hot <?if($sorter=='hot') echo 'ws-current' ?>" data-sort="hot">最热</a>
+<!--            <a class="ws-order-hot --><?//if($sorter=='hot') echo 'ws-current' ?><!--" data-sort="hot">最热</a>-->
         </div>
     </div>
-    <div class="ws-comments" id="ws_comment_list">
+    <div class="ws-comments">
         <?
         foreach($comments as $comment){
             $this->partial('thread/comment', array('comment' => $comment,'thread'=>$thread));
@@ -31,6 +31,7 @@
                     $this->partial('thread/comment', array('comment' => $comment,'thread'=>$thread));
                 }
             }
+
         }
         ?>
     </div>
