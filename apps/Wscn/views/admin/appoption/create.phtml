@@ -1,0 +1,205 @@
+<div class="breadcrumbs" id="breadcrumbs">
+    <script type="text/javascript">
+        try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+    </script>
+
+    <ul class="breadcrumb">
+        <li>
+        <i class="icon-home home-icon"></i>
+        <a href="/admin/dashboard">Home</a>
+        </li>
+
+        <?if(empty($item->id)):?>
+        <li class="active">Create New AppOption</li>
+        <?else:?>
+        <li class="active">Edit AppOption</li>
+        <?endif?>
+    </ul><!-- .breadcrumb -->
+
+    <div class="nav-search" id="nav-search">
+        <form class="form-search">
+            <span class="input-icon">
+                <input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
+                <i class="icon-search nav-search-icon"></i>
+            </span>
+        </form>
+    </div><!-- #nav-search -->
+</div>
+<form id="" action="" method="POST" enctype="multipart/form-data" novalidate="novalidate">
+    <?=$form->render('id')?>
+    <div class="page-content">
+        <div class="page-header">
+            <?if(empty($item->id)):?>
+            <h1>Create New AppOption</h1>
+            <?else:?>
+            <h1>Edit AppOption</h1>
+            <?endif?>
+        </div><!-- /.page-header -->
+
+        <div class="row">
+            <div class="col-xs-9">
+                <!-- PAGE CONTENT BEGINS -->
+
+                <div class="form-group">
+                    <label class="block clearfix">
+                        Endpoint
+                        <?=$form->render('endpoint', array(
+                            'class' => 'form-control input-lg',
+                            'placeholder' => 'Title',
+                            'required' => 'required',
+                        ))?>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label class="block clearfix">
+                        Description
+                        <?=$form->render('description', array(
+                            'class' => 'form-control input-lg',
+                            'placeholder' => 'Title',
+                            'required' => 'required',
+                        ))?>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <div class="widget-box transparent">
+                        <div class="widget-header">
+                            <h4 class="lighter">Content</h4>
+                            <div class="widget-toolbar no-border ">
+                                <div class="btn-group">
+                                </div>
+                            </div>
+                        </div><!--widget box header-->
+                    </div><!--widget box end-->
+
+                    <label class="block clearfix">
+
+                        <div class="markdown-editor">
+                            <?=$form->render('data', array(
+                                'class' => 'form-control',
+                                //'class' => 'form-control wysiwyg',
+                                'rows' => 12,
+                                'required' => 'required',
+                            ))?>
+                        </div>
+                        <!--
+                        <button id="test">test</button>
+                        -->
+                    </label>
+                </div>
+
+                <div class="form-group">
+                </div>
+
+            </div><!-- /.col -->
+            <div class="col-xs-3">
+
+                <div class="widget-box">
+                    <div class="widget-header widget-header-small">
+                        <h5 class="lighter">Publish</h5>
+                        <span class="widget-toolbar">
+                            <a data-action="collapse" href="#">
+                                <i class="icon-chevron-up"></i>
+                            </a>
+                        </span>
+                    </div>
+                    <div class="widget-body">
+                        <div class="widget-main">
+                        </div>
+                        <div class="clearfix form-actions no-margin">
+                            <input name="__redirect" type="hidden" value="" />
+                            <button type="submit" class="btn form-submiter" data-change-name="status" data-change-value="draft">
+                                <i class="icon-save"></i>
+                                Save Draft
+                            </button>
+                            <button type="submit" class="btn btn-info form-submiter" data-change-name="status" data-change-value="published">
+                                <i class="icon-ok"></i>
+                                Publish
+                            </button>
+                        </div>
+                    </div>
+                </div><!--widgex box-->
+
+
+                <div class="hr hr-double dotted"></div>
+                <div class="widget-box collapsed">
+                    <div class="widget-header widget-header-small">
+                        <h5 class="lighter">Publish Time</h5>
+                        <span class="widget-toolbar">
+                            <a data-action="collapse" href="#">
+                                <i class="icon-chevron-down"></i>
+                            </a>
+                        </span>
+                    </div>
+
+                    <div class="widget-body">
+                        <div class="widget-main">
+                            <div class="input-group">
+                                <input name="day" type="text" data-date-format="yyyy-mm-dd" class="form-control date-picker" value="<?=empty($item->createdAt) ? '' : $this->tag->datetime($item->createdAt, 'Y-m-d')?>">
+                                <span class="input-group-addon">
+                                    <i class="icon-calendar bigger-110"></i>
+                                </span>
+                            </div>
+                            <div class="input-group bootstrap-timepicker">
+                                <input name="time" type="text" class="form-control time-picker" value="<?=empty($item->createdAt) ? '' : $this->tag->datetime($item->createdAt, 'H:i:s')?>">
+                                <span class="input-group-addon">
+                                    <i class="icon-time bigger-110"></i>
+                                </span>
+                                <?=$form->render('createdAt', array(
+                                ))?>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--widgex box-->
+
+                <div class="hr hr-double dotted"></div>
+                <div class="widget-box collapsed">
+                    <div class="widget-header widget-header-small">
+                        <h5 class="lighter">Change Author</h5>
+                        <span class="widget-toolbar">
+                            <a data-action="collapse" href="#">
+                                <i class="icon-chevron-down"></i>
+                            </a>
+                        </span>
+                    </div>
+
+                    <div class="widget-body">
+                        <div class="widget-main">
+                            <div class="control-group">
+                                <label class="block clearfix">
+                                    <?=$form->render('username', array(
+                                        'class' => 'form-control autocomplete',
+                                        'data-autocomplete-source' => '/admin/user/process/suggestions?query=%QUERY',
+                                        'data-autocomplete-target' => 'input[name=userId]',
+                                        'data-autocomplete-fill-name' => 'id',
+                                        'data-autocomplete-display-key' => 'username',
+                                        'data-autocomplete-clear-fill-when-nomatch' => '1',
+                                        'placeholder' => 'Use current user with no fill',
+                                    ))?>
+                                    <?=$form->render('userId', array(
+                                        'class' => 'form-control',
+                                    ))?>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--widgex box-->
+
+
+            </div><!-- /.col -->
+
+        </div><!-- /.row -->
+    </div><!-- /.page-content -->
+</form>
+
+<script>
+    $(document).ready(function(){
+            var updateCreateTime = function(){
+                    var day = $('input[name=day]').val();
+                    var time = $('input[name=time]').val();
+                    time = time.length == 7 ? '0' + time : time;
+                    var timestamp = moment(day + ' ' + time).format('X');
+                    $('input[name=createdAt]').val(timestamp);
+            }
+            $('input[name=day], input[name=time]').on('change', updateCreateTime);
+    });
+</script>
