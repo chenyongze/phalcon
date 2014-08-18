@@ -1,5 +1,4 @@
 
-
 .user-comments {
     font-family: "Microsoft YaHei";
     color: #999;
@@ -18,17 +17,16 @@
     height: 50px;
 }
 
-.ws-reply-box{
+.ws-reply-box {
     padding-top: 10px;
     position: relative;
 }
 
 .ws-reply-box > .ws-avatar {
     position: absolute;
-    top:10px;
+    top: 10px;
     left: 0;
 }
-
 
 .ws-reply-box > form {
     display: block;
@@ -60,12 +58,12 @@
     height: 32px;
 }
 
-.ws-reply-box:after{
-    content:".";
-    display:block;
-    height:0;
-    clear:both;
-    visibility:hidden
+.ws-reply-box:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden
 }
 
 .ws-title {
@@ -96,12 +94,12 @@
     position: relative;
 }
 
-.ws-comment:after{
-    content:".";
-    display:block;
-    height:0;
-    clear:both;
-    visibility:hidden
+.ws-comment:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden
 }
 
 .ws-comment-body {
@@ -110,7 +108,7 @@
 
 .ws-comment > .ws-avatar {
     position: absolute;
-    top:10px;
+    top: 10px;
     left: 0;
 }
 
@@ -124,7 +122,7 @@
     color: #333;
     font-size: 14px;
     line-height: 1.6em;
-    margin:  10px 0;
+    margin: 10px 0;
 }
 
 .ws-comment-time {
@@ -142,7 +140,7 @@
     text-align: right;
 }
 
-.ws-comment-actions a{
+.ws-comment-actions a {
     color: #666;
     /*width: 50px;*/
     margin-left: 15px;
@@ -151,9 +149,19 @@
     line-height: 24px;
 }
 
-.ws-comment-actions a:hover{
+.ws-comment-actions a:hover {
     color: #555;
     text-decoration: none;
+}
+
+.ws-comments-more {
+    margin-left: 145px;
+    height: auto;
+    clear: both;
+    padding-top: 10px;
+    margin-top: 7px;
+    border-top: 1px solid #ddd;
+    position: relative;
 }
 
 .ws-paginator {
@@ -163,7 +171,7 @@
     border-top: 1px solid #000;
 }
 
-.ws-paginator a{
+.ws-paginator a {
     display: inline-block;
     width: 30px;
     height: 30px;
@@ -188,41 +196,41 @@
     text-decoration: none;
 }
 
-.ws-step1{
+.ws-step1 {
     margin-left: 65px;
 }
 
-.ws-step2{
+.ws-step2 {
     margin-left: 105px;
 }
 
-.ws-step3{
+.ws-step3 {
     margin-left: 145px;
 }
 
-.ws-step1>.ws-comment-body{
+.ws-step1 > .ws-comment-body {
     padding-left: 40px;
 }
 
-.ws-step2>.ws-comment-body{
+.ws-step2 > .ws-comment-body {
     padding-left: 40px;
 }
 
-.ws-step3>.ws-comment-body{
+.ws-step3 > .ws-comment-body {
     padding-left: 40px;
 }
 
-.ws-step1>.ws-avatar img{
+.ws-step1 > .ws-avatar img {
     width: 30px;
     height: 30px;
 }
 
-.ws-step2>.ws-avatar img{
+.ws-step2 > .ws-avatar img {
     width: 30px;
     height: 30px;
 }
 
-.ws-step3>.ws-avatar img{
+.ws-step3 > .ws-avatar img {
     width: 30px;
     height: 30px;
 }
