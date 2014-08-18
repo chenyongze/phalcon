@@ -147,7 +147,7 @@
     $('#postbar .up').click(function(e){
         $('html, body').animate({
             scrollTop: 0
-        }, 800);
+        }, 300);
         e.preventDefault();
     });
 

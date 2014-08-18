@@ -1498,11 +1498,11 @@ img.lazy {
   line-height: 32px;
   color: #fff;
   text-align: center;
-  border-radius: 5px;
+  border-radius: 3px;
   margin-right: 5px;
 }
 #header .user-control > .button[data-action=register] {
-  background-color: #00AAFF;
+  background-color: #00c3ff;
 }
 #header .user-control > .button[data-action=register]:hover {
   background-color: #00aaff;
@@ -2219,7 +2219,7 @@ img.lazy {
 #postbar {
   position: fixed;
   bottom: 30px;
-  right: 20px;
+  right: 10px;
 }
 #postbar .fa {
   display: block;
