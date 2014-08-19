@@ -74,7 +74,7 @@
          */
         initializeListeners: function() {
             WS_COMMENT.thread_container.on('submit',
-                'form.ws_comment_comment_new_form',
+                'form.ws-comment-new-form',
                 function(e) {
                     var that = $(this);
                     var serializedData = WS_COMMENT.serializeObject(this);
@@ -115,30 +115,39 @@
                 function(e) {
                     var form_data = $(this).data();
                     var that = $(this);
+                    var current_comment_body = $(this).parents('.ws-comment-body');
+                    if(that.hasClass('ws-comment-replying')) {
+                        var current = current_comment_body.find('.ws-reply-box');
 
-                    if(that.hasClass('ws_comment_replying')) {
-                        var current = $('#ws-comment-'+form_data.id+' .ws-comment-body .ws-reply-box');
                         if(current.is(':hidden')){
                             $('.ws-comment-body .ws-reply-box').hide();
                             current.show();
                         }else{
-                            //动画
-                            current.hide()
+                            //todo动画
+                            current.hide();
                         }
                         return that;
                     }else{
                         $('.ws-comment-body .ws-reply-box').hide()
                     }
 
-                    WS_COMMENT.get(
-                        form_data.url,
-                        {parentId: form_data.id},
-                        function(data) {
-                            that.addClass('ws_comment_replying');
-                            $('#ws-comment-'+form_data.id+' .ws-comment-body').append(data);
-//                            that.trigger('ws_comment_show_form', data);
-                        }
-                    );
+                    that.addClass('ws-comment-replying');
+
+                    var reply_box = $('.ws-first-reply-box').clone();
+                    reply_box.removeClass('ws-first-reply-box');
+                    reply_box.children('form.ws-comment-new-form').data('parentId',form_data.id)
+                    reply_box.find('input[name="parentId"]').val(form_data.id);
+                    reply_box.appendTo(current_comment_body);
+
+//                    WS_COMMENT.get(
+//                        form_data.url,
+//                        {parentId: form_data.id},
+//                        function(data) {
+//                            that.addClass('ws-comment-replying');
+//                            current_comment_body.append(data);
+////                            that.trigger('ws_comment_show_form', data);
+//                        }
+//                    );
                 }
             );
 
@@ -154,7 +163,7 @@
                         return;
                     }
 
-                    form_holder.closest('.ws_comment_comment_reply').removeClass('ws_comment_replying');
+                    form_holder.closest('.ws_comment_comment_reply').removeClass('ws-comment-replying');
                     form_holder.remove();
                 }
             );
@@ -344,10 +353,13 @@
         appendComment: function(commentHtml, form) {
             var form_data = form.data();
 
-            var parent = form_data.parent;
-            if(form_data.parent) {
+            var parentId = form_data.parentId;
+            if(parentId) {
+                var reply_box = form.parent();
+                reply_box.parents('.ws-comment').after(commentHtml);
+                reply_box.hide();
 //                form.next().prepend(commentHtml);
-                $('#ws-comment-'+form_data.parent).after(commentHtml);
+//                $('#ws-comment-'+form_data.parent).after(commentHtml);
 //                var form_parent = form.closest('.ws_comment_comment_form_holder');
 //
 //                // reply button holder
@@ -356,7 +368,7 @@
 //                var comment_element = form.closest('.ws_comment_comment_show')
 //                    .children('.ws_comment_comment_replies');
 //
-//                reply_button_holder.removeClass('ws_comment_replying');
+//                reply_button_holder.removeClass('ws-comment-replying');
 //
 //                comment_element.prepend(commentHtml);
 //                comment_element.trigger('ws_comment_add_comment', commentHtml);
@@ -366,7 +378,8 @@
             } else {
                 // Insert the comment
 //                form.after(commentHtml);
-                var comment_element = $('#ws_comment_list');
+                //todo
+                var comment_element = $('.ws-comments');
                 comment_element.prepend(commentHtml);
 
                 //todo
@@ -559,7 +572,7 @@
 //        $modal.find('[name=username]').val('');
 //        $modal.unwrap();
 //    }
-//    $(document).on('click', '.user-comments form.ws_comment_comment_new_form > [type=submit]', function(e){
+//    $(document).on('click', '.user-comments form.ws-comment-new-form > [type=submit]', function(e){
 //
 //        var $form = $(this).parent();
 //        var formId = $form[0].id;
@@ -587,12 +600,23 @@
 //        e.preventDefault();
 //    });
 
-    //将标准时间格式改为用户更友好的方式
     $(document).on('ws_comment_load_thread',function(){
+        //将标准时间格式改为用户更友好的方式
         $(".ws-comment-time").each(function(){
             var time = $(this);
             time.html(moment(time.data().time, "YYYY-MM-DDTHH:mm:ss ZZ").fromNow());
         });
+
+        //初始化用户数据
+        usrManager.onceLogin(function(user) {
+            var user = usrManager.getUser();
+            $(".ws-reply-box .ws-avatar img").each(function(){
+                var img = $(this);
+                img.attr("src", user.avatar);
+                img.attr("alt", user.username);
+            });
+        });
+
     })
 
     $(document).on('ws_comment_new_comment',function(){
@@ -601,4 +625,28 @@
             time.html(moment(time.data().time, "YYYY-MM-DDTHH:mm:ss ZZ").fromNow());
         });
     })
+
+    var loginUI = UserLogin.getInstance().getLoginUI();
+    var usrManager = UserManager.getInstance();
+
+
+    $(document).on("click", "body[data-logon=false] .ws-reply-box", function(e) {
+        loginUI.showModal();
+        //loginUI.showMessage($(this).attr("data-message"), $(this).attr("data-message"));
+        return false;
+    });
+
+//    $(document).on("click", "body[data-logon=true] .not-stared[data-action=star]", function(){
+//        var btn = $(this);
+//        var postId = btn.attr('data-post-id');
+//        $.ajax({
+//            url : '/stars/' + postId,
+//            method : 'PUT'
+//        }).then(function(response) {
+//            btn.removeClass("not-stared").addClass("stared");
+//        }).fail(function(error) {
+//        });
+//        return false;
+//    });
+
 })(window, window.jQuery, window.easyXDM);

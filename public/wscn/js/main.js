@@ -64,6 +64,7 @@
     //用户注册
     $(document).on('click', '[data-action=register]', function(e){
         loginUI.showModal('register');
+        e.preventDefault();
     });
 
 })(jQuery);
@@ -146,7 +147,7 @@
     $('#postbar .up').click(function(e){
         $('html, body').animate({
             scrollTop: 0
-        }, 800);
+        }, 300);
         e.preventDefault();
     });
 

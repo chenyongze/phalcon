@@ -42,19 +42,19 @@ class Appoptions extends \Eva\EvaEngine\Mvc\Model
      *
      * @var integer
      */
-    public $createdAt;
+    public $createdAt = 0;
 
     /**
      *
      * @var integer
      */
-    public $updatedAt;
+    public $updatedAt = 0;
 
     /**
      *
      * @var integer
      */
-    public $userId;
+    public $userId = 0;
 
     /**
      *
@@ -66,7 +66,7 @@ class Appoptions extends \Eva\EvaEngine\Mvc\Model
 
     public function beforeCreate()
     {
-        $this->createdAt = $this->createdAt ? $this->createdAt : time();
+        $this->createdAt = $this->createdAt ?: time();
         $user = new LoginModel();
         if ($user->isUserLoggedIn()) {
             $userinfo = LoginModel::getCurrentUser();
@@ -77,7 +77,7 @@ class Appoptions extends \Eva\EvaEngine\Mvc\Model
 
     public function beforeUpdate()
     {
-        $this->updatedAt = $this->updatedAt ? $this->updatedAt : time();
+        $this->updatedAt = $this->updatedAt ?: time();
         $user = new LoginModel();
         if ($user->isUserLoggedIn()) {
             $userinfo = LoginModel::getCurrentUser();

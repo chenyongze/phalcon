@@ -1,45 +1,8 @@
-(function(root, factory) {
-    if (typeof define === "function" && define.amd) {
-        //For requirejs
-        define('widget', function (require, exports, module) {
-            var $ = require('jquery');
-            return factory(root, exports, $);
-        });
-    } else if (typeof exports !== "undefined") {
-        //For nodejs
-        var $ = require("jquery");
-        factory(root, exports, $);
-    } else {
-        //exports as global
-        root.widget = factory(root, {}, root.jQuery);
-    }
-}(this, function(root, widget, $) {
-    "use strict";
-    widget = function(){
-    };
-
-    widget.foo = function(){
-        console.log('widget compatible version foo', $.now());
-    };
-
-    widget.prototype = {
-        bar: function(){
-            console.log('widget compatible version bar', $.now());
-        }
-    };
-
-    return widget;
-}));
-
-
 /**
  * Created by Sun on 14-7-22.
  */
 (function(){
     //just for test
-    var TEST_DATUM_1 = $('#test-leftbar-datum-1').html();
-    var TEST_DATUM_2 = $('#test-leftbar-datum-2').html();
-    var TEST_DATUM_INDEX = 0;
 
     var timeout_fold = null;
     var timeout_show = null;
@@ -146,7 +109,7 @@
     };
     function showChart(symbol) {
         //todo
-        var src = $marketChart.attr('src');
+        var src = $marketChart.attr('src') || 'http://markets.wallstreetcn.com/embed/hs?waterMark=1&rows=50&width=300&height=150&symbol=XAUUSD&interval=5&chartTheme=lightRugd&type=area';
         src = src.replace(/symbol=\w+/, 'symbol=' + symbol);
         $marketChart.attr('src', src);
     };
@@ -159,7 +122,7 @@
             //初始化滚动条
             $marketInfo.nanoScroller({
                 preventPageScrolling: true,
-                alwaysVisible: true
+                iOSNativeScrolling: true
             });
             //
             $marketInfo.removeClass('loading');
@@ -175,7 +138,7 @@
                     //初始化滚动条
                     $marketInfo.nanoScroller({
                         preventPageScrolling: true,
-                        alwaysVisible: true
+                        iOSNativeScrolling: true
                     });
                     //
                     $marketInfo.removeClass('loading');
@@ -289,8 +252,5 @@
     if ($('#left-market-list').length) {
         init();
     }
-
-
-
 
 })();

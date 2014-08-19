@@ -5,7 +5,7 @@ if($comment->depth>0){
     $stepClass = 'ws-step'.$stepClass;
 }
 ?>
-<div class="ws-comment <?=$stepClass?>" id="ws-comment-<?=$comment->id ?>" data-comment-id="<?=$comment->id ?>" data-thread-id="<?= $thread->id?>" data-root-id="0" data-source="duoshuo">
+<div class="ws-comment <?=$stepClass?>" id="ws-comment-<?=$comment->id ?>" data-comment-id="<?=$comment->id ?>" data-thread-id="<?= $thread->id?>" data-parent-id="<?=$comment->parentId?>" data-root-id="<?=$comment->rootId ?>" data-source="">
 
     <div class="ws-avatar">
         <img src="/wscn/img/avatar-md.png" alt="ikk">
@@ -15,7 +15,7 @@ if($comment->depth>0){
         <div class="ws-comment-header">
             <span class="ws-user-name" data-qqt-account=""><?=$comment->username ?></span>
         </div>
-        <p class="ws-comment-content"><?=htmlspecialchars($comment->content) ?></p>
+        <p class="ws-comment-content"><? if($comment->depth>(3+1)){echo '回复<span class="ws-user-name" data-qqt-account="">'.$comment->parent->username.'</span>：';}; echo htmlspecialchars($comment->content) ?></p>
 
         <div class="ws-comment-footer">
             <span class="ws-comment-time" data-time="<?=date('c',$comment->createdAt)?>" title="<?=date('Y年m月d日 H:i:s',$comment->createdAt)?>"><?=date('Y-m-d H:i:s',$comment->createdAt)?></span>
@@ -23,15 +23,15 @@ if($comment->depth>0){
                 <a class="ws-comment-reply" href="javascript:void(0);" data-id="<?=$comment->id?>" data-url="/thread/<?= $thread->uniqueKey?>/comments/new">
                     回复
                 </a>
-                <a class="ws-comment-up" href="javascript:void(0);" data-id="<?=$comment->id?>" data-url="/thread/<?= $thread->uniqueKey?>/comments/new">
-                    顶
-                </a>
-                <a class="ws-comment-down" href="javascript:void(0);" data-id="<?=$comment->id?>" data-url="/thread/<?= $thread->uniqueKey?>/comments/new">
-                    踩
-                </a>
-                <a class="ws-comment-repost" href="javascript:void(0);" data-id="<?=$comment->id?>" data-url="/thread/<?= $thread->uniqueKey?>/comments/new">
-                    转发
-                </a>
+<!--                <a class="ws-comment-up" href="javascript:void(0);" data-id="--><?//=$comment->id?><!--" data-url="/thread/--><?//= $thread->uniqueKey?><!--/comments/new">-->
+<!--                    顶-->
+<!--                </a>-->
+<!--                <a class="ws-comment-down" href="javascript:void(0);" data-id="--><?//=$comment->id?><!--" data-url="/thread/--><?//= $thread->uniqueKey?><!--/comments/new">-->
+<!--                    踩-->
+<!--                </a>-->
+<!--                <a class="ws-comment-repost" href="javascript:void(0);" data-id="--><?//=$comment->id?><!--" data-url="/thread/--><?//= $thread->uniqueKey?><!--/comments/new">-->
+<!--                    转发-->
+<!--                </a>-->
 <!--                <a class="ws-comment-report" href="javascript:void(0);" data-id="--><?//=$comment->id?><!--" data-url="/thread/--><?//= $thread->uniqueKey?><!--/comments/new">-->
 <!--                    <span class="ws-icon ws-icon-reply"></span>举报-->
 <!--                </a>-->
