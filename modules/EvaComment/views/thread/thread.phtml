@@ -18,7 +18,7 @@
         <div class="ws-sort">
             <a class="ws-order-desc <?if($sorter=='-created_at') echo 'ws-current' ?>" data-sort="-created_at">最新</a>
             <a class="ws-order-asc <?if($sorter=='created_at') echo 'ws-current' ?>" data-sort="created_at">最早</a>
-<!--            <a class="ws-order-hot --><?//if($sorter=='hot') echo 'ws-current' ?><!--" data-sort="hot">最热</a>-->
+            <a class="ws-order-hot <?if($sorter=='hot') echo 'ws-current' ?>" data-sort="hot">最热</a>
         </div>
     </div>
     <div class="ws-comments">

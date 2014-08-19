@@ -23,12 +23,12 @@ if($comment->depth>0){
                 <a class="ws-comment-reply" href="javascript:void(0);" data-id="<?=$comment->id?>" data-url="/thread/<?= $thread->uniqueKey?>/comments/new">
                     回复
                 </a>
-<!--                <a class="ws-comment-up" href="javascript:void(0);" data-id="--><?//=$comment->id?><!--" data-url="/thread/--><?//= $thread->uniqueKey?><!--/comments/new">-->
-<!--                    顶-->
-<!--                </a>-->
-<!--                <a class="ws-comment-down" href="javascript:void(0);" data-id="--><?//=$comment->id?><!--" data-url="/thread/--><?//= $thread->uniqueKey?><!--/comments/new">-->
-<!--                    踩-->
-<!--                </a>-->
+                <a class="ws-comment-up" href="javascript:void(0);" data-id="<?=$comment->id?>" data-url="/vote/up">
+                    顶
+                </a>
+                <a class="ws-comment-down" href="javascript:void(0);" data-id="<?=$comment->id?>" data-url="/vote/down">
+                    踩
+                </a>
 <!--                <a class="ws-comment-repost" href="javascript:void(0);" data-id="--><?//=$comment->id?><!--" data-url="/thread/--><?//= $thread->uniqueKey?><!--/comments/new">-->
 <!--                    转发-->
 <!--                </a>-->
