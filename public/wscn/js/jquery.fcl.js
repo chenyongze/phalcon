@@ -3,7 +3,19 @@
  * fcl -> finance calendar list
  * utm -> unix timestamp
  */
-(function(){
+
+(function (factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['jquery'], factory);
+    } else if (typeof exports === 'object') {
+        // Node/CommonJS
+        factory(require('jquery'));
+    } else {
+        // Browser globals
+        factory(jQuery);
+    }
+}(function ($) {
 
     var apiUrl = 'http://api.markets.wallstreetcn.com/v1/calendar.json';
     var apiType = 'jsonp';
@@ -155,29 +167,29 @@
                 }
             });
             /*
-            this.$target.on('click.country', '[data-toggle=currency]', function(e){
-                var $content = root.$target.children('.content');
-                var checkedItems = root.$target.find('[data-toggle=currency]:checked');
-                if (checkedItems.length == 0) {
-                    $content.find('.item').show();
-                } else if (checkedItems.length == 1) {
-                    var $this = $(this);
-                    if ($this.attr('data-currency') === checkedItems.attr('data-currency')) {
-                        $content.find('.item').hide();
-                        $content.find('.item[data-currency=' + $this.attr('data-currency') + ']').show();
-                    } else {
-                        $content.find('.item[data-currency=' + $this.attr('data-currency') + ']').hide();
-                    }
-                } else {
-                    var $this = $(this);
-                    if ($this.is(':checked')) {
-                        $content.find('.item[data-currency=' + $this.attr('data-currency') + ']').show();
-                    } else {
-                        $content.find('.item[data-currency=' + $this.attr('data-currency') + ']').hide();
-                    }
-                }
-            });
-            */
+             this.$target.on('click.country', '[data-toggle=currency]', function(e){
+             var $content = root.$target.children('.content');
+             var checkedItems = root.$target.find('[data-toggle=currency]:checked');
+             if (checkedItems.length == 0) {
+             $content.find('.item').show();
+             } else if (checkedItems.length == 1) {
+             var $this = $(this);
+             if ($this.attr('data-currency') === checkedItems.attr('data-currency')) {
+             $content.find('.item').hide();
+             $content.find('.item[data-currency=' + $this.attr('data-currency') + ']').show();
+             } else {
+             $content.find('.item[data-currency=' + $this.attr('data-currency') + ']').hide();
+             }
+             } else {
+             var $this = $(this);
+             if ($this.is(':checked')) {
+             $content.find('.item[data-currency=' + $this.attr('data-currency') + ']').show();
+             } else {
+             $content.find('.item[data-currency=' + $this.attr('data-currency') + ']').hide();
+             }
+             }
+             });
+             */
         }
         if (this.config.autoScroll) {
             this.$target.find('[data-action=scroll-fixed]').on('click', function(e){
@@ -681,4 +693,5 @@
             new Fcl(options);
         }
     };
-})();
+
+}));
