@@ -2,7 +2,9 @@
     <?foreach($posts as $post):?>
     <a href="/node/<?=$post->nid?>">
         <div class="news row" data-action="show-info" data-nid="<?=$post->nid?>">
+            <?if(!empty($post->file_managed_file_usage_uri)):?>
             <img class="cover" src="<?=$this->tag->wscnThumb($post->file_managed_file_usage_uri, 'c_fill,w_75,h_60')?>" alt="">
+            <?endif?>
             <h3 class="title news-font"><?=$post->node_title?></h3>
             <time class="agotime time news-font" data-timestamp="<?=$post->node_created?>"><?=$this->tag->datetime($post->node_created)?></time>
 

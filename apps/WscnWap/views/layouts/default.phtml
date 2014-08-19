@@ -298,10 +298,13 @@
 
 <div style="width: 100% !important; height: 100% !important;">
 	<div class="toolbar">
-		<a href="/" class="home"><div class="home"><img src="/wscnwap/logo.png"/></div></a>
-		<a href="http://wallstreetcn.com/downloadapp.html" target="_blank"><div class="app-download"><img src="/wscnwap/app-download.png" /></div></a>
-	</div>
-<?=$this->getContent()?>
+        <a href="/" class="home"><div class="home"><img src="/wscnwap/logo.png"/></div></a>
+        <div class="app-download">
+            <a href="/livenews"><img src="/wscnwap/livenews.png" /></a>
+            <a href="http://wallstreetcn.com/downloadapp.html" target="_blank"><img src="/wscnwap/app-download.png" /></a>
+        </div>
+    </div>
+    <?=$this->getContent()?>
 </div>
 
 <script src="http://cdn.static.wallstreetcn.com/js/jquery-1.10.2.min.js"></script>
@@ -348,7 +351,8 @@ $(document).ready(function(){
 	});
 	
 	if(isLivenews()){
-		$(".toolbar .home").attr("href","/livenews");
+		//$(".toolbar .home").attr("href","/livenews");
+		$(".toolbar .home").attr("href","/");
 	}
 });
 </script>
