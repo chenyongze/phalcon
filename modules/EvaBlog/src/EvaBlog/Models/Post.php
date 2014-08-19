@@ -197,6 +197,7 @@ class Post extends Entities\Posts
         $textData = isset($data['text']) ? $data['text'] : array();
         $tagData = isset($data['tags']) ? $data['tags'] : array();
         $categoryData = isset($data['categories']) ? $data['categories'] : array();
+        $connectionData = isset($data['connections']) ? $data['connections'] : array();
 
         if ($textData) {
             unset($data['text']);
@@ -248,10 +249,10 @@ class Post extends Entities\Posts
 
     public function updatePost($data)
     {
-        $data['categories'] = isset($data['categories']) ? $data['categories'] : array();
-        $textData = $data['text'];
-        $tagData = $data['tags'];
-        $categoryData = $data['categories'];
+        $textData = isset($data['text']) ? $data['text'] : array();
+        $tagData = isset($data['tags']) ? $data['tags'] : array();
+        $categoryData = isset($data['categories']) ? $data['categories'] : array();
+        $connectionData = isset($data['connections']) ? $data['connections'] : array();
 
         if ($textData) {
             unset($data['text']);
@@ -286,10 +287,10 @@ class Post extends Entities\Posts
         }
 
         //remove old relations
+        $categories = array();
         if ($this->categoriesPosts) {
             $this->categoriesPosts->delete();
         }
-        $categories = array();
         if ($categoryData) {
             unset($data['categories']);
             foreach ($categoryData as $categoryId) {
@@ -299,6 +300,23 @@ class Post extends Entities\Posts
                 }
             }
             $this->categories = $categories;
+        }
+
+        $connections = array();
+        //remove old relations
+        if ($this->connections) {
+            $this->connections->delete();
+        }
+        if ($connectionData) {
+            unset($data['connections']);
+            foreach ($connectionData as $connectionId) {
+                $connection = new Entities\Connections();
+                $connection->sourceId = $data['id'];
+                $connection->targetId = $connectionId;
+                $connection->createdAt = time();
+                $connections[] = $connection;
+            }
+            $this->connections = $connections;
         }
 
         $this->assign($data);

@@ -48,6 +48,7 @@ class NewsManager extends Entities\News
         'sourceName',
         'sourceUrl',
         'userId',
+        'categorySet',
     );
 
     public function beforeValidationOnCreate()

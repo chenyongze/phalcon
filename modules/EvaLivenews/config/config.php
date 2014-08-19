@@ -9,5 +9,6 @@ return array(
             'port' => 6379
         ),
         'redisEnable' => true,
+        'redisSize' => 5,
     ),
 );

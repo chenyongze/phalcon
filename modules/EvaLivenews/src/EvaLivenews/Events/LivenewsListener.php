@@ -10,15 +10,15 @@ class LivenewsListener
 {
     public function afterCreate($event, $news)
     {
-        if(!$news->id) {
+        if (!$news->id) {
             return;
         }
         $config = $news->getDI()->getConfig();
         $newsString = '';
-        if($config->livenews->broadcastEnable) {
+        if ($config->livenews->broadcastEnable) {
             $emitter = new Emitter(array(
                 'host' => $config->livenews->socketIoRedis->host,
-                'port' => $config->livenews->socketIoRedis->port, 
+                'port' => $config->livenews->socketIoRedis->port,
             ));
             $newsString = json_encode($news->dump(
                 NewsManager::$simpleDump
@@ -26,13 +26,17 @@ class LivenewsListener
             $emitter->emit('livenews:create', $newsString);
         }
 
-        if($news->status === 'published' && $config->livenews->redisEnable) {
+        if ($news->status === 'published' && $config->livenews->redisEnable) {
             $newsString = $newsString ?: json_encode($news->dump(
                 NewsManager::$simpleDump
             ));
             $redis = $news->getDI()->getFastCache();
-            $count = $redis->zCount('livenews');
             $redis->zAdd('livenews', (int) $news->id, $newsString);
+            $size = $redis->zSize('livenews');
+            if ($size > $config->livenews->redisSize) {
+                //remove lowest rank
+                $redis->zRemRangeByRank('livenews', 0, 0);
+            }
         }
     }
 }

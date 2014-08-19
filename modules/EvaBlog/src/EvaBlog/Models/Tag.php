@@ -57,4 +57,17 @@ QUERY;
         }
         return $posts;
     }
+
+    public function updateTagCount()
+    {
+        $phql = <<<QUERY
+UPDATE Eva\EvaBlog\Entities\Tags SET count = 
+     ( SELECT COUNT(tagId) FROM Eva\EvaBlog\Entities\TagsPosts 
+             WHERE Eva\EvaBlog\Entities\TagsPosts.tagId = Eva\EvaBlog\Entities\Tags.id 
+     )
+QUERY;
+        $manager = $this->getModelsManager();
+        $query = $manager->createQuery($phql);
+        return $results = $query->execute();
+    }
 }
