@@ -12,6 +12,7 @@ return array(
     'CounterRank',
     'EvaSearch',
     'Wiki',
+    'EvaSundries',
     //Load mobile module for checking controller / action whether exists, for mobile redirectiing
     'WscnMobile' => array(
         'className' => 'WscnMobile\Module',

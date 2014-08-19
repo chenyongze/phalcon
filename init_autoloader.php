@@ -23,6 +23,17 @@ function p($r)
 }
 
 /**
+ * 打印指定的变量并结束程序运行
+ *
+ * @param $r
+ */
+function dd($r)
+{
+    p($r);
+    exit();
+}
+
+/**
  * 方便链式调用，避免过多的中间变量，例如：with(new Post())->findPosts()
  *
  * @param $obj
