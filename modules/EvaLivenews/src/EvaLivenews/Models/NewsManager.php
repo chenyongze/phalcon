@@ -36,6 +36,20 @@ class NewsManager extends Entities\News
         ),
     );
 
+    public static $simpleDump = array(
+        'id',
+        'title',
+        'codeType',
+        'importance',
+        'createdAt',
+        'contentHtml' => 'getContentHtml',
+        'data' => 'getData',
+        'commentStatus',
+        'sourceName',
+        'sourceUrl',
+        'userId',
+    );
+
     public function beforeValidationOnCreate()
     {
         $this->createdAt = $this->createdAt ? $this->createdAt : time();

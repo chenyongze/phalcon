@@ -138,6 +138,11 @@ class Post extends Entities\Posts
             $itemQuery->andWhere('title LIKE :q:', array('q' => "%{$query['q']}%"));
         }
 
+        if (!empty($query['id'])) {
+            $idArray = explode(',', $query['id']);
+            $itemQuery->inWhere('id', $idArray);
+        }
+
         if (!empty($query['status'])) {
             $itemQuery->andWhere('status = :status:', array('status' => $query['status']));
         }
