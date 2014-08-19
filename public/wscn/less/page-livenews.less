@@ -4,21 +4,34 @@
 
     & > .topbar {
         position: relative;
-        box-shadow: 0 0 3px rgba(0,0,0,.36);
-        height: 40px;
         padding-left: 180px;
         padding-right: 30px;
-        margin-bottom: 30px;
-        .custom-button {
+        height: 26px;
+        border-bottom: 1px solid @borderColor;
+        margin-bottom: 20px;
+        & > .title {
             position: absolute;
             left: 0;
+            color: #333;
+            font-weight: bold;
+            font-size: 16px;
+            line-height: 16px;
+            width: 125px;
+            &:after {
+                float:right;
+                font-weight: normal;
+                font-size: 12px;
+                color: #999;
+                content: "更多»";
+            }
         }
+
         .fa {
             display: block;
             cursor: pointer;
-            font-size: 14px;
-            line-height: 15px;
-            height: 15px;
+            font-size: 13px;
+            line-height: 13px;
+            height: 12px;
             color: #999;
             position: absolute;
             right: 5px;
@@ -27,24 +40,32 @@
             }
         }
         .up {
-            top: 5px;
+            top: 1px;
         }
         .down {
-            bottom: 5px;
+            bottom: 1px;
         }
 
         .news-list.with-dot {
-            height: 40px;
+            height: 16px;
             padding: 0 30px;
             overflow: hidden;
             .news {
                 font-size: 12px;
-                line-height: 40px;
-                height: 40px;
+                line-height: 16px;
+                height: 16px;
                 overflow: hidden;
                 margin-bottom: 0;
+                color: #999;
                 &:before {
-                    top: 17px;
+                    top: 5px;
+                    background-color: #999;
+                }
+                &:hover {
+                    color: #333;
+                    &:before {
+                        background-color: #333;
+                    }
                 }
             }
         }
@@ -143,14 +164,16 @@
         font-size: 13px;
         line-height: 20px;
         border-bottom: 1px solid @borderColor;
+        color: #333;
         .time {
             position: absolute;
             left: -60px;
         }
         .icon {
             position: absolute;
-            top: 20px;
-            left: -57px;
+            font-size: 14px;
+            top: 40px;
+            left: -50px;
         }
         .control-box {
             position: absolute;
@@ -221,26 +244,9 @@
                 }
             }
             .time {
+                color: @blue;
+            }
 
-            }
-            .flag {
-                position: absolute;
-                display: block;
-                top: 2px;
-                left: 45px;
-                width: 56px;
-                height: 42px;
-            }
-            .verdict {
-                position: absolute;
-                top: 3px;
-                right: 0;
-                width: 100px;
-                height: 40px;
-                line-height: 38px;
-                text-align: center;
-                border: 1px solid @borderColor;
-            }
             & > .content {
                 padding-left: 150px;
                 padding-right: 120px;
@@ -258,30 +264,44 @@
                     margin-right: 1em;
                 }
                 .text {
-                    color: #666;
+                    color: #999;
+                    font-weight: bold;
+                }
+                .datum {
+                    white-space: nowrap;
                 }
                 .value {
                     font-weight: bold;
                 }
+                .flag {
+                    position: absolute;
+                    display: block;
+                    top: 2px;
+                    left: 45px;
+                    width: 56px;
+                    height: 42px;
+                }
+                .verdict {
+                    position: absolute;
+                    top: 3px;
+                    right: 0;
+                    width: 100px;
+                    white-space: nowrap;
+                    height: 40px;
+                    line-height: 40px;
+                    text-align: left;
+                    color: @blue;
+                    .text {
+                        color: @blue;
+                    }
+                }
             }
 
             &[data-trend=rise] {
-                .current {
-                    color: @riseColor;
-                }
-                .verdict {
-                    color: @riseColor;
-                    border-color: @riseColor;
-                }
+
             }
             &[data-trend=fall] {
-                .current {
-                    color: @fallColor;
-                }
-                .verdict {
-                    color: @fallColor;
-                    border-color: @fallColor;
-                }
+
             }
         }
     }
