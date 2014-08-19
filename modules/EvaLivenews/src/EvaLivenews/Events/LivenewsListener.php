@@ -14,15 +14,25 @@ class LivenewsListener
             return;
         }
         $config = $news->getDI()->getConfig();
-        if(!$config->livenews->broadcastEnable) {
-            return;        
+        $newsString = '';
+        if($config->livenews->broadcastEnable) {
+            $emitter = new Emitter(array(
+                'host' => $config->livenews->socketIoRedis->host,
+                'port' => $config->livenews->socketIoRedis->port, 
+            ));
+            $newsString = json_encode($news->dump(
+                NewsManager::$simpleDump
+            ));
+            $emitter->emit('livenews:create', $newsString);
         }
-        $emitter = new Emitter(array(
-            'host' => $config->livenews->socketIoRedis->host,
-            'port' => $config->livenews->socketIoRedis->port, 
-        ));
-        $emitter->emit('livenews:create', json_encode($news->dump(
-            NewsManager::$defaultDump
-        )));
+
+        if($news->status === 'published' && $config->livenews->redisEnable) {
+            $newsString = $newsString ?: json_encode($news->dump(
+                NewsManager::$simpleDump
+            ));
+            $redis = $news->getDI()->getFastCache();
+            $count = $redis->zCount('livenews');
+            $redis->zAdd('livenews', (int) $news->id, $newsString);
+        }
     }
 }

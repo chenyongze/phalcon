@@ -122,19 +122,7 @@ class LivenewsController extends ControllerBase
         $livenewsArray = array();
         if ($pager->items) {
             foreach ($pager->items as $key => $livenews) {
-                $livenewsArray[] = $livenews->dump(array(
-                    'id',
-                    'title',
-                    'codeType',
-                    'importance',
-                    'createdAt',
-                    'contentHtml' => 'getContentHtml',
-                    'data' => 'getData',
-                    'commentStatus',
-                    'sourceName',
-                    'sourceUrl',
-                    'userId',
-                ));
+                $livenewsArray[] = $livenews->dump(NewsManager::$simpleDump);
             }
         }
 
@@ -143,6 +131,52 @@ class LivenewsController extends ControllerBase
             'results' => $livenewsArray,
         );
         return $this->response->setJsonContent($data);
+    }
+
+    /**
+     *
+     * @SWG\Api(
+     *   path="/livenews/realtime",
+     *   description="Livenews related api",
+     *   produces="['application/json']",
+     *   @SWG\Operations(
+     *     @SWG\Operation(
+     *       method="GET",
+     *       summary="Get newest livenews for refresh",
+     *       notes="Returns livenews list",
+     *       @SWG\Parameters(
+     *         @SWG\Parameter(
+     *           name="min_id",
+     *           description="Min id",
+     *           paramType="query",
+     *           required=false,
+     *           type="string"
+     *         ),
+     *         @SWG\Parameter(
+     *           name="cid",
+     *           description="Category ID",
+     *           paramType="query",
+     *           required=false,
+     *           type="string"
+     *         ),
+     *         @SWG\Parameter(
+     *           name="limit",
+     *           description="Limit max:100 | min:3; default is 25",
+     *           paramType="query",
+     *           required=false,
+     *           type="integer"
+     *         )
+     *       )
+     *     )
+     *   )
+     * )
+     */
+    public function realtimeAction()
+    {
+        $redis = $this->getDI()->getFastCache();
+        p($redis->zCount('livenews', 0, 3));
+        exit;
+
     }
 
     /**
