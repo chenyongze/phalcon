@@ -16,17 +16,21 @@
         }
     }
     .meta {
-        font-size: 12px;
-        color: #646464;
-        display: inline-block;
+        font-size: 14px;
+        color: @grayBlue;
+        line-height: 24px;
         margin-bottom: 30px;
-        &.author {
-            color: @blue;
-            margin-right: 30px;
-        }
-        &.comment-count {
-            color: @blue;
-            margin-left: 15px;
+        border-bottom: 1px dashed @borderColor;
+        .item {
+            //display: inline-block;
+            &.author {
+                margin-right: 30px;
+                &:hover {
+                    color: @blue;
+                }
+            }
+            &.comment-count {
+            }
         }
     }
     .main-image {
@@ -54,31 +58,10 @@
         display: block;
         font-size: 14px;
         padding: 15px;
-        color: #505050;
-        background-color: #f0f0f0;
+        background-color: #EEF3FA;
         margin-bottom: 30px;
-        @media (min-width: @screen-sm-min) {
-
-        }
-        @media (min-width: @screen-lg-min) {
-            float: left;
-            width: 282px;
-            margin-right: 30px;
-
-        }
-        ul {
-            margin-bottom: 0;
-        }
-        li {
-            list-style: none;
-            margin-left: 0;
-            //margin-bottom: 0;
-            &:last-child {
-                margin-bottom: 0;
-            }
-            &.last-child {
-                margin-bottom: 0;
-            }
+        .side-title {
+            color: @blue;
         }
     }
     .statement {
@@ -90,27 +73,23 @@
         color: @blue;
     }
     .toolbar {
-        border-top: 1px solid @borderColor;
         border-bottom: 1px solid @borderColor;
-        padding: 10px 0;
+        padding-bottom: 15px;
         margin-bottom: 30px;
         font-size: 14px;
         line-height: 32px;
-        .endorse {
-            //display: inline-block;
-            color: @blue;
-            font-size: 12px;
-            margin-right: 20px;
-            float: left;
-            //padding-left: 30px;
-            //background: url(../icon/endorse-white.png) left center no-repeat;
+        .endorse ,
+        .collect {
+            font-size: 17px;
+            &:hover {
+                color: @blue;
+            }
         }
         .collect {
-            float: left;
-            display: block;
-            width: 32px;
-            height: 32px;
-            background: url(../icon/collect32px.png);
+            color: @grayBlue;
+            margin-right: 20px;
+            padding-right: 15px;
+            border-right: 1px solid @grayBlue;
         }
         .separator {
             display: inline-block;
@@ -122,7 +101,6 @@
         }
         .jiathis_style_32x32 {
             float: right;
-            border-left: 1px solid @borderColor;
             padding-left: 10px;
             font-size: 14px;
             .text {

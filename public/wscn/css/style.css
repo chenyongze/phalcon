@@ -542,7 +542,7 @@ img.lazy {
   color: #999;
 }
 .news-list.with-img .news .endorse {
-  color: #666;
+  color: #949ca8;
 }
 .news-list.with-img .news .endorse .fa {
   font-size: 15px;
@@ -1838,6 +1838,9 @@ img.lazy {
   color: #fff;
   background-color: #0078d2;
 }
+#leftbar > .custom-close:hover {
+  background-color: #0097f4;
+}
 #leftbar > .sidebar {
   position: relative;
   float: left;
@@ -1986,6 +1989,9 @@ img.lazy {
   padding-left: 11px;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
 }
+#left-market-list .market.active .direction {
+  display: none;
+}
 #left-market-list .market .custom-icon {
   position: absolute;
   right: 0;
@@ -2045,7 +2051,7 @@ img.lazy {
   text-align: center;
   height: 18px;
   padding-top: 3px;
-  font-size: 14px;
+  font-size: 12px;
   overflow: hidden;
   color: #0078d2;
   font-family: FontAwesome;
@@ -2067,59 +2073,61 @@ img.lazy {
 .sharebar .collect {
   display: block;
   padding-left: 15px;
-  padding-bottom: 20px;
+  color: #999;
   border-bottom: 1px solid #dddddd;
-  margin-bottom: 20px;
+  line-height: 50px;
 }
-.sharebar .discuss:before,
-.sharebar .collect:before {
-  display: block;
-  width: 32px;
-  height: 32px;
-  float: left;
+.sharebar .discuss .fa,
+.sharebar .collect .fa {
+  font-size: 17px;
   margin-right: 10px;
-  content: "";
 }
-.sharebar .discuss:before {
-  background: url(../icon/discuss32px.png);
+.sharebar .read-times {
+  padding: 30px 15px;
+  font-size: 20px;
+  color: #000;
 }
-.sharebar .collect:before {
-  background: url(../icon/collect32px.png);
+.sharebar .read-times .text {
+  font-size: 12px;
+  color: #999;
 }
-.sharebar .jiathis_style_32x32 {
+.sharebar .jiathis-title {
+  padding-left: 15px;
   font-size: 14px;
-  line-height: 32px;
+  font-weight: bold;
+  line-height: 30px;
+  border-bottom: 1px solid #dddddd;
+  margin-bottom: 15px;
 }
 .sharebar .jiathis_style_32x32 a {
   display: block;
-  height: 32px;
+  height: 24px;
   width: 100%;
   padding-left: 15px;
   margin-bottom: 20px;
+  color: #666;
 }
 .sharebar .jiathis_style_32x32 a.jiathis {
   margin-left: 15px;
 }
 .sharebar .jiathis_style_32x32 .jtico {
   padding-left: 32px !important;
-  font-size: 14px;
-  text-indent: 10px;
+  font-size: 12px;
+  line-height: 24px !important;
   margin: 0;
+  background: none;
 }
 .sharebar .jiathis_style_32x32 .jtico_tsina {
-  background: url(../icon/weibo32px.png) 0 0 no-repeat;
+  background: url(../icon/weibo24px.png) 0 0 no-repeat;
 }
 .sharebar .jiathis_style_32x32 .jtico_cqq {
-  background: url(../icon/qq32px.png) 0 0 no-repeat;
+  background: url(../icon/qq24px.png) 0 0 no-repeat;
 }
 .sharebar .jiathis_style_32x32 .jtico_weixin {
-  background: url(../icon/wechat32px.png) 0 0 no-repeat;
-}
-.sharebar .jiathis_style_32x32 .jtico_evernote {
-  background: url(../icon/evernote32px.png) 0 0 no-repeat;
+  background: url(../icon/wechat24px.png) 0 0 no-repeat;
 }
 .sharebar .jiathis_style_32x32 .jtico_jiathis {
-  background: url(../icon/share32px.png) 0 0 no-repeat;
+  background: url(../icon/share24px.png) 0 0 no-repeat;
 }
 #rightbar {
   float: left;
@@ -2200,6 +2208,9 @@ img.lazy {
   font-size: 16px;
   box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.4);
 }
+#hide-sidebar:hover {
+  background-color: #0097f4;
+}
 #show-sidebar {
   position: absolute;
   z-index: 3;
@@ -2246,7 +2257,7 @@ img.lazy {
   color: #fff;
   border-radius: 5px;
   margin-bottom: 15px;
-  background-color: #999;
+  background-color: #949ca8;
 }
 #postbar .fa:hover {
   background-color: #0078d2;
@@ -2647,18 +2658,17 @@ body.show-breaking-news #breaking-news {
   }
 }
 .page-article .meta {
-  font-size: 12px;
-  color: #646464;
-  display: inline-block;
+  font-size: 14px;
+  color: #949ca8;
+  line-height: 24px;
   margin-bottom: 30px;
+  border-bottom: 1px dashed #dddddd;
 }
-.page-article .meta.author {
-  color: #0078d2;
+.page-article .meta .item.author {
   margin-right: 30px;
 }
-.page-article .meta.comment-count {
+.page-article .meta .item.author:hover {
   color: #0078d2;
-  margin-left: 15px;
 }
 .page-article .main-image {
   width: 100%;
@@ -2694,29 +2704,11 @@ body.show-breaking-news #breaking-news {
   display: block;
   font-size: 14px;
   padding: 15px;
-  color: #505050;
-  background-color: #f0f0f0;
+  background-color: #EEF3FA;
   margin-bottom: 30px;
 }
-@media (min-width: 1280px) {
-  .page-article .related-posts {
-    float: left;
-    width: 282px;
-    margin-right: 30px;
-  }
-}
-.page-article .related-posts ul {
-  margin-bottom: 0;
-}
-.page-article .related-posts li {
-  list-style: none;
-  margin-left: 0;
-}
-.page-article .related-posts li:last-child {
-  margin-bottom: 0;
-}
-.page-article .related-posts li.last-child {
-  margin-bottom: 0;
+.page-article .related-posts .side-title {
+  color: #0078d2;
 }
 .page-article .statement {
   background-color: #DAE8F1;
@@ -2727,25 +2719,25 @@ body.show-breaking-news #breaking-news {
   color: #0078d2;
 }
 .page-article .toolbar {
-  border-top: 1px solid #dddddd;
   border-bottom: 1px solid #dddddd;
-  padding: 10px 0;
+  padding-bottom: 15px;
   margin-bottom: 30px;
   font-size: 14px;
   line-height: 32px;
 }
-.page-article .toolbar .endorse {
+.page-article .toolbar .endorse,
+.page-article .toolbar .collect {
+  font-size: 17px;
+}
+.page-article .toolbar .endorse:hover,
+.page-article .toolbar .collect:hover {
   color: #0078d2;
-  font-size: 12px;
-  margin-right: 20px;
-  float: left;
 }
 .page-article .toolbar .collect {
-  float: left;
-  display: block;
-  width: 32px;
-  height: 32px;
-  background: url(../icon/collect32px.png);
+  color: #949ca8;
+  margin-right: 20px;
+  padding-right: 15px;
+  border-right: 1px solid #949ca8;
 }
 .page-article .toolbar .separator {
   display: inline-block;
@@ -2757,7 +2749,6 @@ body.show-breaking-news #breaking-news {
 }
 .page-article .toolbar .jiathis_style_32x32 {
   float: right;
-  border-left: 1px solid #dddddd;
   padding-left: 10px;
   font-size: 14px;
 }

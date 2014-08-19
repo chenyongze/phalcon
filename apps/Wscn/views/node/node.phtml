@@ -1,18 +1,29 @@
 <div id="main-content" >
     <aside id="leftbar">
         <div class="sharebar">
-            <a class="collect not-stared" href="" data-action="star" data-post-id="<?=$post->id?>" data-message="登录后收藏">收藏</a>
-            <a class="discuss" href="#comments">评论
+            <a class="collect not-stared" href="" data-action="star" data-post-id="<?=$post->id?>" data-message="登录后收藏">
+                <span class="fa fa-star"></span>
+                收藏
+            </a>
+            <a class="discuss" href="#comments">
+                <span class="fa fa-comment"></span>
+                评论
                 <?if($post->commentCount > 0):?>
                 （<?=$post->commentCount?>）
                 <?endif?>
             </a>
+            <div class="read-times">
+                <strong>12.3K</strong>
+                <div class="text">浏览数</div>
+            </div>
+            <h3 class="jiathis-title">
+                分享到
+            </h3>
             <!-- JiaThis Button BEGIN -->
             <div class="jiathis_style_32x32">
                 <a class="jiathis_button_tsina">微博</a>
                 <a class="jiathis_button_cqq">QQ</a>
                 <a class="jiathis_button_weixin">微信</a>
-                <a class="jiathis_button_evernote">印象笔记</a>
                 <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank">其它</a>
             </div>
             <!--<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1393984262901745" charset="utf-8"></script>-->
@@ -24,14 +35,17 @@
         <div id="main" class="page-article">
             <article>
             <h1 class="article-title"><?=$post->title?></h1>
-                <div>
-                    <span class="meta author">文 / <?=$post->user ? $post->user->username : '华尔街见闻'?></span>
-                    <span class="meta time"><?=$this->tag->datetime($post->createdAt)?></span>
+                <div class="meta">
+                    <span class="item author">文 / <?=$post->user ? $post->user->username : '华尔街见闻'?></span>
+                    <span class="item time"><?=$this->tag->datetime($post->createdAt)?></span>
                     <div class="pull-right">
                         <?if($post->sourceName):?>
-                        <span class="meta">来源：<a href="<?=$post->sourceUrl?>" target="_blank"><?=$post->sourceName?></a></span>
+                        <span class="item">来源：<a href="<?=$post->sourceUrl?>" target="_blank"><?=$post->sourceName?></a></span>
                         <?endif?>
-                        <a href="#comments"><span class="meta comment-count icontext icontext-discuss-blue">(<?=$post->commentCount > 0 ?: 0?>)</span></a>
+                        <a class="item" href="#comments" >
+                            <span class="fa fa-comment"></span>
+                            <?=$post->commentCount > 0 ?: 0?>
+                        </a>
                     </div>
                 </div>
                 <?if($post->imageId):?>
@@ -40,16 +54,6 @@
                      $this->tag->thumb($post->image, 'c_fill,h_350,w_640') : $this->tag->thumb($post->image)?>" />
                 <?endif?>
                 <div class="article-content">
-                    <?if($post->connections):?>
-                    <aside class="related-posts">
-                        <h2 class="main-title">相关文章</h2>
-                        <ul class="news-list with-dot">
-                        <?foreach($post->connections as $connectedPost):?>
-                        <li><a href="<?=$connectedPost->getUrl()?>"><?=$connectedPost->title?></a></li>
-                        <?endforeach?>
-                        </ul>
-                    </aside>
-                    <?endif?>
                     <?=$post->getContentHtml()?>
                 </div>
                 <p class="statement">
@@ -57,20 +61,36 @@
                     <br/>同时欢迎关注见闻微信号：wallstreetcn
                 </p>
                 <div class="toolbar">
-                    <span class="endorse icontext icontext-endorse-blue">(132)</span>
-                    <a class="collect" href=""></a>
+                    <a class="collect" href="">
+                        <span class="fa fa-star"></span>
+                    </a>
+                    <a class="endorse">
+                        <span class="fa fa-thumbs-up"></span>
+                        132
+                    </a>
                     <!-- JiaThis Button BEGIN -->
                     <div class="jiathis_style_32x32">
                         <span class="text">分享</span>
                         <a class="jiathis_button_tsina"></a>
                         <a class="jiathis_button_cqq"></a>
                         <a class="jiathis_button_weixin"></a>
-                        <a class="jiathis_button_evernote"></a>
                         <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
                     </div>
                     <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1393984262901745" charset="utf-8"></script>
                     <!-- JiaThis Button END -->
                 </div>
+
+                <?if($post->connections):?>
+                <div class="related-posts">
+                    <h2 class="side-title">相关文章</h2>
+                    <ul class="news-list with-dot">
+                        <?foreach($post->connections as $connectedPost):?>
+                        <li><a href="<?=$connectedPost->getUrl()?>"><?=$connectedPost->title?></a></li>
+                        <?endforeach?>
+                    </ul>
+                </div>
+                <?endif?>
+
                 <div class="toolbar hidden-xxs" data-action="post">
                     <?if($prevPost = $post->getPrevPost()):?>
                     <a class="prev-post" href="/node/<?=$prevPost->id?>">
@@ -142,36 +162,7 @@
             <?endif?>
         </div>
         <div id="rightbar">
-            <h3 class="side-title">
-                <button class="custom-button type-link">最新文章</button>
-            </h3>
-            <ul class="news-list with-dot">
-                <li class="news">
-                    <a class="title" href="">
-                        <strong>将股纳入新兴市场指数意味着什么？120亿美元入场，证监会积</strong>
-                    </a>
-                </li>
-                <li class="news">
-                    <a class="title" href="">
-                        <strong>全球第二大产糖国新规：原糖进口税猛增167%</strong>
-                    </a>
-                </li>
-                <li class="news">
-                    <a class="title" href="">
-                        <strong>中央出手救市落空？官媒抨击房地产唱空者“别有用心”</strong>
-                    </a>
-                </li>
-                <li class="news">
-                    <a class="title" href="">
-                        <strong>日媒：中国大幅减持日债恐为向日施压</strong>
-                    </a>
-                </li>
-                <li class="news">
-                    <a class="title" href="">
-                        <strong>南非史上最长罢工结束 铂金钯金双双下挫</strong>
-                    </a>
-                </li>
-            </ul>
+
             <h2 class="main-title" style="margin-bottom: 5px;">实时行情</h2>
             <!-- Start: Wallstreetcn.com sidebar widget -->
             <div id="js-wscn-sidebar-wrapper" class="hidden-xxs" style="margin-bottom: 15px;"></div>
