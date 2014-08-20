@@ -2,7 +2,7 @@
     <?foreach($pager->items as $item):?>
     <div class="profile-activity clearfix" data-news-id="<?=$item->id?>">
         <div>
-            <?if($item->codeType == 'markdown'):?>
+            <?if($item->type == 'news'):?>
             <i class="pull-left thumbicon icon-file-alt btn-default no-hover"></i>
             <?else:?>
             <i class="pull-left thumbicon icon-warning-sign btn-warning no-hover"></i>
@@ -12,8 +12,11 @@
                 <?if($item->codeType == 'markdown'):?>
                 <?=$item->getContentHtml()?>
                 <?else:?>
-                <?$data = json_decode($item->content)?>
+                <?=$item->title?>
+                <?//$data = json_decode($item->content)?>
+                <div class="hide">
                 [<?=$this->tag->datetime($item->createdAt, 'H:i')?>] <?=$data->title?> : A[<?=$data->actual?>] / F[<?=$data->forecast?>] / P[<?=$data->previous?>]
+                </div>
                 <?endif?>
             </div>
 
@@ -28,7 +31,7 @@
                 <i class="icon-pencil bigger-125"></i>
             </a>
 
-            <a class="remove-handler red" href="/admin/livenews/process/news/<?=$item->id?>">
+            <a class="remove-handler red" href="/admin/livenews/process/status/<?=$item->id?>">
                 <i class="icon-remove bigger-125"></i>
             </a>
         </div>

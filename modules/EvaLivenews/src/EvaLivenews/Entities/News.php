@@ -210,6 +210,12 @@ class News extends \Eva\EvaEngine\Mvc\Model
      */
     public $categorySet;
 
+    /**
+     *
+     * @var integer
+     */
+    public $hasMore = 0;
+
     public function getContentHtml()
     {
         if(!$this->content) {

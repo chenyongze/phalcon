@@ -55,13 +55,13 @@ loadLivenews();
 
 
 $(document).on('click', ".remove-handler", function(e){
-    if(!confirm('This news will be deleted, are you sure?')) {
-        return false;
-    }
     var handler = $(this);
     $.ajax({
         url : handler.attr('href'),
-        type : 'DELETE',
+        type : 'PUT',
+        data : {
+            'status' : 'deleted'
+        },
         success : function(response){
             handler.closest('.profile-activity').remove();
         },
