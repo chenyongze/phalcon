@@ -101,7 +101,7 @@
         $marketChart.attr('src', src);
     };
     function showDatum($target) {
-        var url = $target.attr('data-source');
+        var url = encodeURI($target.attr('data-source'));
         var symbol = $target.attr('data-symbol');
         //todo
         if (cache[symbol]) {
