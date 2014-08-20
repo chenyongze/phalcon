@@ -252,7 +252,7 @@ class Post extends Entities\Posts
         $textData = isset($data['text']) ? $data['text'] : array();
         $tagData = isset($data['tags']) ? $data['tags'] : array();
         $categoryData = isset($data['categories']) ? $data['categories'] : array();
-        $connectionData = isset($data['connections']) ? $data['connections'] : array();
+        $connectionData = isset($data['connectids']) ? $data['connectids'] : array();
 
         if ($textData) {
             unset($data['text']);
@@ -304,19 +304,19 @@ class Post extends Entities\Posts
 
         $connections = array();
         //remove old relations
-        if ($this->connections) {
-            $this->connections->delete();
+        if ($this->postConnects) {
+            $this->postConnects->delete();
         }
         if ($connectionData) {
-            unset($data['connections']);
+            unset($data['connectids']);
             foreach ($connectionData as $connectionId) {
                 $connection = new Entities\Connections();
-                $connection->sourceId = $data['id'];
+                $connection->sourceId = $this->id;
                 $connection->targetId = $connectionId;
                 $connection->createdAt = time();
                 $connections[] = $connection;
             }
-            $this->connections = $connections;
+            $this->postConnects = $connections;
         }
 
         $this->assign($data);

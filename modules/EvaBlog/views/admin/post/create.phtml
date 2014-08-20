@@ -378,25 +378,74 @@
                             </div><!-- /.row -->
 
                         </div><!--tab pane end-->
-                        <div class="tab-pane in " id="post-tab-extra">
+                        <div class="tab-pane in" id="post-tab-extra">
                             <div class="form-group">
                                 <label class="clearfix">
                                     <h5 class="lighter">Keywords</h5>
                                 </label>
-                                    <?=$textForm->render('metaKeywords', array(
-                                        'class' => 'form-control',
-                                    ))?>
+                                <?=$textForm->render('metaKeywords', array(
+                                    'class' => 'form-control',
+                                ))?>
                             </div>
 
                             <div class="form-group">
                                 <label class="clearfix">
                                     <h5 class="lighter">Description</h5>
                                 </label>
-                                    <?=$textForm->render('metaDescription', array(
-                                        'class' => 'form-control',
-                                        //'class' => 'form-control wysiwyg',
-                                        'rows' => 3,
-                                    ))?>
+                                <?=$textForm->render('metaDescription', array(
+                                    'class' => 'form-control',
+                                    'rows' => 3,
+                                ))?>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="clearfix">
+                                    <h5 class="lighter">Related Posts</h5>
+                                </label>
+                                <div id="post-connection-entry" data-url="/admin/post/process/connection" data-method="POST" data-key="url">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control input-mask-date" placeholder="Enter a post url" data-role="url">
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-sm btn-default" data-role="submiter">
+                                                <i class="icon-plus bigger-110"></i>
+                                                Add
+                                            </button>
+                                        </span>
+                                    </div>
+                                    <div role="previewer">
+                                        <ul class="item-list ui-sortable">
+                                            <li class="hide"></li>
+                                            <script data-role="template" type="text/template">
+                                                <li class="item-blue">
+                                                <label class="inline">
+                                                    <span class="lbl"><%=title%></span>
+                                                    <input type="hidden" name="connectids[]" value="<%=id%>">
+                                                </label>
+                                                <div class="pull-right action-buttons">
+                                                    <a class="red" href="#">
+                                                        <i class="icon-remove bigger-130" data-role="remove"></i>
+                                                    </a>
+                                                </div>
+                                                </li>
+                                            </script>
+                                            <?if($item->connections):?>
+                                            <?foreach($item->connections as $connectPost):?>
+                                            <li class="item-blue">
+                                                <label class="inline">
+                                                    <span class="lbl"><?=$connectPost->title?></span>
+                                                    <input type="hidden" name="connectids[]" value="<?=$connectPost->id?>">
+                                                </label>
+                                                <div class="pull-right action-buttons">
+                                                    <a class="red" href="#">
+                                                        <i class="icon-remove bigger-130" data-role="remove"></i>
+                                                    </a>
+                                                </div>
+                                            </li>
+                                            <?endforeach?>
+                                            <?endif?>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
@@ -405,14 +454,36 @@
             </div><!--widget body end-->
         </div><!--widget box end-->
 
-
-
-
     </div><!-- /.page-content -->
 </form>
 
 <script>
     $(document).ready(function(){
+        var connectionUI = $("#post-connection-entry");
+        connectionUI.on('click', '[data-role="submiter"]', function(){
+            var url = connectionUI.find("[data-role=url]").val();
+            if(url.length < 1 || !url.match(/^http/)) {
+                return;
+            }
+            $.ajax({
+                url : connectionUI.attr("data-url"), 
+                method : connectionUI.attr("data-method"),
+                data : {
+                    url : url
+                }
+            }).then(function(response) {
+                if(!response.id) {
+                    return;
+                }
+                var template = connectionUI.find('[data-role=template]');
+                template.after(_.template(template.html(), response));
+            }).fail(function(error) {});
+        });
+        connectionUI.on('click', '[data-role="remove"]', function(){
+            $(this).closest('li').remove();
+            return false;
+        });
+
         var updateCreateTime = function(){
             var day = $('input[name=day]').val();
             var time = $('input[name=time]').val();

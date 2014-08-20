@@ -8,6 +8,24 @@ use Eva\EvaEngine\Exception;
 
 class ProcessController extends ControllerBase implements JsonControllerInterface
 {
+    public function connectionAction()
+    {
+        if (!$this->request->isPost()) {
+            return $this->showErrorMessageAsJson(405, 'ERR_REQUEST_METHOD_NOT_ALLOW');
+        }
+        $url = $this->request->getPost('url');
+        $url = parse_url($url);
+        $path = $url['path'];
+        $post = new \stdclass(); 
+        if (preg_match('/(\d+)/', $path, $matches)) {
+            $id = $matches[1];
+            $post = Models\Post::findFirst("id = $id");
+        } else {
+        
+        }
+        return $this->response->setJsonContent($post);
+    }
+
     public function deleteAction()
     {
         if (!$this->request->isDelete()) {
