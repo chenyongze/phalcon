@@ -53,6 +53,11 @@
                                 ))?>
                             </div>
                             <div class="form-group">
+                                <?=$form->render('type', array(
+                                    'class' => 'form-control input-sm'
+                                ))?>
+                            </div>
+                            <div class="form-group">
                                 <?=$form->render('code_type', array(
                                     'class' => 'form-control input-sm'
                                 ))?>
@@ -109,9 +114,9 @@
                             </th>
                             <th>User</th>
                             <th>
-                                <a href="<?=$this->tag->uri('/admin/livenews/news', $pager->query)?>" class="sortable-link" data-sortable-value="created_at" data-sortable-default="-created_at">
+                                <a href="<?=$this->tag->uri('/admin/livenews/news', $pager->query)?>" class="sortable-link" data-sortable-value="updated_at" data-sortable-default="-updated_at">
                                     <i class="icon-time bigger-110"></i>
-                                    Created At
+                                    Updated At
                                 </a>
                             </th>
                             <th></th>
@@ -130,14 +135,14 @@
                             <td class="hidden-480"><?=$item->id?></td>
                             <td>
                                 <a href="/admin/livenews/news/edit/<?=$item->id?>">
-                                    <?if($item->codeType == 'markdown'):?>
                                     <?=$item->title?>
-                                    <?else:?>
+                                    <?if(0 && $item->codeType == 'markdown'):?>
                                     <?$data = json_decode($item->content)?>
                                     [<?=$this->tag->datetime($item->createdAt, 'H:i')?>] <?=$data->title?> : A[<?=$data->actual?>] / F[<?=$data->forecast?>] / P[<?=$data->previous?>]
                                     <?endif?>
                                 </a>
                                 <?if($item->sourceName):?><a href="<?=$item->sourceUrl?>" target="_blank"><span class="label"><?=$item->sourceName?></span></a><?endif?>
+                                <span class="label"><?=$item->type?></span>
                                 <span class="label"><?=$item->codeType?></span>
                             </td>
                             <td class="hidden-480">
@@ -160,7 +165,7 @@
                                 <?endif?>
                             </td>
                             <td><?=$item->user ? $item->user->username : ''?></td>
-                            <td><?=$this->tag->datetime($item->createdAt)?></td>
+                            <td><?=$this->tag->datetime($item->updatedAt)?></td>
                             <td>
                                 <div class="btn-group">
                                     <button class="btn btn-xs btn-success ajax-form-sumbit" data-ajax-form="1" date-method="put" data-form-action="/admin/livenews/process/status/<?=$item->id?>" data-callback="window.location.reload();">
