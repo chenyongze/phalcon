@@ -95,7 +95,7 @@ body {
 }
 [data-trend="fall"] .diff,
 [data-trend="fall"] .diff-pct {
-  color: #00be3c;
+  color: #009632;
 }
 /*
     mixins 自定义 less 函数
@@ -292,7 +292,7 @@ img.lazy {
   color: #ff4646;
 }
 .fc-list [data-trend=down] .actual {
-  color: #00be3c;
+  color: #009632;
 }
 .fc-list .date {
   color: #333;
@@ -3078,12 +3078,11 @@ body.show-breaking-news #breaking-news {
 }
 .page-article .toolbar .jiathis_style_32x32 {
   float: right;
-  padding-left: 10px;
   font-size: 14px;
 }
-.page-article .toolbar .jiathis_style_32x32 .text {
-  display: block;
+.page-article .toolbar .jiathis_style_32x32 .title {
   float: left;
+  line-height: 32px;
 }
 .page-article .toolbar .jiathis_style_32x32 .fa {
   font-size: 20px;
@@ -3125,15 +3124,10 @@ body.show-breaking-news #breaking-news {
   text-align: center;
   background-image: none;
 }
-@media (max-width: 479px) {
-  .page-article .toolbar .collect {
-    margin-bottom: 10px;
-  }
+@media (max-width: 767px) {
   .page-article .toolbar .jiathis_style_32x32 {
     float: none;
     display: block;
-    border-left: none;
-    padding-left: 0;
   }
   .page-article .toolbar .jiathis_style_32x32:before {
     display: table;
@@ -3144,6 +3138,14 @@ body.show-breaking-news #breaking-news {
     display: table;
     content: '';
     clear: both;
+  }
+  .page-article .toolbar .jiathis_style_32x32 .text {
+    display: none;
+  }
+  .page-article .toolbar .jiathis_style_32x32 .jtico {
+    padding: 0 !important;
+    width: 32px;
+    text-align: center;
   }
 }
 .page-article .tags {
