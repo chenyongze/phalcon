@@ -48,6 +48,7 @@ class NewsManager extends Entities\News
         'sourceName',
         'sourceUrl',
         'userId',
+        'categorySet',
     );
 
     public function beforeValidationOnCreate()
@@ -56,7 +57,7 @@ class NewsManager extends Entities\News
         if (!$this->slug) {
             $this->slug = \Phalcon\Text::random(\Phalcon\Text::RANDOM_ALNUM, 8);
         }
-        if(!$this->title) {
+        if (!$this->title) {
             $this->title = \Eva\EvaEngine\Text\Substring::substrCn(strip_tags($this->getContentHtml()), 100);
         }
     }
@@ -88,7 +89,7 @@ class NewsManager extends Entities\News
     public function beforeSave()
     {
         //Data importance will overwrite news importance
-        if($data = $this->getData()) {
+        if ($data = $this->getData()) {
             $this->importance = $data->importance;
         }
 
@@ -153,7 +154,7 @@ class NewsManager extends Entities\News
             $cidArray = explode(',', $query['cid']);
             $setArray = array();
             $valueArray = array();
-            foreach($cidArray as $key => $cid) {
+            foreach ($cidArray as $key => $cid) {
                 $setArray[] = "FIND_IN_SET(:cid_$key:, categorySet)";
                 $valueArray["cid_$key"] = $cid;
             }
@@ -165,13 +166,17 @@ class NewsManager extends Entities\News
             */
         }
 
+        if (!empty($query['limit'])) {
+            $itemQuery->limit($query['limit']);
+        }
+
         $order = 'createdAt DESC';
         if (!empty($query['order'])) {
             $orderArray = explode(',', $query['order']);
-            if(count($orderArray) > 1) {
+            if (count($orderArray) > 1) {
                 $order = array();
-                foreach($orderArray as $subOrder) {
-                    if($subOrder && !empty($orderMapping[$subOrder])) {
+                foreach ($orderArray as $subOrder) {
+                    if ($subOrder && !empty($orderMapping[$subOrder])) {
                         $order[] = $orderMapping[$subOrder];
                     }
                 }
@@ -195,7 +200,7 @@ class NewsManager extends Entities\News
         $categoryData = isset($data['categories']) ? $data['categories'] : array();
         $textData = isset($data['text']) ? $data['text'] : array();
 
-        if($textData) {
+        if ($textData) {
             unset($data['text']);
             $text = new Text();
             $text->assign($textData);
@@ -232,7 +237,7 @@ class NewsManager extends Entities\News
         $categoryData = isset($data['categories']) ? $data['categories'] : array();
         $textData = isset($data['text']) ? $data['text'] : array();
 
-        if($textData) {
+        if ($textData) {
             unset($data['text']);
             $text = new Text();
             $text->assign($textData);
@@ -276,5 +281,31 @@ class NewsManager extends Entities\News
         $this->delete();
         $this->getDI()->getEventsManager()->fire('livenews:afterRemove', $this);
         return $this;
+    }
+
+    public function syncNewsToCache($limit = null)
+    {
+        $config = $this->getDI()->getConfig();
+        $limit = $limit ?: $config->livenews->realtimeCacheSize;
+        $newsArray = $this->findNews(array(
+            'status' => 'published',
+            'limit' => $limit,
+            'order' => '-created_at',
+        ))->getQuery()->execute();
+
+        foreach ($newsArray as $news) {
+            if ($news->status === 'published' && $config->livenews->realtimeCacheEnable) {
+                $newsString = json_encode($news->dump(
+                    NewsManager::$simpleDump
+                ));
+                $redis = $news->getDI()->getFastCache();
+                $redis->zAdd('livenews', (int) $news->id, $newsString);
+                $size = $redis->zSize('livenews');
+                if ($size > $config->livenews->realtimeCacheEnable) {
+                    //remove lowest rank
+                    $redis->zRemRangeByRank('livenews', 0, 0);
+                }
+            }
+        }
     }
 }
