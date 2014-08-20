@@ -56,6 +56,13 @@ class LivenewsController extends ControllerBase
      *           type="string"
      *         ),
      *         @SWG\Parameter(
+     *           name="format",
+     *           description="Allow value : markdown | json",
+     *           paramType="query",
+     *           required=false,
+     *           type="string"
+     *         ),
+     *         @SWG\Parameter(
      *           name="uid",
      *           description="User ID",
      *           paramType="query",
@@ -64,14 +71,7 @@ class LivenewsController extends ControllerBase
      *         ),
      *         @SWG\Parameter(
      *           name="cid",
-     *           description="Category ID",
-     *           paramType="query",
-     *           required=false,
-     *           type="integer"
-     *         ),
-     *         @SWG\Parameter(
-     *           name="order",
-     *           description="Order, allow value : +-id, +-created_at, +-sortOrder default is -created_at",
+     *           description="Category ID, split multi by comma",
      *           paramType="query",
      *           required=false,
      *           type="string"
@@ -100,11 +100,13 @@ class LivenewsController extends ControllerBase
         $limit = $this->request->getQuery('limit', 'int', 25);
         $limit = $limit > 100 ?: $limit;
         $limit = $limit < 3 ?: $limit;
-        $order = $this->request->getQuery('order', 'string', '-created_at');
+        //fixed order
+        $order = '-updated_at';
         $query = array(
             'q' => $this->request->getQuery('q', 'string'),
             'status' => $this->request->getQuery('status', 'string'),
-            'codeType' => $this->request->getQuery('type', 'string'),
+            'type' => $this->request->getQuery('type', 'string'),
+            'codeType' => $this->request->getQuery('format', 'string'),
             'uid' => $this->request->getQuery('uid', 'int'),
             'cid' => $this->request->getQuery('cid', 'string'),
             'username' => $this->request->getQuery('username', 'string'),
@@ -112,8 +114,6 @@ class LivenewsController extends ControllerBase
             'limit' => $limit,
             'page' => $this->request->getQuery('page', 'int', 1),
         );
-        $query['codeType'] = $query['codeType'] == 'news' ? 'markdown' : 'json';
-
 
 
         $form = new Forms\FilterForm();

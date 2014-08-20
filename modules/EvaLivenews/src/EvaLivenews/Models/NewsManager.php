@@ -12,7 +12,9 @@ class NewsManager extends Entities\News
 {
     public static $defaultDump = array(
         'id',
+        'status',
         'title',
+        'type',
         'codeType',
         'importance',
         'createdAt',
@@ -38,7 +40,9 @@ class NewsManager extends Entities\News
 
     public static $simpleDump = array(
         'id',
+        'status',
         'title',
+        'type',
         'codeType',
         'importance',
         'createdAt',
@@ -86,6 +90,8 @@ class NewsManager extends Entities\News
 
     public function beforeSave()
     {
+        $this->updatedAt = time();
+
         if ($this->type == 'data') {
             //Auto update title if finance data
             $this->title = \Eva\EvaEngine\Text\Substring::substrCn(strip_tags($this->getContentHtml()), 100);
@@ -300,7 +306,7 @@ class NewsManager extends Entities\News
         $newsArray = $this->findNews(array(
             'status' => 'published',
             'limit' => $limit,
-            'order' => '-created_at',
+            'order' => '-updated_at',
         ))->getQuery()->execute();
 
         foreach ($newsArray as $news) {
@@ -309,7 +315,7 @@ class NewsManager extends Entities\News
                     NewsManager::$simpleDump
                 ));
                 $redis = $news->getDI()->getFastCache();
-                $redis->zAdd('livenews', (int) $news->id, $newsString);
+                $redis->zAdd('livenews', (int) $news->updatedAt, $newsString);
                 $size = $redis->zSize('livenews');
                 if ($size > $config->livenews->realtimeCacheEnable) {
                     //remove lowest rank
