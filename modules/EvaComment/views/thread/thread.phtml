@@ -1,4 +1,4 @@
-<div class="user-comments">
+<div class="ws-thread">
     <div class="ws-reply-box ws-first-reply-box">
         <div class="ws-avatar">
             <img src="/wscn/img/avatar-md.png" alt="ikk">
@@ -14,11 +14,11 @@
 
 
     <div class="ws-title" <? if(!count($comments)){ echo 'style="display:none"' ;} ?>>
-        <span class="amount"><?=$thread->numComments ?></span>条评论
+        <span class="ws-counter"><?=$thread->numComments ?></span>条评论
         <div class="ws-sort">
             <a class="ws-order-desc <?if($sorter=='-created_at') echo 'ws-current' ?>" data-sort="-created_at">最新</a>
             <a class="ws-order-asc <?if($sorter=='created_at') echo 'ws-current' ?>" data-sort="created_at">最早</a>
-<!--            <a class="ws-order-hot --><?//if($sorter=='hot') echo 'ws-current' ?><!--" data-sort="hot">最热</a>-->
+            <a class="ws-order-hot <?if($sorter=='hot') echo 'ws-current' ?>" data-sort="hot">最热</a>
         </div>
     </div>
     <div class="ws-comments">
