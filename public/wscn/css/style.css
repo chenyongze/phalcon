@@ -2111,6 +2111,10 @@ img.lazy {
   font-size: 17px;
   margin-right: 10px;
 }
+.sharebar .discuss:hover,
+.sharebar .collect:hover {
+  color: #0078d2;
+}
 .sharebar .read-times {
   padding: 30px 15px;
   font-size: 20px;
@@ -2711,11 +2715,16 @@ body.show-breaking-news #breaking-news {
   }
 }
 .page-article .meta {
-  font-size: 14px;
   color: #949ca8;
-  line-height: 24px;
   margin-bottom: 30px;
   border-bottom: 1px dashed #dddddd;
+}
+.page-article .meta .item {
+  display: inline-block;
+  font-size: 14px;
+  line-height: 1em;
+  height: 1em;
+  margin-bottom: 15px;
 }
 .page-article .meta .item.author {
   margin-right: 30px;

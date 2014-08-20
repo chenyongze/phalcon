@@ -36,14 +36,14 @@
             <article>
             <h1 class="article-title"><?=$post->title?></h1>
                 <div class="meta">
-                    <span class="item author">文 / <?=$post->user ? $post->user->username : '华尔街见闻'?></span>
+                    <a class="item author" href="">文 / <?=$post->user ? $post->user->username : '华尔街见闻'?></a>
                     <span class="item time"><?=$this->tag->datetime($post->createdAt)?></span>
                     <div class="pull-right">
                         <?if($post->sourceName):?>
                         <span class="item">来源：<a href="<?=$post->sourceUrl?>" target="_blank"><?=$post->sourceName?></a></span>
                         <?endif?>
                         <a class="item" href="#comments" >
-                            <span class="fa fa-comment"></span>
+                            <span class="fa fa-comment" style="vertical-align: 1px"></span>
                             <?=$post->commentCount > 0 ?: 0?>
                         </a>
                     </div>
