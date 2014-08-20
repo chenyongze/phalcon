@@ -407,6 +407,9 @@ img.lazy {
   font-size: 14px;
   line-height: 21px;
 }
+.news-list .news:hover {
+  color: #0078d2;
+}
 .news-list.with-dot .news {
   position: relative;
   display: block;
@@ -606,7 +609,9 @@ img.lazy {
   position: relative;
   padding-left: 80px;
   font-size: 12px;
-  margin-bottom: 30px;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #dddddd;
 }
 .side-comments .comment .avatar {
   display: block;
@@ -671,6 +676,28 @@ img.lazy {
   .side-tags {
     margin-right: -15px;
   }
+}
+.hot-news .news {
+  display: block;
+  padding: 12px 0;
+  min-height: 100px;
+  border-bottom: 1px solid #dddddd;
+}
+.hot-news .news:hover {
+  color: #0078d2;
+}
+.hot-news .news .img {
+  display: block;
+  float: left;
+  margin-top: 3px;
+  width: 100px;
+  height: 70px;
+}
+.hot-news .news .title {
+  display: block;
+  margin-left: 120px;
+  font-weight: bold;
+  line-height: 20px;
 }
 .toolbar:before {
   display: table;
@@ -2075,7 +2102,7 @@ img.lazy {
   padding-left: 15px;
   color: #999;
   border-bottom: 1px solid #dddddd;
-  line-height: 50px;
+  line-height: 40px;
 }
 .sharebar .discuss .fa,
 .sharebar .collect .fa {
@@ -2216,8 +2243,8 @@ img.lazy {
   z-index: 3;
   top: 5px;
   right: 5px;
-  width: 111px;
-  height: 44px;
+  width: 110px;
+  height: 52px;
   background-image: url(../img/livenews-title.png);
 }
 #show-sidebar:hover {
@@ -2678,6 +2705,38 @@ body.show-breaking-news #breaking-news {
 .page-article .article-content {
   font-size: 16px;
   line-height: 1.75em;
+  /* 去除默认边框 */
+  /* 解决 IE6-7 图片缩放锯齿问题 */
+  /* ie6 7 8(q) bug 显示为行内表现 */
+  /* 块/段落引用 */
+  /* Firefox 以外，元素没有下划线，需添加 */
+  /* 添加鼠标问号，进一步确保应用的语义是正确的（要知道，交互他们也有洁癖，如果你不去掉，那得多花点口舌） */
+  /* 一致的 del 样式 */
+  /* 去掉列表前的标识, li 会继承，大部分网站通常用列表来很多内容，所以应该当去 */
+  /* 对齐是排版最重要的因素, 别让什么都居中 */
+  /* 统一上标和下标 */
+  /* 让链接在 hover 状态下显示下划线 */
+  /* 默认不显示下划线，保持页面简洁 */
+  /* 专名号：虽然 u 已经重回 html5 Draft，但在所有浏览器中都是可以使用的，
+         * 要做到更好，向后兼容的话，添加 class="typo-u" 来显示专名号
+         * 关于 <u> 标签：http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-u-element
+         * 被放弃的是 4，之前一直搞错 http://www.w3.org/TR/html401/appendix/changes.html#idx-deprecated
+         * 一篇关于 <u> 标签的很好文章：http://html5doctor.com/u-element/
+         */
+  /* 标记，类似于手写的荧光笔的作用 */
+  /* 代码片断 */
+  /* 一致化 horizonal rule */
+  /* 底部印刷体、版本等标记 */
+  /* 可拖动文件添加拖动手势 */
+  /* 强制文本换行 */
+  /* 提供 serif 版本的字体设置 */
+  /* 保证块/段落之间的空白隔行 */
+  /* 标题应该更贴紧内容，并与其他块区分，margin 值要相应做优化 */
+  /* 在文章中，应该还原 ul 和 ol 的样式 */
+  /* 同 ul/ol，在文章中应用 table 基本格式 */
+  /* 去除 webkit 中 input 和 textarea 的默认样式  */
+  /* 高亮选中 */
+  /* TODO: 供着重号使用 */
 }
 .page-article .article-content:before {
   display: table;
@@ -2700,15 +2759,259 @@ body.show-breaking-news #breaking-news {
   margin-left: 20px;
   margin-bottom: 30px;
 }
-.page-article .related-posts {
-  display: block;
-  font-size: 14px;
-  padding: 15px;
-  background-color: #EEF3FA;
-  margin-bottom: 30px;
-}
-.page-article .related-posts .side-title {
+.page-article .article-content a {
   color: #0078d2;
+}
+.page-article .article-content fieldset,
+.page-article .article-content img {
+  border: 0;
+}
+.page-article .article-content img {
+  -ms-interpolation-mode: bicubic;
+}
+.page-article .article-content iframe {
+  display: block;
+}
+.page-article .article-content blockquote {
+  margin: 1em 0;
+  color: #555;
+  font-size: 16px;
+  padding: 0.6em 1em;
+  background: #f8f8f8;
+  border-left: 0.4em solid #ddd;
+}
+.page-article .article-content blockquote blockquote {
+  padding: 0 0 0 1em;
+  margin-left: 2em;
+}
+.page-article .article-content blockquote p {
+  margin-bottom: 0;
+}
+.page-article .article-content acronym,
+.page-article .article-content abbr {
+  border-bottom: 1px dotted;
+  font-variant: normal;
+}
+.page-article .article-content abbr {
+  cursor: help;
+}
+.page-article .article-content del {
+  text-decoration: line-through;
+}
+.page-article .article-content address,
+.page-article .article-content caption,
+.page-article .article-content cite,
+.page-article .article-content code,
+.page-article .article-content dfn,
+.page-article .article-content em,
+.page-article .article-content th,
+.page-article .article-content var {
+  font-style: normal;
+  font-weight: 400;
+}
+.page-article .article-content em {
+  font-style: italic;
+}
+.page-article .article-content ul,
+.page-article .article-content ol {
+  list-style: none;
+}
+.page-article .article-content caption,
+.page-article .article-content th {
+  text-align: left;
+}
+.page-article .article-content q:before,
+.page-article .article-content q:after {
+  content: '';
+}
+.page-article .article-content sub,
+.page-article .article-content sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: text-top;
+}
+.page-article .article-content :root sub,
+.page-article .article-content :root sup {
+  vertical-align: baseline;
+  /* for ie9 and other mordern browsers */
+}
+.page-article .article-content sup {
+  top: -0.5em;
+}
+.page-article .article-content sub {
+  bottom: -0.25em;
+}
+.page-article .article-content strong {
+  font-weight: bold;
+}
+.page-article .article-content ins,
+.page-article .article-content a {
+  text-decoration: none;
+}
+.page-article .article-content u,
+.page-article .article-content .typo-u {
+  text-decoration: underline;
+}
+.page-article .article-content mark {
+  background: #fffdd1;
+}
+.page-article .article-content pre,
+.page-article .article-content code {
+  font-family: "Courier New", Courier, monospace;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.page-article .article-content pre {
+  background: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: 1em 1.5em;
+}
+.page-article .article-content hr {
+  border: none;
+  border-bottom: 1px solid #cfcfcf;
+  margin-bottom: 10px;
+  height: 10px;
+  *margin: -7px 0 2px;
+}
+.page-article .article-content small,
+.page-article .article-content .typo-small,
+.page-article .article-content figcaption {
+  font-size: 0.9em;
+  color: #888;
+}
+.page-article .article-content [draggable] {
+  cursor: move;
+}
+.page-article .article-content .textwrap,
+.page-article .article-content .textwrap td,
+.page-article .article-content .textwrap th {
+  word-wrap: break-word;
+  word-break: break-all;
+}
+.page-article .article-content .textwrap-table {
+  table-layout: fixed;
+}
+.page-article .article-content .serif {
+  font-family: Palatino, Hiragino Mincho ProN W3, Optima, STSong, Georgia, serif;
+}
+.page-article .article-content .typo p,
+.page-article .article-content .typo pre,
+.page-article .article-content .typo ul,
+.page-article .article-content .typo ol,
+.page-article .article-content .typo dl,
+.page-article .article-content .typo form,
+.page-article .article-content .typo hr,
+.page-article .article-content .typo table,
+.page-article .article-content .typo-p,
+.page-article .article-content .typo-pre,
+.page-article .article-content .typo-ul,
+.page-article .article-content .typo-ol,
+.page-article .article-content .typo-dl,
+.page-article .article-content .typo-form,
+.page-article .article-content .typo-hr,
+.page-article .article-content .typo-table {
+  margin-bottom: 1.2em;
+}
+.page-article .article-content .typo h1,
+.page-article .article-content .typo h2,
+.page-article .article-content .typo h3,
+.page-article .article-content .typo h4,
+.page-article .article-content .typo h5,
+.page-article .article-content .typo h6,
+.page-article .article-content .typo-h1,
+.page-article .article-content .typo-h2,
+.page-article .article-content .typo-h3,
+.page-article .article-content .typo-h4,
+.page-article .article-content .typo-h5,
+.page-article .article-content .typo-h6 {
+  margin-bottom: 0.4em;
+  line-height: 1.5;
+}
+.page-article .article-content .typo h1,
+.page-article .article-content .typo-h1 {
+  font-size: 1.8em;
+}
+.page-article .article-content .typo h2,
+.page-article .article-content .typo-h2 {
+  font-size: 1.6em;
+}
+.page-article .article-content .typo h3,
+.page-article .article-content .typo-h3 {
+  font-size: 1.4em;
+}
+.page-article .article-content .typo h4,
+.page-article .article-content .typo-h4 {
+  font-size: 1.2em;
+}
+.page-article .article-content .typo h5,
+.page-article .article-content .typo h6,
+.page-article .article-content .typo-h5,
+.page-article .article-content .typo-h6 {
+  font-size: 1em;
+}
+.page-article .article-content .typo ul,
+.page-article .article-content .typo-ul {
+  margin-left: 1.3em;
+  list-style: disc;
+}
+.page-article .article-content .typo ol,
+.page-article .article-content .typo-ol {
+  list-style: decimal;
+  margin-left: 1.9em;
+}
+.page-article .article-content .typo li ul,
+.page-article .article-content .typo li ol,
+.page-article .article-content .typo-ul ul,
+.page-article .article-content .typo-ul ol,
+.page-article .article-content .typo-ol ul,
+.page-article .article-content .typo-ol ol {
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 2em;
+}
+.page-article .article-content .typo li ul,
+.page-article .article-content .typo-ul ul,
+.page-article .article-content .typo-ol ul {
+  list-style: circle;
+}
+.page-article .article-content .typo table th,
+.page-article .article-content .typo table td,
+.page-article .article-content .typo-table th,
+.page-article .article-content .typo-table td .typo table caption {
+  border: 1px solid #ddd;
+  padding: 0.5em 1em;
+  color: #666;
+}
+.page-article .article-content .typo table th,
+.page-article .article-content .typo-table th {
+  background: #fbfbfb;
+}
+.page-article .article-content .typo table thead th,
+.page-article .article-content .typo-table thead th {
+  background: #f1f1f1;
+}
+.page-article .article-content .typo table caption {
+  border-bottom: none;
+}
+.page-article .article-content .typo-input,
+.page-article .article-content .typo-textarea {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+.page-article .article-content ::-moz-selection {
+  background: #08c;
+  color: #fff;
+}
+.page-article .article-content ::selection {
+  background: #08c;
+  color: #fff;
+}
+.page-article .article-content .typo-em,
+.page-article .article-content .typo em,
+.page-article .article-content legend,
+.page-article .article-content caption {
+  font-weight: 700;
 }
 .page-article .statement {
   background-color: #DAE8F1;
@@ -2757,22 +3060,33 @@ body.show-breaking-news #breaking-news {
   float: left;
 }
 .page-article .toolbar .jiathis_style_32x32 .jtico {
-  padding-left: 32px !important;
+  padding-left: 10px !important;
+  padding-right: 10px;
   margin-left: 10px;
+  border-radius: 3px;
+}
+.page-article .toolbar .jiathis_style_32x32 .jiathis_txt {
+  font-size: 14px;
+  color: #fff;
 }
 .page-article .toolbar .jiathis_style_32x32 .jtico_tsina {
-  background: url(../icon/weibo32px.png) 0 0 no-repeat;
+  background-image: none;
+  background-color: #D04341;
 }
 .page-article .toolbar .jiathis_style_32x32 .jtico_cqq {
-  background: url(../icon/qq32px.png) 0 0 no-repeat;
+  background-image: none;
+  background-color: #36891A;
 }
 .page-article .toolbar .jiathis_style_32x32 .jtico_weixin {
-  background: url(../icon/wechat32px.png) 0 0 no-repeat;
+  background-image: none;
+  background-color: #2384CC;
 }
 .page-article .toolbar .jiathis_style_32x32 .jtico_evernote {
-  background: url(../icon/evernote32px.png) 0 0 no-repeat;
+  background-image: none;
 }
 .page-article .toolbar .jiathis_style_32x32 .jtico_jiathis {
+  padding-left: 32px !important;
+  padding-right: 0;
   background: url(../icon/share32px.png) 0 0 no-repeat;
 }
 @media (max-width: 479px) {
@@ -2796,160 +3110,56 @@ body.show-breaking-news #breaking-news {
     clear: both;
   }
 }
-.page-article .toolbar[data-action=post] {
-  padding: 0;
-  position: relative;
+.page-article .tags {
+  margin-bottom: 30px;
 }
-.page-article .toolbar[data-action=post] .separator {
-  display: block;
-  position: absolute;
-  width: 0;
-  height: 100%;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
-}
-.page-article .toolbar[data-action=post] .prev-post,
-.page-article .toolbar[data-action=post] .next-post {
-  display: block;
-  position: relative;
-  width: 50%;
-  float: left;
-  padding: 15px 20px;
-  color: #333;
-}
-.page-article .toolbar[data-action=post] .prev-post:before,
-.page-article .toolbar[data-action=post] .next-post:before {
+.page-article .tags:before {
   display: table;
   content: '';
   clear: both;
 }
-.page-article .toolbar[data-action=post] .prev-post:after,
-.page-article .toolbar[data-action=post] .next-post:after {
+.page-article .tags:after {
   display: table;
   content: '';
   clear: both;
 }
-.page-article .toolbar[data-action=post] .prev-post:hover,
-.page-article .toolbar[data-action=post] .next-post:hover {
-  background-color: #0078d2;
-  color: #fff;
-}
-.page-article .toolbar[data-action=post] .icon {
-  display: block;
-  position: absolute;
-  width: 40px;
-  height: 30px;
-  top: 0;
-  bottom: 0;
-  margin: auto 0;
+.page-article .tags > .title {
+  font-weight: bold;
+  font-size: 14px;
   line-height: 30px;
-  text-align: center;
-  font-size: 16px;
-}
-.page-article .toolbar[data-action=post] .img {
-  display: block;
-}
-.page-article .toolbar[data-action=post] .title {
-  display: block;
-  font-size: 14px;
-  line-height: 1.5em;
-}
-.page-article .toolbar[data-action=post] .prev-post {
-  padding-left: 40px;
-}
-.page-article .toolbar[data-action=post] .prev-post .icon {
-  left: 0;
-}
-.page-article .toolbar[data-action=post] .next-post {
-  padding-right: 40px;
-}
-.page-article .toolbar[data-action=post] .next-post .icon {
-  right: 0;
-}
-@media (max-width: 1279px) {
-  .page-article .toolbar[data-action=post] .img {
-    width: 100%;
-    margin-bottom: 20px;
-  }
-  .page-article .toolbar[data-action=post] .title {
-    height: 4.5em;
-    overflow: hidden;
-  }
-}
-@media (min-width: 1280px) {
-  .page-article .toolbar[data-action=post] .img {
-    width: 120px;
-    height: 80px;
-  }
-  .page-article .toolbar[data-action=post] .title {
-    width: 120px;
-    height: 80px;
-    overflow: hidden;
-  }
-  .page-article .toolbar[data-action=post] .prev-post .img {
-    float: left;
-  }
-  .page-article .toolbar[data-action=post] .prev-post .title {
-    float: right;
-  }
-  .page-article .toolbar[data-action=post] .next-post .img {
-    float: right;
-  }
-  .page-article .toolbar[data-action=post] .next-post .title {
-    float: left;
-  }
-}
-.page-article .hot-news {
-  margin-bottom: 30px;
-}
-.page-article .hot-news .news {
-  display: block;
-  color: #000;
-  margin-bottom: 30px;
-}
-.page-article .hot-news .news:hover {
-  color: #0078d2;
-}
-.page-article .hot-news .news .img {
-  display: block;
-  width: 100%;
-  height: auto;
-  margin-bottom: 15px;
-}
-.page-article .hot-news .news .title {
-  font-size: 14px;
-  line-height: 1.5em;
-  height: 3em;
-  overflow: hidden;
-}
-.page-article .custom-tabs {
-  font-size: 14px;
-  margin-bottom: 20px;
-}
-.page-article .custom-tabs:before {
-  display: table;
-  content: '';
-  clear: both;
-}
-.page-article .custom-tabs:after {
-  display: table;
-  content: '';
-  clear: both;
-}
-.page-article .custom-tabs li {
   float: left;
-  margin-right: 20px;
+  margin-right: 30px;
 }
-.page-article .custom-tabs li.active {
+.page-article .tags .tag {
+  display: block;
+  float: left;
+  margin-right: 15px;
+  line-height: 28px;
+  text-align: center;
+  min-width: 90px;
+  padding: 0 10px;
+  border-radius: 3px;
+  border: 1px solid #dddddd;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+}
+.page-article .tags .tag:hover {
+  color: #0078d2;
+  border-color: #0078d2;
+}
+.page-article .related-posts {
+  display: block;
+  font-size: 14px;
+  padding: 15px;
+  background-color: #EEF3FA;
+  margin-bottom: 30px;
+}
+.page-article .related-posts .side-title {
   color: #0078d2;
 }
-.page-article .news-list .news:before {
+.page-article .related-posts .news-list .news:before {
   background-color: #333;
 }
-.page-article .news-list .news:hover:before {
+.page-article .related-posts .news-list .news:hover:before {
   background-color: #0078d2;
 }
 .page-search .crumbs-title {

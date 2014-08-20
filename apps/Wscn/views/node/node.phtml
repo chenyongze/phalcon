@@ -70,10 +70,19 @@
                     </a>
                     <!-- JiaThis Button BEGIN -->
                     <div class="jiathis_style_32x32">
-                        <span class="text">分享</span>
-                        <a class="jiathis_button_tsina"></a>
-                        <a class="jiathis_button_cqq"></a>
-                        <a class="jiathis_button_weixin"></a>
+                        <span class="text">分享到 </span>
+                        <a class="jiathis_button_tsina">
+                            <span class="fa fa-weibo"></span>
+                            新浪微博
+                        </a>
+                        <a class="jiathis_button_cqq">
+                            <span class="fa fa-weixin"></span>
+                            微信朋友圈
+                        </a>
+                        <a class="jiathis_button_weixin">
+                            <span class="fa fa-qq"></span>
+                            腾讯QQ
+                        </a>
                         <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
                     </div>
                     <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1393984262901745" charset="utf-8"></script>
@@ -82,7 +91,7 @@
 
                 <?if($post->connections):?>
                 <div class="related-posts">
-                    <h2 class="side-title">相关文章</h2>
+                    <h2 class="side-title">相关新闻</h2>
                     <ul class="news-list with-dot">
                         <?foreach($post->connections as $connectedPost):?>
                         <li><a href="<?=$connectedPost->getUrl()?>"><?=$connectedPost->title?></a></li>
@@ -91,79 +100,28 @@
                 </div>
                 <?endif?>
 
-                <div class="toolbar hidden-xxs" data-action="post">
-                    <?if($prevPost = $post->getPrevPost()):?>
-                    <a class="prev-post" href="/node/<?=$prevPost->id?>">
-                        <span class="icon fa fa-chevron-left"></span>
-                        <img class="img" src="<?=$prevPost->image ? $this->tag->thumb($prevPost->image, 'c_fill,h_80,w_120') : '/img/article.jpg'?>" alt=""/>
-                        <h3 class="title"><?=$prevPost->title?></h3>
-                    </a>
-                    <?else:?>
-                    <a class="prev-post" href="/news">
-                        <span class="icon fa fa-chevron-left"></span>
-                        <img class="img" src="/img/article.jpg" alt=""/>
-                        <h3 class="title">没有更多文章了，看看大家在关注什么</h3>
-                    </a>
-                    <?endif?>
-                    <div class="separator"></div>
-                    <?if($nextPost = $post->getNextPost()):?>
-                    <a class="next-post" href="/node/<?=$nextPost->id?>">
-                        <span class="icon fa fa-chevron-right"></span>
-                        <img class="img" src="<?=$nextPost->image ? $this->tag->thumb($nextPost->image, 'c_fill,h_80,w_120') : '/img/article.jpg'?>" alt=""/>
-                        <h3 class="title"><?=$nextPost->title?></h3>
-                    </a>
-                    <?else:?>
-                    <a class="next-post" href="/news">
-                        <span class="icon fa fa-chevron-right"></span>
-                        <img class="img" src="/img/article.jpg" alt=""/>
-                        <h3 class="title" style="color:gray">没有更多文章了，看大家在关注什么</h3>
-                    </a>
-                    <?endif?>
-                </div>
-                <div class="toolbar visible-xxs">
-                    上一篇：<a class="link" href="">前中央军委副主席徐才厚严重违纪</a>
-                    <br/>
-                    下一篇：<a class="link" href="">私营部门贷款持续收缩 通胀不及目标一半</a>
-                </div>
+                <?if($post->tags):?>
+                <nav class="tags">
+                    <h2 class="title">关键词阅读:</h2>
+                    <?foreach($post->tags as $key => $tag):?>
+                    <a class="tag" href="/news/<?=$key?>"><?=$tag->tagName?></a>
+                    <?endforeach?>
+                    <!--
+                    <a class="tag" href="">中国</a>
+                    <a class="tag" href="">美国</a>
+                    <a class="tag" href="">华尔街见闻</a>
+                    -->
+                </nav>
+                <?endif?>
+
             </article>
 
             <?php $this->partial('partial/comment', array('uniqueKey' => 'post_' . $post->id)); ?>
 
-            <h2 class="main-title">更多热点</h2>
-            <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 2 ,'limit' => 6, 'has_image' => 1, 'order' => '-sort_order'));$posts = $pager->items;?>
-            <ul class="hot-news row">
-                <?foreach($posts as $hotpost):?>
-                <li class="col-sm-4 col-xs-6">
-                <a href="<?=$hotpost->getUrl()?>" class="news">
-                    <img class="lazy img" src="/wscn/img/bg-img.gif" data-original="<?=$hotpost->image ? $this->tag->thumb($hotpost->image, 'c_fill,h_115,w_193') : '/img/article.jpg'?>" alt=""/>
-                    <h3 class="title"><?=$hotpost->title?></h3>
-                </a>
-                </li>
-                <?endforeach?>
-            </ul>
-            <?if($post->tags):?>
-            <h2 class="main-title">关键字阅读</h2>
-            <ul class="custom-tabs">
-                <?foreach($post->tags as $key => $tag):?>
-                <li class=""><a data-toggle="tab" href="#post-tag-<?=$key?>"><?=$tag->tagName?></a></li>
-                <?endforeach?>
-            </ul>
-            <div class="tab-content">
-                <?foreach($post->tags as $key => $tag):?>
-                <div id="post-tag-<?=$key?>" class="tab-pane news-list with-dot">
-                <ul>
-                    <li class="news">
-                        <a class="title" href="">中韩将签署货币直接交易协议，人民币国际化又落一子</a>
-                    </li>
-                </ul>
-                </div>
-                <?endforeach?>
-            </div>
-            <?endif?>
         </div>
         <div id="rightbar">
 
-            <h2 class="main-title" style="margin-bottom: 5px;">实时行情</h2>
+            <h2 class="side-title" style="margin-bottom: 5px;">实时行情</h2>
             <!-- Start: Wallstreetcn.com sidebar widget -->
             <div id="js-wscn-sidebar-wrapper" class="hidden-xxs" style="margin-bottom: 15px;"></div>
             <script src="http://markets.static.wallstreetcn.com/embed/sidebar.js" type='text/javascript'></script>
@@ -246,126 +204,19 @@
                 <img src="/wscn/img/side-img-1.jpg" alt=""/>
             </div>
             <!--  -->
-            <ul class="custom-nav-tabs custom-row">
-                <li class="col-custom-6 active">
-                    <a data-toggle="tab" href="#side-day-rank-news"><strong>日排行</strong></a>
-                </li>
-                <li class="col-custom-6 ">
-                    <a data-toggle="tab" href="#side-week-rank-news"><strong>周排行</strong></a>
-                </li>
-            </ul>
-            <ul class="tab-content">
-                <li class="tab-pane active" id="side-day-rank-news">
-                    <ul class="news-list with-number">
-                        <li class="news">
-                            <a class="title" href="">
-                                <strong>什么都怪房地产？别把中国经济想得太简单</strong>
-                            </a>
-                        </li>
-                        <li class="news">
-                            <a class="title" href="">
-                                <strong>德国放弃从美国运回黄金说明了什么？</strong>
-                            </a>
-                        </li>
-                        <li class="news">
-                            <a class="title" href="">
-                                <strong>微刺激发力 汇丰中国制造业PMI创七个月新高</strong>
-                            </a>
-                        </li>
-                        <li class="news">
-                            <a class="title" href="">
-                                <strong>今夏全球市场焦点——美国通胀是否已现？</strong>
-                            </a>
-                        </li>
-                        <li class="news">
-                            <a class="title" href="">
-                                <strong>对话中国顶尖对冲基金！见闻俱乐部第2期主题沙龙火热报名中</strong>
-                            </a>
-                        </li>
-                        <li class="news">
-                            <a class="title" href="">
-                                <strong>干旱席卷世界最大甘蔗产区 对冲基金押宝糖价上涨</strong>
-                            </a>
-                        </li>
-                        <li class="news">
-                            <a class="title" href="">
-                                <strong>金属骗贷调查泼冷水，铜市六周以来首现净空头</strong>
-                            </a>
-                        </li>
-                        <li class="news">
-                            <a class="title" href="">
-                                <strong>伦敦房地产泡沫比中国更大</strong>
-                            </a>
-                        </li>
-                        <li class="news">
-                            <a class="title" href="">
-                                <strong>“超级投资者”踏空牛市 谁是美股新高的缔造者？</strong>
-                            </a>
-                        </li>
-                        <li class="news">
-                            <a class="title" href="">
-                                <strong>一张图看懂中国为何需要微刺激</strong>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="tab-pane " id="side-week-rank-news">
-                    <ul class="news-list with-number">
-                        <li class="news">
-                            <a class="title" href="">
-                                <strong>今夏全球市场焦点——美国通胀是否已现？</strong>
-                            </a>
-                        </li>
-                        <li class="news">
-                            <a class="title" href="">
-                                <strong>对话中国顶尖对冲基金！见闻俱乐部第2期主题沙龙火热报名中</strong>
-                            </a>
-                        </li>
-                        <li class="news">
-                            <a class="title" href="">
-                                <strong>干旱席卷世界最大甘蔗产区 对冲基金押宝糖价上涨</strong>
-                            </a>
-                        </li>
-                        <li class="news">
-                            <a class="title" href="">
-                                <strong>什么都怪房地产？别把中国经济想得太简单</strong>
-                            </a>
-                        </li>
-                        <li class="news">
-                            <a class="title" href="">
-                                <strong>德国放弃从美国运回黄金说明了什么？</strong>
-                            </a>
-                        </li>
-                        <li class="news">
-                            <a class="title" href="">
-                                <strong>微刺激发力 汇丰中国制造业PMI创七个月新高</strong>
-                            </a>
-                        </li>
-                        <li class="news">
-                            <a class="title" href="">
-                                <strong>金属骗贷调查泼冷水，铜市六周以来首现净空头</strong>
-                            </a>
-                        </li>
-                        <li class="news">
-                            <a class="title" href="">
-                                <strong>伦敦房地产泡沫比中国更大</strong>
-                            </a>
-                        </li>
-                        <li class="news">
-                            <a class="title" href="">
-                                <strong>“超级投资者”踏空牛市 谁是美股新高的缔造者？</strong>
-                            </a>
-                        </li>
-                        <li class="news">
-                            <a class="title" href="">
-                                <strong>一张图看懂中国为何需要微刺激</strong>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+            <h2 class="side-title" style="margin-bottom: 0;">热门阅读</h2>
             <!--  -->
-
+            <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 2 ,'limit' => 6, 'has_image' => 1, 'order' => '-sort_order'));$posts = $pager->items;?>
+            <ul class="hot-news">
+                <?foreach($posts as $hotpost):?>
+                <li>
+                    <a href="<?=$hotpost->getUrl()?>" class="news">
+                        <img class="lazy img" src="/wscn/img/bg-img.gif" data-original="<?=$hotpost->image ? $this->tag->thumb($hotpost->image, 'c_fill,h_115,w_193') : '/img/article.jpg'?>" alt=""/>
+                        <strong class="title"><?=$hotpost->title?></strong>
+                    </a>
+                </li>
+                <?endforeach?>
+            </ul>
         </div>
     </div>
 </div>
