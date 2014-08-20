@@ -57,9 +57,6 @@ class NewsManager extends Entities\News
         if (!$this->slug) {
             $this->slug = \Phalcon\Text::random(\Phalcon\Text::RANDOM_ALNUM, 8);
         }
-        if (!$this->title) {
-            $this->title = \Eva\EvaEngine\Text\Substring::substrCn(strip_tags($this->getContentHtml()), 100);
-        }
     }
 
     public function beforeValidationOnUpdate()
@@ -88,6 +85,15 @@ class NewsManager extends Entities\News
 
     public function beforeSave()
     {
+        if ($this->type == 'data') {
+            //Auto update title if finance data
+            $this->title = \Eva\EvaEngine\Text\Substring::substrCn(strip_tags($this->getContentHtml()), 100);
+        } else {
+            if (!$this->title) {
+                $this->title = \Eva\EvaEngine\Text\Substring::substrCn(strip_tags($this->getContentHtml()), 100);
+            }
+        }
+
         //Data importance will overwrite news importance
         if ($data = $this->getData()) {
             $this->importance = $data->importance;
