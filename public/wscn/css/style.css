@@ -2132,13 +2132,43 @@ img.lazy {
   border-bottom: 1px solid #dddddd;
   margin-bottom: 15px;
 }
+.sharebar .jiathis_style_32x32 {
+  /*
+        .jtico_tsina {
+            background: url(../icon/weibo24px.png) 0 0 no-repeat;
+        }
+        .jtico_cqq {
+            background: url(../icon/qq24px.png) 0 0 no-repeat;
+        }
+        .jtico_weixin {
+            background: url(../icon/wechat24px.png) 0 0 no-repeat;
+        }
+        .jtico_jiathis {
+            background: url(../icon/share24px.png) 0 0 no-repeat;
+        }
+        */
+}
 .sharebar .jiathis_style_32x32 .fa {
-  font-size: 16px;
+  font-size: 14px;
   line-height: 24px;
+  height: 24px;
   width: 24px;
   color: #fff;
+  text-align: center;
+  border-radius: 3px;
   margin-right: 10px;
-  vertical-align: middle;
+}
+.sharebar .jiathis_style_32x32 .fa-qq {
+  background-color: #36891A;
+}
+.sharebar .jiathis_style_32x32 .fa-weibo {
+  background-color: #D04341;
+}
+.sharebar .jiathis_style_32x32 .fa-weixin {
+  background-color: #2384CC;
+}
+.sharebar .jiathis_style_32x32 .fa-plus {
+  background-color: #0078D2;
 }
 .sharebar .jiathis_style_32x32 a {
   display: block;
@@ -2151,24 +2181,17 @@ img.lazy {
 .sharebar .jiathis_style_32x32 a.jiathis {
   margin-left: 15px;
 }
+.sharebar .jiathis_style_32x32 a:hover {
+  color: #0078d2;
+}
 .sharebar .jiathis_style_32x32 .jtico {
-  padding-left: 32px !important;
+  padding-left: 0px !important;
+  display: block;
   font-size: 12px;
   line-height: 24px !important;
+  height: 24px !important;
   margin: 0;
   background: none;
-}
-.sharebar .jiathis_style_32x32 .jtico_tsina {
-  background: url(../icon/weibo24px.png) 0 0 no-repeat;
-}
-.sharebar .jiathis_style_32x32 .jtico_cqq {
-  background: url(../icon/qq24px.png) 0 0 no-repeat;
-}
-.sharebar .jiathis_style_32x32 .jtico_weixin {
-  background: url(../icon/wechat24px.png) 0 0 no-repeat;
-}
-.sharebar .jiathis_style_32x32 .jtico_jiathis {
-  background: url(../icon/share24px.png) 0 0 no-repeat;
 }
 #rightbar {
   float: left;
