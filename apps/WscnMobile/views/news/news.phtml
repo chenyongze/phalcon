@@ -45,6 +45,18 @@
     <?=$this->partial('partial/footer')?>
 </div>
 <?=$this->partial('partial/js')?>
+<script type="text/javascript" src="/wscnm/js/wscn_util.js"></script>
+<script type="text/javascript">
+	var redirect = WSCN_UTIL.url.parseQueryString()["redirect"];
+	if(redirect && (redirect + "") == "1"){
+		if(WSCN_UTIL.browser.iOS()){
+			document.location.href = "wscn-zeus://www.wallstreetcn.com/detail/?id=<?=$post->id?>";
+		}
+		else if(WSCN_UTIL.browser.android()){
+			document.location.href = "wscn-medusa://www.wallstreetcn.com/detail/?id=<?=$post->id?>";
+		}
+	}
+</script>
 
 
 
