@@ -9,7 +9,7 @@
                 <span class="fa fa-comment"></span>
                 评论
                 <?if($post->commentCount > 0):?>
-                （<?=$post->commentCount?>）
+                （<span class="ws-counter"><?=$post->commentCount?></span>）
                 <?endif?>
             </a>
             <div class="read-times">
@@ -21,10 +21,22 @@
             </h3>
             <!-- JiaThis Button BEGIN -->
             <div class="jiathis_style_32x32">
-                <a class="jiathis_button_tsina">微博</a>
-                <a class="jiathis_button_cqq">QQ</a>
-                <a class="jiathis_button_weixin">微信</a>
-                <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank">其它</a>
+                <a class="jiathis_button_tsina">
+                    <span class="fa fa-weibo"></span>
+                    微博
+                </a>
+                <a class="jiathis_button_cqq">
+                    <span class="fa fa-qq"></span>
+                    QQ
+                </a>
+                <a class="jiathis_button_weixin">
+                    <span class="fa fa-weixin"></span>
+                    微信
+                </a>
+                <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank">
+                    <span class="fa fa-plus"></span>
+                    其它
+                </a>
             </div>
             <!--<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1393984262901745" charset="utf-8"></script>-->
             <!-- JiaThis Button END -->
@@ -36,15 +48,15 @@
             <article>
             <h1 class="article-title"><?=$post->title?></h1>
                 <div class="meta">
-                    <span class="item author">文 / <?=$post->user ? $post->user->username : '华尔街见闻'?></span>
+                    <a class="item author" href="">文 / <?=$post->user ? $post->user->username : '华尔街见闻'?></a>
                     <span class="item time"><?=$this->tag->datetime($post->createdAt)?></span>
                     <div class="pull-right">
                         <?if($post->sourceName):?>
                         <span class="item">来源：<a href="<?=$post->sourceUrl?>" target="_blank"><?=$post->sourceName?></a></span>
                         <?endif?>
                         <a class="item" href="#comments" >
-                            <span class="fa fa-comment"></span>
-                            <?=$post->commentCount > 0 ?: 0?>
+                            <span class="fa fa-comment" style="vertical-align: 1px"></span>
+                            <span class="ws-counter"><?=$post->commentCount > 0 ?: 0?></span>
                         </a>
                     </div>
                 </div>
@@ -70,18 +82,18 @@
                     </a>
                     <!-- JiaThis Button BEGIN -->
                     <div class="jiathis_style_32x32">
-                        <span class="text">分享到 </span>
+                        <span class="title">分享到 </span>
                         <a class="jiathis_button_tsina">
                             <span class="fa fa-weibo"></span>
-                            新浪微博
+                            <span class="text">新浪微博</span>
                         </a>
                         <a class="jiathis_button_cqq">
                             <span class="fa fa-weixin"></span>
-                            微信朋友圈
+                            <span class="text">微信朋友圈</span>
                         </a>
                         <a class="jiathis_button_weixin">
                             <span class="fa fa-qq"></span>
-                            腾讯QQ
+                            <span class="text">腾讯QQ</span>
                         </a>
                         <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank">
                             <span class="fa fa-plus"></span>
@@ -96,7 +108,7 @@
                     <h2 class="side-title">相关新闻</h2>
                     <ul class="news-list with-dot">
                         <?foreach($post->connections as $connectedPost):?>
-                        <li><a href="<?=$connectedPost->getUrl()?>"><?=$connectedPost->title?></a></li>
+                        <li><a class="news" href="<?=$connectedPost->getUrl()?>"><?=$connectedPost->title?></a></li>
                         <?endforeach?>
                     </ul>
                 </div>

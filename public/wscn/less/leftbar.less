@@ -339,6 +339,9 @@
             font-size: 17px;
             margin-right: 10px;
         }
+        &:hover {
+            color: @blue;
+        }
     }
     .read-times {
         padding: 30px 15px;
@@ -359,12 +362,26 @@
     }
     .jiathis_style_32x32 {
         .fa {
-            font-size: 16px;
+            font-size: 14px;
             line-height: 24px;
+            height: 24px;
             width: 24px;
             color: #fff;
+            text-align: center;
+            border-radius: 3px;
             margin-right: 10px;
-            vertical-align: middle;
+        }
+        .fa-qq {
+            background-color: #36891A;
+        }
+        .fa-weibo {
+            background-color: #D04341;
+        }
+        .fa-weixin {
+            background-color: #2384CC;
+        }
+        .fa-plus {
+            background-color: #0078D2;
         }
         a {
             display: block;
@@ -376,16 +393,22 @@
             &.jiathis {
                 margin-left: 15px;
             }
+
+            &:hover {
+                color: @blue;
+            }
         }
         .jtico {
-            padding-left: 32px !important;
-            //display: block;
+            padding-left: 0px !important;
+            display: block;
             font-size: 12px;
             line-height: 24px !important;
+            height: 24px !important;
             //text-indent: 10px;
             margin: 0;
             background: none;
         }
+        /*
         .jtico_tsina {
             background: url(../icon/weibo24px.png) 0 0 no-repeat;
         }
@@ -398,5 +421,6 @@
         .jtico_jiathis {
             background: url(../icon/share24px.png) 0 0 no-repeat;
         }
+        */
     }
 }

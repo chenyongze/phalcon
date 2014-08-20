@@ -16,13 +16,16 @@
         }
     }
     .meta {
-        font-size: 14px;
         color: @grayBlue;
-        line-height: 24px;
         margin-bottom: 30px;
         border-bottom: 1px dashed @borderColor;
         .item {
-            //display: inline-block;
+            display: inline-block;
+            font-size: 14px;
+            line-height: 1em;
+            height: 1em;
+            //overflow: hidden;
+            margin-bottom: 15px;
             &.author {
                 margin-right: 30px;
                 &:hover {
@@ -338,15 +341,18 @@
         }
         .jiathis_style_32x32 {
             float: right;
-            padding-left: 10px;
             font-size: 14px;
-            .text {
-                display: block;
+            .title {
+                //display: block;
                 float: left;
+                line-height: 32px;
             }
             .fa {
                 font-size: 20px;
                 vertical-align: -2px;
+            }
+            .text {
+
             }
             .fa-plus {
                 vertical-align: -3px;
@@ -391,21 +397,27 @@
                 background-image: none;
             }
         }
-        @media (max-width: @screen-xxs-max) {
-            .collect {
-                margin-bottom: 10px;
-            }
+        @media (max-width: @screen-xs-max) {
+
             .jiathis_style_32x32 {
                 .clearfix;
                 float: none;
                 display: block;
-                border-left: none;
-                padding-left: 0;
+                .text {
+                    display: none;
+                }
+                .jtico {
+                    padding: 0 !important;
+                    width: 32px;
+                    text-align: center;
+                }
             }
         }
     }
     .tags {
         .clearfix;
+        padding-bottom: 15px;
+        border-bottom: 1px solid @borderColor;
         margin-bottom: 30px;
         & > .title {
             font-weight: bold;
@@ -418,6 +430,7 @@
             display: block;
             float: left;
             margin-right: 15px;
+            margin-bottom: 15px;
             line-height: 28px;
             text-align: center;
             min-width: 90px;
