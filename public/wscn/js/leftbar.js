@@ -82,7 +82,11 @@
         //todo
         $content.addClass('unfold');
         //
-        if ($target.hasClass('active') || $marketInfo.data('symbol') === symbol || $marketInfo.hasClass('loading')) {
+        if ($target.hasClass('active') || $marketInfo.hasClass('loading')) {
+            return;
+        }
+        if ($marketInfo.data('symbol') === symbol) {
+            $target.addClass('active');
             return;
         }
         $marketInfo.data({
@@ -178,6 +182,7 @@
     function initEvent() {
         $leftbar.children('.custom-close').click(function(){
             $content.removeClass('unfold');
+            $marketList.find('.item.active').removeClass('active');
         });
         //监听显示行情对应的相关信息事件
         $leftbar.on('click', '[data-action=related-info]', function(e){

@@ -1880,7 +1880,8 @@ img.lazy {
   right: 2px;
 }
 #leftbar > .sidebar .nano-slider {
-  background-color: #b9b9b9;
+  background-color: #aaa;
+  background-color: rgba(0, 0, 0, 0.3);
 }
 #leftbar > .sidebar .chart {
   border: none;
@@ -1936,8 +1937,13 @@ img.lazy {
   color: #000;
   border-top: 1px solid #dddddd;
 }
-#left-market-list .nano-content {
-  padding-bottom: 3px;
+#left-market-list .nano-pane {
+  width: 6px;
+  right: 2px;
+}
+#left-market-list .nano-slider {
+  background-color: #aaa;
+  background-color: rgba(0, 0, 0, 0.3);
 }
 #left-market-list .market {
   display: block;
@@ -3089,6 +3095,7 @@ body.show-breaking-news #breaking-news {
 }
 .page-article .toolbar .endorse,
 .page-article .toolbar .collect {
+  float: left;
   font-size: 17px;
 }
 .page-article .toolbar .endorse:hover,
