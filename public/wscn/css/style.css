@@ -2530,21 +2530,21 @@ body.show-breaking-news #breaking-news {
   display: inline-block;
   width: 165px;
 }
-#footer .icon-group .icon {
+#footer .icon-group .fa {
   width: 32px;
   height: 32px;
+  line-height: 32px;
+  font-size: 22px;
   display: inline-block;
   vertical-align: middle;
+  text-align: center;
   margin-bottom: 15px;
 }
-#footer .icon-group .icon-tencent {
-  background-image: url(../img/footer-tencent.png);
+#footer .icon-group .fa:hover {
+  color: #0078d2;
 }
-#footer .icon-group .icon-wechat {
-  background-image: url(../img/footer-wechat.png);
-}
-#footer .icon-group .icon-weibo {
-  background-image: url(../img/footer-weibo.png);
+#footer .icon-group .fa-weibo {
+  font-size: 24px;
 }
 #footer .friend-links {
   margin-bottom: 20px;
