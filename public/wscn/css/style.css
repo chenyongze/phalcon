@@ -3149,6 +3149,8 @@ body.show-breaking-news #breaking-news {
   }
 }
 .page-article .tags {
+  padding-bottom: 15px;
+  border-bottom: 1px solid #dddddd;
   margin-bottom: 30px;
 }
 .page-article .tags:before {
@@ -3172,6 +3174,7 @@ body.show-breaking-news #breaking-news {
   display: block;
   float: left;
   margin-right: 15px;
+  margin-bottom: 15px;
   line-height: 28px;
   text-align: center;
   min-width: 90px;

@@ -96,7 +96,7 @@
                     <h2 class="side-title">相关新闻</h2>
                     <ul class="news-list with-dot">
                         <?foreach($post->connections as $connectedPost):?>
-                        <li><a href="<?=$connectedPost->getUrl()?>"><?=$connectedPost->title?></a></li>
+                        <li><a class="news" href="<?=$connectedPost->getUrl()?>"><?=$connectedPost->title?></a></li>
                         <?endforeach?>
                     </ul>
                 </div>
