@@ -159,18 +159,11 @@ class LivenewsController extends ControllerBase
      *           description="Min id",
      *           paramType="query",
      *           required=false,
-     *           type="string"
+     *           type="integer"
      *         ),
      *         @SWG\Parameter(
      *           name="cid",
      *           description="Category ID",
-     *           paramType="query",
-     *           required=false,
-     *           type="string"
-     *         ),
-     *         @SWG\Parameter(
-     *           name="order",
-     *           description="Order, allow value : +-id, +-created_at default is -created_at",
      *           paramType="query",
      *           required=false,
      *           type="string"
@@ -198,7 +191,7 @@ class LivenewsController extends ControllerBase
         $data = array();
         if ($minId > 0) {
             $data = $redis->zRangeByScore("livenews", $minId, 999999999, array(
-                'limit' => array(0, $limit)
+                'limit' => array(0, (int) $limit)
             ));
         } else {
             if ($order === '-created_at') {
