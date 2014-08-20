@@ -120,9 +120,29 @@ class ThreadController extends ControllerBase
         );
     }
 
-    public function dialog()
+    public function dialogAction()
     {
 
+    }
+
+    public function counterAction()
+    {
+        $ids = $this->request->getQuery('ids');
+
+        if(!is_array($ids)){
+            $ids = array($ids);
+        }
+
+        $threadManager = new ThreadManager();
+        $data = array();
+        foreach($ids as $uniqueKey){
+            $thread = $threadManager->findThreadByUniqueKey($uniqueKey);
+            if ($thread) {
+                $data['threads'][] = array('uniqueKey'=>$uniqueKey,'numComments'=>$thread->numComments);
+            }
+        }
+        echo json_encode($data);
+        $this->view->disable();
     }
 
     /**

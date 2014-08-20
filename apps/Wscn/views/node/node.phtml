@@ -31,7 +31,7 @@
                         <?if($post->sourceName):?>
                         <span class="meta">来源：<a href="<?=$post->sourceUrl?>" target="_blank"><?=$post->sourceName?></a></span>
                         <?endif?>
-                        <a href="#comments"><span class="meta comment-count icontext icontext-discuss-blue">(<?=$post->commentCount > 0 ?: 0?>)</span></a>
+                        <a href="#comments"><span class="meta comment-count icontext icontext-discuss-blue">(<span class="ws-counter"><?=$post->commentCount > 0 ?: 0?></span>)</span></a>
                     </div>
                 </div>
                 <?if($post->imageId):?>

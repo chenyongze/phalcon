@@ -1,15 +1,8 @@
 
-.user-comments {
+.ws-thread {
     font-family: "Microsoft YaHei";
     color: #999;
     /*background-color: #f0f0f0;*/
-}
-
-.user-comments > .more {
-    background-color: #646464;
-    color: #fff;
-    line-height: 24px;
-    padding: 8px 30px;
 }
 
 .ws-avatar img {
@@ -112,7 +105,7 @@
     left: 0;
 }
 
-.ws-user-name {
+.ws-username {
     font-size: 15px;
     /*font-weight: bold;*/
     color: #0A61A3;
