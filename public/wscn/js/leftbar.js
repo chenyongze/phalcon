@@ -29,19 +29,6 @@
     //
     var cache = {};
 
-
-    /**
-     * 收起 侧边拦
-     */
-    function fold() {
-        if ($leftbar.hasClass('docking')) {
-            return;
-        }
-        clearTimeout(timeout_fold);
-        timeout_fold = setTimeout(function(){
-            $content.removeClass('unfold');
-        }, 200);
-    };
     /**
      *
      */
@@ -190,28 +177,11 @@
 
     function initEvent() {
         $leftbar.children('.custom-close').click(function(){
-            $leftbar.removeClass('docking');
-            //todo
             $content.removeClass('unfold');
         });
-
-        //
-        $leftbar.on('mouseenter', '[data-hover=unfold]', function(e){
-            clearTimeout(timeout_fold);
-            $content.addClass('unfold');
-        });
-        $leftbar.on('mouseleave', '[data-hover=unfold]', function(e){
-            fold();
-        });
-        //固定 侧边拦
-        $leftbar.on('click', '[data-hover=related-info]', function(e){
-            $leftbar.addClass('docking');
-            e.preventDefault();
-        });
         //监听显示行情对应的相关信息事件
-        $leftbar.on('mouseenter', '[data-hover=related-info]', function(e){
+        $leftbar.on('click', '[data-action=related-info]', function(e){
             clearTimeout(timeout_show);
-            clearTimeout(timeout_fold);
             //timeout_show = setTimeout($.proxy(showInfo, null, symbol, $target), 200);
             var element = this;
             timeout_show = setTimeout(function(){
@@ -219,12 +189,9 @@
                 var symbol = $target.attr('data-symbol');
                 showInfo(symbol, $target);
             }, 200);
+            e.preventDefault();
         });
-        //
-        $leftbar.on('mouseleave', '[data-hover=related-info]', function(e){
-            clearTimeout(timeout_show);
-            fold();
-        });
+
         //实时新闻列表 展开
         $leftbar.on('click', '.livenews-list .sign', function(e){
             var $content = $(this).parent();
