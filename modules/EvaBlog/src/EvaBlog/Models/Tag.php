@@ -3,6 +3,7 @@
 namespace Eva\EvaBlog\Models;
 
 use Eva\EvaBlog\Entities;
+use Eva\EvaBlog\Models\Post;
 
 class Tag extends Entities\Tags
 {
@@ -41,11 +42,32 @@ QUERY;
         $manager = $this->getModelsManager();
         $query = $manager->createQuery($phql);
         $results = $query->execute();
-        $posts = array();
-        if($results->count() > 0) {
-            foreach($results as $result) {
-                
+        $posts = null;
+        $idArray = array();
+        if ($results->count() > 0) {
+            foreach ($results as $result) {
+                $idArray[] = $result->postId;
             }
+            $postModel = new Post();
+            $postsQueryBuilder = $postModel->findPosts(array(
+                'id' => implode(',', $idArray)
+            ));
+            $posts = $postsQueryBuilder->getQuery()
+            ->execute();
         }
+        return $posts;
+    }
+
+    public function updateTagCount()
+    {
+        $phql = <<<QUERY
+UPDATE Eva\EvaBlog\Entities\Tags SET count = 
+     ( SELECT COUNT(tagId) FROM Eva\EvaBlog\Entities\TagsPosts 
+             WHERE Eva\EvaBlog\Entities\TagsPosts.tagId = Eva\EvaBlog\Entities\Tags.id 
+     )
+QUERY;
+        $manager = $this->getModelsManager();
+        $query = $manager->createQuery($phql);
+        return $results = $query->execute();
     }
 }

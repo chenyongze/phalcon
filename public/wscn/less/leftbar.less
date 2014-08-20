@@ -47,12 +47,6 @@
         bottom: 100%;
     }
 
-    &.docking {
-        & > .custom-close {
-            display: block;
-        }
-    }
-
     /*&:hover {
         & > .sidebar {
             visibility: visible;
@@ -73,8 +67,9 @@
         cursor: pointer;
         color: #fff;
         background-color: @blue;
+        box-shadow: 0 0 3px rgba(0,0,0,.3);
         &:hover {
-            //color: @blue;
+            background-color: #0097f4;
         }
     }
     /*
@@ -228,6 +223,7 @@
             padding-left: 11px;
         }*/
         //todo
+        &:hover ,
         &.active {
             z-index: 9;
             border-top: none;
@@ -239,6 +235,9 @@
             padding-bottom: 16px;
             padding-left: 11px;
             box-shadow: 0 0 3px rgba(0,0,0,.4) ;
+            .direction {
+                display: none;
+            }
         }
         .custom-icon {
             position: absolute;
@@ -301,7 +300,7 @@
             text-align: center;
             height: 18px;
             padding-top: 3px;
-            font-size: 14px;
+            font-size: 12px;
             overflow: hidden;
             color: @blue;
 
@@ -321,6 +320,10 @@
 }
 
 .sharebar {
+    //chrome position fixed bug
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: translateZ(0);
+    //
     font-size: 14px;
     line-height: 32px;
     width: 135px;
@@ -328,60 +331,96 @@
     .collect {
         display: block;
         padding-left: 15px;
-        padding-bottom: 20px;
+        //padding-bottom: 15px;
+        color: #999;
         border-bottom: 1px solid @borderColor;
-        margin-bottom: 20px;
-        &:before {
-            display: block;
-            width: 32px;
-            height: 32px;
-            float: left;
+        line-height: 40px;
+        .fa {
+            font-size: 17px;
             margin-right: 10px;
-            content: "";
+        }
+        &:hover {
+            color: @blue;
         }
     }
-    .discuss:before {
-        background: url(../icon/discuss32px.png);
+    .read-times {
+        padding: 30px 15px;
+        font-size: 20px;
+        color: #000;
+        .text {
+            font-size: 12px;
+            color: #999;
+        }
     }
-    .collect:before {
-        background: url(../icon/collect32px.png);
-    }
-
-    .jiathis_style_32x32 {
+    .jiathis-title {
+        padding-left: 15px;
         font-size: 14px;
-        line-height: 32px;
+        font-weight: bold;
+        line-height: 30px;
+        border-bottom: 1px solid @borderColor;
+        margin-bottom: 15px;
+    }
+    .jiathis_style_32x32 {
+        .fa {
+            font-size: 14px;
+            line-height: 24px;
+            height: 24px;
+            width: 24px;
+            color: #fff;
+            text-align: center;
+            border-radius: 3px;
+            margin-right: 10px;
+        }
+        .fa-qq {
+            background-color: #36891A;
+        }
+        .fa-weibo {
+            background-color: #D04341;
+        }
+        .fa-weixin {
+            background-color: #2384CC;
+        }
+        .fa-plus {
+            background-color: #0078D2;
+        }
         a {
             display: block;
-            height: 32px;
+            height: 24px;
             width: 100%;
             padding-left: 15px;
             margin-bottom: 20px;
+            color: #666;
             &.jiathis {
                 margin-left: 15px;
             }
+
+            &:hover {
+                color: @blue;
+            }
         }
         .jtico {
-            padding-left: 32px !important;
-            //display: block;
-            font-size: 14px;
-            text-indent: 10px;
+            padding-left: 0px !important;
+            display: block;
+            font-size: 12px;
+            line-height: 24px !important;
+            height: 24px !important;
+            //text-indent: 10px;
             margin: 0;
-            //background: url(../icon/weibo32px.png) 0 0 no-repeat;
+            background: none;
         }
+        /*
         .jtico_tsina {
-            background: url(../icon/weibo32px.png) 0 0 no-repeat;
+            background: url(../icon/weibo24px.png) 0 0 no-repeat;
         }
         .jtico_cqq {
-            background: url(../icon/qq32px.png) 0 0 no-repeat;
+            background: url(../icon/qq24px.png) 0 0 no-repeat;
         }
         .jtico_weixin {
-            background: url(../icon/wechat32px.png) 0 0 no-repeat;
-        }
-        .jtico_evernote {
-            background: url(../icon/evernote32px.png) 0 0 no-repeat;
+            background: url(../icon/wechat24px.png) 0 0 no-repeat;
         }
         .jtico_jiathis {
-            background: url(../icon/share32px.png) 0 0 no-repeat;
+            background: url(../icon/share24px.png) 0 0 no-repeat;
         }
+        */
     }
 }

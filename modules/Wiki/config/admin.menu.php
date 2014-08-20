@@ -29,7 +29,7 @@
                 Create New Entry
             </a>
         </li>
-        <li class="tobe-highlight" data-highlight-url="/admin/wiki/categories">
+        <li class="tobe-highlight" data-highlight-url="/admin/wiki/category">
             <a href="/admin/wiki/category">
                 <i class="icon-double-angle-right"></i>
                 Entry Category List

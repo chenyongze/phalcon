@@ -52,6 +52,12 @@ class News extends \Eva\EvaEngine\Mvc\Model
      *
      * @var string
      */
+    public $type = 'news';
+
+    /**
+     *
+     * @var string
+     */
     public $codeType = 'markdown';
 
     /**

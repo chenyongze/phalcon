@@ -171,6 +171,15 @@ return array(
         ),
         'httpMethods' => 'GET'
     ),
+    'livenewsrealtime' =>  array(
+        'pattern' => '/v2/livenews/realtime',
+        'paths' => array(
+            'module' => 'WscnApiVer2',
+            'controller' => 'livenews',
+            'action' => 'realtime',
+        ),
+        'httpMethods' => 'GET'
+    ),
     'createlivenews' =>  array(
         'pattern' => '/v2/livenews',
         'paths' => array(

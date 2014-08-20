@@ -39,21 +39,21 @@
     .icon-group {
         display: inline-block;
         width: 165px;
-        .icon {
+        .fa {
             width: 32px;
             height: 32px;
+            line-height: 32px;
+            font-size: 22px;
             display: inline-block;
             vertical-align: middle;
+            text-align: center;
             margin-bottom: 15px;
+            &:hover {
+                color: @blue;
+            }
         }
-        .icon-tencent {
-            background-image: url(../img/footer-tencent.png);
-        }
-        .icon-wechat {
-            background-image: url(../img/footer-wechat.png);
-        }
-        .icon-weibo {
-            background-image: url(../img/footer-weibo.png);
+        .fa-weibo {
+            font-size: 24px;
         }
     }
 

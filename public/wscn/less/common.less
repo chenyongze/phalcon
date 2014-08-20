@@ -384,6 +384,9 @@ img.lazy {
     .news {
         font-size: 14px;
         line-height: 21px;
+        &:hover {
+            color: @blue;
+        }
     }
     // dot 类型
     &.with-dot {
@@ -467,6 +470,9 @@ img.lazy {
                 color: #000;
                 font-size: 18px;
                 line-height: 25px;
+                &:hover {
+                    color: @blue;
+                }
                 @media (max-width: (@screen-sm-max)) {
                     font-size: 15px;
                 }
@@ -502,7 +508,8 @@ img.lazy {
                 color: #999;
             }
             .endorse {
-                color: #666;
+                //color: #666;
+                color: @grayBlue;
                 .fa {
                     font-size: 15px;
                 }
@@ -536,7 +543,7 @@ img.lazy {
     border-bottom: 4px solid @blue;
     margin-bottom: 20px;
 
-    .more {
+    & > .more {
         float: right;
         font-weight: normal;
         font-size: 12px;
@@ -546,12 +553,21 @@ img.lazy {
 
 //侧边拦 title
 .side-title {
-    .clearfix;
     display: block;
     font-weight: bold;
     font-size: 16px;
-    line-height: 40px;
-    margin-bottom: 20px;
+    line-height: 1em;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    color: #333;
+    border-bottom: 1px solid #b9b9b9;
+    &.with-more:after {
+        color: #666;
+        float: right;
+        font-weight: normal;
+        font-size: 12px;
+        content: "更多»";
+    }
 }
 //侧边拦 广告
 .side-ad {
@@ -566,7 +582,9 @@ img.lazy {
         position: relative;
         padding-left: 80px;
         font-size: 12px;
-        margin-bottom: 30px;
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+        border-bottom: 1px solid @borderColor;
         .avatar {
             display: block;
             width: 60px;
@@ -626,6 +644,32 @@ img.lazy {
     }
     @media (min-width: @screen-lg-min) {
         margin-right: -15px;
+    }
+}
+
+.hot-news {
+    .news {
+        //position: relative;
+        display: block;
+        padding: 12px 0;
+        min-height: 100px;
+        border-bottom: 1px solid @borderColor;
+        &:hover {
+            color: @blue;
+        }
+        .img {
+            display: block;
+            float:left;
+            margin-top: 3px;
+            width: 100px;
+            height: 70px;
+        }
+        .title {
+            display: block;
+            margin-left: 120px;
+            font-weight: bold;
+            line-height: 20px;
+        }
     }
 }
 //工具栏
@@ -991,7 +1035,14 @@ img.lazy {
                 margin: auto;
                 width: 32px;
                 height: 32px;
-                background: url(../icon/logo32px.png) 0 0 no-repeat;
+                background: url(../icon/logo.png) 0 0 no-repeat;
+                @media (-webkit-min-device-pixel-ratio: 2),
+                (min--moz-device-pixel-ratio: 2),
+                (min-resolution: 2dppx),
+                (min-resolution: 192dpi) {
+                    background-size: 32px 32px;
+                    background-image: url(../icon/logo@2x.png);
+                }
             }
             .close {
                 line-height: 60px;

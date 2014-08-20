@@ -28,11 +28,13 @@ class NodeController extends ControllerBase
         if($this->getDI()->getModuleManager()->hasModule('Wiki')) {
             $post->text->content = WikiUtil::highlight($post->text->content);
         }
-        $this->view->setVar('post', $post);
 
-        if($post->tags->count() > 0) {
+        $posts = null;
+
+        if ($post->connections->count() < 1 && $post->tags->count() > 0) {
             $tag = new Tag();
-            $relatedPosts = $tag->getRelatedPosts($post->id);
+            $post->connections = $tag->getRelatedPosts($post->id, 3);
         }
+        $this->view->setVar('post', $post);
     }
 }

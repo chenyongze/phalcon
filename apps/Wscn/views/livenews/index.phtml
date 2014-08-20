@@ -4,11 +4,8 @@
         <?$newsPager = $this->tag->component('post', array('status' => 'published', 'limit' => 10, 'order' => '-created_at'));$posts = $newsPager->items;?>
         <?if($posts):?>
         <div class="topbar hidden-xs hidden-xxs">
-            <a href="/news" class="custom-button type-link absolute">最新文章</a>
-            <!--<div class="control-box">
-                <span class="up" data-action="up"></span>
-                <span class="down" data-action="down"></span>
-            </div>-->
+            <a href="/news" class="title">最新文章</a>
+
             <span class="fa up fa-chevron-up" data-action="up"></span>
             <span class="fa down fa-chevron-down" data-action="down"></span>
             <div id="news-list" class="news-list with-dot">
@@ -195,7 +192,7 @@
 
             <li class="news">
             <span class="time"><?=$this->tag->datetime($item->createdAt, 'H:i')?></span>
-            <span class="icon"></span>
+            <span class="icon fa fa-file-text"></span>
             <div class="control-box">
                 <div class="meta comments">
                     <a href="">
@@ -258,20 +255,23 @@
                     <?=$data->title?>
                 </h3>
                 <div class="custom-row">
-                    <div class="col-custom-4">
-                        <span class="text">今值：</span>
-                        <span class="value current"><?=$data->actual?></span>
-                    </div>
-                    <div class="col-custom-4">
+                    <div class="col-custom-4 datum">
                         <span class="text">预测：</span>
                         <span class="value"><?=$data->forecast?></span>
                     </div>
-                    <div class="col-custom-4">
+                    <div class="col-custom-4 datum">
                         <span class="text">前值：</span>
                         <span class="value"><?=$data->previous?></span>
                     </div>
+                    <div class="col-custom-4 datum">
+                        <span class="text">前值修正：</span>
+                        <span class="value"><?=$data->previous?></span>
+                    </div>
                 </div>
-                <div class="verdict">利空金银</div>
+                <div class="verdict">
+                    <span class="text">今值：</span>
+                    <span class="value current"><?=$data->actual?></span>
+                </div>
             </div>
             </li>
 
@@ -283,7 +283,7 @@
 
             <li class="news type-img hide">
             <span class="time">16:36</span>
-            <span class="icon"></span>
+            <span class="icon fa fa-file-text"></span>
             <div class="control-box">
                 <div class="meta comments">
                     <span class="fa fa-comment"></span>
@@ -311,7 +311,7 @@
         ))?>
     </div>
     <div id="rightbar">
-        <h2 class="main-title">实时行情</h2>
+        <h2 class="side-title">实时行情</h2>
         <!-- Start: Wallstreetcn.com sidebar widget -->
         <div id="js-wscn-sidebar-wrapper" class="hidden-xxs" style="margin-bottom: 15px;"></div>
         <script src="http://markets.static.wallstreetcn.com/embed/sidebar.js" type='text/javascript'></script>
@@ -393,7 +393,9 @@
         <div class="side-ad">
             <img src="/wscn/img/side-img-1.jpg" alt=""/>
         </div>
-        <h2 class="main-title">财经日历</h2>
+        <a class="side-title with-more" href="">
+            财经日历
+        </a>
         <div id="side-fcl" class="nano fc-list type-side" data-fcl-option="time-format: HH:mm a;height: 400;autoScroll:true;refreshPrice:true;filter:fd;">
             <div class="titlebar">
                 据 <a href="" data-action="scroll-fixed">下次数据</a> 公布时间还有：<span class="clock"></span>
