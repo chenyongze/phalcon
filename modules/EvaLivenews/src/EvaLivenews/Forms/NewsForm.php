@@ -56,6 +56,13 @@ class NewsForm extends Form
      * @Type(Hidden)
      * @var string
      */
+    public $type;
+
+    /**
+     *
+     * @Type(Hidden)
+     * @var string
+     */
     public $codeType;
 
     /**
