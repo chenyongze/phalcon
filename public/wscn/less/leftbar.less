@@ -47,12 +47,6 @@
         bottom: 100%;
     }
 
-    &.docking {
-        & > .custom-close {
-            display: block;
-        }
-    }
-
     /*&:hover {
         & > .sidebar {
             visibility: visible;
@@ -73,6 +67,7 @@
         cursor: pointer;
         color: #fff;
         background-color: @blue;
+        box-shadow: 0 0 3px rgba(0,0,0,.3);
         &:hover {
             background-color: #0097f4;
         }
@@ -228,6 +223,7 @@
             padding-left: 11px;
         }*/
         //todo
+        &:hover ,
         &.active {
             z-index: 9;
             border-top: none;
@@ -324,6 +320,10 @@
 }
 
 .sharebar {
+    //chrome position fixed bug
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: translateZ(0);
+    //
     font-size: 14px;
     line-height: 32px;
     width: 135px;
@@ -358,7 +358,14 @@
         margin-bottom: 15px;
     }
     .jiathis_style_32x32 {
-
+        .fa {
+            font-size: 16px;
+            line-height: 24px;
+            width: 24px;
+            color: #fff;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
         a {
             display: block;
             height: 24px;
