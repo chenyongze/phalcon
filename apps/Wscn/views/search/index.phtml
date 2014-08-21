@@ -89,15 +89,16 @@
             <?endif;?>
         </div>
         <div id="rightbar">
+            <?if($tags):?>
             <div class="side-tags">
                 <h3 class="title">
                     热门标签
                 </h3>
-                <? $hots= array('美国','石油', '黄金', '美元', '欧元', '日元')?>
-                <? foreach($hots as $tag):?>
-                <a class="tag <?=$tag==$keyword ? 'active':''?>" href="/search?q=<?=$tag?>"><?=$tag?></a>
+                <?foreach($tags as $tag):?>
+                <a class="tag" href="/news?tid=<?=$tag->id?>"><?=$tag->tagName?></a>
                 <?endforeach?>
             </div>
+            <?endif?>
         </div>
     </div><!--/wrapper-->
 </div><!--/main content-->
