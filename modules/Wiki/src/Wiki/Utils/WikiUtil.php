@@ -59,4 +59,20 @@ class WikiUtil
         $text = stripslashes($text);
         return $text;
     }
+
+    /**
+     * 从词条解释文本的头部截取一部分内容
+     *
+     * @param string $text 被截取的文本
+     * @param int @num 需要截取的字符数
+     */
+    public static function intercept($text, $num = 80)
+    {
+        return mb_substr(
+            strip_tags(str_replace(array("\r\n", "\r", "\n", "&nbsp;"), "", $text)),
+            0,
+            $num,
+            "utf-8"
+        )."......";
+    }
 } 
