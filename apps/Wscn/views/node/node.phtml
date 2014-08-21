@@ -109,7 +109,7 @@
             </div>
             <script type="text/javascript">
                 var jiathis_config = {
-                    summary: "<?=$post->summary?>",
+                    summary: "<?=preg_replace('/\s+/', ' ', $post->summary)?>",
                     title: "<?=$post->title?>",
                     pic: "<?=$this->tag->thumb($post->image)?>",
                     appkey: {
