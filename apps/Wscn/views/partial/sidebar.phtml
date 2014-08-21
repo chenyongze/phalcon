@@ -1,7 +1,7 @@
 <div id="left-market-list" class="nano">
     <nav class="nano-content">
         <?foreach($quotes as $quote):?>
-        <a class="market item" data-hover="related-info" data-symbol="<?=$quote->symbol?>" data-prev-close="<?=$quote->prevClose?>" data-num-fixed="2" data-trend="fall" href="/news?symbol=<?=$quote->symbol?>&q=<?=$quote->keyword?>" data-source="/widget/sidearea?symbol=<?=$quote->symbol?>&q=<?=$quote->keyword?>">
+        <a class="market item" data-action="related-info" data-symbol="<?=$quote->symbol?>" data-prev-close="<?=$quote->prevClose?>" data-num-fixed="2" data-trend="fall" href="/news?symbol=<?=$quote->symbol?>&q=<?=$quote->keyword?>" data-source="/widget/sidearea?symbol=<?=$quote->symbol?>&q=<?=$quote->keyword?>">
             <span class="custom-row">
                 <span class="custom-span-1 name" title="<?=$quote->title?>"><?=$quote->subTitle?></span>
                 <span class="custom-span-2 diff">N/A</span>

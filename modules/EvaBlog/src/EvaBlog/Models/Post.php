@@ -197,6 +197,7 @@ class Post extends Entities\Posts
         $textData = isset($data['text']) ? $data['text'] : array();
         $tagData = isset($data['tags']) ? $data['tags'] : array();
         $categoryData = isset($data['categories']) ? $data['categories'] : array();
+        $connectionData = isset($data['connectids']) ? $data['connectids'] : array();
 
         if ($textData) {
             unset($data['text']);
@@ -237,6 +238,23 @@ class Post extends Entities\Posts
             $this->categories = $categories;
         }
 
+        $connections = array();
+        //remove old relations
+        if ($this->postConnects) {
+            $this->postConnects->delete();
+        }
+        if ($connectionData) {
+            unset($data['connectids']);
+            foreach ($connectionData as $connectionId) {
+                $connection = new Entities\Connections();
+                $connection->sourceId = $this->id;
+                $connection->targetId = $connectionId;
+                $connection->createdAt = time();
+                $connections[] = $connection;
+            }
+            $this->postConnects = $connections;
+        }
+
 
         $this->assign($data);
         if (!$this->save()) {
@@ -248,10 +266,10 @@ class Post extends Entities\Posts
 
     public function updatePost($data)
     {
-        $data['categories'] = isset($data['categories']) ? $data['categories'] : array();
-        $textData = $data['text'];
-        $tagData = $data['tags'];
-        $categoryData = $data['categories'];
+        $textData = isset($data['text']) ? $data['text'] : array();
+        $tagData = isset($data['tags']) ? $data['tags'] : array();
+        $categoryData = isset($data['categories']) ? $data['categories'] : array();
+        $connectionData = isset($data['connectids']) ? $data['connectids'] : array();
 
         if ($textData) {
             unset($data['text']);
@@ -286,10 +304,10 @@ class Post extends Entities\Posts
         }
 
         //remove old relations
+        $categories = array();
         if ($this->categoriesPosts) {
             $this->categoriesPosts->delete();
         }
-        $categories = array();
         if ($categoryData) {
             unset($data['categories']);
             foreach ($categoryData as $categoryId) {
@@ -299,6 +317,23 @@ class Post extends Entities\Posts
                 }
             }
             $this->categories = $categories;
+        }
+
+        $connections = array();
+        //remove old relations
+        if ($this->postConnects) {
+            $this->postConnects->delete();
+        }
+        if ($connectionData) {
+            unset($data['connectids']);
+            foreach ($connectionData as $connectionId) {
+                $connection = new Entities\Connections();
+                $connection->sourceId = $this->id;
+                $connection->targetId = $connectionId;
+                $connection->createdAt = time();
+                $connections[] = $connection;
+            }
+            $this->postConnects = $connections;
         }
 
         $this->assign($data);

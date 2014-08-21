@@ -95,7 +95,7 @@ body {
 }
 [data-trend="fall"] .diff,
 [data-trend="fall"] .diff-pct {
-  color: #00be3c;
+  color: #009632;
 }
 /*
     mixins 自定义 less 函数
@@ -292,7 +292,7 @@ img.lazy {
   color: #ff4646;
 }
 .fc-list [data-trend=down] .actual {
-  color: #00be3c;
+  color: #009632;
 }
 .fc-list .date {
   color: #333;
@@ -406,6 +406,9 @@ img.lazy {
 .news-list .news {
   font-size: 14px;
   line-height: 21px;
+}
+.news-list .news:hover {
+  color: #0078d2;
 }
 .news-list.with-dot .news {
   position: relative;
@@ -542,7 +545,7 @@ img.lazy {
   color: #999;
 }
 .news-list.with-img .news .endorse {
-  color: #666;
+  color: #949ca8;
 }
 .news-list.with-img .news .endorse .fa {
   font-size: 15px;
@@ -596,6 +599,9 @@ img.lazy {
   font-size: 12px;
   content: "更多»";
 }
+.side-title.with-more:hover:after {
+  color: #0078d2;
+}
 .side-ad {
   margin-bottom: 30px;
 }
@@ -606,7 +612,9 @@ img.lazy {
   position: relative;
   padding-left: 80px;
   font-size: 12px;
-  margin-bottom: 30px;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #dddddd;
 }
 .side-comments .comment .avatar {
   display: block;
@@ -671,6 +679,28 @@ img.lazy {
   .side-tags {
     margin-right: -15px;
   }
+}
+.hot-news .news {
+  display: block;
+  padding: 12px 0;
+  min-height: 100px;
+  border-bottom: 1px solid #dddddd;
+}
+.hot-news .news:hover {
+  color: #0078d2;
+}
+.hot-news .news .img {
+  display: block;
+  float: left;
+  margin-top: 3px;
+  width: 100px;
+  height: 70px;
+}
+.hot-news .news .title {
+  display: block;
+  margin-left: 120px;
+  font-weight: bold;
+  line-height: 20px;
 }
 .toolbar:before {
   display: table;
@@ -1109,73 +1139,6 @@ img.lazy {
   right: 0;
   background-image: url(../icon/arrow-right.png);
 }
-.icontext {
-  display: inline;
-  padding-left: 16px;
-  position: relative;
-  min-height: 16px;
-  font-style: normal;
-}
-.icontext:before {
-  display: block;
-  position: absolute;
-  content: "";
-  width: 16px;
-  height: 16px;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  margin: auto 0;
-}
-.icontext.rtl {
-  padding-left: 0;
-  padding-right: 16px;
-}
-.icontext.rtl:before {
-  left: auto;
-  right: 0;
-}
-.icontext-arrow-right:before {
-  background: url(../icon/arrow-right.png);
-}
-.icontext-rise:before {
-  background: url(../icon/rise.png);
-}
-.icontext-fall:before {
-  background: url(../icon/fall.png);
-}
-.icontext-collect-blue:before {
-  background: url(../icon/collect-blue.png);
-}
-.icontext-share-blue:before {
-  background: url(../icon/share-blue.png);
-}
-.icontext-discuss-blue:before {
-  background: url(../icon/discuss-blue.png);
-}
-.icontext-endorse-blue:before {
-  background: url(../icon/endorse-blue.png);
-}
-.icontext-discuss-white:before {
-  background: url(../icon/discuss-white.png);
-}
-.icontext-endorse-white:before {
-  background: url(../icon/endorse-white.png);
-}
-.icontext-qq-md,
-.icontext-weibo-md {
-  padding-left: 30px;
-}
-.icontext-qq-md:before {
-  width: 24px;
-  height: 24px;
-  background: url(../icon/qq-md.png);
-}
-.icontext-weibo-md:before {
-  width: 24px;
-  height: 24px;
-  background: url(../icon/weibo-md.png);
-}
 #user-modal label {
   font-weight: normal;
 }
@@ -1359,6 +1322,16 @@ img.lazy {
 }
 #user-modal .custom-button.type-weibo {
   background-color: #D04341;
+}
+#user-modal .custom-button .fa-qq {
+  font-size: 16px;
+  vertical-align: -1px;
+  margin-right: 8px;
+}
+#user-modal .custom-button .fa-weibo {
+  font-size: 18px;
+  vertical-align: -1px;
+  margin-right: 3px;
 }
 #user-modal .custom-button[type=submit] {
   background-color: #0078d2;
@@ -1820,9 +1793,6 @@ img.lazy {
 #leftbar.moveout {
   bottom: 100%;
 }
-#leftbar.docking > .custom-close {
-  display: block;
-}
 #leftbar > .custom-close {
   position: absolute;
   display: none;
@@ -1837,6 +1807,10 @@ img.lazy {
   cursor: pointer;
   color: #fff;
   background-color: #0078d2;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+}
+#leftbar > .custom-close:hover {
+  background-color: #0097f4;
 }
 #leftbar > .sidebar {
   position: relative;
@@ -1852,7 +1826,8 @@ img.lazy {
   right: 2px;
 }
 #leftbar > .sidebar .nano-slider {
-  background-color: #b9b9b9;
+  background-color: #aaa;
+  background-color: rgba(0, 0, 0, 0.3);
 }
 #leftbar > .sidebar .chart {
   border: none;
@@ -1908,8 +1883,13 @@ img.lazy {
   color: #000;
   border-top: 1px solid #dddddd;
 }
-#left-market-list .nano-content {
-  padding-bottom: 3px;
+#left-market-list .nano-pane {
+  width: 6px;
+  right: 2px;
+}
+#left-market-list .nano-slider {
+  background-color: #aaa;
+  background-color: rgba(0, 0, 0, 0.3);
 }
 #left-market-list .market {
   display: block;
@@ -1974,6 +1954,7 @@ img.lazy {
   right: 12px;
   margin: auto;
 }
+#left-market-list .market:hover,
 #left-market-list .market.active {
   z-index: 9;
   border-top: none;
@@ -1985,6 +1966,10 @@ img.lazy {
   padding-bottom: 16px;
   padding-left: 11px;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
+}
+#left-market-list .market:hover .direction,
+#left-market-list .market.active .direction {
+  display: none;
 }
 #left-market-list .market .custom-icon {
   position: absolute;
@@ -2045,7 +2030,7 @@ img.lazy {
   text-align: center;
   height: 18px;
   padding-top: 3px;
-  font-size: 14px;
+  font-size: 12px;
   overflow: hidden;
   color: #0078d2;
   font-family: FontAwesome;
@@ -2059,6 +2044,8 @@ img.lazy {
   color: #000;
 }
 .sharebar {
+  -webkit-backface-visibility: hidden;
+  -webkit-transform: translateZ(0);
   font-size: 14px;
   line-height: 32px;
   width: 135px;
@@ -2067,59 +2054,96 @@ img.lazy {
 .sharebar .collect {
   display: block;
   padding-left: 15px;
-  padding-bottom: 20px;
+  color: #999;
   border-bottom: 1px solid #dddddd;
-  margin-bottom: 20px;
+  line-height: 40px;
 }
-.sharebar .discuss:before,
-.sharebar .collect:before {
-  display: block;
-  width: 32px;
-  height: 32px;
-  float: left;
+.sharebar .discuss .fa,
+.sharebar .collect .fa {
+  font-size: 17px;
   margin-right: 10px;
-  content: "";
 }
-.sharebar .discuss:before {
-  background: url(../icon/discuss32px.png);
+.sharebar .discuss:hover,
+.sharebar .collect:hover {
+  color: #0078d2;
 }
-.sharebar .collect:before {
-  background: url(../icon/collect32px.png);
+.sharebar .read-times {
+  padding: 30px 15px;
+  font-size: 20px;
+  color: #000;
+}
+.sharebar .read-times .text {
+  font-size: 12px;
+  color: #999;
+}
+.sharebar .jiathis-title {
+  padding-left: 15px;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 30px;
+  border-bottom: 1px solid #dddddd;
+  margin-bottom: 15px;
 }
 .sharebar .jiathis_style_32x32 {
+  /*
+        .jtico_tsina {
+            background: url(../icon/weibo24px.png) 0 0 no-repeat;
+        }
+        .jtico_cqq {
+            background: url(../icon/qq24px.png) 0 0 no-repeat;
+        }
+        .jtico_weixin {
+            background: url(../icon/wechat24px.png) 0 0 no-repeat;
+        }
+        .jtico_jiathis {
+            background: url(../icon/share24px.png) 0 0 no-repeat;
+        }
+        */
+}
+.sharebar .jiathis_style_32x32 .fa {
   font-size: 14px;
-  line-height: 32px;
+  line-height: 24px;
+  height: 24px;
+  width: 24px;
+  color: #fff;
+  text-align: center;
+  border-radius: 3px;
+  margin-right: 10px;
+}
+.sharebar .jiathis_style_32x32 .fa-qq {
+  background-color: #36891A;
+}
+.sharebar .jiathis_style_32x32 .fa-weibo {
+  background-color: #D04341;
+}
+.sharebar .jiathis_style_32x32 .fa-weixin {
+  background-color: #2384CC;
+}
+.sharebar .jiathis_style_32x32 .fa-plus {
+  background-color: #0078D2;
 }
 .sharebar .jiathis_style_32x32 a {
   display: block;
-  height: 32px;
+  height: 24px;
   width: 100%;
   padding-left: 15px;
   margin-bottom: 20px;
+  color: #666;
 }
 .sharebar .jiathis_style_32x32 a.jiathis {
   margin-left: 15px;
 }
+.sharebar .jiathis_style_32x32 a:hover {
+  color: #0078d2;
+}
 .sharebar .jiathis_style_32x32 .jtico {
-  padding-left: 32px !important;
-  font-size: 14px;
-  text-indent: 10px;
+  padding-left: 0px !important;
+  display: block;
+  font-size: 12px;
+  line-height: 24px !important;
+  height: 24px !important;
   margin: 0;
-}
-.sharebar .jiathis_style_32x32 .jtico_tsina {
-  background: url(../icon/weibo32px.png) 0 0 no-repeat;
-}
-.sharebar .jiathis_style_32x32 .jtico_cqq {
-  background: url(../icon/qq32px.png) 0 0 no-repeat;
-}
-.sharebar .jiathis_style_32x32 .jtico_weixin {
-  background: url(../icon/wechat32px.png) 0 0 no-repeat;
-}
-.sharebar .jiathis_style_32x32 .jtico_evernote {
-  background: url(../icon/evernote32px.png) 0 0 no-repeat;
-}
-.sharebar .jiathis_style_32x32 .jtico_jiathis {
-  background: url(../icon/share32px.png) 0 0 no-repeat;
+  background: none;
 }
 #rightbar {
   float: left;
@@ -2200,13 +2224,16 @@ img.lazy {
   font-size: 16px;
   box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.4);
 }
+#hide-sidebar:hover {
+  background-color: #0097f4;
+}
 #show-sidebar {
   position: absolute;
   z-index: 3;
   top: 5px;
   right: 5px;
-  width: 111px;
-  height: 44px;
+  width: 110px;
+  height: 52px;
   background-image: url(../img/livenews-title.png);
 }
 #show-sidebar:hover {
@@ -2246,7 +2273,7 @@ img.lazy {
   color: #fff;
   border-radius: 5px;
   margin-bottom: 15px;
-  background-color: #999;
+  background-color: #949ca8;
 }
 #postbar .fa:hover {
   background-color: #0078d2;
@@ -2413,6 +2440,9 @@ body.show-breaking-news #breaking-news {
 #content.unfold #leftbar > .sidebar {
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
 }
+#content.unfold #leftbar > .custom-close {
+  display: block;
+}
 #footer {
   position: relative;
   z-index: 8;
@@ -2452,21 +2482,21 @@ body.show-breaking-news #breaking-news {
   display: inline-block;
   width: 165px;
 }
-#footer .icon-group .icon {
+#footer .icon-group .fa {
   width: 32px;
   height: 32px;
+  line-height: 32px;
+  font-size: 22px;
   display: inline-block;
   vertical-align: middle;
+  text-align: center;
   margin-bottom: 15px;
 }
-#footer .icon-group .icon-tencent {
-  background-image: url(../img/footer-tencent.png);
+#footer .icon-group .fa:hover {
+  color: #0078d2;
 }
-#footer .icon-group .icon-wechat {
-  background-image: url(../img/footer-wechat.png);
-}
-#footer .icon-group .icon-weibo {
-  background-image: url(../img/footer-weibo.png);
+#footer .icon-group .fa-weibo {
+  font-size: 24px;
 }
 #footer .friend-links {
   margin-bottom: 20px;
@@ -2551,15 +2581,31 @@ body.show-breaking-news #breaking-news {
 }
 #index-top-news .cover-img .title {
   font-size: 14px;
+  z-index: 3;
 }
 #index-top-news .cover-img .img {
   width: 100%;
   height: 100%;
 }
+#index-top-news .cover-img:hover:after {
+  display: none;
+}
+#index-top-news .cover-img:after {
+  z-index: 2;
+  display: block;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  box-shadow: inset 0 0 70px 35px rgba(0, 0, 0, 0.3);
+}
 #index-top-news > .content {
   font-size: 12px;
   width: 100%;
   height: 100%;
+  overflow: hidden;
   border: 1px solid #dddddd;
   padding-left: 15px;
   padding-right: 15px;
@@ -2647,18 +2693,22 @@ body.show-breaking-news #breaking-news {
   }
 }
 .page-article .meta {
-  font-size: 12px;
-  color: #646464;
-  display: inline-block;
+  color: #949ca8;
   margin-bottom: 30px;
+  border-bottom: 1px dashed #dddddd;
 }
-.page-article .meta.author {
-  color: #0078d2;
+.page-article .meta .item {
+  display: inline-block;
+  font-size: 14px;
+  line-height: 1em;
+  height: 1em;
+  margin-bottom: 15px;
+}
+.page-article .meta .item.author {
   margin-right: 30px;
 }
-.page-article .meta.comment-count {
+.page-article .meta .item.author:hover {
   color: #0078d2;
-  margin-left: 15px;
 }
 .page-article .main-image {
   width: 100%;
@@ -2668,6 +2718,38 @@ body.show-breaking-news #breaking-news {
 .page-article .article-content {
   font-size: 16px;
   line-height: 1.75em;
+  /* 去除默认边框 */
+  /* 解决 IE6-7 图片缩放锯齿问题 */
+  /* ie6 7 8(q) bug 显示为行内表现 */
+  /* 块/段落引用 */
+  /* Firefox 以外，元素没有下划线，需添加 */
+  /* 添加鼠标问号，进一步确保应用的语义是正确的（要知道，交互他们也有洁癖，如果你不去掉，那得多花点口舌） */
+  /* 一致的 del 样式 */
+  /* 去掉列表前的标识, li 会继承，大部分网站通常用列表来很多内容，所以应该当去 */
+  /* 对齐是排版最重要的因素, 别让什么都居中 */
+  /* 统一上标和下标 */
+  /* 让链接在 hover 状态下显示下划线 */
+  /* 默认不显示下划线，保持页面简洁 */
+  /* 专名号：虽然 u 已经重回 html5 Draft，但在所有浏览器中都是可以使用的，
+         * 要做到更好，向后兼容的话，添加 class="typo-u" 来显示专名号
+         * 关于 <u> 标签：http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-u-element
+         * 被放弃的是 4，之前一直搞错 http://www.w3.org/TR/html401/appendix/changes.html#idx-deprecated
+         * 一篇关于 <u> 标签的很好文章：http://html5doctor.com/u-element/
+         */
+  /* 标记，类似于手写的荧光笔的作用 */
+  /* 代码片断 */
+  /* 一致化 horizonal rule */
+  /* 底部印刷体、版本等标记 */
+  /* 可拖动文件添加拖动手势 */
+  /* 强制文本换行 */
+  /* 提供 serif 版本的字体设置 */
+  /* 保证块/段落之间的空白隔行 */
+  /* 标题应该更贴紧内容，并与其他块区分，margin 值要相应做优化 */
+  /* 在文章中，应该还原 ul 和 ol 的样式 */
+  /* 同 ul/ol，在文章中应用 table 基本格式 */
+  /* 去除 webkit 中 input 和 textarea 的默认样式  */
+  /* 高亮选中 */
+  /* TODO: 供着重号使用 */
 }
 .page-article .article-content:before {
   display: table;
@@ -2690,33 +2772,259 @@ body.show-breaking-news #breaking-news {
   margin-left: 20px;
   margin-bottom: 30px;
 }
-.page-article .related-posts {
+.page-article .article-content a {
+  color: #0078d2;
+}
+.page-article .article-content fieldset,
+.page-article .article-content img {
+  border: 0;
+}
+.page-article .article-content img {
+  -ms-interpolation-mode: bicubic;
+}
+.page-article .article-content iframe {
   display: block;
-  font-size: 14px;
-  padding: 15px;
-  color: #505050;
-  background-color: #f0f0f0;
-  margin-bottom: 30px;
 }
-@media (min-width: 1280px) {
-  .page-article .related-posts {
-    float: left;
-    width: 282px;
-    margin-right: 30px;
-  }
+.page-article .article-content blockquote {
+  margin: 1em 0;
+  color: #555;
+  font-size: 16px;
+  padding: 0.6em 1em;
+  background: #f8f8f8;
+  border-left: 0.4em solid #ddd;
 }
-.page-article .related-posts ul {
+.page-article .article-content blockquote blockquote {
+  padding: 0 0 0 1em;
+  margin-left: 2em;
+}
+.page-article .article-content blockquote p {
   margin-bottom: 0;
 }
-.page-article .related-posts li {
+.page-article .article-content acronym,
+.page-article .article-content abbr {
+  border-bottom: 1px dotted;
+  font-variant: normal;
+}
+.page-article .article-content abbr {
+  cursor: help;
+}
+.page-article .article-content del {
+  text-decoration: line-through;
+}
+.page-article .article-content address,
+.page-article .article-content caption,
+.page-article .article-content cite,
+.page-article .article-content code,
+.page-article .article-content dfn,
+.page-article .article-content em,
+.page-article .article-content th,
+.page-article .article-content var {
+  font-style: normal;
+  font-weight: 400;
+}
+.page-article .article-content em {
+  font-style: italic;
+}
+.page-article .article-content ul,
+.page-article .article-content ol {
   list-style: none;
-  margin-left: 0;
 }
-.page-article .related-posts li:last-child {
-  margin-bottom: 0;
+.page-article .article-content caption,
+.page-article .article-content th {
+  text-align: left;
 }
-.page-article .related-posts li.last-child {
+.page-article .article-content q:before,
+.page-article .article-content q:after {
+  content: '';
+}
+.page-article .article-content sub,
+.page-article .article-content sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: text-top;
+}
+.page-article .article-content :root sub,
+.page-article .article-content :root sup {
+  vertical-align: baseline;
+  /* for ie9 and other mordern browsers */
+}
+.page-article .article-content sup {
+  top: -0.5em;
+}
+.page-article .article-content sub {
+  bottom: -0.25em;
+}
+.page-article .article-content strong {
+  font-weight: bold;
+}
+.page-article .article-content ins,
+.page-article .article-content a {
+  text-decoration: none;
+}
+.page-article .article-content u,
+.page-article .article-content .typo-u {
+  text-decoration: underline;
+}
+.page-article .article-content mark {
+  background: #fffdd1;
+}
+.page-article .article-content pre,
+.page-article .article-content code {
+  font-family: "Courier New", Courier, monospace;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.page-article .article-content pre {
+  background: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: 1em 1.5em;
+}
+.page-article .article-content hr {
+  border: none;
+  border-bottom: 1px solid #cfcfcf;
+  margin-bottom: 10px;
+  height: 10px;
+  *margin: -7px 0 2px;
+}
+.page-article .article-content small,
+.page-article .article-content .typo-small,
+.page-article .article-content figcaption {
+  font-size: 0.9em;
+  color: #888;
+}
+.page-article .article-content [draggable] {
+  cursor: move;
+}
+.page-article .article-content .textwrap,
+.page-article .article-content .textwrap td,
+.page-article .article-content .textwrap th {
+  word-wrap: break-word;
+  word-break: break-all;
+}
+.page-article .article-content .textwrap-table {
+  table-layout: fixed;
+}
+.page-article .article-content .serif {
+  font-family: Palatino, Hiragino Mincho ProN W3, Optima, STSong, Georgia, serif;
+}
+.page-article .article-content .typo p,
+.page-article .article-content .typo pre,
+.page-article .article-content .typo ul,
+.page-article .article-content .typo ol,
+.page-article .article-content .typo dl,
+.page-article .article-content .typo form,
+.page-article .article-content .typo hr,
+.page-article .article-content .typo table,
+.page-article .article-content .typo-p,
+.page-article .article-content .typo-pre,
+.page-article .article-content .typo-ul,
+.page-article .article-content .typo-ol,
+.page-article .article-content .typo-dl,
+.page-article .article-content .typo-form,
+.page-article .article-content .typo-hr,
+.page-article .article-content .typo-table {
+  margin-bottom: 1.2em;
+}
+.page-article .article-content .typo h1,
+.page-article .article-content .typo h2,
+.page-article .article-content .typo h3,
+.page-article .article-content .typo h4,
+.page-article .article-content .typo h5,
+.page-article .article-content .typo h6,
+.page-article .article-content .typo-h1,
+.page-article .article-content .typo-h2,
+.page-article .article-content .typo-h3,
+.page-article .article-content .typo-h4,
+.page-article .article-content .typo-h5,
+.page-article .article-content .typo-h6 {
+  margin-bottom: 0.4em;
+  line-height: 1.5;
+}
+.page-article .article-content .typo h1,
+.page-article .article-content .typo-h1 {
+  font-size: 1.8em;
+}
+.page-article .article-content .typo h2,
+.page-article .article-content .typo-h2 {
+  font-size: 1.6em;
+}
+.page-article .article-content .typo h3,
+.page-article .article-content .typo-h3 {
+  font-size: 1.4em;
+}
+.page-article .article-content .typo h4,
+.page-article .article-content .typo-h4 {
+  font-size: 1.2em;
+}
+.page-article .article-content .typo h5,
+.page-article .article-content .typo h6,
+.page-article .article-content .typo-h5,
+.page-article .article-content .typo-h6 {
+  font-size: 1em;
+}
+.page-article .article-content .typo ul,
+.page-article .article-content .typo-ul {
+  margin-left: 1.3em;
+  list-style: disc;
+}
+.page-article .article-content .typo ol,
+.page-article .article-content .typo-ol {
+  list-style: decimal;
+  margin-left: 1.9em;
+}
+.page-article .article-content .typo li ul,
+.page-article .article-content .typo li ol,
+.page-article .article-content .typo-ul ul,
+.page-article .article-content .typo-ul ol,
+.page-article .article-content .typo-ol ul,
+.page-article .article-content .typo-ol ol {
+  margin-top: 0;
   margin-bottom: 0;
+  margin-left: 2em;
+}
+.page-article .article-content .typo li ul,
+.page-article .article-content .typo-ul ul,
+.page-article .article-content .typo-ol ul {
+  list-style: circle;
+}
+.page-article .article-content .typo table th,
+.page-article .article-content .typo table td,
+.page-article .article-content .typo-table th,
+.page-article .article-content .typo-table td .typo table caption {
+  border: 1px solid #ddd;
+  padding: 0.5em 1em;
+  color: #666;
+}
+.page-article .article-content .typo table th,
+.page-article .article-content .typo-table th {
+  background: #fbfbfb;
+}
+.page-article .article-content .typo table thead th,
+.page-article .article-content .typo-table thead th {
+  background: #f1f1f1;
+}
+.page-article .article-content .typo table caption {
+  border-bottom: none;
+}
+.page-article .article-content .typo-input,
+.page-article .article-content .typo-textarea {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+.page-article .article-content ::-moz-selection {
+  background: #08c;
+  color: #fff;
+}
+.page-article .article-content ::selection {
+  background: #08c;
+  color: #fff;
+}
+.page-article .article-content .typo-em,
+.page-article .article-content .typo em,
+.page-article .article-content legend,
+.page-article .article-content caption {
+  font-weight: 700;
 }
 .page-article .statement {
   background-color: #DAE8F1;
@@ -2727,25 +3035,26 @@ body.show-breaking-news #breaking-news {
   color: #0078d2;
 }
 .page-article .toolbar {
-  border-top: 1px solid #dddddd;
   border-bottom: 1px solid #dddddd;
-  padding: 10px 0;
+  padding-bottom: 15px;
   margin-bottom: 30px;
   font-size: 14px;
   line-height: 32px;
 }
-.page-article .toolbar .endorse {
-  color: #0078d2;
-  font-size: 12px;
-  margin-right: 20px;
-  float: left;
-}
+.page-article .toolbar .endorse,
 .page-article .toolbar .collect {
   float: left;
-  display: block;
-  width: 32px;
-  height: 32px;
-  background: url(../icon/collect32px.png);
+  font-size: 17px;
+}
+.page-article .toolbar .endorse:hover,
+.page-article .toolbar .collect:hover {
+  color: #0078d2;
+}
+.page-article .toolbar .collect {
+  color: #949ca8;
+  margin-right: 20px;
+  padding-right: 15px;
+  border-right: 1px solid #949ca8;
 }
 .page-article .toolbar .separator {
   display: inline-block;
@@ -2757,42 +3066,56 @@ body.show-breaking-news #breaking-news {
 }
 .page-article .toolbar .jiathis_style_32x32 {
   float: right;
-  border-left: 1px solid #dddddd;
-  padding-left: 10px;
   font-size: 14px;
 }
-.page-article .toolbar .jiathis_style_32x32 .text {
-  display: block;
+.page-article .toolbar .jiathis_style_32x32 .title {
   float: left;
+  line-height: 32px;
+}
+.page-article .toolbar .jiathis_style_32x32 .fa {
+  font-size: 20px;
+  vertical-align: -2px;
+}
+.page-article .toolbar .jiathis_style_32x32 .fa-plus {
+  vertical-align: -3px;
 }
 .page-article .toolbar .jiathis_style_32x32 .jtico {
-  padding-left: 32px !important;
+  padding-left: 10px !important;
+  padding-right: 10px;
   margin-left: 10px;
+  border-radius: 3px;
+}
+.page-article .toolbar .jiathis_style_32x32 .jiathis_txt {
+  font-size: 14px;
+  color: #fff;
 }
 .page-article .toolbar .jiathis_style_32x32 .jtico_tsina {
-  background: url(../icon/weibo32px.png) 0 0 no-repeat;
+  background-image: none;
+  background-color: #D04341;
 }
 .page-article .toolbar .jiathis_style_32x32 .jtico_cqq {
-  background: url(../icon/qq32px.png) 0 0 no-repeat;
+  background-image: none;
+  background-color: #36891A;
 }
 .page-article .toolbar .jiathis_style_32x32 .jtico_weixin {
-  background: url(../icon/wechat32px.png) 0 0 no-repeat;
+  background-image: none;
+  background-color: #2384CC;
 }
 .page-article .toolbar .jiathis_style_32x32 .jtico_evernote {
-  background: url(../icon/evernote32px.png) 0 0 no-repeat;
+  background-image: none;
 }
 .page-article .toolbar .jiathis_style_32x32 .jtico_jiathis {
-  background: url(../icon/share32px.png) 0 0 no-repeat;
+  padding-left: 0 !important;
+  padding-right: 0;
+  width: 32px;
+  background-color: #0078D2;
+  text-align: center;
+  background-image: none;
 }
-@media (max-width: 479px) {
-  .page-article .toolbar .collect {
-    margin-bottom: 10px;
-  }
+@media (max-width: 767px) {
   .page-article .toolbar .jiathis_style_32x32 {
     float: none;
     display: block;
-    border-left: none;
-    padding-left: 0;
   }
   .page-article .toolbar .jiathis_style_32x32:before {
     display: table;
@@ -2804,161 +3127,68 @@ body.show-breaking-news #breaking-news {
     content: '';
     clear: both;
   }
+  .page-article .toolbar .jiathis_style_32x32 .text {
+    display: none;
+  }
+  .page-article .toolbar .jiathis_style_32x32 .jtico {
+    padding: 0 !important;
+    width: 32px;
+    text-align: center;
+  }
 }
-.page-article .toolbar[data-action=post] {
-  padding: 0;
-  position: relative;
+.page-article .tags {
+  padding-bottom: 15px;
+  border-bottom: 1px solid #dddddd;
+  margin-bottom: 30px;
 }
-.page-article .toolbar[data-action=post] .separator {
-  display: block;
-  position: absolute;
-  width: 0;
-  height: 100%;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
-}
-.page-article .toolbar[data-action=post] .prev-post,
-.page-article .toolbar[data-action=post] .next-post {
-  display: block;
-  position: relative;
-  width: 50%;
-  float: left;
-  padding: 15px 20px;
-  color: #333;
-}
-.page-article .toolbar[data-action=post] .prev-post:before,
-.page-article .toolbar[data-action=post] .next-post:before {
+.page-article .tags:before {
   display: table;
   content: '';
   clear: both;
 }
-.page-article .toolbar[data-action=post] .prev-post:after,
-.page-article .toolbar[data-action=post] .next-post:after {
+.page-article .tags:after {
   display: table;
   content: '';
   clear: both;
 }
-.page-article .toolbar[data-action=post] .prev-post:hover,
-.page-article .toolbar[data-action=post] .next-post:hover {
-  background-color: #0078d2;
-  color: #fff;
-}
-.page-article .toolbar[data-action=post] .icon {
-  display: block;
-  position: absolute;
-  width: 40px;
-  height: 30px;
-  top: 0;
-  bottom: 0;
-  margin: auto 0;
+.page-article .tags > .title {
+  font-weight: bold;
+  font-size: 14px;
   line-height: 30px;
-  text-align: center;
-  font-size: 16px;
-}
-.page-article .toolbar[data-action=post] .img {
-  display: block;
-}
-.page-article .toolbar[data-action=post] .title {
-  display: block;
-  font-size: 14px;
-  line-height: 1.5em;
-}
-.page-article .toolbar[data-action=post] .prev-post {
-  padding-left: 40px;
-}
-.page-article .toolbar[data-action=post] .prev-post .icon {
-  left: 0;
-}
-.page-article .toolbar[data-action=post] .next-post {
-  padding-right: 40px;
-}
-.page-article .toolbar[data-action=post] .next-post .icon {
-  right: 0;
-}
-@media (max-width: 1279px) {
-  .page-article .toolbar[data-action=post] .img {
-    width: 100%;
-    margin-bottom: 20px;
-  }
-  .page-article .toolbar[data-action=post] .title {
-    height: 4.5em;
-    overflow: hidden;
-  }
-}
-@media (min-width: 1280px) {
-  .page-article .toolbar[data-action=post] .img {
-    width: 120px;
-    height: 80px;
-  }
-  .page-article .toolbar[data-action=post] .title {
-    width: 120px;
-    height: 80px;
-    overflow: hidden;
-  }
-  .page-article .toolbar[data-action=post] .prev-post .img {
-    float: left;
-  }
-  .page-article .toolbar[data-action=post] .prev-post .title {
-    float: right;
-  }
-  .page-article .toolbar[data-action=post] .next-post .img {
-    float: right;
-  }
-  .page-article .toolbar[data-action=post] .next-post .title {
-    float: left;
-  }
-}
-.page-article .hot-news {
-  margin-bottom: 30px;
-}
-.page-article .hot-news .news {
-  display: block;
-  color: #000;
-  margin-bottom: 30px;
-}
-.page-article .hot-news .news:hover {
-  color: #0078d2;
-}
-.page-article .hot-news .news .img {
-  display: block;
-  width: 100%;
-  height: auto;
-  margin-bottom: 15px;
-}
-.page-article .hot-news .news .title {
-  font-size: 14px;
-  line-height: 1.5em;
-  height: 3em;
-  overflow: hidden;
-}
-.page-article .custom-tabs {
-  font-size: 14px;
-  margin-bottom: 20px;
-}
-.page-article .custom-tabs:before {
-  display: table;
-  content: '';
-  clear: both;
-}
-.page-article .custom-tabs:after {
-  display: table;
-  content: '';
-  clear: both;
-}
-.page-article .custom-tabs li {
   float: left;
-  margin-right: 20px;
+  margin-right: 30px;
 }
-.page-article .custom-tabs li.active {
+.page-article .tags .tag {
+  display: block;
+  float: left;
+  margin-right: 15px;
+  margin-bottom: 15px;
+  line-height: 28px;
+  text-align: center;
+  min-width: 90px;
+  padding: 0 10px;
+  border-radius: 3px;
+  border: 1px solid #dddddd;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+}
+.page-article .tags .tag:hover {
+  color: #0078d2;
+  border-color: #0078d2;
+}
+.page-article .related-posts {
+  display: block;
+  font-size: 14px;
+  padding: 15px;
+  background-color: #EEF3FA;
+  margin-bottom: 30px;
+}
+.page-article .related-posts .side-title {
   color: #0078d2;
 }
-.page-article .news-list .news:before {
+.page-article .related-posts .news-list .news:before {
   background-color: #333;
 }
-.page-article .news-list .news:hover:before {
+.page-article .related-posts .news-list .news:hover:before {
   background-color: #0078d2;
 }
 .page-search .crumbs-title {
@@ -3118,63 +3348,63 @@ body.show-breaking-news #breaking-news {
 .page-livenews > .topbar .news-list.with-dot .news:hover:before {
   background-color: #333;
 }
-.page-livenews .checkbox-group {
+.page-livenews .control-group {
   font-size: 12px;
   line-height: 20px;
   border-bottom: 1px solid #dddddd;
 }
-.page-livenews .checkbox-group > .title {
+.page-livenews .control-group > .title {
   display: inline-block;
   width: 90px;
   line-height: 40px;
   color: #333;
 }
-.page-livenews .checkbox-group .more {
+.page-livenews .control-group .more {
   color: #999;
   cursor: pointer;
   margin-left: 10px;
 }
-.page-livenews .checkbox-group .more .fa {
+.page-livenews .control-group .more .fa {
   margin-left: 5px;
   color: #0078d2;
 }
-.page-livenews .checkbox-group .more .fa:before {
+.page-livenews .control-group .more .fa:before {
   content: "\f078";
 }
-.page-livenews .checkbox-group .more.active .fa:before {
+.page-livenews .control-group .more.active .fa:before {
   content: "\f077";
 }
-.page-livenews .checkbox-group .switch-box {
+.page-livenews .control-group .switch-box {
   margin-top: 8px;
 }
-.page-livenews .checkbox-group .hr {
+.page-livenews .control-group .hr {
   width: 100%;
   border: none;
   margin: 0;
   border-bottom: 1px solid #dddddd;
 }
-.page-livenews .checkbox-group .more-content {
+.page-livenews .control-group .more-content {
   display: none;
   margin-bottom: 10px;
   border: 1px solid #0078d2;
   border-radius: 5px;
   padding: 0 15px;
 }
-.page-livenews .checkbox-group .more-content .title {
+.page-livenews .control-group .more-content .title {
   width: 74px;
   display: inline-block;
 }
-.page-livenews .checkbox-group .more-content.active {
+.page-livenews .control-group .more-content.active {
   display: block;
 }
-.page-livenews .checkbox-group .tag {
+.page-livenews .control-group .tag {
   cursor: pointer;
   display: inline-block;
   line-height: 20px;
   margin: 10px;
   color: #0078d2;
 }
-.page-livenews .checkbox-group .tag .fa {
+.page-livenews .control-group .tag .fa {
   margin-right: 3px;
   font-size: 14px;
 }
@@ -3242,7 +3472,7 @@ body.show-breaking-news #breaking-news {
   display: inline-block;
   vertical-align: top;
   text-align: left;
-  color: #666;
+  color: #949ca8;
 }
 #livenews-list .news .control-box .meta .fa {
   font-size: 15px;
@@ -3296,7 +3526,6 @@ body.show-breaking-news #breaking-news {
   padding-right: 120px;
 }
 #livenews-list .news.type-data > .content .title {
-  color: #0078d2;
   font-weight: bold;
   font-size: 13px;
   line-height: 20px;
@@ -3309,7 +3538,6 @@ body.show-breaking-news #breaking-news {
 }
 #livenews-list .news.type-data > .content .text {
   color: #999;
-  font-weight: bold;
 }
 #livenews-list .news.type-data > .content .datum {
   white-space: nowrap;
@@ -3471,6 +3699,16 @@ body.show-breaking-news #breaking-news {
 }
 .page-auth .custom-button.type-weibo {
   background-color: #D04341;
+}
+.page-auth .custom-button .fa-qq {
+  font-size: 16px;
+  vertical-align: -1px;
+  margin-right: 8px;
+}
+.page-auth .custom-button .fa-weibo {
+  font-size: 18px;
+  vertical-align: -1px;
+  margin-right: 3px;
 }
 .page-auth .custom-button[type=submit] {
   background-color: #0078d2;

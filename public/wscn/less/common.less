@@ -384,6 +384,9 @@ img.lazy {
     .news {
         font-size: 14px;
         line-height: 21px;
+        &:hover {
+            color: @blue;
+        }
     }
     // dot 类型
     &.with-dot {
@@ -505,7 +508,8 @@ img.lazy {
                 color: #999;
             }
             .endorse {
-                color: #666;
+                //color: #666;
+                color: @grayBlue;
                 .fa {
                     font-size: 15px;
                 }
@@ -564,6 +568,9 @@ img.lazy {
         font-size: 12px;
         content: "更多»";
     }
+    &.with-more:hover:after {
+        color: @blue;
+    }
 }
 //侧边拦 广告
 .side-ad {
@@ -578,7 +585,9 @@ img.lazy {
         position: relative;
         padding-left: 80px;
         font-size: 12px;
-        margin-bottom: 30px;
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+        border-bottom: 1px solid @borderColor;
         .avatar {
             display: block;
             width: 60px;
@@ -638,6 +647,32 @@ img.lazy {
     }
     @media (min-width: @screen-lg-min) {
         margin-right: -15px;
+    }
+}
+
+.hot-news {
+    .news {
+        //position: relative;
+        display: block;
+        padding: 12px 0;
+        min-height: 100px;
+        border-bottom: 1px solid @borderColor;
+        &:hover {
+            color: @blue;
+        }
+        .img {
+            display: block;
+            float:left;
+            margin-top: 3px;
+            width: 100px;
+            height: 70px;
+        }
+        .title {
+            display: block;
+            margin-left: 120px;
+            font-weight: bold;
+            line-height: 20px;
+        }
     }
 }
 //工具栏

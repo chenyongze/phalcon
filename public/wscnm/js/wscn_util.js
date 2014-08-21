@@ -43,6 +43,17 @@ var WSCN_UTIL = {};
 			return result;
 		}
 	};
+	
+	util.browser = {
+		iOS : function(){
+			return /iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase());
+		},
+		
+		android : function(){
+			return /android/.test(navigator.userAgent.toLowerCase());
+		}
+	
+	};
 
 	util.mobile = {
 		detectOrientation : function (callback) {

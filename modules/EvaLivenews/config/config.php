@@ -8,6 +8,7 @@ return array(
             'host' => 'localhost',
             'port' => 6379
         ),
-        'redisEnable' => true,
+        'realtimeCacheEnable' => false,
+        'realtimeCacheSize' => 100,
     ),
 );

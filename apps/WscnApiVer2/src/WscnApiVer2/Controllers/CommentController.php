@@ -321,4 +321,34 @@ class CommentController extends ControllerBase
             return $this->displayExceptionForJson($e, $comment->getMessages());
         }
     }
+
+    /**
+     *
+     * @SWG\Api(
+     *   path="/comment/counter",
+     *   description="Comment related api",
+     *   produces="['application/json']",
+     *   @SWG\Operations(
+     *     @SWG\Operation(
+     *       method="GET",
+     *       summary="count comment by thread unique key",
+     *       notes="Returns number",
+     *       @SWG\Parameters(
+     *         @SWG\Parameter(
+     *           name="ids",
+     *           description="unique key of thread",
+     *           paramType="query",
+     *           required=true,
+     *           type="string"
+     *         )
+     *       )
+     *     )
+     *   )
+     * )
+     */
+    public function counterAction()
+    {
+        var_dump($ids);
+        exit;
+    }
 }

@@ -237,4 +237,22 @@ return array(
         ),
         'httpMethods' => 'POST'
     ),
+    'commentList' =>  array(
+        'pattern' => '/v2/comment',
+        'paths' => array(
+            'module' => 'WscnApiVer2',
+            'controller' => 'Comment',
+            'action' => 'index',
+        ),
+        'httpMethods' => 'GET'
+    ),
+    'commentCounter' =>  array(
+        'pattern' => '/v2/comment/counter',
+        'paths' => array(
+            'module' => 'WscnApiVer2',
+            'controller' => 'Comment',
+            'action' => 'counter',
+        ),
+        'httpMethods' => 'GET'
+    ),
 );

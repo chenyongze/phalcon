@@ -4,6 +4,7 @@ namespace WscnApiVer2\Controllers;
 
 use Swagger\Annotations as SWG;
 use Eva\EvaLivenews\Models;
+use Eva\EvaLivenews\Models\NewsManager;
 use Eva\EvaLivenews\Forms;
 use Eva\EvaEngine\Exception;
 
@@ -48,8 +49,15 @@ class LivenewsController extends ControllerBase
      *           type="string"
      *         ),
      *         @SWG\Parameter(
-     *           name="code_type",
-     *           description="Allow value : markdown (News) | json (Finance Data)",
+     *           name="type",
+     *           description="Allow value : news | data",
+     *           paramType="query",
+     *           required=false,
+     *           type="string"
+     *         ),
+     *         @SWG\Parameter(
+     *           name="format",
+     *           description="Allow value : markdown | json",
      *           paramType="query",
      *           required=false,
      *           type="string"
@@ -63,14 +71,7 @@ class LivenewsController extends ControllerBase
      *         ),
      *         @SWG\Parameter(
      *           name="cid",
-     *           description="Category ID",
-     *           paramType="query",
-     *           required=false,
-     *           type="integer"
-     *         ),
-     *         @SWG\Parameter(
-     *           name="order",
-     *           description="Order, allow value : +-id, +-created_at, +-sortOrder default is -created_at",
+     *           description="Category ID, split multi by comma",
      *           paramType="query",
      *           required=false,
      *           type="string"
@@ -78,6 +79,13 @@ class LivenewsController extends ControllerBase
      *         @SWG\Parameter(
      *           name="limit",
      *           description="Limit max:100 | min:3; default is 25",
+     *           paramType="query",
+     *           required=false,
+     *           type="integer"
+     *         ),
+     *         @SWG\Parameter(
+     *           name="page",
+     *           description="Page",
      *           paramType="query",
      *           required=false,
      *           type="integer"
@@ -90,13 +98,15 @@ class LivenewsController extends ControllerBase
     public function indexAction()
     {
         $limit = $this->request->getQuery('limit', 'int', 25);
-        $limit = $limit > 100 ? 100 : $limit;
-        $limit = $limit < 3 ? 3 : $limit;
-        $order = $this->request->getQuery('order', 'string', '-created_at');
+        $limit = $limit > 100 ?: $limit;
+        $limit = $limit < 3 ?: $limit;
+        //fixed order
+        $order = '-updated_at';
         $query = array(
             'q' => $this->request->getQuery('q', 'string'),
             'status' => $this->request->getQuery('status', 'string'),
-            'codeType' => $this->request->getQuery('code_type', 'string'),
+            'type' => $this->request->getQuery('type', 'string'),
+            'codeType' => $this->request->getQuery('format', 'string'),
             'uid' => $this->request->getQuery('uid', 'int'),
             'cid' => $this->request->getQuery('cid', 'string'),
             'username' => $this->request->getQuery('username', 'string'),
@@ -109,10 +119,9 @@ class LivenewsController extends ControllerBase
         $form = new Forms\FilterForm();
         $form->setValues($this->request->getQuery());
 
-        $livenews = new Models\NewsManager();
-        $livenewss = $livenews->findNews($query);
+        $newsManager = new Models\NewsManager();
         $paginator = new \Eva\EvaEngine\Paginator(array(
-            "builder" => $livenewss,
+            "builder" => $newsManager->findNews($query),
             "limit"=> $limit,
             "page" => $query['page']
         ));
@@ -146,11 +155,11 @@ class LivenewsController extends ControllerBase
      *       notes="Returns livenews list",
      *       @SWG\Parameters(
      *         @SWG\Parameter(
-     *           name="min_id",
-     *           description="Min id",
+     *           name="min_updated",
+     *           description="Min updated time",
      *           paramType="query",
      *           required=false,
-     *           type="string"
+     *           type="integer"
      *         ),
      *         @SWG\Parameter(
      *           name="cid",
@@ -161,7 +170,7 @@ class LivenewsController extends ControllerBase
      *         ),
      *         @SWG\Parameter(
      *           name="limit",
-     *           description="Limit max:100 | min:3; default is 25",
+     *           description="Limit max:100 | min:1; default is 3",
      *           paramType="query",
      *           required=false,
      *           type="integer"
@@ -173,10 +182,47 @@ class LivenewsController extends ControllerBase
      */
     public function realtimeAction()
     {
+        $limit = $this->request->getQuery('limit', 'int', 3);
+        $limit = $limit > 100 ?: $limit;
+        $order = $this->request->getQuery('order', 'string', '-created_at');
+        $minUpdated = $this->request->getQuery('min_updated', 'int', 0);
+        $cid = $this->request->getQuery('cid', 'string');
         $redis = $this->getDI()->getFastCache();
-        p($redis->zCount('livenews', 0, 3));
-        exit;
-
+        $data = array();
+        if ($minUpdated > 0) {
+            $data = $redis->zRangeByScore("livenews", $minUpdated, 999999999, array(
+                'limit' => array(0, (int) $limit)
+            ));
+        } else {
+            if ($order === '-created_at') {
+                $data = $redis->zRange('livenews', (0 - $limit), -1);
+            } else {
+                $data = $redis->zRange('livenews', 0, $limit);
+            }
+        }
+        rsort($data);
+        $dataString = '{"paginator": null, "results": [' . implode(',', $data) . ']}';
+        if ($cid) {
+            $cidArray = explode(',', $cid);
+            $data = json_decode($dataString, true);
+            $results = $data['results'];
+            $data = array();
+            foreach ($results as $key => $result) {
+                if (!$result['categorySet']) {
+                    continue;
+                }
+                $categorySet = explode(',', $result['categorySet']);
+                if (array_intersect($categorySet, $cidArray)) {
+                    $data[] = $result;
+                    break;
+                }
+            }
+            $dataString = json_encode(array(
+                'paginator' => null,
+                'results' => $data
+            ));
+        }
+        return $this->response->setContent($dataString);
     }
 
     /**

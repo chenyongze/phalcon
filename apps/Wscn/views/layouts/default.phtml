@@ -156,9 +156,9 @@
                     </a>
                     <img class="qrcode" src="/wscn/img/footer-qrcode.png" alt="二维码"/>
                     <div class="icon-group text-center">
-                        <a href="" class="icon icon-tencent pull-left"></a>
-                        <a href="" class="icon icon-wechat"></a>
-                        <a href="" class="icon icon-weibo pull-right"></a>
+                        <a href="" class="fa fa-qq pull-left"></a>
+                        <a href="" class="fa fa-weixin"></a>
+                        <a href="" class="fa fa-weibo pull-right"></a>
                     </div>
                 </div>
                 <div class="col-md-8">
@@ -267,7 +267,6 @@
                                 <div class="form-group has-feedback">
                                     <input type="text" name="identify" class="form-control" placeholder="用户名或邮箱" required
                                         data-parsley-trigger="blur change"
-                                        maxlength="24"
                                         data-parsley-minlength="4"
                                         data-parsley-minlength-message="用户名最短4个字符"
                                         data-parsley-pattern="^(?![0-9]+$)"
@@ -301,12 +300,14 @@
                             <div class="custom-row">
                                 <div class="custom-span-left" style="">
                                     <a class="custom-button size-fluid type-weibo login-social-btn" href="/auth/request/weibo/oauth2" target="_blank">
-                                        <i class="icontext icontext-weibo-md">微博帐号</i>
+                                        <span class="fa fa-weibo"></span>
+                                        微博帐号
                                     </a>
                                 </div>
                                 <div class="custom-span-right" style="">
                                     <a class="custom-button size-fluid type-qq login-social-btn" href="/auth/request/tencent/oauth2" target="_blank">
-                                        <i class="icontext icontext-qq-md">QQ帐号</i>
+                                        <span class="fa fa-qq"></span>
+                                        QQ 帐号
                                     </a>
                                 </div>
                             </div>
@@ -377,12 +378,14 @@
                                 <div class="custom-row">
                                     <div class="custom-span-left" style="">
                                         <a class="custom-button size-fluid type-weibo login-social-btn" href="/auth/request/weibo/oauth2" target="_blank">
-                                            <i class="icontext icontext-weibo-md">微博帐号</i>
+                                            <span class="fa fa-weibo"></span>
+                                            微博帐号
                                         </a>
                                     </div>
                                     <div class="custom-span-right" style="">
                                         <a class="custom-button size-fluid type-qq login-social-btn" href="/auth/request/tencent/oauth2" target="_blank">
-                                            <i class="icontext icontext-qq-md">QQ帐号</i>
+                                            <span class="fa fa-qq"></span>
+                                            QQ 帐号
                                         </a>
                                     </div>
                                 </div>
@@ -726,6 +729,8 @@ $(document).ready(function(){
 
 });
 </script>
+
+<?=$this->placeholder->block('script', '');?>
 </body>
 </html>
 

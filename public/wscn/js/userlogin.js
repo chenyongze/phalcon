@@ -25,7 +25,8 @@
             "ERR_USER_PASSWORD_WRONG_MAX_TIMES" : "密码输入错误次数太多，用户已经被锁定，请稍后重试",
             "ERR_USER_NOT_EXIST" : "用户不存在",
             "ERR_USER_NOT_ACTIVED" : "用户未激活<span class='inactive-handle'></span>",
-            "ERR_USER_EMAIL_NOT_ACTIVED" : "用户邮箱未激活<span class='inactive-handle'></span>",
+            "ERR_USER_EMAIL_NOT_ACTIVED" : "邮箱未激活<span class='inactive-handle'></span>",
+            "ERR_USER_PASSWORD_EMPTY" : "密码未设置，请使用社交帐号登录",
             "ERR_USER_RESET_CODE_NOT_MATCH" : "验证码不匹配",
             "ERR_USER_RESET_CODE_EXPIRED" : "验证码已过期",
             "ERR_USER_USERNAME_ALREADY_TAKEN" : "用户名已存在",
@@ -35,7 +36,7 @@
             "ERR_OAUTH_AUTHORIZATION_FAILED" : "连接服务器失败，请稍后重试",
             "SUCCESS_USER_ACTIVE_MAIL_SENT" : "激活邮件已发送",
             "SUCCESS_USER_REGISTERED_ACTIVE_MAIL_SENT" : "一封验证邮件已发到注册邮箱，请验证后登陆",
-            "SUCCESS_USER_RESET_MAIL_SENT" : "一封包含重置密码信息的邮件已经发送到注册邮箱",
+            "SUCCESS_USER_RESET_MAIL_SENT" : "一封包含密码信息的邮件已经发送到注册邮箱",
             "SUCCESS_USER_PASSWORD_RESET" : "新密码已设置，请重新登陆",
             "SUCCESS_OAUTH_USER_REGISTERED" : "注册成功",
             "SUCCESS_OAUTH_USER_CONNECTED" : "绑定第三方帐号成功",
@@ -101,7 +102,10 @@
             type : "POST"
         }).then(function(response){
             loginUI.showMessage("SUCCESS_USER_RESET_MAIL_SENT", userMessages.SUCCESS_USER_RESET_MAIL_SENT, "success");
-        }).fail(defaultErrorHandle);
+        }).fail(function(error) {
+            defaultErrorHandle(error);
+            initInactive();
+        });
     };
 
     var loginByOAuth = function(url, data) {

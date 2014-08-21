@@ -8,7 +8,6 @@ use Eva\EvaComment\Models\ThreadManager;
 use Eva\EvaComment\Models\CommentManager;
 
 use Eva\EvaEngine\Mvc\Controller\ControllerBase;
-use Eva\EvaBlog\Forms;
 
 use Eva\EvaUser\Models\Login as LoginModel;
 
@@ -22,7 +21,6 @@ class ThreadController extends ControllerBase
 
     public function initialize()
     {
-//        $this->view->setModuleLayout('WscnGold', '/views/layouts/default');
         $this->view->setModuleViewsDir('EvaComment', '/views');
         $this->view->setModulePartialsDir('EvaComment', '/views');
     }
@@ -122,9 +120,29 @@ class ThreadController extends ControllerBase
         );
     }
 
-    public function dialog()
+    public function dialogAction()
     {
 
+    }
+
+    public function counterAction()
+    {
+        $ids = $this->request->getQuery('ids');
+
+        if(!is_array($ids)){
+            $ids = array($ids);
+        }
+
+        $threadManager = new ThreadManager();
+        $data = array();
+        foreach($ids as $uniqueKey){
+            $thread = $threadManager->findThreadByUniqueKey($uniqueKey);
+            if ($thread) {
+                $data['threads'][] = array('uniqueKey'=>$uniqueKey,'numComments'=>$thread->numComments);
+            }
+        }
+        echo json_encode($data);
+        $this->view->disable();
     }
 
     /**
@@ -181,33 +199,6 @@ class ThreadController extends ControllerBase
             )
         );
 
-    }
-
-    /**
-     * Presents the form to use to create a new Comment for a Thread.
-     * @param $uniqueKey
-     * @throws \Exception
-     */
-    public function newThreadCommentsAction($uniqueKey)
-    {
-        $threadManager = new ThreadManager();
-        $thread = $threadManager->findThreadByUniqueKey($uniqueKey);
-        if (!$thread) {
-            throw new \Exception(sprintf('Thread with identifier of "%s" does not exist', $uniqueKey));
-        }
-
-        $commentManager = new CommentManager();
-        $comment = $commentManager->createComment($thread);
-
-        $parent = $this->getValidCommentParent($thread,$parentId = $this->request->getQuery('parentId'));
-
-        $this->view->setVars(
-            array(
-                'comment' => $comment,
-                'parent' => $parent,
-                'thread' => $thread,
-            )
-        );
     }
 
     public function captchaAction()

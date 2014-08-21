@@ -94,7 +94,6 @@ class PostController extends ControllerBase
             return false;
         }
         $data = $this->request->getPost();
-
         if (!$form->isFullValid($data)) {
             return $this->showInvalidMessages($form);
         }

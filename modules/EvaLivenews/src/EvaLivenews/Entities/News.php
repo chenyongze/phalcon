@@ -52,6 +52,12 @@ class News extends \Eva\EvaEngine\Mvc\Model
      *
      * @var string
      */
+    public $type = 'news';
+
+    /**
+     *
+     * @var string
+     */
     public $codeType = 'markdown';
 
     /**
@@ -203,6 +209,12 @@ class News extends \Eva\EvaEngine\Mvc\Model
      * @var string
      */
     public $categorySet;
+
+    /**
+     *
+     * @var integer
+     */
+    public $hasMore = 0;
 
     public function getContentHtml()
     {

@@ -50,7 +50,7 @@ class WidgetController extends ControllerBase
         $newsSet = $news->findNews($query);
         $paginator = new \Eva\EvaEngine\Paginator(array(
             "builder" => $newsSet,
-            "limit"=> 20,
+            "limit"=> 5,
             "page" => 1
         ));
         $paginator->setQuery($query);
