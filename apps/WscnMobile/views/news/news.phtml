@@ -54,23 +54,28 @@
 <script type="text/javascript">
 	var redirect = WSCN_UTIL.url.parseQueryString()["redirect"];
 	if(redirect && (redirect + "") == "1"){
-		redirecToApp();
+		redirectToApp();
 	}
 	
-	function redirecToApp(){
+	function redirectToApp(){
 		if(WSCN_UTIL.browser.iOS()){
-			//document.location.href = "wscn-zeus://www.wallstreetcn.com/detail/?id=<?=$post->id?>";
-			$("<iframe width='1' height='1' src='wscn-zeus://www.wallstreetcn.com/detail/?id=<?=$post->id?>'></iframe>").appendTo("body")
+			document.location.href = "wscn-zeus://www.wallstreetcn.com/detail/?id=<?=$post->id?>";
+			//$("<iframe width='1' height='1' src='wscn-zeus://www.wallstreetcn.com/detail/?id=<?=$post->id?>'></iframe>").appendTo("body")
 		}
 		else if(WSCN_UTIL.browser.android()){
-			//document.location.href = "wscn-medusa://www.wallstreetcn.com/detail/?id=<?=$post->id?>";
-			$("<iframe width='1' height='1' src='wscn-medusa://www.wallstreetcn.com/detail/?id=<?=$post->id?>'></iframe>").appendTo("body")
+			document.location.href = "wscn-medusa://www.wallstreetcn.com/detail/?id=<?=$post->id?>";
+			//$("<iframe width='1' height='1' src='wscn-medusa://www.wallstreetcn.com/detail/?id=<?=$post->id?>'></iframe>").appendTo("body")
+		}
+		if(WSCN_UTIL.browser.iOS() || WSCN_UTIL.browser.android()){
+			window.setTimeout(function () {  
+				document.location.href = 'http://<?=$this->config->wscnmobile->domain?>/node/<?=$post->id?>';
+			}, 500);  
 		}
 	}
 	
 	$(".app-info").click(function(){
 		if(WSCN_UTIL.browser.iOS() || WSCN_UTIL.browser.android()){
-			redirecToApp();
+			redirectToApp();
 		}
 		else{
 			window.open("http://wallstreetcn.com/downloadapp.html","_blank");
