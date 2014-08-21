@@ -1139,73 +1139,6 @@ img.lazy {
   right: 0;
   background-image: url(../icon/arrow-right.png);
 }
-.icontext {
-  display: inline;
-  padding-left: 16px;
-  position: relative;
-  min-height: 16px;
-  font-style: normal;
-}
-.icontext:before {
-  display: block;
-  position: absolute;
-  content: "";
-  width: 16px;
-  height: 16px;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  margin: auto 0;
-}
-.icontext.rtl {
-  padding-left: 0;
-  padding-right: 16px;
-}
-.icontext.rtl:before {
-  left: auto;
-  right: 0;
-}
-.icontext-arrow-right:before {
-  background: url(../icon/arrow-right.png);
-}
-.icontext-rise:before {
-  background: url(../icon/rise.png);
-}
-.icontext-fall:before {
-  background: url(../icon/fall.png);
-}
-.icontext-collect-blue:before {
-  background: url(../icon/collect-blue.png);
-}
-.icontext-share-blue:before {
-  background: url(../icon/share-blue.png);
-}
-.icontext-discuss-blue:before {
-  background: url(../icon/discuss-blue.png);
-}
-.icontext-endorse-blue:before {
-  background: url(../icon/endorse-blue.png);
-}
-.icontext-discuss-white:before {
-  background: url(../icon/discuss-white.png);
-}
-.icontext-endorse-white:before {
-  background: url(../icon/endorse-white.png);
-}
-.icontext-qq-md,
-.icontext-weibo-md {
-  padding-left: 30px;
-}
-.icontext-qq-md:before {
-  width: 24px;
-  height: 24px;
-  background: url(../icon/qq-md.png);
-}
-.icontext-weibo-md:before {
-  width: 24px;
-  height: 24px;
-  background: url(../icon/weibo-md.png);
-}
 #user-modal label {
   font-weight: normal;
 }
@@ -1389,6 +1322,16 @@ img.lazy {
 }
 #user-modal .custom-button.type-weibo {
   background-color: #D04341;
+}
+#user-modal .custom-button .fa-qq {
+  font-size: 16px;
+  vertical-align: -1px;
+  margin-right: 8px;
+}
+#user-modal .custom-button .fa-weibo {
+  font-size: 18px;
+  vertical-align: -1px;
+  margin-right: 3px;
 }
 #user-modal .custom-button[type=submit] {
   background-color: #0078d2;
@@ -3405,63 +3348,63 @@ body.show-breaking-news #breaking-news {
 .page-livenews > .topbar .news-list.with-dot .news:hover:before {
   background-color: #333;
 }
-.page-livenews .checkbox-group {
+.page-livenews .control-group {
   font-size: 12px;
   line-height: 20px;
   border-bottom: 1px solid #dddddd;
 }
-.page-livenews .checkbox-group > .title {
+.page-livenews .control-group > .title {
   display: inline-block;
   width: 90px;
   line-height: 40px;
   color: #333;
 }
-.page-livenews .checkbox-group .more {
+.page-livenews .control-group .more {
   color: #999;
   cursor: pointer;
   margin-left: 10px;
 }
-.page-livenews .checkbox-group .more .fa {
+.page-livenews .control-group .more .fa {
   margin-left: 5px;
   color: #0078d2;
 }
-.page-livenews .checkbox-group .more .fa:before {
+.page-livenews .control-group .more .fa:before {
   content: "\f078";
 }
-.page-livenews .checkbox-group .more.active .fa:before {
+.page-livenews .control-group .more.active .fa:before {
   content: "\f077";
 }
-.page-livenews .checkbox-group .switch-box {
+.page-livenews .control-group .switch-box {
   margin-top: 8px;
 }
-.page-livenews .checkbox-group .hr {
+.page-livenews .control-group .hr {
   width: 100%;
   border: none;
   margin: 0;
   border-bottom: 1px solid #dddddd;
 }
-.page-livenews .checkbox-group .more-content {
+.page-livenews .control-group .more-content {
   display: none;
   margin-bottom: 10px;
   border: 1px solid #0078d2;
   border-radius: 5px;
   padding: 0 15px;
 }
-.page-livenews .checkbox-group .more-content .title {
+.page-livenews .control-group .more-content .title {
   width: 74px;
   display: inline-block;
 }
-.page-livenews .checkbox-group .more-content.active {
+.page-livenews .control-group .more-content.active {
   display: block;
 }
-.page-livenews .checkbox-group .tag {
+.page-livenews .control-group .tag {
   cursor: pointer;
   display: inline-block;
   line-height: 20px;
   margin: 10px;
   color: #0078d2;
 }
-.page-livenews .checkbox-group .tag .fa {
+.page-livenews .control-group .tag .fa {
   margin-right: 3px;
   font-size: 14px;
 }
@@ -3756,6 +3699,16 @@ body.show-breaking-news #breaking-news {
 }
 .page-auth .custom-button.type-weibo {
   background-color: #D04341;
+}
+.page-auth .custom-button .fa-qq {
+  font-size: 16px;
+  vertical-align: -1px;
+  margin-right: 8px;
+}
+.page-auth .custom-button .fa-weibo {
+  font-size: 18px;
+  vertical-align: -1px;
+  margin-right: 3px;
 }
 .page-auth .custom-button[type=submit] {
   background-color: #0078d2;
