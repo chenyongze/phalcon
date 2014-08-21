@@ -24,6 +24,8 @@ class NewsManager extends Entities\News
         'commentStatus',
         'sourceName',
         'sourceUrl',
+        'categorySet',
+        'hasMore',
         'categories' => array(
             'id',
             'categoryName',
@@ -55,6 +57,7 @@ class NewsManager extends Entities\News
         'sourceUrl',
         'userId',
         'categorySet',
+        'hasMore',
     );
 
     public function beforeValidationOnCreate()
