@@ -13,7 +13,7 @@
                     <?foreach($posts as $post):?>
                     <div class="col-lg-6">
                         <a class="news" href="<?=$post->getUrl()?>" target="_blank">
-                            <strong><?=$post->title?></strong>
+                            <?=$post->title?>
                         </a>
                     </div>
                     <?endforeach?>
@@ -328,7 +328,7 @@
                     "chart": {
                         "interval": "5"
                     },
-                    "theme": "light",
+                    "theme": "gray",
                     "height": "430",
                     "width": "300",
                     "active": 0,
