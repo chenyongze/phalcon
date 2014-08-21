@@ -1,78 +1,44 @@
 <div>
     <?=$this->partial('partial/top')?>
     <div class="content-wrapper">
-        <form action="http://www.baidu.com/s" method="get">
+        <form action="/search" method="get">
             <div class="search">
-                <div class="search-input"><input type="text" id="searchInput" name="wd"></div>
+                <div class="search-input"><input type="text" id="searchInput" name="q" value="<?=isset($keyword) ? $keyword : ''?>"></div>
                 <div class="search-button"><input type="submit" value="&nbsp;&nbsp;搜&nbsp;索&nbsp;&nbsp;"></div>
             </div>
         </form>
+        <?if(!empty($tags)):?>
         <div class="tagcloud">
             <h2 class="hot-word-title">热门搜索</h2>
             <div id="tagcloud">
-                <a href="" class="tagc1">黄金</a>
-
-                <a href="" class="tagc2">金融</a>
-
-                <a href="" class="tagc1">欧元</a>
-
-                <a href="" class="tagc2">美元</a>
-
-                <a href="" class="tagc1">英镑</a>
-
-                <a href="" class="tagc1">美联储</a>
-
-                <a href="" class="tagc1">欧洲央行</a>
-
-                <a href="" class="tagc2">ECB</a>
-
-                <a href="" class="tagc2">耶伦</a>
-
-                <a href="" class="tagc2">德拉吉</a>
-
-                <a href="" class="tagc2">周小川</a>
-
-                <a href="" class="tagc1">EUR/USD</a>
-
-                <a href="" class="tagc2">白银</a>
-
-                <a href="" class="tagc2">标普500</a>
-
-                <a href="" class="tagc2">美股股市</a>
-
-                <a href="" class="tagc1">奇虎</a>
-
-                <a href="" class="tagc2">百度</a>
-
-                <a href="" class="tagc2">巴菲特</a>
-
-                <a href="" class="tagc2">Ackman</a>
-
-                <a href="" class="tagc2">对冲基金</a>
-
-                <a href="" class="tagc2">茅台</a>
-
-                <a href="" class="tagc2">YY</a>
-
-                <a href="" class="tagc1">特斯拉</a>
-
-                <a href="" class="tagc1">SolarCity</a>
-
-                <a href="" class="tagc2">微软</a>
-
-                <a href="" class="tagc2">飞天诚信</a>
-
-                <a href="" class="tagc2">LRTO</a>
-
-                <a href="" class="tagc6">QE</a>
-
-                <a href="" class="tagc2">TTP</a>
-
-                <a href="" class="tagc1">欧盟</a>
-
-                <a href="" class="tagc2">伯南克</a>
+                <?foreach($tags as $tag):?>
+                <a href="/search/?q=<?=$tag->tagName?>" class="tagc2"><?=$tag->tagName?></a>
+                <?endforeach?>
             </div>
         </div>
+        <?endif?>
+        <?if(!empty($hits)):?>
+        <ul class="news-list">
+            <? foreach ($hits['hits'] as $hit): ?>
+            <? $post = json_decode(json_encode($hit['_source'])); ?>
+            <li class="news">
+            <a href="/node/<?=$post->id?>">
+                <img src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_60,w_75') : '/img/article.jpg'?>"/>
+                <dl>
+                    <dd class="content"><?=isset($hit['highlight']['title']) ? $hit['highlight']['title'][0] : $post->title?></dd>
+
+                    <dd class="source"><?=$this->tag->datetime($post->createdAt)?></dd>
+                </dl>
+            </a>
+            </li>
+            <?endforeach;?>
+        </ul>
+        <br/>
+        <a class="news-more" data-action="show-info" href="/search?q=<?=$keyword?>&amp;page=<?=$pager->next?>">
+            <span class="news-font">加载更多</span>	
+        </a>	
+        <br/><br/>
+        <?endif?>
     </div>
     <?=$this->partial('partial/leftmenu')?>
     <?=$this->partial('partial/footer')?>

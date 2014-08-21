@@ -155,8 +155,8 @@ class LivenewsController extends ControllerBase
      *       notes="Returns livenews list",
      *       @SWG\Parameters(
      *         @SWG\Parameter(
-     *           name="min_id",
-     *           description="Min id",
+     *           name="min_updated",
+     *           description="Min updated time",
      *           paramType="query",
      *           required=false,
      *           type="integer"
@@ -185,12 +185,12 @@ class LivenewsController extends ControllerBase
         $limit = $this->request->getQuery('limit', 'int', 3);
         $limit = $limit > 100 ?: $limit;
         $order = $this->request->getQuery('order', 'string', '-created_at');
-        $minId = $this->request->getQuery('min_id', 'int', 0);
+        $minUpdated = $this->request->getQuery('min_updated', 'int', 0);
         $cid = $this->request->getQuery('cid', 'string');
         $redis = $this->getDI()->getFastCache();
         $data = array();
-        if ($minId > 0) {
-            $data = $redis->zRangeByScore("livenews", $minId, 999999999, array(
+        if ($minUpdated > 0) {
+            $data = $redis->zRangeByScore("livenews", $minUpdated, 999999999, array(
                 'limit' => array(0, (int) $limit)
             ));
         } else {

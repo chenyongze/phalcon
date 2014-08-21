@@ -26,8 +26,8 @@ class RegisterForm extends Form
                 'message' => 'Username is required'
             )),
             new Regex(array(
-                'pattern' => '/[0-9a-zA-Z]+/',
-                'message' => 'Username is alphanumerics only'
+                'pattern' => '/[0-9a-zA-Z_]+/',
+                'message' => 'Username is alphanumerics and underline only'
             )),
             new StringLength(array(
                 'min' => 4,

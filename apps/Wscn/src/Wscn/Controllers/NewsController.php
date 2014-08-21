@@ -19,6 +19,7 @@ class NewsController extends ControllerBase
         $query = array(
             'q' => $this->request->getQuery('q', 'string'),
             'status' => 'published',
+            'tid' => $this->request->getQuery('tid', 'int'),
             'uid' => $this->request->getQuery('uid', 'int'),
             'cid' => $this->request->getQuery('cid', 'int'),
             'username' => $this->request->getQuery('username', 'string'),
@@ -35,6 +36,10 @@ class NewsController extends ControllerBase
             $this->view->setVar('author', UserManager::findFirst($query['uid']));
         }
 
+        if ($query['tid']) {
+            $this->view->setVar('tag', Tag::findFirst($query['tid']));
+        }
+
         $post = new Post();
         $posts = $post->findPosts($query);
         $paginator = new \Eva\EvaEngine\Paginator(array(
@@ -47,10 +52,8 @@ class NewsController extends ControllerBase
         $this->view->setVar('pager', $pager);
         $this->view->setVar('query', $query);
 
-        /*
         $tag = new Tag();
-        $tags = $tag->findTags()->getQuery()->execute();
+        $tags = $tag->getPopularTags(6);
         $this->view->setVar('tags', $tags);
-        */
     }
 }
