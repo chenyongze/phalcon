@@ -179,66 +179,66 @@
                 <img src="/wscn/img/side-img-1.jpg" alt=""/>
             </div>
             <!--  -->
-            <div class="custom-box">
-                <ul class="custom-nav-tabs custom-row">
-                    <li class="col-custom-6 active">
-                        <a data-toggle="tab" href="#side-day-rank-news"><strong>日排行</strong></a>
-                    </li>
-                    <li class="col-custom-6 ">
-                        <a data-toggle="tab" href="#side-week-rank-news"><strong>周排行</strong></a>
-                    </li>
-                </ul>
-                <ul class="tab-content">
-                    <li class="tab-pane active" id="side-day-rank-news">
-                        <?$pager = $this->tag->component('post', array('status' => 'published', 'limit' => 10, 'order' => '-count'));$posts = $pager->items;?>
-                        <ul class="news-list with-number">
-                            <?foreach($posts as $post):?>
-                            <li class="news">
-                                <a class="title" href="<?=$post->getUrl()?>">
-                                    <strong><?=$post->title?></strong>
-                                </a>
-                            </li>
-                            <?endforeach?>
-                        </ul>
-                    </li>
-                    <?$pager = $this->tag->component('post', array('status' => 'published', 'limit' => 10, 'order' => '-sort_order'));$posts = $pager->items;?>
-                    <li class="tab-pane " id="side-week-rank-news">
-                        <ul class="news-list with-number">
-                            <?foreach($posts as $post):?>
-                            <li class="news">
-                                <a class="title" href="<?=$post->getUrl()?>">
-                                    <strong><?=$post->title?></strong>
-                                </a>
-                            </li>
-                            <?endforeach?>
-                        </ul>
-                    </li>
-                </ul>
-                <!--  -->
-                <h2 class="main-title">最新留言</h2>
-                <ul class="side-comments">
-                    <li class="comment">
-                        <img class="avatar" src="" alt=""/>
-                        <span class="name">smartisan</span> 评论了
-                        <a class="title" href="">希尔顿酒店准备在纽约上市融资</a>
-                        <p class="content">
-                            找中央啊！津京一体化，然后就没有问题了。但无论如何，财政纪律得重新抓，得狠抓，没有问题啊。
-                        </p>
-                        <div class="time">2014年06月25日 05:58</div>
-                        <!--<a class="text-blue " href="" data-action="reply">回复</a>-->
-                    </li>
 
-                    <li class="comment">
-                        <img class="avatar" src="" alt=""/>
-                        <span class="name">天才小熊猫</span> 评论了
-                        <a class="title" href="">希尔顿酒店准备在纽约上市融资</a>
-                        <p class="content">
-                            无言的秘密，美国收水，伊拉克开打不暴跌才怪呢。
-                        </p>
-                        <div class="time">2014年06月25日 03:25</div>
-                    </li>
-                </ul>
-            </div>
+            <ul class="custom-nav-tabs custom-row">
+                <li class="col-custom-6 active">
+                    <a data-toggle="tab" href="#side-day-rank-news"><strong>日排行</strong></a>
+                </li>
+                <li class="col-custom-6 ">
+                    <a data-toggle="tab" href="#side-week-rank-news"><strong>周排行</strong></a>
+                </li>
+            </ul>
+            <ul class="tab-content">
+                <li class="tab-pane active" id="side-day-rank-news">
+                    <?$pager = $this->tag->component('post', array('status' => 'published', 'limit' => 10, 'order' => '-count'));$posts = $pager->items;?>
+                    <ul class="news-list with-number">
+                        <?foreach($posts as $post):?>
+                        <li class="news">
+                            <a class="title" href="<?=$post->getUrl()?>">
+                                <strong><?=$post->title?></strong>
+                            </a>
+                        </li>
+                        <?endforeach?>
+                    </ul>
+                </li>
+                <?$pager = $this->tag->component('post', array('status' => 'published', 'limit' => 10, 'order' => '-sort_order'));$posts = $pager->items;?>
+                <li class="tab-pane " id="side-week-rank-news">
+                    <ul class="news-list with-number">
+                        <?foreach($posts as $post):?>
+                        <li class="news">
+                            <a class="title" href="<?=$post->getUrl()?>">
+                                <strong><?=$post->title?></strong>
+                            </a>
+                        </li>
+                        <?endforeach?>
+                    </ul>
+                </li>
+            </ul>
+            <!--  -->
+            <h2 class="main-title">最新留言</h2>
+            <ul class="side-comments">
+                <li class="comment">
+                    <img class="avatar" src="" alt=""/>
+                    <span class="name">smartisan</span> 评论了
+                    <a class="title" href="">希尔顿酒店准备在纽约上市融资</a>
+                    <p class="content">
+                        找中央啊！津京一体化，然后就没有问题了。但无论如何，财政纪律得重新抓，得狠抓，没有问题啊。
+                    </p>
+                    <div class="time">2014年06月25日 05:58</div>
+                    <!--<a class="text-blue " href="" data-action="reply">回复</a>-->
+                </li>
+
+                <li class="comment">
+                    <img class="avatar" src="" alt=""/>
+                    <span class="name">天才小熊猫</span> 评论了
+                    <a class="title" href="">希尔顿酒店准备在纽约上市融资</a>
+                    <p class="content">
+                        无言的秘密，美国收水，伊拉克开打不暴跌才怪呢。
+                    </p>
+                    <div class="time">2014年06月25日 03:25</div>
+                </li>
+            </ul>
+
 
         </div><!--right bar-->
     </div><!--/wrapper-->
