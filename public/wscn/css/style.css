@@ -2635,6 +2635,7 @@ body.show-breaking-news #breaking-news {
 }
 #index-top-news .cover-img .title {
   font-size: 14px;
+  z-index: 3;
 }
 #index-top-news .cover-img .img {
   width: 100%;
@@ -2644,6 +2645,7 @@ body.show-breaking-news #breaking-news {
   display: none;
 }
 #index-top-news .cover-img:after {
+  z-index: 2;
   display: block;
   content: "";
   position: absolute;
