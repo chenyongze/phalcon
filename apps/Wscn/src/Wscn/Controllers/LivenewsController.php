@@ -2,7 +2,6 @@
 
 namespace Wscn\Controllers;
 
-use Eva\EvaBlog\Models\Post;
 use Eva\EvaEngine\Exception;
 use Eva\EvaLivenews\Models;
 use Eva\EvaLivenews\Forms;
@@ -36,7 +35,14 @@ class LivenewsController extends ControllerBase
         $this->view->setVar('pager', $pager);
     }
 
-    public function nodeAction()
+    public function detailAction()
     {
+        $id = $this->dispatcher->getParam('id');
+        $livenewsModel = new Models\NewsManager();
+        $news = $livenewsModel->findFirst($id);
+        if (!$news || $news->status != 'published') {
+            throw new Exception\ResourceNotFoundException('Request news not found');
+        }
+        $this->view->setVar('news', $news);
     }
 }
