@@ -68,6 +68,12 @@ class FilterForm extends Form
     */
     public $username;
 
+    /**
+    *
+    * @var string
+    */
+    public $importance;
+
     protected $cid;
 
     public function addCid()

@@ -11,19 +11,12 @@ class LivenewsController extends ControllerBase
 {
     public function indexAction()
     {
-        $limit = $this->request->getQuery('per_page', 'int', 50);
-        $limit = $limit > 100 ? 100 : $limit;
-        $limit = $limit < 10 ? 10 : $limit;
-        $order = $this->request->getQuery('order', 'string', '-created_at');
         $query = array(
-            'q' => $this->request->getQuery('q', 'string'),
-            'status' => $this->request->getQuery('status', 'string'),
-            'uid' => $this->request->getQuery('uid', 'int'),
+            'status' => 'published',
             'cid' => $this->request->getQuery('cid', 'string'),
-            'username' => $this->request->getQuery('username', 'string'),
-            'codeType' => $this->request->getQuery('code_type', 'string'),
-            'order' => $order,
-            'limit' => $limit,
+            'type' => $this->request->getQuery('type', 'string'),
+            'importance' => $this->request->getQuery('importance', 'string'),
+            'order' => '-updated_at',
             'page' => $this->request->getQuery('page', 'int', 1),
         );
 
@@ -35,7 +28,7 @@ class LivenewsController extends ControllerBase
         $newsSet = $news->findNews($query);
         $paginator = new \Eva\EvaEngine\Paginator(array(
             "builder" => $newsSet,
-            "limit"=> $limit,
+            "limit"=> 40,
             "page" => $query['page']
         ));
         $paginator->setQuery($query);

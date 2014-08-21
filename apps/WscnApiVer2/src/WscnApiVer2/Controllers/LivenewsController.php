@@ -77,6 +77,13 @@ class LivenewsController extends ControllerBase
      *           type="string"
      *         ),
      *         @SWG\Parameter(
+     *           name="importance",
+     *           description="Importance 1-3, split multi by comma",
+     *           paramType="query",
+     *           required=false,
+     *           type="string"
+     *         ),
+     *         @SWG\Parameter(
      *           name="limit",
      *           description="Limit max:100 | min:3; default is 25",
      *           paramType="query",
@@ -101,7 +108,6 @@ class LivenewsController extends ControllerBase
         $limit = $limit > 100 ?: $limit;
         $limit = $limit < 3 ?: $limit;
         //fixed order
-        $order = '-updated_at';
         $query = array(
             'q' => $this->request->getQuery('q', 'string'),
             'status' => $this->request->getQuery('status', 'string'),
@@ -109,9 +115,8 @@ class LivenewsController extends ControllerBase
             'codeType' => $this->request->getQuery('format', 'string'),
             'uid' => $this->request->getQuery('uid', 'int'),
             'cid' => $this->request->getQuery('cid', 'string'),
-            'username' => $this->request->getQuery('username', 'string'),
-            'order' => $order,
-            'limit' => $limit,
+            'importance' => $this->request->getQuery('importance', 'string'),
+            'order' => '-updated_at',
             'page' => $this->request->getQuery('page', 'int', 1),
         );
 
