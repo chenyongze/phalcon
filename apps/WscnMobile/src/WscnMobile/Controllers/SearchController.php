@@ -2,6 +2,8 @@
 
 namespace WscnMobile\Controllers;
 
+use Eva\EvaEngine\View\PurePaginator;
+use Eva\EvaBlog\Models\Tag;
 use Eva\EvaBlog\Models\Post;
 use Eva\EvaEngine\Exception;
 
@@ -9,37 +11,68 @@ class SearchController extends ControllerBase
 {
     public function indexAction()
     {
-        $limit = $this->request->getQuery('limit', 'int', 25);
-        $limit = $limit > 100 ? 100 : $limit;
-        $limit = $limit < 10 ? 10 : $limit;
-        $order = $this->request->getQuery('order', 'string', '-created_at');
-        $query = array(
-            'q' => $this->request->getQuery('q', 'string'),
-            'status' => $this->request->getQuery('status', 'string', 'published'),
-            'uid' => $this->request->getQuery('uid', 'int'),
-            'cid' => $this->request->getQuery('cid', 'int'),
-            'username' => $this->request->getQuery('username', 'string'),
-            'order' => $order,
-            'limit' => $limit,
-            'page' => $this->request->getQuery('page', 'int', 1),
+        $keyword = trim($this->request->getQuery("q"));
+        if (!$keyword) {
+            $tag = new Tag();
+            $tags = $tag->getPopularTags(100);
+            $this->view->setVar('tags', $tags);
+            return;
+        }
+        $client = new \Elasticsearch\Client(array(
+            'hosts' => $this->getDI()->getConfig()->EvaSearch->elasticsearch->servers->toArray()
+        ));
+        $searchParams['index'] = 'wallstreetcn';
+        $type = $this->request->getQuery('type');
+        $type = in_array($type, array('article', 'wiki', 'livenews')) ? $type : 'article';
+        $searchParams['type'] = $type;
+        $searchParams['size'] = 15;
+        $page = isset($_REQUEST['page']) ? intval($_REQUEST['page']) : 1;
+        $page = $page > 0 ? $page : 1;
+        $searchParams['from'] = ($page - 1) * $searchParams['size'];
+
+        $searchParams['body']['query']['multi_match'] = array(
+            'query' => $keyword,
+            "fields" => array("title", "content"),
+            "tie_breaker" => 0.3
         );
 
-        if ($query['cid']) {
-            $this->view->setVar('category', Category::findFirst($query['cid']));
-        }
+        $searchParams['body']['highlight'] = array(
+            "fields" => array(
+                "title" => array(
+                    "type" => "plain"
+                ),
+                "content" => array(
+                    "fragment_size" => 50,
+                    "number_of_fragments" => 3,
+                    "type" => "plain"
+                ),
 
-        $post = new Post();
-        $posts = $post->findPosts($query);
-        $paginator = new \Eva\EvaEngine\Paginator(array(
-            "builder" => $posts,
-            "limit"=> $limit,
-            "page" => $query['page']
-        ));
-        $paginator->setQuery($query);
-        $pager = $paginator->getPaginate();
+            )
+        );
+        $searchParams['body']['filter'] = array(
+            "bool" => array(
+                "should" => array(
+                    "term" => array(
+                        "status" => "published"
+                    )
+                )
+            )
+        );
+        $searchParams['body']['sort'] = array(
+            'createdAt' => array(
+                'order' => 'desc',
+            ),
+            '_score' => array(
+                'order' => 'desc'
+            ),
+        );
+
+        $ret = $client->search($searchParams);
+        $this->view->setVar('hits', $ret['hits']);
+        $pager = new PurePaginator($searchParams['size'], $ret['hits']['total'], $ret['hits']['hits']);
         $this->view->setVar('pager', $pager);
+        $this->view->setVar('keyword', $keyword);
 
-        return $paginator;
     }
 
     public function suggestionAction()
