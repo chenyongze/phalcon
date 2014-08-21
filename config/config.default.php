@@ -77,7 +77,7 @@ return array(
                 ),
             ),
         ),
-        'modelCache' => array(
+        'modelsCache' => array(
             'enable' => true,
             'frontend' => array(
                 'adapter' => 'Data',

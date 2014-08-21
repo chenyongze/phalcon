@@ -6,7 +6,11 @@
 
     <div id="wrapper">
         <div id="main" class="page-search">
-            <?if($query['cid'] && !empty($category)):?>
+            <?if($query['tid'] && !empty($tag)):?>
+            <h2 class="search-title">
+                标签为 <span class="text-blue"><?=$tag->tagName?></span> 的所有文章
+            </h2>
+            <?elseif($query['cid'] && !empty($category)):?>
             <h2 class="crumbs-title">
                 <a href="/">首页</a>
                 <span class="fa fa-angle-right"></span>
@@ -34,8 +38,8 @@
                 <span class="sub">最新文章</span>
             </h2>
             <?endif?>
-            <?if(0):?>
 
+            <?if(0):?>
             <h6 style="line-height: 50px; color: #999;">样式一：</h6>
             <nav class="categories">
                 <span class="title">阅读分类</span>
@@ -54,9 +58,7 @@
             <h6 style="line-height: 50px; color: #999;">样式二：</h6>
            
             <h6 style="line-height: 50px; color: #999;">样式三：</h6>
-            <h2 class="search-title">
-                标签为 <span class="text-blue">美股</span> 的所有文章
-            </h2>
+
             <h6 style="line-height: 50px; color: #999;">样式四：</h6>
             <?endif?>
             <?$posts = $pager->items;?>
@@ -94,17 +96,16 @@
             </ul>
         </div>
         <div id="rightbar">
+            <?if($tags):?>
             <div class="side-tags">
                 <h3 class="title">
                     热门标签
                 </h3>
-                <a class="tag" href="">美国</a>
-                <a class="tag active" href="">石油</a>
-                <a class="tag" href="">黄金</a>
-                <a class="tag" href="">美元</a>
-                <a class="tag" href="">欧元</a>
-                <a class="tag" href="">日元</a>
+                <?foreach($tags as $tag):?>
+                <a class="tag" href="/news?tid=<?=$tag->id?>"><?=$tag->tagName?></a>
+                <?endforeach?>
             </div>
+            <?endif?>
         </div>
     </div><!--/wrapper-->
 </div><!--/main content-->

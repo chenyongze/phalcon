@@ -118,19 +118,18 @@
                 <nav class="tags">
                     <h2 class="title">关键词阅读:</h2>
                     <?foreach($post->tags as $key => $tag):?>
-                    <a class="tag" href="/news/<?=$key?>"><?=$tag->tagName?></a>
+                    <a class="tag" href="/news/?tid=<?=$tag->id?>"><?=$tag->tagName?></a>
                     <?endforeach?>
-                    <!--
-                    <a class="tag" href="">中国</a>
-                    <a class="tag" href="">美国</a>
-                    <a class="tag" href="">华尔街见闻</a>
-                    -->
                 </nav>
                 <?endif?>
 
             </article>
 
-            <?php $this->partial('partial/comment', array('uniqueKey' => 'post_' . $post->id)); ?>
+            <div id="comments">
+            <?if($post->commentStatus == 'open'):?>
+            <?$this->partial('partial/comment', array('uniqueKey' => 'post_' . $post->id)); ?>
+            <?endif?>
+            </div>
 
         </div>
         <div id="rightbar">
@@ -139,15 +138,10 @@
             <!-- Start: Wallstreetcn.com sidebar widget -->
             <div id="js-wscn-sidebar-wrapper" class="hidden-xxs" style="margin-bottom: 15px;"></div>
             <script src="http://markets.static.wallstreetcn.com/embed/sidebar.js" type='text/javascript'></script>
-
             <script type='text/javascript'>
                 (function(){
-
-                    // 插入的 iFrame 父节点
                     var parentId = 'js-wscn-sidebar-wrapper';
-                    // iFrame 的 ID
                     var iframeId = 'js-wscn-sidebar-iframe';
-
                     var options = /*options*/{
                         "chart": {
                             "interval": "5"
@@ -209,7 +203,6 @@
                     }/*endOptions*/
                     var sidebar = new WallstreetCN.embed.Sidebar(parentId, options, iframeId);
                     sidebar.render();
-
                 })();
             </script>
             <!-- End: Wallstreetcn.com sidebar widget -->
