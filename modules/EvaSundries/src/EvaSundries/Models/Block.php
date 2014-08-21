@@ -22,7 +22,7 @@ class Block extends Blocks
 
     public function beforeValidationOnUpdate()
     {
-        $this->updatedAt = $this->updatedAt ? $this->updatedAt : time();
+        $this->updatedAt =  time();
     }
 
     public function findBlocks($query)
