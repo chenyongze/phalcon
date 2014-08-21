@@ -142,7 +142,14 @@ class News extends \Eva\EvaEngine\Mvc\Model
      *
      * @var integer
      */
-    public $count = 0;
+    public $viewCount = 0;
+
+
+    /**
+     *
+     * @var integer
+     */
+    public $shareCount = 0;
 
     /**
      *
