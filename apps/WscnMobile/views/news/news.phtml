@@ -31,6 +31,9 @@
             <div class="content">
                 <?=$post->getContentHtml()?>
             </div>
+			<div class="app-info">
+				<p>点击查看更多</p>
+			</div>
             <div class="sharebar">
                 <span class="item label">分享：</span>
                 <a class="item btn tsina" href="http://www.jiathis.com/send/?webid=tsina&amp;url=http://<?=$this->config->wscnmobile->domain?>/node/<?=$post->id?>" target="_blank"></a>
@@ -41,6 +44,8 @@
 
         </div>
 		
+		
+		
     </div>
     <?=$this->partial('partial/footer')?>
 </div>
@@ -49,13 +54,28 @@
 <script type="text/javascript">
 	var redirect = WSCN_UTIL.url.parseQueryString()["redirect"];
 	if(redirect && (redirect + "") == "1"){
+		redirecToApp();
+	}
+	
+	function redirecToApp(){
 		if(WSCN_UTIL.browser.iOS()){
-			document.location.href = "wscn-zeus://www.wallstreetcn.com/detail/?id=<?=$post->id?>";
+			//document.location.href = "wscn-zeus://www.wallstreetcn.com/detail/?id=<?=$post->id?>";
+			$("<iframe width='1' height='1' src='wscn-zeus://www.wallstreetcn.com/detail/?id=<?=$post->id?>'></iframe>").appendTo("body")
 		}
 		else if(WSCN_UTIL.browser.android()){
-			document.location.href = "wscn-medusa://www.wallstreetcn.com/detail/?id=<?=$post->id?>";
+			//document.location.href = "wscn-medusa://www.wallstreetcn.com/detail/?id=<?=$post->id?>";
+			$("<iframe width='1' height='1' src='wscn-medusa://www.wallstreetcn.com/detail/?id=<?=$post->id?>'></iframe>").appendTo("body")
 		}
 	}
+	
+	$(".app-info").click(function(){
+		if(WSCN_UTIL.browser.iOS() || WSCN_UTIL.browser.android()){
+			redirecToApp();
+		}
+		else{
+			window.open("http://wallstreetcn.com/downloadapp.html","_blank");
+		}
+	});
 </script>
 
 
