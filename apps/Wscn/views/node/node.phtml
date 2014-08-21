@@ -108,9 +108,12 @@
                 </a>
             </div>
             <script type="text/javascript">
+                <?
+                    $summary= trim(preg_replace('/\s+/', ' ', strip_tags($post->summary)));
+                ?>
                 var jiathis_config = {
-                    summary: "<?=preg_replace('/\s+/', ' ', $post->summary)?>",
-                    title: "<?=$post->title?>",
+                    summary: "<?=$summary?>",
+                    title: "<?=$summary ? $post->title.'：' : $post->title?>",
                     pic: "<?=$this->tag->thumb($post->image)?>",
                     appkey: {
                         <?
