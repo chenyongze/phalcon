@@ -156,7 +156,7 @@
                 <hr class="hr"/>
                 <span class="title">信息类型：</span>
                 <label class="custom-radio">
-                    <input type="radio" name="type" value="all">
+                    <input type="radio" name="type" checked="checked" value="">
                     <i class="fa"></i>
                     <span class="text">全部</span>
                 </label>
@@ -172,7 +172,7 @@
                 </label>
                 <span class="title" >重要性：</span>
                 <label class="custom-radio">
-                    <input type="radio" name="important" value="all">
+                    <input type="radio" name="important" checked value="all">
                     <i class="fa"></i>
                     <span class="text">全部</span>
                 </label>
@@ -189,7 +189,7 @@
                         <li class="date"><%= record.date %></li>
                     <% } %>
 
-                    <% if (record.type='news') { %>
+                    <% if (record.type == 'news') { %>
                         <li id="<%= record.id %>" class="news" data-utm="<%= record.utm %>" >
                             <span class="time"><%= record.time %></span>
                             <span class="icon fa fa-file-text"></span>
@@ -217,8 +217,8 @@
                             </div>
                             <div class="content"><%= record.contentHtml %></div>
                         </li>
-                    <% } else if (record.type='data') { %>
-                        <% if (record.codeType = 'json') { %>
+                    <% } else if (record.type =='data') { %>
+                        <% if (record.codeType == 'json') { %>
                             <li id="<%= record.id %>" class="news type-date" data-utm="<%= record.utm %>"  data-trend="<%= record.data.trend %>">
                                 <span class="time"><%= record.time %></span>
                                 <span class="important">
@@ -316,7 +316,7 @@
     <div id="rightbar">
         <h2 class="side-title">实时行情</h2>
         <!-- Start: Wallstreetcn.com sidebar widget -->
-        <div id="js-wscn-sidebar-wrapper" class="hidden-xxs" style="margin-bottom: 15px;"></div>
+        <div id="js-wscn-sidebar-wrapper" class="hidden-xxs" style=""></div>
         <script src="http://markets.static.wallstreetcn.com/embed/sidebar.js" type='text/javascript'></script>
 
         <script type='text/javascript'>

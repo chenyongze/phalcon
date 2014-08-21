@@ -53,16 +53,16 @@
         <div class="meta">
             <a class="item author" href="">文 / <?= $post->user ? $post->user->username : '华尔街见闻' ?></a>
             <span class="item time"><?= $this->tag->datetime($post->createdAt) ?></span>
-
+            <a class="item" href="#comments">
+                <span class="fa fa-comment" style="vertical-align: 1px"></span>
+                <span class="ws-counter"><?= $post->commentCount > 0 ? : 0 ?></span>
+            </a>
             <div class="pull-right">
                 <? if ($post->sourceName): ?>
                     <span class="item">来源：<a href="<?= $post->sourceUrl ?>"
                                              target="_blank"><?= $post->sourceName ?></a></span>
                 <? endif ?>
-                <a class="item" href="#comments">
-                    <span class="fa fa-comment" style="vertical-align: 1px"></span>
-                    <span class="ws-counter"><?= $post->commentCount > 0 ? : 0 ?></span>
-                </a>
+
             </div>
         </div>
         <? if ($post->imageId): ?>
@@ -164,9 +164,9 @@
 </div>
 <div id="rightbar">
 
-    <h2 class="side-title" style="margin-bottom: 5px;">实时行情</h2>
+    <h2 class="side-title">实时行情</h2>
     <!-- Start: Wallstreetcn.com sidebar widget -->
-    <div id="js-wscn-sidebar-wrapper" class="hidden-xxs" style="margin-bottom: 15px;"></div>
+    <div id="js-wscn-sidebar-wrapper" class="hidden-xxs"></div>
     <script src="http://markets.static.wallstreetcn.com/embed/sidebar.js" type='text/javascript'></script>
     <script type='text/javascript'>
         (function () {

@@ -129,6 +129,7 @@ $(function(){
                 $tag.remove();
                 cids = cids.replace(name + ',', '');
             }
+            createUrl();
             loadPage();
         });
         //取消分类
@@ -142,6 +143,13 @@ $(function(){
             }
             $this.remove();
             cids = cids.replace(name + ',', '');
+            createUrl();
+            loadPage();
+        });
+        $controlGroup.on('click', '[type=radio][name=type]', function(e){
+            var $selected = $controlGroup.find('[type=radio][name=type]:checked');
+            type = $selected[0].value;
+            createUrl();
             loadPage();
         });
     }
@@ -241,19 +249,36 @@ $(function(){
         var records = [];
         var i;
         var l = data.length;
-        var updateAt = parseInt(data[0].updateAt);
-        if (updateTime == undefined || updateAt > updateTime) {
-            updateTime = updateAt;
+        var updatedAt = parseInt(data[0].updatedAt);
+        if (updateTime == undefined || updatedAt > updateTime) {
+            updateTime = updatedAt;
         }
         for (i = 0; i < l; i++) {
             var record = data[i];
             var mt = moment.unix(record.updatedAt);
-            record.id += idPrefix;
+            record.id = idPrefix + record.id;
             record.utm  = record.updatedAt;
             record.time = mt.format(timeFormat);
             record.date = mt.format(dateFormat);
-            if () {
-
+            if (record.type == 'data' && record.codeType == 'json') {
+                if (record.data['actual'] && record.data['actual'] !== '&nbsp;') {
+                    if (record.data['forecast']  && record.data['forecast'] !== '&nbsp;') {
+                        if (parseFloat(record.data['actual']) > parseFloat(record.data['forecast'])) {
+                            record.data.trend = 'up';
+                        } else if (parseFloat(record.data['actual']) < parseFloat(record.data['forecast'])) {
+                            record.data.trend = 'down';
+                        }
+                    } else {
+                        record.data['forecast'] = '- -';
+                        if (record.data['previous']) {
+                            if (parseFloat(record.data['actual']) > parseFloat(record.data['previous'])) {
+                                record.data.trend = 'up';
+                            } else if (parseFloat(record.data['actual']) < parseFloat(record.data['previous'])) {
+                                record.data.trend = 'down';
+                            }
+                        }
+                    }
+                }
             }
             records.push(record);
         }
