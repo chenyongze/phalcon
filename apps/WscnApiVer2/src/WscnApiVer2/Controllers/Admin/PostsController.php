@@ -28,7 +28,7 @@ class PostsController extends ControllerBase implements TokenAuthorityController
      *
      * @SWG\Api(
      *   path="/admin/posts",
-     *   description="Posts Manage api",
+     *   description="Posts manage API",
      *   produces="['application/json']",
      *   @SWG\Operations(
      *     @SWG\Operation(

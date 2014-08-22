@@ -27,7 +27,7 @@ use Eva\EvaEngine\Exception;
      *
      * @SWG\Api(
      *   path="/admin/media",
-     *   description="Media manage api",
+     *   description="Media manage API",
      *   produces="['application/json']",
      *   @SWG\Operations(
      *     @SWG\Operation(

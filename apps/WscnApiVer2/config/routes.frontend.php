@@ -258,7 +258,7 @@ return array(
         ),
         'httpMethods' => 'GET'
     ),
-    'adminGetPost' =>  array(
+    'getPost' =>  array(
         'pattern' => '/v2/posts/(\d+)',
         'paths' => array(
             'module' => 'WscnApiVer2',
@@ -268,6 +268,17 @@ return array(
         ),
         'httpMethods' => 'GET'
     ),
+
+    //Login API
+    'login' =>  array(
+        'pattern' => '/v2/login',
+        'paths' => array(
+            'module' => 'WscnApiVer2',
+            'controller' => 'login',
+        ),
+        'httpMethods' => 'POST'
+    ),
+
 
     //Wiki
     'wikiCrateCategory' =>  array(

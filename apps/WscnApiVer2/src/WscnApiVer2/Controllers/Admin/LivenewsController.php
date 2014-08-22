@@ -28,7 +28,7 @@ class LivenewsController extends ControllerBase
      *
      * @SWG\Api(
      *   path="/admin/livenews",
-     *   description="Livenews manage api",
+     *   description="Livenews manage API",
      *   produces="['application/json']",
      *   @SWG\Operations(
      *     @SWG\Operation(

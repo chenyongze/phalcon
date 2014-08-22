@@ -27,7 +27,7 @@ class UsersController extends ControllerBase implements TokenAuthorityController
      *
      * @SWG\Api(
      *   path="/admin/users",
-     *   description="User manage api",
+     *   description="User manage API",
      *   produces="['application/json']",
      *   @SWG\Operations(
      *     @SWG\Operation(
