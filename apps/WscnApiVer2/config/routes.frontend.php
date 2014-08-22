@@ -17,94 +17,98 @@ return array(
         'controller' => 'index',
         'action' => 'resources',
     ),
-    'postlist' =>  array(
-        'pattern' => '/v2/post',
+
+    //Admin posts
+    'adminPostList' =>  array(
+        'pattern' => '/v2/admin/posts',
         'paths' => array(
             'module' => 'WscnApiVer2',
-            'controller' => 'post',
+            'controller' => 'posts',
             'action' => 'index',
         ),
         'httpMethods' => 'GET'
     ),
-    'createpost' =>  array(
-        'pattern' => '/v2/post',
+    'adminCreatePost' =>  array(
+        'pattern' => '/v2/admin/posts',
         'paths' => array(
             'module' => 'WscnApiVer2',
-            'controller' => 'post',
+            'controller' => 'posts',
+            'action' => 'posts',
+        ),
+        'httpMethods' => 'POST'
+    ),
+    'adminGetPost' =>  array(
+        'pattern' => '/v2/admin/posts/(\d+)',
+        'paths' => array(
+            'module' => 'WscnApiVer2',
+            'controller' => 'posts',
+            'action' => 'get',
+            'id' => 1,
+        ),
+        'httpMethods' => 'GET'
+    ),
+    'adminPutpost' =>  array(
+        'pattern' => '/v2/admin/posts/(\d+)',
+        'paths' => array(
+            'module' => 'WscnApiVer2',
+            'controller' => 'posts',
+            'action' => 'put',
+            'id' => 1,
+        ),
+        'httpMethods' => 'PUT'
+    ),
+    'adminDeletePost' =>  array(
+        'pattern' => '/v2/admin/posts/(\d+)',
+        'paths' => array(
+            'module' => 'WscnApiVer2',
+            'controller' => 'posts',
+            'action' => 'delete',
+            'id' => 1,
+        ),
+        'httpMethods' => 'DELETE'
+    ),
+
+    //Admin posts
+    'adminUserList' =>  array(
+        'pattern' => '/v2/admin/users',
+        'paths' => array(
+            'module' => 'WscnApiVer2',
+            'controller' => 'users',
+            'action' => 'index',
+        ),
+        'httpMethods' => 'GET'
+    ),
+    'adminCreateUser' =>  array(
+        'pattern' => '/v2/admin/users',
+        'paths' => array(
+            'module' => 'WscnApiVer2',
+            'controller' => 'users',
             'action' => 'post',
         ),
         'httpMethods' => 'POST'
     ),
-    'getpost' =>  array(
-        'pattern' => '/v2/post/(\d+)',
+    'adminGetUser' =>  array(
+        'pattern' => '/v2/admin/users/(\d+)',
         'paths' => array(
             'module' => 'WscnApiVer2',
-            'controller' => 'post',
+            'controller' => 'users',
             'action' => 'get',
             'id' => 1,
         ),
         'httpMethods' => 'GET'
     ),
-    'putpost' =>  array(
-        'pattern' => '/v2/post/(\d+)',
+    'adminPutUser' =>  array(
+        'pattern' => '/v2/admin/users/(\d+)',
         'paths' => array(
             'module' => 'WscnApiVer2',
-            'controller' => 'post',
+            'controller' => 'users',
             'action' => 'put',
             'id' => 1,
         ),
         'httpMethods' => 'PUT'
     ),
-    'deletepost' =>  array(
-        'pattern' => '/v2/post/(\d+)',
-        'paths' => array(
-            'module' => 'WscnApiVer2',
-            'controller' => 'post',
-            'action' => 'delete',
-            'id' => 1,
-        ),
-        'httpMethods' => 'DELETE'
-    ),
-    'userlist' =>  array(
-        'pattern' => '/v2/user',
-        'paths' => array(
-            'module' => 'WscnApiVer2',
-            'controller' => 'user',
-            'action' => 'index',
-        ),
-        'httpMethods' => 'GET'
-    ),
-    'createuser' =>  array(
-        'pattern' => '/v2/user',
-        'paths' => array(
-            'module' => 'WscnApiVer2',
-            'controller' => 'user',
-            'action' => 'user',
-        ),
-        'httpMethods' => 'POST'
-    ),
-    'getuser' =>  array(
-        'pattern' => '/v2/user/(\d+)',
-        'paths' => array(
-            'module' => 'WscnApiVer2',
-            'controller' => 'user',
-            'action' => 'get',
-            'id' => 1,
-        ),
-        'httpMethods' => 'GET'
-    ),
-    'putuser' =>  array(
-        'pattern' => '/v2/user/(\d+)',
-        'paths' => array(
-            'module' => 'WscnApiVer2',
-            'controller' => 'user',
-            'action' => 'put',
-            'id' => 1,
-        ),
-        'httpMethods' => 'PUT'
-    ),
-    'deleteuser' =>  array(
-        'pattern' => '/v2/user/(\d+)',
+    'adminDeleteUser' =>  array(
+        'pattern' => '/v2/admin/users/(\d+)',
         'paths' => array(
             'module' => 'WscnApiVer2',
             'controller' => 'user',
@@ -113,8 +117,10 @@ return array(
         ),
         'httpMethods' => 'DELETE'
     ),
+
+    //Medias
     'medialist' =>  array(
-        'pattern' => '/v2/media',
+        'pattern' => '/v2/admin/media',
         'paths' => array(
             'module' => 'WscnApiVer2',
             'controller' => 'media',
@@ -123,7 +129,7 @@ return array(
         'httpMethods' => 'GET'
     ),
     'createmedia' =>  array(
-        'pattern' => '/v2/media',
+        'pattern' => '/v2/admin/media',
         'paths' => array(
             'module' => 'WscnApiVer2',
             'controller' => 'media',
@@ -132,7 +138,7 @@ return array(
         'httpMethods' => 'POST'
     ),
     'getmedia' =>  array(
-        'pattern' => '/v2/media/(\d+)',
+        'pattern' => '/v2/admin/media/(\d+)',
         'paths' => array(
             'module' => 'WscnApiVer2',
             'controller' => 'media',
@@ -142,7 +148,7 @@ return array(
         'httpMethods' => 'GET'
     ),
     'putmedia' =>  array(
-        'pattern' => '/v2/media/(\d+)',
+        'pattern' => '/v2/admin/media/(\d+)',
         'paths' => array(
             'module' => 'WscnApiVer2',
             'controller' => 'media',
@@ -152,7 +158,7 @@ return array(
         'httpMethods' => 'PUT'
     ),
     'deletemedia' =>  array(
-        'pattern' => '/v2/media/(\d+)',
+        'pattern' => '/v2/admin/media/(\d+)',
         'paths' => array(
             'module' => 'WscnApiVer2',
             'controller' => 'media',
@@ -163,7 +169,7 @@ return array(
     ),
 
     'livenewslist' =>  array(
-        'pattern' => '/v2/livenews',
+        'pattern' => '/v2/admin/livenews',
         'paths' => array(
             'module' => 'WscnApiVer2',
             'controller' => 'livenews',
@@ -172,7 +178,7 @@ return array(
         'httpMethods' => 'GET'
     ),
     'livenewsrealtime' =>  array(
-        'pattern' => '/v2/livenews/realtime',
+        'pattern' => '/v2/admin/livenews/realtime',
         'paths' => array(
             'module' => 'WscnApiVer2',
             'controller' => 'livenews',
@@ -181,7 +187,7 @@ return array(
         'httpMethods' => 'GET'
     ),
     'createlivenews' =>  array(
-        'pattern' => '/v2/livenews',
+        'pattern' => '/v2/admin/livenews',
         'paths' => array(
             'module' => 'WscnApiVer2',
             'controller' => 'livenews',
@@ -190,7 +196,7 @@ return array(
         'httpMethods' => 'POST'
     ),
     'getlivenews' =>  array(
-        'pattern' => '/v2/livenews/(\d+)',
+        'pattern' => '/v2/admin/livenews/(\d+)',
         'paths' => array(
             'module' => 'WscnApiVer2',
             'controller' => 'livenews',
@@ -200,7 +206,7 @@ return array(
         'httpMethods' => 'GET'
     ),
     'putlivenews' =>  array(
-        'pattern' => '/v2/livenews/(\d+)',
+        'pattern' => '/v2/admin/livenews/(\d+)',
         'paths' => array(
             'module' => 'WscnApiVer2',
             'controller' => 'livenews',
@@ -210,7 +216,7 @@ return array(
         'httpMethods' => 'PUT'
     ),
     'deletelivenews' =>  array(
-        'pattern' => '/v2/livenews/(\d+)',
+        'pattern' => '/v2/admin/livenews/(\d+)',
         'paths' => array(
             'module' => 'WscnApiVer2',
             'controller' => 'livenews',
@@ -220,7 +226,7 @@ return array(
         'httpMethods' => 'DELETE'
     ),
     'wikiCrateCategory' =>  array(
-        'pattern' => '/v2/wiki/category',
+        'pattern' => '/v2/admin/wiki/category',
         'paths' => array(
             'module' => 'WscnApiVer2',
             'controller' => 'Wiki',
@@ -229,7 +235,7 @@ return array(
         'httpMethods' => 'POST'
     ),
     'wikiCrateEntry' =>  array(
-        'pattern' => '/v2/wiki/entry',
+        'pattern' => '/v2/admin/wiki/entry',
         'paths' => array(
             'module' => 'WscnApiVer2',
             'controller' => 'Wiki',
@@ -238,7 +244,7 @@ return array(
         'httpMethods' => 'POST'
     ),
     'commentList' =>  array(
-        'pattern' => '/v2/comment',
+        'pattern' => '/v2/admin/comment',
         'paths' => array(
             'module' => 'WscnApiVer2',
             'controller' => 'Comment',
@@ -247,7 +253,7 @@ return array(
         'httpMethods' => 'GET'
     ),
     'commentCounter' =>  array(
-        'pattern' => '/v2/comment/counter',
+        'pattern' => '/v2/admin/comment/counter',
         'paths' => array(
             'module' => 'WscnApiVer2',
             'controller' => 'Comment',

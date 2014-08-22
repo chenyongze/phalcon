@@ -200,22 +200,20 @@ class MediaController extends ControllerBase
      *   )
      * )
      */
-     public function putAction()
-     {
-         $id = $this->dispatcher->getParam('id');
-         $data = $this->request->getRawBody();
-         if (!$data) {
-             throw new Exception\InvalidArgumentException('No data input');
-         }
-         if (!$data = json_decode($data, true)) {
-             throw new Exception\InvalidArgumentException('Data not able to decode as JSON');
-         }
-
-         $media = Models\FileManager::findFirst($id);
-         if (!$media) {
-             throw new Exception\ResourceNotFoundException('Request media not exist');
-         }
-
+    public function putAction()
+    {
+        $id = $this->dispatcher->getParam('id');
+        $data = $this->request->getRawBody();
+        if (!$data) {
+            throw new Exception\InvalidArgumentException('No data input');
+        }
+        if (!$data = json_decode($data, true)) {
+            throw new Exception\InvalidArgumentException('Data not able to decode as JSON');
+        }
+        $media = Models\FileManager::findFirst($id);
+        if (!$media) {
+            throw new Exception\ResourceNotFoundException('Request media not exist');
+        }
         try {
             $media->assign($data);
             $media->save();
@@ -224,7 +222,7 @@ class MediaController extends ControllerBase
         } catch (\Exception $e) {
             return $this->showExceptionAsJson($e, $form->getModel()->getMessages());
         }
-     }
+    }
 
      /**
      *
@@ -299,15 +297,15 @@ class MediaController extends ControllerBase
     {
          $id = $this->dispatcher->getParam('id');
          $media = Models\FileManager::findFirst($id);
-         if (!$media) {
-             throw new Exception\ResourceNotFoundException('Request media not exist');
-         }
+        if (!$media) {
+            throw new Exception\ResourceNotFoundException('Request media not exist');
+        }
          $mediainfo = $media->dump(Models\FileManager::$defaultDump);
-         try {
-             $media->delete($id);
-             return $this->response->setJsonContent($mediainfo);
-         } catch (\Exception $e) {
-             return $this->showExceptionAsJson($e, $media->getMessages());
-         }
+        try {
+            $media->delete($id);
+            return $this->response->setJsonContent($mediainfo);
+        } catch (\Exception $e) {
+            return $this->showExceptionAsJson($e, $media->getMessages());
+        }
     }
 }

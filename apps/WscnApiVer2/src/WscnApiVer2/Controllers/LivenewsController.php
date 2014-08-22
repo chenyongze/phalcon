@@ -187,7 +187,6 @@ class LivenewsController extends ControllerBase
      */
     public function realtimeAction()
     {
-        //TODO: should fix limit
         $limit = $this->request->getQuery('limit', 'int', 3);
         $limit = $limit > 100 ?: $limit;
         $minUpdated = $this->request->getQuery('min_updated', 'int', 0);
@@ -195,6 +194,9 @@ class LivenewsController extends ControllerBase
         $redis = $this->getDI()->getFastCache();
         $data = array();
         if ($minUpdated > 0) {
+            //No limit when has min updated
+            //TODO: should change cid as a filter
+            $limit = 100;
             $data = $redis->zRangeByScore("livenews", $minUpdated, 999999999, array(
                 'limit' => array(0, (int) $limit)
             ));
@@ -295,31 +297,26 @@ class LivenewsController extends ControllerBase
      *   )
      * )
      */
-     public function putAction()
-     {
-         $id = $this->dispatcher->getParam('id');
-         $data = $this->request->getRawBody();
-         if (!$data) {
-             throw new Exception\InvalidArgumentException('No data input');
-         }
-         if (!$data = json_decode($data, true)) {
-             throw new Exception\InvalidArgumentException('Data not able to decode as JSON');
-         }
-
-         $livenews = Models\NewsManager::findFirst($id);
-         if (!$livenews) {
-             throw new Exception\ResourceNotFoundException('Request livenews not exist');
-         }
-
+    public function putAction()
+    {
+        $id = $this->dispatcher->getParam('id');
+        $data = $this->request->getRawBody();
+        if (!$data) {
+            throw new Exception\InvalidArgumentException('No data input');
+        }
+        if (!$data = json_decode($data, true)) {
+            throw new Exception\InvalidArgumentException('Data not able to decode as JSON');
+        }
+        $livenews = Models\NewsManager::findFirst($id);
+        if (!$livenews) {
+            throw new Exception\ResourceNotFoundException('Request livenews not exist');
+        }
         $form = new Forms\NewsForm();
         $form->setModel($livenews);
         $form->addForm('text', 'Eva\EvaLivenews\Forms\TextForm');
-
-
         if (!$form->isFullValid($data)) {
             return $this->showInvalidMessagesAsJson($form);
         }
-
         try {
             $form->save('updateNews');
             $data = $livenews->dump(Models\NewsManager::$defaultDump);
@@ -327,7 +324,7 @@ class LivenewsController extends ControllerBase
         } catch (\Exception $e) {
             return $this->showExceptionAsJson($e, $form->getModel()->getMessages());
         }
-     }
+    }
 
      /**
      *
@@ -409,15 +406,15 @@ class LivenewsController extends ControllerBase
     {
          $id = $this->dispatcher->getParam('id');
          $livenews = Models\NewsManager::findFirst($id);
-         if (!$livenews) {
-             throw new Exception\ResourceNotFoundException('Request livenews not exist');
-         }
+        if (!$livenews) {
+            throw new Exception\ResourceNotFoundException('Request livenews not exist');
+        }
          $livenewsinfo = $livenews->dump(Models\NewsManager::$defaultDump);
-         try {
-             $livenews->removeNews($id);
-             return $this->response->setJsonContent($livenewsinfo);
-         } catch (\Exception $e) {
-             return $this->showExceptionAsJson($e, $livenews->getMessages());
-         }
+        try {
+            $livenews->removeNews($id);
+            return $this->response->setJsonContent($livenewsinfo);
+        } catch (\Exception $e) {
+            return $this->showExceptionAsJson($e, $livenews->getMessages());
+        }
     }
 }

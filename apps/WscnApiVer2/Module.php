@@ -47,5 +47,4 @@ class Module implements ModuleDefinitionInterface, StandardInterface
         $dispatcher->setDefaultNamespace('WscnApiVer2\Controllers');
         ErrorHandler::setErrorController('Jsonerror');
     }
-
 }
