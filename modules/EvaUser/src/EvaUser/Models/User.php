@@ -33,7 +33,7 @@ class User extends Entities\Users
     {
         $me = Login::getCurrentUser();
         $userId = $me['id'];
-        if(!$userId) {
+        if (!$userId) {
             throw new Exception\UnauthorizedException('ERR_USER_NOT_LOGIN');
         }
 
@@ -41,13 +41,20 @@ class User extends Entities\Users
         if (!$user) {
             throw new Exception\ResourceNotFoundException('ERR_USER_NOT_EXIST');
         }
+        $oldUser = new User();
+        $oldUser->verifiedByEventHandlers = false;
+        $oldUser->password = $oldPassword;
+        $this->getDI()->getEventsManager()->fire(
+            'user:beforeVerifyPassword',
+            array('user' => $oldUser, 'userInDB' => $user)
+        );
 
-        if(false === password_verify($oldPassword, $user->password)) {
+        if (!$oldUser->verifiedByEventHandlers && false === password_verify($oldPassword, $user->password)) {
             throw new Exception\VerifyFailedException('ERR_USER_OLD_PASSWORD_NOT_MATCH');
         }
 
         $user->password = password_hash($newPassword, PASSWORD_DEFAULT, array('cost' => 10));
-        if(!$user->save()) {
+        if (!$user->save()) {
             throw new Exception\RuntimeException('ERR_USER_CHANGE_PASSWORD_FAILED');
         }
         return $user;
@@ -60,7 +67,7 @@ class User extends Entities\Users
     public function changeProfile($data)
     {
         $user = Login::getCurrentUser();
-        if($user['id'] != $this->id) {
+        if ($user['id'] != $this->id) {
             throw new Exception\UnauthorizedException('ERR_USER_NO_ALLOW_TO_ACCESS_OTHER_USER');
         }
 
@@ -81,7 +88,7 @@ class User extends Entities\Users
     {
         $me = Login::getCurrentUser();
         $userId = $me['id'];
-        if(!$userId) {
+        if (!$userId) {
             throw new Exception\UnauthorizedException('ERR_USER_NOT_LOGIN');
         }
 
@@ -96,11 +103,16 @@ class User extends Entities\Users
     {
         if (false === $forceSend && $this->getDI()->getConfig()->mailer->async) {
             $queue = $this->getDI()->getQueue();
-            $result = $queue->doBackground('sendmailAsync', json_encode(array(
-                'class' => __CLASS__,
-                'method' => __FUNCTION__,
-                'parameters' => array($username, $newEmail, true)
-            )));
+            $result = $queue->doBackground(
+                'sendmailAsync',
+                json_encode(
+                    array(
+                        'class' => __CLASS__,
+                        'method' => __FUNCTION__,
+                        'parameters' => array($username, $newEmail, true)
+                    )
+                )
+            );
             return true;
         }
 
@@ -111,17 +123,25 @@ class User extends Entities\Users
 
         $mailer = $this->getDI()->getMailer();
         $message = $this->getDI()->getMailMessage();
-        $message->setTo(array(
-            $newEmail => $user->username
-        ));
+        $message->setTo(
+            array(
+                $newEmail => $user->username
+            )
+        );
 
         //Change email hash will expired when password / email changed
         $verifyCode = md5($user->id . $user->password . $user->email . $newEmail);
         $message->setTemplate($this->getDI()->getConfig()->user->changeEmailTemplate);
-        $message->assign(array(
-            'user' => $user->toArray(),
-            'url' => $message->toSystemUrl('/session/changemail/' . urlencode($user->username) . '/' . urlencode($newEmail) . '/' . $verifyCode)
-        ));
+        $message->assign(
+            array(
+                'user' => $user->toArray(),
+                'url' => $message->toSystemUrl(
+                        '/session/changemail/' . urlencode($user->username) . '/' . urlencode(
+                            $newEmail
+                        ) . '/' . $verifyCode
+                    )
+            )
+        );
 
         $mailer->send($message->getMessage());
     }
@@ -134,12 +154,12 @@ class User extends Entities\Users
         }
 
         $hash = md5($user->id . $user->password . $user->email . $newEmail);
-        if($hash !== $verifyCode) {
+        if ($hash !== $verifyCode) {
             throw new Exception\VerifyFailedException('ERR_USER_CHANGE_EMAIL_VERIFY_CODE_NOT_MATCH');
         }
 
         $user->email = $newEmail;
-        if(!$user->save()) {
+        if (!$user->save()) {
             throw new Exception\RuntimeException('ERR_USER_CHANGE_EMAIL_FAILED');
         }
 

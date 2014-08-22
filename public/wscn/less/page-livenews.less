@@ -173,6 +173,7 @@
         border-bottom: 1px solid @borderColor;
     }
     .news {
+        //display: block;
         position: relative;
         .clearfix;
         padding: 15px 0;
@@ -215,6 +216,7 @@
                 }
                 .text {
                     display: block;
+                    text-align: center;
                 }
                 &:hover {
                     color: @blue;
@@ -225,6 +227,22 @@
                         margin-top: 1px;
                     }
                 }
+            }
+        }
+        & > .more {
+            display: block;
+            margin:0 auto;
+            width: 30px;
+            text-align: center;
+            line-height: 16px;
+            &:hover {
+                color: @blue;
+            }
+            &:before {
+                content: "\f078";
+            }
+            &.active:before {
+                content: "\f077";
             }
         }
         & > .content {
@@ -322,6 +340,7 @@
             }
         }
     }
+
 }
 
 
