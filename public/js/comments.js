@@ -226,28 +226,23 @@
             );
 
             WS_COMMENT.thread_container.on('click',
-                '.ws_comment_comment_vote',
+                '.ws-comment-vote',
                 function (e) {
                     var that = $(this);
+
+                    if(that.hasClass('ws-comment-voted')){
+                        return false;
+                    }
                     var form_data = that.data();
 
                     // Get the form
-                    WS_COMMENT.get(
+                    WS_COMMENT.post(
                         form_data.url,
                         {},
                         function (data) {
-                            // Post it
-                            var form = $($.trim(data)).children('form')[0];
-                            var form_data = $(form).data();
-
-                            WS_COMMENT.post(
-                                form.action,
-                                WS_COMMENT.serializeObject(form),
-                                function (data) {
-                                    $('#' + form_data.scoreHolder).html(data);
-                                    that.trigger('ws_comment_vote_comment', data, form);
-                                }
-                            );
+                            that.addClass('ws-comment-voted');
+//                            $('#' + form_data.scoreHolder).html(data);
+                            that.trigger('ws_comment_vote_comment', data);
                         }
                     );
                 }
@@ -472,7 +467,43 @@
             }
 
             $(elem).html(threadObject.numComments);
+        },
+
+        loadUserVoteData: function() {
+            var commentIds = [];
+            $('.ws-comment').each(function(i,elem){
+                commentIds.push($(elem).data('commentId'));
+            })
+
+            WS_COMMENT.get(
+                WS_COMMENT.load_user_vote_data_url,
+                {commentIds:commentIds},
+                // success
+                function (data) {
+                    // easyXdm doesn't always serialize
+                    if (typeof data != "object") {
+                        data = jQuery.parseJSON(data);
+                    }
+
+                    $.each(data.up,function(i,commentId){
+                        var elem = $('.ws-comment-'+commentId+' .ws-comment-up');
+                        WS_COMMENT.setCommentVote(elem);
+                    });
+
+                    $.each(data.down,function(i,commentId){
+                        var elem = $('.ws-comment-'+commentId+' .ws-comment-down');
+                        WS_COMMENT.setCommentVote(elem);
+                    });
+
+                    WS_COMMENT.thread_container.trigger('ws_comment_load_user_vote_data');
+                }
+            );
+        },
+
+        setCommentVote: function(elem) {
+            elem.addClass('ws-comment-voted');
         }
+
     };
 
     // AJAX via easyXDM if this is configured
@@ -547,7 +578,8 @@
             WS_COMMENT.base_url = options.base_url;
             WS_COMMENT.commentCountElements = options.counter;
 
-            WS_COMMENT.comment_counter_url = WS_COMMENT.base_url + '/counter';
+            WS_COMMENT.comment_counter_url = WS_COMMENT.base_url + 'counter';
+            WS_COMMENT.load_user_vote_data_url = WS_COMMENT.base_url + 'user/votes'
             WS_COMMENT.full_url = WS_COMMENT.base_url + '/' + encodeURIComponent(identifier) + '/comments';
 
             WS_COMMENT.getThreadComments(identifier);
@@ -598,6 +630,9 @@ $(function () {
                 img.attr("src", user.avatar);
                 img.attr("alt", user.username);
             });
+
+            window.ws.Comment.loadUserVoteData();
+
         });
 
     })

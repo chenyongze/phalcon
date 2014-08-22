@@ -23,10 +23,10 @@ if($comment->depth>0){
                 <a class="ws-comment-reply" href="javascript:void(0);" data-id="<?=$comment->id?>" data-url="/thread/<?= $thread->uniqueKey?>/comments/new">
                     回复
                 </a>
-                <a class="ws-comment-up" href="javascript:void(0);" data-id="<?=$comment->id?>" data-url="/vote/up">
+                <a class="ws-comment-up ws-comment-vote" href="javascript:void(0);" data-id="<?=$comment->id?>" data-url="/comment/<?=$comment->id?>/up">
                     顶
                 </a>
-                <a class="ws-comment-down" href="javascript:void(0);" data-id="<?=$comment->id?>" data-url="/vote/down">
+                <a class="ws-comment-down ws-comment-vote" href="javascript:void(0);" data-id="<?=$comment->id?>" data-url="/comment/<?=$comment->id?>/down">
                     踩
                 </a>
 <!--                <a class="ws-comment-repost" href="javascript:void(0);" data-id="--><?//=$comment->id?><!--" data-url="/thread/--><?//= $thread->uniqueKey?><!--/comments/new">-->
