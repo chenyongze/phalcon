@@ -68,7 +68,7 @@ $(function(){
     //实时新闻 数据分类
     var type;
     //
-    var baseUrl = 'http://api.rebirth.wallstreetcn.com:80/v2/livenews?limit=50';
+    var baseUrl = 'http://api.rebirth.wallstreetcn.com:80/v2/livenews?limit=40';
     //实时新闻 列表 url
     var url;
     //实时新闻 更新 url
@@ -85,7 +85,26 @@ $(function(){
     function init() {
         initDom();
         initEvent();
+        initUrl();
         initData();
+    }
+
+    function initUrl() {
+        var search = location.search;
+        if(search) {
+            search = search.substring(1);
+            var args = search.split('&');
+            for (var arg in args) {
+                var map = arg.split('=');
+                $controlGroup.find('[name=' + map[0] + '][value=' + map[1] + ']')[0].checked;
+                if (map[0] == 'cid[]') {
+                    cids += map[1] + ','
+                } else if (map[0] == 'type') {
+                    type = map[1];
+                }
+            }
+            createUrl();
+        }
     }
 
     function initDom() {
@@ -109,11 +128,11 @@ $(function(){
         //选择或取消分类
         $controlGroup.on('click', '.custom-checkbox', function(e){
             var $this = $(this);
-            var $input = $this.find('[name=cid][type=checkbox]');
+            var $input = $this.find('[name="cid[]"][type=checkbox]');
             var input = $input[0];
             var value = input.value;
             //
-            var $sameInput = $controlGroup.find('[name=cid][type=checkbox][value=' + value + ']');
+            var $sameInput = $controlGroup.find('[name="cid[]"][type=checkbox][value=' + value + ']');
             var length = $sameInput.length;
             while(length --) {
                 $sameInput[length].checked = input.checked;
@@ -136,7 +155,7 @@ $(function(){
         $controlGroup.on('click', '.tag', function(e){
             var $this = $(this);
             var value = $this.attr('value');
-            var $checkbox = $controlGroup.find('[name=cid][type=checkbox][value=' + value + ']');
+            var $checkbox = $controlGroup.find('[name="cid[]"][type=checkbox][value=' + value + ']');
             var length = $checkbox.length;
             while(length --) {
                 $checkbox[length].checked = false;

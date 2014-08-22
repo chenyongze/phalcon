@@ -173,8 +173,7 @@
         border-bottom: 1px solid @borderColor;
     }
     .news {
-        //data-importance 控制显示
-        display: none;
+        //display: block;
         position: relative;
         .clearfix;
         padding: 15px 0;
@@ -325,24 +324,6 @@
         }
     }
 
-    &[data-importance="1"]{
-        .news {
-            display: block;
-        }
-    }
-    &[data-importance="2"]{
-        .news[data-importance="2"] {
-            display: block;
-        }
-        .news[data-importance="3"] {
-            display: block;
-        }
-    }
-    &[data-importance="3"]{
-        .news[data-importance="3"] {
-            display: block;
-        }
-    }
 }
 
 

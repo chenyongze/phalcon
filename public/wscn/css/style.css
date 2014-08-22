@@ -3473,7 +3473,6 @@ body.show-breaking-news #breaking-news {
   border-bottom: 1px solid #dddddd;
 }
 #livenews-list .news {
-  display: none;
   position: relative;
   padding: 15px 0;
   margin-left: 60px;
@@ -3615,18 +3614,6 @@ body.show-breaking-news #breaking-news {
 }
 #livenews-list .news.type-date > .content .verdict .text {
   color: #0078d2;
-}
-#livenews-list[data-importance="1"] .news {
-  display: block;
-}
-#livenews-list[data-importance="2"] .news[data-importance="2"] {
-  display: block;
-}
-#livenews-list[data-importance="2"] .news[data-importance="3"] {
-  display: block;
-}
-#livenews-list[data-importance="3"] .news[data-importance="3"] {
-  display: block;
 }
 .page-auth .form-control {
   height: 40px;
