@@ -1,3 +1,8 @@
+<?
+    $this->placeholder->block('title')->set("实时新闻-华尔街见闻");
+    $this->placeholder->block('description')->set("华尔街见闻——中国最专业的金融资讯平台；直播外汇、期货、黄金、债券、证券等金融领域的实时新闻。华人投资者可以在这里获得最快速、最精准、最深入的全球财经资讯和市场行情。以下是实时新闻");
+    $this->placeholder->block('keywords')->set("实时新闻,外汇,期货,大宗商品,贵金属,黄金,股市,行情,数据,金融,理财");
+?>
 <link href="/wscn/css/flags/css/flag-icon.min.css" rel="stylesheet">
 <div id="main-content" class="columns-2">
     <div id="main" class="page-livenews">
@@ -26,77 +31,20 @@
         <div id="livenews-list">
             <div class="control-group">
                 <form action="/livenews">
-                <div class="head">
-                    <span class="title">筛选今日新闻</span>
-                    <label class="switch-box pull-right">
-                        <span class="icon"></span>
-                        <span class="text">声音提醒</span>
-                        <input type="checkbox" name="alert">
-                        <span class="box"></span>
-                    </label>
-                    <noscript>
-                    <button type="submit" class="">筛选</button>
-                    </noscript>
-                </div>
-                <span class="title">内容：</span>
-                <label class="custom-checkbox">
-                    <input type="checkbox" name="cid[]" value="9">
-                    <i class="fa"></i>
-                    <span class="text">中国</span>
-                </label>
-                <label class="custom-checkbox">
-                    <input type="checkbox" name="cid[]" value="10">
-                    <i class="fa"></i>
-                    <span class="text">美国</span>
-                </label>
-                <label class="custom-checkbox">
-                    <input type="checkbox" name="cid[]" value="1">
-                    <i class="fa"></i>
-                    <span class="text">外汇</span>
-                </label>
-                <label class="custom-checkbox">
-                    <input type="checkbox" name="cid[]" value="2">
-                    <i class="fa"></i>
-                    <span class="text">股市</span>
-                </label>
-                <label class="custom-checkbox">
-                    <input type="checkbox" name="cid[]" value="7">
-                    <i class="fa"></i>
-                    <span class="text">见闻早餐</span>
-                </label>
-
-                <span class="more ">
-                    更多筛选 <i class="fa"></i>
-                </span>
-
-                <div class="more-content ">
-                    <span class="title">
-                        资产类别：
-                    </span>
-                    <label class="custom-checkbox">
-                        <input type="checkbox" name="cid[]" value="1">
-                        <i class="fa"></i>
-                        <span class="text">外汇</span>
-                    </label>
-                    <label class="custom-checkbox">
-                        <input type="checkbox" name="cid[]" value="2">
-                        <i class="fa"></i>
-                        <span class="text">股市</span>
-                    </label>
-                    <label class="custom-checkbox">
-                        <input type="checkbox" name="cid[]" value="3">
-                        <i class="fa"></i>
-                        <span class="text">商品</span>
-                    </label>
-                    <label class="custom-checkbox">
-                        <input type="checkbox" name="cid[]" value="4">
-                        <i class="fa"></i>
-                        <span class="text">债市</span>
-                    </label>
+                    <div class="head">
+                        <span class="title">筛选今日新闻</span>
+                        <label class="switch-box pull-right">
+                            <span class="icon"></span>
+                            <span class="text">声音提醒</span>
+                            <input type="checkbox" name="alert">
+                            <span class="box"></span>
+                        </label>
+                        <noscript>
+                        <button type="submit" class="">筛选</button>
+                        </noscript>
+                    </div>
                     <hr class="hr"/>
-                    <span class="title">
-                        地区：
-                    </span>
+                    <span class="title">内容：</span>
                     <label class="custom-checkbox">
                         <input type="checkbox" name="cid[]" value="9">
                         <i class="fa"></i>
@@ -108,87 +56,145 @@
                         <span class="text">美国</span>
                     </label>
                     <label class="custom-checkbox">
-                        <input type="checkbox" name="cid[]" value="11">
+                        <input type="checkbox" name="cid[]" value="1">
                         <i class="fa"></i>
-                        <span class="text">欧元区</span>
+                        <span class="text">外汇</span>
                     </label>
                     <label class="custom-checkbox">
-                        <input type="checkbox" name="cid[]" value="13">
+                        <input type="checkbox" name="cid[]" value="2">
                         <i class="fa"></i>
-                        <span class="text">英国</span>
+                        <span class="text">股市</span>
                     </label>
                     <label class="custom-checkbox">
-                        <input type="checkbox" name="cid[]" value="12">
+                        <input type="checkbox" name="cid[]" value="7">
                         <i class="fa"></i>
-                        <span class="text">日本</span>
+                        <span class="text">见闻早餐</span>
                     </label>
-                    <label class="custom-checkbox">
-                        <input type="checkbox" name="cid[]" value="15">
-                        <i class="fa"></i>
-                        <span class="text">加拿大</span>
-                    </label>
-                    <label class="custom-checkbox">
-                        <input type="checkbox" name="cid[]" value="14">
-                        <i class="fa"></i>
-                        <span class="text">澳洲</span>
-                    </label>
-                    <label class="custom-checkbox">
-                        <input type="checkbox" name="cid[]" value="16">
-                        <i class="fa"></i>
-                        <span class="text">瑞士</span>
-                    </label>
-                    <label class="custom-checkbox">
-                        <input type="checkbox" name="cid[]" value="17">
-                        <i class="fa"></i>
-                        <span class="text">其他地区</span>
-                    </label>
-                    <hr class="hr"/>
-                    <span class="title">
-                        央行：
+
+                    <span class="more ">
+                        更多筛选 <i class="fa"></i>
                     </span>
-                    <label class="custom-checkbox">
-                        <input type="checkbox" name="cid[]" value="5">
+
+                    <div class="more-content ">
+                        <span class="title">
+                            资产类别：
+                        </span>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" name="cid[]" value="1">
+                            <i class="fa"></i>
+                            <span class="text">外汇</span>
+                        </label>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" name="cid[]" value="2">
+                            <i class="fa"></i>
+                            <span class="text">股市</span>
+                        </label>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" name="cid[]" value="3">
+                            <i class="fa"></i>
+                            <span class="text">商品</span>
+                        </label>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" name="cid[]" value="4">
+                            <i class="fa"></i>
+                            <span class="text">债市</span>
+                        </label>
+                        <hr class="hr"/>
+                        <span class="title">
+                            地区：
+                        </span>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" name="cid[]" value="9">
+                            <i class="fa"></i>
+                            <span class="text">中国</span>
+                        </label>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" name="cid[]" value="10">
+                            <i class="fa"></i>
+                            <span class="text">美国</span>
+                        </label>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" name="cid[]" value="11">
+                            <i class="fa"></i>
+                            <span class="text">欧元区</span>
+                        </label>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" name="cid[]" value="13">
+                            <i class="fa"></i>
+                            <span class="text">英国</span>
+                        </label>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" name="cid[]" value="12">
+                            <i class="fa"></i>
+                            <span class="text">日本</span>
+                        </label>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" name="cid[]" value="15">
+                            <i class="fa"></i>
+                            <span class="text">加拿大</span>
+                        </label>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" name="cid[]" value="14">
+                            <i class="fa"></i>
+                            <span class="text">澳洲</span>
+                        </label>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" name="cid[]" value="16">
+                            <i class="fa"></i>
+                            <span class="text">瑞士</span>
+                        </label>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" name="cid[]" value="17">
+                            <i class="fa"></i>
+                            <span class="text">其他地区</span>
+                        </label>
+                        <hr class="hr"/>
+                        <span class="title">
+                            央行：
+                        </span>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" name="cid[]" value="5">
+                            <i class="fa"></i>
+                            <span class="text">央行</span>
+                        </label>
+
+                    </div>
+
+                    <div class="tags">
+                        <span class="title">您已选择：</span>
+                    </div>
+                    <hr class="hr"/>
+                    <span class="title">信息类型：</span>
+                    <label class="custom-radio">
+                        <input type="radio" name="type" checked="checked" value="">
                         <i class="fa"></i>
-                        <span class="text">央行</span>
+                        <span class="text">全部</span>
                     </label>
-
-                </div>
-
-                <div class="tags">
-                    <span class="title">您已选择：</span>
-                </div>
-                <hr class="hr"/>
-                <span class="title">信息类型：</span>
-                <label class="custom-radio">
-                    <input type="radio" name="type" checked="checked" value="">
-                    <i class="fa"></i>
-                    <span class="text">全部</span>
-                </label>
-                <label class="custom-radio">
-                    <input type="radio" name="type" value="news">
-                    <i class="fa"></i>
-                    <span class="text">新闻</span>
-                </label>
-                <label class="custom-radio" style="margin-right: 80px;">
-                    <input type="radio" name="type" value="data">
-                    <i class="fa"></i>
-                    <span class="text">经济数据</span>
-                </label>
-                <span class="title" >重要性：</span>
-                <label class="custom-radio">
-                    <input type="radio" name="importance" checked value="">
-                    <i class="fa"></i>
-                    <span class="text">全部</span>
-                </label>
-                <label class="custom-radio">
-                    <input type="radio" name="importance" value="2,3">
-                    <i class="fa"></i>
-                    <span class="text">只看重要的</span>
-                </label>
+                    <label class="custom-radio">
+                        <input type="radio" name="type" value="news">
+                        <i class="fa"></i>
+                        <span class="text">新闻</span>
+                    </label>
+                    <label class="custom-radio" style="margin-right: 80px;">
+                        <input type="radio" name="type" value="data">
+                        <i class="fa"></i>
+                        <span class="text">经济数据</span>
+                    </label>
+                    <span class="title" >重要性：</span>
+                    <label class="custom-radio">
+                        <input type="radio" name="importance" checked value="">
+                        <i class="fa"></i>
+                        <span class="text">全部</span>
+                    </label>
+                    <label class="custom-radio">
+                        <input type="radio" name="importance" value="2,3">
+                        <i class="fa"></i>
+                        <span class="text">只看重要的</span>
+                    </label>
                 </form>
             </div>
 
-        <ul id="livenews-list">
+        <ul class="body">
             <?$lastday = ''?>
             <?foreach($pager->items as $item): //type-img  //type-video?>
             <?$currentday = $this->tag->datetime($item->updatedAt, 'Y-m-d')?>
@@ -319,21 +325,21 @@
                     <% } %>
 
                     <% if (record.type == 'news') { %>
-                        <li id="<%= record.id %>" class="news" data-utm="<%= record.utm %>" >
+                        <li id="livenews-<%= record.id %>" class="news" data-utm="<%= record.utm %>" >
                             <span class="time"><a href="/livenews/detail/<%= record.id%>"><%= record.time %></a></span>
                             <span class="icon fa fa-file-text"></span>
                             <div class="control-box">
                                 <div class="meta comments">
                                     <a href="">
                                         <span class="fa fa-comment"></span>
-                                        <span class="text">0</span>
+                                        <span class="text"><%= record.commentCount %></span>
                                     </a>
                                 </div>
                                 <hr class="vr"/>
                                 <div class="meta">
                                     <a href="">
                                         <span class="fa fa-share-square-o"></span>
-                                        <span class="text"></span>
+                                        <span class="text"><%= record.shareCount %></span>
                                     </a>
                                 </div>
                                 <hr class="vr"/>
@@ -345,10 +351,13 @@
                                 </div>
                             </div>
                             <div class="content"><%= record.contentHtml %></div>
+                            <% if (record.hasMore == "1") { %>
+                                <span class="more fa"></span>
+                            <% } %>
                         </li>
                     <% } else if (record.type =='data') { %>
                         <% if (record.codeType == 'json') { %>
-                            <li id="<%= record.id %>" class="news type-date" data-utm="<%= record.utm %>"  data-trend="<%= record.data.trend %>">
+                            <li id="livenews-<%= record.id %>" class="news type-date" data-utm="<%= record.utm %>"  data-trend="<%= record.data.trend %>">
                                 <span class="time"><a href="/livenews/detail/<%= record.id%>"><%= record.time %></a></span>
                                 <span class="important">
                                     <i class="fa fa-star star active"></i>
@@ -359,21 +368,21 @@
                                     <div class="meta comments">
                                         <a href="">
                                             <span class="fa fa-comment"></span>
-                                            <span class="text">0</span>
+                                            <span class="text"><%= record.commentCount %></span>
                                         </a>
                                     </div>
                                     <hr class="vr"/>
                                     <div class="meta">
                                         <a href="">
                                             <span class="fa fa-share-square-o"></span>
-                                            <span class="text">23</span>
+                                            <span class="text"><%= record.shareCount %></span>
                                         </a>
                                     </div>
                                     <hr class="vr"/>
                                     <div class="meta">
                                         <a href="">
                                             <span class="fa fa-heart"></span>
-                                            <span class="text">23</span>
+                                            <span class="text"></span>
                                         </a>
                                     </div>
                                 </div>
@@ -401,23 +410,26 @@
                                         <span class="value current"><%= record.data.actual %></span>
                                     </div>
                                 </div>
+                                <% if (record.hasMore == "1") { %>
+                                    <span class="more fa"></span>
+                                <% } %>
                             </li>
                         <% } else { %>
-                            <li id="<%= record.id %>" class="news" data-utm="<%= record.utm %>" >
+                            <li id="livenews-<%= record.id %>" class="news" data-utm="<%= record.utm %>" >
                                 <span class="time"><%= record.time %></span>
                                 <span class="icon fa fa-file-text"></span>
                                 <div class="control-box">
                                     <div class="meta comments">
                                         <a href="">
                                             <span class="fa fa-comment"></span>
-                                            <span class="text">0</span>
+                                            <span class="text"><%= record.commentCount %></span>
                                         </a>
                                     </div>
                                     <hr class="vr"/>
                                     <div class="meta">
                                         <a href="">
                                             <span class="fa fa-share-square-o"></span>
-                                            <span class="text"></span>
+                                            <span class="text"><%= record.shareCount %></span>
                                         </a>
                                     </div>
                                     <hr class="vr"/>
@@ -429,6 +441,9 @@
                                     </div>
                                 </div>
                                 <div class="content"><%= record.contentHtml %></div>
+                                <% if (record.hasMore == "1") { %>
+                                    <span class="more fa"></span>
+                                <% } %>
                             </li>
                         <% } %>
                     <% } %>

@@ -7,20 +7,32 @@
     <div id="wrapper">
         <div id="main" class="page-search">
             <?if($query['tid'] && !empty($tag)):?>
+                <?$this->placeholder->block('title')->set($tag->tagName."新闻-华尔街见闻");?>
+                <?$this->placeholder->block('description')->set("华尔街见闻——中国最专业的金融资讯平台；直播外汇、期货、黄金、债券、证券等金融领域的实时新闻。华人投资者可以在这里获得最快速、最精准、最深入的全球财经资讯和市场行情。以下是".$tag->tagName."相关新闻");?>
+                <?$this->placeholder->block('keywords')->set($tag->tagName.",外汇,期货,大宗商品,贵金属,黄金,股市,行情,数据,金融,理财");?>
             <h2 class="search-title">
                 标签为 <span class="text-blue"><?=$tag->tagName?></span> 的所有文章
             </h2>
             <?elseif($query['cid'] && !empty($category)):?>
+                <?$this->placeholder->block('title')->set($category->categoryName."新闻-华尔街见闻");?>
+                <?$this->placeholder->block('description')->set("华尔街见闻——中国最专业的金融资讯平台；直播外汇、期货、黄金、债券、证券等金融领域的实时新闻。华人投资者可以在这里获得最快速、最精准、最深入的全球财经资讯和市场行情。以下是".$category->categoryName."相关新闻");?>
+                <?$this->placeholder->block('keywords')->set($category->categoryName.",外汇,期货,大宗商品,贵金属,黄金,股市,行情,数据,金融,理财");?>
             <h2 class="crumbs-title">
                 <a href="/">首页</a>
                 <span class="fa fa-angle-right"></span>
                 <span class="sub">阅读分类 <?=$category->categoryName?></span>
             </h2>
             <?elseif($query['uid'] && !empty($author)):?>
+                <?$authorTrue = $author->screenName ?: $author->username;$this->placeholder->block('description')->set("华尔街见闻——中国最专业的金融资讯平台；直播外汇、期货、黄金、债券、证券等金融领域的实时新闻。华人投资者可以在这里获得最快速、最精准、最深入的全球财经资讯和市场行情。以下文章来自编辑".$authorTrue);?>
+                <?$this->placeholder->block('title')->set($authorTrue."的文章-华尔街见闻");?>
+                <?$this->placeholder->block('keywords')->set($author->screenName ?: $author->username.",外汇,期货,大宗商品,贵金属,黄金,股市,行情,数据,金融,理财");?>
             <h2 class="search-title">
                 作者 <span class="text-blue"><?=$author->screenName ?: $author->username?></span> 的所有文章
             </h2>
             <?elseif($query['q']):?>
+                <?$this->placeholder->block('title')->set($query['q']."新闻-华尔街见闻");?>
+                <?$this->placeholder->block('description')->set("华尔街见闻——中国最专业的金融资讯平台；直播外汇、期货、黄金、债券、证券等金融领域的实时新闻。华人投资者可以在这里获得最快速、最精准、最深入的全球财经资讯和市场行情。以下是为您搜索出的".$query['q']."相关新闻");?>
+                <?$this->placeholder->block('keywords')->set($query['q'].",外汇,期货,大宗商品,贵金属,黄金,股市,行情,数据,金融,理财");?>
             <form class="search-form" action="/search" novalidate="novalidate">
                 <input class="search-field" type="text" value="<?=$this->escaper->escapeHtmlAttr($query['q'])?>"/>
                 <button class="submit fa fa-search" type="submit"></button>
