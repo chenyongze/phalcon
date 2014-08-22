@@ -239,7 +239,7 @@ return array(
         'httpMethods' => 'GET'
     ),
     'livenewsRealtime' =>  array(
-        'pattern' => '/v2/admin/livenews/realtime',
+        'pattern' => '/v2/livenews/realtime',
         'paths' => array(
             'module' => 'WscnApiVer2',
             'controller' => 'livenews',
