@@ -35,7 +35,7 @@ class ResetPassword extends User
         // generate random hash for email password reset verification (40 char string)
         $userinfo->passwordResetHash = sha1(uniqid(mt_rand(), true));
         $userinfo->passwordResetAt = time();
-        if(!$userinfo->save()) {
+        if (!$userinfo->save()) {
             throw new Exception\RuntimeException('ERR_USER_REQUEST_RESET_PASSWORD_FAILED');
         }
 
@@ -118,7 +118,7 @@ class ResetPassword extends User
         $userinfo->password = self::passwordHash($this->password);
         //make last hash expire
         $userinfo->passwordResetHash = sha1(uniqid(mt_rand(), true));
-        if(!$userinfo->save()) {
+        if (!$userinfo->save()) {
             throw new Exception\RuntimeException('ERR_USER_RESET_PASSWORD_FAILED');
         }
 

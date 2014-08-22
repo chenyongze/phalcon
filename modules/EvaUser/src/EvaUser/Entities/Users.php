@@ -223,6 +223,11 @@ class Users extends \Eva\EvaEngine\Mvc\Model
         }
     }
 
+    public function getAvatar()
+    {
+    
+    }
+
     public function initialize()
     {
         $this->hasOne(

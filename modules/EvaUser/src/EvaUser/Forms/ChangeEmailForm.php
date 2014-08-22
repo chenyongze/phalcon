@@ -23,5 +23,4 @@ class ChangeEmailForm extends Form
         ));
         $this->add($email);
     }
-
 }

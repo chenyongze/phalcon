@@ -8,6 +8,16 @@ use Eva\EvaFileSystem\Models\Upload as UploadModel;
 
 class User extends Entities\Users
 {
+    public static $simpleDump = array(
+        'id',
+        'username',
+        'email',
+        'status',
+        'emailStatus',
+        'avatar' => 'getAvatar',
+        'roles' => 'getRoles',
+    );
+
     public function beforeSave()
     {
         if ($this->getDI()->getRequest()->hasFiles()) {
@@ -23,10 +33,6 @@ class User extends Entities\Users
                 $this->avatar = $file->getFullUrl();
             }
         }
-    }
-
-    public function getAvatar()
-    {
     }
 
     public function changePassword($oldPassword, $newPassword)
@@ -70,6 +76,7 @@ class User extends Entities\Users
     {
         return password_verify($password, $hash);
     }
+
     public function changeAvatar()
     {
     }
@@ -146,10 +153,10 @@ class User extends Entities\Users
             array(
                 'user' => $user->toArray(),
                 'url' => $message->toSystemUrl(
-                        '/session/changemail/' . urlencode($user->username) . '/' . urlencode(
-                            $newEmail
-                        ) . '/' . $verifyCode
-                    )
+                    '/session/changemail/' . urlencode($user->username) . '/' . urlencode(
+                        $newEmail
+                    ) . '/' . $verifyCode
+                )
             )
         );
 

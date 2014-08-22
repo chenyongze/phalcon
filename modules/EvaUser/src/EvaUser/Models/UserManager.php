@@ -5,6 +5,7 @@ namespace Eva\EvaUser\Models;
 use Eva\EvaUser\Entities;
 use Eva\EvaFileSystem\Models\Upload as UploadModel;
 use Eva\EvaEngine\Exception;
+
 class UserManager extends User
 {
     public static $defaultDump = array(

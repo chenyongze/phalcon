@@ -57,5 +57,4 @@ class ChangePasswordForm extends Form
         ));
         $this->add($confirmPassword);
     }
-
 }
