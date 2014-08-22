@@ -114,7 +114,7 @@ class LivenewsController extends ControllerBase
             'type' => $this->request->getQuery('type', 'string'),
             'codeType' => $this->request->getQuery('format', 'string'),
             'uid' => $this->request->getQuery('uid', 'int'),
-            'cid' => $this->request->getQuery('cid', 'string'),
+            'cid' => $this->request->getQuery('cid'),
             'importance' => $this->request->getQuery('importance', 'string'),
             'order' => '-updated_at',
             'page' => $this->request->getQuery('page', 'int', 1),
@@ -187,11 +187,11 @@ class LivenewsController extends ControllerBase
      */
     public function realtimeAction()
     {
+        //TODO: should fix limit
         $limit = $this->request->getQuery('limit', 'int', 3);
         $limit = $limit > 100 ?: $limit;
-        $order = $this->request->getQuery('order', 'string', '-created_at');
         $minUpdated = $this->request->getQuery('min_updated', 'int', 0);
-        $cid = $this->request->getQuery('cid', 'string');
+        $cid = $this->request->getQuery('cid');
         $redis = $this->getDI()->getFastCache();
         $data = array();
         if ($minUpdated > 0) {
@@ -199,16 +199,12 @@ class LivenewsController extends ControllerBase
                 'limit' => array(0, (int) $limit)
             ));
         } else {
-            if ($order === '-created_at') {
-                $data = $redis->zRange('livenews', (0 - $limit), -1);
-            } else {
-                $data = $redis->zRange('livenews', 0, $limit);
-            }
+            $data = $redis->zRange('livenews', (0 - $limit), -1);
         }
         rsort($data);
         $dataString = '{"paginator": null, "results": [' . implode(',', $data) . ']}';
         if ($cid) {
-            $cidArray = explode(',', $cid);
+            $cidArray = is_array($cid) ? $cid : explode(',', $cid);
             $data = json_decode($dataString, true);
             $results = $data['results'];
             $data = array();
