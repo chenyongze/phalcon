@@ -227,7 +227,7 @@ $(function ($) {
 	}
 	
 	function canRedirec(){
-		var redirect = urlObj["redirect"];
+		/*var redirect = urlObj["redirect"];
 		if(redirect && (redirect + "") == "1"){
 			if(WSCN_UTIL.browser.iOS()){
 				document.location.href = "wscn-zeus://www.wallstreetcn.com/quoteDetail/?symbol=" + urlObj.symbol;
@@ -235,7 +235,7 @@ $(function ($) {
 			else if(WSCN_UTIL.browser.android()){
 				document.location.href = "wscn-medusa://www.wallstreetcn.com/quoteDetail/?symbol=" + urlObj.symbol;
 			}
-		}
+		}*/
 	}
 	
  }(Zepto));
