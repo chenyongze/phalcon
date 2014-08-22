@@ -59,12 +59,72 @@ return array(
     ),
 
 
-    'postlivelist' =>  array(
+    'postlivelist-v2' =>  array(
         'pattern' => '/apiv1/livenews-list-v2.json(p)*',
         'paths' => array(
             'module' => 'WscnApiVer1',
             'controller' => 'node',
             'action' => 'live',
+        ),
+        'httpMethods' => 'GET'
+    ),
+
+    'postlivelist' =>  array(
+        'pattern' => '/apiv1/livenews-list.json(p)*',
+        'paths' => array(
+            'module' => 'WscnApiVer1',
+            'controller' => 'node',
+            'action' => 'live',
+        ),
+        'httpMethods' => 'GET'
+    ),
+
+    'postlivenews' =>  array(
+        'pattern' => '/apiv1/livenews.json(p)*',
+        'paths' => array(
+            'module' => 'WscnApiVer1',
+            'controller' => 'node',
+            'action' => 'liveNews',
+        ),
+        'httpMethods' => 'GET'
+    ),
+
+    'postlivenewslist' =>  array(
+        'pattern' => '/apiv1/livenews-list-gold.json(p)*',
+        'paths' => array(
+            'module' => 'WscnApiVer1',
+            'controller' => 'node',
+            'action' => 'liveNewsList',
+        ),
+        'httpMethods' => 'GET'
+    ),
+
+    'postlivenewsgold' =>  array(
+        'pattern' => '/apiv1/livenews-gold.json(p)*',
+        'paths' => array(
+            'module' => 'WscnApiVer1',
+            'controller' => 'node',
+            'action' => 'liveNewsGold',
+        ),
+        'httpMethods' => 'GET'
+    ),
+
+    'livenewscountgold' =>  array(
+        'pattern' => '/apiv1/livenews-count-gold.json(p)*',
+        'paths' => array(
+            'module' => 'WscnApiVer1',
+            'controller' => 'node',
+            'action' => 'liveNewsCountGold',
+        ),
+        'httpMethods' => 'GET'
+    ),
+
+    'livenewscount' =>  array(
+        'pattern' => '/apiv1/livenews-count.json(p)*',
+        'paths' => array(
+            'module' => 'WscnApiVer1',
+            'controller' => 'node',
+            'action' => 'liveNewsCount',
         ),
         'httpMethods' => 'GET'
     ),
@@ -109,12 +169,33 @@ return array(
         'httpMethods' => 'GET'
     ),
 
+    'iosproversion' =>  array(
+        'pattern' => '/apiv1/ios_pro_version.json',
+        'paths' => array(
+            'module' => 'WscnApiVer1',
+            'controller' => 'appoption',
+            'action' => 'iosProVersion',
+        ),
+        'httpMethods' => 'GET'
+    ),
+
+
     'activityandroid' =>  array(
         'pattern' => '/apiv1/app_activity_android.json',
         'paths' => array(
             'module' => 'WscnApiVer1',
             'controller' => 'appoption',
             'action' => 'activityAndroid',
+        ),
+        'httpMethods' => 'GET'
+    ),
+
+    'activityandroidnew' =>  array(
+        'pattern' => '/apiv1/app_activity_android_new.json',
+        'paths' => array(
+            'module' => 'WscnApiVer1',
+            'controller' => 'appoption',
+            'action' => 'activityAndroidNew',
         ),
         'httpMethods' => 'GET'
     ),

@@ -11,6 +11,28 @@ use Eva\CounterRank\utils\CounterRankUtil;
 
 class Post extends Entities\Posts
 {
+    public static $simpleDump = array(
+        'id',
+        'title',
+        'codeType',
+        'createdAt',
+        'summary',
+        'summaryHtml' => 'getSummaryHtml',
+        'commentStatus',
+        'sourceName',
+        'sourceUrl',
+        'url' => 'getUrl',
+        'imageUrl' => 'getImageUrl',
+        'tags' => array(
+            'id',
+            'tagName',
+        ),
+        'user' => array(
+            'id',
+            'username',
+        ),
+    );
+
     public static $defaultDump = array(
         'id',
         'title',

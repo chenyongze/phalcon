@@ -18,6 +18,7 @@ class Login extends Entities\Users
 
     protected $maxLoginRetry = 5;
 
+
     public static function getCurrentUser()
     {
         $di = DI::getDefault();
@@ -196,18 +197,23 @@ class Login extends Entities\Users
             throw new Exception\RuntimeException('ERR_USER_PASSWORD_WRONG_MAX_TIMES');
         }
 
-        if (!$userinfo->password) {
-            throw new Exception\RuntimeException('ERR_USER_PASSWORD_EMPTY');
+        $this->verifiedByEventHandlers = false;
+        $this->getDI()->getEventsManager()->fire('user:beforeVerifyPassword', array('user'=>$this, 'userInDB'=>$userinfo));
+        if(!$this->verifiedByEventHandlers) {
+            if (!$userinfo->password) {
+                throw new Exception\RuntimeException('ERR_USER_PASSWORD_EMPTY');
+            }
+
+            // check if hash of provided password matches the hash in the database
+            if (!password_verify($this->password, $userinfo->password)) {
+                //MUST be string type here
+                $userinfo->failedLogins = (string) ($userinfo->failedLogins + 1);
+                $userinfo->loginFailedAt = time();
+                $userinfo->save();
+                throw new Exception\VerifyFailedException('ERR_USER_PASSWORD_WRONG');
+            }
         }
 
-        // check if hash of provided password matches the hash in the database
-        if (!password_verify($this->password, $userinfo->password)) {
-            //MUST be string type here
-            $userinfo->failedLogins = (string) ($userinfo->failedLogins + 1);
-            $userinfo->loginFailedAt = time();
-            $userinfo->save();
-            throw new Exception\VerifyFailedException('ERR_USER_PASSWORD_WRONG');
-        }
 
         $login = new Login();
         $login->id = $userinfo->id;

@@ -14,7 +14,7 @@ class ControllerBase extends \Eva\EvaEngine\Mvc\Controller\ControllerBase implem
     {
         $this->cacheKey = $cacheKey = md5($this->request->getURI());
         $cache = $this->getDI()->getApiCache();
-        if($data = $cache->get($cacheKey)) {
+        if ($data = $cache->get($cacheKey)) {
             $this->response->setContent($data);
             parent::afterExecuteRoute($dispatcher);
             $this->response->send();
@@ -25,7 +25,7 @@ class ControllerBase extends \Eva\EvaEngine\Mvc\Controller\ControllerBase implem
 
     public function afterExecuteRoute($dispatcher)
     {
-        if(!$cacheKey = $this->cacheKey) {
+        if (!$cacheKey = $this->cacheKey) {
             return parent::afterExecuteRoute($dispatcher);
         }
         $cache = $this->getDI()->getApiCache();
