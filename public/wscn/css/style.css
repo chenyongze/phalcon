@@ -1447,7 +1447,7 @@ img.lazy {
 }
 #header .navbar-brand {
   color: transparent;
-  width: 210px;
+  width: 200px;
   background: url(../img/logo.png?v=1.10) left center no-repeat;
 }
 @media (-webkit-min-device-pixel-ratio: 2), (min--moz-device-pixel-ratio: 2), (min-resolution: 2dppx), (min-resolution: 192dpi) {
@@ -1825,7 +1825,7 @@ img.lazy {
   clear: both;
 }
 #leftbar.unwind {
-  top: 90px;
+  top: 90px !important;
 }
 #leftbar.moveout {
   bottom: 100%;
@@ -2316,6 +2316,9 @@ img.lazy {
 }
 #postbar .fa:hover {
   background-color: #0078d2;
+}
+#postbar .fa-mobile-phone {
+  font-size: 24px;
 }
 #qrcode {
   display: none;

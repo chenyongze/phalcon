@@ -279,7 +279,9 @@ $(function(){
                 for (i = 0; i < l; i++) {
                     var $item = $('#' + data[i].id);
                     if ($item.length) {
-                        if ($item.attr('data-utm') !== data[i].utm) {
+                        if (data[i].status == 'deleted') {
+                            $item.remove();
+                        } else {
                             var singleData = [];
                             singleData[0] = data[i];
                             var html = tmpl({
@@ -287,8 +289,6 @@ $(function(){
                                 records : singleData
                             });
                             $item.replaceWith(html);
-                        } else if (data[i].status == 'deleted') {
-
                         }
                     } else if (item.date.charAt(9) != day) {
                         before.push(item);
@@ -313,7 +313,7 @@ $(function(){
             }
             setTimeout(update, option.updateTimeout);
         }).fail(function(error) {
-            setTimeout(update, option.updateTimeout);
+            //setTimeout(update, option.updateTimeout);
         });
     }
 
@@ -344,7 +344,8 @@ $(function(){
                 callback();
             }
         }).fail(function(error) {
-
+            //todo
+            loadPage(page, callback);
         });
     }
 
