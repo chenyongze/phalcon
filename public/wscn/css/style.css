@@ -173,6 +173,9 @@ body {
 img.lazy {
   display: inline-block !important;
 }
+[data-action=star].stared {
+  color: #0078d2 !important;
+}
 .centerbox {
   font-size: 0;
   text-align: center;
@@ -3762,7 +3765,7 @@ body.show-breaking-news #breaking-news {
   }
 }
 #auth {
-  background-color: #eee;
+  background-color: #ecf2f8;
   padding: 20px;
 }
 @media (min-width: 768px) {
