@@ -44,8 +44,6 @@ $(function(){
         return;
     }
     //
-    var idPrefix = 'livenews-';
-    //
     var $controlGroup;
     //
     var $moreControl;
@@ -53,30 +51,80 @@ $(function(){
     var $tags;
     //
     var $body;
-
-
+    //
     var tmpl = template.compile($livenews.find('script[data-template]').html(), {escape: false});
-    //
-    var limit = 100;
-    //
-    var page = 1;
-    //
-    var timeFormat = 'HH:mm';
-    var dateFormat = 'YYYY年MM月DD日 dddd';
-    //实时新闻 分类id
-    var cids;
-    //实时新闻 数据分类
-    var type;
-    //
-    var baseUrl = 'http://api.rebirth.wallstreetcn.com:80/v2/livenews?limit=40';
-    //实时新闻 列表 url
-    var url;
-    //实时新闻 更新 url
-    var baseUpdateUrl = 'http://api.rebirth.wallstreetcn.com:80/v2/livenews/realtime?limit=3';
-    //
-    var updateUrl;
 
-    var update_timeout = 10000;
+
+    //
+    var option = {
+        page : 1,
+        timeFormat: 'HH:mm',
+        dateFormat: 'YYYY年MM月DD日 dddd',
+        cids: '',
+        type: '',
+        importance: '',
+        baseUrl: 'http://api.rebirth.wallstreetcn.com:80/v2/livenews?limit=40',
+        baseUpdateUrl: 'http://api.rebirth.wallstreetcn.com:80/v2/livenews/realtime?limit=3',
+        url: 'http://api.rebirth.wallstreetcn.com:80/v2/livenews?limit=40',
+        updateUrl: 'http://api.rebirth.wallstreetcn.com:80/v2/livenews/realtime?limit=3',
+        updateTimeout: 10000
+    };
+    var uri = {
+        baseUrl: location.href.replace(/\?.*|#.*/, ''),
+        search: location.search.substring(1),
+        add: function(name, value){
+            if (this.search.length) {
+                this.search += '&' + name + '=' + value;
+            } else {
+                this.search = name + '=' + value;
+            }
+            option.url = option.baseUrl + '&' + this.search;
+            option.updateUrl = option.baseUpdateUrl + '&' + this.search;
+            try{
+                history.replaceState(null, '', this.baseUrl + '?' + this.search);
+            } catch(err) {
+                location.href = this.baseUrl + '#' + this.search;
+            }
+        },
+        remove: function(name, value) {
+
+            if (value) {
+                this.search = this.search.replace(name + '=' + value, '');
+            } else {
+                var reg = new RegExp(name + '=[\\w,]+');
+                this.search = this.search.replace(reg, '');
+            }
+            this.search = this.search.replace(/&+/g, '&').replace(/^&|&$/g, '');
+
+            if (this.search.length) {
+                option.url = option.baseUrl + '&' + this.search;
+                option.updateUrl = option.baseUpdateUrl + '&' + this.search;
+            } else {
+                option.url = option.baseUrl;
+                option.updateUrl = option.baseUpdateUrl;
+            }
+            try{
+                history.replaceState(null, '', this.baseUrl + '?' + this.search);
+            } catch(err) {
+                location.href = this.baseUrl + '#' + this.search;
+            }
+        },
+        attr: function(name, value) {
+            if (this.search.indexOf(name) !== -1) {
+                var reg = new RegExp(name + '=[\\w,]+');
+                this.search = this.search.replace(reg, name + '=' + value);
+                option.url = option.baseUrl + '&' + this.search;
+                option.updateUrl = option.baseUpdateUrl + '&' + this.search;
+                try{
+                    history.replaceState(null, '', this.baseUrl + '?' + this.search);
+                } catch(err) {
+                    location.href = this.baseUrl + '#' + this.search;
+                }
+            } else {
+                this.add(name, value);
+            }
+        }
+    };
     //实时新闻 最新更新新闻的时间
     var updateTime;
     //实时新闻 获取详细信息url
@@ -94,16 +142,13 @@ $(function(){
         if(search) {
             search = search.substring(1);
             var args = search.split('&');
-            for (var arg in args) {
-                var map = arg.split('=');
-                $controlGroup.find('[name=' + map[0] + '][value=' + map[1] + ']')[0].checked;
-                if (map[0] == 'cid[]') {
-                    cids += map[1] + ','
-                } else if (map[0] == 'type') {
-                    type = map[1];
-                }
+            var l = args.length;
+            while(l--) {
+                var map = args[l].split('=');
+                $controlGroup.find('[name="' + map[0] + '"][value="' + map[1] + '"]').eq(0).trigger('init');
             }
-            createUrl();
+            option.url = option.baseUrl + '&' + search;
+            option.updateUrl = option.baseUpdateUrl +  '&' + search;
         }
     }
 
@@ -115,7 +160,6 @@ $(function(){
     }
 
     function initData() {
-        createUrl();
         loadPage(1, update);
     }
 
@@ -125,70 +169,104 @@ $(function(){
             $moreControl.slideToggle();
             $(this).toggleClass('active');
         });
-        //选择或取消分类
-        $controlGroup.on('click', '.custom-checkbox', function(e){
-            var $this = $(this);
-            var $input = $this.find('[name="cid[]"][type=checkbox]');
+
+        $controlGroup.on('init', '[name="cid[]"][type=checkbox]', function(e){
+            var $input = $(this);
             var input = $input[0];
+            input.checked = true;
+            var name = input.name;
             var value = input.value;
-            //
-            var $sameInput = $controlGroup.find('[name="cid[]"][type=checkbox][value=' + value + ']');
+            //找出相同的checkbox
+            var $sameInput = $controlGroup.find('[name="cid[]"][type=checkbox][value="' + value + '"]');
+            var length = $sameInput.length;
+            while(length --) {
+                $sameInput[length].checked ;
+            }
+            var text = $input.parent().find('.text').text();
+            var tag = createTag(value, text);
+            $tags.append(tag);
+        });
+        $controlGroup.on('init', '[type=radio][name=type]', function(e){
+            this.checked = true;
+        });
+        $controlGroup.on('init', '[type=radio][name=importance]', function(e){
+            this.checked = true;
+        });
+
+
+        //删除 分类
+        $controlGroup.on('click', '.tag', function(e){
+            var $this = $(this);
+            var value = $this.attr('value');
+            var $checkbox = $controlGroup.find('[name="cid[]"][type=checkbox][value="' + value + '"]');
+            var length = $checkbox.length;
+            while(length --) {
+                $checkbox[length].checked = false;
+            }
+            $this.remove();
+            uri.remove('cid[]', value);
+            loadPage();
+        });
+
+        //选择或取消分类
+        $controlGroup.on('click', '[name="cid[]"][type=checkbox]', function(e){
+
+            var $input = $(this);
+            var input = $input[0];
+            var name = input.name;
+            var value = input.value;
+            //找出相同的checkbox
+            var $sameInput = $controlGroup.find('[name="cid[]"][type=checkbox][value="' + value + '"]');
             var length = $sameInput.length;
             while(length --) {
                 $sameInput[length].checked = input.checked;
             }
             //
             if (input.checked) {
-                var text = $this.find('.text').text();
+                var text = $input.parent().find('.text').text();
                 var tag = createTag(value, text);
                 $tags.append(tag);
-                cids += (value + ',');
+                uri.add(name,value);
             } else {
-                var $tag = $tags.find('.tag[value=' + value + ']');
+                var $tag = $tags.find('.tag[value="' + value + '"]');
                 $tag.remove();
-                cids = cids.replace(value + ',', '');
+                uri.remove(name,value);
             }
-            createUrl();
             loadPage();
         });
-        //取消分类
-        $controlGroup.on('click', '.tag', function(e){
-            var $this = $(this);
-            var value = $this.attr('value');
-            var $checkbox = $controlGroup.find('[name="cid[]"][type=checkbox][value=' + value + ']');
-            var length = $checkbox.length;
-            while(length --) {
-                $checkbox[length].checked = false;
-            }
-            $this.remove();
-            cids = cids.replace(value + ',', '');
-            createUrl();
-            loadPage();
-        });
+
         //选择数据类型
         $controlGroup.on('click', '[type=radio][name=type]', function(e){
             var $selected = $controlGroup.find('[type=radio][name=type]:checked');
-            type = $selected[0].value;
-            createUrl();
+            var value = $selected[0].value;
+            if (value) {
+                uri.attr('type', value);
+            } else {
+                uri.remove('type');
+            }
             loadPage();
         });
-        //选择数据类型
-        $controlGroup.on('click', '[type=radio][name=importance]', function(e){
+        //选择 重要性
+        $controlGroup.on('click', '[type=radio][name=importance]', function(e, noLoad){
             var $selected = $controlGroup.find('[type=radio][name=importance]:checked');
             var value = $selected[0].value;
-            $livenews.attr('data-importance', value);
+            if (value) {
+                uri.attr('importance', value);
+            } else {
+                uri.remove('importance');
+            }
+            loadPage();
         });
     }
 
     function update() {
-        var src = updateUrl
-        if (updateTime) {
-            src += '&min_updated=' + updateTime;
-        }
         $.ajax({
-            url : src,
+            url : option.updateUrl,
             method : 'GET',
-            dataType: 'jsonp'
+            dataType: 'jsonp',
+            data: {
+                min_updated: updateTime
+            }
         }).then(function(response) {
             var results = response.results;
             if (results.length) {
@@ -233,18 +311,21 @@ $(function(){
                     $date.after(html);
                 }
             }
-            setTimeout(update, update_timeout);
+            setTimeout(update, option.updateTimeout);
         }).fail(function(error) {
-            setTimeout(update, update_timeout);
+            setTimeout(update, option.updateTimeout);
         });
     }
 
     function loadPage(page, callback) {
         page = page || 1;
         $.ajax({
-            url : url + '&page=' + page,
+            url : option.url,
             method : 'GET',
-            dataType: 'jsonp'
+            dataType: 'jsonp',
+            data: {
+                page: page
+            }
         }).then(function(response) {
             var results = response.results;
             if (results.length) {
@@ -282,10 +363,10 @@ $(function(){
         for (i = 0; i < l; i++) {
             var record = data[i];
             var mt = moment.unix(record.updatedAt);
-            record.id = idPrefix + record.id;
+            //record.id = idPrefix + record.id;
             record.utm  = record.updatedAt;
-            record.time = mt.format(timeFormat);
-            record.date = mt.format(dateFormat);
+            record.time = mt.format(option.timeFormat);
+            record.date = mt.format(option.dateFormat);
             if (record.type == 'data' && record.codeType == 'json') {
                 if (record.data['actual'] && record.data['actual'] !== '&nbsp;') {
                     if (record.data['forecast']  && record.data['forecast'] !== '&nbsp;') {
@@ -309,23 +390,6 @@ $(function(){
             records.push(record);
         }
         return records;
-    }
-
-    function createUrl() {
-        url = baseUrl;
-        updateUrl = baseUpdateUrl;
-        if (cids) {
-            var query = '&cid=' + cids.substring(0, cids.length - 1);
-            url += query;
-            updateUrl += query;
-        }
-        if (type) {
-            var query = '&type=' + type
-            url += query;
-            updateUrl += query;
-        }
-        url = encodeURI(url);
-        updateUrl = encodeURI(updateUrl);
     }
 
     function createTag(value, text) {

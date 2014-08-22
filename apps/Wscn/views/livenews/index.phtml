@@ -188,7 +188,7 @@
                 </form>
             </div>
 
-        <ul id="livenews-list">
+        <ul class="body">
             <?$lastday = ''?>
             <?foreach($pager->items as $item): //type-img  //type-video?>
             <?$currentday = $this->tag->datetime($item->updatedAt, 'Y-m-d')?>
@@ -319,21 +319,21 @@
                     <% } %>
 
                     <% if (record.type == 'news') { %>
-                        <li id="<%= record.id %>" class="news" data-utm="<%= record.utm %>" >
+                        <li id="livenews-<%= record.id %>" class="news" data-utm="<%= record.utm %>" >
                             <span class="time"><a href="/livenews/detail/<%= record.id%>"><%= record.time %></a></span>
                             <span class="icon fa fa-file-text"></span>
                             <div class="control-box">
                                 <div class="meta comments">
                                     <a href="">
                                         <span class="fa fa-comment"></span>
-                                        <span class="text">0</span>
+                                        <span class="text"><%= record.commentCount %></span>
                                     </a>
                                 </div>
                                 <hr class="vr"/>
                                 <div class="meta">
                                     <a href="">
                                         <span class="fa fa-share-square-o"></span>
-                                        <span class="text"></span>
+                                        <span class="text"><%= record.shareCount %></span>
                                     </a>
                                 </div>
                                 <hr class="vr"/>
@@ -345,10 +345,13 @@
                                 </div>
                             </div>
                             <div class="content"><%= record.contentHtml %></div>
+                            <% if (record.hasMore == "1") { %>
+                                <span class="more fa"></span>
+                            <% } %>
                         </li>
                     <% } else if (record.type =='data') { %>
                         <% if (record.codeType == 'json') { %>
-                            <li id="<%= record.id %>" class="news type-date" data-utm="<%= record.utm %>"  data-trend="<%= record.data.trend %>">
+                            <li id="livenews-<%= record.id %>" class="news type-date" data-utm="<%= record.utm %>"  data-trend="<%= record.data.trend %>">
                                 <span class="time"><a href="/livenews/detail/<%= record.id%>"><%= record.time %></a></span>
                                 <span class="important">
                                     <i class="fa fa-star star active"></i>
@@ -359,21 +362,21 @@
                                     <div class="meta comments">
                                         <a href="">
                                             <span class="fa fa-comment"></span>
-                                            <span class="text">0</span>
+                                            <span class="text"><%= record.commentCount %></span>
                                         </a>
                                     </div>
                                     <hr class="vr"/>
                                     <div class="meta">
                                         <a href="">
                                             <span class="fa fa-share-square-o"></span>
-                                            <span class="text">23</span>
+                                            <span class="text"><%= record.shareCount %></span>
                                         </a>
                                     </div>
                                     <hr class="vr"/>
                                     <div class="meta">
                                         <a href="">
                                             <span class="fa fa-heart"></span>
-                                            <span class="text">23</span>
+                                            <span class="text"></span>
                                         </a>
                                     </div>
                                 </div>
@@ -401,23 +404,26 @@
                                         <span class="value current"><%= record.data.actual %></span>
                                     </div>
                                 </div>
+                                <% if (record.hasMore == "1") { %>
+                                    <span class="more fa"></span>
+                                <% } %>
                             </li>
                         <% } else { %>
-                            <li id="<%= record.id %>" class="news" data-utm="<%= record.utm %>" >
+                            <li id="livenews-<%= record.id %>" class="news" data-utm="<%= record.utm %>" >
                                 <span class="time"><%= record.time %></span>
                                 <span class="icon fa fa-file-text"></span>
                                 <div class="control-box">
                                     <div class="meta comments">
                                         <a href="">
                                             <span class="fa fa-comment"></span>
-                                            <span class="text">0</span>
+                                            <span class="text"><%= record.commentCount %></span>
                                         </a>
                                     </div>
                                     <hr class="vr"/>
                                     <div class="meta">
                                         <a href="">
                                             <span class="fa fa-share-square-o"></span>
-                                            <span class="text"></span>
+                                            <span class="text"><%= record.shareCount %></span>
                                         </a>
                                     </div>
                                     <hr class="vr"/>
@@ -429,6 +435,9 @@
                                     </div>
                                 </div>
                                 <div class="content"><%= record.contentHtml %></div>
+                                <% if (record.hasMore == "1") { %>
+                                    <span class="more fa"></span>
+                                <% } %>
                             </li>
                         <% } %>
                     <% } %>

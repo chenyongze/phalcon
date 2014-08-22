@@ -3527,6 +3527,7 @@ body.show-breaking-news #breaking-news {
 }
 #livenews-list .news .control-box .meta .text {
   display: block;
+  text-align: center;
 }
 #livenews-list .news .control-box .meta:hover {
   color: #0078d2;
@@ -3536,6 +3537,22 @@ body.show-breaking-news #breaking-news {
 }
 #livenews-list .news .control-box .meta.comments .text {
   margin-top: 1px;
+}
+#livenews-list .news > .more {
+  display: block;
+  margin: 0 auto;
+  width: 30px;
+  text-align: center;
+  line-height: 16px;
+}
+#livenews-list .news > .more:hover {
+  color: #0078d2;
+}
+#livenews-list .news > .more:before {
+  content: "\f078";
+}
+#livenews-list .news > .more.active:before {
+  content: "\f077";
 }
 #livenews-list .news > .content {
   position: relative;
