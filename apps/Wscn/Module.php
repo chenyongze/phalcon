@@ -21,6 +21,8 @@ class Module implements ModuleDefinitionInterface, StandardInterface
     {
         return array(
             'dispatch' => 'Wscn\Events\DispatchListener',
+            'user' => 'Wscn\Events\UserListener',
+
         );
     }
 

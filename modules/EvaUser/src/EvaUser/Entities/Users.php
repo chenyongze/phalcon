@@ -169,6 +169,16 @@ class Users extends \Eva\EvaEngine\Mvc\Model
     public $providerType = 'DEFAULT';
 
     /**
+     *
+     * @var string 扩展字段
+     */
+    public $extension = '00000000';
+
+    /**
+     * @var bool 密码是否被事件处理器验证成功
+     */
+    public $verifiedByEventHandlers = false;
+    /**
      * Validations and business logic
      */
     public function validation()
@@ -176,7 +186,7 @@ class Users extends \Eva\EvaEngine\Mvc\Model
         $this->validate(
             new Email(
                 array(
-                    "field"    => "email",
+                    "field" => "email",
                     "required" => true,
                 )
             )
@@ -218,9 +228,14 @@ class Users extends \Eva\EvaEngine\Mvc\Model
 
     public function initialize()
     {
-        $this->hasOne('id', 'Eva\EvaUser\Entities\Profiles', 'userId', array(
-            'alias' => 'profile'
-        ));
+        $this->hasOne(
+            'id',
+            'Eva\EvaUser\Entities\Profiles',
+            'userId',
+            array(
+                'alias' => 'profile'
+            )
+        );
 
         parent::initialize();
     }
