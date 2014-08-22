@@ -141,7 +141,24 @@ class NodeController extends ControllerBase
         return $json;
     }
 
-    // 最热
+
+    /**
+     *
+     * @SWG\Api(
+     *   path="/rank-twodays-list.json",
+     *   description="最热API (两天排行榜)",
+     *   produces="['application/json']",
+     *   @SWG\Operations(
+     *     @SWG\Operation(
+     *       method="GET",
+     *       summary="Get post list",
+     *       notes="Returns post list",
+     *       @SWG\Parameters(
+     *       )
+     *     )
+     *   )
+     * )
+     */
     public function ranktwodaysAction()
     {
 
@@ -155,6 +172,24 @@ class NodeController extends ControllerBase
         return $this->getPostListData($query);
     }
 
+
+    /**
+     *
+     * @SWG\Api(
+     *   path="/topnews-list.json",
+     *   description="头条幻灯片",
+     *   produces="['application/json']",
+     *   @SWG\Operations(
+     *     @SWG\Operation(
+     *       method="GET",
+     *       summary="Get post list",
+     *       notes="Returns post list",
+     *       @SWG\Parameters(
+     *       )
+     *     )
+     *   )
+     * )
+     */
     public function topnewsAction()
     {
         $query = array(
@@ -167,6 +202,31 @@ class NodeController extends ControllerBase
         return $this->getPostListData($query);
     }
 
+
+    /**
+     *
+     * @SWG\Api(
+     *   path="/node/.json",
+     *   description="文章详情API （新闻、实时新闻同一个）",
+     *   produces="['application/json']",
+     *   @SWG\Operations(
+     *     @SWG\Operation(
+     *       method="GET",
+     *       summary="Get post list",
+     *       notes="Returns post list",
+     *       @SWG\Parameters(
+     *         @SWG\Parameter(
+     *           name="id",
+     *           description="新闻 id",
+     *           paramType="query",
+     *           required=true,
+     *           type="int"
+     *         ),
+     *       )
+     *     )
+     *   )
+     * )
+     */
     public function getAction()
     {
 
@@ -230,6 +290,31 @@ class NodeController extends ControllerBase
         return $this->response->setJsonContent(array());
     }
 
+
+    /**
+     *
+     * @SWG\Api(
+     *   path="/livenews-count-gold.json",
+     *   description="实时新闻未读数量",
+     *   produces="['application/json']",
+     *   @SWG\Operations(
+     *     @SWG\Operation(
+     *       method="GET",
+     *       summary="Get post list",
+     *       notes="Returns post list",
+     *       @SWG\Parameters(
+     *         @SWG\Parameter(
+     *           name="nid",
+     *           description="新闻 id",
+     *           paramType="query",
+     *           required=false,
+     *           type="int"
+     *         ),
+     *       )
+     *     )
+     *   )
+     * )
+     */
     public function liveNewsCountAction()
     {
         $nid = $this->request->getQuery('nid', 'int', 0);
@@ -258,7 +343,30 @@ class NodeController extends ControllerBase
         return $this->response->setJsonContent(array(array('count' => $count)));
     }
 
-
+    /**
+     *
+     * @SWG\Api(
+     *   path="/livenews-count-gold.json",
+     *   description="实时新闻黄金未读数量",
+     *   produces="['application/json']",
+     *   @SWG\Operations(
+     *     @SWG\Operation(
+     *       method="GET",
+     *       summary="Get post list",
+     *       notes="Returns post list",
+     *       @SWG\Parameters(
+     *         @SWG\Parameter(
+     *           name="nid",
+     *           description="新闻 id",
+     *           paramType="query",
+     *           required=false,
+     *           type="int"
+     *         ),
+     *       )
+     *     )
+     *   )
+     * )
+     */
     public function liveNewsCountGoldAction()
     {
         $nid = $this->request->getQuery('nid', 'int', 0);
@@ -275,7 +383,30 @@ class NodeController extends ControllerBase
     }
 
 
-
+    /**
+     *
+     * @SWG\Api(
+     *   path="/livenews-list-v2.json",
+     *   description="实时新闻列表",
+     *   produces="['application/json']",
+     *   @SWG\Operations(
+     *     @SWG\Operation(
+     *       method="GET",
+     *       summary="Get post list",
+     *       notes="Returns post list",
+     *       @SWG\Parameters(
+     *         @SWG\Parameter(
+     *           name="tid[]",
+     *           description="分类id",
+     *           paramType="query",
+     *           required=false,
+     *           type="int"
+     *         ),
+     *       )
+     *     )
+     *   )
+     * )
+     */
     public function liveAction()
     {
         $tid = $this->request->getQuery('tid');
@@ -301,6 +432,23 @@ class NodeController extends ControllerBase
         return $this->getLiveNewsListData($query);
     }
 
+    /**
+     *
+     * @SWG\Api(
+     *   path="/livenews.json",
+     *   description="实时新闻最新3条",
+     *   produces="['application/json']",
+     *   @SWG\Operations(
+     *     @SWG\Operation(
+     *       method="GET",
+     *       summary="Get post list",
+     *       notes="Returns post list",
+     *       @SWG\Parameters(
+     *       )
+     *     )
+     *   )
+     * )
+     */
     public function liveNewsAction()
     {
 
@@ -312,6 +460,45 @@ class NodeController extends ControllerBase
         return $this->getLiveNewsListData($query);
     }
 
+
+    /**
+     *
+     * @SWG\Api(
+     *   path="/livenews-list-gold.json",
+     *   description="实时新闻黄金列表",
+     *   produces="['application/json']",
+     *   @SWG\Operations(
+     *     @SWG\Operation(
+     *       method="GET",
+     *       summary="Get post list",
+     *       notes="Returns post list",
+     *       @SWG\Parameters(
+     *         @SWG\Parameter(
+     *           name="field_location_tid",
+     *           description="地区分类id",
+     *           paramType="query",
+     *           required=false,
+     *           type="int"
+     *         ),
+     *         @SWG\Parameter(
+     *           name="tid[]",
+     *           description="分类id",
+     *           paramType="query",
+     *           required=false,
+     *           type="int"
+     *         ),
+     *         @SWG\Parameter(
+     *           name="field_icon",
+     *           description="icon 分类",
+     *           paramType="query",
+     *           required=false,
+     *           type="string"
+     *         ),
+     *       )
+     *     )
+     *   )
+     * )
+     */
     public function liveNewsListAction()
     {
         // 地区分类单项选择
@@ -363,10 +550,33 @@ class NodeController extends ControllerBase
         return $this->getLiveNewsListData($query);
     }
 
+
+    /**
+     *
+     * @SWG\Api(
+     *   path="/livenews-gold.json",
+     *   description="黄金实时新闻最新3条",
+     *   produces="['application/json']",
+     *   @SWG\Operations(
+     *     @SWG\Operation(
+     *       method="GET",
+     *       summary="Get post list",
+     *       notes="Returns post list",
+     *       @SWG\Parameters(
+     *         @SWG\Parameter(
+     *           name="field_icon",
+     *           description="icon 分类",
+     *           paramType="query",
+     *           required=false,
+     *           type="string"
+     *         ),
+     *       )
+     *     )
+     *   )
+     * )
+     */
     public function liveNewsGoldAction()
     {
-
-
         // 单项选择 field_icon
          $fieldIcon = $this->request->getQuery('field_icon');
 
