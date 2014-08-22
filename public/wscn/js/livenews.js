@@ -109,11 +109,11 @@ $(function(){
         //选择或取消分类
         $controlGroup.on('click', '.custom-checkbox', function(e){
             var $this = $(this);
-            var $input = $this.find('[type=checkbox]');
+            var $input = $this.find('[name=cid][type=checkbox]');
             var input = $input[0];
-            var name = input.name;
+            var value = input.value;
             //
-            var $sameInput = $controlGroup.find('[type=checkbox][name=' + name + ']');
+            var $sameInput = $controlGroup.find('[name=cid][type=checkbox][value=' + value + ']');
             var length = $sameInput.length;
             while(length --) {
                 $sameInput[length].checked = input.checked;
@@ -121,13 +121,13 @@ $(function(){
             //
             if (input.checked) {
                 var text = $this.find('.text').text();
-                var tag = createTag(name, text);
+                var tag = createTag(value, text);
                 $tags.append(tag);
-                cids += (name + ',');
+                cids += (value + ',');
             } else {
-                var $tag = $tags.find('.tag[name=' + name + ']');
+                var $tag = $tags.find('.tag[value=' + value + ']');
                 $tag.remove();
-                cids = cids.replace(name + ',', '');
+                cids = cids.replace(value + ',', '');
             }
             createUrl();
             loadPage();
@@ -135,22 +135,29 @@ $(function(){
         //取消分类
         $controlGroup.on('click', '.tag', function(e){
             var $this = $(this);
-            var name = $this.attr('name');
-            var $checkbox = $controlGroup.find('[type=checkbox][name=' + name + ']');
+            var value = $this.attr('value');
+            var $checkbox = $controlGroup.find('[name=cid][type=checkbox][value=' + value + ']');
             var length = $checkbox.length;
             while(length --) {
                 $checkbox[length].checked = false;
             }
             $this.remove();
-            cids = cids.replace(name + ',', '');
+            cids = cids.replace(value + ',', '');
             createUrl();
             loadPage();
         });
+        //选择数据类型
         $controlGroup.on('click', '[type=radio][name=type]', function(e){
             var $selected = $controlGroup.find('[type=radio][name=type]:checked');
             type = $selected[0].value;
             createUrl();
             loadPage();
+        });
+        //选择数据类型
+        $controlGroup.on('click', '[type=radio][name=importance]', function(e){
+            var $selected = $controlGroup.find('[type=radio][name=importance]:checked');
+            var value = $selected[0].value;
+            $livenews.attr('data-importance', value);
         });
     }
 
@@ -302,8 +309,8 @@ $(function(){
         updateUrl = encodeURI(updateUrl);
     }
 
-    function createTag(name, text) {
-        return '<span class="tag" name="' + name + '"><i class="fa fa-times-circle"></i>' + text + '</span>';
+    function createTag(value, text) {
+        return '<span class="tag" value="' + value + '"><i class="fa fa-times-circle"></i>' + text + '</span>';
     }
 
 
