@@ -25,6 +25,7 @@
 
         <div id="livenews-list">
             <div class="control-group">
+                <form action="/livenews">
                 <div class="head">
                     <span class="title">筛选今日新闻</span>
                     <label class="switch-box pull-right">
@@ -33,30 +34,32 @@
                         <input type="checkbox" name="alert">
                         <span class="box"></span>
                     </label>
+                    <!-- test button-->
+                    <button type="submit" class="hide">筛选</button>
                 </div>
                 <span class="title">内容：</span>
                 <label class="custom-checkbox">
-                    <input type="checkbox" name="cn">
+                    <input type="checkbox" name="cid[]" value="9">
                     <i class="fa"></i>
                     <span class="text">中国</span>
                 </label>
                 <label class="custom-checkbox">
-                    <input type="checkbox" name="uk">
+                    <input type="checkbox" name="cid[]" value="10">
                     <i class="fa"></i>
                     <span class="text">美国</span>
                 </label>
                 <label class="custom-checkbox">
-                    <input type="checkbox" name="wh">
+                    <input type="checkbox" name="cid[]" value="1">
                     <i class="fa"></i>
                     <span class="text">外汇</span>
                 </label>
                 <label class="custom-checkbox">
-                    <input type="checkbox" name="gs">
+                    <input type="checkbox" name="cid[]" value="2">
                     <i class="fa"></i>
                     <span class="text">股市</span>
                 </label>
                 <label class="custom-checkbox">
-                    <input type="checkbox" name="zc">
+                    <input type="checkbox" name="cid[]" value="7">
                     <i class="fa"></i>
                     <span class="text">见闻早餐</span>
                 </label>
@@ -70,71 +73,71 @@
                         资产类别：
                     </span>
                     <label class="custom-checkbox">
-                        <input type="checkbox" name="wh">
+                        <input type="checkbox" name="cid[]" value="1">
                         <i class="fa"></i>
                         <span class="text">外汇</span>
                     </label>
                     <label class="custom-checkbox">
-                        <input type="checkbox" name="gs">
+                        <input type="checkbox" name="cid[]" value="2">
                         <i class="fa"></i>
                         <span class="text">股市</span>
                     </label>
                     <label class="custom-checkbox">
-                        <input type="checkbox" name="sp">
+                        <input type="checkbox" name="cid[]" value="3">
                         <i class="fa"></i>
                         <span class="text">商品</span>
                     </label>
                     <label class="custom-checkbox">
-                        <input type="checkbox" name="zq">
+                        <input type="checkbox" name="cid[]" value="4">
                         <i class="fa"></i>
-                        <span class="text">债卷市场</span>
+                        <span class="text">债市</span>
                     </label>
                     <hr class="hr"/>
                     <span class="title">
                         地区：
                     </span>
                     <label class="custom-checkbox">
-                        <input type="checkbox" name="cn">
+                        <input type="checkbox" name="cid[]" value="9">
                         <i class="fa"></i>
                         <span class="text">中国</span>
                     </label>
                     <label class="custom-checkbox">
-                        <input type="checkbox" name="uk">
+                        <input type="checkbox" name="cid[]" value="10">
                         <i class="fa"></i>
                         <span class="text">美国</span>
                     </label>
                     <label class="custom-checkbox">
-                        <input type="checkbox" name="ou">
+                        <input type="checkbox" name="cid[]" value="11">
                         <i class="fa"></i>
                         <span class="text">欧元区</span>
                     </label>
                     <label class="custom-checkbox">
-                        <input type="checkbox" name="us">
+                        <input type="checkbox" name="cid[]" value="13">
                         <i class="fa"></i>
                         <span class="text">英国</span>
                     </label>
                     <label class="custom-checkbox">
-                        <input type="checkbox" name="jp">
+                        <input type="checkbox" name="cid[]" value="12">
                         <i class="fa"></i>
                         <span class="text">日本</span>
                     </label>
                     <label class="custom-checkbox">
-                        <input type="checkbox" name="jld">
+                        <input type="checkbox" name="cid[]" value="15">
                         <i class="fa"></i>
                         <span class="text">加拿大</span>
                     </label>
                     <label class="custom-checkbox">
-                        <input type="checkbox" name="ao">
+                        <input type="checkbox" name="cid[]" value="14">
                         <i class="fa"></i>
                         <span class="text">澳洲</span>
                     </label>
                     <label class="custom-checkbox">
-                        <input type="checkbox" name="rs">
+                        <input type="checkbox" name="cid[]" value="16">
                         <i class="fa"></i>
                         <span class="text">瑞士</span>
                     </label>
                     <label class="custom-checkbox">
-                        <input type="checkbox" name="qtdq">
+                        <input type="checkbox" name="cid[]" value="17">
                         <i class="fa"></i>
                         <span class="text">其他地区</span>
                     </label>
@@ -143,7 +146,7 @@
                         央行：
                     </span>
                     <label class="custom-checkbox">
-                        <input type="checkbox" name="yh">
+                        <input type="checkbox" name="cid[]" value="5">
                         <i class="fa"></i>
                         <span class="text">央行</span>
                     </label>
@@ -172,15 +175,16 @@
                 </label>
                 <span class="title" >重要性：</span>
                 <label class="custom-radio">
-                    <input type="radio" name="important" checked value="all">
+                    <input type="radio" name="importance" checked value="">
                     <i class="fa"></i>
                     <span class="text">全部</span>
                 </label>
                 <label class="custom-radio">
-                    <input type="radio" name="important" value="important">
+                    <input type="radio" name="importance" value="2,3">
                     <i class="fa"></i>
                     <span class="text">只看重要的</span>
                 </label>
+                </form>
             </div>
             <script type="text/template" data-template>
                 <% for(var i=0; i < records.length; i++) { %>
@@ -191,7 +195,7 @@
 
                     <% if (record.type == 'news') { %>
                         <li id="<%= record.id %>" class="news" data-utm="<%= record.utm %>" >
-                            <span class="time"><%= record.time %></span>
+                            <span class="time"><a href="/livenews/detail/<%= record.id%>"><%= record.time %></a></span>
                             <span class="icon fa fa-file-text"></span>
                             <div class="control-box">
                                 <div class="meta comments">
@@ -220,7 +224,7 @@
                     <% } else if (record.type =='data') { %>
                         <% if (record.codeType == 'json') { %>
                             <li id="<%= record.id %>" class="news type-date" data-utm="<%= record.utm %>"  data-trend="<%= record.data.trend %>">
-                                <span class="time"><%= record.time %></span>
+                                <span class="time"><a href="/livenews/detail/<%= record.id%>"><%= record.time %></a></span>
                                 <span class="important">
                                     <i class="fa fa-star star active"></i>
                                     <i class="fa fa-star star <%= record.importance > 1 ? 'active' : '' %>"></i>

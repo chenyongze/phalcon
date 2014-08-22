@@ -27,7 +27,7 @@ class AuthController extends ControllerBase
     {
         $service = $this->dispatcher->getParam('service');
         $user = UserModels\Login::getCurrentUser();
-        if(!$user) {
+        if (!$user) {
             throw new Exception\UnauthorizedException('User not login');
         }
         $oauthManager = new OAuthManager();
@@ -74,19 +74,19 @@ class AuthController extends ControllerBase
             $accessToken = $oauth->getAdapter()->getAccessToken($_GET, $requestToken);
             $accessTokenArray = $oauth->getAdapter()->accessTokenToArray($accessToken);
             OAuthManager::saveAccessToken($accessTokenArray);
-            OAuthManager::removeRequestToken();
         } catch (\Exception $e) {
             //TODO: log exception here
             $this->view->setVar('exception', $e->__toString());
             return $this->view->setVar('error', 'ERR_OAUTH_AUTHORIZATION_FAILED');
         }
+        OAuthManager::removeRequestToken();
 
         $loginUser = UserModels\Login::getCurrentUser();
-        if($loginUser && $loginUser['id'] > 0) {
+        //已登录，直接绑定
+        if ($loginUser && $loginUser['id'] > 0) {
             $oauthManager = new OAuthManager();
             try {
                 $oauthManager->bindUserOAuth($loginUser['id'], $accessTokenArray);
-                OAuthManager::removeAccessToken();
                 $this->view->setVar('user', $loginUser);
             } catch (\Exception $e) {
                 $this->view->setVar('exception', $e->__toString());
@@ -106,6 +106,7 @@ class AuthController extends ControllerBase
                 $this->view->setVar('error', 'ERR_OAUTH_LOGIN_FAILED');
             }
         }
+        OAuthManager::removeAccessToken();
     }
 
     public function registerAction()
@@ -130,6 +131,7 @@ class AuthController extends ControllerBase
                 $login->login();
                 return $this->showResponseAsJson(UserModels\Login::getCurrentUser());
             } catch (\Exception $e) {
+                OAuthManager::removeAccessToken();
                 return $this->showExceptionAsJson($e, $user->getMessages());
             }
         } else {
@@ -138,6 +140,7 @@ class AuthController extends ControllerBase
                 OAuthManager::removeAccessToken();
                 return $this->redirectHandler($this->getDI()->getConfig()->oauth->loginSuccessRedirectUri);
             } catch (\Exception $e) {
+                OAuthManager::removeAccessToken();
                 $this->showException($e, $user->getMessages());
                 return $this->redirectHandler($this->getDI()->getConfig()->oauth->registerFailedRedirectUri);
             }
@@ -161,6 +164,7 @@ class AuthController extends ControllerBase
                 OAuthManager::removeAccessToken();
                 return $this->showResponseAsJson(UserModels\Login::getCurrentUser());
             } catch (\Exception $e) {
+                OAuthManager::removeAccessToken();
                 return $this->showExceptionAsJson($e, $user->getMessages());
             }
         } else {
@@ -170,6 +174,7 @@ class AuthController extends ControllerBase
                 OAuthManager::removeAccessToken();
                 return $this->redirectHandler($this->getDI()->getConfig()->oauth->loginSuccessRedirectUri);
             } catch (\Exception $e) {
+                OAuthManager::removeAccessToken();
                 $this->showException($e, $user->getMessages());
                 return $this->redirectHandler($this->getDI()->getConfig()->oauth->loginFailedRedirectUri);
             }
