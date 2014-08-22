@@ -1,10 +1,12 @@
 <?php
 
-namespace WscnApiVer2\Controllers;
+namespace WscnApiVer2\Controllers\Admin;
 
+use WscnApiVer2\Controllers\ControllerBase;
+use Eva\EvaEngine\Mvc\Controller\TokenAuthorityControllerInterface;
 use Swagger\Annotations as SWG;
-use Eva\EvaUser\Models;
-use Eva\EvaUser\Forms;
+use Eva\EvaFileSystem\Models;
+use Eva\EvaFileSystem\Forms;
 use Eva\EvaEngine\Exception;
 
 /**
@@ -15,27 +17,27 @@ use Eva\EvaEngine\Exception;
  * @SWG\Resource(
  *  apiVersion="0.2",
  *  swaggerVersion="1.2",
- *  resourcePath="/AdminUsers",
+ *  resourcePath="/AdminMedia",
  *  basePath="/v2"
  * )
  */
-class UsersController extends ControllerBase
+ class MediaController extends ControllerBase implements TokenAuthorityControllerInterface
 {
     /**
      *
      * @SWG\Api(
-     *   path="/admin/users",
-     *   description="User manage api",
+     *   path="/admin/media",
+     *   description="Media manage api",
      *   produces="['application/json']",
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       method="GET",
-     *       summary="Get user list",
-     *       notes="Returns user list with paginator",
+     *       summary="Get media list",
+     *       notes="Returns media list",
      *       @SWG\Parameters(
      *         @SWG\Parameter(
-     *           name="username",
-     *           description="Username",
+     *           name="q",
+     *           description="Keyword",
      *           paramType="query",
      *           required=false,
      *           type="string"
@@ -48,8 +50,29 @@ class UsersController extends ControllerBase
      *           type="string"
      *         ),
      *         @SWG\Parameter(
+     *           name="uid",
+     *           description="User ID",
+     *           paramType="query",
+     *           required=false,
+     *           type="integer"
+     *         ),
+     *         @SWG\Parameter(
+     *           name="extension",
+     *           description="File Extension",
+     *           paramType="query",
+     *           required=false,
+     *           type="string"
+     *         ),
+     *         @SWG\Parameter(
+     *           name="image",
+     *           description="Only image files : 0/1",
+     *           paramType="query",
+     *           required=false,
+     *           type="integer"
+     *         ),
+     *         @SWG\Parameter(
      *           name="order",
-     *           description="Order, allow value : +-id, +-created_at, default is -created_at",
+     *           description="Order, allow value : +-id, +-created_at, +-sortOrder default is -created_at",
      *           paramType="query",
      *           required=false,
      *           type="string"
@@ -71,13 +94,13 @@ class UsersController extends ControllerBase
         $limit = $this->request->getQuery('limit', 'int', 25);
         $limit = $limit > 100 ? 100 : $limit;
         $limit = $limit < 3 ? 3 : $limit;
-        $order = $this->request->getQuery('order', 'string', '-created_at');
+        $order = $this->request->getQuery('order', 'string', 'id');
         $query = array(
             'q' => $this->request->getQuery('q', 'string'),
             'status' => $this->request->getQuery('status', 'string'),
             'uid' => $this->request->getQuery('uid', 'int'),
-            'cid' => $this->request->getQuery('cid', 'int'),
-            'username' => $this->request->getQuery('username', 'string'),
+            'extension' => $this->request->getQuery('extension', 'string'),
+            'image' => $this->request->getQuery('image', 'int'),
             'order' => $order,
             'limit' => $limit,
             'page' => $this->request->getQuery('page', 'int', 1),
@@ -86,26 +109,26 @@ class UsersController extends ControllerBase
         $form = new Forms\FilterForm();
         $form->setValues($this->request->getQuery());
 
-        $user = new Models\UserManager();
-        $users = $user->findUsers($query);
+        $fileManager = new Models\FileManager();
+        $medias = $fileManager->findFiles($query);
         $paginator = new \Eva\EvaEngine\Paginator(array(
-            "builder" => $users,
+            "builder" => $medias,
             "limit"=> $limit,
             "page" => $query['page']
         ));
         $paginator->setQuery($query);
         $pager = $paginator->getPaginate();
 
-        $userArray = array();
+        $mediaArray = array();
         if ($pager->items) {
-            foreach ($pager->items as $key => $user) {
-                $userArray[] = $user->dump(Models\UserManager::$defaultDump);
+            foreach ($pager->items as $key => $media) {
+                $mediaArray[] = $media->dump(Models\FileManager::$defaultDump);
             }
         }
 
         $data = array(
             'paginator' => $this->getApiPaginator($paginator),
-            'results' => $userArray,
+            'results' => $mediaArray,
         );
         return $this->response->setJsonContent($data);
     }
@@ -113,18 +136,18 @@ class UsersController extends ControllerBase
     /**
     *
     * @SWG\Api(
-    *   path="/admin/users/{userId}",
-    *   description="User related api",
+    *   path="/admin/media/{mediaId}",
+    *   description="Media related api",
     *   produces="['application/json']",
     *   @SWG\Operations(
     *     @SWG\Operation(
     *       method="GET",
-    *       summary="Find user by ID",
-     *       notes="Returns a user based on ID",
+    *       summary="Find media by ID",
+     *       notes="Returns a media based on ID",
      *       @SWG\Parameters(
      *         @SWG\Parameter(
-     *           name="userId",
-     *           description="ID of user",
+     *           name="mediaId",
+     *           description="ID of media",
      *           paramType="path",
      *           required=true,
      *           type="integer"
@@ -137,30 +160,30 @@ class UsersController extends ControllerBase
     public function getAction()
     {
         $id = $this->dispatcher->getParam('id');
-        $userModel = new Models\UserManager();
-        $user = $userModel->findFirst($id);
-        if (!$user) {
-            throw new Exception\ResourceNotFoundException('Request user not exist');
+        $mediaModel = new Models\FileManager();
+        $media = $mediaModel->findFirst($id);
+        if (!$media) {
+            throw new Exception\ResourceNotFoundException('Request media not exist');
         }
-        $user = $user->dump(Models\UserManager::$defaultDump);
-        return $this->response->setJsonContent($user);
+        $media = $media->dump(Models\FileManager::$defaultDump);
+        return $this->response->setJsonContent($media);
     }
 
     /**
      *
      * @SWG\Api(
-     *   path="/admin/users/{userId}",
-     *   description="User related api",
+     *   path="/admin/media/{mediaId}",
+     *   description="Media related api",
      *   produces="['application/json']",
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       method="PUT",
-     *       summary="Update user by ID",
-     *       notes="Returns updated user",
+     *       summary="Update media by ID",
+     *       notes="Returns updated media",
      *       @SWG\Parameters(
      *         @SWG\Parameter(
-     *           name="userId",
-     *           description="ID of user",
+     *           name="mediaId",
+     *           description="ID of media",
      *           paramType="path",
      *           required=true,
      *           type="integer"
@@ -168,8 +191,8 @@ class UsersController extends ControllerBase
      *       ),
      *       @SWG\Parameters(
      *         @SWG\Parameter(
-     *           name="userData",
-     *           description="User info",
+     *           name="mediaData",
+     *           description="Media info",
      *           paramType="body",
      *           required=true,
      *           type="string"
@@ -189,19 +212,14 @@ class UsersController extends ControllerBase
         if (!$data = json_decode($data, true)) {
             throw new Exception\InvalidArgumentException('Data not able to decode as JSON');
         }
-        $user = Models\UserManager::findFirst($id);
-        if (!$user) {
-            throw new Exception\ResourceNotFoundException('Request user not exist');
-        }
-        $form = new Forms\UserForm();
-        $form->setModel($user);
-        $form->addForm('profile', 'Eva\EvaUser\Forms\ProfileForm');
-        if (!$form->isFullValid($data)) {
-            return $this->showInvalidMessagesAsJson($form);
+        $media = Models\FileManager::findFirst($id);
+        if (!$media) {
+            throw new Exception\ResourceNotFoundException('Request media not exist');
         }
         try {
-            $form->save('updateUser');
-            $data = $user->dump(Models\UserManager::$defaultDump);
+            $media->assign($data);
+            $media->save();
+            $data = $media->dump(Models\FileManager::$defaultDump);
             return $this->response->setJsonContent($data);
         } catch (\Exception $e) {
             return $this->showExceptionAsJson($e, $form->getModel()->getMessages());
@@ -211,21 +229,21 @@ class UsersController extends ControllerBase
      /**
      *
      * @SWG\Api(
-     *   path="/admin/users",
-     *   description="User related api",
+     *   path="/admin/media",
+     *   description="Media related api",
      *   produces="['application/json']",
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       method="POST",
-     *       summary="Create new user",
-     *       notes="Returns a user based on ID",
+     *       summary="Create new media",
+     *       notes="Returns a media based on ID",
      *       @SWG\Parameters(
      *         @SWG\Parameter(
-     *           name="user json",
-     *           description="User info",
+     *           name="upload",
+     *           description="Media info",
      *           paramType="body",
      *           required=true,
-     *           type="string"
+     *           type="file"
      *         )
      *       )
      *     )
@@ -234,47 +252,40 @@ class UsersController extends ControllerBase
      */
     public function postAction()
     {
-        $data = $this->request->getRawBody();
-        if (!$data) {
+        if (!$this->request->isPost() || !$this->request->hasFiles()) {
             throw new Exception\InvalidArgumentException('No data input');
         }
-        if (!$data = json_decode($data, true)) {
-            throw new Exception\InvalidArgumentException('Data not able to decode as JSON');
-        }
 
-        $form = new Forms\UserForm();
-        $user = new Models\UserManager();
-        $form->setModel($user);
-        $form->addForm('profile', 'Eva\EvaUser\Forms\ProfileForm');
-
-        if (!$form->isFullValid($data)) {
-            return $this->showInvalidMessagesAsJson($form);
-        }
-
+        $upload = new Models\Upload();
         try {
-            $form->save('createUser');
-            $data = $user->dump(Models\UserManager::$defaultDump);
-            return $this->response->setJsonContent($data);
+            $files = $this->request->getUploadedFiles();
+            //Only allow upload the first file by force
+            $file = $files[0];
+            $file = $upload->upload($file);
+            if ($file) {
+                $data = $file->dump(Models\FileManager::$defaultDump);
+                return $this->response->setJsonContent($data);
+            }
         } catch (\Exception $e) {
-            return $this->showExceptionAsJson($e, $form->getModel()->getMessages());
+            return $this->showExceptionAsJson($e, $upload->getMessages());
         }
     }
 
     /**
     *
      * @SWG\Api(
-     *   path="/admin/users/{userId}",
-     *   description="User related api",
+     *   path="/admin/media/{mediaId}",
+     *   description="Media related api",
      *   produces="['application/json']",
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       method="DELETE",
-     *       summary="Delete user by ID",
-     *       notes="Returns deleted user",
+     *       summary="Delete media by ID",
+     *       notes="Returns deleted media",
      *       @SWG\Parameters(
      *         @SWG\Parameter(
-     *           name="userId",
-     *           description="ID of user",
+     *           name="mediaId",
+     *           description="ID of media",
      *           paramType="path",
      *           required=true,
      *           type="integer"
@@ -287,16 +298,16 @@ class UsersController extends ControllerBase
     public function deleteAction()
     {
          $id = $this->dispatcher->getParam('id');
-         $user = Models\UserManager::findFirst($id);
-        if (!$user) {
-            throw new Exception\ResourceNotFoundException('Request user not exist');
+         $media = Models\FileManager::findFirst($id);
+        if (!$media) {
+            throw new Exception\ResourceNotFoundException('Request media not exist');
         }
-         $userinfo = $user->dump(Models\UserManager::$defaultDump);
+         $mediainfo = $media->dump(Models\FileManager::$defaultDump);
         try {
-            $user->removeUser($id);
-            return $this->response->setJsonContent($userinfo);
+            $media->delete($id);
+            return $this->response->setJsonContent($mediainfo);
         } catch (\Exception $e) {
-            return $this->showExceptionAsJson($e, $user->getMessages());
+            return $this->showExceptionAsJson($e, $media->getMessages());
         }
     }
 }

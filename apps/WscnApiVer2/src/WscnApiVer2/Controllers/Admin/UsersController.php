@@ -1,10 +1,12 @@
 <?php
 
-namespace WscnApiVer2\Controllers;
+namespace WscnApiVer2\Controllers\Admin;
 
+use WscnApiVer2\Controllers\ControllerBase;
+use Eva\EvaEngine\Mvc\Controller\TokenAuthorityControllerInterface;
 use Swagger\Annotations as SWG;
-use Eva\EvaBlog\Models;
-use Eva\EvaBlog\Forms;
+use Eva\EvaUser\Models;
+use Eva\EvaUser\Forms;
 use Eva\EvaEngine\Exception;
 
 /**
@@ -15,27 +17,27 @@ use Eva\EvaEngine\Exception;
  * @SWG\Resource(
  *  apiVersion="0.2",
  *  swaggerVersion="1.2",
- *  resourcePath="/AdminPosts",
+ *  resourcePath="/AdminUsers",
  *  basePath="/v2"
  * )
  */
-class PostsController extends ControllerBase
+class UsersController extends ControllerBase implements TokenAuthorityControllerInterface
 {
     /**
      *
      * @SWG\Api(
-     *   path="/admin/posts",
-     *   description="Posts Manage api",
+     *   path="/admin/users",
+     *   description="User manage api",
      *   produces="['application/json']",
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       method="GET",
-     *       summary="Get post list",
-     *       notes="Returns post list",
+     *       summary="Get user list",
+     *       notes="Returns user list with paginator",
      *       @SWG\Parameters(
      *         @SWG\Parameter(
-     *           name="q",
-     *           description="Keyword",
+     *           name="username",
+     *           description="Username",
      *           paramType="query",
      *           required=false,
      *           type="string"
@@ -48,29 +50,8 @@ class PostsController extends ControllerBase
      *           type="string"
      *         ),
      *         @SWG\Parameter(
-     *           name="uid",
-     *           description="User ID",
-     *           paramType="query",
-     *           required=false,
-     *           type="integer"
-     *         ),
-     *         @SWG\Parameter(
-     *           name="cid",
-     *           description="Category ID",
-     *           paramType="query",
-     *           required=false,
-     *           type="integer"
-     *         ),
-     *         @SWG\Parameter(
-     *           name="tid",
-     *           description="Tag ID",
-     *           paramType="query",
-     *           required=false,
-     *           type="integer"
-     *         ),
-     *         @SWG\Parameter(
      *           name="order",
-     *           description="Order, allow value : +-id, +-created_at, +-sortOrder default is -created_at",
+     *           description="Order, allow value : +-id, +-created_at, default is -created_at",
      *           paramType="query",
      *           required=false,
      *           type="string"
@@ -98,7 +79,6 @@ class PostsController extends ControllerBase
             'status' => $this->request->getQuery('status', 'string'),
             'uid' => $this->request->getQuery('uid', 'int'),
             'cid' => $this->request->getQuery('cid', 'int'),
-            'tid' => $this->request->getQuery('tid', 'int'),
             'username' => $this->request->getQuery('username', 'string'),
             'order' => $order,
             'limit' => $limit,
@@ -108,46 +88,26 @@ class PostsController extends ControllerBase
         $form = new Forms\FilterForm();
         $form->setValues($this->request->getQuery());
 
-        $post = new Models\Post();
-        $posts = $post->findPosts($query);
+        $user = new Models\UserManager();
+        $users = $user->findUsers($query);
         $paginator = new \Eva\EvaEngine\Paginator(array(
-            "builder" => $posts,
+            "builder" => $users,
             "limit"=> $limit,
             "page" => $query['page']
         ));
         $paginator->setQuery($query);
         $pager = $paginator->getPaginate();
 
-        $postArray = array();
+        $userArray = array();
         if ($pager->items) {
-            foreach ($pager->items as $key => $post) {
-                $postArray[] = $post->dump(array(
-                    'id',
-                    'title',
-                    'codeType',
-                    'createdAt',
-                    'summary',
-                    'summaryHtml' => 'getSummaryHtml',
-                    'commentStatus',
-                    'sourceName',
-                    'sourceUrl',
-                    'url' => 'getUrl',
-                    'imageUrl' => 'getImageUrl',
-                    'tags' => array(
-                        'id',
-                        'tagName',
-                    ),
-                    'user' => array(
-                        'id',
-                        'username',
-                    ),
-                ));
+            foreach ($pager->items as $key => $user) {
+                $userArray[] = $user->dump(Models\UserManager::$defaultDump);
             }
         }
 
         $data = array(
             'paginator' => $this->getApiPaginator($paginator),
-            'results' => $postArray,
+            'results' => $userArray,
         );
         return $this->response->setJsonContent($data);
     }
@@ -155,18 +115,18 @@ class PostsController extends ControllerBase
     /**
     *
     * @SWG\Api(
-    *   path="/admin/posts/{postId}",
-    *   description="Posts Manage api",
+    *   path="/admin/users/{userId}",
+    *   description="User related api",
     *   produces="['application/json']",
     *   @SWG\Operations(
     *     @SWG\Operation(
     *       method="GET",
-    *       summary="Find post by ID",
-     *       notes="Returns a post based on ID",
+    *       summary="Find user by ID",
+     *       notes="Returns a user based on ID",
      *       @SWG\Parameters(
      *         @SWG\Parameter(
-     *           name="postId",
-     *           description="ID of post",
+     *           name="userId",
+     *           description="ID of user",
      *           paramType="path",
      *           required=true,
      *           type="integer"
@@ -179,30 +139,30 @@ class PostsController extends ControllerBase
     public function getAction()
     {
         $id = $this->dispatcher->getParam('id');
-        $postModel = new Models\Post();
-        $post = $postModel->findFirst($id);
-        if (!$post) {
-            throw new Exception\ResourceNotFoundException('Request post not exist');
+        $userModel = new Models\UserManager();
+        $user = $userModel->findFirst($id);
+        if (!$user) {
+            throw new Exception\ResourceNotFoundException('Request user not exist');
         }
-        $post = $post->dump(Models\Post::$defaultDump);
-        return $this->response->setJsonContent($post);
+        $user = $user->dump(Models\UserManager::$defaultDump);
+        return $this->response->setJsonContent($user);
     }
 
     /**
      *
      * @SWG\Api(
-     *   path="/admin/posts/{postId}",
-     *   description="Post related api",
+     *   path="/admin/users/{userId}",
+     *   description="User related api",
      *   produces="['application/json']",
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       method="PUT",
-     *       summary="Update post by ID",
-     *       notes="Returns updated post",
+     *       summary="Update user by ID",
+     *       notes="Returns updated user",
      *       @SWG\Parameters(
      *         @SWG\Parameter(
-     *           name="postId",
-     *           description="ID of post",
+     *           name="userId",
+     *           description="ID of user",
      *           paramType="path",
      *           required=true,
      *           type="integer"
@@ -210,8 +170,8 @@ class PostsController extends ControllerBase
      *       ),
      *       @SWG\Parameters(
      *         @SWG\Parameter(
-     *           name="postData",
-     *           description="Post info",
+     *           name="userData",
+     *           description="User info",
      *           paramType="body",
      *           required=true,
      *           type="string"
@@ -231,19 +191,19 @@ class PostsController extends ControllerBase
         if (!$data = json_decode($data, true)) {
             throw new Exception\InvalidArgumentException('Data not able to decode as JSON');
         }
-        $post = Models\Post::findFirst($id);
-        if (!$post) {
-            throw new Exception\ResourceNotFoundException('Request post not exist');
+        $user = Models\UserManager::findFirst($id);
+        if (!$user) {
+            throw new Exception\ResourceNotFoundException('Request user not exist');
         }
-        $form = new Forms\PostForm();
-        $form->setModel($post);
-        $form->addForm('text', 'Eva\EvaBlog\Forms\TextForm');
+        $form = new Forms\UserForm();
+        $form->setModel($user);
+        $form->addForm('profile', 'Eva\EvaUser\Forms\ProfileForm');
         if (!$form->isFullValid($data)) {
             return $this->showInvalidMessagesAsJson($form);
         }
         try {
-            $form->save('updatePost');
-            $data = $post->dump(Models\Post::$defaultDump);
+            $form->save('updateUser');
+            $data = $user->dump(Models\UserManager::$defaultDump);
             return $this->response->setJsonContent($data);
         } catch (\Exception $e) {
             return $this->showExceptionAsJson($e, $form->getModel()->getMessages());
@@ -253,18 +213,18 @@ class PostsController extends ControllerBase
      /**
      *
      * @SWG\Api(
-     *   path="/admin/posts",
-     *   description="Post related api",
+     *   path="/admin/users",
+     *   description="User related api",
      *   produces="['application/json']",
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       method="POST",
-     *       summary="Create new post",
-     *       notes="Returns a post based on ID",
+     *       summary="Create new user",
+     *       notes="Returns a user based on ID",
      *       @SWG\Parameters(
      *         @SWG\Parameter(
-     *           name="post json",
-     *           description="Post info",
+     *           name="user json",
+     *           description="User info",
      *           paramType="body",
      *           required=true,
      *           type="string"
@@ -284,18 +244,18 @@ class PostsController extends ControllerBase
             throw new Exception\InvalidArgumentException('Data not able to decode as JSON');
         }
 
-        $form = new Forms\PostForm();
-        $post = new Models\Post();
-        $form->setModel($post);
-        $form->addForm('text', 'Eva\EvaBlog\Forms\TextForm');
+        $form = new Forms\UserForm();
+        $user = new Models\UserManager();
+        $form->setModel($user);
+        $form->addForm('profile', 'Eva\EvaUser\Forms\ProfileForm');
 
         if (!$form->isFullValid($data)) {
             return $this->showInvalidMessagesAsJson($form);
         }
 
         try {
-            $form->save('createPost');
-            $data = $post->dump(Models\Post::$defaultDump);
+            $form->save('createUser');
+            $data = $user->dump(Models\UserManager::$defaultDump);
             return $this->response->setJsonContent($data);
         } catch (\Exception $e) {
             return $this->showExceptionAsJson($e, $form->getModel()->getMessages());
@@ -305,18 +265,18 @@ class PostsController extends ControllerBase
     /**
     *
      * @SWG\Api(
-     *   path="/admin/posts/{postId}",
-     *   description="Post related api",
+     *   path="/admin/users/{userId}",
+     *   description="User related api",
      *   produces="['application/json']",
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       method="DELETE",
-     *       summary="Delete post by ID",
-     *       notes="Returns deleted post",
+     *       summary="Delete user by ID",
+     *       notes="Returns deleted user",
      *       @SWG\Parameters(
      *         @SWG\Parameter(
-     *           name="postId",
-     *           description="ID of post",
+     *           name="userId",
+     *           description="ID of user",
      *           paramType="path",
      *           required=true,
      *           type="integer"
@@ -328,17 +288,17 @@ class PostsController extends ControllerBase
      */
     public function deleteAction()
     {
-        $id = $this->dispatcher->getParam('id');
-        $post = Models\Post::findFirst($id);
-        if (!$post) {
-            throw new Exception\ResourceNotFoundException('Request post not exist');
+         $id = $this->dispatcher->getParam('id');
+         $user = Models\UserManager::findFirst($id);
+        if (!$user) {
+            throw new Exception\ResourceNotFoundException('Request user not exist');
         }
-         $postinfo = $post->dump(Models\Post::$defaultDump);
+         $userinfo = $user->dump(Models\UserManager::$defaultDump);
         try {
-            $post->removePost($id);
-            return $this->response->setJsonContent($postinfo);
+            $user->removeUser($id);
+            return $this->response->setJsonContent($userinfo);
         } catch (\Exception $e) {
-            return $this->showExceptionAsJson($e, $post->getMessages());
+            return $this->showExceptionAsJson($e, $user->getMessages());
         }
     }
 }

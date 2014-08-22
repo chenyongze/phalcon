@@ -23,7 +23,7 @@ return array(
         'pattern' => '/v2/admin/posts',
         'paths' => array(
             'module' => 'WscnApiVer2',
-            'controller' => 'posts',
+            'controller' => 'Admin\Posts',
             'action' => 'index',
         ),
         'httpMethods' => 'GET'
@@ -118,58 +118,109 @@ return array(
         'httpMethods' => 'DELETE'
     ),
 
-    //Medias
-    'medialist' =>  array(
+    //Admin Media
+    'adminMediaList' =>  array(
         'pattern' => '/v2/admin/media',
         'paths' => array(
             'module' => 'WscnApiVer2',
-            'controller' => 'media',
+            'controller' => 'Admin\Media',
             'action' => 'index',
         ),
         'httpMethods' => 'GET'
     ),
-    'createmedia' =>  array(
+    'adminCreateMedia' =>  array(
         'pattern' => '/v2/admin/media',
         'paths' => array(
             'module' => 'WscnApiVer2',
-            'controller' => 'media',
-            'action' => 'media',
+            'controller' => 'Admin\Media',
+            'action' => 'post',
         ),
         'httpMethods' => 'POST'
     ),
-    'getmedia' =>  array(
+    'adminGetMedia' =>  array(
         'pattern' => '/v2/admin/media/(\d+)',
         'paths' => array(
             'module' => 'WscnApiVer2',
-            'controller' => 'media',
+            'controller' => 'Admin\Media',
             'action' => 'get',
             'id' => 1,
         ),
         'httpMethods' => 'GET'
     ),
-    'putmedia' =>  array(
+    'adminPutMedia' =>  array(
         'pattern' => '/v2/admin/media/(\d+)',
         'paths' => array(
             'module' => 'WscnApiVer2',
-            'controller' => 'media',
+            'controller' => 'Admin\Media',
             'action' => 'put',
             'id' => 1,
         ),
         'httpMethods' => 'PUT'
     ),
-    'deletemedia' =>  array(
+    'adminDeleteMedia' =>  array(
         'pattern' => '/v2/admin/media/(\d+)',
         'paths' => array(
             'module' => 'WscnApiVer2',
-            'controller' => 'media',
+            'controller' => 'Admin\Media',
             'action' => 'delete',
             'id' => 1,
         ),
         'httpMethods' => 'DELETE'
     ),
 
-    'livenewslist' =>  array(
+    //Admin Media
+    'adminLivenewsList' =>  array(
         'pattern' => '/v2/admin/livenews',
+        'paths' => array(
+            'module' => 'WscnApiVer2',
+            'controller' => 'Admin\Livenews',
+            'action' => 'index',
+        ),
+        'httpMethods' => 'GET'
+    ),
+    'adminCreateLivenews' =>  array(
+        'pattern' => '/v2/admin/livenews',
+        'paths' => array(
+            'module' => 'WscnApiVer2',
+            'controller' => 'Admin\Livenews',
+            'action' => 'post',
+        ),
+        'httpMethods' => 'POST'
+    ),
+    'adminGetLivenews' =>  array(
+        'pattern' => '/v2/admin/livenews/(\d+)',
+        'paths' => array(
+            'module' => 'WscnApiVer2',
+            'controller' => 'Admin\Livenews',
+            'action' => 'get',
+            'id' => 1,
+        ),
+        'httpMethods' => 'GET'
+    ),
+    'adminPutLivenews' =>  array(
+        'pattern' => '/v2/admin/livenews/(\d+)',
+        'paths' => array(
+            'module' => 'WscnApiVer2',
+            'controller' => 'Admin\Livenews',
+            'action' => 'put',
+            'id' => 1,
+        ),
+        'httpMethods' => 'PUT'
+    ),
+    'adminDeletelivenews' =>  array(
+        'pattern' => '/v2/admin/livenews/(\d+)',
+        'paths' => array(
+            'module' => 'WscnApiVer2',
+            'controller' => 'Admin\Livenews',
+            'action' => 'delete',
+            'id' => 1,
+        ),
+        'httpMethods' => 'DELETE'
+    ),
+
+    //User livenews
+    'livenewsList' =>  array(
+        'pattern' => '/v2/livenews',
         'paths' => array(
             'module' => 'WscnApiVer2',
             'controller' => 'livenews',
@@ -177,7 +228,17 @@ return array(
         ),
         'httpMethods' => 'GET'
     ),
-    'livenewsrealtime' =>  array(
+    'getLivenews' =>  array(
+        'pattern' => '/v2/livenews/(\d+)',
+        'paths' => array(
+            'module' => 'WscnApiVer2',
+            'controller' => 'livenews',
+            'action' => 'get',
+            'id' => 1,
+        ),
+        'httpMethods' => 'GET'
+    ),
+    'livenewsRealtime' =>  array(
         'pattern' => '/v2/admin/livenews/realtime',
         'paths' => array(
             'module' => 'WscnApiVer2',
@@ -186,45 +247,8 @@ return array(
         ),
         'httpMethods' => 'GET'
     ),
-    'createlivenews' =>  array(
-        'pattern' => '/v2/admin/livenews',
-        'paths' => array(
-            'module' => 'WscnApiVer2',
-            'controller' => 'livenews',
-            'action' => 'post',
-        ),
-        'httpMethods' => 'POST'
-    ),
-    'getlivenews' =>  array(
-        'pattern' => '/v2/admin/livenews/(\d+)',
-        'paths' => array(
-            'module' => 'WscnApiVer2',
-            'controller' => 'livenews',
-            'action' => 'get',
-            'id' => 1,
-        ),
-        'httpMethods' => 'GET'
-    ),
-    'putlivenews' =>  array(
-        'pattern' => '/v2/admin/livenews/(\d+)',
-        'paths' => array(
-            'module' => 'WscnApiVer2',
-            'controller' => 'livenews',
-            'action' => 'put',
-            'id' => 1,
-        ),
-        'httpMethods' => 'PUT'
-    ),
-    'deletelivenews' =>  array(
-        'pattern' => '/v2/admin/livenews/(\d+)',
-        'paths' => array(
-            'module' => 'WscnApiVer2',
-            'controller' => 'livenews',
-            'action' => 'delete',
-            'id' => 1,
-        ),
-        'httpMethods' => 'DELETE'
-    ),
+
+    //Wiki
     'wikiCrateCategory' =>  array(
         'pattern' => '/v2/admin/wiki/category',
         'paths' => array(
