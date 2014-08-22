@@ -171,8 +171,18 @@
                                                             'class' => 'form-control',
                                                         ))?>
                                                     </div>
-                                                    <div class="col-xs-10">
+                                                    <div class="col-xs-4">
                                                         <div id="importance-slider" class="help-block" data-slider-for="#importance"></div>
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <label>
+                                                            经济数据
+                                                            <input id="livenews-type-switcher" class="ace ace-switch ace-switch-4" type="checkbox" value="data">
+                                                            <span class="lbl"></span>
+                                                            <?=$form->render('type', array(
+                                                                'class' => 'form-control',
+                                                            ))?>
+                                                        </label>
                                                     </div>
                                                 </div>
 
@@ -412,6 +422,13 @@
 <script>
     $(document).ready(function(){
             <?include __DIR__ . '/../partial/reporter.js'?>
+            $("#livenews-type-switcher").on('change', function(){
+                if(true === $(this).prop('checked')) {
+                    $("#type").val('data');
+                } else {
+                    $("#type").val('news');
+                }
+            });
             //Markdown Editor init 
             var textCounter = function(e) {
                     var textarea = e.$textarea;

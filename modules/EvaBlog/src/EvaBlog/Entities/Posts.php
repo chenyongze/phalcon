@@ -208,6 +208,13 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
             array('alias' => 'tags')
         );
 
+        $this->hasMany(
+            'id',
+            'Eva\EvaBlog\Entities\Connections',
+            'sourceId',
+            array('alias' => 'postConnects')
+        );
+
         $this->hasManyToMany(
             'id',
             'Eva\EvaBlog\Entities\Connections',

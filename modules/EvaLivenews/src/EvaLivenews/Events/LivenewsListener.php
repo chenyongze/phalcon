@@ -26,12 +26,13 @@ class LivenewsListener
             $emitter->emit('livenews:create', $newsString);
         }
 
-        if ($news->status === 'published' && $config->livenews->realtimeCacheEnable) {
+        //Sync deleted livenews for realtime delete
+        if (true === in_array($news->status, array('published', 'deleted')) && $config->livenews->realtimeCacheEnable) {
             $newsString = $newsString ?: json_encode($news->dump(
                 NewsManager::$simpleDump
             ));
             $redis = $news->getDI()->getFastCache();
-            $redis->zAdd('livenews', (int) $news->id, $newsString);
+            $redis->zAdd('livenews', (int) $news->updatedAt, $newsString);
             $size = $redis->zSize('livenews');
             if ($size > $config->livenews->realtimeCacheSize) {
                 //remove lowest rank
@@ -58,34 +59,12 @@ class LivenewsListener
             $emitter->emit('livenews:update', $newsString);
         }
 
-        if ($news->status === 'published' && $config->livenews->realtimeCacheEnable) {
+        if (true === in_array($news->status, array('published', 'deleted')) && $config->livenews->realtimeCacheEnable) {
             $newsString = $newsString ?: json_encode($news->dump(
                 NewsManager::$simpleDump
             ));
             $redis = $news->getDI()->getFastCache();
-            $redis->zAdd('livenews', (int) $news->id, $newsString);
+            $redis->zAdd('livenews', (int) $news->updatedAt, $newsString);
         }
-    }
-
-    public function afterRemove($event, $news)
-    {
-        if (!$news->id) {
-            return;
-        }
-        $config = $news->getDI()->getConfig();
-        $newsString = '';
-        if ($config->livenews->broadcastEnable) {
-            $emitter = new Emitter(array(
-                'host' => $config->livenews->socketIoRedis->host,
-                'port' => $config->livenews->socketIoRedis->port,
-            ));
-            $emitter->emit('livenews:remove', $news->id);
-        }
-
-        if ($news->status === 'published' && $config->livenews->realtimeCacheEnable) {
-            $redis = $news->getDI()->getFastCache();
-            $redis->zAdd('livenews', (int) $news->id, $newsString);
-        }
-    
     }
 }

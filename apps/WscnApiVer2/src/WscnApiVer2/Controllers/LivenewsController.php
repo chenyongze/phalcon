@@ -56,6 +56,13 @@ class LivenewsController extends ControllerBase
      *           type="string"
      *         ),
      *         @SWG\Parameter(
+     *           name="format",
+     *           description="Allow value : markdown | json",
+     *           paramType="query",
+     *           required=false,
+     *           type="string"
+     *         ),
+     *         @SWG\Parameter(
      *           name="uid",
      *           description="User ID",
      *           paramType="query",
@@ -64,14 +71,14 @@ class LivenewsController extends ControllerBase
      *         ),
      *         @SWG\Parameter(
      *           name="cid",
-     *           description="Category ID",
+     *           description="Category ID, split multi by comma",
      *           paramType="query",
      *           required=false,
-     *           type="integer"
+     *           type="string"
      *         ),
      *         @SWG\Parameter(
-     *           name="order",
-     *           description="Order, allow value : +-id, +-created_at, +-sortOrder default is -created_at",
+     *           name="importance",
+     *           description="Importance 1-3, split multi by comma",
      *           paramType="query",
      *           required=false,
      *           type="string"
@@ -100,20 +107,18 @@ class LivenewsController extends ControllerBase
         $limit = $this->request->getQuery('limit', 'int', 25);
         $limit = $limit > 100 ?: $limit;
         $limit = $limit < 3 ?: $limit;
-        $order = $this->request->getQuery('order', 'string', '-created_at');
+        //fixed order
         $query = array(
             'q' => $this->request->getQuery('q', 'string'),
             'status' => $this->request->getQuery('status', 'string'),
-            'codeType' => $this->request->getQuery('type', 'string'),
+            'type' => $this->request->getQuery('type', 'string'),
+            'codeType' => $this->request->getQuery('format', 'string'),
             'uid' => $this->request->getQuery('uid', 'int'),
             'cid' => $this->request->getQuery('cid', 'string'),
-            'username' => $this->request->getQuery('username', 'string'),
-            'order' => $order,
-            'limit' => $limit,
+            'importance' => $this->request->getQuery('importance', 'string'),
+            'order' => '-updated_at',
             'page' => $this->request->getQuery('page', 'int', 1),
         );
-        $query['codeType'] = $query['codeType'] == 'news' ? 'markdown' : 'json';
-
 
 
         $form = new Forms\FilterForm();
@@ -155,8 +160,8 @@ class LivenewsController extends ControllerBase
      *       notes="Returns livenews list",
      *       @SWG\Parameters(
      *         @SWG\Parameter(
-     *           name="min_id",
-     *           description="Min id",
+     *           name="min_updated",
+     *           description="Min updated time",
      *           paramType="query",
      *           required=false,
      *           type="integer"
@@ -185,12 +190,12 @@ class LivenewsController extends ControllerBase
         $limit = $this->request->getQuery('limit', 'int', 3);
         $limit = $limit > 100 ?: $limit;
         $order = $this->request->getQuery('order', 'string', '-created_at');
-        $minId = $this->request->getQuery('min_id', 'int', 0);
+        $minUpdated = $this->request->getQuery('min_updated', 'int', 0);
         $cid = $this->request->getQuery('cid', 'string');
         $redis = $this->getDI()->getFastCache();
         $data = array();
-        if ($minId > 0) {
-            $data = $redis->zRangeByScore("livenews", $minId, 999999999, array(
+        if ($minUpdated > 0) {
+            $data = $redis->zRangeByScore("livenews", $minUpdated, 999999999, array(
                 'limit' => array(0, (int) $limit)
             ));
         } else {

@@ -14,6 +14,7 @@ namespace Wscn\Controllers;
 
 
 use Eva\EvaEngine\View\PurePaginator;
+use Eva\EvaBlog\Models\Tag;
 
 class SearchController extends ControllerBase
 {
@@ -113,6 +114,9 @@ class SearchController extends ControllerBase
         $this->view->setVar('pager', $pager);
         $this->view->setVar('keyword', $keyword);
 
+        $tag = new Tag();
+        $tags = $tag->getPopularTags(6);
+        $this->view->setVar('tags', $tags);
     }
 
     public function opensearchxmlAction()

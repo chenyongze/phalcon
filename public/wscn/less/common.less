@@ -568,12 +568,17 @@ img.lazy {
         font-size: 12px;
         content: "更多»";
     }
+    &.with-more:hover:after {
+        color: @blue;
+    }
 }
 //侧边拦 广告
 .side-ad {
     margin-bottom: 30px;
     img {
-        width: 100%;
+        display: block;
+        margin: 0 auto;
+        max-width: 100%;
     }
 }
 //侧边拦 评论列表
@@ -961,6 +966,49 @@ img.lazy {
             //margin-top: 2px;
         }
         .box {
+            display: none;
+        }
+    }
+}
+
+//自定义 radio 控件
+.custom-radio {
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 20px;
+    margin: 10px;
+    color: #666;
+
+    input {
+        //visibility: hidden;
+        display: none;
+        &:checked {
+            & + .fa {
+                color: @blue;
+                &:before {
+                    content: "\f192";
+                }
+            }
+            & + .fa + .text {
+                color: @blue;
+            }
+        }
+    }
+    .fa {
+        font-size: 13px;
+        &:before {
+            content: "\f10c";
+        }
+    }
+}
+.lt-ie9 {
+    .custom-radio {
+        input {
+            display: inline-block;
+            //margin-top: 2px;
+        }
+        .fa {
             display: none;
         }
     }

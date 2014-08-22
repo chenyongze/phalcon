@@ -11,14 +11,16 @@ class NewsController extends ControllerBase
 {
     public function embedAction()
     {
-        $this->indexAction();
+        $this->indexAction(array(
+            'status' => 'published'
+        ));
         $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
     }
 
     /**
     * Index action
     */
-    public function indexAction()
+    public function indexAction($overwriteQuery = null)
     {
         $limit = $this->request->getQuery('per_page', 'int', 25);
         $limit = $limit > 100 ? 100 : $limit;
@@ -35,6 +37,7 @@ class NewsController extends ControllerBase
             'limit' => $limit,
             'page' => $this->request->getQuery('page', 'int', 1),
         );
+        $query = $overwriteQuery ? array_merge($query, $overwriteQuery) : $query;
 
         $form = new Forms\FilterForm();
         $form->setValues($this->request->getQuery());

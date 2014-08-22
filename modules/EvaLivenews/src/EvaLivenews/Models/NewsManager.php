@@ -12,15 +12,27 @@ class NewsManager extends Entities\News
 {
     public static $defaultDump = array(
         'id',
+        'status',
         'title',
+        'type',
         'codeType',
         'importance',
         'createdAt',
+        'updatedAt',
+        'imageCount',
+        'image',
+        'videoCount',
+        'video',
+        'viewCount',
+        'shareCount',
+        'commentCount',
+        'commentStatus',
         'contentHtml' => 'getContentHtml',
         'data' => 'getData',
-        'commentStatus',
         'sourceName',
         'sourceUrl',
+        'categorySet',
+        'hasMore',
         'categories' => array(
             'id',
             'categoryName',
@@ -38,17 +50,28 @@ class NewsManager extends Entities\News
 
     public static $simpleDump = array(
         'id',
+        'status',
         'title',
+        'type',
         'codeType',
         'importance',
         'createdAt',
+        'updatedAt',
+        'imageCount',
+        'image',
+        'videoCount',
+        'video',
+        'viewCount',
+        'shareCount',
+        'commentCount',
+        'commentStatus',
         'contentHtml' => 'getContentHtml',
         'data' => 'getData',
-        'commentStatus',
         'sourceName',
         'sourceUrl',
         'userId',
         'categorySet',
+        'hasMore',
     );
 
     public function beforeValidationOnCreate()
@@ -57,9 +80,7 @@ class NewsManager extends Entities\News
         if (!$this->slug) {
             $this->slug = \Phalcon\Text::random(\Phalcon\Text::RANDOM_ALNUM, 8);
         }
-        if (!$this->title) {
-            $this->title = \Eva\EvaEngine\Text\Substring::substrCn(strip_tags($this->getContentHtml()), 100);
-        }
+        $this->title = \Eva\EvaEngine\Text\Substring::substrCn(strip_tags($this->getContentHtml()), 100);
     }
 
     public function beforeValidationOnUpdate()
@@ -88,6 +109,13 @@ class NewsManager extends Entities\News
 
     public function beforeSave()
     {
+        $this->updatedAt = time();
+
+        if ($this->type == 'data') {
+            //Auto update title if finance data
+            $this->title = \Eva\EvaEngine\Text\Substring::substrCn(strip_tags($this->getContentHtml()), 100);
+        }
+
         //Data importance will overwrite news importance
         if ($data = $this->getData()) {
             $this->importance = $data->importance;
@@ -126,6 +154,8 @@ class NewsManager extends Entities\News
             '-id' => 'id DESC',
             'created_at' => 'createdAt ASC',
             '-created_at' => 'createdAt DESC',
+            'updated_at' => 'updatedAt ASC',
+            '-updated_at' => 'updatedAt DESC',
             'sort_order' => 'sortOrder ASC',
             '-sort_order' => 'sortOrder DESC',
         );
@@ -136,6 +166,10 @@ class NewsManager extends Entities\News
 
         if (!empty($query['q'])) {
             $itemQuery->andWhere('content LIKE :q:', array('q' => "%{$query['q']}%"));
+        }
+
+        if (!empty($query['type'])) {
+            $itemQuery->andWhere('type = :type:', array('type' => $query['type']));
         }
 
         if (!empty($query['status'])) {
@@ -150,8 +184,13 @@ class NewsManager extends Entities\News
             $itemQuery->andWhere('userId = :uid:', array('uid' => $query['uid']));
         }
 
+        if (!empty($query['importance'])) {
+            $importance = is_array($query['importance']) ? $query['importance'] : explode(',', $query['importance']);
+            $itemQuery->inWhere('importance', $importance);
+        }
+
         if (!empty($query['cid'])) {
-            $cidArray = explode(',', $query['cid']);
+            $cidArray = is_array($query['cid']) ? $query['cid'] : explode(',', $query['cid']);
             $setArray = array();
             $valueArray = array();
             foreach ($cidArray as $key => $cid) {
@@ -159,6 +198,7 @@ class NewsManager extends Entities\News
                 $valueArray["cid_$key"] = $cid;
             }
 
+            //Use union for checking multi categories
             $itemQuery->andWhere(implode(' OR ', $setArray), $valueArray);
             /*
             $itemQuery->join('Eva\EvaLivenews\Entities\CategoriesNews', 'id = r.newsId', 'r')
@@ -170,7 +210,7 @@ class NewsManager extends Entities\News
             $itemQuery->limit($query['limit']);
         }
 
-        $order = 'createdAt DESC';
+        $order = 'updatedAt DESC';
         if (!empty($query['order'])) {
             $orderArray = explode(',', $query['order']);
             if (count($orderArray) > 1) {
@@ -185,7 +225,7 @@ class NewsManager extends Entities\News
             }
 
             //Add default order as last order
-            array_push($order, 'createdAt DESC');
+            array_push($order, 'updatedAt DESC');
             $order = array_unique($order);
             $order = implode(', ', $order);
         }
@@ -290,7 +330,7 @@ class NewsManager extends Entities\News
         $newsArray = $this->findNews(array(
             'status' => 'published',
             'limit' => $limit,
-            'order' => '-created_at',
+            'order' => '-updated_at',
         ))->getQuery()->execute();
 
         foreach ($newsArray as $news) {
@@ -299,7 +339,7 @@ class NewsManager extends Entities\News
                     NewsManager::$simpleDump
                 ));
                 $redis = $news->getDI()->getFastCache();
-                $redis->zAdd('livenews', (int) $news->id, $newsString);
+                $redis->zAdd('livenews', (int) $news->updatedAt, $newsString);
                 $size = $redis->zSize('livenews');
                 if ($size > $config->livenews->realtimeCacheEnable) {
                     //remove lowest rank

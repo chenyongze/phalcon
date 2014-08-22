@@ -10,7 +10,8 @@ class Tag extends Entities\Tags
 
     public function getPopularTags($limit = 10)
     {
-        $tags = self::query()
+        /*
+        $tags = $this->getModelsManager()->createBuilder()
             ->from(__CLASS__)
             ->columns(array(
                 'id', 'tagName', 'COUNT(id) AS tagCount'
@@ -19,10 +20,18 @@ class Tag extends Entities\Tags
             ->groupBy('id')
             ->orderBy('COUNT(id) DESC')
             ->limit($limit)
-            ->cache(array(
+            ->getQuery()
+            ->execute();
+        */
+
+        $tags = self::find(array(
+            'order' => 'count DESC',
+            'limit' => $limit,
+            'cache' => array(
                 "lifetime" => 3600 * 24,
                 "key" => "popular-tags-$limit"
-            ));
+            )
+        ));
         return $tags;
     }
 

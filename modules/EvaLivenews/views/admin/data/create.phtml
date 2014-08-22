@@ -70,6 +70,7 @@
                                                 <div class="widget-body">
                                                     <div class="widget-main no-padding">
                                                         <?=$form->render('id', array())?>
+                                                        <input type="hidden" name="type" value="data">
                                                         <?=$form->render('content', array(
                                                             'rows' => 6,
                                                             'placeholder' => 'News Content',
@@ -239,8 +240,7 @@
                                                         <span class="input-group-addon">
                                                             <i class="icon-time bigger-110"></i>
                                                         </span>
-                                                        <?=$form->render('createdAt', array(
-                                                        ))?>
+                                                        <?=$form->render('createdAt', array())?>
                                                     </div>
                                                 </div>
                                             </div>
