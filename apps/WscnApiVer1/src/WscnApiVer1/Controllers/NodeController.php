@@ -69,7 +69,7 @@ class NodeController extends ControllerBase
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       method="GET",
-     *       summary="Get post list",
+     *       summary="文章列表API",
      *       notes="Returns post list",
      *       @SWG\Parameters(
      *         @SWG\Parameter(
@@ -151,7 +151,7 @@ class NodeController extends ControllerBase
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       method="GET",
-     *       summary="Get post list",
+     *       summary="最热API (两天排行榜)",
      *       notes="Returns post list",
      *       @SWG\Parameters(
      *       )
@@ -182,7 +182,7 @@ class NodeController extends ControllerBase
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       method="GET",
-     *       summary="Get post list",
+     *       summary="头条幻灯片",
      *       notes="Returns post list",
      *       @SWG\Parameters(
      *       )
@@ -206,19 +206,19 @@ class NodeController extends ControllerBase
     /**
      *
      * @SWG\Api(
-     *   path="/node/.json",
+         *   path="/node/{nid}.json",
      *   description="文章详情API （新闻、实时新闻同一个）",
      *   produces="['application/json']",
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       method="GET",
-     *       summary="Get post list",
+     *       summary="文章详情API （新闻、实时新闻同一个）",
      *       notes="Returns post list",
      *       @SWG\Parameters(
      *         @SWG\Parameter(
-     *           name="id",
+     *           name="nid",
      *           description="新闻 id",
-     *           paramType="query",
+     *           paramType="path",
      *           required=true,
      *           type="int"
      *         ),
@@ -300,7 +300,7 @@ class NodeController extends ControllerBase
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       method="GET",
-     *       summary="Get post list",
+     *       summary="实时新闻未读数量",
      *       notes="Returns post list",
      *       @SWG\Parameters(
      *         @SWG\Parameter(
@@ -352,7 +352,7 @@ class NodeController extends ControllerBase
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       method="GET",
-     *       summary="Get post list",
+     *       summary="实时新闻黄金未读数量",
      *       notes="Returns post list",
      *       @SWG\Parameters(
      *         @SWG\Parameter(
@@ -392,7 +392,7 @@ class NodeController extends ControllerBase
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       method="GET",
-     *       summary="Get post list",
+     *       summary="实时新闻列表",
      *       notes="Returns post list",
      *       @SWG\Parameters(
      *         @SWG\Parameter(
@@ -441,7 +441,7 @@ class NodeController extends ControllerBase
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       method="GET",
-     *       summary="Get post list",
+     *       summary="实时新闻最新3条"",
      *       notes="Returns post list",
      *       @SWG\Parameters(
      *       )
@@ -470,7 +470,7 @@ class NodeController extends ControllerBase
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       method="GET",
-     *       summary="Get post list",
+     *       summary="实时新闻黄金列表",
      *       notes="Returns post list",
      *       @SWG\Parameters(
      *         @SWG\Parameter(
@@ -560,7 +560,7 @@ class NodeController extends ControllerBase
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       method="GET",
-     *       summary="Get post list",
+     *       summary="黄金实时新闻最新3条",
      *       notes="Returns post list",
      *       @SWG\Parameters(
      *         @SWG\Parameter(
