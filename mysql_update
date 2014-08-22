@@ -4,3 +4,27 @@ ALTER TABLE  `eva_comment_comments` CHANGE  `status`  `status` ENUM(  'approved'
 ALTER TABLE `eva_blog_tags` ADD UNIQUE (
 `tagName`
 );
+
+
+ALTER TABLE `eva_livenews_news` ADD `type` ENUM('news','data') NOT NULL DEFAULT 'news' AFTER `visibility`; 
+
+ALTER TABLE `eva_livenews_news` ADD INDEX(`updatedAt`); 
+
+CREATE TABLE IF NOT EXISTS `eva_livenews_stars` (
+`id` int(10) NOT NULL,
+  `userId` int(10) NOT NULL,
+  `newsId` int(10) NOT NULL,
+  `createdAt` int(10) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5496 ;
+
+
+ALTER TABLE `eva_livenews_stars`
+ ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `userId` (`userId`,`newsId`);
+
+
+
+ALTER TABLE `eva_livenews_news` ADD `hasMore` TINYINT( 1 ) NOT NULL DEFAULT '0';
+
+
+ALTER TABLE `eva_livenews_news` CHANGE `count` `viewCount` BIGINT( 20 ) NULL DEFAULT '0';
+ALTER TABLE `eva_livenews_news` ADD `shareCount` INT( 10 ) NOT NULL DEFAULT '0' AFTER `viewCount` ;

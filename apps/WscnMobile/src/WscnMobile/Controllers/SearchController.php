@@ -14,7 +14,7 @@ class SearchController extends ControllerBase
         $keyword = trim($this->request->getQuery("q"));
         if (!$keyword) {
             $tag = new Tag();
-            $tags = $tag->getPopularTags(100);
+            $tags = $tag->getPopularTags(30);
             $this->view->setVar('tags', $tags);
             return;
         }
