@@ -59,8 +59,8 @@
 	
 	function redirectToApp(){
 		if(WSCN_UTIL.browser.iOS()){
-			document.location.href = "wscn-zeus://www.wallstreetcn.com/detail/?id=<?=$post->id?>";
-			//$("<iframe width='1' height='1' src='wscn-zeus://www.wallstreetcn.com/detail/?id=<?=$post->id?>'></iframe>").appendTo("body")
+			//document.location.href = "wscn-zeus://www.wallstreetcn.com/detail/?id=<?=$post->id?>";
+			$("<iframe width='1' height='1' src='wscn-zeus://www.wallstreetcn.com/detail/?id=<?=$post->id?>'></iframe>").appendTo("body")
 		}
 		else if(WSCN_UTIL.browser.android()){
 			document.location.href = "wscn-medusa://www.wallstreetcn.com/detail/?id=<?=$post->id?>";

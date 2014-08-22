@@ -3,6 +3,7 @@ namespace Eva\EvaComment\Models;
 
 use Eva\EvaComment\Entities\Comments;
 use Eva\EvaComment\Entities\Threads;
+use Eva\EvaComment\Entities\Votes;
 
 use Eva\EvaEngine\Mvc\Model as BaseModel;
 
@@ -69,7 +70,7 @@ class CommentManager extends BaseModel
         $comment->save();
     }
 
-    function findComments($query=array())
+    public function findComments($query=array())
     {
 //        $phql = 'SELECT * FROM Eva\EvaComment\Entities\Comments AS c ORDER BY c.createdAt DESC';
 
@@ -116,14 +117,14 @@ class CommentManager extends BaseModel
         return  $builder;
     }
 
-    function findCommentById($id)
+    public function findCommentById($id)
     {
         $comment = Comments::findFirstById($id);
         return $comment;
     }
 
 
-    function updateCommentStatus(Comments $comment,$status)
+    public function updateCommentStatus(Comments $comment,$status)
     {
         $comment->status = $status;
         $comment->updatedAt = time();
@@ -135,7 +136,7 @@ class CommentManager extends BaseModel
         return $comment;
     }
 
-    function findCommentsByUser($user)
+    public function findCommentsByUser($user)
     {
         $builder = $this->getModelsManager()->createBuilder();
 
@@ -147,7 +148,7 @@ class CommentManager extends BaseModel
     }
 
 
-    function findCommentsByThread(Threads $thread, $sorter, $displayDepth)
+    public function findCommentsByThread(Threads $thread, $sorter, $displayDepth)
     {
 
         $builder = $this->getModelsManager()->createBuilder();
@@ -168,7 +169,7 @@ class CommentManager extends BaseModel
         return $builder;
     }
 
-    function findCommentTreeByThread($thread, $sorter, $displayDepth)
+    public function findCommentTreeByThread($thread, $sorter, $displayDepth)
     {
 //        $phql = 'SELECT * FROM Eva\EvaComment\Entities\Comments AS c
 //                WHERE c.threadId = :threadId: AND c.rootId = 0 AND c.status = "approved" ORDER BY c.createdAt DESC';
@@ -179,7 +180,7 @@ class CommentManager extends BaseModel
 //        return $comments;
     }
 
-    function filterContent(Comments $comment)
+    public function filterContent(Comments $comment)
     {
         $phql = 'SELECT word FROM Eva\EvaComment\Entities\Filters AS f WHERE f.level = 2';
 
@@ -195,4 +196,99 @@ class CommentManager extends BaseModel
         }
         return $comment;
     }
+
+    public function findVotesByUserId($userId,$commentIds = null)
+    {
+        $builder = $this->getModelsManager()->createBuilder();
+
+        $builder->from('Eva\EvaComment\Entities\Votes');
+
+        $builder->andWhere('userId = :userId:',array('userId'=>$userId));
+        if(is_array($commentIds)){
+            $builder->inWhere('commentId', $commentIds);
+        }
+
+        $votes = $builder->getQuery()->execute();
+        return $votes;
+    }
+
+    public function createVote($comment,$userId,$action)
+    {
+        $vote = new Votes;
+
+        $vote->commentId = $comment->id;
+        $vote->userId = $userId;
+        $vote->action = $action;
+
+        return $vote;
+    }
+
+    public function saveVote(Votes $vote,Comments $comment)
+    {
+        $vote->save();
+        switch($vote->action) {
+            case Votes::TYPE_UP:
+                $this->addUpVote($comment);
+                break;
+            case Votes::TYPE_DOWN:
+                $this->addDownVote($comment);
+                break;
+        }
+    }
+
+    public function removeVote(Votes $vote,Comments $comment)
+    {
+        $vote->remove();
+        switch($vote->action) {
+            case Votes::TYPE_UP:
+                $this->removeUpVote($comment);
+                break;
+            case Votes::TYPE_DOWN:
+                $this->removeDownVote($comment);
+                break;
+        }
+    }
+
+
+
+    public function addUpVote(Comments $comment)
+    {
+        $phql = "UPDATE Eva\EvaComment\Entities\Comments SET upVotes=upVotes+1 WHERE id = :id:";
+
+        $manager = $this->getModelsManager();
+        $data = $manager->executeQuery($phql, array('id'=>$comment->id));
+        return $data;
+    }
+
+    public function removeUpVote(Comments $comment)
+    {
+        $phql = "UPDATE Eva\EvaComment\Entities\Comments SET upVotes=upVotes-1 WHERE id = :id:";
+
+        $manager = $this->getModelsManager();
+        $data = $manager->executeQuery($phql, array('id'=>$comment->id));
+        return $data;
+    }
+
+
+    public function addDownVote(Comments $comment)
+    {
+        $phql = "UPDATE Eva\EvaComment\Entities\Comments SET downVotes=downVotes+1 WHERE id = :id:";
+
+        $manager = $this->getModelsManager();
+        $data = $manager->executeQuery($phql, array('id'=>$comment->id));
+        return $data;
+    }
+
+    public function removeDownVote(Comments $comment)
+    {
+        $phql = "UPDATE Eva\EvaComment\Entities\Comments SET downVotes=downVotes-1 WHERE id = :id:";
+
+        $manager = $this->getModelsManager();
+        $data = $manager->executeQuery($phql, array('id'=>$comment->id));
+        return $data;
+    }
+
+
+
+
 } 

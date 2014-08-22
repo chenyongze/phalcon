@@ -2,6 +2,7 @@
 namespace Eva\EvaComment\Entities;
 
 use Eva\EvaEngine\Mvc\Model as BaseModel;
+use Phalcon\Mvc\Model\Behavior\SoftDelete;
 
 class Comments extends BaseModel
 {
@@ -94,6 +95,18 @@ class Comments extends BaseModel
      *
      * @var integer
      */
+    public $upVotes;
+
+    /**
+     *
+     * @var integer
+     */
+    public $downVotes;
+
+    /**
+     *
+     * @var integer
+     */
     public $userId;
 
     /**
@@ -176,13 +189,22 @@ class Comments extends BaseModel
             )
         );
 
+        $this->addBehavior(new SoftDelete(
+            array(
+                'field' => 'status',
+                'value' => self::STATE_DELETED
+            )
+        ));
     }
+
 
     public function onConstruct()
     {
         $this->codeType = 'TEXT';
         $this->username = 'anonymous';
         $this->numReply = 0;
+        $this->upVotes = 0;
+        $this->downVotes = 0;
         $this->parentId = 0;
         $this->rootId = 0;
         $this->parentPath = '';

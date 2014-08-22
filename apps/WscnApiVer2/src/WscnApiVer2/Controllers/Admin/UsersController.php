@@ -1,7 +1,9 @@
 <?php
 
-namespace WscnApiVer2\Controllers;
+namespace WscnApiVer2\Controllers\Admin;
 
+use WscnApiVer2\Controllers\ControllerBase;
+use Eva\EvaEngine\Mvc\Controller\TokenAuthorityControllerInterface;
 use Swagger\Annotations as SWG;
 use Eva\EvaUser\Models;
 use Eva\EvaUser\Forms;
@@ -15,17 +17,17 @@ use Eva\EvaEngine\Exception;
  * @SWG\Resource(
  *  apiVersion="0.2",
  *  swaggerVersion="1.2",
- *  resourcePath="/user",
+ *  resourcePath="/AdminUsers",
  *  basePath="/v2"
  * )
  */
-class UserController extends ControllerBase
+class UsersController extends ControllerBase implements TokenAuthorityControllerInterface
 {
     /**
      *
      * @SWG\Api(
-     *   path="/user",
-     *   description="User related api",
+     *   path="/admin/users",
+     *   description="User manage API",
      *   produces="['application/json']",
      *   @SWG\Operations(
      *     @SWG\Operation(
@@ -113,13 +115,13 @@ class UserController extends ControllerBase
     /**
     *
     * @SWG\Api(
-        *   path="/user/{userId}",
-        *   description="User related api",
-        *   produces="['application/json']",
-        *   @SWG\Operations(
-            *     @SWG\Operation(
-                *       method="GET",
-                *       summary="Find user by ID",
+    *   path="/admin/users/{userId}",
+    *   description="User related api",
+    *   produces="['application/json']",
+    *   @SWG\Operations(
+    *     @SWG\Operation(
+    *       method="GET",
+    *       summary="Find user by ID",
      *       notes="Returns a user based on ID",
      *       @SWG\Parameters(
      *         @SWG\Parameter(
@@ -149,7 +151,7 @@ class UserController extends ControllerBase
     /**
      *
      * @SWG\Api(
-     *   path="/user/{userId}",
+     *   path="/admin/users/{userId}",
      *   description="User related api",
      *   produces="['application/json']",
      *   @SWG\Operations(
@@ -179,30 +181,26 @@ class UserController extends ControllerBase
      *   )
      * )
      */
-     public function putAction()
-     {
-         $id = $this->dispatcher->getParam('id');
-         $data = $this->request->getRawBody();
-         if (!$data) {
-             throw new Exception\InvalidArgumentException('No data input');
-         }
-         if (!$data = json_decode($data, true)) {
-             throw new Exception\InvalidArgumentException('Data not able to decode as JSON');
-         }
-
-         $user = Models\UserManager::findFirst($id);
-         if (!$user) {
-             throw new Exception\ResourceNotFoundException('Request user not exist');
-         }
-
+    public function putAction()
+    {
+        $id = $this->dispatcher->getParam('id');
+        $data = $this->request->getRawBody();
+        if (!$data) {
+            throw new Exception\InvalidArgumentException('No data input');
+        }
+        if (!$data = json_decode($data, true)) {
+            throw new Exception\InvalidArgumentException('Data not able to decode as JSON');
+        }
+        $user = Models\UserManager::findFirst($id);
+        if (!$user) {
+            throw new Exception\ResourceNotFoundException('Request user not exist');
+        }
         $form = new Forms\UserForm();
         $form->setModel($user);
         $form->addForm('profile', 'Eva\EvaUser\Forms\ProfileForm');
-
         if (!$form->isFullValid($data)) {
             return $this->showInvalidMessagesAsJson($form);
         }
-
         try {
             $form->save('updateUser');
             $data = $user->dump(Models\UserManager::$defaultDump);
@@ -210,12 +208,12 @@ class UserController extends ControllerBase
         } catch (\Exception $e) {
             return $this->showExceptionAsJson($e, $form->getModel()->getMessages());
         }
-     }
+    }
 
      /**
      *
      * @SWG\Api(
-     *   path="/user",
+     *   path="/admin/users",
      *   description="User related api",
      *   produces="['application/json']",
      *   @SWG\Operations(
@@ -236,7 +234,7 @@ class UserController extends ControllerBase
      *   )
      * )
      */
-    public function userAction()
+    public function postAction()
     {
         $data = $this->request->getRawBody();
         if (!$data) {
@@ -267,7 +265,7 @@ class UserController extends ControllerBase
     /**
     *
      * @SWG\Api(
-     *   path="/user/{userId}",
+     *   path="/admin/users/{userId}",
      *   description="User related api",
      *   produces="['application/json']",
      *   @SWG\Operations(
@@ -292,15 +290,15 @@ class UserController extends ControllerBase
     {
          $id = $this->dispatcher->getParam('id');
          $user = Models\UserManager::findFirst($id);
-         if (!$user) {
-             throw new Exception\ResourceNotFoundException('Request user not exist');
-         }
+        if (!$user) {
+            throw new Exception\ResourceNotFoundException('Request user not exist');
+        }
          $userinfo = $user->dump(Models\UserManager::$defaultDump);
-         try {
-             $user->removeUser($id);
-             return $this->response->setJsonContent($userinfo);
-         } catch (\Exception $e) {
-             return $this->showExceptionAsJson($e, $user->getMessages());
-         }
+        try {
+            $user->removeUser($id);
+            return $this->response->setJsonContent($userinfo);
+        } catch (\Exception $e) {
+            return $this->showExceptionAsJson($e, $user->getMessages());
+        }
     }
 }

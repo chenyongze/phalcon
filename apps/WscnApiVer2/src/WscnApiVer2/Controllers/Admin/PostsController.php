@@ -1,11 +1,14 @@
 <?php
 
-namespace WscnApiVer2\Controllers;
+namespace WscnApiVer2\Controllers\Admin;
 
+use WscnApiVer2\Controllers\ControllerBase;
+use Eva\EvaEngine\Mvc\Controller\TokenAuthorityControllerInterface;
 use Swagger\Annotations as SWG;
 use Eva\EvaBlog\Models;
 use Eva\EvaBlog\Forms;
 use Eva\EvaEngine\Exception;
+
 
 /**
  * @package
@@ -15,17 +18,17 @@ use Eva\EvaEngine\Exception;
  * @SWG\Resource(
  *  apiVersion="0.2",
  *  swaggerVersion="1.2",
- *  resourcePath="/post",
+ *  resourcePath="/AdminPosts",
  *  basePath="/v2"
  * )
  */
-class PostController extends ControllerBase
+class PostsController extends ControllerBase implements TokenAuthorityControllerInterface
 {
     /**
      *
      * @SWG\Api(
-     *   path="/post",
-     *   description="Post related api",
+     *   path="/admin/posts",
+     *   description="Posts manage API",
      *   produces="['application/json']",
      *   @SWG\Operations(
      *     @SWG\Operation(
@@ -121,27 +124,7 @@ class PostController extends ControllerBase
         $postArray = array();
         if ($pager->items) {
             foreach ($pager->items as $key => $post) {
-                $postArray[] = $post->dump(array(
-                    'id',
-                    'title',
-                    'codeType',
-                    'createdAt',
-                    'summary',
-                    'summaryHtml' => 'getSummaryHtml',
-                    'commentStatus',
-                    'sourceName',
-                    'sourceUrl',
-                    'url' => 'getUrl',
-                    'imageUrl' => 'getImageUrl',
-                    'tags' => array(
-                        'id',
-                        'tagName',
-                    ),
-                    'user' => array(
-                        'id',
-                        'username',
-                    ),
-                ));
+                $postArray[] = $post->dump(Models\Post::$simpleDump);
             }
         }
 
@@ -155,13 +138,13 @@ class PostController extends ControllerBase
     /**
     *
     * @SWG\Api(
-        *   path="/post/{postId}",
-        *   description="Post related api",
-        *   produces="['application/json']",
-        *   @SWG\Operations(
-            *     @SWG\Operation(
-                *       method="GET",
-                *       summary="Find post by ID",
+    *   path="/admin/posts/{postId}",
+    *   description="Posts Manage api",
+    *   produces="['application/json']",
+    *   @SWG\Operations(
+    *     @SWG\Operation(
+    *       method="GET",
+    *       summary="Find post by ID",
      *       notes="Returns a post based on ID",
      *       @SWG\Parameters(
      *         @SWG\Parameter(
@@ -191,7 +174,7 @@ class PostController extends ControllerBase
     /**
      *
      * @SWG\Api(
-     *   path="/post/{postId}",
+     *   path="/admin/posts/{postId}",
      *   description="Post related api",
      *   produces="['application/json']",
      *   @SWG\Operations(
@@ -221,31 +204,26 @@ class PostController extends ControllerBase
      *   )
      * )
      */
-     public function putAction()
-     {
-         $id = $this->dispatcher->getParam('id');
-         $data = $this->request->getRawBody();
-         if (!$data) {
-             throw new Exception\InvalidArgumentException('No data input');
-         }
-         if (!$data = json_decode($data, true)) {
-             throw new Exception\InvalidArgumentException('Data not able to decode as JSON');
-         }
-
-         $post = Models\Post::findFirst($id);
-         if (!$post) {
-             throw new Exception\ResourceNotFoundException('Request post not exist');
-         }
-
+    public function putAction()
+    {
+        $id = $this->dispatcher->getParam('id');
+        $data = $this->request->getRawBody();
+        if (!$data) {
+            throw new Exception\InvalidArgumentException('No data input');
+        }
+        if (!$data = json_decode($data, true)) {
+            throw new Exception\InvalidArgumentException('Data not able to decode as JSON');
+        }
+        $post = Models\Post::findFirst($id);
+        if (!$post) {
+            throw new Exception\ResourceNotFoundException('Request post not exist');
+        }
         $form = new Forms\PostForm();
         $form->setModel($post);
         $form->addForm('text', 'Eva\EvaBlog\Forms\TextForm');
-
-
         if (!$form->isFullValid($data)) {
             return $this->showInvalidMessagesAsJson($form);
         }
-
         try {
             $form->save('updatePost');
             $data = $post->dump(Models\Post::$defaultDump);
@@ -253,12 +231,12 @@ class PostController extends ControllerBase
         } catch (\Exception $e) {
             return $this->showExceptionAsJson($e, $form->getModel()->getMessages());
         }
-     }
+    }
 
      /**
      *
      * @SWG\Api(
-     *   path="/post",
+     *   path="/admin/posts",
      *   description="Post related api",
      *   produces="['application/json']",
      *   @SWG\Operations(
@@ -310,7 +288,7 @@ class PostController extends ControllerBase
     /**
     *
      * @SWG\Api(
-     *   path="/post/{postId}",
+     *   path="/admin/posts/{postId}",
      *   description="Post related api",
      *   produces="['application/json']",
      *   @SWG\Operations(
@@ -333,17 +311,17 @@ class PostController extends ControllerBase
      */
     public function deleteAction()
     {
-         $id = $this->dispatcher->getParam('id');
-         $post = Models\Post::findFirst($id);
-         if (!$post) {
-             throw new Exception\ResourceNotFoundException('Request post not exist');
-         }
+        $id = $this->dispatcher->getParam('id');
+        $post = Models\Post::findFirst($id);
+        if (!$post) {
+            throw new Exception\ResourceNotFoundException('Request post not exist');
+        }
          $postinfo = $post->dump(Models\Post::$defaultDump);
-         try {
-             $post->removePost($id);
-             return $this->response->setJsonContent($postinfo);
-         } catch (\Exception $e) {
-             return $this->showExceptionAsJson($e, $post->getMessages());
-         }
+        try {
+            $post->removePost($id);
+            return $this->response->setJsonContent($postinfo);
+        } catch (\Exception $e) {
+            return $this->showExceptionAsJson($e, $post->getMessages());
+        }
     }
 }

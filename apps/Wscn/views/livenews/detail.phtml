@@ -1,15 +1,15 @@
 <div id="main-content">
 <aside id="leftbar">
     <div class="sharebar">
-        <a class="collect not-stared" href="" data-action="star" data-post-id="<?= $post->id ?>" data-message="登录后收藏">
+        <a class="collect not-stared" href="" data-action="star" data-post-id="<?= $news->id ?>" data-message="登录后收藏">
             <span class="fa fa-star"></span>
             收藏
         </a>
         <a class="discuss" href="#comments">
             <span class="fa fa-comment"></span>
             评论
-            <? if ($post->commentCount > 0): ?>
-                （<span class="ws-counter"><?= $post->commentCount ?></span>）
+            <? if ($news->commentCount > 0): ?>
+                （<span class="ws-counter"><?= $news->commentCount ?></span>）
             <? endif ?>
         </a>
 
@@ -48,32 +48,50 @@
 <div id="wrapper">
 <div id="main" class="page-article">
     <article>
-        <h1 class="article-title"><?= $post->title ?></h1>
+        <h1 class="article-title"><?= $news->title ?></h1>
 
         <div class="meta">
-            <a class="item author" href="">文 / <?= $post->user ? $post->user->username : '华尔街见闻' ?></a>
-            <span class="item time"><?= $this->tag->datetime($post->createdAt) ?></span>
+            <a class="item author" href="">文 / <?= $news->user ? $news->user->username : '华尔街见闻' ?></a>
+            <span class="item time"><?= $this->tag->datetime($news->createdAt) ?></span>
             <a class="item" href="#comments">
                 <span class="fa fa-comment" style="vertical-align: 1px"></span>
-                <span class="ws-counter"><?= $post->commentCount > 0 ? : 0 ?></span>
+                <span class="ws-counter"><?= $news->commentCount > 0 ? : 0 ?></span>
             </a>
             <div class="pull-right">
-                <? if ($post->sourceName): ?>
-                    <span class="item">来源：<a href="<?= $post->sourceUrl ?>"
-                                             target="_blank"><?= $post->sourceName ?></a></span>
+                <? if ($news->sourceName): ?>
+                    <span class="item">来源：<a href="<?= $news->sourceUrl ?>"
+                                             target="_blank"><?= $news->sourceName ?></a></span>
                 <? endif ?>
 
             </div>
         </div>
-        <? if ($post->imageId): ?>
+        <? if ($news->imageId): ?>
             <img class="main-image lazy" src="/wscn/img/bg-img.gif" alt=""
                  data-original="<?=
-                 $post->thumbnail->imageWidth > 640 || $post->thumbnail->imageHeight > 350 ?
-                     $this->tag->thumb($post->image, 'c_fill,h_350,w_640') : $this->tag->thumb($post->image)?>"/>
+                 $news->thumbnail->imageWidth > 640 || $news->thumbnail->imageHeight > 350 ?
+                     $this->tag->thumb($news->image, 'c_fill,h_350,w_640') : $this->tag->thumb($news->image)?>"/>
         <? endif ?>
         <div class="article-content">
-            <?= $post->getContentHtml() ?>
+            <?= $news->getContentHtml() ?>
         </div>
+
+
+        <div id="content-extra" class="article-content">
+        <?if($news->text && $news->text->contentExtra):?>
+        <?=$news->text->contentExtra?>
+        <?endif?>
+
+        <?if($news->text && $news->text->contentFollowup):?>
+        <h3>追踪报道</h3>
+        <?=$news->text->contentFollowup?>
+        <?endif?>
+
+        <?if($news->text && $news->text->contentAnalysis):?>
+        <h3>市场反应</h3>
+        <?=$news->text->contentAnalysis?>
+        <?endif?>
+        </div>
+
         <p class="statement">
             在各大APP商店搜索“华尔街见闻”，可下载我们的移动客户端。
             <br/>同时欢迎关注见闻微信号：wallstreetcn
@@ -109,12 +127,12 @@
             </div>
             <script type="text/javascript">
                 <?
-                    $summary= trim(preg_replace('/\s+/', ' ', strip_tags($post->summary)));
+                    $summary= trim(preg_replace('/\s+/', ' ', strip_tags($news->summary)));
                 ?>
                 var jiathis_config = {
                     summary: "<?=$summary?>",
-                    title: "<?=$post->title.' '?>",
-                    pic: "<?=$this->tag->thumb($post->image)?>",
+                    title: "<?=$summary ? $news->title.'：' : $news->title?>",
+                    pic: "<?=$this->tag->thumb($news->image)?>",
                     appkey: {
                         <?
                             $appKeysCount = count($appKeys4share);
@@ -132,32 +150,12 @@
             <!-- JiaThis Button END -->
         </div>
 
-        <? if ($post->connections): ?>
-            <div class="related-posts">
-                <h2 class="side-title">相关新闻</h2>
-                <ul class="news-list with-dot">
-                    <? foreach ($post->connections as $connectedPost): ?>
-                        <li><a class="news" href="<?= $connectedPost->getUrl() ?>"><?= $connectedPost->title ?></a>
-                        </li>
-                    <? endforeach ?>
-                </ul>
-            </div>
-        <? endif ?>
-
-        <? if ($post->tags): ?>
-            <nav class="tags">
-                <h2 class="title">关键词阅读:</h2>
-                <? foreach ($post->tags as $key => $tag): ?>
-                    <a class="tag" href="/news/?tid=<?= $tag->id ?>"><?= $tag->tagName ?></a>
-                <? endforeach ?>
-            </nav>
-        <? endif ?>
 
     </article>
 
     <div id="comments">
-        <? if ($post->commentStatus == 'open'): ?>
-            <? $this->partial('partial/comment', array('uniqueKey' => 'post_' . $post->id)); ?>
+        <? if ($news->commentStatus == 'open'): ?>
+            <? $this->partial('partial/comment', array('uniqueKey' => 'livenews_' . $news->id)); ?>
         <? endif ?>
     </div>
 
@@ -248,9 +246,9 @@
         'post',
         array('status' => 'published', 'cid' => 2, 'limit' => 6, 'has_image' => 1, 'order' => '-sort_order')
     );
-    $posts = $pager->items; ?>
+    $newss = $pager->items; ?>
     <ul class="hot-news">
-        <? foreach ($posts as $hotpost): ?>
+        <? foreach ($newss as $hotpost): ?>
             <li>
                 <a href="<?= $hotpost->getUrl() ?>" class="news">
                     <img class="lazy img" src="/wscn/img/bg-img.gif"

@@ -184,8 +184,13 @@ class NewsManager extends Entities\News
             $itemQuery->andWhere('userId = :uid:', array('uid' => $query['uid']));
         }
 
+        if (!empty($query['importance'])) {
+            $importance = is_array($query['importance']) ? $query['importance'] : explode(',', $query['importance']);
+            $itemQuery->inWhere('importance', $importance);
+        }
+
         if (!empty($query['cid'])) {
-            $cidArray = explode(',', $query['cid']);
+            $cidArray = is_array($query['cid']) ? $query['cid'] : explode(',', $query['cid']);
             $setArray = array();
             $valueArray = array();
             foreach ($cidArray as $key => $cid) {

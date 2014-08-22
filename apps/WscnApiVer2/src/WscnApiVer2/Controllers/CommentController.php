@@ -195,31 +195,26 @@ class CommentController extends ControllerBase
      *   )
      * )
      */
-     public function putAction()
-     {
-         $id = $this->dispatcher->getParam('id');
-         $data = $this->request->getRawBody();
-         if (!$data) {
-             throw new Exception\InvalidArgumentException('No data input');
-         }
-         if (!$data = json_decode($data, true)) {
-             throw new Exception\InvalidArgumentException('Data not able to decode as JSON');
-         }
-
-         $commentManger = new Models\CommentManager();
-         $comment = $commentManger->findCommentById($id);
-         if(!$comment){
-             throw new Exception\ResourceNotFoundException('Request comment not exist');
-         }
-
+    public function putAction()
+    {
+        $id = $this->dispatcher->getParam('id');
+        $data = $this->request->getRawBody();
+        if (!$data) {
+            throw new Exception\InvalidArgumentException('No data input');
+        }
+        if (!$data = json_decode($data, true)) {
+            throw new Exception\InvalidArgumentException('Data not able to decode as JSON');
+        }
+        $commentManger = new Models\CommentManager();
+        $comment = $commentManger->findCommentById($id);
+        if (!$comment) {
+            throw new Exception\ResourceNotFoundException('Request comment not exist');
+        }
         $form = new Forms\CommentForm();
         $form->setModel($comment);
-
-
         if (!$form->isFullValid($data)) {
             return $this->displayJsonInvalidMessages($form);
         }
-
         try {
             $form->save();
             $data = $comment->dump(Entities\Comments::$defaultDump);
@@ -227,7 +222,7 @@ class CommentController extends ControllerBase
         } catch (\Exception $e) {
             return $this->displayExceptionForJson($e, $form->getModel()->getMessages());
         }
-     }
+    }
 
      /**
      *

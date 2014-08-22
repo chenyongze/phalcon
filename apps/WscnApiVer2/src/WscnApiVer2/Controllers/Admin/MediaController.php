@@ -1,7 +1,9 @@
 <?php
 
-namespace WscnApiVer2\Controllers;
+namespace WscnApiVer2\Controllers\Admin;
 
+use WscnApiVer2\Controllers\ControllerBase;
+use Eva\EvaEngine\Mvc\Controller\TokenAuthorityControllerInterface;
 use Swagger\Annotations as SWG;
 use Eva\EvaFileSystem\Models;
 use Eva\EvaFileSystem\Forms;
@@ -15,17 +17,17 @@ use Eva\EvaEngine\Exception;
  * @SWG\Resource(
  *  apiVersion="0.2",
  *  swaggerVersion="1.2",
- *  resourcePath="/media",
+ *  resourcePath="/AdminMedia",
  *  basePath="/v2"
  * )
  */
-class MediaController extends ControllerBase
+ class MediaController extends ControllerBase implements TokenAuthorityControllerInterface
 {
     /**
      *
      * @SWG\Api(
-     *   path="/media",
-     *   description="Media related api",
+     *   path="/admin/media",
+     *   description="Media manage API",
      *   produces="['application/json']",
      *   @SWG\Operations(
      *     @SWG\Operation(
@@ -134,13 +136,13 @@ class MediaController extends ControllerBase
     /**
     *
     * @SWG\Api(
-        *   path="/media/{mediaId}",
-        *   description="Media related api",
-        *   produces="['application/json']",
-        *   @SWG\Operations(
-            *     @SWG\Operation(
-                *       method="GET",
-                *       summary="Find media by ID",
+    *   path="/admin/media/{mediaId}",
+    *   description="Media related api",
+    *   produces="['application/json']",
+    *   @SWG\Operations(
+    *     @SWG\Operation(
+    *       method="GET",
+    *       summary="Find media by ID",
      *       notes="Returns a media based on ID",
      *       @SWG\Parameters(
      *         @SWG\Parameter(
@@ -170,7 +172,7 @@ class MediaController extends ControllerBase
     /**
      *
      * @SWG\Api(
-     *   path="/media/{mediaId}",
+     *   path="/admin/media/{mediaId}",
      *   description="Media related api",
      *   produces="['application/json']",
      *   @SWG\Operations(
@@ -200,22 +202,20 @@ class MediaController extends ControllerBase
      *   )
      * )
      */
-     public function putAction()
-     {
-         $id = $this->dispatcher->getParam('id');
-         $data = $this->request->getRawBody();
-         if (!$data) {
-             throw new Exception\InvalidArgumentException('No data input');
-         }
-         if (!$data = json_decode($data, true)) {
-             throw new Exception\InvalidArgumentException('Data not able to decode as JSON');
-         }
-
-         $media = Models\FileManager::findFirst($id);
-         if (!$media) {
-             throw new Exception\ResourceNotFoundException('Request media not exist');
-         }
-
+    public function putAction()
+    {
+        $id = $this->dispatcher->getParam('id');
+        $data = $this->request->getRawBody();
+        if (!$data) {
+            throw new Exception\InvalidArgumentException('No data input');
+        }
+        if (!$data = json_decode($data, true)) {
+            throw new Exception\InvalidArgumentException('Data not able to decode as JSON');
+        }
+        $media = Models\FileManager::findFirst($id);
+        if (!$media) {
+            throw new Exception\ResourceNotFoundException('Request media not exist');
+        }
         try {
             $media->assign($data);
             $media->save();
@@ -224,12 +224,12 @@ class MediaController extends ControllerBase
         } catch (\Exception $e) {
             return $this->showExceptionAsJson($e, $form->getModel()->getMessages());
         }
-     }
+    }
 
      /**
      *
      * @SWG\Api(
-     *   path="/media",
+     *   path="/admin/media",
      *   description="Media related api",
      *   produces="['application/json']",
      *   @SWG\Operations(
@@ -250,7 +250,7 @@ class MediaController extends ControllerBase
      *   )
      * )
      */
-    public function mediaAction()
+    public function postAction()
     {
         if (!$this->request->isPost() || !$this->request->hasFiles()) {
             throw new Exception\InvalidArgumentException('No data input');
@@ -274,7 +274,7 @@ class MediaController extends ControllerBase
     /**
     *
      * @SWG\Api(
-     *   path="/media/{mediaId}",
+     *   path="/admin/media/{mediaId}",
      *   description="Media related api",
      *   produces="['application/json']",
      *   @SWG\Operations(
@@ -299,15 +299,15 @@ class MediaController extends ControllerBase
     {
          $id = $this->dispatcher->getParam('id');
          $media = Models\FileManager::findFirst($id);
-         if (!$media) {
-             throw new Exception\ResourceNotFoundException('Request media not exist');
-         }
+        if (!$media) {
+            throw new Exception\ResourceNotFoundException('Request media not exist');
+        }
          $mediainfo = $media->dump(Models\FileManager::$defaultDump);
-         try {
-             $media->delete($id);
-             return $this->response->setJsonContent($mediainfo);
-         } catch (\Exception $e) {
-             return $this->showExceptionAsJson($e, $media->getMessages());
-         }
+        try {
+            $media->delete($id);
+            return $this->response->setJsonContent($mediainfo);
+        } catch (\Exception $e) {
+            return $this->showExceptionAsJson($e, $media->getMessages());
+        }
     }
 }

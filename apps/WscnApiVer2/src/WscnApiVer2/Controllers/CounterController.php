@@ -11,8 +11,6 @@
 
 namespace WscnApiVer2\Controllers;
 
-
-
 /**
  * @package
  * @category
@@ -59,7 +57,8 @@ class CounterController extends ControllerBase
      * )
      */
 
-    public function getAction() {
+    public function getAction()
+    {
 
     }
     /**
@@ -87,7 +86,8 @@ class CounterController extends ControllerBase
      * )
      */
 
-    public function top10() {
+    public function top10()
+    {
 
     }
     /**
@@ -129,7 +129,8 @@ class CounterController extends ControllerBase
      * )
      */
 
-    public function sort() {
+    public function sort()
+    {
 
     }
     /**
@@ -164,7 +165,8 @@ class CounterController extends ControllerBase
      * )
      */
 
-    public function increase() {
+    public function increase()
+    {
 
     }
     /**
@@ -199,7 +201,8 @@ class CounterController extends ControllerBase
      * )
      */
 
-    public function decrease() {
+    public function decrease()
+    {
 
     }
     /**
@@ -234,7 +237,8 @@ class CounterController extends ControllerBase
      * )
      */
 
-    public function delete() {
+    public function delete()
+    {
 
     }
     /**
@@ -269,7 +273,8 @@ class CounterController extends ControllerBase
      * )
      */
 
-    public function create() {
+    public function create()
+    {
 
     }
     /**
@@ -297,7 +302,8 @@ class CounterController extends ControllerBase
      * )
      */
 
-    public function deleteGroup() {
+    public function deleteGroup()
+    {
 
     }
 }

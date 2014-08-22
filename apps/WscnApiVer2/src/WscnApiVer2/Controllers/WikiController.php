@@ -4,7 +4,6 @@ namespace WscnApiVer2\Controllers;
 
 use Eva\EvaEngine\Exception;
 
-
 /**
  * @package
  * @category
@@ -87,10 +86,10 @@ class WikiController extends ControllerBase
         if (!$data = json_decode($data, true)) {
             throw new Exception\InvalidArgumentException('Data not able to decode as JSON');
         }
-        if(isset($data['categoryNames'])) {
+        if (isset($data['categoryNames'])) {
             $data['categoryNames'] = preg_split('/\s+/', $data['categoryNames']);
         }
-        if(isset($data['keywords'])) {
+        if (isset($data['keywords'])) {
             $data['keywords'] = preg_split('/\n+/', $data['keywords']);
 
         }
