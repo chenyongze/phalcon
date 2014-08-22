@@ -41,7 +41,7 @@ class Votes extends BaseModel
      *
      * @var string
      */
-    public $type;
+    public $action;
 
     /**
      *

@@ -2,7 +2,6 @@
 .ws-thread {
     font-family: "Microsoft YaHei";
     color: #999;
-    /*background-color: #f0f0f0;*/
 }
 
 .ws-avatar img {
@@ -45,10 +44,14 @@
     margin: 5px 0;
     float: right;
     color: #fff;
-    background: #1F65A1;
+    background: #0078d2;
     text-align: center;
     width: 90px;
     height: 32px;
+}
+
+.ws-reply-box > form .submit:hover {
+    background: #0097f4;
 }
 
 .ws-reply-box:after {
@@ -145,6 +148,10 @@
 .ws-comment-actions a:hover {
     color: #555;
     text-decoration: none;
+}
+
+a.ws-comment-voted {
+    color: #d32;
 }
 
 .ws-comments-more {
