@@ -34,8 +34,9 @@
                         <input type="checkbox" name="alert">
                         <span class="box"></span>
                     </label>
-                    <!-- test button-->
-                    <button type="submit" class="hide">筛选</button>
+                    <noscript>
+                    <button type="submit" class="">筛选</button>
+                    </noscript>
                 </div>
                 <span class="title">内容：</span>
                 <label class="custom-checkbox">
@@ -186,6 +187,130 @@
                 </label>
                 </form>
             </div>
+
+        <ul id="livenews-list">
+            <?$lastday = ''?>
+            <?foreach($pager->items as $item): //type-img  //type-video?>
+            <?$currentday = $this->tag->datetime($item->updatedAt, 'Y-m-d')?>
+            <?if(!$lastday || $currentday !== $lastday):?>
+            <li class="date"><?=$this->tag->datetime($item->updatedAt, 'Y年m月d日')?></li>
+            <?endif?>
+            <?$lastday = $currentday?>
+
+            <?if($item->codeType == 'markdown'):?>
+            <li data-utm="<?=$item->updatedAt?>" class="news" id="livenews-<?=$item->id?>">
+            <a href="/livenews/detail/<?=$item->id?>"><span class="time"><?=$this->tag->datetime($item->updatedAt, 'H:i')?></span></a>
+            <span class="icon fa fa-file-text"></span>
+            <div class="control-box">
+                <div class="meta comments">
+                    <a href="">
+                        <span class="fa fa-comment"></span>
+                        <span class="text"><?=$item->commentCount?></span>
+                    </a>
+                </div>
+                <hr class="vr">
+                <div class="meta">
+                    <a href="">
+                        <span class="fa fa-share-square-o"></span>
+                        <span class="text"><?=$item->shareCount?></span>
+                    </a>
+                </div>
+                <hr class="vr">
+                <div class="meta">
+                    <a href="">
+                        <span class="fa fa-heart"></span>
+                        <span class="text"><?=$item->shareCount?></span>
+                    </a>
+                </div>
+            </div>
+            <div class="content"><?=$item->getContentHtml()?></div>
+            </li>
+            <?else:?>
+            <?$data = $item->getData()?>
+            <li data-trend="down" data-utm="<?=$item->updatedAt?>" class="news type-date" id="livenews-<?=$item->id?>">
+            <a href="/livenews/detail/<?=$item->id?>"><span class="time"><?=$this->tag->datetime($item->updatedAt, 'H:i')?></span></a>
+            <span class="important">
+                <i class="fa fa-star star active"></i>
+                <i class="fa fa-star star <?=$data->importance > 1 ? 'active' : ''?>"></i>
+                <i class="fa fa-star star <?=$data->importance > 2 ? 'active' : ''?>"></i>
+            </span>
+            <div class="control-box">
+                <div class="meta comments">
+                    <a href="">
+                        <span class="fa fa-comment"></span>
+                        <span class="text"><?=$item->commentCount?></span>
+                    </a>
+                </div>
+                <hr class="vr">
+                <div class="meta">
+                    <a href="">
+                        <span class="fa fa-share-square-o"></span>
+                        <span class="text"><?=$item->shareCount?></span>
+                    </a>
+                </div>
+                <hr class="vr">
+                <div class="meta">
+                    <a href="">
+                        <span class="fa fa-heart"></span>
+                        <span class="text"><?=$item->shareCount?></span>
+                    </a>
+                </div>
+            </div>
+            <div class="content">
+                <img alt="<?=$data->country?>" src="/wscn/css/flags/flags/4x3/<?=$data->country?>.svg" class="flag">
+                <h3 class="title">
+                    <?=$data->title?>
+                </h3>
+                <div class="custom-row">
+                    <div class="col-custom-4 datum">
+                        <span class="text">预期：</span>
+                        <span class="value"><?=$data->forecast?></span>
+                    </div>
+                    <div class="col-custom-4 datum">
+                        <span class="text">前值：</span>
+                        <span class="value"><?=$data->previous?></span>
+                    </div>
+                    <div class="col-custom-4 datum">
+                        <span class="text">前值修正：</span>
+                        <span class="value"><?=$data->correction?></span>
+                    </div>
+                </div>
+                <div class="verdict">
+                    <span class="text">今值：</span>
+                    <span class="value current"><?=$data->actual?></span>
+                </div>
+            </div>
+            </li>
+            <?endif?>
+            <?endforeach?>
+            <li class="news type-img hide">
+            <span class="time">16:36</span>
+            <span class="icon"></span>
+            <div class="control-box">
+                <div class="meta comments">
+                    <span class="fa fa-comment"></span>
+                    <span class="text">23</span>
+                </div>
+                <hr class="vr"/>
+                <div class="meta">
+                    <span class="fa fa-share-square-o"></span>
+                </div>
+                <hr class="vr"/>
+                <div class="meta">
+                    <span class="fa fa-heart"></span>
+                </div>
+            </div>
+            <div class="content">
+                黄金亚太午盘跳水，跌幅近1.20%。【工行一级资本和总资产蝉联宇宙第一大行】英国《银行家》正式公布了2014年度的全球1000家大银行排名榜单。
+                <img class="thumb" src="" alt=""/>
+            </div>
+            </li>
+
+        </ul>
+        <?$this->partial("partial/paginator", array(
+            'pagerUrl' => '/livenews',
+            'pager' => $pager,
+        ))?>
             <script type="text/template" data-template>
                 <% for(var i=0; i < records.length; i++) { %>
                     <% var record = records[i]; %>
@@ -310,11 +435,7 @@
 
                 <% } %>
             </script>
-            <ul class="body">
-
-            </ul>
         </div>
-
 
     </div>
     <div id="rightbar">
