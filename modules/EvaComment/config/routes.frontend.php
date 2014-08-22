@@ -34,10 +34,26 @@ return array(
         'action' => 1,
     ),
 
-    '/demo/:action' =>  array(
+    '/comment/(\d+)/up' => array(
         'module' => 'EvaComment',
-        'controller' => 'demo',
-        'action' => 1,
+        'controller' => 'vote',
+        'action' => 'up',
+        'commentId' => 1,
     ),
+
+    '/comment/(\d+)/down' => array(
+        'module' => 'EvaComment',
+        'controller' => 'vote',
+        'action' => 'down',
+        'commentId' => 1,
+    ),
+
+    '/thread/user/votes' => array(
+        'module' => 'EvaComment',
+        'controller' => 'vote',
+        'action' => 'userVotes',
+    ),
+
+
 );
 
