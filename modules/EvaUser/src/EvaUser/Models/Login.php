@@ -7,7 +7,7 @@ use Phalcon\Mvc\Model\Message as Message;
 use Eva\EvaEngine\Exception;
 use Phalcon\DI;
 
-class Login extends Entities\Users
+class Login extends User
 {
     const SESSION_KEY_LOGIN = 'auth-identity';
     const SESSION_KEY_ROLES = 'auth-roles';
@@ -197,21 +197,18 @@ class Login extends Entities\Users
             throw new Exception\RuntimeException('ERR_USER_PASSWORD_WRONG_MAX_TIMES');
         }
 
-        $this->verifiedByEventHandlers = false;
         $this->getDI()->getEventsManager()->fire('user:beforeVerifyPassword', array('user'=>$this, 'userInDB'=>$userinfo));
-        if(!$this->verifiedByEventHandlers) {
-            if (!$userinfo->password) {
-                throw new Exception\RuntimeException('ERR_USER_PASSWORD_EMPTY');
-            }
+        if (!$userinfo->password) {
+            throw new Exception\RuntimeException('ERR_USER_PASSWORD_EMPTY');
+        }
 
-            // check if hash of provided password matches the hash in the database
-            if (!password_verify($this->password, $userinfo->password)) {
-                //MUST be string type here
-                $userinfo->failedLogins = (string) ($userinfo->failedLogins + 1);
-                $userinfo->loginFailedAt = time();
-                $userinfo->save();
-                throw new Exception\VerifyFailedException('ERR_USER_PASSWORD_WRONG');
-            }
+        // check if hash of provided password matches the hash in the database
+        if (!self::passwordVerify($this->password, $userinfo->password)) {
+            //MUST be string type here
+            $userinfo->failedLogins = (string) ($userinfo->failedLogins + 1);
+            $userinfo->loginFailedAt = time();
+            $userinfo->save();
+            throw new Exception\VerifyFailedException('ERR_USER_PASSWORD_WRONG');
         }
 
 

@@ -70,20 +70,24 @@ class Post extends Entities\Posts
             $this->slug = \Phalcon\Text::random(\Phalcon\Text::RANDOM_ALNUM, 8);
         }
 
-        $this->validate(new Uniqueness(array(
-            'field' => 'slug'
-        )));
+        $this->validate(
+            new Uniqueness(array(
+                'field' => 'slug'
+            ))
+        );
     }
 
     public function beforeValidationOnUpdate()
     {
-        $this->validate(new Uniqueness(array(
-            'field' => 'slug',
-            'conditions' => 'id != :id:',
-            'bind' => array(
-                'id' => $this->id
-            ),
-        )));
+        $this->validate(
+            new Uniqueness(array(
+                'field' => 'slug',
+                'conditions' => 'id != :id:',
+                'bind' => array(
+                    'id' => $this->id
+                ),
+            ))
+        );
     }
 
 
@@ -128,6 +132,7 @@ class Post extends Entities\Posts
             }
         }
     }
+
     public function validation()
     {
         if ($this->validationHasFailed() == true) {
@@ -183,12 +188,12 @@ class Post extends Entities\Posts
 
         if (!empty($query['cid'])) {
             $itemQuery->join('Eva\EvaBlog\Entities\CategoriesPosts', 'id = r.postId', 'r')
-            ->andWhere('r.categoryId = :cid:', array('cid' => $query['cid']));
+                ->andWhere('r.categoryId = :cid:', array('cid' => $query['cid']));
         }
 
         if (!empty($query['tid'])) {
             $itemQuery->join('Eva\EvaBlog\Entities\TagsPosts', 'id = r.postId', 'r')
-            ->andWhere('r.tagId = :tid:', array('tid' => $query['tid']));
+                ->andWhere('r.tagId = :tid:', array('tid' => $query['tid']));
         }
 
         $order = 'createdAt DESC';
@@ -214,6 +219,105 @@ class Post extends Entities\Posts
         return $itemQuery;
     }
 
+    public function searchPosts(array $query = array())
+    {
+        $orderMapping = array(
+            'id' => array(
+                'id' => array('order' => 'asc')
+            ),
+            '-id' => array(
+                'id' => array('order' => 'desc')
+            ),
+            'created_at' => array(
+                'createdAt' => array('order' => 'asc')
+            ),
+            '-created_at' => array(
+                'createdAt' => array(
+                    'order' => 'desc',
+                ),
+            ),
+            'sort_order' => array(
+                'sortOrder' => array(
+                    'order' => 'asc',
+                ),
+            ),
+            '-sort_order' => array(
+                'sortOrder' => array(
+                    'order' => 'desc',
+                ),
+            ),
+            'count' => array(
+                'count' => array(
+                    'order' => 'asc',
+                ),
+            ),
+            '-count' => array(
+                'count' => array(
+                    'order' => 'desc',
+                ),
+            ),
+        );
+
+        if (!empty($query['columns'])) {
+//            $itemQuery->columns($query['columns']);
+        }
+
+        if (!empty($query['q'])) {
+            $searchParams['body']['query']['multi_match'] = array(
+                'query' => $query['q'],
+                "fields" => array("title", "content"),
+//                "tie_breaker" => 0.3
+            );
+        }
+
+//        if (!empty($query['id'])) {
+//            $idArray = explode(',', $query['id']);
+//            $itemQuery->inWhere('id', $idArray);
+//        }
+
+        $filters = array();
+        if (!empty($query['status'])) {
+            $filters[]['term'] = array(
+                'status' => $query['status']
+            );
+//            $itemQuery->andWhere('status = :status:', array('status' => $query['status']));
+        }
+
+        if (!empty($query['has_image'])) {
+            $filters[]['range'] = array(
+                'imageId' => array('from' => 1)
+            );
+        }
+
+        if (!empty($query['sourceName'])) {
+            $filters[]['term'] = array(
+                'sourceName' => $query['sourceName']
+            );
+        }
+
+        if (!empty($query['uid'])) {
+            $filters[]['term'] = array(
+                'uid' => $query['uid']
+            );
+        }
+
+        if (!empty($query['cid'])) {
+            $filters[]['term'] = array(
+                'categoryId' => $query['cid']
+            );
+        }
+
+        if (!empty($query['tags'])) {
+            $filters[]['term'] = array(
+                'tagNames' => $query['tags']
+            );
+        }
+
+        if(!empty($query['order'])) {
+
+        }
+    }
+
     public function createPost(array $data)
     {
         $textData = isset($data['text']) ? $data['text'] : array();
@@ -233,10 +337,12 @@ class Post extends Entities\Posts
             unset($data['tags']);
             $tagArray = is_array($tagData) ? $tagData : explode(',', $tagData);
             foreach ($tagArray as $tagName) {
-                $tag = Entities\Tags::findFirst(array(
-                    "conditions" => "tagName = :tagName:",
-                    "bind"       => array('tagName' => $tagName)
-                ));
+                $tag = Entities\Tags::findFirst(
+                    array(
+                        "conditions" => "tagName = :tagName:",
+                        "bind" => array('tagName' => $tagName)
+                    )
+                );
                 if (!$tag) {
                     $tag = new Entities\Tags();
                     $tag->tagName = $tagName;
@@ -310,10 +416,12 @@ class Post extends Entities\Posts
             unset($data['tags']);
             $tagArray = is_array($tagData) ? $tagData : explode(',', $tagData);
             foreach ($tagArray as $tagName) {
-                $tag = Entities\Tags::findFirst(array(
-                    "conditions" => "tagName = :tagName:",
-                    "bind"       => array('tagName' => $tagName)
-                ));
+                $tag = Entities\Tags::findFirst(
+                    array(
+                        "conditions" => "tagName = :tagName:",
+                        "bind" => array('tagName' => $tagName)
+                    )
+                );
                 if (!$tag) {
                     $tag = new Entities\Tags();
                     $tag->tagName = $tagName;

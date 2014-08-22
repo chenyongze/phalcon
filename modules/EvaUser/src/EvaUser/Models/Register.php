@@ -6,7 +6,7 @@ use Eva\EvaUser\Entities;
 use \Phalcon\Mvc\Model\Message as Message;
 use Eva\EvaEngine\Exception;
 
-class Register extends Entities\Users
+class Register extends User
 {
     protected static $verificationEmailTemplate;
 
@@ -37,7 +37,7 @@ class Register extends Entities\Users
         $this->status = $this->status ?: 'inactive';
         $this->emailStatus = $this->emailStatus ?: 'inactive';
         $this->accountType = $this->accountType ?: 'basic';
-        $this->password = $disablePassword ? null : password_hash($this->password, PASSWORD_DEFAULT, array('cost' => 10));
+        $this->password = $disablePassword ? null : self::passwordHash($this->password);
         $this->activationHash = sha1(uniqid(mt_rand(), true));
         $this->createdAt = time();
         $this->providerType = $this->providerType ?: 'DEFAULT';

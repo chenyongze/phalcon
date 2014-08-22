@@ -41,25 +41,35 @@ class User extends Entities\Users
         if (!$user) {
             throw new Exception\ResourceNotFoundException('ERR_USER_NOT_EXIST');
         }
-        $oldUser = new User();
-        $oldUser->verifiedByEventHandlers = false;
-        $oldUser->password = $oldPassword;
-        $this->getDI()->getEventsManager()->fire(
-            'user:beforeVerifyPassword',
-            array('user' => $oldUser, 'userInDB' => $user)
-        );
 
-        if (!$oldUser->verifiedByEventHandlers && false === password_verify($oldPassword, $user->password)) {
-            throw new Exception\VerifyFailedException('ERR_USER_OLD_PASSWORD_NOT_MATCH');
-        }
-
-        $user->password = password_hash($newPassword, PASSWORD_DEFAULT, array('cost' => 10));
+        $user->password = self::passwordHash($newPassword);
         if (!$user->save()) {
             throw new Exception\RuntimeException('ERR_USER_CHANGE_PASSWORD_FAILED');
         }
         return $user;
     }
 
+    /**
+     * 加密密码
+     *
+     * @param $password
+     * @return bool|false|string
+     */
+    public static function passwordHash($password)
+    {
+        return password_hash($password, PASSWORD_DEFAULT, array('cost' => 10));
+    }
+
+    /**
+     * 验证密码
+     * @param string $password
+     * @param string $hash
+     * @return bool
+     */
+    public static function passwordVerify($password, $hash)
+    {
+        return password_verify($password, $hash);
+    }
     public function changeAvatar()
     {
     }

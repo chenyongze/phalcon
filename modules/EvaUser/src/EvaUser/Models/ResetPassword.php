@@ -6,7 +6,7 @@ use Eva\EvaUser\Entities;
 use \Phalcon\Mvc\Model\Message as Message;
 use Eva\EvaEngine\Exception;
 
-class ResetPassword extends Entities\Users
+class ResetPassword extends User
 {
     protected $resetPasswordHashExpired = 3600;
 
@@ -115,7 +115,7 @@ class ResetPassword extends Entities\Users
             throw new Exception\ResourceNotFoundException('ERR_USER_NOT_EXIST');
         }
 
-        $userinfo->password = password_hash($this->password, PASSWORD_DEFAULT, array('cost' => 10));
+        $userinfo->password = self::passwordHash($this->password);
         //make last hash expire
         $userinfo->passwordResetHash = sha1(uniqid(mt_rand(), true));
         if(!$userinfo->save()) {

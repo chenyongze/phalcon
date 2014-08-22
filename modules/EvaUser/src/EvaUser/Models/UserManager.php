@@ -4,8 +4,8 @@ namespace Eva\EvaUser\Models;
 
 use Eva\EvaUser\Entities;
 use Eva\EvaFileSystem\Models\Upload as UploadModel;
-
-class UserManager extends Entities\Users
+use Eva\EvaEngine\Exception;
+class UserManager extends User
 {
     public static $defaultDump = array(
         'id',
@@ -39,7 +39,7 @@ class UserManager extends Entities\Users
     public function beforeSave()
     {
         if ($this->password) {
-            $this->password = password_hash($this->password, PASSWORD_DEFAULT, array('cost' => 10));
+            $this->password = self::passwordHash($this->password);
         }
 
         if ($this->getDI()->getRequest()->hasFiles()) {

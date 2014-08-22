@@ -174,10 +174,7 @@ class Users extends \Eva\EvaEngine\Mvc\Model
      */
     public $extension = '00000000';
 
-    /**
-     * @var bool 密码是否被事件处理器验证成功
-     */
-    public $verifiedByEventHandlers = false;
+
     /**
      * Validations and business logic
      */

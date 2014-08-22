@@ -43,34 +43,6 @@ class SearchController extends ControllerBase
             "tie_breaker" => 0.3
         );
 
-//        "query": {
-//        "bool": {
-//            "must": [
-//                {
-//                    "wildcard": {
-//                    "content": "美元*"
-//                    }
-//                }
-//            ],
-//            "must_not": [],
-//            "should": []
-//        }
-//    },
-//        $searchParams['body']['fields'] = array(
-//            '_parent',
-//            '_source'
-//        );
-//        $searchParams['body']['query']['bool'] = array(
-//            "must" => array(
-//                array(
-//                    'wildcard' => array(
-//                        "content" => $keyword . '*'
-//                    )
-//                )
-//            ),
-//            "must_not" => array(),
-//            'should' => array()
-//        );
         $searchParams['body']['highlight'] = array(
 
             "fields" => array(
@@ -97,17 +69,11 @@ class SearchController extends ControllerBase
         $searchParams['body']['sort'] = array(
             'createdAt' => array(
                 'order' => 'desc',
-//                'mode' => 'avg'
             ),
             '_score' => array(
                 'order' => 'desc'
             ),
-
         );
-//        "sort" : [
-//      {"price" : {"order" : "asc", "mode" : "avg"}}
-//   ]
-
         $ret = $client->search($searchParams);
         $this->view->setVar('hits', $ret['hits']);
         $pager = new PurePaginator($searchParams['size'], $ret['hits']['total'], $ret['hits']['hits']);
