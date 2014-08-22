@@ -8,7 +8,6 @@ use Eva\EvaFileSystem\Models\Upload as UploadModel;
 use Eva\EvaEngine\Exception;
 use Eva\EvaEngine\Mvc\Model\Validator\Uniqueness;
 
-
 class Post extends Entities\Posts
 {
 
@@ -42,76 +41,8 @@ class Post extends Entities\Posts
         ),
     );
 
-    /*
-
-    public function beforeValidationOnCreate()
-    {
-        $this->createdAt = $this->createdAt ? $this->createdAt : time();
-        if (!$this->slug) {
-            $this->slug = \Phalcon\Text::random(\Phalcon\Text::RANDOM_ALNUM, 8);
-        }
-
-        $this->validate(new Uniqueness(array(
-            'field' => 'slug'
-        )));
-    }
-
-    public function beforeValidationOnUpdate()
-    {
-        $this->validate(new Uniqueness(array(
-            'field' => 'slug',
-            'conditions' => 'id != :id:',
-            'bind' => array(
-                'id' => $this->id
-            ),
-        )));
-    }
 
 
-    public function beforeCreate()
-    {
-        $user = new LoginModel();
-        if ($userinfo = $user->isUserLoggedIn()) {
-            $this->userId = $this->userId ? $this->userId : $userinfo['id'];
-            $this->username = $this->username ? $this->username : $userinfo['username'];
-        }
-    }
-
-    public function beforeUpdate()
-    {
-        $user = new LoginModel();
-        if ($userinfo = $user->isUserLoggedIn()) {
-            $this->editorId = $userinfo['id'];
-            $this->editorName = $userinfo['username'];
-        }
-
-        $this->updatedAt = time();
-    }
-
-    public function beforeSave()
-    {
-        if ($this->getDI()->getRequest()->hasFiles()) {
-            $upload = new UploadModel();
-            $files = $this->getDI()->getRequest()->getUploadedFiles();
-            if (!$files) {
-                return;
-            }
-            $file = $files[0];
-            $file = $upload->upload($file);
-            if ($file) {
-                $this->imageId = $file->id;
-                $this->image = $file->getLocalUrl();
-            }
-        }
-    }
-
-    public function validation()
-    {
-        if ($this->validationHasFailed() == true) {
-            return false;
-        }
-    }
-    */
     public function findPosts(array $query = array())
     {
         $itemQuery = $this->getDI()->getModelsManager()->createBuilder();
@@ -141,143 +72,6 @@ class Post extends Entities\Posts
         return $itemQuery;
 
     }
-
-    /*
-    public function createPost(array $data)
-    {
-        $textData = isset($data['text']) ? $data['text'] : array();
-        $tagData = isset($data['tags']) ? $data['tags'] : array();
-        $categoryData = isset($data['categories']) ? $data['categories'] : array();
-
-        if($textData) {
-            unset($data['text']);
-            $text = new Text();
-            $text->assign($textData);
-            $this->text = $text;
-        }
-
-        $tags = array();
-        if ($tagData) {
-            unset($data['tags']);
-            $tagArray = is_array($tagData) ? $tagData : explode(',', $tagData);
-            foreach ($tagArray as $tagName) {
-                $tag = new Tag();
-                $tag->tagName = $tagName;
-                $tags[] = $tag;
-            }
-            if ($tags) {
-                $this->tags = $tags;
-            }
-        }
-
-        $categories = array();
-        if ($categoryData) {
-            unset($data['categories']);
-            foreach ($categoryData as $categoryId) {
-                $category = Category::findFirst($categoryId);
-                if ($category) {
-                    $categories[] = $category;
-                }
-            }
-            $this->categories = $categories;
-        }
-
-
-        $this->assign($data);
-        if (!$this->save()) {
-            throw new Exception\RuntimeException('Create post failed');
-        }
-        return $this;
-    }
-
-    public function updatePost($data)
-    {
-        $data['categories'] = isset($data['categories']) ? $data['categories'] : array();
-        $textData = $data['text'];
-        $tagData = $data['tags'];
-        $categoryData = $data['categories'];
-
-        if($textData) {
-            unset($data['text']);
-            $text = new Text();
-            $text->assign($textData);
-            $this->text = $text;
-        }
-
-
-        $tags = array();
-        //remove old relations
-        if ($this->tagsPosts) {
-            $this->tagsPosts->delete();
-        }
-        if ($tagData) {
-            unset($data['tags']);
-            $tagArray = is_array($tagData) ? $tagData : explode(',', $tagData);
-            foreach ($tagArray as $tagName) {
-                $tag = new Tag();
-                $tag->tagName = $tagName;
-                $tags[] = $tag;
-            }
-            if ($tags) {
-                $this->tags = $tags;
-            }
-        }
-
-        //remove old relations
-        if ($this->categoriesPosts) {
-            $this->categoriesPosts->delete();
-        }
-        $categories = array();
-        if ($categoryData) {
-            unset($data['categories']);
-            foreach ($categoryData as $categoryId) {
-                $category = Category::findFirst($categoryId);
-                if ($category) {
-                    $categories[] = $category;
-                }
-            }
-            $this->categories = $categories;
-        }
-
-        $this->assign($data);
-        if (!$this->save()) {
-            throw new Exception\RuntimeException('Update post failed');
-        }
-
-        return $this;
-    }
-
-    public function removePost($id)
-    {
-        $this->id = $id;
-        //remove old relations
-        if ($this->tagsPosts) {
-            $this->tagsPosts->delete();
-        }
-        //remove old relations
-        if ($this->categoriesPosts) {
-            $this->categoriesPosts->delete();
-        }
-        $this->text->delete();
-        $this->delete();
-    }
-
-    public function getTagString()
-    {
-        if (!$this->tags) {
-            return '';
-        }
-
-        $tags = $this->tags;
-        $tagArray = array();
-        foreach ($tags as $tag) {
-            $tagArray[] = $tag->tagName;
-        }
-
-        return implode(',', $tagArray);
-    }
-
-*/
 
     public function getContentHtml()
     {

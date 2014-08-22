@@ -30,7 +30,7 @@ class AppoptionController extends ControllerBase
                 'endpoint' => $endpoint
             )
         ));
-        if($option) {
+        if ($option) {
             return $this->response->setContent($option->data);
         } else {
             throw new Exception\ResourceNotFoundException('Request resource not found');
@@ -81,73 +81,268 @@ class AppoptionController extends ControllerBase
         return $this->showApi();
     }
 
-    // ios gold升级版本
+    /**
+     *
+     * @SWG\Api(
+     *   path="/ios_gold_version.json",
+     *   description="App相关接口",
+     *   produces="['application/json']",
+     *   @SWG\Operations(
+     *     @SWG\Operation(
+     *       method="GET",
+     *       summary="ios gold升级版本",
+     *       notes="",
+     *       @SWG\Parameters(
+     *       )
+     *     )
+     *   )
+     * )
+     */
     public function iosGoldVersionAction()
     {
-        include_once  $this->path . 'ios_gold_version.php';
-        return $this->response->setJsonContent($json);
+        return $this->showApi();
     }
 
-    // ios live升级版本
+    /**
+     *
+     * @SWG\Api(
+     *   path="/ios_live_version.json",
+     *   description="App相关接口",
+     *   produces="['application/json']",
+     *   @SWG\Operations(
+     *     @SWG\Operation(
+     *       method="GET",
+     *       summary="ios live升级版本",
+     *       notes="",
+     *       @SWG\Parameters(
+     *       )
+     *     )
+     *   )
+     * )
+     */
     public function iosLiveVersionAction()
     {
-        include_once  $this->path . 'ios_live_version.php';
-        return $this->response->setJsonContent($json);
+        return $this->showApi();
     }
 
-    // android活动
+    /**
+     *
+     * @SWG\Api(
+     *   path="/ios_pro_version.json",
+     *   description="App相关接口",
+     *   produces="['application/json']",
+     *   @SWG\Operations(
+     *     @SWG\Operation(
+     *       method="GET",
+     *       summary="ios pro升级版本",
+     *       notes="",
+     *       @SWG\Parameters(
+     *       )
+     *     )
+     *   )
+     * )
+     */
+    public function iosProVersionAction()
+    {
+        return $this->showApi();
+    }
+
+
+    /**
+     *
+     * @SWG\Api(
+     *   path="/app_activity_android.json",
+     *   description="App相关接口",
+     *   produces="['application/json']",
+     *   @SWG\Operations(
+     *     @SWG\Operation(
+     *       method="GET",
+     *       summary="android活动",
+     *       notes="",
+     *       @SWG\Parameters(
+     *       )
+     *     )
+     *   )
+     * )
+     */
     public function activityAndroidAction()
     {
-        include_once  $this->path . 'activity_android.php';
-        return $this->response->setJsonContent($json);
+        return $this->showApi();
     }
 
-    // ios活动
+    /**
+     *
+     * @SWG\Api(
+     *   path="/app_activity_android_new.json",
+     *   description="App相关接口",
+     *   produces="['application/json']",
+     *   @SWG\Operations(
+     *     @SWG\Operation(
+     *       method="GET",
+     *       summary="android活动 new",
+     *       notes="",
+     *       @SWG\Parameters(
+     *       )
+     *     )
+     *   )
+     * )
+     */
+    public function activityAndroidNewAction()
+    {
+        return $this->showApi();
+    }
+
+    /**
+     *
+     * @SWG\Api(
+     *   path="/app_activity_ios.json",
+     *   description="App相关接口",
+     *   produces="['application/json']",
+     *   @SWG\Operations(
+     *     @SWG\Operation(
+     *       method="GET",
+     *       summary="ios活动",
+     *       notes="",
+     *       @SWG\Parameters(
+     *       )
+     *     )
+     *   )
+     * )
+     */
     public function activityIosAction()
     {
-        include_once  $this->path . 'activity_ios.php';
-        return $this->response->setJsonContent($json);
+        return $this->showApi();
     }
 
-    // ios pro活动
+    /**
+     *
+     * @SWG\Api(
+     *   path="/app_activity_ios_pro.json",
+     *   description="App相关接口",
+     *   produces="['application/json']",
+     *   @SWG\Operations(
+     *     @SWG\Operation(
+     *       method="GET",
+     *       summary="ios pro活动",
+     *       notes="",
+     *       @SWG\Parameters(
+     *       )
+     *     )
+     *   )
+     * )
+     */
     public function activityIosProAction()
     {
-        include_once  $this->path . 'activity_ios_pro.php';
-        return $this->response->setJsonContent($json);
+        return $this->showApi();
     }
 
-    // 更多页面幻灯片
+    /**
+     *
+     * @SWG\Api(
+     *   path="/app_more_gallery.json",
+     *   description="App相关接口",
+     *   produces="['application/json']",
+     *   @SWG\Operations(
+     *     @SWG\Operation(
+     *       method="GET",
+     *       summary="更多页面幻灯片",
+     *       notes="",
+     *       @SWG\Parameters(
+     *       )
+     *     )
+     *   )
+     * )
+     */
     public function moreGalleryAction()
     {
-        include_once  $this->path . 'more_gallery.php';
-        return $this->response->setJsonContent($json);
+        return $this->showApi();
     }
 
-    // app推荐列表
+    /**
+     *
+     * @SWG\Api(
+     *   path="/app_recommend.json",
+     *   description="App相关接口",
+     *   produces="['application/json']",
+     *   @SWG\Operations(
+     *     @SWG\Operation(
+     *       method="GET",
+     *       summary="app推荐列表",
+     *       notes="",
+     *       @SWG\Parameters(
+     *       )
+     *     )
+     *   )
+     * )
+     */
     public function recommendAction()
     {
-        include_once  $this->path . 'app_recommend.php';
-        return $this->response->setJsonContent($json);
+        return $this->showApi();
     }
 
-    // app闪屏
+    /**
+     *
+     * @SWG\Api(
+     *   path="/app_splash_ad.json",
+     *   description="App相关接口",
+     *   produces="['application/json']",
+     *   @SWG\Operations(
+     *     @SWG\Operation(
+     *       method="GET",
+     *       summary="app闪屏",
+     *       notes="",
+     *       @SWG\Parameters(
+     *       )
+     *     )
+     *   )
+     * )
+     */
     public function splashAdAction()
     {
-        include_once  $this->path . 'splash_ad.php';
-        return $this->response->setJsonContent($json);
+        return $this->showApi();
     }
 
-    // 刷新频率
+    /**
+     *
+     * @SWG\Api(
+     *   path="/refresh_frequence.json",
+     *   description="App相关接口",
+     *   produces="['application/json']",
+     *   @SWG\Operations(
+     *     @SWG\Operation(
+     *       method="GET",
+     *       summary="刷新频率",
+     *       notes="",
+     *       @SWG\Parameters(
+     *       )
+     *     )
+     *   )
+     * )
+     */
     public function refreshFrequenceAction()
     {
-        include_once  $this->path . 'refresh_frequence.php';
-        return $this->response->setJsonContent($json);
+        return $this->showApi();
     }
 
-    // topnews9
+    /**
+     *
+     * @SWG\Api(
+     *   path="/topnews9.json",
+     *   description="App相关接口",
+     *   produces="['application/json']",
+     *   @SWG\Operations(
+     *     @SWG\Operation(
+     *       method="GET",
+     *       summary="topnews9",
+     *       notes="",
+     *       @SWG\Parameters(
+     *       )
+     *     )
+     *   )
+     * )
+     */
     public function topnews9Action()
     {
-        include_once  $this->path . 'topnews9.php';
-        return $this->response->setJsonContent($json);
+        return $this->showApi();
     }
 }

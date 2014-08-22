@@ -4,6 +4,7 @@ namespace WscnApiVer1\Controllers;
 
 use Swagger\Annotations as SWG;
 use WscnApiVer1\Models;
+use WscnApiVer1\NewsManager;
 use Eva\EvaBlog\Entities;
 use Eva\EvaBlog\Forms;
 use Eva\EvaEngine\Exception;
@@ -22,6 +23,43 @@ use Eva\EvaEngine\Exception;
  */
 class NodeController extends ControllerBase
 {
+
+    // 实时新闻老分类id 新分类id 对应关系
+    public $categoryLiveNews = array(
+        '9494' => 4,
+        '9500' => 2,
+        '9497' => 3,
+        '9495' => 1,
+        '9496' => 5,
+        '9499' => 8,
+        '9501' => 8,
+        '9498' => 6,
+        '9493' => 2,
+        '9503' => 7,
+        '9502' => 4,
+        '1294' => 3,
+    );
+
+    // 实时新闻地区分类 对应关系
+    public $locationLiveNews = array(
+        '9488' => 19,
+        '9479' => 9,
+        '9490' => 19,
+        '9484' => 19,
+        '9482' => 15,
+        '9486' => 19,
+        '9485' => 19,
+        '9491' => 19,
+        '9480' => 12,
+        '9478' => 11,
+        '9492' => 14,
+        '9487' => 16,
+        '9477' => 10,
+        '9483' => 13,
+        '9489' => 19,
+        '9481' => 9,
+    );
+
     /**
      *
      * @SWG\Api(
@@ -99,13 +137,7 @@ class NodeController extends ControllerBase
         );
 
         $json = $this->getPostListData($query);
-        /*
-        // jsonp处理
-        $callback = $this->request->getQuery('callback', 'string', '');
-        if (!empty($callback)) {
-            return $callback . '(' . $json . ');';
-        }
-        */
+
         return $json;
     }
 
@@ -137,53 +169,286 @@ class NodeController extends ControllerBase
 
     public function getAction()
     {
+
         $id = $this->dispatcher->getParam('id');
 
         $postModel = new Models\Post();
         $post = $postModel->findFirst($id);
-        if (!$post) {
-            throw new Exception\ResourceNotFoundException('Request post not exist');
+
+        // 新闻
+        if ($post) {
+            $tempPost = $post->dump(Models\Post::$defaultDump);
+            //print_r($tempPost);die;
+            $post = array(
+                'nid'        => $tempPost['id'],
+                'title'      => $tempPost['title'],
+                'created'    => $tempPost['createdAt'],
+                'changed'    => $tempPost['createdAt'],
+                'name'       => $tempPost['username'],
+                'body'       =>  array(
+                    'und' => array(0 => array('safe_value' => $tempPost['content'], 'value' => $tempPost['content'], 'safe_summary' => $tempPost['summary'], 'summary' => $tempPost['summary']))
+                ),
+            );
+
+            $upload = array();
+            if (!empty($tempPost['imageUrl'])) {
+                $upload = array(
+                    'und' => array(0 => array('filename' => $tempPost['imageUrl']))
+                );
+            }
+
+            $post['upload'] = $upload;
+
+
+            $related = array();
+            // 相关文章未做
+
+            $post['related'] = $related;
+
+            return $this->response->setJsonContent($post);
         }
-        $tempPost = $post->dump(Models\Post::$defaultDump);
-        //print_r($tempPost);die;
-        $post = array(
-            'nid'        => $tempPost['id'],
-            'title'      => $tempPost['title'],
-            'created'    => $tempPost['createdAt'],
-            'changed'    => $tempPost['createdAt'],
-            'name'       => $tempPost['username'],
-            'body'       =>  array(
-                'und' => array(0 => array('safe_value' => $tempPost['content'], 'value' => $tempPost['content'], 'safe_summary' => $tempPost['summary'], 'summary' => $tempPost['summary']))
-            ),
+
+        // 实时新闻
+        $postModel = new Models\NewsManager();
+        $post = $postModel->findFirst($id);
+        if ($post) {
+            $tempPost = $post->dump(Models\NewsManager::$defaultDump);
+            $post = array(
+                'nid'        => $tempPost['id'],
+                'title'      => $tempPost['title'],
+                'created'    => $tempPost['createdAt'],
+                'changed'    => $tempPost['createdAt'],
+                'name'       => $tempPost['username'],
+                'body'       =>  array(
+                    'und' => array(0 => array('safe_value' => $tempPost['content'], 'value' => $tempPost['content'], 'safe_summary' => $tempPost['content'], 'summary' => $tempPost['content']))
+                ),
+            );
+
+            return $this->response->setJsonContent($post);
+        }
+
+        return $this->response->setJsonContent(array());
+    }
+
+    public function liveNewsCountAction()
+    {
+        $nid = $this->request->getQuery('nid', 'int', 0);
+
+        // 单项选择 field_icon
+         $fieldIcon = $this->request->getQuery('field_icon');
+
+         $iconNewsArray = array('rumor', 'warning', 'news');
+         //$iconDataArray = array('alert', 'calendar', 'chart', 'chart_pie', 'download');
+
+         $type = '';
+        if (!empty($fieldIcon)) {
+            $type = in_array($fieldIcon, $iconNewsArray) ? 'news' : 'data';
+        }
+
+
+        $query = array(
+            'status' => 'published',
+            'id'     => $nid,
+            'type'   => $type,
         );
 
-        $upload = array();
-        if (!empty($tempPost['imageUrl'])) {
-            $upload = array(
-                'und' => array(0 => array('filename' => $tempPost['imageUrl']))
-            );
-        }
+        $news = new Models\NewsManager();
+        $count = $news->getLiveNewNoReadCount($query);
 
-        $post['upload'] = $upload;
+        return $this->response->setJsonContent(array(array('count' => $count)));
+    }
 
 
-        $related = array();
-        // 相关文章未做
+    public function liveNewsCountGoldAction()
+    {
+        $nid = $this->request->getQuery('nid', 'int', 0);
 
-        $post['related'] = $related;
+        $query = array(
+            'status' => 'published',
+            'id'     => $nid,
+        );
 
-        return $this->response->setJsonContent($post);
+        $news = new Models\NewsManager();
+        $count = $news->getLiveNewNoReadCount($query);
 
+        return $this->response->setJsonContent(array(array('count' => $count)));
     }
 
 
 
     public function liveAction()
     {
-        echo 333;die;
+        $tid = $this->request->getQuery('tid');
+
+        $cid = '';
+        if (is_array($tid) && !empty($tid)) {
+            $cidArray = array();
+            foreach ($tid as $val) {
+                if (isset($this->categoryLiveNews[$val])) {
+                    $cidArray[] = $this->categoryLiveNews[$val];
+                }
+            }
+            $cid = implode(',', $cidArray);
+        }
+
+        $query = array(
+            'status' => 'published',
+            'cid'    => $cid,
+            'limit'  => 30,
+            'page'   => $this->request->getQuery('page', 'int', 0) + 1, // 老版本第一页为0
+        );
+
+        return $this->getLiveNewsListData($query);
+    }
+
+    public function liveNewsAction()
+    {
+
+        $query = array(
+            'status' => 'published',
+            'limit'  => 3,
+        );
+
+        return $this->getLiveNewsListData($query);
+    }
+
+    public function liveNewsListAction()
+    {
+        // 地区分类单项选择
+        // field_location_tid
+        $locationTid = $this->request->getQuery('field_location_tid');
+
+        // 多项选择 tid
+        $categoryTid = $this->request->getQuery('tid');
+
+        $cidArray = array();
+
+        if (!empty($locationTid) && isset($this->locationLiveNews[$locationTid])) {
+            $cidArray[] = $this->locationLiveNews[$locationTid];
+        }
+
+        if (is_array($categoryTid) && !empty($categoryTid)) {
+            foreach ($categoryTid as $val) {
+                if (isset($this->categoryLiveNews[$val])) {
+                    $cidArray[] = $this->categoryLiveNews[$val];
+                }
+            }
+        }
+
+        $cid = '';
+        if (!empty($cidArray)) {
+            $cid = implode(',', $cidArray);
+        }
+
+        // 单项选择 field_icon
+         $fieldIcon = $this->request->getQuery('field_icon');
+
+         $iconNewsArray = array('rumor', 'warning', 'news');
+         $iconDataArray = array('alert', 'calendar', 'chart', 'chart_pie', 'download');
+
+         $type = '';
+        if (!empty($fieldIcon)) {
+            $type = in_array($fieldIcon, $iconNewsArray) ? 'news' : 'data';
+        }
+
+
+        $query = array(
+            'status' => 'published',
+            'cid'    => $cid,
+            'limit'  => 30,
+            'type'   => $type,
+            'page'   => $this->request->getQuery('page', 'int', 0) + 1, // 老版本第一页为0
+        );
+
+        return $this->getLiveNewsListData($query);
+    }
+
+    public function liveNewsGoldAction()
+    {
+
+
+        // 单项选择 field_icon
+         $fieldIcon = $this->request->getQuery('field_icon');
+
+         $iconNewsArray = array('rumor', 'warning', 'news');
+         $iconDataArray = array('alert', 'calendar', 'chart', 'chart_pie', 'download');
+
+         $type = '';
+        if (!empty($fieldIcon)) {
+            $type = in_array($fieldIcon, $iconNewsArray) ? 'news' : 'data';
+        }
+
+
+        $query = array(
+            'status' => 'published',
+            'limit'  => 3,
+            'type'   => $type,
+            'page'   => $this->request->getQuery('page', 'int', 0) + 1, // 老版本第一页为0
+        );
+
+        return $this->getLiveNewsListData($query);
     }
 
 
+    private function getLiveNewsListData($query)
+    {
+        $news = new Models\NewsManager();
+
+        $newsList = $news->findNews($query);
+
+        $paginator = new \Eva\EvaEngine\Paginator(array(
+            "builder" => $newsList,
+            "limit"=> $query['limit'],
+            "page" => $query['page']
+        ));
+
+        $paginator->setQuery($query);
+        $pager = $paginator->getPaginate();
+
+        $newsArray = array();
+        if ($pager->items) {
+            foreach ($pager->items as $key => $post) {
+                $tempArray = $post->dump(array(
+                    'id',
+                    'title',
+                    'createdAt',
+                    'importance',
+                    //'type',
+                ));
+
+                $tempArray['node_icon'] = '';
+                /*
+                if ($tempArray['type'] == 'data') {
+                    $tempArray['node_icon'] = '柱状';
+                }
+                */
+                $tempArray['node_color']  = '';
+                $tempArray['node_format'] = '';
+
+                if ($tempArray['importance'] == 1) {
+                } elseif ($tempArray['importance'] == 2) {
+                    $tempArray['node_color']  = '红色';
+                } elseif ($tempArray['importance'] == 3) {
+                    $tempArray['node_color']  = '红色';
+                    $tempArray['node_format'] = '加粗';
+                }
+
+
+                // 对应老字段
+                $newsArray[] = array(
+                    'nid'          => $tempArray['id'],
+                    'node_title'   => $tempArray['title'],
+                    'node_created' => $tempArray['createdAt'],
+                    'node_content' => $tempArray['title'],
+                    'node_icon'    => $tempArray['node_color'],
+                    'node_format'  => $tempArray['node_format'],
+                    'node_color'   => $tempArray['node_color'],
+                );
+            }
+        }
+
+        return $this->response->setJsonContent($newsArray);
+    }
 
 
     private function getPostListData($query)
@@ -192,7 +457,7 @@ class NodeController extends ControllerBase
 
         if ($query['type'] == 'list') {
             $posts = $post->findPosts($query);
-        } else if ($query['type'] == 'listRankTwodays') {
+        } elseif ($query['type'] == 'listRankTwodays') {
             $posts = $post->findRankTwodaysPosts($query);
         }
 
