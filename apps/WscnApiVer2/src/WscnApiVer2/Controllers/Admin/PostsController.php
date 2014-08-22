@@ -124,27 +124,7 @@ class PostsController extends ControllerBase implements TokenAuthorityController
         $postArray = array();
         if ($pager->items) {
             foreach ($pager->items as $key => $post) {
-                $postArray[] = $post->dump(array(
-                    'id',
-                    'title',
-                    'codeType',
-                    'createdAt',
-                    'summary',
-                    'summaryHtml' => 'getSummaryHtml',
-                    'commentStatus',
-                    'sourceName',
-                    'sourceUrl',
-                    'url' => 'getUrl',
-                    'imageUrl' => 'getImageUrl',
-                    'tags' => array(
-                        'id',
-                        'tagName',
-                    ),
-                    'user' => array(
-                        'id',
-                        'username',
-                    ),
-                ));
+                $postArray[] = $post->dump(Models\Post::$simpleDump);
             }
         }
 

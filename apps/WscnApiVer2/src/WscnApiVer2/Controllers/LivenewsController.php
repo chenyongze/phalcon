@@ -1,9 +1,7 @@
 <?php
 
-namespace WscnApiVer2\Controllers\Admin;
+namespace WscnApiVer2\Controllers;
 
-use WscnApiVer2\Controllers\ControllerBase;
-use Eva\EvaEngine\Mvc\Controller\TokenAuthorityControllerInterface;
 use Swagger\Annotations as SWG;
 use Eva\EvaLivenews\Models;
 use Eva\EvaLivenews\Models\NewsManager;

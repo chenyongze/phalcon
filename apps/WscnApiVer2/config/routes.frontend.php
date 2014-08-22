@@ -32,7 +32,7 @@ return array(
         'pattern' => '/v2/admin/posts',
         'paths' => array(
             'module' => 'WscnApiVer2',
-            'controller' => 'posts',
+            'controller' => 'Admin\Posts',
             'action' => 'posts',
         ),
         'httpMethods' => 'POST'
@@ -41,7 +41,7 @@ return array(
         'pattern' => '/v2/admin/posts/(\d+)',
         'paths' => array(
             'module' => 'WscnApiVer2',
-            'controller' => 'posts',
+            'controller' => 'Admin\Posts',
             'action' => 'get',
             'id' => 1,
         ),
@@ -51,7 +51,7 @@ return array(
         'pattern' => '/v2/admin/posts/(\d+)',
         'paths' => array(
             'module' => 'WscnApiVer2',
-            'controller' => 'posts',
+            'controller' => 'Admin\Posts',
             'action' => 'put',
             'id' => 1,
         ),
@@ -61,7 +61,7 @@ return array(
         'pattern' => '/v2/admin/posts/(\d+)',
         'paths' => array(
             'module' => 'WscnApiVer2',
-            'controller' => 'posts',
+            'controller' => 'Admin\Posts',
             'action' => 'delete',
             'id' => 1,
         ),
@@ -73,7 +73,7 @@ return array(
         'pattern' => '/v2/admin/users',
         'paths' => array(
             'module' => 'WscnApiVer2',
-            'controller' => 'users',
+            'controller' => 'Admin\Users',
             'action' => 'index',
         ),
         'httpMethods' => 'GET'
@@ -82,7 +82,7 @@ return array(
         'pattern' => '/v2/admin/users',
         'paths' => array(
             'module' => 'WscnApiVer2',
-            'controller' => 'users',
+            'controller' => 'Admin\Users',
             'action' => 'post',
         ),
         'httpMethods' => 'POST'
@@ -91,7 +91,7 @@ return array(
         'pattern' => '/v2/admin/users/(\d+)',
         'paths' => array(
             'module' => 'WscnApiVer2',
-            'controller' => 'users',
+            'controller' => 'Admin\Users',
             'action' => 'get',
             'id' => 1,
         ),
@@ -101,7 +101,7 @@ return array(
         'pattern' => '/v2/admin/users/(\d+)',
         'paths' => array(
             'module' => 'WscnApiVer2',
-            'controller' => 'users',
+            'controller' => 'Admin\Users',
             'action' => 'put',
             'id' => 1,
         ),
@@ -111,7 +111,7 @@ return array(
         'pattern' => '/v2/admin/users/(\d+)',
         'paths' => array(
             'module' => 'WscnApiVer2',
-            'controller' => 'user',
+            'controller' => 'Admin\Users',
             'action' => 'delete',
             'id' => 1,
         ),
@@ -244,6 +244,27 @@ return array(
             'module' => 'WscnApiVer2',
             'controller' => 'livenews',
             'action' => 'realtime',
+        ),
+        'httpMethods' => 'GET'
+    ),
+
+    //User posts
+    'postList' =>  array(
+        'pattern' => '/v2/posts',
+        'paths' => array(
+            'module' => 'WscnApiVer2',
+            'controller' => 'posts',
+            'action' => 'index',
+        ),
+        'httpMethods' => 'GET'
+    ),
+    'adminGetPost' =>  array(
+        'pattern' => '/v2/posts/(\d+)',
+        'paths' => array(
+            'module' => 'WscnApiVer2',
+            'controller' => 'posts',
+            'action' => 'get',
+            'id' => 1,
         ),
         'httpMethods' => 'GET'
     ),
