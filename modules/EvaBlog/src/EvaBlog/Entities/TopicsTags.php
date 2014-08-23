@@ -35,4 +35,4 @@ class TopicsTags extends Model
         );
         parent::initialize();
     }
-} 
+}

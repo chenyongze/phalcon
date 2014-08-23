@@ -19,7 +19,6 @@ use Eva\EvaEngine\Mvc\Model;
 use Eva\EvaUser\Models\Login as LoginModel;
 use Eva\EvaFileSystem\Models\Upload as UploadModel;
 
-
 class Topic extends Topics
 {
     public function beforeCreate()

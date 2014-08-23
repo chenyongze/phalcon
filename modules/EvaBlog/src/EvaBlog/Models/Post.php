@@ -313,8 +313,7 @@ class Post extends Entities\Posts
             );
         }
 
-        if(!empty($query['order'])) {
-
+        if (!empty($query['order'])) {
         }
     }
 
