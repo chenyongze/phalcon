@@ -23,6 +23,7 @@ class OperationController extends ControllerBase
             'q' => $this->request->getQuery('q', 'string'),
             'rid' => $this->request->getQuery('rid', 'int'),
             'roleid' => $this->request->getQuery('roleid', 'int'),
+            'group' => $this->request->getQuery('group', 'string'),
             'limit' => 1000,
             'page' => $this->request->getQuery('page', 'int', 1),
         );

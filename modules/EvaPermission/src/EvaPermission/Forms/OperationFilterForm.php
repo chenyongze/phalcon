@@ -31,6 +31,8 @@ class OperationFilterForm extends Form
     */
     public $status;
 
+    public $group;
+
     protected $roleid;
 
     public function addRole()
@@ -52,9 +54,31 @@ class OperationFilterForm extends Form
         return $this->roleid = $element;
     }
 
+    public function addResourceGroup()
+    {
+        if ($this->group) {
+            return $this->group;
+        }
+
+        $groups = Entities\Resources::find(array(
+            'columns' => array('resourceGroup'),
+            'group' => 'resourceGroup'
+        ));
+        $options = array('All Groups');
+        if ($groups) {
+            foreach ($groups as $group) {
+                $options[$group->resourceGroup] = $group->resourceGroup;
+            }
+        }
+        $element = new Select('group', $options);
+        $this->add($element);
+        return $this->group = $element;
+    }
+
     public function initialize($entity = null, $options = null)
     {
         $this->initializeFormAnnotations();
         $this->addRole();
+        $this->addResourceGroup();
     }
 }
