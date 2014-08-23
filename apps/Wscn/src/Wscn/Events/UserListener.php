@@ -34,7 +34,7 @@ class UserListener
         if (!$dp->user_check_password($user->password, $userInDB->oldPassword)) {
             throw new Exception\VerifyFailedException('ERR_USER_PASSWORD_WRONG');
         } else {
-            $userInDB->password = $userInDB->passwordHash($user->password);
+            $userInDB->password = $userInDB::passwordHash($user->password);
             $userInDB->save();
         }
     }
