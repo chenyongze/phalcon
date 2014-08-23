@@ -7,7 +7,7 @@ use Eva\EvaOAuthClient\Entities\AccessTokens;
 use Eva\EvaEngine\Exception;
 use Eva\EvaEngine\Mvc\Model as BaseModel;
 
-class Register extends BaseModel 
+class Register extends BaseModel
 {
     public function register()
     {

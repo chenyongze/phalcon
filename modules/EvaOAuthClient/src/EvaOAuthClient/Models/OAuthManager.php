@@ -7,7 +7,7 @@ use Eva\EvaEngine\Exception;
 use Eva\EvaOAuthClient\Entities\AccessTokens;
 use Eva\EvaEngine\Mvc\Model as BaseModel;
 
-class OAuthManager extends BaseModel 
+class OAuthManager extends BaseModel
 {
     const REQUEST_TOKEN_KEY = 'oauth-request-token';
     const ACCESS_TOKEN_KEY = 'oauth-access-token';
@@ -96,12 +96,11 @@ class OAuthManager extends BaseModel
                 'adapterKey' => $adapterKey,
             )
         ));
-        if($tokens) {
-            foreach($tokens as $token) {
+        if ($tokens) {
+            foreach ($tokens as $token) {
                 $token->delete();
             }
         }
         return $tokens;
     }
-
 }
