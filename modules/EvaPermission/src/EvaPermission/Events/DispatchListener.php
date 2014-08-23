@@ -14,7 +14,7 @@ class DispatchListener
     public function beforeExecuteRoute($event)
     {
         $dispatcher = $event->getSource();
-        if($dispatcher->getDI()->getConfig()->permission->disableAll) {
+        if ($dispatcher->getDI()->getConfig()->permission->disableAll) {
             return true;
         }
         $controller = $dispatcher->getActiveController();
