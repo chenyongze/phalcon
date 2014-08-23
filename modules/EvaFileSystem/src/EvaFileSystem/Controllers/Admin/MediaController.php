@@ -5,15 +5,16 @@ namespace Eva\EvaFileSystem\Controllers\Admin;
 use Eva\EvaFileSystem\Models;
 use Eva\EvaFileSystem\Forms;
 
+/**
+* @resourceName("Media Managment")
+* @resourceDescription("Media Managment")
+*/
 class MediaController extends ControllerBase
 {
-    public function uploadAction()
-    {
-    }
-
     /**
-     * Index action
-     */
+    * @operationName("Media List")
+    * @operationDescription("Get Media list")
+    */
     public function indexAction()
     {
         $limit = $this->request->getQuery('per_page', 'int', 25);

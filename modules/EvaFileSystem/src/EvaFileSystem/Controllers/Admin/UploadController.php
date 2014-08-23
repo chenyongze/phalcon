@@ -5,11 +5,16 @@ namespace Eva\EvaFileSystem\Controllers\Admin;
 use Eva\EvaFileSystem\Models;
 use Eva\EvaEngine\Mvc\Controller\JsonControllerInterface;
 
+/**
+* @resourceName("Media Upload")
+* @resourceDescription("Media Upload")
+*/
 class UploadController extends ControllerBase implements JsonControllerInterface
 {
     /**
-     * Index action
-     */
+    * @operationName("Upload Media")
+    * @operationDescription("Upload Media")
+    */
     public function indexAction()
     {
         if (!$this->request->isPost() || !$this->request->hasFiles()) {
@@ -40,6 +45,10 @@ class UploadController extends ControllerBase implements JsonControllerInterface
         return $this->response->setJsonContent($fileinfo);
     }
 
+    /**
+    * @operationName("Upload Encoded Media")
+    * @operationDescription("Upload Base64 encoded media (from Browser drag and drop)")
+    */
     public function encodeAction()
     {
         if (!$this->request->isPost()) {
