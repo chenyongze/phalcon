@@ -4,12 +4,17 @@ namespace Eva\EvaBlog\Controllers\Admin;
 
 use Eva\EvaBlog\Models;
 
+/**
+* @resourceName("Post Category Managment")
+* @resourceDescription("Post Category Managment")
+*/
 class CategoryController extends ControllerBase
 {
 
     /**
-     * Index action
-     */
+    * @operationName("Post Category List")
+    * @operationDescription("Post Category List")
+    */
     public function indexAction()
     {
         $currentPage = $this->request->getQuery('page', 'int'); // GET
@@ -31,11 +36,10 @@ class CategoryController extends ControllerBase
         $this->view->setVar('pager', $pager);
     }
 
-    public function treeAction()
-    {
-
-    }
-
+    /**
+    * @operationName("Create Post Category")
+    * @operationDescription("Create Post Category")
+    */
     public function createAction()
     {
         $form = new \Eva\EvaBlog\Forms\CategoryForm();
@@ -63,6 +67,10 @@ class CategoryController extends ControllerBase
         return $this->redirectHandler('/admin/category/edit/' . $category->id);
     }
 
+    /**
+    * @operationName("Edit Post Category")
+    * @operationDescription("Edit Post Category")
+    */
     public function editAction()
     {
         $this->view->changeRender('admin/category/create');
@@ -92,6 +100,10 @@ class CategoryController extends ControllerBase
         return $this->redirectHandler('/admin/category/edit/' . $category->id);
     }
 
+    /**
+    * @operationName("Remove Post Category")
+    * @operationDescription("Remove Post Category")
+    */
     public function deleteAction()
     {
         if (!$this->request->isDelete()) {

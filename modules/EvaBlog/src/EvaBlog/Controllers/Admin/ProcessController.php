@@ -6,8 +6,16 @@ use Eva\EvaBlog\Models;
 use Eva\EvaEngine\Mvc\Controller\JsonControllerInterface;
 use Eva\EvaEngine\Exception;
 
+/**
+* @resourceName("Post Managment Assists")
+* @resourceDescription("Post Managment Assists (Ajax json format)")
+*/
 class ProcessController extends ControllerBase implements JsonControllerInterface
 {
+    /**
+    * @operationName("Get post info by url")
+    * @operationDescription("For post connection feature")
+    */
     public function connectionAction()
     {
         if (!$this->request->isPost()) {
@@ -16,16 +24,18 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
         $url = $this->request->getPost('url');
         $url = parse_url($url);
         $path = $url['path'];
-        $post = new \stdclass(); 
+        $post = new \stdclass();
         if (preg_match('/(\d+)/', $path, $matches)) {
             $id = $matches[1];
             $post = Models\Post::findFirst("id = $id");
-        } else {
-        
         }
         return $this->response->setJsonContent($post);
     }
 
+    /**
+    * @operationName("Remove a post")
+    * @operationDescription("Remove a post")
+    */
     public function deleteAction()
     {
         if (!$this->request->isDelete()) {
@@ -43,6 +53,10 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
         return $this->response->setJsonContent($post);
     }
 
+    /**
+    * @operationName("Change post status")
+    * @operationDescription("Change post status")
+    */
     public function statusAction()
     {
         if (!$this->request->isPut()) {
@@ -61,6 +75,10 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
         return $this->response->setJsonContent($post);
     }
 
+    /**
+    * @operationName("Change post sort order")
+    * @operationDescription("Change post sort order")
+    */
     public function sortAction()
     {
         if (!$this->request->isPut()) {
@@ -79,6 +97,10 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
         return $this->response->setJsonContent($post);
     }
 
+    /**
+    * @operationName("Change post status by batch")
+    * @operationDescription("Change post status by batch")
+    */
     public function batchAction()
     {
         if (!$this->request->isPut()) {
@@ -109,7 +131,10 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
         return $this->response->setJsonContent($posts);
     }
 
-
+    /**
+    * @operationName("Check post slug unique")
+    * @operationDescription("Check post slug unique")
+    */
     public function slugAction()
     {
         $slug = $this->request->get('slug');

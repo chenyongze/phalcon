@@ -6,8 +6,17 @@ use Eva\EvaUser\Models;
 use Eva\EvaEngine\Mvc\Controller\JsonControllerInterface;
 use Eva\EvaEngine\Exception;
 
+/**
+* @resourceName("User Managment Assists")
+* @resourceDescription("User Managment Assists (Ajax json format)")
+*/
 class ProcessController extends ControllerBase implements JsonControllerInterface
 {
+
+    /**
+    * @operationName("Completed user name")
+    * @operationDescription("Completed user name")
+    */
     public function suggestionsAction()
     {
         $query = $this->request->get('query');
@@ -25,6 +34,10 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
         return $this->response->setJsonContent($users);
     }
 
+    /**
+    * @operationName("Change user status")
+    * @operationDescription("Change user status")
+    */
     public function statusAction()
     {
         if (!$this->request->isPut()) {
@@ -47,6 +60,10 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
         return $this->response->setJsonContent($user);
     }
 
+    /**
+    * @operationName("Remove user")
+    * @operationDescription("Remove user")
+    */
     public function deleteAction()
     {
         if (!$this->request->isDelete()) {

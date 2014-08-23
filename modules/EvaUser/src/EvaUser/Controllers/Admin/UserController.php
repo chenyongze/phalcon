@@ -7,15 +7,15 @@ use Eva\EvaUser\Models;
 use Eva\EvaEngine\Mvc\Controller\SessionAuthorityControllerInterface;
 
 /**
-* @resourceName("Admin User Managment")
-* @resourceDescription("用户管理")
+* @resourceName("User Managment")
+* @resourceDescription("User Managment")
 */
 class UserController extends AdminControllerBase implements SessionAuthorityControllerInterface
 {
 
     /**
     * @operationName("User List")
-    * @operationDescription("用户列表页")
+    * @operationDescription("Get user list")
     */
     public function indexAction()
     {
@@ -49,7 +49,7 @@ class UserController extends AdminControllerBase implements SessionAuthorityCont
 
     /**
     * @operationName("Create User")
-    * @operationDescription("创建用户")
+    * @operationDescription("Create User")
     */
     public function createAction()
     {
@@ -81,7 +81,7 @@ class UserController extends AdminControllerBase implements SessionAuthorityCont
 
     /**
     * @operationName("Edit User")
-    * @operationDescription("编辑用户")
+    * @operationDescription("Edit User")
     */
     public function editAction()
     {

@@ -7,10 +7,15 @@ use Eva\EvaBlog\Models\Post;
 use Eva\EvaBlog\Forms;
 use Eva\EvaEngine\Exception;
 
+/**
+* @resourceName("Post Managment")
+* @resourceDescription("Post Managment")
+*/
 class PostController extends ControllerBase
 {
     /**
-    * Index action
+    * @operationName("Post List")
+    * @operationDescription("Post List")
     */
     public function indexAction()
     {
@@ -48,6 +53,10 @@ class PostController extends ControllerBase
         $this->view->setVar('pager', $pager);
     }
 
+    /**
+    * @operationName("Create Post")
+    * @operationDescription("Create Post")
+    */
     public function createAction()
     {
         $form = new Forms\PostForm();
@@ -76,6 +85,10 @@ class PostController extends ControllerBase
         return $this->redirectHandler('/admin/post/edit/' . $form->getModel()->id);
     }
 
+    /**
+    * @operationName("Edit Post")
+    * @operationDescription("Edit Post")
+    */
     public function editAction()
     {
         $this->view->changeRender('admin/post/create');
