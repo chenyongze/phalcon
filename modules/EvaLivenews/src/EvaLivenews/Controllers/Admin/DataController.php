@@ -7,8 +7,16 @@ use Eva\EvaLivenews\Forms;
 use Eva\EvaEngine\Exception;
 use Phalcon\Mvc\View;
 
+/**
+* @resourceName("Livenews Managment(For Data)")
+* @resourceDescription("Livenews Managment(For Data)")
+*/
 class DataController extends ControllerBase
 {
+    /**
+    * @operationName("Create Livenews (For Data)")
+    * @operationDescription("Create Livenews (For Data)")
+    */
     public function createAction()
     {
         $response = $this->dispatcher->forward(array(
@@ -18,6 +26,10 @@ class DataController extends ControllerBase
         $this->view->changeRender('admin/data/create');
     }
 
+    /**
+    * @operationName("Edit Livenews (For Data)")
+    * @operationDescription("Edit Livenews (For Data)")
+    */
     public function editAction()
     {
         $this->view->changeRender('admin/data/create');
@@ -37,7 +49,7 @@ class DataController extends ControllerBase
         }
         $data = $this->request->getPost();
 
-        if($this->request->isAjax()) {
+        if ($this->request->isAjax()) {
             if (!$form->isFullValid($data)) {
                 return $this->showInvalidMessagesAsJson($form);
             }

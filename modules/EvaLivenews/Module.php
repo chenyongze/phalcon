@@ -49,5 +49,4 @@ class Module implements ModuleDefinitionInterface, StandardInterface
         $eventsManager = $di->getEventsManager();
         $eventsManager->attach('livenews', new LivenewsListener());
     }
-
 }

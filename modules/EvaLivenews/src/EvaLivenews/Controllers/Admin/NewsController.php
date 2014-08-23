@@ -7,8 +7,16 @@ use Eva\EvaLivenews\Forms;
 use Eva\EvaEngine\Exception;
 use Phalcon\Mvc\View;
 
+/**
+* @resourceName("Livenews Managment")
+* @resourceDescription("Livenews Managment")
+*/
 class NewsController extends ControllerBase
 {
+    /**
+    * @operationName("Livenews preview widget")
+    * @operationDescription("Livenews preview widget")
+    */
     public function embedAction()
     {
         $this->indexAction(array(
@@ -18,7 +26,8 @@ class NewsController extends ControllerBase
     }
 
     /**
-    * Index action
+    * @operationName("Livenews List")
+    * @operationDescription("Livenews List")
     */
     public function indexAction($overwriteQuery = null)
     {
@@ -55,6 +64,10 @@ class NewsController extends ControllerBase
         $this->view->setVar('pager', $pager);
     }
 
+    /**
+    * @operationName("Create Livenews")
+    * @operationDescription("Create Livenews")
+    */
     public function createAction()
     {
         $form = new Forms\NewsForm();
@@ -70,7 +83,7 @@ class NewsController extends ControllerBase
 
         $data = $this->request->getPost();
 
-        if($this->request->isAjax()) {
+        if ($this->request->isAjax()) {
             if (!$form->isFullValid($data)) {
                 return $this->showInvalidMessagesAsJson($form);
             }
@@ -94,6 +107,10 @@ class NewsController extends ControllerBase
         }
     }
 
+    /**
+    * @operationName("Edit Livenews")
+    * @operationDescription("Edit Livenews")
+    */
     public function editAction()
     {
         $this->view->changeRender('admin/news/create');
@@ -102,7 +119,7 @@ class NewsController extends ControllerBase
             throw new Exception\ResourceNotFoundException('ERR_LIVENEWS_NEWS_NOT_FOUND');
         }
 
-        if($news->codeType == 'json') {
+        if ($news->codeType == 'json') {
             return $this->redirectHandler('/admin/livenews/data/edit/' . $news->id);
         }
 
@@ -117,7 +134,7 @@ class NewsController extends ControllerBase
         }
         $data = $this->request->getPost();
 
-        if($this->request->isAjax()) {
+        if ($this->request->isAjax()) {
             if (!$form->isFullValid($data)) {
                 return $this->showInvalidMessagesAsJson($form);
             }

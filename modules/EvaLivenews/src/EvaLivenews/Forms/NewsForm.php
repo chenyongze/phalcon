@@ -266,7 +266,7 @@ class NewsForm extends Form
         
         $radios = array();
         $news = $this->getModel();
-        foreach($icons as $icon => $label) {
+        foreach ($icons as $icon => $label) {
             $radio = new Radio('icon', array(
                 'value' => $icon
             ));
@@ -280,5 +280,4 @@ class NewsForm extends Form
     public function initialize($entity = null, $options = null)
     {
     }
-
 }

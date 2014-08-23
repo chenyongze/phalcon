@@ -105,5 +105,4 @@ class FilterForm extends Form
         $this->initializeFormAnnotations();
         $this->addCid();
     }
-
 }

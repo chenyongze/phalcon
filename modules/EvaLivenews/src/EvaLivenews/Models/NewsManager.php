@@ -7,7 +7,6 @@ use Eva\EvaUser\Models\Login as LoginModel;
 use Eva\EvaFileSystem\Models\Upload as UploadModel;
 use Eva\EvaEngine\Exception;
 
-
 class NewsManager extends Entities\News
 {
     public static $defaultDump = array(

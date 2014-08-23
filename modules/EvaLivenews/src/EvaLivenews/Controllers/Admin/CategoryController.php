@@ -4,12 +4,16 @@ namespace Eva\EvaLivenews\Controllers\Admin;
 
 use Eva\EvaLivenews\Models;
 
+/**
+* @resourceName("Livenews Category Managment")
+* @resourceDescription("Livenews Category Managment")
+*/
 class CategoryController extends ControllerBase
 {
-
     /**
-     * Index action
-     */
+    * @operationName("Livenews Category List")
+    * @operationDescription("Livenews Category List")
+    */
     public function indexAction()
     {
         $currentPage = $this->request->getQuery('page', 'int'); // GET
@@ -31,11 +35,10 @@ class CategoryController extends ControllerBase
         $this->view->setVar('pager', $pager);
     }
 
-    public function treeAction()
-    {
-
-    }
-
+    /**
+    * @operationName("Create Livenews Category")
+    * @operationDescription("Create Livenews Category")
+    */
     public function createAction()
     {
         $form = new \Eva\EvaLivenews\Forms\CategoryForm();
@@ -63,6 +66,10 @@ class CategoryController extends ControllerBase
         return $this->redirectHandler('/admin/livenews/category/edit/' . $category->id);
     }
 
+    /**
+    * @operationName("Edit Livenews Category")
+    * @operationDescription("Edit Livenews Category")
+    */
     public function editAction()
     {
         $this->view->changeRender('admin/category/create');
@@ -92,6 +99,10 @@ class CategoryController extends ControllerBase
         return $this->redirectHandler('/admin/livenews/category/edit/' . $category->id);
     }
 
+    /**
+    * @operationName("Remove Livenews Category")
+    * @operationDescription("Remove Livenews Category")
+    */
     public function deleteAction()
     {
         if (!$this->request->isDelete()) {

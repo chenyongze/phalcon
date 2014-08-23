@@ -225,7 +225,7 @@ class News extends \Eva\EvaEngine\Mvc\Model
 
     public function getContentHtml()
     {
-        if(!$this->content) {
+        if (!$this->content) {
             return '';
         }
 

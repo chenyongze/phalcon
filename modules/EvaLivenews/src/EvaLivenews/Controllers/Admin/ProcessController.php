@@ -6,8 +6,17 @@ use Eva\EvaLivenews\Models;
 use Eva\EvaEngine\Mvc\Controller\JsonControllerInterface;
 use Eva\EvaEngine\Exception;
 
+/**
+* @resourceName("Livenews Managment Assists")
+* @resourceDescription("Livenews Managment Assists (Ajax json format)")
+*/
 class ProcessController extends ControllerBase implements JsonControllerInterface
 {
+
+    /**
+    * @operationName("Remove Livenews")
+    * @operationDescription("Remove Livenews")
+    */
     public function newsAction()
     {
         if (!$this->request->isDelete()) {
@@ -25,6 +34,10 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
         return $this->response->setJsonContent($news);
     }
 
+    /**
+    * @operationName("Change livenews status")
+    * @operationDescription("Change livenews status")
+    */
     public function statusAction()
     {
         if (!$this->request->isPut()) {
@@ -43,5 +56,4 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
 
         return $this->response->setJsonContent($post);
     }
-
 }

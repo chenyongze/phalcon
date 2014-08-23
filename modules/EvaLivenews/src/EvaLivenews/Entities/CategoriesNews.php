@@ -20,10 +20,12 @@ class CategoriesNews extends \Eva\EvaEngine\Mvc\Model
 
     public function initialize()
     {
-        $this->belongsTo('categoryId', 'Eva\EvaLivenews\Entities\Categories', 'id',
+        $this->belongsTo(
+            'categoryId', 'Eva\EvaLivenews\Entities\Categories', 'id',
             array('alias' => 'category')
         );
-        $this->belongsTo('newsId', 'Eva\EvaLivenews\Entities\News', 'id',
+        $this->belongsTo(
+            'newsId', 'Eva\EvaLivenews\Entities\News', 'id',
             array('alias' => 'news')
         );
     }
