@@ -114,11 +114,17 @@ class Scanner
         $resourceName = $controllerClass;
         $resourceDes = '';
 
-        if ($resourceAnnotations && $annotation = $resourceAnnotations->get('resourceName')) {
+        if ($resourceAnnotations
+                && $resourceAnnotations->has('resourceName')
+                && $annotation = $resourceAnnotations->get('resourceName')
+            ) {
             $resourceName = implode('', $annotation->getArguments());
         }
 
-        if ($resourceAnnotations && $annotation = $resourceAnnotations->get('resourceDescription')) {
+        if ($resourceAnnotations
+                && $resourceAnnotations->has('resourceDescription')
+                && $annotation = $resourceAnnotations->get('resourceDescription')
+            ) {
             $resourceDes = implode('', $annotation->getArguments());
         }
 
@@ -152,6 +158,9 @@ class Scanner
             $operationDes = '';
 
             if (isset($operationAnnotations[$method->name]) && $annotations = $operationAnnotations[$method->name]) {
+                if (!$annotations->has('operationName') || !$annotations->has('operationDescription')) {
+                    continue;
+                }
                 $annotation = $annotations->get('operationName');
                 $operationName = implode('', $annotation->getArguments());
                 $annotation = $annotations->get('operationDescription');

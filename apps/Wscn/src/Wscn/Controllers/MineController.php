@@ -10,11 +10,18 @@ use Eva\EvaOAuthClient\Models\OAuthManager;
 use Eva\EvaUser\Forms;
 use Wscn\Forms\UserForm;
 use Eva\EvaEngine\Mvc\Controller\SessionAuthorityControllerInterface;
-
 use Eva\EvaEngine\Paginator;
 
+/**
+* @resourceName("用户中心")
+* @resourceDescription("用户中心相关资源")
+*/
 class MineController extends ControllerBase implements SessionAuthorityControllerInterface
 {
+    /**
+    * @operationName("用户中心首页")
+    * @operationDescription("用户中心首页")
+    */
     public function dashboardAction()
     {
         return $this->redirectHandler('/mine/stars');
@@ -23,6 +30,10 @@ class MineController extends ControllerBase implements SessionAuthorityControlle
         ));
     }
 
+    /**
+    * @operationName("更新用户资料")
+    * @operationDescription("更新用户资料")
+    */
     public function profileAction()
     {
         $me = Login::getCurrentUser();
@@ -50,6 +61,10 @@ class MineController extends ControllerBase implements SessionAuthorityControlle
         return $this->redirectHandler('/mine/profile');
     }
 
+    /**
+    * @operationName("更改密码")
+    * @operationDescription("更改密码")
+    */
     public function passwordAction()
     {
         $me = Login::getCurrentUser();
@@ -90,6 +105,10 @@ class MineController extends ControllerBase implements SessionAuthorityControlle
         }
     }
 
+    /**
+    * @operationName("更改邮箱")
+    * @operationDescription("更改邮箱")
+    */
     public function emailAction()
     {
         $me = Login::getCurrentUser();
@@ -122,6 +141,10 @@ class MineController extends ControllerBase implements SessionAuthorityControlle
         }
     }
 
+    /**
+    * @operationName("绑定第三方账户")
+    * @operationDescription("绑定第三方账户")
+    */
     public function oauthAction()
     {
         $me = Login::getCurrentUser();
@@ -150,6 +173,10 @@ class MineController extends ControllerBase implements SessionAuthorityControlle
         $this->view->setVar('services', $supportedServices);
     }
 
+    /**
+    * @operationName("用户评论列表")
+    * @operationDescription("用户评论列表")
+    */
     public function commentsAction()
     {
         $me = Login::getCurrentUser();
@@ -169,6 +196,10 @@ class MineController extends ControllerBase implements SessionAuthorityControlle
     
     }
 
+    /**
+    * @operationName("用户收藏文章列表")
+    * @operationDescription("用户收藏文章列表")
+    */
     public function starsAction()
     {
         $me = Login::getCurrentUser();
@@ -191,6 +222,10 @@ class MineController extends ControllerBase implements SessionAuthorityControlle
         $this->view->setVar('pager', $pager);
     }
 
+    /**
+    * @operationName("用户关注资产")
+    * @operationDescription("用户关注资产")
+    */
     public function quotesAction()
     {
     }

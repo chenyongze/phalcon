@@ -1,6 +1,6 @@
 <?php
 return array(
-    'EvaCore' => array(
+    'EvaCommon' => array(
         'routesFrontend' => false,
         'routesBackend' => false,
     ),
