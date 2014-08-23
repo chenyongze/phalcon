@@ -19,7 +19,7 @@
 </a>
 <ul id="left-side-livenews" class="livenews-list size-sm">
     <?foreach($items as $item):?>
-    <li class="news">
+    <li class="news" data-livenews-id="<?=$item->id?>">
         <span class="time"><?=$this->tag->datetime($item->createdAt, 'H:i')?></span>
         <div class="content">
             <?=str_replace("\n", '<br />', strip_tags($item->getContentHtml()))?>
