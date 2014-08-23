@@ -21,6 +21,8 @@ use Eva\EvaEngine\Exception;
  *  resourcePath="/AdminPosts",
  *  basePath="/v2"
  * )
+ * @resourceName("文章管理API")
+ * @resourceDescription("文章管理API")
  */
 class PostsController extends ControllerBase implements TokenAuthorityControllerInterface
 {
@@ -89,6 +91,8 @@ class PostsController extends ControllerBase implements TokenAuthorityController
      *     )
      *   )
      * )
+     * @operationName("文章列表")
+     * @operationDescription("文章列表")
      */
     public function indexAction()
     {
@@ -158,6 +162,8 @@ class PostsController extends ControllerBase implements TokenAuthorityController
      *     )
      *   )
      * )
+     * @operationName("单篇文章信息")
+     * @operationDescription("单篇文章信息")
      */
     public function getAction()
     {
@@ -203,6 +209,8 @@ class PostsController extends ControllerBase implements TokenAuthorityController
      *     )
      *   )
      * )
+     * @operationName("更新文章")
+     * @operationDescription("更新文章")
      */
     public function putAction()
     {
@@ -256,6 +264,8 @@ class PostsController extends ControllerBase implements TokenAuthorityController
      *     )
      *   )
      * )
+     * @operationName("创建文章")
+     * @operationDescription("创建文章")
      */
     public function postAction()
     {
@@ -308,6 +318,8 @@ class PostsController extends ControllerBase implements TokenAuthorityController
      *     )
      *   )
      * )
+     * @operationName("删除文章")
+     * @operationDescription("删除文章")
      */
     public function deleteAction()
     {

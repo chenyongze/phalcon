@@ -21,8 +21,10 @@ use Eva\EvaEngine\Exception;
  *  resourcePath="/AdminLivenews",
  *  basePath="/v2"
  * )
+ * @resourceName("实时新闻管理API")
+ * @resourceDescription("实时新闻管理API")
  */
-class LivenewsController extends ControllerBase
+class LivenewsController extends ControllerBase implements TokenAuthorityControllerInterface
 {
     /**
      *
@@ -103,6 +105,8 @@ class LivenewsController extends ControllerBase
      *     )
      *   )
      * )
+     * @operationName("实时新闻列表")
+     * @operationDescription("实时新闻列表")
      */
     public function indexAction()
     {
@@ -150,87 +154,6 @@ class LivenewsController extends ControllerBase
     }
 
     /**
-     *
-     * @SWG\Api(
-     *   path="/livenews/realtime",
-     *   description="Livenews related api",
-     *   produces="['application/json']",
-     *   @SWG\Operations(
-     *     @SWG\Operation(
-     *       method="GET",
-     *       summary="Get newest livenews for refresh",
-     *       notes="Returns livenews list",
-     *       @SWG\Parameters(
-     *         @SWG\Parameter(
-     *           name="min_updated",
-     *           description="Min updated time",
-     *           paramType="query",
-     *           required=false,
-     *           type="integer"
-     *         ),
-     *         @SWG\Parameter(
-     *           name="cid",
-     *           description="Category ID",
-     *           paramType="query",
-     *           required=false,
-     *           type="string"
-     *         ),
-     *         @SWG\Parameter(
-     *           name="limit",
-     *           description="Limit max:100 | min:1; default is 3",
-     *           paramType="query",
-     *           required=false,
-     *           type="integer"
-     *         )
-     *       )
-     *     )
-     *   )
-     * )
-     */
-    public function realtimeAction()
-    {
-        $limit = $this->request->getQuery('limit', 'int', 3);
-        $limit = $limit > 100 ?: $limit;
-        $minUpdated = $this->request->getQuery('min_updated', 'int', 0);
-        $cid = $this->request->getQuery('cid');
-        $redis = $this->getDI()->getFastCache();
-        $data = array();
-        if ($minUpdated > 0) {
-            //No limit when has min updated
-            //TODO: should change cid as a filter
-            $limit = 100;
-            $data = $redis->zRangeByScore("livenews", $minUpdated, 999999999, array(
-                'limit' => array(0, (int) $limit)
-            ));
-        } else {
-            $data = $redis->zRange('livenews', (0 - $limit), -1);
-        }
-        rsort($data);
-        $dataString = '{"paginator": null, "results": [' . implode(',', $data) . ']}';
-        if ($cid) {
-            $cidArray = is_array($cid) ? $cid : explode(',', $cid);
-            $data = json_decode($dataString, true);
-            $results = $data['results'];
-            $data = array();
-            foreach ($results as $key => $result) {
-                if (!$result['categorySet']) {
-                    continue;
-                }
-                $categorySet = explode(',', $result['categorySet']);
-                if (array_intersect($categorySet, $cidArray)) {
-                    $data[] = $result;
-                    break;
-                }
-            }
-            $dataString = json_encode(array(
-                'paginator' => null,
-                'results' => $data
-            ));
-        }
-        return $this->response->setContent($dataString);
-    }
-
-    /**
     *
     * @SWG\Api(
     *   path="/admin/livenews/{livenewsId}",
@@ -253,6 +176,8 @@ class LivenewsController extends ControllerBase
      *     )
      *   )
      * )
+     * @operationName("单条实时新闻")
+     * @operationDescription("单条实时新闻")
      */
     public function getAction()
     {
@@ -298,6 +223,8 @@ class LivenewsController extends ControllerBase
      *     )
      *   )
      * )
+     * @operationName("更新实时新闻")
+     * @operationDescription("更新实时新闻")
      */
     public function putAction()
     {
@@ -351,6 +278,8 @@ class LivenewsController extends ControllerBase
      *     )
      *   )
      * )
+     * @operationName("创建实时新闻")
+     * @operationDescription("创建实时新闻")
      */
     public function postAction()
     {
@@ -403,6 +332,8 @@ class LivenewsController extends ControllerBase
      *     )
      *   )
      * )
+     * @operationName("删除实时新闻")
+     * @operationDescription("删除实时新闻")
      */
     public function deleteAction()
     {

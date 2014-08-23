@@ -20,6 +20,8 @@ use Eva\EvaEngine\Exception;
  *  resourcePath="/AdminUsers",
  *  basePath="/v2"
  * )
+ * @resourceName("用户管理API")
+ * @resourceDescription("用户管理API")
  */
 class UsersController extends ControllerBase implements TokenAuthorityControllerInterface
 {
@@ -67,6 +69,8 @@ class UsersController extends ControllerBase implements TokenAuthorityController
      *     )
      *   )
      * )
+     * @operationName("用户列表")
+     * @operationDescription("用户列表")
      */
     public function indexAction()
     {
@@ -135,6 +139,8 @@ class UsersController extends ControllerBase implements TokenAuthorityController
      *     )
      *   )
      * )
+     * @operationName("单个用户信息")
+     * @operationDescription("单个用户信息")
      */
     public function getAction()
     {
@@ -180,6 +186,8 @@ class UsersController extends ControllerBase implements TokenAuthorityController
      *     )
      *   )
      * )
+     * @operationName("更新用户信息")
+     * @operationDescription("更新用户信息")
      */
     public function putAction()
     {
@@ -233,6 +241,8 @@ class UsersController extends ControllerBase implements TokenAuthorityController
      *     )
      *   )
      * )
+     * @operationName("创建用户")
+     * @operationDescription("创建用户")
      */
     public function postAction()
     {
@@ -285,6 +295,8 @@ class UsersController extends ControllerBase implements TokenAuthorityController
      *     )
      *   )
      * )
+     * @operationName("删除用户")
+     * @operationDescription("删除用户")
      */
     public function deleteAction()
     {

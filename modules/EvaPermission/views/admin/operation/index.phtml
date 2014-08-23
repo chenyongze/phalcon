@@ -72,8 +72,9 @@
                             <th class="hidden-480">
                                 ID
                             </th>
+                            <th>Resource Name</th>
                             <th>Name</th>
-                            <th>Resource</th>
+                            <th>Resource Detail</th>
                             <th class="hidden-480">Description</th>
                             <th>Roles</th>
                         </tr>
@@ -89,12 +90,13 @@
                                 </label>
                             </td>
                             <td><?=$item->id?></td>
+                            <td><a href="/admin/permission/operation?q=<?=$this->escaper->escapeHtmlAttr(addslashes($item->resourceKey))?>"><?=$item->resource->name?></a></td>
                             <td>
                                 <?=$item->name?>
-                                <span class="label"><?=$item->operationKey?></span>
+                                <span class="label label-success"><?=$item->operationKey?></span>
                             </td>
                             <td>
-                                <span class="label label-info"><?=$item->resource->resourceGroup?></span>
+                                <span class="label"><?=$item->resource->resourceGroup?></span>
                                 <span class="label label-info"><?=$item->resourceKey?></span>
                             </td>
                             <td><?=$item->description?></td>

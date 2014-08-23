@@ -20,8 +20,10 @@ use Eva\EvaEngine\Exception;
  *  resourcePath="/AdminMedia",
  *  basePath="/v2"
  * )
+ * @resourceName("文件管理API")
+ * @resourceDescription("文件管理API")
  */
- class MediaController extends ControllerBase implements TokenAuthorityControllerInterface
+class MediaController extends ControllerBase implements TokenAuthorityControllerInterface
 {
     /**
      *
@@ -88,6 +90,8 @@ use Eva\EvaEngine\Exception;
      *     )
      *   )
      * )
+     * @operationName("文件列表")
+     * @operationDescription("文件列表")
      */
     public function indexAction()
     {
@@ -156,6 +160,8 @@ use Eva\EvaEngine\Exception;
      *     )
      *   )
      * )
+     * @operationName("单个文件信息")
+     * @operationDescription("单个文件信息")
      */
     public function getAction()
     {
@@ -201,6 +207,8 @@ use Eva\EvaEngine\Exception;
      *     )
      *   )
      * )
+     * @operationName("更新文件信息")
+     * @operationDescription("更新文件信息")
      */
     public function putAction()
     {
@@ -249,6 +257,8 @@ use Eva\EvaEngine\Exception;
      *     )
      *   )
      * )
+     * @operationName("上传文件")
+     * @operationDescription("上传文件")
      */
     public function postAction()
     {
@@ -294,6 +304,8 @@ use Eva\EvaEngine\Exception;
      *     )
      *   )
      * )
+     * @operationName("删除文件")
+     * @operationDescription("删除文件")
      */
     public function deleteAction()
     {

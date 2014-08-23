@@ -4,13 +4,18 @@ namespace Wscn\Controllers\Admin;
 
 use Wscn\Entities;
 use Eva\EvaEngine\Exception;
+use Eva\EvaEngine\Mvc\Controller\SessionAuthorityControllerInterface;
 
-class AppoptionController extends ControllerBase
+/**
+* @resourceName("App相关资源管理后台")
+* @resourceDescription("App相关资源管理后台")
+*/
+class AppoptionController extends ControllerBase implements SessionAuthorityControllerInterface
 {
-
     /**
-     * Index action
-     */
+    * @operationName("App资源列表")
+    * @operationDescription("App资源列表")
+    */
     public function indexAction()
     {
         $currentPage = $this->request->getQuery('page', 'int'); // GET
@@ -32,6 +37,10 @@ class AppoptionController extends ControllerBase
         $this->view->setVar('pager', $pager);
     }
 
+    /**
+    * @operationName("创建App资源")
+    * @operationDescription("创建App资源")
+    */
     public function createAction()
     {
         $form = new \Wscn\Forms\AppoptionForm();
@@ -49,7 +58,7 @@ class AppoptionController extends ControllerBase
         }
         $appoption = $form->getEntity();
         try {
-            if(!$appoption->save()) {
+            if (!$appoption->save()) {
                 throw new Exception\RuntimeException('Create appoption failed');
             }
             $this->flashSession->success('SUCCESS_APPOPTIONS_CREATED');
@@ -59,6 +68,10 @@ class AppoptionController extends ControllerBase
         return $this->redirectHandler('/admin/appoption/edit/' . $appoption->id);
     }
 
+    /**
+    * @operationName("编辑App资源")
+    * @operationDescription("编辑App资源")
+    */
     public function editAction()
     {
         $this->view->changeRender('admin/appoption/create');
@@ -88,6 +101,10 @@ class AppoptionController extends ControllerBase
         return $this->redirectHandler('/admin/appoption/edit/' . $appoption->id);
     }
 
+    /**
+    * @operationName("删除App资源")
+    * @operationDescription("删除App资源")
+    */
     public function deleteAction()
     {
     }
