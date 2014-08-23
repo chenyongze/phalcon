@@ -7,8 +7,17 @@ use Eva\EvaPermission\Entities;
 use Eva\EvaEngine\Mvc\Controller\JsonControllerInterface;
 use Eva\EvaEngine\Exception;
 
+/**
+* @resourceName("Auth Managment Assists")
+* @resourceDescription("Auth Assists (Ajax json format)")
+*/
 class ProcessController extends ControllerBase implements JsonControllerInterface
 {
+
+    /**
+    * @operationName("Remove a role")
+    * @operationDescription("Remove a role")
+    */
     public function roleAction()
     {
         if (!$this->request->isDelete()) {
@@ -34,6 +43,10 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
         return $this->response->setJsonContent($roleOperation);
     }
 
+    /**
+    * @operationName("Change API key")
+    * @operationDescription("Change API key")
+    */
     public function apikeyAction()
     {
         if (!$this->request->isPut()) {
@@ -53,6 +66,10 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
         return $this->response->setJsonContent($apikey);
     }
 
+    /**
+    * @operationName("Remove user role relation")
+    * @operationDescription("Remove user role relation")
+    */
     public function userAction()
     {
         if (!$this->request->isDelete()) {
@@ -78,6 +95,10 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
         return $this->response->setJsonContent($userRole);
     }
 
+    /**
+    * @operationName("Apply role to select users")
+    * @operationDescription("Apply role to select users")
+    */
     public function applyRolesAction()
     {
         if (!$this->request->isPut()) {
@@ -115,6 +136,11 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
         return $this->response->setJsonContent($res);
     }
 
+
+    /**
+    * @operationName("Apply role to select operations")
+    * @operationDescription("Apply role to select operations")
+    */
     public function applyOperationsAction()
     {
         if (!$this->request->isPut()) {

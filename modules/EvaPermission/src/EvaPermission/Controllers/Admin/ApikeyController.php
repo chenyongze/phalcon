@@ -8,10 +8,15 @@ use Eva\EvaUser\Entities\Users;
 use Eva\EvaPermission\Forms;
 use Eva\EvaEngine\Exception;
 
+/**
+* @resourceName("Auth API key Managment")
+* @resourceDescription("Auth API key Managment")
+*/
 class ApikeyController extends ControllerBase
 {
     /**
-    * Index action
+    * @operationName("API key list")
+    * @operationDescription("API key list")
     */
     public function indexAction()
     {
@@ -32,6 +37,10 @@ class ApikeyController extends ControllerBase
         $this->view->setVar('pager', $pager);
     }
 
+    /**
+    * @operationName("Create API key")
+    * @operationDescription("Create API key")
+    */
     public function createAction()
     {
         $form = new Forms\ApikeyForm();
@@ -66,6 +75,10 @@ class ApikeyController extends ControllerBase
         return $this->redirectHandler('/admin/permission/apikey/edit/' . $apikey->id);
     }
 
+    /**
+    * @operationName("Edit API key")
+    * @operationDescription("Edit API key")
+    */
     public function editAction()
     {
         $this->view->changeRender('admin/apikey/create');
@@ -95,6 +108,10 @@ class ApikeyController extends ControllerBase
         return $this->redirectHandler('/admin/permission/apikey/edit/' . $apikey->id);
     }
 
+    /**
+    * @operationName("Remove API key")
+    * @operationDescription("Remove API key")
+    */
     public function deleteAction()
     {
         $this->response->setContentType('application/json', 'utf-8');

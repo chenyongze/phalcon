@@ -7,10 +7,15 @@ use Eva\EvaPermission\Forms;
 use Eva\EvaPermission\Models;
 use Eva\EvaEngine\Exception;
 
+/**
+* @resourceName("Auth Operation Managment")
+* @resourceDescription("Auth Operation Managment")
+*/
 class OperationController extends ControllerBase
 {
     /**
-    * Index action
+    * @operationName("Operation List")
+    * @operationDescription("Get operation list")
     */
     public function indexAction()
     {

@@ -6,10 +6,15 @@ use Eva\EvaPermission\Entities;
 use Eva\EvaPermission\Forms;
 use Eva\EvaEngine\Exception;
 
+/**
+* @resourceName("Auth Role Managment")
+* @resourceDescription("Auth Role Managment")
+*/
 class RoleController extends ControllerBase
 {
     /**
-    * Index action
+    * @operationName("Role List")
+    * @operationDescription("Get role list")
     */
     public function indexAction()
     {
@@ -30,6 +35,10 @@ class RoleController extends ControllerBase
         $this->view->setVar('pager', $pager);
     }
 
+    /**
+    * @operationName("Create Role")
+    * @operationDescription("Create Role")
+    */
     public function createAction()
     {
         $form = new Forms\RoleForm();
@@ -58,6 +67,10 @@ class RoleController extends ControllerBase
         return $this->redirectHandler('/admin/permission/role/edit/' . $role->id);
     }
 
+    /**
+    * @operationName("Edit Role")
+    * @operationDescription("Edit Role")
+    */
     public function editAction()
     {
         $this->view->changeRender('admin/role/create');
@@ -87,6 +100,10 @@ class RoleController extends ControllerBase
         return $this->redirectHandler('/admin/permission/role/edit/' . $role->id);
     }
 
+    /**
+    * @operationName("Remove Role")
+    * @operationDescription("Remove Role")
+    */
     public function deleteAction()
     {
         $this->response->setContentType('application/json', 'utf-8');

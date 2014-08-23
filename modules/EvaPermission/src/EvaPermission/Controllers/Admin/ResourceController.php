@@ -6,10 +6,15 @@ use Eva\EvaPermission\Entities;
 use Eva\EvaPermission\Forms;
 use Eva\EvaEngine\Exception;
 
+/**
+* @resourceName("Auth Resource Managment")
+* @resourceDescription("Auth Resource Managment")
+*/
 class ResourceController extends ControllerBase
 {
     /**
-    * Index action
+    * @operationName("Resource List")
+    * @operationDescription("Get resource list")
     */
     public function indexAction()
     {
