@@ -21,7 +21,7 @@ class FileManager extends Files
         'imageHeight',
         'sortOrder',
         'userId',
-        'userName',
+        'username',
         'createdAt',
     );
 
