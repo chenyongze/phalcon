@@ -279,6 +279,15 @@ return array(
         'httpMethods' => 'POST'
     ),
 
+    'usersMe' =>  array(
+        'pattern' => '/v2/users/me',
+        'paths' => array(
+            'module' => 'WscnApiVer2',
+            'controller' => 'users',
+        ),
+        'httpMethods' => 'GET'
+    ),
+
     /*
     'login' =>  array(
         'pattern' => '/v2/login',

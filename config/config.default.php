@@ -45,8 +45,10 @@ return array(
 
     'tokenStorage' => array(
         'frontend' => array(
-            'adapter' => 'Data',
-            'options' => array(),
+            'adapter' => 'Json',
+            'options' => array(
+                'lifetime' => 172800
+            ),
         ),
         'backend' => array(
             'adapter' => 'File',

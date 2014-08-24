@@ -27,7 +27,9 @@ class UserListener
                 $token = $apikey->generateToken($userId);
             }
             $storage->setId($token->apikey);
+            $storage->set(Login::AUTH_KEY_TOKEN, $token);
         }
+
         $defaultRoles = $loginUser->getRoles();
         $roles = $loginUser->roles;
         $authRoles = array();
