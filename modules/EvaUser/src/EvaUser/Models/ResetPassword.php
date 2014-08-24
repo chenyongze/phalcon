@@ -78,7 +78,7 @@ class ResetPassword extends User
 
     /**
     * Verifies the password reset request via the verification hash token (that's only valid for one hour)
-    * @param string $userName Username
+    * @param string $username Username
     * @param string $verificationCode Hash token
     * @return bool Success status
     */
