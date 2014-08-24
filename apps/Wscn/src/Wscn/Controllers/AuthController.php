@@ -88,6 +88,7 @@ class AuthController extends ControllerBase
             try {
                 $oauthManager->bindUserOAuth($loginUser['id'], $accessTokenArray);
                 $this->view->setVar('user', $loginUser);
+                OAuthManager::removeAccessToken();
             } catch (\Exception $e) {
                 $this->view->setVar('exception', $e->__toString());
                 $this->view->setVar('error', 'ERR_OAUTH_LOGIN_FAILED');
@@ -100,13 +101,13 @@ class AuthController extends ControllerBase
             try {
                 if ($user->loginWithAccessToken($accessTokenArray)) {
                     $this->view->setVar('user', UserModels\Login::getCurrentUser());
+                    OAuthManager::removeAccessToken();
                 }
             } catch (\Exception $e) {
                 $this->view->setVar('exception', $e->__toString());
                 $this->view->setVar('error', 'ERR_OAUTH_LOGIN_FAILED');
             }
         }
-        OAuthManager::removeAccessToken();
     }
 
     public function registerAction()
@@ -125,13 +126,12 @@ class AuthController extends ControllerBase
         if ($this->request->isAjax()) {
             try {
                 $userinfo = $user->register();
-                OAuthManager::removeAccessToken();
                 $login = new UserModels\Login();
                 $login->id = $userinfo->id;
                 $login->login();
+                OAuthManager::removeAccessToken();
                 return $this->showResponseAsJson(UserModels\Login::getCurrentUser());
             } catch (\Exception $e) {
-                OAuthManager::removeAccessToken();
                 return $this->showExceptionAsJson($e, $user->getMessages());
             }
         } else {
@@ -140,7 +140,6 @@ class AuthController extends ControllerBase
                 OAuthManager::removeAccessToken();
                 return $this->redirectHandler($this->getDI()->getConfig()->oauth->loginSuccessRedirectUri);
             } catch (\Exception $e) {
-                OAuthManager::removeAccessToken();
                 $this->showException($e, $user->getMessages());
                 return $this->redirectHandler($this->getDI()->getConfig()->oauth->registerFailedRedirectUri);
             }
@@ -174,7 +173,6 @@ class AuthController extends ControllerBase
                 OAuthManager::removeAccessToken();
                 return $this->redirectHandler($this->getDI()->getConfig()->oauth->loginSuccessRedirectUri);
             } catch (\Exception $e) {
-                OAuthManager::removeAccessToken();
                 $this->showException($e, $user->getMessages());
                 return $this->redirectHandler($this->getDI()->getConfig()->oauth->loginFailedRedirectUri);
             }
