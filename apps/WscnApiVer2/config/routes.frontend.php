@@ -33,7 +33,7 @@ return array(
         'paths' => array(
             'module' => 'WscnApiVer2',
             'controller' => 'Admin\Posts',
-            'action' => 'posts',
+            'action' => 'post',
         ),
         'httpMethods' => 'POST'
     ),
