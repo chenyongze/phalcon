@@ -211,21 +211,21 @@
                 <div class="meta comments">
                     <a href="">
                         <span class="fa fa-comment"></span>
-                        <span class="text"><?=$item->commentCount?></span>
+                        <span class="text"><?=$item->commentCount ?: ''?></span>
                     </a>
                 </div>
                 <hr class="vr">
                 <div class="meta">
                     <a href="">
                         <span class="fa fa-share-square-o"></span>
-                        <span class="text"><?=$item->shareCount?></span>
+                        <span class="text"><?=$item->shareCount ?: ''?></span>
                     </a>
                 </div>
                 <hr class="vr">
                 <div class="meta">
                     <a href="">
                         <span class="fa fa-heart"></span>
-                        <span class="text"><?=$item->shareCount?></span>
+                        <span class="text"><?=$item->shareCount ?: ''?></span>
                     </a>
                 </div>
             </div>

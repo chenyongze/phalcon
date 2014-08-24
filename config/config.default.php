@@ -43,6 +43,19 @@ return array(
         'version' => null, //if use empty version will read system git last commit hash
     ),
 
+    'tokenStorage' => array(
+        'frontend' => array(
+            'adapter' => 'Data',
+            'options' => array(),
+        ),
+        'backend' => array(
+            'adapter' => 'File',
+            'options' => array(
+                'cacheDir' => __DIR__ . '/../cache/token/',
+            ),
+        ),
+    ),
+
     'cache' => array(
         'enable' => false,
         'fastCache' => array(
@@ -107,7 +120,9 @@ return array(
 
     'session' => array(
         'adapter' => 'files',
-        'options' => array()
+        'options' => array(
+            'lifetime'      => 3600 * 3, //3 hours
+        )
     ),
 
 

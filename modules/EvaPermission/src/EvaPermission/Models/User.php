@@ -7,31 +7,30 @@ use Eva\EvaEngine\Exception;
 
 class User extends Login
 {
-    const SESSION_KEY_ROLES = 'session-auth-roles';
-
     public function isSuperUser()
     {
-        $authIdentity = $this->getAuthIdentity();
-        if (!$authIdentity['id']) {
+        $user = Login::getCurrentUser();
+        if (!$user['id']) {
             return false;
         }
         $superUsers = $this->getDI()->getConfig()->permission->superusers->toArray();
-        return in_array($authIdentity['id'], $superUsers) ? true : false;
+        return in_array($user['id'], $superUsers) ? true : false;
     }
 
     public function getRoles()
     {
-        $authIdentity = $this->getAuthIdentity();
-        if (!$authIdentity['id']) {
+        $user = Login::getCurrentUser();
+        if (!$user['id']) {
             return array('GUEST');
         }
-        $sessionRoles = $this->getDI()->getSession()->get(self::SESSION_KEY_ROLES);
-        $sessionRoles = $sessionRoles ? $sessionRoles : array();
+        $storage = Login::getAuthStorage();
+        $authRoles = $storage->get(Login::AUTH_KEY_ROLES);
+        $authRoles = $authRoles ?: array();
         //Add default roles
-        if ($authIdentity['status'] == 'active') {
-            $sessionRoles[] = 'USER';
-            $sessionRoles = array_unique($sessionRoles);
+        if ($user['status'] == 'active') {
+            $authRoles[] = 'USER';
+            $authRoles = array_unique($authRoles);
         }
-        return $sessionRoles;
+        return $authRoles;
     }
 }

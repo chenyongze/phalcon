@@ -37,7 +37,8 @@
                         </div>
                         <div class="clearfix">
                             <span class="time"><?=$this->tag->datetime($post->createdAt)?></span>
-                            <span class="collect active"></span>
+                            <a data-message="" data-post-id="<?=$post->id?>" data-action="star" href="<?=$post->getUrl()?>" class="collect stared">
+                            </a>
                         </div>
                         </li>
                     <?endif?>

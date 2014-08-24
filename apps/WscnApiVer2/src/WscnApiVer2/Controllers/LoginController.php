@@ -7,6 +7,7 @@ use Eva\EvaEngine\Exception;
 use Eva\EvaUser\Forms\LoginForm;
 use Eva\EvaUser\Models\Login;
 use Eva\EvaUser\Models\User;
+use Eva\EvaPermission\Models\Apikey;
 
 
 /**
@@ -48,6 +49,7 @@ class LoginController extends ControllerBase
      */
     public function indexAction()
     {
+        Login::setLoginMode('token');
         $data = $this->request->getRawBody();
         if (!$data) {
             throw new Exception\InvalidArgumentException('No data input');
@@ -62,12 +64,10 @@ class LoginController extends ControllerBase
         }
 
         $user = new Login();
-        try {
-            $loginUser = $user->loginByPassword($data['identify'], $data['password']);
-            return $this->showResponseAsJson($loginUser->dump(User::$simpleDump));
-        } catch (\Exception $e) {
-            return $this->showExceptionAsJson($e, $user->getMessages());
-        }
+        $apikey = new Apikey();
+        $loginUser = $user->loginByPassword($data['identify'], $data['password']);
+        $userinfo = $loginUser->dump(User::$simpleDump);
+        $userinfo['roles'] = Login::getAuthStorage()->get(Login::AUTH_KEY_ROLES);
+        return $this->response->setJsonContent($userinfo);
     }
-
 }

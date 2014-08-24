@@ -11,7 +11,6 @@ class Register extends BaseModel
 {
     public function register()
     {
-        $session = $this->getDI()->getSession();
         $accessToken = OAuthManager::getAccessToken();
         if (!$accessToken) {
             throw new Exception\ResourceConflictException('ERR_OAUTH_NO_ACCESS_TOKEN');

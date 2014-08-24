@@ -9,8 +9,11 @@ use Phalcon\DI;
 
 class Login extends User
 {
-    const SESSION_KEY_LOGIN = 'auth-identity';
-    const SESSION_KEY_ROLES = 'auth-roles';
+    const AUTH_KEY_LOGIN = 'auth-identity';
+    const AUTH_KEY_ROLES = 'auth-roles';
+    const LOGIN_COOKIE_KEY = 'evalogin';
+    const LOGIN_MODE_SESSION = 'session';
+    const LOGIN_MODE_TOKEN = 'token';
 
     private $rememberMeTokenSalt = 'EvaUser_Login_TokenSalt';
 
@@ -18,12 +21,31 @@ class Login extends User
 
     protected $maxLoginRetry = 5;
 
+    protected static $loginMode = 'session';  //session or token
+
+    public static function setLoginMode($mode = 'token')
+    {
+        Login::$loginMode = $mode;
+    }
+
+    public static function getLoginMode()
+    {
+        return Login::$loginMode;
+    }
+
+    public static function getAuthStorage()
+    {
+        $di = DI::getDefault();
+        if (Login::getLoginMode() == 'session') {
+            return $di->getSession();
+        }
+        return $di->getTokenStorage();
+    }
 
     public static function getCurrentUser()
     {
-        $di = DI::getDefault();
-        $session = $di->getSession();
-        $currentUser = $session->get(self::SESSION_KEY_LOGIN);
+        $storage = Login::getAuthStorage();
+        $currentUser = $storage->get(Login::AUTH_KEY_LOGIN);
         if ($currentUser) {
             return $currentUser;
         }
@@ -38,9 +60,8 @@ class Login extends User
 
     public static function getCurrentUserRoles()
     {
-        $di = DI::getDefault();
-        $session = $di->getSession();
-        $roles = $session->get(self::SESSION_KEY_ROLES);
+        $storage = Login::getAuthStorage();
+        $roles = $storage->get(Login::AUTH_KEY_ROLES);
         if ($roles) {
             return $roles;
         }
@@ -99,11 +120,11 @@ class Login extends User
     }
 
 
-    public function saveUserToSession(Entities\Users $userinfo)
+    public function saveUserToStorage(Entities\Users $userinfo)
     {
         $authIdentity = $this->userToAuthIdentity($userinfo);
-        $this->getDI()->getSession()->set(self::SESSION_KEY_LOGIN, $authIdentity);
-
+        $storage = Login::AuthStorage();
+        $storage->set(Login::AUTH_KEY_LOGIN, $authIdentity);
         return $authIdentity;
     }
 
@@ -114,7 +135,7 @@ class Login extends User
             'username' => $userinfo->username,
             'status' => $userinfo->status,
             'email' => $userinfo->email,
-            'avatar' =>  'http://www.gravatar.com/avatar/' . md5(strtolower(trim($userinfo->email)))
+            'avatar' => $userinfo->getAvatar(), 
         );
     }
 
@@ -150,10 +171,13 @@ class Login extends User
         $userinfo->failedLogins = 0;
         $userinfo->loginAt = time();
         $userinfo->save();
-        $authIdentity = $this->saveUserToSession($userinfo);
+
+        if (Login::getLoginMode() == 'session') {
+            $authIdentity = $this->saveUserToStorage($userinfo);
+            $this->getDI()->getCookies()->set(Login::LOGIN_COOKIE_KEY, $userinfo->id);
+        }
 
         $this->getDI()->getEventsManager()->fire('user:afterLogin', $userinfo);
-
         return $userinfo;
     }
 
@@ -251,7 +275,7 @@ class Login extends User
 
     public function getAuthIdentity()
     {
-        $authIdentity = $this->getDI()->getSession()->get(self::SESSION_KEY_LOGIN);
+        $authIdentity = $this->getDI()->getSession()->get(Login::AUTH_KEY_LOGIN);
         if ($authIdentity) {
             return $authIdentity;
         }

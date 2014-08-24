@@ -279,6 +279,17 @@ return array(
         'httpMethods' => 'POST'
     ),
 
+    /*
+    'login' =>  array(
+        'pattern' => '/v2/login',
+        'paths' => array(
+            'module' => 'WscnApiVer2',
+            'controller' => 'login',
+        ),
+        'httpMethods' => 'GET'
+    ),
+    */
+
 
     //Wiki
     'wikiCrateCategory' =>  array(

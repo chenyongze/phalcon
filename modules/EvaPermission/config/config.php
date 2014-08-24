@@ -9,12 +9,12 @@ return array(
         ),
         'keyLevels' => array(
             'basic' => array(
-                'minutelyRate' => 10,
-                'hourlyRate' => 1000,
+                'minutelyRate' => 60,
+                'hourlyRate' => 4000,
                 'dailyRate' => 5000,
             ),
             'starter' => array(
-                'minutelyRate' => 20,
+                'minutelyRate' => 100,
                 'hourlyRate' => 10000,
                 'dailyRate' => 30000,
             ),

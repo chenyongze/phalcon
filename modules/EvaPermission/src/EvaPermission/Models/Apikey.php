@@ -40,6 +40,21 @@ class Apikey extends Entities\Apikeys
         return false;
     }
 
+    public function generateToken($userId)
+    {
+        $plan = $this->getDI()->getConfig->permission->keyLevels->basic;
+        $apikey = new Apikey();
+        $apikey->userId = $userId;
+        $apikey->level = 'basic';
+        $apikey->minutelyRate = $plan->minutelyRate;
+        $apikey->hourlyRate = $plan->hourlyRate;
+        $apikey->dailyRate = $plan->dailyRate;
+        if (!$apikey->save()) {
+            throw new Exception\RuntimeException('ERR_PERMISSION_APIKEY_GENERATE_FAILED');
+        }
+        return $apikey;
+    }
+
     public function getTokenStatus()
     {
         if ($this->tokenStatus !== false) {
