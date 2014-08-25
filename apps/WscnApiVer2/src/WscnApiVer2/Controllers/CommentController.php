@@ -4,6 +4,7 @@ namespace WscnApiVer2\Controllers;
 
 use Swagger\Annotations as SWG;
 use Eva\EvaComment\Models;
+use Eva\EvaComment\Models\ThreadManager;
 use Eva\EvaComment\Entities;
 use Eva\EvaComment\Forms;
 use Eva\EvaEngine\Exception;
@@ -162,68 +163,6 @@ class CommentController extends ControllerBase
         return $this->response->setJsonContent($comment);
     }
 
-    /**
-     *
-     * @SWG\Api(
-     *   path="/comments/{commentId}",
-     *   description="Comment related api",
-     *   produces="['application/json']",
-     *   @SWG\Operations(
-     *     @SWG\Operation(
-     *       method="PUT",
-     *       summary="Update comment by ID",
-     *       notes="Returns updated comment",
-     *       @SWG\Parameters(
-     *         @SWG\Parameter(
-     *           name="commentId",
-     *           description="ID of comment",
-     *           paramType="path",
-     *           required=true,
-     *           type="integer"
-     *         )
-     *       ),
-     *       @SWG\Parameters(
-     *         @SWG\Parameter(
-     *           name="commentData",
-     *           description="Comment info",
-     *           paramType="body",
-     *           required=true,
-     *           type="string"
-     *         )
-     *       )
-     *     )
-     *   )
-     * )
-     */
-    public function putAction()
-    {
-        $id = $this->dispatcher->getParam('id');
-        $data = $this->request->getRawBody();
-        if (!$data) {
-            throw new Exception\InvalidArgumentException('No data input');
-        }
-        if (!$data = json_decode($data, true)) {
-            throw new Exception\InvalidArgumentException('Data not able to decode as JSON');
-        }
-        $commentManger = new Models\CommentManager();
-        $comment = $commentManger->findCommentById($id);
-        if (!$comment) {
-            throw new Exception\ResourceNotFoundException('Request comment not exist');
-        }
-        $form = new Forms\CommentForm();
-        $form->setModel($comment);
-        if (!$form->isFullValid($data)) {
-            return $this->displayJsonInvalidMessages($form);
-        }
-        try {
-            $form->save();
-            $data = $comment->dump(Entities\Comments::$defaultDump);
-            return $this->response->setJsonContent($data);
-        } catch (\Exception $e) {
-            return $this->displayExceptionForJson($e, $form->getModel()->getMessages());
-        }
-    }
-
      /**
      *
      * @SWG\Api(
@@ -276,48 +215,6 @@ class CommentController extends ControllerBase
     }
 
     /**
-    *
-     * @SWG\Api(
-     *   path="/comments/{commentId}",
-     *   description="Comment related api",
-     *   produces="['application/json']",
-     *   @SWG\Operations(
-     *     @SWG\Operation(
-     *       method="DELETE",
-     *       summary="Delete comment by ID",
-     *       notes="Returns deleted comment",
-     *       @SWG\Parameters(
-     *         @SWG\Parameter(
-     *           name="commentId",
-     *           description="ID of comment",
-     *           paramType="path",
-     *           required=true,
-     *           type="integer"
-     *         )
-     *       )
-     *     )
-     *   )
-     * )
-     */
-    public function deleteAction()
-    {
-        $id = $this->dispatcher->getParam('id');
-
-        $commentManger = new Models\CommentManager();
-        $comment = $commentManger->findCommentById($id);
-        if (!$comment) {
-            throw new Exception\ResourceNotFoundException('Request comment not exist');
-        }
-        $commentInfo = $comment->dump(Entities\Comments::$defaultDump);
-        try {
-            $commentManger->removeComment($comment);
-            return $this->response->setJsonContent($commentInfo);
-        } catch (\Exception $e) {
-            return $this->displayExceptionForJson($e, $comment->getMessages());
-        }
-    }
-
-    /**
      *
      * @SWG\Api(
      *   path="/comments/counter",
@@ -343,7 +240,21 @@ class CommentController extends ControllerBase
      */
     public function counterAction()
     {
-        var_dump($ids);
-        exit;
+        $ids = $this->request->getQuery('ids');
+
+        if(!is_array($ids)){
+            $ids = array($ids);
+        }
+
+        $threadManager = new ThreadManager();
+        $data = array();
+        foreach($ids as $uniqueKey){
+            $thread = $threadManager->findThreadByUniqueKey($uniqueKey);
+            if ($thread) {
+                $data['threads'][] = array('uniqueKey'=>$uniqueKey,'numComments'=>$thread->numComments);
+            }
+        }
+        echo json_encode($data);
+        $this->view->disable();
     }
 }
