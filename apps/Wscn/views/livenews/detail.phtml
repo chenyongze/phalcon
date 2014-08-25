@@ -52,6 +52,7 @@
 <div id="main" class="page-article">
     <article>
         <h1 class="article-title"><?= $news->title ?></h1>
+        <input class="admin-control-livenews" type="hidden" value="<?=$news->id?>">
 
         <div class="meta">
             <a class="item author" href="">文 / <?= $news->user ? $news->user->username : '华尔街见闻' ?></a>

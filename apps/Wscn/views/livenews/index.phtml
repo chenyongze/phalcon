@@ -205,6 +205,7 @@
 
             <?if($item->codeType == 'markdown'):?>
             <li data-utm="<?=$item->updatedAt?>" class="news" id="livenews-<?=$item->id?>">
+            <input class="admin-control-livenews" type="hidden" value="<?=$item->id?>">
             <a href="/livenews/detail/<?=$item->id?>"><span class="time"><?=$this->tag->datetime($item->updatedAt, 'H:i')?></span></a>
             <span class="icon fa fa-file-text"></span>
             <div class="control-box">
