@@ -258,6 +258,15 @@ return array(
         ),
         'httpMethods' => 'GET'
     ),
+    'postSearch' =>  array(
+        'pattern' => '/v2/posts/search',
+        'paths' => array(
+            'module' => 'WscnApiVer2',
+            'controller' => 'posts',
+            'action' => 'search',
+        ),
+        'httpMethods' => 'GET'
+    ),
     'getPost' =>  array(
         'pattern' => '/v2/posts/(\d+)',
         'paths' => array(

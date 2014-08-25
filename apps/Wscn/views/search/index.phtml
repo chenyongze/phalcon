@@ -59,9 +59,9 @@
 <!--                <span class="fa fa-angle-right"></span>-->
 <!--                <span class="sub">阅读分类 头条</span>-->
 <!--            </h2>-->
-            <? if(isset($hits)):?>
+            <? if(isset($pager->items)):?>
             <ul class="news-list with-img" id="search-result">
-                <? foreach ($hits['hits'] as $hit): ?>
+                <? foreach ($pager->items as $hit): ?>
                     <? $post = json_decode(json_encode($hit['_source'])); ?>
                     <li class="news">
                         <a href="/node/<?=$post->id?>" target="_blank">

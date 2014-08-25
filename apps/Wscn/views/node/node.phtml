@@ -1,8 +1,10 @@
 <?
-    $this->placeholder->block('title')->set($post->title."-华尔街见闻");
-    $description = $post->summary ? $post->summary : $post->title;
-    $this->placeholder->block('description')->set($description."。华尔街见闻——中国最专业的金融资讯平台；直播外汇、期货、黄金、债券、证券等金融领域的实时新闻。华人投资者可以在这里获得最快速、最精准、最深入的全球财经资讯和市场行情。");
-    $this->placeholder->block('keywords')->set($post->title.",外汇,期货,大宗商品,贵金属,黄金,股市,行情,数据,金融,理财");
+$this->placeholder->block('title')->set($post->title . "-华尔街见闻");
+$description = $post->summary ? $post->summary : $post->title;
+$this->placeholder->block('description')->set(
+    $description . "。华尔街见闻——中国最专业的金融资讯平台；直播外汇、期货、黄金、债券、证券等金融领域的实时新闻。华人投资者可以在这里获得最快速、最精准、最深入的全球财经资讯和市场行情。"
+);
+$this->placeholder->block('keywords')->set($post->title . ",外汇,期货,大宗商品,贵金属,黄金,股市,行情,数据,金融,理财");
 ?>
 <div id="main-content">
 <aside id="leftbar">
@@ -20,8 +22,24 @@
         </a>
 
         <div class="read-times">
-            <strong>12.3K</strong>
-
+            <strong id="js-read-times-text"><?= $post->count ?></strong>
+            <script>
+                var _counterOld;
+                try {
+                    _counterOld = parseInt(<?=$post->count?>);
+                } catch (e) {
+                    _counterOld = 0;
+                }
+                function _counter(num) {
+                    try {
+                        num = parseInt(num);
+                    } catch (e) {
+                        num = 0;
+                    }
+                    document.getElementById('js-read-times-text').innerText = _counterOld + num;
+                }
+            </script>
+            <?= $this->tag->CounterRank('posts', $post->id, '_counter') ?>
             <div class="text">浏览数</div>
         </div>
         <h3 class="jiathis-title">
@@ -63,6 +81,7 @@
                 <span class="fa fa-comment" style="vertical-align: 1px"></span>
                 <span class="ws-counter"><?= $post->commentCount > 0 ? : 0 ?></span>
             </a>
+
             <div class="pull-right">
                 <? if ($post->sourceName): ?>
                     <span class="item">来源：<a href="<?= $post->sourceUrl ?>"
@@ -137,13 +156,12 @@
                     charset="utf-8"></script>
             <!-- JiaThis Button END -->
         </div>
-
-        <? if ($post->connections): ?>
+        <? if ($relatedPosts): ?>
             <div class="related-posts">
                 <h2 class="side-title">相关新闻</h2>
                 <ul class="news-list with-dot">
-                    <? foreach ($post->connections as $connectedPost): ?>
-                        <li><a class="news" href="<?= $connectedPost->getUrl() ?>"><?= $connectedPost->title ?></a>
+                    <? foreach ($relatedPosts as $connectedPost): ?>
+                        <li><a class="news" href="/node/<?= $connectedPost['id'][0] ?>"><?= $connectedPost['title'][0] ?></a>
                         </li>
                     <? endforeach ?>
                 </ul>
