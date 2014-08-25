@@ -94,11 +94,13 @@ $(function(){
             }
             option.url = option.baseUrl + '&' + this.search;
             option.updateUrl = option.baseUpdateUrl + '&' + this.search;
-            try{
+
+            if (history.replaceState) {
                 history.replaceState(null, '', this.baseUrl + '?' + this.search);
-            } catch(err) {
+            } else {
                 location.hash = '#' + this.search;
             }
+
         },
         remove: function(name, value) {
             //在头部 和 末尾补上一个 & 用来精确匹配
@@ -121,9 +123,9 @@ $(function(){
                 option.url = option.baseUrl;
                 option.updateUrl = option.baseUpdateUrl;
             }
-            try{
+            if (history.replaceState) {
                 history.replaceState(null, '', this.baseUrl + '?' + this.search);
-            } catch(err) {
+            } else {
                 location.hash = '#' + this.search;
             }
         },
@@ -138,9 +140,9 @@ $(function(){
                 this.search = url.replace(reg, '&' + name + '=' + value).replace(/^&|&$/g, '');
                 option.url = option.baseUrl + '&' + this.search;
                 option.updateUrl = option.baseUpdateUrl + '&' + this.search;
-                try{
+                if (history.replaceState) {
                     history.replaceState(null, '', this.baseUrl + '?' + this.search);
-                } catch(err) {
+                } else {
                     location.hash = '#' + this.search;
                 }
             } else {
