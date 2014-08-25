@@ -88,7 +88,9 @@ $(function(){
         },
         remove: function(name, value) {
             //在头部 和 末尾补上一个 & 用来精确匹配
-            var url = '&' + this.search + '&';
+            var url = ('&' + this.search + '&').replace('&', '&&');
+            //
+            name = name.replace(/([\[\]])/gi, '\\$1');
             if (value) {
                 var reg = new RegExp('&' + name + '=' + value + '&', 'gi');
                 this.search = url.replace(reg, '&');
@@ -116,6 +118,8 @@ $(function(){
             var url = '&' + this.search;
             //
             if (url.indexOf('&' + name + '=') !== -1) {
+                //
+                name = name.replace(/([\[\]])/gi, '\\$1');
                 var reg = new RegExp('&' + name + '=[\\w,]+', 'gi');
                 this.search = url.replace(reg, '&' + name + '=' + value).replace(/^&|&$/g, '');
                 option.url = option.baseUrl + '&' + this.search;

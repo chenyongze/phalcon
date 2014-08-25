@@ -347,7 +347,7 @@ return array(
         'httpMethods' => 'GET'
     ),
     'createComment' =>  array(
-        'pattern' => '/v2/admin/comments',
+        'pattern' => '/v2/comments',
         'paths' => array(
             'module' => 'WscnApiVer2',
             'controller' => 'Comment',
@@ -356,11 +356,12 @@ return array(
         'httpMethods' => 'POST'
     ),
     'getComment' =>  array(
-        'pattern' => '/v2/admin/comments',
+        'pattern' => '/v2/comments/(\d+)',
         'paths' => array(
             'module' => 'WscnApiVer2',
             'controller' => 'Comment',
             'action' => 'get',
+            'id' => 1,
         ),
         'httpMethods' => 'GET'
     ),
