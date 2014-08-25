@@ -323,7 +323,7 @@ return array(
         'pattern' => '/v2/admin/comment',
         'paths' => array(
             'module' => 'WscnApiVer2',
-            'controller' => 'Comment',
+            'controller' => 'comment',
             'action' => 'index',
         ),
         'httpMethods' => 'GET'
@@ -332,7 +332,7 @@ return array(
         'pattern' => '/v2/admin/comment/counter',
         'paths' => array(
             'module' => 'WscnApiVer2',
-            'controller' => 'Comment',
+            'controller' => 'comment',
             'action' => 'counter',
         ),
         'httpMethods' => 'GET'
@@ -341,7 +341,7 @@ return array(
         'pattern' => '/v2/comments',
         'paths' => array(
             'module' => 'WscnApiVer2',
-            'controller' => 'Comment',
+            'controller' => 'comment',
             'action' => 'index',
         ),
         'httpMethods' => 'GET'
@@ -350,7 +350,7 @@ return array(
         'pattern' => '/v2/comments',
         'paths' => array(
             'module' => 'WscnApiVer2',
-            'controller' => 'Comment',
+            'controller' => 'comment',
             'action' => 'post',
         ),
         'httpMethods' => 'POST'
@@ -359,7 +359,7 @@ return array(
         'pattern' => '/v2/comments/(\d+)',
         'paths' => array(
             'module' => 'WscnApiVer2',
-            'controller' => 'Comment',
+            'controller' => 'comment',
             'action' => 'get',
             'id' => 1,
         ),
