@@ -143,6 +143,9 @@
     var $searchForm = $('#header .search-form');
     $('#header').on('click', '[data-toggle=search-form]', function(e){
         $searchForm.toggleClass('active');
+        if ($searchForm.hasClass('active')) {
+            $searchForm.find('[name=q]').focus();
+        }
     });
 
     //goto top 返回顶部
