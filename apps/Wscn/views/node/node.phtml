@@ -55,14 +55,15 @@
 <div id="main" class="page-article">
     <article>
         <h1 class="article-title"><?= $post->title ?></h1>
+        <input class="admin-control-post" type="hidden" value="<?=$post->id?>">
 
         <div class="meta">
             <a class="item author" href="">文 / <?= $post->user ? $post->user->username : '华尔街见闻' ?></a>
             <span class="item time"><?= $this->tag->datetime($post->createdAt) ?></span>
-            <a class="item" href="#comments">
+            <span class="item" href="#comments">
                 <span class="fa fa-comment" style="vertical-align: 1px"></span>
                 <span class="ws-counter"><?= $post->commentCount > 0 ? : 0 ?></span>
-            </a>
+            </span>
             <div class="pull-right">
                 <? if ($post->sourceName): ?>
                     <span class="item">来源：<a href="<?= $post->sourceUrl ?>"

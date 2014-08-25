@@ -74,7 +74,8 @@
     var $leftbar = $('#leftbar');
     if ($leftbar.length) {
         //var height = $leftbar.height();
-        $leftbar.css('top', $('#content').offset().top);
+        //todo
+        //$leftbar.css('top', $('#content').offset().top);
         var $document = $(document);
         var $footer = $('#footer');
         var scrollMax = $document.height() - $footer.height() - $(window).height();

@@ -24,6 +24,9 @@
                 color: #999;
                 content: "更多»";
             }
+            &:hover:after {
+                color: @blue;
+            }
         }
 
         .fa {
@@ -148,17 +151,24 @@
                 display: block;
             }
         }
-        .tag {
-            cursor: pointer;
-            display: inline-block;
-            line-height: 20px;
-            margin: 10px;
-            color: @blue;
-            .fa {
-                margin-right: 3px;
-                font-size: 14px;
+        .tags {
+            display: none;
+            &.active {
+                display: block;
+            }
+            .tag {
+                cursor: pointer;
+                display: inline-block;
+                line-height: 20px;
+                margin: 10px;
+                color: @blue;
+                .fa {
+                    margin-right: 3px;
+                    font-size: 14px;
+                }
             }
         }
+
     }
 
     & > .body {
@@ -168,7 +178,7 @@
     .date {
         line-height: 40px;
         font-weight: bold;
-        margin-top: 20px;
+        margin-top: 30px;
         font-size: 14px;
         border-bottom: 1px solid @borderColor;
     }

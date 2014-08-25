@@ -205,6 +205,7 @@
 
             <?if($item->codeType == 'markdown'):?>
             <li data-utm="<?=$item->updatedAt?>" class="news" id="livenews-<?=$item->id?>">
+            <input class="admin-control-livenews" type="hidden" value="<?=$item->id?>">
             <a href="/livenews/detail/<?=$item->id?>"><span class="time"><?=$this->tag->datetime($item->updatedAt, 'H:i')?></span></a>
             <span class="icon fa fa-file-text"></span>
             <div class="control-box">
@@ -235,6 +236,7 @@
             <?$data = $item->getData()?>
             <li data-trend="down" data-utm="<?=$item->updatedAt?>" class="news type-date" id="livenews-<?=$item->id?>">
             <a href="/livenews/detail/<?=$item->id?>"><span class="time"><?=$this->tag->datetime($item->updatedAt, 'H:i')?></span></a>
+            <input class="admin-control-livenews" type="hidden" value="<?=$item->id?>">
             <span class="important">
                 <i class="fa fa-star star active"></i>
                 <i class="fa fa-star star <?=$data->importance > 1 ? 'active' : ''?>"></i>
