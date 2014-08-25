@@ -148,7 +148,7 @@
         //左侧栏行情列表dom
         $marketList = $('#left-market-list');
         //行情的相关信息dom
-        $marketInfo = $leftbar.children('.sidebar');
+        $marketInfo = $('#left-market-info').children();
         //行情的图表
         $marketChart = $leftbar.find('.chart');
         //行情相关的新闻信息
