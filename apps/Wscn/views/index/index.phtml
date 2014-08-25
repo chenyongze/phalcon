@@ -79,11 +79,7 @@
 
             <ul class="custom-nav-tabs">
                 <li class="active"><a data-toggle="tab" data-trigger="lazyload" href="#main-news">最新文章</a></li>
-                <!--<li><a data-toggle="tab" href="#main-hot-news">热门排行</a></li>-->
                 <li><a data-toggle="tab" data-trigger="lazyload" href="#main-recommend-news">编辑推荐</a></li>
-                <!--
-                <li><a data-toggle="tab" href="#main-special-news">专栏专访</a></li>
-                -->
             </ul>
             <div class="tab-content">
                 <ul class="tab-pane news-list with-img active" id="main-news">
@@ -96,7 +92,13 @@
                         <div class="content">
                             <a class="title" href="<?=$post->getUrl()?>"><?=$post->title?></a>
                             <div>
-                                <span class="meta author">文 / <?=$post->user ? ($post->user->screenName ?: $post->user->username) : '华尔街见闻'?></span>
+                                <span class="meta author">文 / 
+                                    <?if($post->user):?>
+                                    <a href="/news?uid=<?=$post->user->id?>" target="_blank"><?=$post->user->screenName ?: $post->user->username?></a>
+                                    <?else:?>
+                                    华尔街见闻
+                                    <?endif?>
+                                </span>
                                 <span class="meta time visible-lg-inline-block"><?=$this->tag->datetime($post->createdAt)?></span>
                                 <span class="meta endorse pull-right">
                                     <i class="fa fa-thumbs-up"></i> 3
@@ -143,7 +145,13 @@
                         <div class="content">
                             <a class="title" href="<?=$post->getUrl()?>"><?=$post->title?></a>
                             <div>
-                                <span class="meta author">文 / <?=$post->user ? $post->user->username : '华尔街见闻'?></span>
+                                 <span class="meta author">文 / 
+                                    <?if($post->user):?>
+                                    <a href="/news?uid=<?=$post->user->id?>" target="_blank"><?=$post->user->screenName ?: $post->user->username?></a>
+                                    <?else:?>
+                                    华尔街见闻
+                                    <?endif?>
+                                </span>
                                 <span class="meta time visible-lg-inline-block"><?=$this->tag->datetime($post->createdAt)?></span>
                                 <span class="meta endorse pull-right">
                                     <i class="fa fa-thumbs-up"></i> 3

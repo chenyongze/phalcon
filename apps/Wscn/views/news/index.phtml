@@ -1,26 +1,26 @@
 <?
-    $pageText = $pager->current ? "第".$pager->current."页-" : "";
-    $this->placeholder->block('title')->set("新闻资讯-".$pageText."华尔街见闻");
-    $this->placeholder->block('description')->set("华尔街见闻——中国最专业的金融资讯平台；直播外汇、期货、黄金、债券、证券等金融领域的实时新闻。华人投资者可以在这里获得最快速、最精准、最深入的全球财经资讯和市场行情。以下是新闻资讯");
-    $this->placeholder->block('keywords')->set("新闻,资讯,外汇,期货,大宗商品,贵金属,黄金,股市,行情,数据,金融,理财");
-    if($query['tid'] && !empty($tag)):
+$pageText = !empty($pager->current) ? "第".$pager->current."页-" : "";
+$this->placeholder->block('title')->set("新闻资讯-".$pageText."华尔街见闻");
+$this->placeholder->block('description')->set("华尔街见闻——中国最专业的金融资讯平台；直播外汇、期货、黄金、债券、证券等金融领域的实时新闻。华人投资者可以在这里获得最快速、最精准、最深入的全球财经资讯和市场行情。以下是新闻资讯");
+$this->placeholder->block('keywords')->set("新闻,资讯,外汇,期货,大宗商品,贵金属,黄金,股市,行情,数据,金融,理财");
+if($query['tid'] && !empty($tag)){
     $this->placeholder->block('title')->set($tag->tagName."新闻-".$pageText."华尔街见闻");
     $this->placeholder->block('description')->set("华尔街见闻——中国最专业的金融资讯平台；直播外汇、期货、黄金、债券、证券等金融领域的实时新闻。华人投资者可以在这里获得最快速、最精准、最深入的全球财经资讯和市场行情。以下是".$tag->tagName."相关新闻");
     $this->placeholder->block('keywords')->set($tag->tagName.",外汇,期货,大宗商品,贵金属,黄金,股市,行情,数据,金融,理财");
-    elseif($query['cid'] && !empty($category)):
+} elseif($query['cid'] && !empty($category)) {
     $this->placeholder->block('title')->set($category->categoryName."新闻-".$pageText."华尔街见闻");
     $this->placeholder->block('description')->set("华尔街见闻——中国最专业的金融资讯平台；直播外汇、期货、黄金、债券、证券等金融领域的实时新闻。华人投资者可以在这里获得最快速、最精准、最深入的全球财经资讯和市场行情。以下是".$category->categoryName."相关新闻");
     $this->placeholder->block('keywords')->set($category->categoryName.",外汇,期货,大宗商品,贵金属,黄金,股市,行情,数据,金融,理财");
-    elseif($query['uid'] && !empty($author)):
+} elseif($query['uid'] && !empty($author)) {
     $authorTrue = $author->screenName ?: $author->username;
     $this->placeholder->block('description')->set("华尔街见闻——中国最专业的金融资讯平台；直播外汇、期货、黄金、债券、证券等金融领域的实时新闻。华人投资者可以在这里获得最快速、最精准、最深入的全球财经资讯和市场行情。以下文章来自编辑".$authorTrue);
     $this->placeholder->block('title')->set($authorTrue."的文章-".$pageText."华尔街见闻");
     $this->placeholder->block('keywords')->set($author->screenName ?: $author->username.",外汇,期货,大宗商品,贵金属,黄金,股市,行情,数据,金融,理财");
-    elseif($query['q']):
+} elseif($query['q']) {
     $this->placeholder->block('title')->set($query['q']."新闻-".$pageText."华尔街见闻");
     $this->placeholder->block('description')->set("华尔街见闻——中国最专业的金融资讯平台；直播外汇、期货、黄金、债券、证券等金融领域的实时新闻。华人投资者可以在这里获得最快速、最精准、最深入的全球财经资讯和市场行情。以下是为您搜索出的".$query['q']."相关新闻");
     $this->placeholder->block('keywords')->set($query['q'].",外汇,期货,大宗商品,贵金属,黄金,股市,行情,数据,金融,理财");
-    endif
+}
 ?>
 <div id="main-content">
 
@@ -33,12 +33,6 @@
             <?if($query['tid'] && !empty($tag)):?>
             <h2 class="search-title">
                 标签为 <span class="text-blue"><?=$tag->tagName?></span> 的所有文章
-            </h2>
-            <?elseif($query['cid'] && !empty($category)):?>
-            <h2 class="crumbs-title">
-                <a href="/">首页</a>
-                <span class="fa fa-angle-right"></span>
-                <span class="sub">阅读分类 <?=$category->categoryName?></span>
             </h2>
             <?elseif($query['uid'] && !empty($author)):?>
             <h2 class="search-title">
@@ -56,35 +50,23 @@
                 </span>
             </h2>
             <?else:?>
-            <h2 class="crumbs-title">
-                <a href="/">首页</a>
-                <span class="fa fa-angle-right"></span>
-                <span class="sub">最新文章</span>
-            </h2>
-            <?endif?>
-
-            <?if(0):?>
-            <h6 style="line-height: 50px; color: #999;">样式一：</h6>
             <nav class="categories">
                 <span class="title">阅读分类</span>
-                <a class="item active" href="">头条</a>
-                <a class="item" href="">编辑推荐</a>
+                <a class="item <?=$query['cid'] ?: 'active'?>" href="/news">默认</a>
+                <a class="item <?=$query['cid'] == '6' ? 'active' : ''?>" href="/news?cid=6">头条</a>
+                <a class="item <?=$query['cid'] == 11 ? 'active' : ''?>" href="/news?cid=11">编辑推荐</a>
                 <span class="span"></span>
-                <a class="item" href="">美国</a>
-                <a class="item" href="">中国</a>
-                <a class="item" href="">欧洲</a>
+                <a class="item <?=$query['cid'] == 16 ? 'active' : ''?>" href="/news?cid=16">美国</a>
+                <a class="item <?=$query['cid'] == 17 ? 'active' : ''?>" href="/news?cid=17">中国</a>
+                <a class="item <?=$query['cid'] == 15 ? 'active' : ''?>" href="/news?cid=15">欧洲</a>
                 <span class="span"></span>
-                <a class="item" href="">市场</a>
-                <a class="item" href="">经济</a>
-                <a class="item" href="">央行</a>
-                <a class="item" href="">公司</a>
+                <a class="item <?=$query['cid'] == 21 ? 'active' : ''?>" href="/news?cid=21">市场</a>
+                <a class="item <?=$query['cid'] == 19 ? 'active' : ''?>" href="/news?cid=19">经济</a>
+                <a class="item <?=$query['cid'] == 20 ? 'active' : ''?>" href="/news?cid=20">央行</a>
+                <a class="item <?=$query['cid'] == 22 ? 'active' : ''?>" href="/news?cid=22">公司</a>
             </nav>
-            <h6 style="line-height: 50px; color: #999;">样式二：</h6>
-           
-            <h6 style="line-height: 50px; color: #999;">样式三：</h6>
-
-            <h6 style="line-height: 50px; color: #999;">样式四：</h6>
             <?endif?>
+
             <?$posts = $pager->items;?>
             <ul class="news-list with-img" id="search-result">
                 <?foreach($posts as $post):?>
@@ -95,7 +77,13 @@
                     <div class="content">
                         <a class="title" href="<?=$post->getUrl()?>"><?=$post->title?></a>
                         <div>
-                            <span class="meta author">文 / <?=$post->user ? $post->user->username : '华尔街见闻'?></span>
+                            <span class="meta author">文 / 
+                                    <?if($post->user):?>
+                                    <a href="/news?uid=<?=$post->user->id?>" target="_blank"><?=$post->user->screenName ?: $post->user->username?></a>
+                                    <?else:?>
+                                    华尔街见闻
+                                    <?endif?>
+                            </span>
                             <span class="meta time visible-lg-inline-block"><?=$this->tag->datetime($post->createdAt)?></span>
                                 <span class="meta endorse pull-right">
                                     <i class="fa fa-thumbs-up"></i> 3
