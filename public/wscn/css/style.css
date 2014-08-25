@@ -595,6 +595,9 @@ img.lazy {
   color: #333;
   border-bottom: 1px solid #b9b9b9;
 }
+.side-title.type-blue {
+  color: #0078d2;
+}
 .side-title.with-more:after {
   color: #666;
   float: right;
@@ -638,7 +641,7 @@ img.lazy {
   padding: 12px;
   margin: 12px 0;
   color: #666;
-  background-color: #dae8f1;
+  background-color: #EEF3FA;
 }
 .side-comments .comment .time {
   color: #999;
@@ -1884,24 +1887,6 @@ img.lazy {
 #leftbar > .sidebar .news-list .news:hover {
   color: #000;
 }
-#leftbar .side-title {
-  font-size: 16px;
-  color: #0078d2;
-  line-height: 1em;
-  padding-bottom: 8px;
-  margin-bottom: 10px;
-  border-bottom: 1px solid #dddddd;
-}
-#leftbar .side-title .more {
-  font-weight: normal;
-  float: right;
-  color: #999;
-  font-size: 12px;
-  margin-top: 4px;
-}
-#leftbar .side-title .more:hover {
-  color: #0078d2;
-}
 #leftbar .user.box {
   padding: 20px 15px 15px;
   height: 145px;
@@ -2149,13 +2134,13 @@ img.lazy {
   margin-right: 10px;
 }
 .sharebar .jiathis_style_32x32 .fa-qq {
-  background-color: #36891A;
+  background-color: #2384CC;
 }
 .sharebar .jiathis_style_32x32 .fa-weibo {
   background-color: #D04341;
 }
 .sharebar .jiathis_style_32x32 .fa-weixin {
-  background-color: #2384CC;
+  background-color: #36891A;
 }
 .sharebar .jiathis_style_32x32 .fa-plus {
   background-color: #0078D2;
@@ -2214,20 +2199,10 @@ img.lazy {
   padding: 0 30px;
   background-color: #fff;
 }
-#sidebar > .title {
-  font-weight: bold;
-  line-height: 1em;
-  font-size: 16px;
-  padding-top: 17px;
-  padding-bottom: 10px;
-  color: #0078d2;
-}
-#sidebar > .title .more {
-  float: right;
-  font-weight: normal;
-  font-size: 12px;
-  margin-top: 4px;
-  color: #999;
+#sidebar .side-title {
+  margin-bottom: 0;
+  border-bottom: none;
+  margin-top: 17px;
 }
 #sidebar.active {
   box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.4);
@@ -3142,11 +3117,11 @@ body.show-breaking-news #breaking-news {
 }
 .page-article .toolbar .jiathis_style_32x32 .jtico_cqq {
   background-image: none;
-  background-color: #36891A;
+  background-color: #2384CC;
 }
 .page-article .toolbar .jiathis_style_32x32 .jtico_weixin {
   background-image: none;
-  background-color: #2384CC;
+  background-color: #36891A;
 }
 .page-article .toolbar .jiathis_style_32x32 .jtico_evernote {
   background-image: none;
@@ -3231,6 +3206,13 @@ body.show-breaking-news #breaking-news {
 }
 .page-article .related-posts .side-title {
   color: #0078d2;
+}
+.page-article .related-posts .news-list .news {
+  margin-bottom: 0;
+  margin-top: 15px;
+}
+.page-article .related-posts .news-list .news:first-child {
+  margin-top: 0;
 }
 .page-article .related-posts .news-list .news:before {
   background-color: #333;
@@ -3335,7 +3317,7 @@ body.show-breaking-news #breaking-news {
   padding-right: 30px;
   height: 26px;
   border-bottom: 1px solid #dddddd;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 .page-livenews > .topbar > .title {
   position: absolute;

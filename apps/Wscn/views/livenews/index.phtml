@@ -320,12 +320,11 @@
             <script type="text/template" data-template>
                 <% for(var i=0; i < records.length; i++) { %>
                     <% var record = records[i]; %>
-                    <% if (checkDate && (i == 0 || record.date.charAt(9) != records[i-1].date.charAt(9)) ) { %>
-                        <li class="date"><%= record.date %></li>
+                    <% if ( (i == 0 && record.day !== day)||(i > 0 && record.day != records[i-1].day) ) { %>
+                        <li class="date" data-day="<%= record.day %>"><%= record.date %></li>
                     <% } %>
-
                     <% if (record.type == 'news') { %>
-                        <li id="livenews-<%= record.id %>" class="news" data-utm="<%= record.utm %>" >
+                        <li id="livenews-<%= record.id %>" class="news" data-utm="<%= record.utm %>" data-day="<%= record.day %>">
                             <span class="time"><a href="/livenews/detail/<%= record.id%>"><%= record.time %></a></span>
                             <span class="icon fa fa-file-text"></span>
                             <div class="control-box">
@@ -357,7 +356,7 @@
                         </li>
                     <% } else if (record.type =='data') { %>
                         <% if (record.codeType == 'json') { %>
-                            <li id="livenews-<%= record.id %>" class="news type-date" data-utm="<%= record.utm %>"  data-trend="<%= record.data.trend %>">
+                            <li id="livenews-<%= record.id %>" class="news type-date" data-utm="<%= record.utm %>" data-day="<%= record.day %>" data-trend="<%= record.data.trend %>">
                                 <span class="time"><a href="/livenews/detail/<%= record.id%>"><%= record.time %></a></span>
                                 <span class="important">
                                     <i class="fa fa-star star active"></i>
@@ -415,7 +414,7 @@
                                 <% } %>
                             </li>
                         <% } else { %>
-                            <li id="livenews-<%= record.id %>" class="news" data-utm="<%= record.utm %>" >
+                            <li id="livenews-<%= record.id %>" class="news" data-utm="<%= record.utm %>" data-day="<%= record.day %>">
                                 <span class="time"><%= record.time %></span>
                                 <span class="icon fa fa-file-text"></span>
                                 <div class="control-box">

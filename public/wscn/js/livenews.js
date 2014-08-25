@@ -271,44 +271,23 @@ $(function(){
             var results = response.results;
             if (results.length) {
                 var data = parseData(results);
-                var $date = $body.children('.date').eq(0);
-                var day = $date.text().trim().charAt(9);
+                var $date = $body.children('.date').first();
                 var i, l = data.length;
-                var before = [];
-                var after = [];
                 for (i = 0; i < l; i++) {
                     var $item = $('#' + data[i].id);
                     if ($item.length) {
+                        $item.remove();
                         if (data[i].status == 'deleted') {
-                            $item.remove();
-                        } else {
-                            var singleData = [];
-                            singleData[0] = data[i];
-                            var html = tmpl({
-                                checkDate: false,
-                                records : singleData
-                            });
-                            $item.replaceWith(html);
+                            data.splice(i,1);
                         }
-                    } else if (item.date.charAt(9) != day) {
-                        before.push(item);
-                    } else {
-                        after.push(item);
                     }
                 }
-                if (before.length) {
+                if (data.length) {
                     var html = tmpl({
-                        checkDate: true,
-                        records : before
+                        day: '',
+                        records : data
                     });
-                    $date.before(html);
-                }
-                if (after.length) {
-                    var html = tmpl({
-                        checkDate: false,
-                        records : after
-                    });
-                    $date.after(html);
+                    $date.replaceWith(html);
                 }
             }
             setTimeout(update, option.updateTimeout);
@@ -330,13 +309,20 @@ $(function(){
             var results = response.results;
             if (results.length) {
                 var data = parseData(results);
-                var html = tmpl({
-                    checkDate: page == 1,
-                    records : data
-                });
+                var html;
                 if (page > 1) {
+                    //
+                    var day = $body.children().last().attr('data-day');
+                    html = tmpl({
+                        day: day,
+                        records : data
+                    });
                     $body.append(html);
                 } else {
+                    html = tmpl({
+                        day: '',
+                        records : data
+                    });
                     $body.html(html);
                 }
             }
@@ -368,6 +354,7 @@ $(function(){
             record.utm  = record.updatedAt;
             record.time = mt.format(option.timeFormat);
             record.date = mt.format(option.dateFormat);
+            record.day = mt.format('YYYY-MM-DD');
             if (record.type == 'data' && record.codeType == 'json') {
                 if (record.data['actual'] && record.data['actual'] !== '&nbsp;') {
                     if (record.data['forecast']  && record.data['forecast'] !== '&nbsp;') {
