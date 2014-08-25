@@ -66,10 +66,10 @@
                 <?endif?>
             </span>
             <span class="item time"><?= $this->tag->datetime($post->createdAt) ?></span>
-            <a class="item" href="#comments">
+            <span class="item">
                 <span class="fa fa-comment" style="vertical-align: 1px"></span>
                 <span class="ws-counter"><?= $post->commentCount > 0 ? : 0 ?></span>
-            </a>
+            </span>
             <div class="pull-right">
                 <? if ($post->sourceName): ?>
                     <span class="item">来源：<a href="<?= $post->sourceUrl ?>"
