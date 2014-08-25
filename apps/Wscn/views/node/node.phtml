@@ -55,6 +55,7 @@
 <div id="main" class="page-article">
     <article>
         <h1 class="article-title"><?= $post->title ?></h1>
+        <input class="admin-control-post" type="hidden" value="<?=$post->id?>">
 
         <div class="meta">
             <a class="item author" href="">文 / <?= $post->user ? $post->user->username : '华尔街见闻' ?></a>
