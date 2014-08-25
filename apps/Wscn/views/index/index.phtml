@@ -193,7 +193,7 @@
             </ul>
             <ul class="tab-content">
                 <li class="tab-pane active" id="side-day-rank-news">
-                    <?$pager = $this->tag->component('post', array('status' => 'published', 'limit' => 10, 'order' => '-count'));$posts = $pager->items;?>
+                <?$pager = $this->tag->component('post', array('status' => 'published', 'limit' => 10, 'order' => '-count', 'min_created_at' => time() - 3600 * 24 * 7));$posts = $pager->items;?>
                     <ul class="news-list with-number">
                         <?foreach($posts as $post):?>
                         <li class="news">
@@ -204,7 +204,7 @@
                         <?endforeach?>
                     </ul>
                 </li>
-                <?$pager = $this->tag->component('post', array('status' => 'published', 'limit' => 10, 'order' => '-sort_order'));$posts = $pager->items;?>
+                <?$pager = $this->tag->component('post', array('status' => 'published', 'limit' => 10, 'order' => '-count', 'min_created_at' => time() - 3600 * 24 * 30));$posts = $pager->items;?>
                 <li class="tab-pane " id="side-week-rank-news">
                     <ul class="news-list with-number">
                         <?foreach($posts as $post):?>

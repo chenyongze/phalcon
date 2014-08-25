@@ -19,6 +19,7 @@ class PostController extends \Phalcon\Mvc\Controller
             'cid' => $this->dispatcher->getParam('cid'),
             'tid' => $this->dispatcher->getParam('tid'),
             'has_image' => $this->dispatcher->getParam('has_image', 'int'),
+            'min_created_at' => $this->dispatcher->getParam('min_created_at', 'int'),
             'username' => $this->dispatcher->getParam('username'),
             'order' => $this->dispatcher->getParam('order'),
             'limit' => $limit,
