@@ -25,7 +25,7 @@ class CommentController extends ControllerBase
     /**
      *
      * @SWG\Api(
-     *   path="/comment",
+     *   path="/comments",
      *   description="Comment related api",
      *   produces="['application/json']",
      *   @SWG\Operations(
@@ -129,7 +129,7 @@ class CommentController extends ControllerBase
     /**
     *
     * @SWG\Api(
-        *   path="/comment/{commentId}",
+        *   path="/comments/{commentId}",
         *   description="Comment related api",
         *   produces="['application/json']",
         *   @SWG\Operations(
@@ -165,7 +165,7 @@ class CommentController extends ControllerBase
     /**
      *
      * @SWG\Api(
-     *   path="/comment/{commentId}",
+     *   path="/comments/{commentId}",
      *   description="Comment related api",
      *   produces="['application/json']",
      *   @SWG\Operations(
@@ -227,7 +227,7 @@ class CommentController extends ControllerBase
      /**
      *
      * @SWG\Api(
-     *   path="/comment",
+     *   path="/comments",
      *   description="Comment related api",
      *   produces="['application/json']",
      *   @SWG\Operations(
@@ -278,7 +278,7 @@ class CommentController extends ControllerBase
     /**
     *
      * @SWG\Api(
-     *   path="/comment/{commentId}",
+     *   path="/comments/{commentId}",
      *   description="Comment related api",
      *   produces="['application/json']",
      *   @SWG\Operations(
@@ -320,7 +320,7 @@ class CommentController extends ControllerBase
     /**
      *
      * @SWG\Api(
-     *   path="/comment/counter",
+     *   path="/comments/counter",
      *   description="Comment related api",
      *   produces="['application/json']",
      *   @SWG\Operations(
