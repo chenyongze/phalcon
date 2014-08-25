@@ -1,7 +1,8 @@
 <?
     $post = $keyword->entry;
     $this->placeholder->block('title')->set($keyword->keyword."-金融百科-华尔街见闻");
-    $this->placeholder->block('description')->set($post->summary);
+    $description = strip_tags($post->summary);
+    $this->placeholder->block('description')->set($description);
     $this->placeholder->block('keywords')->set($keyword->keyword.",".$post->title.$post->getLinkedKeywords().",百科,wiki,金融术语,金融词汇,金融用语,解释,华尔街见闻");
 ?>
 <div id="main-content" >
