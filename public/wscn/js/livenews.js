@@ -57,6 +57,8 @@ $(function(){
     //
     var $controlGroup;
     //
+    var $alert;
+    //
     var $moreControl;
     //
     var $tags;
@@ -177,7 +179,13 @@ $(function(){
         $controlGroup = $livenews.children('.control-group');
         $moreControl = $controlGroup.find('.more-content');
         $tags = $controlGroup.find('.tags');
+        $alert = $controlGroup.find('[data-toggle=alert]');
         $body = $livenews.children('.body');
+        if (option.alert) {
+            $alert[0].checked = true;
+        } else {
+            $alert[0].checked = false;
+        }
     }
 
     function initData() {
@@ -283,7 +291,7 @@ $(function(){
             loadPage();
         });
         //声音提醒开关
-        $controlGroup.on('click', '[type=raido][data-toggle=alert]', function(e){
+        $alert.on('click', function(e){
             if (this.checked) {
                 option.alert = true;
                 WSCN_UTIL.cookie.setCookie('livenews-alert', 'yes');

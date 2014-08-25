@@ -79,11 +79,7 @@
 
             <ul class="custom-nav-tabs">
                 <li class="active"><a data-toggle="tab" data-trigger="lazyload" href="#main-news">最新文章</a></li>
-                <!--<li><a data-toggle="tab" href="#main-hot-news">热门排行</a></li>-->
                 <li><a data-toggle="tab" data-trigger="lazyload" href="#main-recommend-news">编辑推荐</a></li>
-                <!--
-                <li><a data-toggle="tab" href="#main-special-news">专栏专访</a></li>
-                -->
             </ul>
             <div class="tab-content">
                 <ul class="tab-pane news-list with-img active" id="main-news">
@@ -96,7 +92,15 @@
                         <div class="content">
                             <a class="title" href="<?=$post->getUrl()?>"><?=$post->title?></a>
                             <div>
-                                <a class="meta author" href="">文 / <?=$post->user ? ($post->user->screenName ?: $post->user->username) : '华尔街见闻'?></a>
+
+                                <span class="meta author">文 / 
+                                    <?if($post->user):?>
+                                    <a href="/news?uid=<?=$post->user->id?>" target="_blank"><?=$post->user->screenName ?: $post->user->username?></a>
+                                    <?else:?>
+                                    华尔街见闻
+                                    <?endif?>
+                                </span>
+
                                 <span class="meta time visible-lg-inline-block"><?=$this->tag->datetime($post->createdAt)?></span>
                                 <span class="meta endorse pull-right">
                                     <i class="fa fa-thumbs-up"></i> 3
@@ -143,7 +147,13 @@
                         <div class="content">
                             <a class="title" href="<?=$post->getUrl()?>"><?=$post->title?></a>
                             <div>
-                                <a class="meta author" href="">文 / <?=$post->user ? $post->user->username : '华尔街见闻'?></a>
+                                 <span class="meta author">文 / 
+                                    <?if($post->user):?>
+                                    <a href="/news?uid=<?=$post->user->id?>" target="_blank"><?=$post->user->screenName ?: $post->user->username?></a>
+                                    <?else:?>
+                                    华尔街见闻
+                                    <?endif?>
+                                </span>
                                 <span class="meta time visible-lg-inline-block"><?=$this->tag->datetime($post->createdAt)?></span>
                                 <span class="meta endorse pull-right">
                                     <i class="fa fa-thumbs-up"></i> 3
@@ -185,7 +195,7 @@
             </ul>
             <ul class="tab-content">
                 <li class="tab-pane active" id="side-day-rank-news">
-                    <?$pager = $this->tag->component('post', array('status' => 'published', 'limit' => 10, 'order' => '-count'));$posts = $pager->items;?>
+                <?$pager = $this->tag->component('post', array('status' => 'published', 'limit' => 10, 'order' => '-count', 'min_created_at' => time() - 3600 * 24 * 7));$posts = $pager->items;?>
                     <ul class="news-list with-number">
                         <?foreach($posts as $post):?>
                         <li class="news">
@@ -196,7 +206,7 @@
                         <?endforeach?>
                     </ul>
                 </li>
-                <?$pager = $this->tag->component('post', array('status' => 'published', 'limit' => 10, 'order' => '-sort_order'));$posts = $pager->items;?>
+                <?$pager = $this->tag->component('post', array('status' => 'published', 'limit' => 10, 'order' => '-count', 'min_created_at' => time() - 3600 * 24 * 30));$posts = $pager->items;?>
                 <li class="tab-pane " id="side-week-rank-news">
                     <ul class="news-list with-number">
                         <?foreach($posts as $post):?>

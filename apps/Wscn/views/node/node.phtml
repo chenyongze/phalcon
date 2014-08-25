@@ -58,12 +58,18 @@
         <input class="admin-control-post" type="hidden" value="<?=$post->id?>">
 
         <div class="meta">
-            <a class="item author" href="">文 / <?= $post->user ? $post->user->username : '华尔街见闻' ?></a>
+            <span class="item author">文 / 
+                <?if($post->user):?>
+                <a href="/news?uid=<?=$post->user->id?>" target="_blank"><?=$post->user->screenName ?: $post->user->username?></a>
+                <?else:?>
+                华尔街见闻
+                <?endif?>
+            </span>
             <span class="item time"><?= $this->tag->datetime($post->createdAt) ?></span>
-            <span class="item" href="#comments">
+            <a class="item" href="#comments">
                 <span class="fa fa-comment" style="vertical-align: 1px"></span>
                 <span class="ws-counter"><?= $post->commentCount > 0 ? : 0 ?></span>
-            </span>
+            </a>
             <div class="pull-right">
                 <? if ($post->sourceName): ?>
                     <span class="item">来源：<a href="<?= $post->sourceUrl ?>"
