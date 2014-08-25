@@ -18,6 +18,7 @@ class Login extends User
 
     //Cookie key for check user already login
     const LOGIN_COOKIE_KEY = 'evalogin';
+    const LOGIN_COOKIE_REMEMBER_KEY = 'realm';
 
     //Login modes
     const LOGIN_MODE_SESSION = 'session';

@@ -319,7 +319,7 @@ a,a:hover {
 }
 
 .left-menu ul{
-	top: 18%;
+	top: 0%;
 	position: absolute;
 	width: 80%;
 	text-align: center;
@@ -715,6 +715,7 @@ a,a:hover {
 	margin-bottom: 5px;
 	text-align: center;
 	font-size:12px;
+	margin-top:15px;
 }
 
 .calendar-info  .content {

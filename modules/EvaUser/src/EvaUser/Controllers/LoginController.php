@@ -26,7 +26,7 @@ class LoginController extends ControllerBase
                 if ($this->request->getPost('remember')) {
                     $token = $user->getRememberMeToken();
                     if ($token) {
-                        $this->cookies->set('realm', $token, time() + $user->getRememberMeTokenExpires());
+                        $this->cookies->set(Login::LOGIN_COOKIE_REMEMBER_KEY, $token, time() + $user->getRememberMeTokenExpires());
                     }
                 }
                 return $this->showResponseAsJson(Login::getCurrentUser());
