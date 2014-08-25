@@ -71,7 +71,7 @@ $(function(){
     };
     var uri = {
         baseUrl: location.href.replace(/\?.*|#.*/, ''),
-        search: location.search.substring(1),
+        search : location.hash.substring(1) || location.search.substring(1),
         add: function(name, value){
             if (this.search.length) {
                 this.search += '&' + name + '=' + value;
@@ -83,16 +83,18 @@ $(function(){
             try{
                 history.replaceState(null, '', this.baseUrl + '?' + this.search);
             } catch(err) {
-                location.href = this.baseUrl + '#' + this.search;
+                location.hash = '#' + this.search;
             }
         },
         remove: function(name, value) {
-
+            //在头部 和 末尾补上一个 & 用来精确匹配
+            var url = '&' + this.search + '&';
             if (value) {
-                this.search = this.search.replace(name + '=' + value, '');
+                var reg = new RegExp('&' + name + '=' + value + '&', 'gi');
+                this.search = url.replace(reg, '&');
             } else {
-                var reg = new RegExp(name + '=[\\w,]+');
-                this.search = this.search.replace(reg, '');
+                var reg = new RegExp('&' + name + '=[\\w,]+&', 'gi');
+                this.search = url.replace(reg, '&');
             }
             this.search = this.search.replace(/&+/g, '&').replace(/^&|&$/g, '');
 
@@ -106,19 +108,22 @@ $(function(){
             try{
                 history.replaceState(null, '', this.baseUrl + '?' + this.search);
             } catch(err) {
-                location.href = this.baseUrl + '#' + this.search;
+                location.hash = '#' + this.search;
             }
         },
         attr: function(name, value) {
-            if (this.search.indexOf(name) !== -1) {
-                var reg = new RegExp(name + '=[\\w,]+');
-                this.search = this.search.replace(reg, name + '=' + value);
+            //在首部补上一个 & 用来精确匹配
+            var url = '&' + this.search;
+            //
+            if (url.indexOf('&' + name + '=') !== -1) {
+                var reg = new RegExp('&' + name + '=[\\w,]+', 'gi');
+                this.search = url.replace(reg, '&' + name + '=' + value).replace(/^&|&$/g, '');
                 option.url = option.baseUrl + '&' + this.search;
                 option.updateUrl = option.baseUpdateUrl + '&' + this.search;
                 try{
                     history.replaceState(null, '', this.baseUrl + '?' + this.search);
                 } catch(err) {
-                    location.href = this.baseUrl + '#' + this.search;
+                    location.hash = '#' + this.search;
                 }
             } else {
                 this.add(name, value);
@@ -184,7 +189,8 @@ $(function(){
             }
             var text = $input.parent().find('.text').text();
             var tag = createTag(value, text);
-            $tags.append(tag);
+            addTag(tag);
+            //$tags.append(tag);
         });
         $controlGroup.on('init', '[type=radio][name=type]', function(e){
             this.checked = true;
@@ -203,7 +209,8 @@ $(function(){
             while(length --) {
                 $checkbox[length].checked = false;
             }
-            $this.remove();
+            //$this.remove();
+            removeTag($this);
             uri.remove('cid[]', value);
             loadPage();
         });
@@ -225,11 +232,13 @@ $(function(){
             if (input.checked) {
                 var text = $input.parent().find('.text').text();
                 var tag = createTag(value, text);
-                $tags.append(tag);
+                //$tags.append(tag);
+                addTag(tag);
                 uri.add(name,value);
             } else {
                 var $tag = $tags.find('.tag[value="' + value + '"]');
-                $tag.remove();
+                //$tag.remove();
+                removeTag($tag);
                 uri.remove(name,value);
             }
             loadPage();
@@ -271,44 +280,23 @@ $(function(){
             var results = response.results;
             if (results.length) {
                 var data = parseData(results);
-                var $date = $body.children('.date').eq(0);
-                var day = $date.text().trim().charAt(9);
+                var $date = $body.children('.date').first();
                 var i, l = data.length;
-                var before = [];
-                var after = [];
                 for (i = 0; i < l; i++) {
                     var $item = $('#' + data[i].id);
                     if ($item.length) {
+                        $item.remove();
                         if (data[i].status == 'deleted') {
-                            $item.remove();
-                        } else {
-                            var singleData = [];
-                            singleData[0] = data[i];
-                            var html = tmpl({
-                                checkDate: false,
-                                records : singleData
-                            });
-                            $item.replaceWith(html);
+                            data.splice(i,1);
                         }
-                    } else if (item.date.charAt(9) != day) {
-                        before.push(item);
-                    } else {
-                        after.push(item);
                     }
                 }
-                if (before.length) {
+                if (data.length) {
                     var html = tmpl({
-                        checkDate: true,
-                        records : before
+                        day: '',
+                        records : data
                     });
-                    $date.before(html);
-                }
-                if (after.length) {
-                    var html = tmpl({
-                        checkDate: false,
-                        records : after
-                    });
-                    $date.after(html);
+                    $date.replaceWith(html);
                 }
             }
             setTimeout(update, option.updateTimeout);
@@ -330,13 +318,20 @@ $(function(){
             var results = response.results;
             if (results.length) {
                 var data = parseData(results);
-                var html = tmpl({
-                    checkDate: page == 1,
-                    records : data
-                });
+                var html;
                 if (page > 1) {
+                    //
+                    var day = $body.children().last().attr('data-day');
+                    html = tmpl({
+                        day: day,
+                        records : data
+                    });
                     $body.append(html);
                 } else {
+                    html = tmpl({
+                        day: '',
+                        records : data
+                    });
                     $body.html(html);
                 }
             }
@@ -368,6 +363,7 @@ $(function(){
             record.utm  = record.updatedAt;
             record.time = mt.format(option.timeFormat);
             record.date = mt.format(option.dateFormat);
+            record.day = mt.format('YYYY-MM-DD');
             if (record.type == 'data' && record.codeType == 'json') {
                 if (record.data['actual'] && record.data['actual'] !== '&nbsp;') {
                     if (record.data['forecast']  && record.data['forecast'] !== '&nbsp;') {
@@ -391,12 +387,23 @@ $(function(){
             records.push(record);
         }
         return records;
-    }
+    };
 
     function createTag(value, text) {
         return '<span class="tag" value="' + value + '"><i class="fa fa-times-circle"></i>' + text + '</span>';
-    }
+    };
 
+    function addTag(tag) {
+        $tags.append(tag);
+        $tags.addClass('active');
+    };
+
+    function removeTag($tag) {
+        $tag.remove();
+        if ($tags.find('.tag').length == 0) {
+            $tags.removeClass('active');
+        }
+    }
 
     init();
 

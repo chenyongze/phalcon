@@ -24,7 +24,7 @@
             <div class="meta">
                 <span class="item author">文 / <?=$post->user ? $post->user->username : '华尔街见闻'?></span>
                 <span class="item time"><?=$this->tag->datetime($post->createdAt)?></span>
-                <div class="btn" data-action="to-share" style="">
+                <div class="btn" data-action="to-share" style="display:none">
                     <img src="/wscnm/img/whitestar.png" class="favorite"/>
                 </div>
             </div>

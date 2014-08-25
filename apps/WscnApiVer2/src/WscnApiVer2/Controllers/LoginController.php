@@ -49,7 +49,7 @@ class LoginController extends ControllerBase
      */
     public function indexAction()
     {
-        Login::setLoginMode('token');
+        Login::setLoginMode(Login::LOGIN_MODE_TOKEN);
         $data = $this->request->getRawBody();
         if (!$data) {
             throw new Exception\InvalidArgumentException('No data input');
@@ -68,6 +68,7 @@ class LoginController extends ControllerBase
         $loginUser = $user->loginByPassword($data['identify'], $data['password']);
         $userinfo = $loginUser->dump(User::$simpleDump);
         $userinfo['roles'] = Login::getAuthStorage()->get(Login::AUTH_KEY_ROLES);
+        $userinfo['token'] = Login::getAuthStorage()->get(Login::AUTH_KEY_TOKEN);
         return $this->response->setJsonContent($userinfo);
     }
 }

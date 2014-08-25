@@ -39,7 +39,7 @@ class DispatchListener
             }
         } elseif ($controller instanceof TokenAuthorityControllerInterface) {
             $auth = new Auth\TokenAuthority();
-            $auth->setApikey($dispatcher->getDI()->getRequest()->get('apikey'));
+            $auth->setApikey($dispatcher->getDI()->getRequest()->get('api_key'));
             $auth->setCache($dispatcher->getDI()->getGlobalCache());
             //$auth->setFastCache($dispatcher->getDI()->getFastCache());
             if (!$auth->checkAuth(get_class($controller), $dispatcher->getActionName())) {

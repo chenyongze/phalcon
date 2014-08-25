@@ -566,6 +566,9 @@ img.lazy {
     margin-bottom: 15px;
     color: #333;
     border-bottom: 1px solid #b9b9b9;
+    &.type-blue {
+        color: @blue;
+    }
     &.with-more:after {
         color: #666;
         float: right;
@@ -615,7 +618,7 @@ img.lazy {
             padding: 12px;
             margin: 12px 0;
             color: #666;
-            background-color: #dae8f1;
+            background-color: #EEF3FA;
         }
         .time {
             color: #999;
@@ -746,6 +749,7 @@ img.lazy {
     background-color: @blue;
     &:hover {
         color: #fff;
+        opacity: 0.9;
     }
     &:active {
         box-shadow: 0 0 3px 1px rgba(0,0,0,.5) inset;
@@ -947,7 +951,7 @@ img.lazy {
         }
     }
     input[type=checkbox]:checked + .box {
-        background-color: #0FBC0A;
+        background-color: @blue;
         &:after {
             margin-left: 16px;
             content: "开";
@@ -955,7 +959,7 @@ img.lazy {
     }
     &.active {
         .box {
-            background-color: #0FBC0A;
+            background-color: @blue;
             &:after {
                 margin-left: 16px;
                 content: "开";
