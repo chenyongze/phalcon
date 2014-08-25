@@ -242,6 +242,10 @@
             $('#user-modal').removeClass('active');
         }
     });
+    //组织modal表单 输入框 中 按下 左/右键 事件冒泡 触发 bootstrap carousel定义的滑动事件
+    $('#user-modal-carousel').on('keydown', 'input', function(e){
+        e.stopPropagation();
+    });
     //switch  控件
     /*
     $('[data-toggle=switch]').click(function(){

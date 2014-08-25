@@ -1206,9 +1206,11 @@ img.lazy {
   padding-top: 10px;
   padding-bottom: 10px;
   line-height: 20px;
-}
-#user-modal .form-control:focus + .help-block + .form-control-feedback {
-  color: #1395e5;
+  /*
+        &:focus + .help-block + .form-control-feedback {
+            color: @skyblue;
+        }
+        */
 }
 #user-modal .form-control-feedback {
   top: 0;
@@ -3643,9 +3645,11 @@ body.show-breaking-news #breaking-news {
   padding-top: 10px;
   padding-bottom: 10px;
   line-height: 20px;
-}
-.page-auth .form-control:focus + .help-block + .form-control-feedback {
-  color: #1395e5;
+  /*
+        &:focus + .help-block + .form-control-feedback {
+            color: @skyblue;
+        }
+        */
 }
 .page-auth .form-control-feedback {
   top: 0;
@@ -3668,14 +3672,20 @@ body.show-breaking-news #breaking-news {
   height: 30px;
   line-height: 30px;
 }
+.page-auth .has-success .form-control {
+  border-color: #009632;
+}
 .page-auth .has-success .form-control-feedback {
-  color: #3c763d;
+  color: #009632;
 }
 .page-auth .has-warning .form-control-feedback {
   color: #8a6d3b;
 }
+.page-auth .has-error .form-control {
+  border-color: #ff4646;
+}
 .page-auth .has-error .form-control-feedback {
-  color: #a94442;
+  color: #ff4646;
 }
 .page-auth .form-avatar {
   width: 75px;
