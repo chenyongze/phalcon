@@ -7,6 +7,7 @@ $(function(){
     if ($livenews.length == 0) {
         return;
     }
+
     var $content = $('#news-list > .content');
     var newsHeight = 16
     var margin = newsHeight - $content.height();
@@ -43,6 +44,16 @@ $(function(){
     if ($livenews.length == 0) {
         return;
     }
+    var jplayer = $('<div id="jplayer"></div>').appendTo('body');
+    jplayer.jPlayer({
+        ready: function () {
+            $(this).jPlayer("setMedia", {
+                mp3 : "../vendor/js/notification.mp3"
+            });
+        },
+        swfPath: "../vendor/js/Jplayer.swf",
+        supplied: "mp3"
+    });
     //
     var $controlGroup;
     //
@@ -63,6 +74,7 @@ $(function(){
         cids: '',
         type: '',
         importance: '',
+        alert: WSCN_UTIL.cookie.getCookie('livenews-alert') === 'yes',
         baseUrl: 'http://api.rebirth.wallstreetcn.com:80/v2/livenews?limit=40',
         baseUpdateUrl: 'http://api.rebirth.wallstreetcn.com:80/v2/livenews/realtime?limit=3',
         url: 'http://api.rebirth.wallstreetcn.com:80/v2/livenews?limit=40',
@@ -260,7 +272,7 @@ $(function(){
             loadPage();
         });
         //选择 重要性
-        $controlGroup.on('click', '[type=radio][name=importance]', function(e, noLoad){
+        $controlGroup.on('click', '[type=radio][name=importance]', function(e){
             var $selected = $controlGroup.find('[type=radio][name=importance]:checked');
             var value = $selected[0].value;
             if (value) {
@@ -269,6 +281,16 @@ $(function(){
                 uri.remove('importance');
             }
             loadPage();
+        });
+        //声音提醒开关
+        $controlGroup.on('click', '[type=raido][data-toggle=alert]', function(e){
+            if (this.checked) {
+                option.alert = true;
+                WSCN_UTIL.cookie.setCookie('livenews-alert', 'yes');
+            } else {
+                option.alert = false;
+                WSCN_UTIL.cookie.setCookie('livenews-alert', 'no');
+            }
         });
     }
 
@@ -301,6 +323,10 @@ $(function(){
                         records : data
                     });
                     $date.replaceWith(html);
+                }
+                //声音提醒
+                if (option.alert) {
+                    jplayer.jPlayer('play');
                 }
             }
             setTimeout(update, option.updateTimeout);
