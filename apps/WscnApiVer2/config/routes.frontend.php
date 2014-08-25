@@ -337,4 +337,33 @@ return array(
         ),
         'httpMethods' => 'GET'
     ),
+    'commentList' =>  array(
+        'pattern' => '/v2/comments',
+        'paths' => array(
+            'module' => 'WscnApiVer2',
+            'controller' => 'Comment',
+            'action' => 'index',
+        ),
+        'httpMethods' => 'GET'
+    ),
+    'createComment' =>  array(
+        'pattern' => '/v2/comments',
+        'paths' => array(
+            'module' => 'WscnApiVer2',
+            'controller' => 'Comment',
+            'action' => 'post',
+        ),
+        'httpMethods' => 'POST'
+    ),
+    'getComment' =>  array(
+        'pattern' => '/v2/comments/(\d+)',
+        'paths' => array(
+            'module' => 'WscnApiVer2',
+            'controller' => 'Comment',
+            'action' => 'get',
+            'id' => 1,
+        ),
+        'httpMethods' => 'GET'
+    ),
+
 );
