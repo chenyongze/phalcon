@@ -114,7 +114,7 @@ class CounterController extends ControllerBase
      *           description="限制条数",
      *           paramType="path",
      *           required=true,
-     *           type="int"
+     *           type="integer"
      *         ),
      *         @SWG\Parameter(
      *           name="type",

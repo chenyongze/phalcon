@@ -1,6 +1,6 @@
 <?$newsPager = $this->tag->component('post', array('status' => 'published', 'limit' => 3, 'q' => $query['q'], 'order' => '-created_at'));$posts = $newsPager->items;?>
 <?if($posts->count() > 0):?>
-<a class="side-title with-more" href="/search?q=<?=$query['q']?>">
+<a class="side-title type-blue with-more" href="/search?q=<?=$query['q']?>">
     相关新闻
 </a>
 <ul class=" news-list">
@@ -14,7 +14,7 @@
 
 <?$items = $pager->items;?>
 <?if($items->count() > 0):?>
-<a class="side-title with-more" href="/livenews" style="margin-bottom: 2px">
+<a class="side-title type-blue with-more" href="/livenews" style="margin-bottom: 2px">
     实时新闻
 </a>
 <ul id="left-side-livenews" class="livenews-list size-sm">

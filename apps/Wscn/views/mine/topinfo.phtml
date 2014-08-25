@@ -3,10 +3,10 @@
     <h3 class="title">
         华尔街见闻用户
     </h3>
-    <!--
-    <div class="info">华尔街见闻 美工</div>
+    <?if(0):?>
+    <div class="info">华尔街见闻</div>
     <a href="" class="handle">申请认证</a>
-    -->
+    <?endif?>
 </div>
 <div class="info">
     <h2 class="name"><?=$item->username?></h2>
@@ -24,12 +24,15 @@
     <?if($item->profile && $item->profile->province):?>
     <div class="meta">
         <i class="icon fa fa-map-marker"></i>
+        <?=$item->profile->province?>
+        <?=$item->profile->city?>
+        <?=$item->profile->state?>
         <a class="edit" data-action="edit" href="/mine/profile">
             <i class="icon fa fa-pencil"></i> 修改
         </a>
     </div>
     <?endif?>
-    <?if($item->profile && $item->profile->birthday):?>
+    <?if(0 && $item->profile && $item->profile->birthday):?>
     <div class="meta">
         <i class="icon fa fa-user"></i>巨蟹座 | 华尔街见闻
         <a class="edit" data-action="edit" href="/mine/profile">

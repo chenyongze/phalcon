@@ -59,12 +59,20 @@ class Apikeys extends \Eva\EvaEngine\Mvc\Model
      *
      * @var integer
      */
+    public $refreshedAt = 0;
+
+    /**
+     *
+     * @var integer
+     */
     public $expiredAt = 0;
 
     public function initialize()
     {
         $this->belongsTo(
-            'userId', 'Eva\EvaUser\Entities\Users', 'id',
+            'userId',
+            'Eva\EvaUser\Entities\Users',
+            'id',
             array('alias' => 'user')
         );
         parent::initialize();

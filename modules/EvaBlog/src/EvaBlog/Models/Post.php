@@ -178,6 +178,10 @@ class Post extends Entities\Posts
             $itemQuery->andWhere('imageId > 0');
         }
 
+        if (!empty($query['min_created_at'])) {
+            $itemQuery->andWhere('createdAt > :minCreatedAt:', array('minCreatedAt' => $query['min_created_at']));
+        }
+
         if (!empty($query['sourceName'])) {
             $itemQuery->andWhere('sourceName = :sourceName:', array('sourceName' => $query['sourceName']));
         }

@@ -6,6 +6,7 @@ use Phalcon\Loader;
 use Phalcon\Mvc\Dispatcher;
 use Phalcon\Mvc\ModuleDefinitionInterface;
 use Eva\EvaEngine\Module\StandardInterface;
+use Eva\EvaUser\Models\Login;
 
 class Module implements ModuleDefinitionInterface, StandardInterface
 {

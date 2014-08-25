@@ -33,7 +33,7 @@ return array(
         'paths' => array(
             'module' => 'WscnApiVer2',
             'controller' => 'Admin\Posts',
-            'action' => 'posts',
+            'action' => 'post',
         ),
         'httpMethods' => 'POST'
     ),
@@ -288,6 +288,26 @@ return array(
         'httpMethods' => 'POST'
     ),
 
+    'usersMe' =>  array(
+        'pattern' => '/v2/users/me',
+        'paths' => array(
+            'module' => 'WscnApiVer2',
+            'controller' => 'users',
+        ),
+        'httpMethods' => 'GET'
+    ),
+
+    /*
+    'login' =>  array(
+        'pattern' => '/v2/login',
+        'paths' => array(
+            'module' => 'WscnApiVer2',
+            'controller' => 'login',
+        ),
+        'httpMethods' => 'GET'
+    ),
+    */
+
 
     //Wiki
     'wikiCrateCategory' =>  array(
@@ -312,7 +332,7 @@ return array(
         'pattern' => '/v2/admin/comment',
         'paths' => array(
             'module' => 'WscnApiVer2',
-            'controller' => 'Comment',
+            'controller' => 'comment',
             'action' => 'index',
         ),
         'httpMethods' => 'GET'
@@ -321,9 +341,38 @@ return array(
         'pattern' => '/v2/admin/comment/counter',
         'paths' => array(
             'module' => 'WscnApiVer2',
-            'controller' => 'Comment',
+            'controller' => 'comment',
             'action' => 'counter',
         ),
         'httpMethods' => 'GET'
     ),
+    'commentList' =>  array(
+        'pattern' => '/v2/comments',
+        'paths' => array(
+            'module' => 'WscnApiVer2',
+            'controller' => 'comment',
+            'action' => 'index',
+        ),
+        'httpMethods' => 'GET'
+    ),
+    'createComment' =>  array(
+        'pattern' => '/v2/comments',
+        'paths' => array(
+            'module' => 'WscnApiVer2',
+            'controller' => 'comment',
+            'action' => 'post',
+        ),
+        'httpMethods' => 'POST'
+    ),
+    'getComment' =>  array(
+        'pattern' => '/v2/comments/(\d+)',
+        'paths' => array(
+            'module' => 'WscnApiVer2',
+            'controller' => 'comment',
+            'action' => 'get',
+            'id' => 1,
+        ),
+        'httpMethods' => 'GET'
+    ),
+
 );

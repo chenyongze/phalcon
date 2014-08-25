@@ -1,7 +1,5 @@
 <?
     $this->placeholder->block('title')->set($item->username."的收藏-华尔街见闻");
-    $this->placeholder->block('description')->set("欢迎来到".$item->username."的小屋。华尔街见闻——中国最专业的金融资讯平台；直播外汇、期货、黄金、债券、证券等金融领域的实时新闻。华人投资者可以在这里获得最快速、最精准、最深入的全球财经资讯和市场行情。");
-    $this->placeholder->block('keywords')->set($item->username.",收藏,用户中心,外汇,期货,大宗商品,贵金属,黄金,股市,行情,数据,金融,理财");
 ?>
 <div id="main-content" class="columns-2">
     <div id="main" class="page-user">
@@ -37,7 +35,8 @@
                         </div>
                         <div class="clearfix">
                             <span class="time"><?=$this->tag->datetime($post->createdAt)?></span>
-                            <span class="collect active"></span>
+                            <a data-message="" data-post-id="<?=$post->id?>" data-action="star" href="<?=$post->getUrl()?>" class="collect stared">
+                            </a>
                         </div>
                         </li>
                     <?endif?>
