@@ -1,12 +1,12 @@
 <!---- comment begin -->
 <link rel="stylesheet" href="/css/comment.css">
-<div class="user-comments" id="ws_comment_thread" data-ws-thread="<?=$uniqueKey?>"></div>
+<div class="user-comments" id="commments" data-ws-thread="<?=$uniqueKey?>"></div>
 <?
 $script = $this->tag->javascriptInclude("/js/comments.js").PHP_EOL;
 $script .= <<<HTML
 <script type="text/javascript">
     $(function() {
-        $('#ws_comment_thread').ws_comments();
+        $('#commments').ws_comments();
     });
 </script>
 HTML;
