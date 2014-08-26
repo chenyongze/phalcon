@@ -166,7 +166,8 @@
                 <h2 class="side-title">相关新闻</h2>
                 <ul class="news-list with-dot">
                     <? foreach ($relatedPosts as $connectedPost): ?>
-                        <li><a class="news" href="<?=$this->tag->PostUrl($connectedPost)?>"><?= $connectedPost['title'] ?></a>
+                        <li  class="news" >
+                            <a href="<?=$this->tag->PostUrl($connectedPost)?>"><?= $connectedPost['title'] ?></a>
                         </li>
                     <? endforeach ?>
                 </ul>
