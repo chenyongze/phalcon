@@ -75,7 +75,7 @@
         <input class="admin-control-post" type="hidden" value="<?=$post->id?>">
 
         <div class="meta">
-            <span class="item author">文 / 
+            <span class="item author">文 /
                 <?if($post->user):?>
                 <a href="/news?uid=<?=$post->user->id?>" target="_blank"><?=$post->user->screenName ?: $post->user->username?></a>
                 <?else:?>
