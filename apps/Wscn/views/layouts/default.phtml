@@ -13,8 +13,17 @@
     <meta name="keywords" content="<?=$this->placeholder->block('keywords', '外汇,期货,大宗商品,贵金属,黄金,股市,行情,数据,金融,理财')?>">
     <link rel="search" type="application/opensearchdescription+xml" href="/search/opensearch.xml" title="华尔街见闻">
 
-    <!-- Bootstrap -->
-    <link href="/wscn/css/bootstrap.min.css" rel="stylesheet">
+    <?
+    $this->assets
+    ->collection('headerCss')
+    ->setPrefix('/static')
+    ->addCss('/wscn/css/bootstrap.css')
+    ->addCss('/vendor/fontawesome/css/font-awesome.css')
+    ->addCss('/vendor/nanoscroller/bin/css/nanoscroller.css')
+    ->addCss('/wscn/css/style.css');
+    $this->assets->outputCss('headerCss');
+    ?>
+
     <!-- for ie mobile content-width bug -->
     <script>
         if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
@@ -27,12 +36,6 @@
             document.querySelector('head').appendChild(msViewportStyle);
         }
     </script>
-    <!-- font-awesome -->
-    <link href="/wscn/css/font-awesome.min.css" rel="stylesheet">
-    <!-- nanoScroller -->
-    <link href="/vendor/js/nano-scroller/nanoscroller.css" rel="stylesheet">
-    <!--  -->
-    <link href="/wscn/css/style.css" rel="stylesheet">
     <!-- grunt watch for live reload  -->
     <!--<script src="//127.0.0.1:35729/livereload.js"></script>-->
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -546,23 +549,51 @@
 
 
 <!--[if lt IE 9]>
-<script type="text/javascript" src="/vendor/js/jquery-1.11.1.min.js"></script>
+<?
+$this->assets
+->collection('jQueryIE')
+->setPrefix('/static')
+->addJs('/vendor/jquery-1.11.1/dist/jquery.js');
+$this->assets->outputJs('jQueryIE');
+?>
 <![endif]-->
 
+
 <!--[if gt IE 8]><!-->
-<script type="text/javascript" src="/vendor/js/jquery-2.1.1.min.js"></script>
+<?
+$this->assets
+->collection('jQuery')
+->setPrefix('/static')
+->addJs('/vendor/jquery/dist/jquery.js');
+$this->assets->outputJs('jQuery');
+?>
 <!--<![endif]-->
 
-<!--  -->
-<script src="/vendor/js/nano-scroller/jquery.nanoscroller.js"></script>
-<script src="/vendor/js/parsley.js"></script>
-<script src="/vendor/js/parsley.remote.min.js"></script>
-<script src="/vendor/js/parsley.i18n.zh_cn.js"></script>
-<script src="/vendor/js/jquery.blockUI.js"></script>
-<script src="/vendor/js/jquery.jplayer.min.js" type="text/javascript"></script>
-<script src="/wscn/js/jquery.cityselect.js" type="text/javascript"></script>
-<script src="/vendor/js/jquery.lazyload.js" type="text/javascript"></script>
-<!-- 图片延时加载 -->
+<?
+$this->assets
+->collection('footerJs')
+->setPrefix('/static')
+//->addJs('/wscn/js/bootstrap.js')
+->addJs('/vendor/bootstrap/dist/js/bootstrap.js')
+->addJs('/vendor/moment/moment.js')
+->addJs('/vendor/parsleyjs/dist/parsley.js')
+->addJs('/vendor/parsleyjs/dist/parsley.remote.js')
+->addJs('/vendor/parsleyjs/dist/parsley.remote.js')
+->addJs('/vendor/jquery.lazyload/jquery.lazyload.js')
+->addJs('/vendor/nanoscroller/bin/javascripts/jquery.nanoscroller.js')
+->addJs('/vendor/art-template/dist/template-native.js')
+->addJs('/vendor/jplayer/jquery.jplayer/jquery.jplayer.js')
+->addJs('/vendor/wscn-jscore/wscn_util.js')
+->addJs('/wscn/js/jquery.cityselect.js')
+->addJs('/wscn/js/usermanager.js')
+->addJs('/wscn/js/login-ui.js')
+->addJs('/wscn/js/userlogin.js')
+->addJs('/wscn/js/jquery.fcl.js')
+->addJs('/wscn/js/leftbar.js')
+->addJs('/wscn/js/main.js');
+$this->assets->outputJs('footerJs');
+?>
+
 <script type="text/javascript">
     $("img.lazy").lazyload();
     /*
@@ -571,9 +602,6 @@
         $(window).trigger('resize.lazyload');
     });
     */
-</script>
-<script src="/vendor/js/moment.min.js"></script>
-<script type="text/javascript">
     moment.lang('zh-cn', {
         months : "一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月".split("_"),
         monthsShort : "1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月".split("_"),
@@ -670,22 +698,8 @@
     //
     moment.lang('zh-cn');
 </script>
-<script src="/vendor/js/art-template-native-3.0.0.js"></script>
-<script src="/vendor/wscn/js/wscn_util.js"></script>
-
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/wscn/js/bootstrap.min.js"></script>
-<script src="/wscn/js/usermanager.js"></script>
-<script src="/wscn/js/login-ui.js"></script>
-<script src="/wscn/js/userlogin.js"></script>
-
-<!--  -->
-<script src="/wscn/js/jquery.fcl.js"></script>
-<script src="/wscn/js/main.js"></script>
-<script src="/wscn/js/leftbar.js"></script>
 
 <script>
-
 $(document).ready(function(){
     UserLogin.getInstance();
     //form validation
