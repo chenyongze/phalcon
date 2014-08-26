@@ -249,12 +249,11 @@ img.lazy {
 .cover-img .subtitle {
   height: 1.5em;
 }
-.pagingbar .button,
-.toolbar.paging .button {
+.pagingbar .button {
   display: inline-block;
   margin-right: 5px;
   border: 1px solid #c8c8c8;
-  min-width: 28px;
+  min-width: 30px;
   padding: 0 5px;
   height: 28px;
   line-height: 28px;
@@ -263,26 +262,23 @@ img.lazy {
   color: #0078d2;
 }
 .pagingbar .button:hover,
-.toolbar.paging .button:hover,
-.pagingbar .button.active,
-.toolbar.paging .button.active {
+.pagingbar .button.active {
   border-color: #0078d2;
   background-color: #0078d2;
   color: #fff;
 }
 .pagingbar .button[data-action=prev-page],
-.toolbar.paging .button[data-action=prev-page],
-.pagingbar .button[data-action=next-page],
-.toolbar.paging .button[data-action=next-page] {
+.pagingbar .button[data-action=next-page] {
   width: 78px;
   color: #646464;
 }
 .pagingbar .button[data-action=prev-page]:hover,
-.toolbar.paging .button[data-action=prev-page]:hover,
-.pagingbar .button[data-action=next-page]:hover,
-.toolbar.paging .button[data-action=next-page]:hover {
+.pagingbar .button[data-action=next-page]:hover {
   background-color: transparent;
   color: #0078d2;
+}
+.lt-ie10 .pagingbar .button {
+  min-width: 18px;
 }
 .livenews-list {
   font-size: 12px;
@@ -691,6 +687,9 @@ img.lazy {
   .side-tags {
     margin-right: -15px;
   }
+}
+.lt-ie10 .side-tags > .tag {
+  min-width: 68px;
 }
 .hot-news .news {
   display: block;
@@ -3251,6 +3250,9 @@ body.show-breaking-news #breaking-news {
 }
 .page-article .related-posts .news-list .news:hover:before {
   background-color: #0078d2;
+}
+.lt-ie10 .page-article .tags .tag {
+  min-width: 68px;
 }
 .page-search .crumbs-title {
   font-size: 16px;
