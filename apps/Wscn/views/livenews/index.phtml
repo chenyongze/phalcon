@@ -330,7 +330,7 @@
                             <span class="time"><a href="/livenews/detail/<%= record.id%>"><%= record.time %></a></span>
                             <span class="icon fa fa-file-text"></span>
                             <div class="control-box">
-                                <div class="meta meta-comments" data-toggle="comments">
+                                <div class="meta meta-comments" data-toggle="comments" data-target="#livenews-<%= record.id %>">
                                     <a href="">
                                         <span class="fa fa-comment"></span>
                                         <span class="text"><%= record.commentCount %></span>
@@ -354,7 +354,7 @@
                             <div class="content"><%= record.contentHtml %></div>
                             <div class="details"></div>
                             <% if (record.hasMore == "1") { %>
-                                <span class="more fa"></span>
+                                <span class="more fa" data-toggle="details" data-id="<%= record.id %>"></span>
                             <% } %>
                             <div class="comments"></div>
                         </li>
@@ -368,7 +368,7 @@
                                     <i class="fa fa-star star <%= record.importance > 2 ? 'active' : '' %>"></i>
                                 </span>
                                 <div class="control-box">
-                                    <div class="meta meta-comments" data-toggle="comments">
+                                    <div class="meta meta-comments" data-toggle="comments" data-target="#livenews-<%= record.id %>">
                                         <a href="">
                                             <span class="fa fa-comment"></span>
                                             <span class="text"><%= record.commentCount %></span>
@@ -415,7 +415,7 @@
                                 </div>
                                 <div class="details"></div>
                                 <% if (record.hasMore == "1") { %>
-                                <span class="more fa"></span>
+                                <span class="more fa" data-toggle="details" data-id="<%= record.id %>"></span>
                                 <% } %>
                                 <div class="comments"></div>
                             </li>
@@ -424,7 +424,7 @@
                                 <span class="time"><%= record.time %></span>
                                 <span class="icon fa fa-file-text"></span>
                                 <div class="control-box">
-                                    <div class="meta meta-comments" data-toggle="comments">
+                                    <div class="meta meta-comments" data-toggle="comments" data-target="#livenews-<%= record.id %>">
                                         <a href="">
                                             <span class="fa fa-comment"></span>
                                             <span class="text"><%= record.commentCount %></span>
@@ -448,7 +448,7 @@
                                 <div class="content"><%= record.contentHtml %></div>
                                 <div class="details"></div>
                                 <% if (record.hasMore == "1") { %>
-                                <span class="more fa"></span>
+                                <span class="more fa" data-toggle="details" data-id="<%= record.id %>"></span>
                                 <% } %>
                                 <div class="comments"></div>
                             </li>

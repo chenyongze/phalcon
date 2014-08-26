@@ -81,7 +81,9 @@ $(function(){
         baseUpdateUrl: 'http://api.rebirth.wallstreetcn.com:80/v2/livenews/realtime?limit=3',
         url: 'http://api.rebirth.wallstreetcn.com:80/v2/livenews?limit=40',
         updateUrl: 'http://api.rebirth.wallstreetcn.com:80/v2/livenews/realtime?limit=3',
-        updateTimeout: 10000
+        updateTimeout: 10000,
+        //todo 修改
+        detailsUrl: 'http://rebirth.wallstreetcn.com/livenews/detail/'
     };
     var uri = {
         baseUrl: location.href.replace(/\?.*|#.*/, ''),
@@ -301,6 +303,42 @@ $(function(){
                 option.alert = false;
                 WSCN_UTIL.cookie.setCookie('livenews-alert', 'no');
             }
+        });
+        //展开 或 收起 详情
+        $body.on('click', '[data-toggle=details]', function(e){
+            var $this = $(this);
+            if ($this.hasClass('loading')) {
+                return;
+            }
+            //
+            var $details = $this.prev();
+            //
+            if ($this.hasClass('complete')) {
+                $this.toggleClass('active');
+                $details.toggleClass('active');
+            } else {
+                $this.addClass('loading');
+                $.ajax({
+                    url: option.detailsUrl + $this.attr('data-id'),
+                    dataType: 'html',
+                    success: function(response) {
+                        var $html = $(response);
+                        var details = $html.find('#content-extra').html();
+                        $details.html(details);
+                        $this.removeClass('loading');
+                        $this.addClass('complete active');
+                        $details.addClass('active');
+                    }
+                });
+            }
+
+
+        });
+        //展开 或 收起 评论
+        $body.on('click', '[data-toggle=comments]', function(e){
+            var $news = $($(this).attr('data-target'));
+            $news.children('.comments').toggleClass('active');
+            e.preventDefault();
         });
     }
 
