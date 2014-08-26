@@ -39,10 +39,14 @@ upgrade:
 	git pull
 	composer update
 	git submodule update --init --recursive
+	cnpm update
+	grunt less:wscn
 
 update:
 	git pull
 	git submodule update --init --recursive
+	cnpm update
+	grunt less:wscn
 
 install-dev:
 	composer install --dev
@@ -54,6 +58,8 @@ install-dev:
 	sudo chown -R www-data.www-data ./public/cache
 	sudo chown -R www-data.www-data ./public/tmp
 	sudo chown -R www-data.www-data ./public/thumbnails/thumb
+	cnpm install
+	grunt less:wscn
 
 install:
 	composer install --no-dev --optimize-autoloader
@@ -65,3 +71,5 @@ install:
 	sudo chown -R www-data.www-data ./public/cache
 	sudo chown -R www-data.www-data ./public/tmp
 	sudo chown -R www-data.www-data ./public/thumbnails/thumb
+	cnpm install
+	grunt less:wscn
