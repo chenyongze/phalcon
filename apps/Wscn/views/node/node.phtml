@@ -75,7 +75,7 @@
         <input class="admin-control-post" type="hidden" value="<?=$post->id?>">
 
         <div class="meta">
-            <span class="item author">文 / 
+            <span class="item author">文 /
                 <?if($post->user):?>
                 <a href="/news?uid=<?=$post->user->id?>" target="_blank"><?=$post->user->screenName ?: $post->user->username?></a>
                 <?else:?>
@@ -166,7 +166,7 @@
                 <h2 class="side-title">相关新闻</h2>
                 <ul class="news-list with-dot">
                     <? foreach ($relatedPosts as $connectedPost): ?>
-                        <li><a class="news" href="/node/<?= $connectedPost['id'][0] ?>"><?= $connectedPost['title'][0] ?></a>
+                        <li><a class="news" href="/node/<?= $connectedPost['id'] ?>"><?= $connectedPost['title'] ?></a>
                         </li>
                     <? endforeach ?>
                 </ul>

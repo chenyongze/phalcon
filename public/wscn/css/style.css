@@ -1184,6 +1184,12 @@ img.lazy {
   right: 0;
   background-image: url(../icon/arrow-right.png);
 }
+.lt-ie9 .custom-modal {
+  filter: alpha(opacity = 50);
+}
+.lt-ie9 .custom-modal .custom-modal-content {
+  position: relative;
+}
 #user-modal label {
   font-weight: normal;
 }
