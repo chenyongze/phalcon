@@ -23,7 +23,7 @@
                                 <img class="lazy img" src="/wscn/img/default.png" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_120,w_200') : '/img/article.jpg'?>" alt=""/>
                             </a>
                             <div class="content">
-                                <a class="title" href="<?=$post->getUrl()?>"><?=$post->title?><a>
+                                <a class="title" href="<?=$post->getUrl()?>"><?=$post->title?></a>
                                 <p class="summary">
                                 <?if($post->summary):?>
                                     <?=$post->getSummaryHtml()?>
@@ -36,6 +36,8 @@
                         <div class="clearfix">
                             <span class="time"><?=$this->tag->datetime($post->createdAt)?></span>
                             <a data-message="" data-post-id="<?=$post->id?>" data-action="star" href="<?=$post->getUrl()?>" class="collect stared">
+                                <span class="fa fa-star"></span>
+                                <span class="text"></span>
                             </a>
                         </div>
                         </li>

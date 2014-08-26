@@ -211,37 +211,11 @@
                     &:hover {
                         color: @skyblue;
                     }
-                    &:before {
-                        font-family: 'Glyphicons Halflings';
-                        -webkit-font-smoothing: antialiased;
-                        -moz-osx-font-smoothing: grayscale;
-                        display: inline-block;
-                        vertical-align: middle;
-                        width: 30px;
-                        height: 20px;
-                        text-align: center;
-                        line-height: 20px;
+                    .fa {
                         font-size: 16px;
-                        content: "\e007";
                     }
-                    &:after {
-                        display: inline;
-                        width: 4em;
-                        height: 20px;
-                        line-height: 20px;
-                        vertical-align: middle;
-                        content: "添加收藏"
-                    }
-                    &.active {
-                        &:before {
-                            content: "\e006";
-                        }
-                        &:after {
-                            display: inline;
-                            width: 4em;
-                            height: 20px;
-                            content: "取消收藏"
-                        }
+                    &.stared {
+                        color: @blue;
                     }
                 }
             }

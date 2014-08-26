@@ -10,7 +10,7 @@
     <div class="sharebar">
         <a class="collect not-stared" href="" data-action="star" data-post-id="<?= $post->id ?>" data-message="登录后收藏">
             <span class="fa fa-star"></span>
-            收藏
+            <span class="text"></span>
         </a>
         <a class="discuss" href="#comments">
             <span class="fa fa-comment"></span>
@@ -110,7 +110,7 @@
         </p>
 
         <div class="toolbar">
-            <a class="collect" href="">
+            <a class="collect" href="" data-action="star" data-post-id="<?= $post->id ?>" data-message="登录后收藏">
                 <span class="fa fa-star"></span>
             </a>
             <a class="endorse">
