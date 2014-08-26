@@ -42,7 +42,7 @@
                 <?if($post):?>
                 <li class="news visible-xxs visible-xs">
                     <a class="title" href="<?=$post->getUrl()?>">
-                        <strong><?=$post->title?></strong>
+                        <strong title="<?=$post->title?>"><?=$post->title?></strong>
                     </a>
                 </li>
                 <?endif?>
@@ -50,7 +50,7 @@
                 <?if($post):?>
                 <li class="news visible-xxs visible-xs">
                     <a class="title" href="<?=$post->getUrl()?>">
-                        <strong><?=$post->title?></strong>
+                        <strong title="<?=$post->title?>"><?=$post->title?></strong>
                     </a>
                 </li>
                 <?endif?>
@@ -58,7 +58,7 @@
                 <?if($post):?>
                 <li class="news hidden-lg">
                     <a class="title" href="<?=$post->getUrl()?>">
-                        <strong><?=$post->title?></strong>
+                        <strong title="<?=$post->title?>"><?=$post->title?></strong>
                     </a>
                 </li>
                 <?endif?>
@@ -68,7 +68,7 @@
                 <?$post = $posts->current()?>
                 <li class="news">
                     <a class="title" href="<?=$post->getUrl()?>">
-                        <strong><?=$post->title?></strong>
+                        <strong title="<?=$post->title?>"><?=$post->title?></strong>
                     </a>
                 </li>
                 <?endwhile?>
