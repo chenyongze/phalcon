@@ -7,3 +7,4 @@ vendor/*
 log/*
 .idea*
 *.swp
+npm-debug.log
