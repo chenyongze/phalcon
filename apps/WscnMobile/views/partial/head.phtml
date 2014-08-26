@@ -1,6 +1,12 @@
-        <link href="favicon.ico" rel="shortcut icon" type="image/x-icon">
-        <link rel="stylesheet" type="text/css" href="/wscnm/gmu/reset.css" />
-        <link rel="stylesheet" type="text/css" href="/wscnm/gmu/gmu.css" />
-        <link rel="stylesheet" type="text/css" href="/wscnm/css/style.css" />
-		<link rel="apple-touch-icon" href="/wscnm/img/bookmark.png"/> 
+<link href="favicon.ico" rel="shortcut icon" type="image/x-icon">
+<?
+$this->assets
+->collection('headerCss')
+->setPrefix('/static')
+->addCss('/wscnm/gmu/reset.css')
+->addCss('/wscnm/gmu/gmu.css')
+->addCss('/wscnm/css/style.css');
+$this->assets->outputCss('headerCss');
+?>
+<link rel="apple-touch-icon" href="/wscnm/img/bookmark.png"/> 
 
