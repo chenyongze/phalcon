@@ -231,7 +231,7 @@
                 &:hover {
                     color: @blue;
                 }
-                &.comments {
+                &.meta-comments {
                     margin-top: -1px;
                     .text {
                         margin-top: 1px;
@@ -241,10 +241,11 @@
         }
         & > .more {
             display: block;
-            margin:0 auto;
+            cursor: pointer;
+            margin: 2px auto -10px;
             width: 30px;
             text-align: center;
-            line-height: 16px;
+            line-height: 20px;
             &:hover {
                 color: @blue;
             }
@@ -254,10 +255,32 @@
             &.active:before {
                 content: "\f077";
             }
+            &.loading {
+                font-size: 18px;
+                color: @blue;
+                .animation(spin 2s infinite linear);
+                &:before {
+                    content: "\f110";
+                }
+            }
         }
         & > .content {
             position: relative;
             min-height: 40px;
+        }
+        & > .details {
+            display: none;
+            margin-top: 15px;
+            &.active {
+                display: block;
+            }
+        }
+        & > .comments {
+            display: none;
+            margin-top: 25px;
+            &.active {
+                display: block;
+            }
         }
 
         &.type-img ,

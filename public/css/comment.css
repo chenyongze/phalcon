@@ -41,7 +41,7 @@
 
 .ws-reply-box > form .submit {
     display: block;
-    margin: 5px 0;
+    margin: 15px 0 5px;
     float: right;
     color: #fff;
     background: #0078d2;
@@ -51,7 +51,9 @@
 }
 
 .ws-reply-box > form .submit:hover {
-    background: #0097f4;
+    text-align: center;
+    border: 1px solid #0082e6;
+    background: #0082e6;
 }
 
 .ws-reply-box:after {
@@ -75,6 +77,10 @@
 .ws-sort a {
     display: inline-block;
     margin-left: 10px;
+}
+
+.ws-sort a:hover {
+    color: #0078d2;
 }
 
 .ws-comments {
@@ -109,9 +115,8 @@
 }
 
 .ws-username {
-    font-size: 15px;
-    /*font-weight: bold;*/
-    color: #0A61A3;
+    font-size: 12px;
+    color: #0078d2;
 }
 
 .ws-comment-content {
@@ -146,11 +151,15 @@
 }
 
 .ws-comment-actions a:hover {
-    color: #555;
+    color: #0078d2;
     text-decoration: none;
 }
 
 a.ws-comment-voted {
+    color: #d32;
+}
+
+a.ws-comment-voted:hover {
     color: #d32;
 }
 

@@ -9,7 +9,7 @@
             <?$posts->valid(); $post = $posts->current();?>
             <?if($post):?>
             <a class="top1 cover-img" href="<?=$post->getUrl()?>">
-                <img class="lazy img" src="/wscn/img/bg-img.gif" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_300,w_426') : '/img/article.jpg'?>" alt=""/>
+                <img class="lazy img" src="/wscn/img/default.png" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_300,w_426') : '/img/article.jpg'?>" alt=""/>
                 <div class="cover">
                     <h3 class="title"><?=$post->title?></h3>
                 </div>
@@ -18,7 +18,7 @@
             <?$posts->valid(); $post = $posts->current();?>
             <?if($post):?>
             <a class="top2 cover-img" href="<?=$post->getUrl()?>">
-                <img class="lazy img" src="/wscn/img/bg-img.gif" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_149,w_212') : '/img/article.jpg'?>" alt=""/>
+                <img class="lazy img" src="/wscn/img/default.png" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_149,w_212') : '/img/article.jpg'?>" alt=""/>
                 <div class="cover">
                     <h3 class="title"><?=$post->title?></h3>
                 </div>
@@ -27,7 +27,7 @@
             <?$posts->valid(); $post = $posts->current();?>
             <?if($post):?>
             <a class="top3 cover-img" href="<?=$post->getUrl()?>">
-                <img class="lazy img" src="/wscn/img/bg-img.gif" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_149,w_212') : '/img/article.jpg'?>" alt=""/>
+                <img class="lazy img" src="/wscn/img/default.png" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_149,w_212') : '/img/article.jpg'?>" alt=""/>
                 <div class="cover">
                     <h3 class="title"><?=$post->title?></h3>
                 </div>
@@ -87,7 +87,7 @@
                     <?foreach($posts as $post):?>
                     <li class="news">
                         <a href="<?=$post->getUrl()?>">
-                            <img class="lazy img" src="/wscn/img/bg-img.gif" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_140,w_200') : '/img/article.jpg'?>" alt=""/>
+                            <img class="lazy img" src="/wscn/img/default.png" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_140,w_200') : '/img/article.jpg'?>" alt=""/>
                         </a>
                         <div class="content">
                             <a class="title" href="<?=$post->getUrl()?>"><?=$post->title?></a>
@@ -142,7 +142,7 @@
                     <?foreach($posts as $post):?>
                     <li class="news">
                         <a href="<?=$post->getUrl()?>">
-                            <img class="lazy img" src="/wscn/img/bg-img.gif" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_140,w_200') : '/img/article.jpg'?>" alt=""/>
+                            <img class="lazy img" src="/wscn/img/default.png" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_140,w_200') : '/img/article.jpg'?>" alt=""/>
                         </a>
                         <div class="content">
                             <a class="title" href="<?=$post->getUrl()?>"><?=$post->title?></a>
@@ -187,10 +187,10 @@
 
             <ul class="custom-nav-tabs custom-row">
                 <li class="col-custom-6 active">
-                    <a data-toggle="tab" href="#side-day-rank-news"><strong>日排行</strong></a>
+                    <a data-toggle="tab" href="#side-day-rank-news">日排行</a>
                 </li>
                 <li class="col-custom-6 ">
-                    <a data-toggle="tab" href="#side-week-rank-news"><strong>周排行</strong></a>
+                    <a data-toggle="tab" href="#side-week-rank-news">周排行</a>
                 </li>
             </ul>
             <ul class="tab-content">

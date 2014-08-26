@@ -330,7 +330,7 @@
                             <span class="time"><a href="/livenews/detail/<%= record.id%>"><%= record.time %></a></span>
                             <span class="icon fa fa-file-text"></span>
                             <div class="control-box">
-                                <div class="meta comments">
+                                <div class="meta meta-comments" data-toggle="comments" data-target="#livenews-<%= record.id %>">
                                     <a href="">
                                         <span class="fa fa-comment"></span>
                                         <span class="text"><%= record.commentCount %></span>
@@ -352,9 +352,11 @@
                                 </div>
                             </div>
                             <div class="content"><%= record.contentHtml %></div>
+                            <div class="details"></div>
                             <% if (record.hasMore == "1") { %>
-                                <span class="more fa"></span>
+                                <span class="more fa" data-toggle="details" data-id="<%= record.id %>"></span>
                             <% } %>
+                            <div class="comments"></div>
                         </li>
                     <% } else if (record.type =='data') { %>
                         <% if (record.codeType == 'json') { %>
@@ -366,7 +368,7 @@
                                     <i class="fa fa-star star <%= record.importance > 2 ? 'active' : '' %>"></i>
                                 </span>
                                 <div class="control-box">
-                                    <div class="meta comments">
+                                    <div class="meta meta-comments" data-toggle="comments" data-target="#livenews-<%= record.id %>">
                                         <a href="">
                                             <span class="fa fa-comment"></span>
                                             <span class="text"><%= record.commentCount %></span>
@@ -411,16 +413,18 @@
                                         <span class="value current"><%= record.data.actual %></span>
                                     </div>
                                 </div>
+                                <div class="details"></div>
                                 <% if (record.hasMore == "1") { %>
-                                    <span class="more fa"></span>
+                                <span class="more fa" data-toggle="details" data-id="<%= record.id %>"></span>
                                 <% } %>
+                                <div class="comments"></div>
                             </li>
                         <% } else { %>
                             <li id="livenews-<%= record.id %>" class="news" data-utm="<%= record.utm %>" data-day="<%= record.day %>">
                                 <span class="time"><%= record.time %></span>
                                 <span class="icon fa fa-file-text"></span>
                                 <div class="control-box">
-                                    <div class="meta comments">
+                                    <div class="meta meta-comments" data-toggle="comments" data-target="#livenews-<%= record.id %>">
                                         <a href="">
                                             <span class="fa fa-comment"></span>
                                             <span class="text"><%= record.commentCount %></span>
@@ -442,9 +446,11 @@
                                     </div>
                                 </div>
                                 <div class="content"><%= record.contentHtml %></div>
+                                <div class="details"></div>
                                 <% if (record.hasMore == "1") { %>
-                                    <span class="more fa"></span>
+                                <span class="more fa" data-toggle="details" data-id="<%= record.id %>"></span>
                                 <% } %>
+                                <div class="comments" data-ws-thread="livenews_<%= record.id %>"></div>
                             </li>
                         <% } %>
                     <% } %>
@@ -587,3 +593,13 @@
     </div>
     <!-- rightbar end -->
 </div>
+
+<!---- comment begin -->
+<link rel="stylesheet" href="/css/comment.css">
+<?
+$script = $this->tag->javascriptInclude("/js/comments.js").PHP_EOL;
+$script .= $this->tag->javascriptInclude("/wscn/js/livenews.js").PHP_EOL;
+$this->placeholder->block('script')->set($script);
+
+?>
+<!---- comment end   -->

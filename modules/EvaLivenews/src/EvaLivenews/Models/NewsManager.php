@@ -238,9 +238,17 @@ class NewsManager extends Entities\News
 
         $categoryData = isset($data['categories']) ? $data['categories'] : array();
         $textData = isset($data['text']) ? $data['text'] : array();
+        $hasMore = 0;
 
         if ($textData) {
             unset($data['text']);
+            foreach ($textData as $textValue) {
+                $textValue = trim($textValue);
+                if ($textData && $textValue !== '<p></p>') {
+                    $hasMore = 1;
+                    break;
+                }
+            }
             $text = new Text();
             $text->assign($textData);
             $this->text = $text;
@@ -260,6 +268,7 @@ class NewsManager extends Entities\News
         }
 
 
+        $data['hasMore'] = $hasMore;
         $this->assign($data);
         if (!$this->save()) {
             throw new Exception\RuntimeException('Create news failed');
@@ -275,9 +284,17 @@ class NewsManager extends Entities\News
         $this->getDI()->getEventsManager()->fire('livenews:beforeUpdate', $this);
         $categoryData = isset($data['categories']) ? $data['categories'] : array();
         $textData = isset($data['text']) ? $data['text'] : array();
+        $hasMore = 0;
 
         if ($textData) {
             unset($data['text']);
+            foreach ($textData as $textValue) {
+                $textValue = trim($textValue);
+                if ($textData && $textValue !== '<p></p>') {
+                    $hasMore = 1;
+                    break;
+                }
+            }
             $text = new Text();
             $text->assign($textData);
             $this->text = $text;
@@ -300,6 +317,7 @@ class NewsManager extends Entities\News
             $this->categories = $categories;
         }
 
+        $data['hasMore'] = $hasMore;
         $this->assign($data);
         if (!$this->save()) {
             throw new Exception\RuntimeException('Update news failed');
