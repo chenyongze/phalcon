@@ -343,6 +343,7 @@ $(function(){
             } else {
                 $comments.ws_comments();
                 $comments.addClass('active');
+                $this.addClass('complete');
             }
             e.preventDefault();
         });
