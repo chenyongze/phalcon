@@ -22,6 +22,9 @@ class Module implements ModuleDefinitionInterface, StandardInterface
 
     public static function registerGlobalViewHelpers()
     {
+        return array(
+            'PostUrl' => 'Eva\EvaBlog\ViewHelpers\PostUrl'
+        );
     }
 
     public static function registerGlobalRelations()

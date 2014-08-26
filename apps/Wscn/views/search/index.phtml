@@ -62,25 +62,25 @@ $this->placeholder->block('keywords')->set($this->escaper->escapeHtmlAttr($keywo
             <? if(isset($pager->items)):?>
             <ul class="news-list with-img" id="search-result">
                 <? foreach ($pager->items as $hit): ?>
-                    <? $post = json_decode(json_encode($hit['_source'])); ?>
+                    <? $post = $hit['_source']; ?>
                     <li class="news">
-                        <a href="/node/<?=$post->id?>" target="_blank">
-                            <img class="lazy img" src="/wscn/img/bg-img.gif" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_140,w_200') : '/img/article.jpg'?>" alt=""/>
+                        <a href="/node/<?=$post['id']?>" target="_blank">
+                            <img class="lazy img" src="/wscn/img/bg-img.gif" data-original="<?=$post['image'] ? $this->tag->thumb($post['image'], 'c_fill,h_140,w_200') : '/img/article.jpg'?>" alt=""/>
                         </a>
                         <div class="content">
-                            <a class="title" href="/node/<?=$post->id?>" target="_blank"><?=isset($hit['highlight']['title']) ? $hit['highlight']['title'][0] : $post->title?></a>
+                            <a class="title" href="<?=$this->tag->PostUrl($post)?>" target="_blank"><?=isset($hit['highlight']['title']) ? $hit['highlight']['title'][0] : $post->title?></a>
                             <div>
-                                <span class="meta author">文 / <?=$post->username ? $post->username : '华尔街见闻'?></span>
-                                <span class="meta time visible-lg-inline-block"><?=$this->tag->datetime($post->createdAt)?></span>
+                                <span class="meta author">文 / <?=$post['username'] ? $post['username'] : '华尔街见闻'?></span>
+                                <span class="meta time visible-lg-inline-block"><?=$this->tag->datetime($post['createdAt'])?></span>
                                 <span class="meta endorse pull-right">
-                                    <i class="fa fa-thumbs-up"></i> <?=$post->upVote ? $post->upVote : 0?>
+                                    <i class="fa fa-thumbs-up"></i> <?=$post['upVote'] ? $post['upVote'] : 0?>
                                 </span>
                             </div>
                             <div class="summary hidden-xxs">
                                 <?= isset($hit['highlight']['content']) ? implode(
                                         ' ... ',
                                         $hit['highlight']['content']
-                                    ) . '  ... ' : \Eva\EvaEngine\Text\Substring::substrCn($post->content, 100) ?>
+                                    ) . '  ... ' : \Eva\EvaEngine\Text\Substring::substrCn($post['content'], 100) ?>
                             </div>
                         </div>
                     </li>

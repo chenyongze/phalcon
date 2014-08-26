@@ -180,7 +180,8 @@ class PostSearcher extends Post
         $searchParams['fields'] = array(
             'id',
             'title',
-            'createdAt'
+            'createdAt',
+            'slug'
         );
 
         $searchParams['body']['query']['more_like_this'] = array(
