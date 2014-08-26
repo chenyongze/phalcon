@@ -2,6 +2,7 @@ nohup.out
 composer.lock
 config/_*
 config/config.local.php
+node_modules/*
 vendor/*
 log/*
 .idea*
