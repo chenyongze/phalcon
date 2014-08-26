@@ -182,7 +182,7 @@ class LivenewsController extends ControllerBase
             //No limit when has min updated
             //TODO: should change cid as a filter
             $limit = 100;
-            $data = $redis->zRangeByScore("livenews", $minUpdated, 999999999, array(
+            $data = $redis->zRangeByScore("livenews", $minUpdated, 1999999999, array(
                 'limit' => array(0, (int) $limit)
             ));
         } else {
