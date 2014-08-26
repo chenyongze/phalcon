@@ -3,6 +3,7 @@
 return array(
     //Phalcon default settings
     'baseUri' => '/',
+    'staticBaseUri' => '/static',
 
 
     //System DI settings:
