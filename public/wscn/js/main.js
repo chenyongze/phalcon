@@ -1,5 +1,5 @@
 //滚动条部分初始化
-(function($){
+$(function(){
     //页面右侧事实新闻
     /*$('#side-livenews').nanoScroller({
         alwaysVisible: true,
@@ -8,10 +8,10 @@
     });*/
     //页面经济日历
     $('.fc-list').fcl();
-})(jQuery);
+});
 
 //收藏
-(function($){
+$(function(){
     var loginUI = UserLogin.getInstance().getLoginUI();
     var usrManager = UserManager.getInstance();
 
@@ -67,14 +67,16 @@
         e.preventDefault();
     });
 
-})(jQuery);
+});
 
-(function(){
+$(function(){
     //左侧行情
     var $leftbar = $('#leftbar');
     if ($leftbar.length) {
         //todo
-        //$leftbar.css('top', $('#content').offset().top);
+        var contentTop = $('#content').offset().top;
+        console.log('the content top is ' + contentTop);
+        $leftbar.css('top', contentTop);
         var $window   = $(window);
         var $document = $(document);
         var $footer   = $('#footer');
@@ -103,7 +105,7 @@
             }
         });
     }
-})();
+});
 
 //搜索列表 高亮 关键字
 //$(function(){
@@ -117,7 +119,7 @@
 //    dom.innerHTML = html.replace(new RegExp(keyword, 'gm'), '<span class="search-highlight">' + keyword + '</span>');
 //});
 
-(function($){
+$(function(){
 
     /**
      * 导航栏高亮
@@ -270,4 +272,4 @@
         $(selector).val($(this).val());
     });
 
-})(jQuery);
+});

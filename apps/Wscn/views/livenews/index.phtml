@@ -352,9 +352,11 @@
                                 </div>
                             </div>
                             <div class="content"><%= record.contentHtml %></div>
+                            <div class="details"></div>
                             <% if (record.hasMore == "1") { %>
                                 <span class="more fa"></span>
                             <% } %>
+                            <div class="comments"></div>
                         </li>
                     <% } else if (record.type =='data') { %>
                         <% if (record.codeType == 'json') { %>
@@ -411,9 +413,11 @@
                                         <span class="value current"><%= record.data.actual %></span>
                                     </div>
                                 </div>
+                                <div class="details"></div>
                                 <% if (record.hasMore == "1") { %>
-                                    <span class="more fa"></span>
+                                <span class="more fa"></span>
                                 <% } %>
+                                <div class="comments"></div>
                             </li>
                         <% } else { %>
                             <li id="livenews-<%= record.id %>" class="news" data-utm="<%= record.utm %>" data-day="<%= record.day %>">
@@ -442,9 +446,11 @@
                                     </div>
                                 </div>
                                 <div class="content"><%= record.contentHtml %></div>
+                                <div class="details"></div>
                                 <% if (record.hasMore == "1") { %>
-                                    <span class="more fa"></span>
+                                <span class="more fa"></span>
                                 <% } %>
+                                <div class="comments"></div>
                             </li>
                         <% } %>
                     <% } %>

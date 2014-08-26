@@ -41,6 +41,7 @@ body {
     float: left;
     padding: 0 15px;
     margin-bottom: 30px;
+    min-height: 800px;
 }
 
 //----------------------------------------
@@ -123,23 +124,24 @@ body {
 }
 
 
-body {
-    .transition(padding 0.3s);
-}
+
 #breaking-news{
     .transition(height 0.3s);
 }
-#leftbar {
-    //.transition(top 0.3s\, bottom 0.3s);
-}
+
 #wrapper {
     .transition(margin 0.3s);
 }
-
+body.ready {
+    .transition(padding 0.3s);
+}
 body.show-breaking-news {
     padding-top: 130px;
     #leftbar {
-        top: 130px;
+        top: 250px !important;
+        &.unwind {
+            top: 130px !important;
+        }
     }
     #breaking-news {
         height: 40px;

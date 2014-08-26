@@ -1847,6 +1847,7 @@ img.lazy {
 }
 #leftbar.moveout {
   bottom: 100%;
+  overflow: hidden;
 }
 #leftbar > .custom-close {
   position: absolute;
@@ -2388,6 +2389,7 @@ body {
   float: left;
   padding: 0 15px;
   margin-bottom: 30px;
+  min-height: 800px;
 }
 @media (min-width: 768px) {
   /*#postbar {
@@ -2456,12 +2458,6 @@ body {
     width: 330px;
   }
 }
-body {
-  -webkit-transition: padding 0.3s;
-  -moz-transition: padding 0.3s;
-  -o-transition: padding 0.3s;
-  transition: padding 0.3s;
-}
 #breaking-news {
   -webkit-transition: height 0.3s;
   -moz-transition: height 0.3s;
@@ -2478,7 +2474,10 @@ body.show-breaking-news {
   padding-top: 130px;
 }
 body.show-breaking-news #leftbar {
-  top: 130px;
+  top: 250px !important;
+}
+body.show-breaking-news #leftbar.unwind {
+  top: 130px !important;
 }
 body.show-breaking-news #breaking-news {
   height: 40px;
