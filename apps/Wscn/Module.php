@@ -51,10 +51,14 @@ class Module implements ModuleDefinitionInterface, StandardInterface
         $dispatcher = $di->getDispatcher();
         $dispatcher->setDefaultNamespace('Wscn\Controllers');
         View::registerComponent('post', 'Eva\EvaBlog\Components\Post');
+        View::registerComponent('search', 'Eva\EvaBlog\Components\Search');
 
-        $di->set('widget', function() {
-            return new Components\Widget();
-        });
+        $di->set(
+            'widget',
+            function () {
+                return new Components\Widget();
+            }
+        );
     }
 
 }

@@ -36,6 +36,7 @@ class PostSearcher extends Post
         $searchParams = array();
         $searchParams['index'] = $this->es_config['index_name'];
         $searchParams['type'] = 'article';
+
         $searchParams['size'] = isset($query['limit']) && intval($query['limit']) > 0 ? intval($query['limit']) : 15;
         $page = isset($query['page']) && intval($query['page']) > 0 ? intval($query['page']) : 1;
         $searchParams['from'] = ($page - 1) * $searchParams['size'];
@@ -193,11 +194,7 @@ class PostSearcher extends Post
         if ($filters) {
             $searchParams['body']['filter']['and']['filters'] = $filters;
         }
-//        $searchParams['body']['sort'] = array(
-//            'createdAt' => array(
-//                'order' => 'desc'
-//            )
-//        );
+
         $ret = $this->es_client->search($searchParams);
         $posts = array();
         foreach ($ret['hits']['hits'] as $hit) {
@@ -208,6 +205,5 @@ class PostSearcher extends Post
             $posts[] = $hit['fields'];
         }
         return $posts;
-//        dd($ret);
     }
-} 
+}
