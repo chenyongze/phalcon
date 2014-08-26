@@ -70,7 +70,7 @@
             </div>
         </div>
         <? if ($news->imageId): ?>
-            <img class="main-image lazy" src="/wscn/img/bg-img.gif" alt=""
+            <img class="main-image lazy" src="/wscn/img/default.png" alt=""
                  data-original="<?=
                  $news->thumbnail->imageWidth > 640 || $news->thumbnail->imageHeight > 350 ?
                      $this->tag->thumb($news->image, 'c_fill,h_350,w_640') : $this->tag->thumb($news->image)?>"/>
@@ -255,7 +255,7 @@
         <? foreach ($newss as $hotpost): ?>
             <li>
                 <a href="<?= $hotpost->getUrl() ?>" class="news">
-                    <img class="lazy img" src="/wscn/img/bg-img.gif"
+                    <img class="lazy img" src="/wscn/img/default.png"
                          data-original="<?=
                          $hotpost->image ? $this->tag->thumb(
                              $hotpost->image,
