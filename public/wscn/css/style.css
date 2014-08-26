@@ -3568,10 +3568,10 @@ body.show-breaking-news #breaking-news {
 #livenews-list .news .control-box .meta:hover {
   color: #0078d2;
 }
-#livenews-list .news .control-box .meta.comments {
+#livenews-list .news .control-box .meta.meta-comments {
   margin-top: -1px;
 }
-#livenews-list .news .control-box .meta.comments .text {
+#livenews-list .news .control-box .meta.meta-comments .text {
   margin-top: 1px;
 }
 #livenews-list .news > .more {
