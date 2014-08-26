@@ -331,8 +331,7 @@ $(function(){
                     }
                 });
             }
-
-
+            e.preventDefault();
         });
         //展开 或 收起 评论
         $body.on('click', '[data-toggle=comments]', function(e){
