@@ -450,7 +450,7 @@
                                 <% if (record.hasMore == "1") { %>
                                 <span class="more fa" data-toggle="details" data-id="<%= record.id %>"></span>
                                 <% } %>
-                                <div class="comments"></div>
+                                <div class="comments" data-ws-thread="livenews_<%= record.id %>"></div>
                             </li>
                         <% } %>
                     <% } %>

@@ -335,8 +335,15 @@ $(function(){
         });
         //展开 或 收起 评论
         $body.on('click', '[data-toggle=comments]', function(e){
+            var $this = $(this);
             var $news = $($(this).attr('data-target'));
-            $news.children('.comments').toggleClass('active');
+            var $comments = $news.children('.comments');
+            if ($this.hasClass('complete')) {
+                $comments.toggleClass('active');
+            } else {
+                $comments.ws_comments();
+                $comments.addClass('active');
+            }
             e.preventDefault();
         });
     }

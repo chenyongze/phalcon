@@ -177,6 +177,11 @@ img.lazy {
         display: block;
     }
 }
+.lt-ie9 {
+    .loader {
+        background: url(../img/transparency.png) 0 0 repeat;
+    }
+}
 
 //图片 + 覆盖层 组件
 .cover-img {
@@ -214,6 +219,14 @@ img.lazy {
     }
     .subtitle {
         height: 1.5em;
+    }
+}
+
+.lt-ie9 {
+    .cover-img {
+        .cover {
+            background: url(../img/transparency.png) 0 0 repeat;
+        }
     }
 }
 
