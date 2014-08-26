@@ -47,7 +47,7 @@
 
     //Debug shortcut
     function p(){
-        if(typeof console === "undefined") {
+        if(typeof console === "undefined" || typeof console.info !== 'function') {
             return false;
         }
         console.info.apply(console, arguments);
@@ -132,7 +132,7 @@
             url : url,
             dataType : "json",
             data : data,
-            type : "POST",
+            type : "POST"
         }).then(function(response) {
             loginUI.hideMessage();
             loginUI.hideModal();

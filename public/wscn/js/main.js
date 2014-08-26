@@ -73,16 +73,16 @@
     //左侧行情
     var $leftbar = $('#leftbar');
     if ($leftbar.length) {
-        //var height = $leftbar.height();
         //todo
         //$leftbar.css('top', $('#content').offset().top);
+        var $window   = $(window);
         var $document = $(document);
-        var $footer = $('#footer');
-        var scrollMax = $document.height() - $footer.height() - $(window).height();
-        var unwindPoint = 120/*$('#content').offset().top*/;
+        var $footer   = $('#footer');
+        var scrollMax = $document.height() - $footer.height() - $window.height();
+        var unwindPoint = 120  /*$('#content').offset().top*/;
         //console.log(scrollMax);
         //
-        $document.on('scroll', function(e){
+        $window.on('scroll', function(e){
             var scroll = $document.scrollTop();
             //console.log(scroll);
             if (scroll > unwindPoint) {
