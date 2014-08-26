@@ -6,7 +6,7 @@
 <ul class=" news-list">
     <?foreach($posts as $post):?>
     <li class="news">
-    <a class="title" href="/node/<?=$post['_source']['id']?>"><?=$post['_source']['title']?></a>
+    <a class="title" href="<?=$this->tag->PostUrl($post['_source'])?>"><?=$post['_source']['title']?></a>
     </li>
     <?endforeach?>
 </ul>

@@ -3,6 +3,7 @@
 namespace Eva\EvaBlog\Entities;
 
 use Eva\EvaBlog\Entities\Texts;
+use Eva\EvaEngine\IoC;
 
 class Posts extends \Eva\EvaEngine\Mvc\Model
 {
@@ -166,13 +167,23 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
 
     public function initialize()
     {
-        $this->hasOne('id', 'Eva\EvaBlog\Entities\Texts', 'postId', array(
-            'alias' => 'text'
-        ));
+        $this->hasOne(
+            'id',
+            'Eva\EvaBlog\Entities\Texts',
+            'postId',
+            array(
+                'alias' => 'text'
+            )
+        );
 
-        $this->belongsTo('userId', 'Eva\EvaUser\Entities\Users', 'id', array(
-            'alias' => 'user'
-        ));
+        $this->belongsTo(
+            'userId',
+            'Eva\EvaUser\Entities\Users',
+            'id',
+            array(
+                'alias' => 'user'
+            )
+        );
 
         $this->hasMany(
             'id',
@@ -226,9 +237,14 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
         );
 
 
-        $this->hasOne('imageId', 'Eva\EvaFileSystem\Entities\Files', 'id', array(
-            'alias' => 'thumbnail'
-        ));
+        $this->hasOne(
+            'imageId',
+            'Eva\EvaFileSystem\Entities\Files',
+            'id',
+            array(
+                'alias' => 'thumbnail'
+            )
+        );
 
         parent::initialize();
     }
@@ -254,14 +270,16 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
             return false;
         }
 
-        return self::findFirst(array(
-            'conditions' => 'status = :status: AND createdAt < :createdAt:',
-            'bind'       => array(
-               'createdAt' => $this->createdAt,
-               'status' => 'published',
-            ),
-            'order' => 'createdAt DESC'
-        ));
+        return self::findFirst(
+            array(
+                'conditions' => 'status = :status: AND createdAt < :createdAt:',
+                'bind' => array(
+                    'createdAt' => $this->createdAt,
+                    'status' => 'published',
+                ),
+                'order' => 'createdAt DESC'
+            )
+        );
     }
 
     public function getNextPost()
@@ -270,14 +288,16 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
             return false;
         }
 
-        return self::findFirst(array(
-            'conditions' => 'status = :status: AND createdAt > :createdAt:',
-            'bind'       => array(
-               'createdAt' => $this->createdAt,
-               'status' => 'published',
-            ),
-            'order' => 'createdAt ASC'
-        ));
+        return self::findFirst(
+            array(
+                'conditions' => 'status = :status: AND createdAt > :createdAt:',
+                'bind' => array(
+                    'createdAt' => $this->createdAt,
+                    'status' => 'published',
+                ),
+                'order' => 'createdAt ASC'
+            )
+        );
     }
 
     public function getSummaryHtml()
@@ -313,9 +333,30 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
     {
         $url = $this->getDI()->getUrl();
         $self = $this;
-        return preg_replace_callback('/{{(.+?)}}/', function($matches) use ($self) {
-            return empty($self->$matches[1]) ? '' : $self->$matches[1];
-        }, $this->getDI()->getConfig()->blog->postPath);
+        return preg_replace_callback(
+            '/{{(.+?)}}/',
+            function ($matches) use ($self) {
+                return empty($self->$matches[1]) ? '' : $self->$matches[1];
+            },
+            $this->getDI()->getConfig()->blog->postPath
+        );
+    }
+
+    /**
+     * 通过 Post 数组来生成 URL
+     *
+     * @param $post
+     * @return mixed
+     */
+    public static  function getUrlByPostArr($post)
+    {
+        return preg_replace_callback(
+            '/{{(.+?)}}/',
+            function ($matches) use ($post) {
+                return empty($post[$matches[1]]) ? '' : $post[$matches[1]];
+            },
+            IoC::get('config')->blog->postPath
+        );
     }
 
     public function getImageUrl()
