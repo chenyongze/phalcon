@@ -1,7 +1,7 @@
 <div id="left-market-list" class="nano">
     <nav class="nano-content">
         <?foreach($quotes as $quote):?>
-        <a class="market item" data-action="related-info" data-symbol="<?=$quote->symbol?>" data-prev-close="<?=$quote->prevClose?>" data-num-fixed="2" data-trend="fall" href="/news?symbol=<?=$quote->symbol?>&q=<?=$quote->keyword?>" data-source="/widget/sidearea?symbol=<?=$quote->symbol?>&q=<?=$quote->keyword?>">
+        <a class="market item" data-action="related-info" data-symbol="<?=$quote->symbol?>" data-prev-close="<?=$quote->prevClose?>" data-num-fixed="2" data-trend="fall" href="/news?symbol=<?=$quote->symbol?>&amp;q=<?=$quote->keyword?>" data-source="/widget/sidearea?symbol=<?=$quote->symbol?>&amp;q=<?=$quote->keyword?>">
             <span class="custom-row">
                 <span class="custom-span-1 name" title="<?=$quote->title?>"><?=$quote->subTitle?></span>
                 <span class="custom-span-2 diff">N/A</span>
@@ -15,17 +15,15 @@
         <?endforeach?>
     </nav>
 </div>
-<div id="left-market-info" data-hover="unfold">
-    <div class="nano">
-        <div class="nano-content">
-            <iframe class="chart" src=""></iframe>
-            <div class="datum"></div>
-            <!--   -->
-        </div>
-        <!-- nano-content -->
-        <div class="loader">
-            <img class="indicator" src="/img/loader.gif" width="100" height="100" alt=""/>
-        </div>
+<div id="left-market-info" class="nano" data-hover="unfold">
+    <div class="nano-content">
+        <iframe class="chart" src=""></iframe>
+        <div class="datum"></div>
+        <!--   -->
+    </div>
+    <!-- nano-content -->
+    <div class="loader">
+        <img class="indicator" src="/img/loader.gif" width="100" height="100" alt=""/>
     </div>
 </div>
 

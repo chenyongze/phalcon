@@ -10,8 +10,8 @@
 // +----------------------------------------------------------------------
 
 return array(
-    'counter' => array(
-        'redis_host' => 'localhost',
+    'CounterRank' => array(
+        'redis_host' => '127.0.0.1',
         'redis_port' => 6379,
         // 命名空间，建议使用 app name
         'redis_namespace' => 'wscn',

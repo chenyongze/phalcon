@@ -249,12 +249,11 @@ img.lazy {
 .cover-img .subtitle {
   height: 1.5em;
 }
-.pagingbar .button,
-.toolbar.paging .button {
+.pagingbar .button {
   display: inline-block;
   margin-right: 5px;
   border: 1px solid #c8c8c8;
-  min-width: 28px;
+  min-width: 30px;
   padding: 0 5px;
   height: 28px;
   line-height: 28px;
@@ -263,26 +262,23 @@ img.lazy {
   color: #0078d2;
 }
 .pagingbar .button:hover,
-.toolbar.paging .button:hover,
-.pagingbar .button.active,
-.toolbar.paging .button.active {
+.pagingbar .button.active {
   border-color: #0078d2;
   background-color: #0078d2;
   color: #fff;
 }
 .pagingbar .button[data-action=prev-page],
-.toolbar.paging .button[data-action=prev-page],
-.pagingbar .button[data-action=next-page],
-.toolbar.paging .button[data-action=next-page] {
+.pagingbar .button[data-action=next-page] {
   width: 78px;
   color: #646464;
 }
 .pagingbar .button[data-action=prev-page]:hover,
-.toolbar.paging .button[data-action=prev-page]:hover,
-.pagingbar .button[data-action=next-page]:hover,
-.toolbar.paging .button[data-action=next-page]:hover {
+.pagingbar .button[data-action=next-page]:hover {
   background-color: transparent;
   color: #0078d2;
+}
+.lt-ie10 .pagingbar .button {
+  min-width: 18px;
 }
 .livenews-list {
   font-size: 12px;
@@ -669,7 +665,8 @@ img.lazy {
 .side-tags > .tag {
   display: block;
   float: left;
-  width: 90px;
+  min-width: 90px;
+  padding: 0 10px;
   text-align: center;
   font-size: 14px;
   line-height: 28px;
@@ -690,6 +687,9 @@ img.lazy {
   .side-tags {
     margin-right: -15px;
   }
+}
+.lt-ie10 .side-tags > .tag {
+  min-width: 68px;
 }
 .hot-news .news {
   display: block;
@@ -1183,6 +1183,9 @@ img.lazy {
   right: 0;
   background-image: url(../icon/arrow-right.png);
 }
+.lt-ie9 .custom-modal {
+  background: url(../img/transparency.png) 0 0 repeat;
+}
 #user-modal label {
   font-weight: normal;
 }
@@ -1206,9 +1209,11 @@ img.lazy {
   padding-top: 10px;
   padding-bottom: 10px;
   line-height: 20px;
-}
-#user-modal .form-control:focus + .help-block + .form-control-feedback {
-  color: #1395e5;
+  /*
+        &:focus + .help-block + .form-control-feedback {
+            color: @skyblue;
+        }
+        */
 }
 #user-modal .form-control-feedback {
   top: 0;
@@ -1231,14 +1236,20 @@ img.lazy {
   height: 30px;
   line-height: 30px;
 }
+#user-modal .has-success .form-control {
+  border-color: #009632;
+}
 #user-modal .has-success .form-control-feedback {
-  color: #3c763d;
+  color: #009632;
 }
 #user-modal .has-warning .form-control-feedback {
   color: #8a6d3b;
 }
+#user-modal .has-error .form-control {
+  border-color: #ff4646;
+}
 #user-modal .has-error .form-control-feedback {
-  color: #a94442;
+  color: #ff4646;
 }
 #user-modal .form-avatar {
   width: 75px;
@@ -1871,10 +1882,10 @@ img.lazy {
   float: left;
   width: 330px;
   height: 100%;
-}
-#left-market-info .nano {
-  width: 100%;
-  height: 100%;
+  /*.nano {
+        width: 100%;
+        height: 100%;
+    }*/
 }
 #left-market-info .nano-content {
   padding: 20px 15px;
@@ -2175,6 +2186,17 @@ img.lazy {
   height: 24px !important;
   margin: 0;
   background: none;
+}
+.lt-ie9 #left-market-list .market:hover,
+.lt-ie9 #left-market-list .market.active {
+  border-bottom: 1px solid #dddddd;
+  margin-bottom: 0;
+  margin-top: 0;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.lt-ie9 #left-market-info {
+  border: 1px solid #dddddd;
 }
 #rightbar {
   float: left;
@@ -3229,6 +3251,9 @@ body.show-breaking-news #breaking-news {
 .page-article .related-posts .news-list .news:hover:before {
   background-color: #0078d2;
 }
+.lt-ie10 .page-article .tags .tag {
+  min-width: 68px;
+}
 .page-search .crumbs-title {
   font-size: 16px;
   line-height: 16px;
@@ -3643,9 +3668,11 @@ body.show-breaking-news #breaking-news {
   padding-top: 10px;
   padding-bottom: 10px;
   line-height: 20px;
-}
-.page-auth .form-control:focus + .help-block + .form-control-feedback {
-  color: #1395e5;
+  /*
+        &:focus + .help-block + .form-control-feedback {
+            color: @skyblue;
+        }
+        */
 }
 .page-auth .form-control-feedback {
   top: 0;
@@ -3668,14 +3695,20 @@ body.show-breaking-news #breaking-news {
   height: 30px;
   line-height: 30px;
 }
+.page-auth .has-success .form-control {
+  border-color: #009632;
+}
 .page-auth .has-success .form-control-feedback {
-  color: #3c763d;
+  color: #009632;
 }
 .page-auth .has-warning .form-control-feedback {
   color: #8a6d3b;
 }
+.page-auth .has-error .form-control {
+  border-color: #ff4646;
+}
 .page-auth .has-error .form-control-feedback {
-  color: #a94442;
+  color: #ff4646;
 }
 .page-auth .form-avatar {
   width: 75px;

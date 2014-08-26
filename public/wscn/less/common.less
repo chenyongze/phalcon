@@ -218,13 +218,12 @@ img.lazy {
 }
 
 // 分页工具栏
-.pagingbar,
-.toolbar.paging {
+.pagingbar {
     .button {
         display: inline-block;
         margin-right: 5px;
         border: 1px solid #c8c8c8;
-        min-width: 28px;
+        min-width: 30px;
         padding: 0 5px;
         height: 28px;
         line-height: 28px;
@@ -246,6 +245,14 @@ img.lazy {
                 background-color: transparent;
                 color: @blue;
             }
+        }
+    }
+}
+
+.lt-ie10 {
+    .pagingbar {
+        .button {
+            min-width: 18px;
         }
     }
 }
@@ -638,7 +645,8 @@ img.lazy {
     & > .tag {
         display: block;
         float: left;
-        width: 90px;
+        min-width: 90px;
+        padding: 0 10px;
         text-align: center;
         font-size: 14px;
         line-height: 28px;
@@ -657,6 +665,14 @@ img.lazy {
     }
     @media (min-width: @screen-lg-min) {
         margin-right: -15px;
+    }
+}
+
+.lt-ie10{
+    .side-tags {
+        & > .tag {
+            min-width: 68px;
+        }
     }
 }
 
@@ -1156,6 +1172,12 @@ img.lazy {
                 }
             }
         }
+    }
+}
+
+.lt-ie9 {
+    .custom-modal {
+        background: url(../img/transparency.png) 0 0 repeat;
     }
 }
 

@@ -1,6 +1,7 @@
 <?php
 
 namespace Eva\CounterRank\View\Helpers;
+
 // +----------------------------------------------------------------------
 // | [phalcon]
 // +----------------------------------------------------------------------
@@ -17,7 +18,7 @@ use Eva\EvaEngine\Tag;
  * JS 客户端 View Helper
  * @package Eva\CounterRank\View\Helpers
  */
-class CounterRank extends Tag
+class CounterRank
 {
     /**
      * @var \mr5\CounterRank\JSClientHandler
@@ -35,7 +36,7 @@ class CounterRank extends Tag
 
     static public function init()
     {
-        if(!self::$inited) {
+        if (!self::$inited) {
             self::$counterUtil = new CounterRankUtil();
             self::$jsHandler = self::$counterUtil->getJSClientHandler();
         }

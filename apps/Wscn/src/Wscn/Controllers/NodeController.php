@@ -3,6 +3,7 @@
 namespace Wscn\Controllers;
 
 use Eva\EvaBlog\Models\Post;
+use Eva\EvaBlog\Models\PostSearcher;
 use Eva\EvaBlog\Models\Tag;
 use Eva\EvaEngine\Exception;
 use Eva\Wiki\Utils\WikiUtil;
@@ -18,9 +19,9 @@ class NodeController extends ControllerBase
     {
         $id = $this->dispatcher->getParam('id');
         if (is_numeric($id)) {
-            $post = Post::findFirst($id);
+            $post = PostSearcher::findFirst($id);
         } else {
-            $post = Post::findFirstBySlug($id);
+            $post = PostSearcher::findFirstBySlug($id);
         }
         if(!$post || $post->status != 'published') {
             throw new Exception\ResourceNotFoundException('Request post not found');
@@ -31,10 +32,12 @@ class NodeController extends ControllerBase
 
         $posts = null;
 
-        if ($post->connections->count() < 1 && $post->tags->count() > 0) {
-            $tag = new Tag();
-            $post->connections = $tag->getRelatedPosts($post->id, 3);
-        }
+//        if ($post->connections->count() < 1 && $post->tags->count() > 0) {
+//            $tag = new Tag();
+//            $post->connections = $tag->getRelatedPosts($post->id, 3);
+//        }
+
+        $this->view->setVar('relatedPosts', $post->getRelatedPosts($post->id));
         $appKeys4share = array();
         $oauthConfigs = $this->getDI()->getConfig()->oauth->toArray();
 

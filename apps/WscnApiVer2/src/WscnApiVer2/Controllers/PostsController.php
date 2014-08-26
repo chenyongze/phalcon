@@ -125,7 +125,91 @@ class PostsController extends ControllerBase
         );
         return $this->response->setJsonContent($data);
     }
+    /**
+     *
+     * @SWG\Api(
+     *   path="/posts/search",
+     *   description="Posts related API",
+     *   produces="['application/json']",
+     *   @SWG\Operations(
+     *     @SWG\Operation(
+     *       method="GET",
+     *       summary="Search posts",
+     *       notes="Returns post list",
+     *       @SWG\Parameters(
+     *         @SWG\Parameter(
+     *           name="q",
+     *           description="Keyword",
+     *           paramType="query",
+     *           required=false,
+     *           type="string"
+     *         ),
+     *         @SWG\Parameter(
+     *           name="uid",
+     *           description="User ID",
+     *           paramType="query",
+     *           required=false,
+     *           type="integer"
+     *         ),
+     *         @SWG\Parameter(
+     *           name="cid",
+     *           description="Category ID",
+     *           paramType="query",
+     *           required=false,
+     *           type="integer"
+     *         ),
+     *         @SWG\Parameter(
+     *           name="tid",
+     *           description="Tag ID",
+     *           paramType="query",
+     *           required=false,
+     *           type="integer"
+     *         ),
+     *         @SWG\Parameter(
+     *           name="order",
+     *           description="Order, allow value : +-id, +-created_at, +-sortOrder default is -created_at",
+     *           paramType="query",
+     *           required=false,
+     *           type="string"
+     *         ),
+     *         @SWG\Parameter(
+     *           name="limit",
+     *           description="Limit max:100 | min:3; default is 25",
+     *           paramType="query",
+     *           required=false,
+     *           type="integer"
+     *         )
+     *       )
+     *     )
+     *   )
+     * )
+     */
+    public function searchAction()
+    {
+        $limit = $this->request->getQuery('limit', 'int', 25);
+        $limit = $limit > 100 ? 100 : $limit;
+        $limit = $limit < 3 ? 3 : $limit;
+        $order = $this->request->getQuery('order', 'string', '-created_at');
+        $query = array(
+            'q' => $this->request->getQuery('q', 'string'),
+            'status' => 'published',
+            'uid' => $this->request->getQuery('uid', 'int'),
+            'cid' => $this->request->getQuery('cid', 'int'),
+            'tid' => $this->request->getQuery('tid', 'int'),
+            'username' => $this->request->getQuery('username', 'string'),
+            'order' => $order,
+            'limit' => $limit,
+            'page' => $this->request->getQuery('page', 'int', 1),
+        );
 
+        $postSearcher = new Models\PostSearcher();
+        $pager = $postSearcher->searchPosts($query);
+        $data = array(
+            'paginator' => $this->getApiPaginatorFromPure($pager),
+            'results' => $pager->items,
+        );
+        return $this->response->setJsonContent($data);
+    }
     /**
     *
     * @SWG\Api(

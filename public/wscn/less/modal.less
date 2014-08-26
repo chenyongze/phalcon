@@ -24,9 +24,11 @@
         padding-top: 10px;
         padding-bottom: 10px;
         line-height: 20px;
+        /*
         &:focus + .help-block + .form-control-feedback {
             color: @skyblue;
         }
+        */
     }
     .form-control-feedback {
         top: 0;
@@ -51,14 +53,28 @@
             }
         }
     }
-    .has-success .form-control-feedback {
-        color: #3c763d;
+    .has-success {
+        .form-control {
+            border-color: @green;
+        }
+        .form-control-feedback {
+            //color: #3c763d;
+            color: @green;
+        }
     }
-    .has-warning .form-control-feedback {
-        color: #8a6d3b;
+    .has-warning {
+        .form-control-feedback {
+            color: #8a6d3b;
+        }
     }
-    .has-error .form-control-feedback {
-        color: #a94442;
+    .has-error {
+        .form-control {
+            border-color: @red;
+        }
+        .form-control-feedback {
+            //color: #a94442;
+            color: @red;
+        }
     }
     .form-avatar {
         width: 75px;

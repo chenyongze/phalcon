@@ -1,12 +1,12 @@
-<?$newsPager = $this->tag->component('post', array('status' => 'published', 'limit' => 3, 'q' => $query['q'], 'order' => '-created_at'));$posts = $newsPager->items;?>
-<?if($posts->count() > 0):?>
+<?$newsPager = $this->tag->component('search', array('status' => 'published', 'limit' => 3, 'q' => $query['q'], 'order' => '-created_at'));$posts = $newsPager->items;?>
+<?if(count($posts) > 0):?>
 <a class="side-title type-blue with-more" href="/search?q=<?=$query['q']?>">
     相关新闻
 </a>
 <ul class=" news-list">
     <?foreach($posts as $post):?>
     <li class="news">
-    <a class="title" href="<?=$post->getUrl()?>"><?=$post->title?></a>
+    <a class="title" href="/node/<?=$post['_source']['id']?>"><?=$post['_source']['title']?></a>
     </li>
     <?endforeach?>
 </ul>

@@ -168,11 +168,11 @@ class Users extends \Eva\EvaEngine\Mvc\Model
      */
     public $providerType = 'DEFAULT';
 
-    /**
-     *
-     * @var string 扩展字段
-     */
-    public $extension = '00000000';
+//    /**
+//     *
+//     * @var string 扩展字段
+//     */
+//    public $extension = '00000000';
 
 
     /**

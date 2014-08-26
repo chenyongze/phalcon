@@ -73,16 +73,16 @@
     //左侧行情
     var $leftbar = $('#leftbar');
     if ($leftbar.length) {
-        //var height = $leftbar.height();
         //todo
         //$leftbar.css('top', $('#content').offset().top);
+        var $window   = $(window);
         var $document = $(document);
-        var $footer = $('#footer');
-        var scrollMax = $document.height() - $footer.height() - $(window).height();
-        var unwindPoint = 120/*$('#content').offset().top*/;
+        var $footer   = $('#footer');
+        var scrollMax = $document.height() - $footer.height() - $window.height();
+        var unwindPoint = 120  /*$('#content').offset().top*/;
         //console.log(scrollMax);
         //
-        $document.on('scroll', function(e){
+        $window.on('scroll', function(e){
             var scroll = $document.scrollTop();
             //console.log(scroll);
             if (scroll > unwindPoint) {
@@ -143,6 +143,9 @@
     var $searchForm = $('#header .search-form');
     $('#header').on('click', '[data-toggle=search-form]', function(e){
         $searchForm.toggleClass('active');
+        if ($searchForm.hasClass('active')) {
+            $searchForm.find('[name=q]').focus();
+        }
     });
 
     //goto top 返回顶部
@@ -241,6 +244,10 @@
         if (e.target === this) {
             $('#user-modal').removeClass('active');
         }
+    });
+    //组织modal表单 输入框 中 按下 左/右键 事件冒泡 触发 bootstrap carousel定义的滑动事件
+    $('#user-modal-carousel').on('keydown', 'input', function(e){
+        e.stopPropagation();
     });
     //switch  控件
     /*

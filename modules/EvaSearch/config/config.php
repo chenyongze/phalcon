@@ -14,8 +14,8 @@ return array(
         'elasticsearch' => array(
             'servers' => array(
 //                'http://10.42.0.1:9200'
-//                'http://192.168.11.222:9200',
-                 'http://127.0.0.1:9200'
+                'http://192.168.11.222:9200',
+//                 'http://127.0.0.1:9200'
 
             ),
             'index_name' => 'wallstreetcn'

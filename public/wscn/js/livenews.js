@@ -7,6 +7,7 @@ $(function(){
     if ($livenews.length == 0) {
         return;
     }
+
     var $content = $('#news-list > .content');
     var newsHeight = 16
     var margin = newsHeight - $content.height();
@@ -43,8 +44,20 @@ $(function(){
     if ($livenews.length == 0) {
         return;
     }
+    var jplayer = $('<div id="jplayer"></div>').appendTo('body');
+    jplayer.jPlayer({
+        ready: function () {
+            $(this).jPlayer("setMedia", {
+                mp3 : "../vendor/js/notification.mp3"
+            });
+        },
+        swfPath: "../vendor/js/Jplayer.swf",
+        supplied: "mp3"
+    });
     //
     var $controlGroup;
+    //
+    var $alert;
     //
     var $moreControl;
     //
@@ -63,6 +76,7 @@ $(function(){
         cids: '',
         type: '',
         importance: '',
+        alert: WSCN_UTIL.cookie.getCookie('livenews-alert') === 'yes',
         baseUrl: 'http://api.rebirth.wallstreetcn.com:80/v2/livenews?limit=40',
         baseUpdateUrl: 'http://api.rebirth.wallstreetcn.com:80/v2/livenews/realtime?limit=3',
         url: 'http://api.rebirth.wallstreetcn.com:80/v2/livenews?limit=40',
@@ -80,15 +94,19 @@ $(function(){
             }
             option.url = option.baseUrl + '&' + this.search;
             option.updateUrl = option.baseUpdateUrl + '&' + this.search;
-            try{
+
+            if (history.replaceState) {
                 history.replaceState(null, '', this.baseUrl + '?' + this.search);
-            } catch(err) {
+            } else {
                 location.hash = '#' + this.search;
             }
+
         },
         remove: function(name, value) {
             //在头部 和 末尾补上一个 & 用来精确匹配
-            var url = '&' + this.search + '&';
+            var url = ('&' + this.search + '&').replace('&', '&&');
+            //
+            name = name.replace(/([\[\]])/gi, '\\$1');
             if (value) {
                 var reg = new RegExp('&' + name + '=' + value + '&', 'gi');
                 this.search = url.replace(reg, '&');
@@ -105,9 +123,9 @@ $(function(){
                 option.url = option.baseUrl;
                 option.updateUrl = option.baseUpdateUrl;
             }
-            try{
+            if (history.replaceState) {
                 history.replaceState(null, '', this.baseUrl + '?' + this.search);
-            } catch(err) {
+            } else {
                 location.hash = '#' + this.search;
             }
         },
@@ -116,13 +134,15 @@ $(function(){
             var url = '&' + this.search;
             //
             if (url.indexOf('&' + name + '=') !== -1) {
+                //
+                name = name.replace(/([\[\]])/gi, '\\$1');
                 var reg = new RegExp('&' + name + '=[\\w,]+', 'gi');
                 this.search = url.replace(reg, '&' + name + '=' + value).replace(/^&|&$/g, '');
                 option.url = option.baseUrl + '&' + this.search;
                 option.updateUrl = option.baseUpdateUrl + '&' + this.search;
-                try{
+                if (history.replaceState) {
                     history.replaceState(null, '', this.baseUrl + '?' + this.search);
-                } catch(err) {
+                } else {
                     location.hash = '#' + this.search;
                 }
             } else {
@@ -161,7 +181,13 @@ $(function(){
         $controlGroup = $livenews.children('.control-group');
         $moreControl = $controlGroup.find('.more-content');
         $tags = $controlGroup.find('.tags');
+        $alert = $controlGroup.find('[data-toggle=alert]');
         $body = $livenews.children('.body');
+        if (option.alert) {
+            $alert[0].checked = true;
+        } else {
+            $alert[0].checked = false;
+        }
     }
 
     function initData() {
@@ -256,7 +282,7 @@ $(function(){
             loadPage();
         });
         //选择 重要性
-        $controlGroup.on('click', '[type=radio][name=importance]', function(e, noLoad){
+        $controlGroup.on('click', '[type=radio][name=importance]', function(e){
             var $selected = $controlGroup.find('[type=radio][name=importance]:checked');
             var value = $selected[0].value;
             if (value) {
@@ -265,6 +291,16 @@ $(function(){
                 uri.remove('importance');
             }
             loadPage();
+        });
+        //声音提醒开关
+        $alert.on('click', function(e){
+            if (this.checked) {
+                option.alert = true;
+                WSCN_UTIL.cookie.setCookie('livenews-alert', 'yes');
+            } else {
+                option.alert = false;
+                WSCN_UTIL.cookie.setCookie('livenews-alert', 'no');
+            }
         });
     }
 
@@ -297,6 +333,10 @@ $(function(){
                         records : data
                     });
                     $date.replaceWith(html);
+                }
+                //声音提醒
+                if (option.alert) {
+                    jplayer.jPlayer('play');
                 }
             }
             setTimeout(update, option.updateTimeout);
