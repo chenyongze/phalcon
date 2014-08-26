@@ -1185,10 +1185,7 @@ img.lazy {
   background-image: url(../icon/arrow-right.png);
 }
 .lt-ie9 .custom-modal {
-  filter: alpha(opacity = 50);
-}
-.lt-ie9 .custom-modal .custom-modal-content {
-  position: relative;
+  background: url(../img/transparency.png) 0 0 repeat;
 }
 #user-modal label {
   font-weight: normal;
@@ -2190,6 +2187,17 @@ img.lazy {
   height: 24px !important;
   margin: 0;
   background: none;
+}
+.lt-ie9 #left-market-list .market:hover,
+.lt-ie9 #left-market-list .market.active {
+  border-bottom: 1px solid #dddddd;
+  margin-bottom: 0;
+  margin-top: 0;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.lt-ie9 #left-market-info {
+  border: 1px solid #dddddd;
 }
 #rightbar {
   float: left;
