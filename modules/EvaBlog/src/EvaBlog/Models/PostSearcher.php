@@ -160,28 +160,39 @@ class PostSearcher extends Post
             $searchParams['body']['query']['multi_match'] = array(
                 'query' => $query['q'],
                 "fields" => array("title", "content"),
+                'type' => 'best_fields',
                 "tie_breaker" => 0.3
             );
+            $searchParams['body']['min_score'] = 0.9;
         }
         $ret = $this->es_client->search($searchParams);
         $pager = new PurePaginator($searchParams['size'], $ret['hits']['total'], $ret['hits']['hits']);
         return $pager;
     }
 
-    public function getRelatedPosts($id)
+    public function getRelatedPosts($id, $limit = 5, $days = 30)
     {
         $searchParams['index'] = $this->es_config['index_name'];
         $searchParams['type'] = 'article';
-        $searchParams['size'] = 3;
+        $searchParams['size'] = $limit;
         $searchParams['from'] = 0;
         $searchParams['fields'] = array(
-            'id', 'title', 'createdAt'
+            'id',
+            'title',
+            'createdAt'
         );
 
         $searchParams['body']['query']['more_like_this'] = array(
-            'fields' => array('title', 'content'),
+            'fields' => array('title', 'content', 'tagNames'),
             'ids' => array($id)
         );
+        $filters = array();
+        $filters[]['range'] = array(
+            'createdAt' => array('from' => time() - (86400 * $days))
+        );
+        if ($filters) {
+            $searchParams['body']['filter']['and']['filters'] = $filters;
+        }
 //        $searchParams['body']['sort'] = array(
 //            'createdAt' => array(
 //                'order' => 'desc'
@@ -189,7 +200,11 @@ class PostSearcher extends Post
 //        );
         $ret = $this->es_client->search($searchParams);
         $posts = array();
-        foreach($ret['hits']['hits'] as $hit) {
+        foreach ($ret['hits']['hits'] as $hit) {
+            foreach ($hit['fields'] as $_k => $_v) {
+
+                $hit['fields'][$_k] = $_v[0];
+            }
             $posts[] = $hit['fields'];
         }
         return $posts;
