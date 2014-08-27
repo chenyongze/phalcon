@@ -45,7 +45,7 @@
 <!--                    </div>-->
                 </div>
                 <?if($post->imageId):?>
-                <img class="main-image lazy" src="/wscn/img/default.png" alt=""
+                <img class="main-image lazy" src="<?=$this->url->getStatic('/wscn/img/default.png')?>" alt=""
                      data-original="<?=$post->thumbnail->imageWidth > 640 || $post->thumbnail->imageHeight > 350 ?
                      $this->tag->thumb($post->image, 'c_fill,h_350,w_640') : $this->tag->thumb($post->image)?>" />
                 <?endif?>
@@ -88,7 +88,7 @@
                 <?foreach($posts as $post):?>
                 <li class="col-lg-4 col-xs-6">
                     <a href="/node/<?=$post->id?>" class="news">
-                        <img class="lazy full-width" src="/wscn/img/default.png" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_360,w_600') : '/img/article.jpg'?>" alt=""/>
+                        <img class="lazy full-width" src="<?=$this->url->getStatic('/wscn/img/default.png')?>" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_360,w_600') : '/img/article.jpg'?>" alt=""/>
                         <h3 class="title"><?=$post->title?></h3>
                     </a>
                 </li>
@@ -235,7 +235,7 @@
             <!-- End: Wallstreetcn.com sidebar widget -->
             <!--  -->
             <div class="side-ad">
-                <img src="/wscn/img/side-img-1.jpg" alt=""/>
+                <img src="<?=$this->url->getStatic('/wscn/img/side-img-1.jpg')?>" alt=""/>
             </div>
             <!--  -->
             <ul class="custom-nav-tabs custom-row">

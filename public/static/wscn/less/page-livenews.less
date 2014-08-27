@@ -285,7 +285,16 @@
                 display: block;
             }
         }
-
+        &.new {
+            background-color: #FFDB8C;
+        }
+        &[data-importance="2"] {
+            font-weight: bold;
+        }
+        &[data-importance="3"] {
+            font-weight: bold;
+            color: @red;
+        }
         &.type-img ,
         &.type-video {
             & > .content {
