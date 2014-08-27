@@ -4,10 +4,11 @@
 <div id="main-content">
 <aside id="leftbar">
     <div class="sharebar">
-        <a class="collect not-stared" href="" data-action="star" data-post-id="<?= $news->id ?>" data-message="登录后收藏">
+        <span class="collect" data-toggle="collect" data-active=""
+              data-post-id="<?= $news->id ?>" data-url="/stars/<?= $news->id ?>"
+              data-message="登录后收藏" data-text="收藏" data-active-text="取消收藏" >
             <span class="fa fa-star"></span>
-            收藏
-        </a>
+        </span>
         <a class="discuss" href="#comments">
             <span class="fa fa-comment"></span>
             评论

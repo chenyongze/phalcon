@@ -35,10 +35,11 @@
                         </div>
                         <div class="clearfix">
                             <span class="time"><?=$this->tag->datetime($post->createdAt)?></span>
-                            <a data-message="" data-post-id="<?=$post->id?>" data-action="star" href="<?=$post->getUrl()?>" class="collect stared">
+                            <span class="collect" data-toggle="collect" data-active="true"
+                                  data-post-id="<?= $post->id ?>" data-url="/stars/<?= $post->id ?>"
+                                  data-message="" data-text="添加收藏" data-active-text="取消收藏" >
                                 <span class="fa fa-star"></span>
-                                <span class="text"></span>
-                            </a>
+                            </span>
                         </div>
                         </li>
                     <?endif?>
