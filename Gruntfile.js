@@ -7,7 +7,7 @@ module.exports = function(grunt) {
                     strictMath: true,
                     sourceMap: true,
                     outputSourceFiles: true,
-                    sourceMapURL: 'style.css.map',
+                    sourceMapURL: 'public/static/wscn/css/style.css.map',
                     sourceMapFilename: 'style.css.map'
                 },
                 files: {
