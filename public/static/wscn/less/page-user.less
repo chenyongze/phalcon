@@ -143,7 +143,7 @@
                     color: @blue;
                     font-size: 18px;
                     line-height: 1.5em;
-                    font-weight: bold;
+                    //font-weight: bold;
                     margin-bottom: 15px;
                 }
                 .summary {
@@ -188,9 +188,12 @@
                     display: block;
                     font-size: 18px;
                     //font-weight: bold;
-                    color: @blue;
+                    color: #000;
                     line-height: 27px;
                     margin-bottom: 10px;
+                    &:hover {
+                        color: @blue;
+                    }
                 }
                 .summary {
                     color: #666;
@@ -211,11 +214,17 @@
                     &:hover {
                         color: @skyblue;
                     }
+                    &:after {
+                        content: attr(data-text);
+                    }
                     .fa {
                         font-size: 16px;
                     }
                     &.stared {
                         color: @blue;
+                        &:after {
+                            content: attr(data-active-text);
+                        }
                     }
                 }
             }

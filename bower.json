@@ -41,8 +41,5 @@
     "wscn-jscore" : "https://github.com/wallstreetcn/wscn_jscore.git",
     "ckeditor" : "https://github.com/wallstreetcn/ckeditor.git",
     "ace-admin" : "https://github.com/wallstreetcn/ace_admin_v1.git"
-  },
-  "scripts": {
-    "postinstall": "bower-requirejs -c ./requirejs-vendor-config.js"
   }
 }

@@ -39,9 +39,9 @@ upgrade:
 	git pull
 	composer update
 	git submodule update --init --recursive
-	cnpm update
 	grunt less:wscn
 	bower update  --allow-root
+	cnpm update
 
 update:
 	git pull
