@@ -12,7 +12,6 @@
     <meta name="description" content="<?=$this->placeholder->block('description', '华尔街见闻——中国最专业的金融资讯平台；直播外汇、期货、黄金、债券、证券等金融领域的实时新闻。华人投资者可以在这里获得最快速、最精准、最深入的全球财经资讯和市场行情。');?>">
     <meta name="keywords" content="<?=$this->placeholder->block('keywords', '外汇,期货,大宗商品,贵金属,黄金,股市,行情,数据,金融,理财')?>">
     <link rel="search" type="application/opensearchdescription+xml" href="/search/opensearch.xml" title="华尔街见闻">
-
     <?
     $this->assets
     ->collection('headerCss')
@@ -35,13 +34,9 @@
             document.querySelector('head').appendChild(msViewportStyle);
         }
     </script>
-    <!-- grunt watch for live reload  -->
-    <!--<script src="//127.0.0.1:35729/livereload.js"></script>-->
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="<?=$this->url->getStatic('/vendor/html5shiv/dist/html5shiv.min.js')?>"></script>
+    <script src="<?=$this->url->getStatic('/vendor/respond/dest/respond.min.js')?>"></script>
     <![endif]-->
 
     <!-- for img-box loading

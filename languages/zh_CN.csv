@@ -1,5 +1,5 @@
 EMPRY_LINE_FOR_UTF_BOM,
-EvaEngine,华尔街见闻-黄金头条
+EvaEngine,华尔街见闻
 ERR_USER_PASSWORD_WRONG,密码不匹配
 ERR_USER_PASSWORD_WRONG_MAX_TIMES,密码输入错误次数太多，用户已经被锁定，请稍后重试
 ERR_USER_PASSWORD_EMPTY,没有设置密码，请尝试使用社交帐号登录

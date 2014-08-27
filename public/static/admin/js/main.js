@@ -25,7 +25,7 @@ $.noty.defaults = {
     buttons: false // an array of buttons
 };
 
-CKEDITOR.config.contentsCss = '/css/editor.css';
+CKEDITOR.config.contentsCss = '/static/admin/css/editor.css';
 CKEDITOR.config.toolbar = [
     { name: 'document', groups: [ 'mode', 'document', 'doctools' ], items: [ 'Source'] },
     { name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
