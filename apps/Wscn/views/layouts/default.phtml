@@ -15,12 +15,12 @@
 
     <?
     $this->assets
-    ->collection('header')
+    ->collection('headerJs')
     ->addCss('/wscn/css/bootstrap.css')
     ->addCss('/vendor/fontawesome/css/font-awesome.css')
     ->addCss('/vendor/nanoscroller/bin/css/nanoscroller.css')
     ->addCss('/wscn/css/style.css');
-    $this->assets->outputCss('header');
+    $this->assets->outputCss('headerCss');
     ?>
 
     <!-- for ie mobile content-width bug -->
@@ -559,7 +559,7 @@
 
 <?
 $this->assets
-->collection('footer')
+->collection('footerJs')
 ->addJs('/vendor/bootstrap/dist/js/bootstrap.js')
 ->addJs('/vendor/moment/moment.js')
 ->addJs('/vendor/parsleyjs/dist/parsley.js')
@@ -576,7 +576,8 @@ $this->assets
 ->addJs('/wscn/js/jquery.fcl.js')
 ->addJs('/wscn/js/leftbar.js')
 ->addJs('/wscn/js/main.js');
-$this->assets->outputJs('footer');
+
+$this->assets->outputJs('footerJs');
 ?>
 
 <script type="text/javascript">
