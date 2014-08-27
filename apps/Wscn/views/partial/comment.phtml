@@ -2,8 +2,11 @@
 <link rel="stylesheet" href="/css/comment.css">
 <div class="user-comments" id="comments" data-ws-thread="<?=$uniqueKey?>"></div>
 <?
-$script = $this->tag->javascriptInclude("/js/comments.js").PHP_EOL;
-$script .= <<<HTML
+//$script = $this->tag->javascriptInclude("/js/comments.js").PHP_EOL;
+
+$this->assets->collection('footer')
+            ->addJs('js/comments.js');
+$script = <<<HTML
 <script type="text/javascript">
     $(function() {
         $('#comments').ws_comments();
