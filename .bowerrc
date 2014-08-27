@@ -1,0 +1,6 @@
+{
+  "directory": "./public/static/vendor/",
+  "scripts": {
+    "postinstall": "bower-requirejs -c ./public/static/vendor/config.js"
+  }
+}

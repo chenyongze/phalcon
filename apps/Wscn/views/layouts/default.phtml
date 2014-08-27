@@ -16,7 +16,6 @@
     <?
     $this->assets
     ->collection('headerCss')
-    ->setPrefix('/static')
     ->addCss('/wscn/css/bootstrap.css')
     ->addCss('/vendor/fontawesome/css/font-awesome.css')
     ->addCss('/vendor/nanoscroller/bin/css/nanoscroller.css')
@@ -138,7 +137,7 @@
     </a>
 </header>
 <div class="container">
-    <img class="main-ad" src="<?=$this->url->getStatic('/static/wscn/img/ad/main-ad.png')?>" alt=""/>
+    <img class="main-ad" src="<?=$this->url->getStatic('/wscn/img/ad/main-ad.png')?>" alt=""/>
 </div>
 <div id="content" class="container">
     <?=$this->getContent()?>
@@ -157,9 +156,9 @@
             <div class="row">
                 <div class="col-md-4 col-lg-3">
                     <a href="/">
-                        <img class="logo" src="/wscn/img/logo.png?v=1.10" alt="logo"/>
+                        <img class="logo" src="<?=$this->url->getStatic('/wscn/img/logo.png')?>" alt="logo"/>
                     </a>
-                    <img class="qrcode" src="/wscn/img/footer-qrcode.png" alt="二维码"/>
+                    <img class="qrcode" src="<?=$this->url->getStatic('/wscn/img/footer-qrcode.png')?>" alt="二维码"/>
                     <div class="icon-group text-center">
                         <a href="" class="fa fa-qq pull-left"></a>
                         <a href="" class="fa fa-weixin"></a>
@@ -552,7 +551,6 @@
 <?
 $this->assets
 ->collection('jQueryIE')
-->setPrefix('/static')
 ->addJs('/vendor/jquery-1.11.1/dist/jquery.js');
 $this->assets->outputJs('jQueryIE');
 ?>
@@ -563,7 +561,6 @@ $this->assets->outputJs('jQueryIE');
 <?
 $this->assets
 ->collection('jQuery')
-->setPrefix('/static')
 ->addJs('/vendor/jquery/dist/jquery.js');
 $this->assets->outputJs('jQuery');
 ?>
@@ -572,7 +569,6 @@ $this->assets->outputJs('jQuery');
 <?
 $this->assets
 ->collection('footerJs')
-->setPrefix('/static')
 ->addJs('/vendor/bootstrap/dist/js/bootstrap.js')
 ->addJs('/vendor/moment/moment.js')
 ->addJs('/vendor/parsleyjs/dist/parsley.js')
