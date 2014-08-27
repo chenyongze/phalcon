@@ -181,6 +181,17 @@ class Comments extends BaseModel
         );
 
         $this->belongsTo(
+            'userId',
+            '\Eva\EvaUser\Entities\Users',
+            'id',
+            array(
+                'alias' => 'user',
+                'foreignKey' => true
+            )
+        );
+
+
+        $this->belongsTo(
             'parentId',
             '\Eva\EvaComment\Entities\Comments',
             'id',

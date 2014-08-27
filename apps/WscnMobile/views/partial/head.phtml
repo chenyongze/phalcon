@@ -1,11 +1,11 @@
 <link href="favicon.ico" rel="shortcut icon" type="image/x-icon">
 <?
 $this->assets
-->collection('headerCss')
+->collection('header')
 ->addCss('/wscnm/gmu/reset.css')
 ->addCss('/wscnm/gmu/gmu.css')
 ->addCss('/wscnm/css/style.css');
-$this->assets->outputCss('headerCss');
+$this->assets->outputCss('header');
 ?>
 <link rel="apple-touch-icon" href="<?=$this->url->getStatic('/wscnm/img/bookmark.png')?>"/> 
 

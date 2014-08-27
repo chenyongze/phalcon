@@ -3,10 +3,10 @@
 <?else:?>
 <?
 $this->assets
-->collection('footerJs')
+->collection('footer')
 ->addJs('/wscnm/gmu/zepto.js')
 ->addJs('/wscnm/gmu/gmu.js')
 ->addJs('/wscnm/js/nav.js');
-$this->assets->outputJs('footerJs');
+$this->assets->outputJs('footer');
 ?>
 <?endif?>
