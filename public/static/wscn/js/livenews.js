@@ -85,7 +85,7 @@ $(function(){
         baseUpdateUrl: 'http://api.rebirth.wallstreetcn.com:80/v2/livenews/realtime?limit=3',
         url: 'http://api.rebirth.wallstreetcn.com:80/v2/livenews?limit=40',
         updateUrl: 'http://api.rebirth.wallstreetcn.com:80/v2/livenews/realtime?limit=3',
-        updateTimeout: 10000,
+        updateTimeout: 5000,
         //todo 修改
         detailsUrl: 'http://rebirth.wallstreetcn.com/livenews/detail/',
         prefix: 'livenews-'
@@ -406,6 +406,7 @@ $(function(){
     }
 
     function loadPage(page, callback) {
+        $livenews.addClass('loading');
         page = page || 1;
         $.ajax({
             url : option.url,
@@ -440,6 +441,7 @@ $(function(){
             if (typeof callback === 'function') {
                 callback();
             }
+            $livenews.removeClass('loading');
         }).fail(function(error) {
             //todo
             loadPage(page, callback);

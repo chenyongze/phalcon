@@ -1,19 +1,19 @@
 <?php
 
-namespace Eva\EvaBlog\Tasks;
+namespace Eva\EvaLivenews\Tasks;
 
 // +----------------------------------------------------------------------
 // | [phalcon]
 // +----------------------------------------------------------------------
 // | Author: Mr.5 <mr5.simple@gmail.com>
 // +----------------------------------------------------------------------
-// + Datetime: 14-08-27 15:48
+// + Datetime: 14-7-17 15:48
 // +----------------------------------------------------------------------
-// + CounterTask.php  文章计数器相关任务
+// + CounterTask.php  实时新闻计数器相关任务
 // +----------------------------------------------------------------------
 
 use Eva\CounterRank\Utils\CounterRankUtil;
-use Eva\EvaBlog\Models\Post;
+use Eva\EvaLivenews\Entities\News;
 use mr5\CounterRank\CounterIterator;
 use Eva\EvaEngine\Tasks\TaskBase;
 use Phalcon\Mvc\Model\Query;
@@ -29,8 +29,8 @@ class CounterTask extends TaskBase
     {
 
         $counterRank = new CounterRankUtil();
-        $counterRank = $counterRank->getCounterRank('posts');
-        $post = new Post();
+        $counterRank = $counterRank->getCounterRank('livenews');
+        $post = new News();
         $count = 0;
         $tableName = $post->getSource();
         foreach ($counterRank->getIterator(100, CounterIterator::PERSIST_WITH_DELETING) as $items) {
@@ -43,18 +43,19 @@ class CounterTask extends TaskBase
                     $ids .= ',';
                 }
                 $ids .= $post_id;
-                $values .= " WHEN id={$post_id} THEN `count`+{$heat} ";
+                $values .= " WHEN id={$post_id} THEN `viewCount`+{$heat} ";
 //                    $values .= "({$post_id}, {$heat}, '', 'private', '', 0)";
             }
             $sql = <<<SQL
-UPDATE {$tableName} SET `count` = CASE
+UPDATE {$tableName} SET `viewCount` = CASE
     {$values}
-    ELSE `count`
+    ELSE `viewCount`
 END
 WHERE `id` IN({$ids})
 SQL;
             $post->getWriteConnection()->execute($sql);
         }
         $this->output->writelnComment('Done! Persist ' . $count . ' items;');
+
     }
 }
