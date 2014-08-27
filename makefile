@@ -41,7 +41,7 @@ upgrade:
 	git submodule update --init --recursive
 	cnpm update
 	grunt less:wscn
-	bower update
+	bower update  --allow-root
 
 update:
 	git pull
@@ -60,6 +60,7 @@ install-dev:
 	sudo chown -R www-data.www-data ./public/thumbnails/thumb
 	cnpm install
 	grunt less:wscn
+	bower install  --allow-root
 
 install:
 	composer install --no-dev --optimize-autoloader
@@ -73,4 +74,4 @@ install:
 	sudo chown -R www-data.www-data ./public/thumbnails/thumb
 	cnpm install
 	grunt less:wscn
-	bower install
+	bower install  --allow-root
