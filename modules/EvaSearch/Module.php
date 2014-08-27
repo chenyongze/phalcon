@@ -31,6 +31,9 @@ class Module implements ModuleDefinitionInterface, StandardInterface
 
     static public function registerGlobalEventListeners()
     {
+        return array(
+            'blog'=>'Eva\EvaSearch\Events\BlogListener'
+        );
     }
 
     public static function registerGlobalAutoloaders()
