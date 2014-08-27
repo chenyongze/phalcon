@@ -18,9 +18,26 @@
         </a>
 
         <div class="read-times">
-            <strong>12.3K</strong>
+            <strong id="js-read-times-text"><?=$news->viewCount?></strong>
 
             <div class="text">浏览数</div>
+            <script>
+                function _postCounter(num) {
+                    var counterOld;
+                    try {
+                        counterOld = parseInt(<?=$news->viewCount?>);
+                    } catch (e) {
+                        counterOld = 0;
+                    }
+                    try {
+                        num = parseInt(num);
+                    } catch (e) {
+                        num = 0;
+                    }
+                    document.getElementById('js-read-times-text').innerText = counterOld + num;
+                }
+            </script>
+            <?= $this->tag->CounterRank('livenews', $news->id, '_postCounter') ?>
         </div>
         <h3 class="jiathis-title">
             分享到
@@ -132,21 +149,25 @@
             </div>
             <script type="text/javascript">
                 <?
-                    $summary= trim(preg_replace('/\s+/', ' ', strip_tags($news->summary)));
+                    $summary4share = preg_replace('/\n+|(&nbsp;)+/', ' ', strip_tags($news->title));
+
+                    $title4share = '华尔街见闻实时新闻 ';
+                    $titleLength = mb_strlen($title4share, 'utf-8');
+                    $summaryLength = mb_strlen($summary4share, 'utf-8');
+                    $wscnWeiboAccount = '@华尔街见闻';
+                    $wscnWeiboAccountLength = mb_strlen($wscnWeiboAccount, 'utf-8');
+                    $lengthLimit = 114;
+                    if($titleLength + $summaryLength + $wscnWeiboAccountLength > $lengthLimit) {
+                        $summaryRealLength = $lengthLimit - $titleLength - $wscnWeiboAccountLength;
+                        $summary4share = \Eva\EvaEngine\Text\Substring::substrCn($summary4share, $summaryRealLength);
+                    }
+                    $summary4share .= $wscnWeiboAccount;
                 ?>
                 var jiathis_config = {
-                    summary: "<?=$summary?>",
-                    title: "<?=$summary ? $news->title.'：' : $news->title?>",
+                    summary: "<?=$summary4share?>",
+                    title: "<?=$title4share?>",
                     pic: "<?=$this->tag->thumb($news->image)?>",
-                    appkey: {
-                        <?
-                            $appKeysCount = count($appKeys4share);
-                            $appKeysIteratorI = 0;
-                        ?>
-                        <?foreach($appKeys4share as $_name => $_v):?>
-                        "<?=$_name?>": "<?=$_v?>"<?= ++$appKeysIteratorI < $appKeysCount ? ',' :'' ?>
-                        <?endforeach;?>
-                    },
+
                     shortUrl: false
                 }
             </script>
