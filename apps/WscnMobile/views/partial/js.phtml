@@ -1,10 +1,9 @@
 <?if(isset($baseLib) && $baseLib == 'jQuery'):?>
-<script type="text/javascript" src="/vendor/js/jquery-1.11.1.js"></script>
+<script type="text/javascript" src="<?=$this->url->getStatic('/vendor/jquery-1.11.1/dist/jquery.js');?>"></script>
 <?else:?>
 <?
 $this->assets
 ->collection('footerJs')
-->setPrefix('/static')
 ->addJs('/wscnm/gmu/zepto.js')
 ->addJs('/wscnm/gmu/gmu.js')
 ->addJs('/wscnm/js/nav.js');
