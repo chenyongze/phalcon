@@ -128,9 +128,22 @@ img.lazy {
     display: inline-block !important;
 }
 
-// data-action 相关样式
+// data-action / data-toggle 相关样式
+[data-action],
+[data-toggle] {
+    cusour: pointer;
+}
+//收藏
+[data-toggle=collect] {
+    &:after {
+        content: attr(data-text);
+    }
+}
 [data-toggle=collect][data-active=true] {
     color: @blue !important;
+    &:after {
+        content: attr(data-active-text);
+    }
 }
 
 //未知高度div 垂直 水平 居中

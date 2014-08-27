@@ -8,7 +8,7 @@ module.exports = function(grunt) {
                     sourceMap: true,
                     outputSourceFiles: true,
                     sourceMapURL: 'public/static/wscn/css/style.css.map',
-                    sourceMapFilename: 'style.css.map'
+                    sourceMapFilename: 'public/static/wscn/css/style.css.map'
                 },
                 files: {
                     'public/static/wscn/css/style.css': 'public/static/wscn/less/style.less'
