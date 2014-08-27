@@ -43,6 +43,7 @@
     "wscn-jscore" : "https://github.com/wallstreetcn/wscn_jscore.git",
     "quotes-search" : "https://github.com/wallstreetcn/quotes_search.git",
     "ckeditor" : "https://github.com/wallstreetcn/ckeditor.git",
+    "pinyin" : "https://github.com/wallstreetcn/pinyin.git",
     "ace-admin" : "https://github.com/wallstreetcn/ace_admin_v1.git"
   }
 }
