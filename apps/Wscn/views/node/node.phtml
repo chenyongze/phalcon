@@ -15,6 +15,7 @@ $this->placeholder->block('keywords')->set($post->title . ",外汇,期货,大宗
               data-message="登录后收藏" data-text="收藏" data-active-text="取消收藏" >
             <span class="fa fa-star"></span>
         </span>
+        <? if ($post->commentStatus == 'open'): ?>
         <a class="discuss" href="#comments">
             <span class="fa fa-comment"></span>
             评论
@@ -22,6 +23,7 @@ $this->placeholder->block('keywords')->set($post->title . ",外汇,期货,大宗
                 （<span class="ws-counter"><?= $post->commentCount ?></span>）
             <? endif ?>
         </a>
+        <? endif ?>
 
         <div class="read-times">
             <strong id="js-read-times-text"><?= $post->count ?></strong>
@@ -87,10 +89,12 @@ $this->placeholder->block('keywords')->set($post->title . ",外汇,期货,大宗
                 <?endif ?>
             </span>
             <span class="item time"><?= $this->tag->datetime($post->createdAt) ?></span>
+            <? if ($post->commentStatus == 'open'): ?>
             <span class="item">
                 <span class="fa fa-comment" style="vertical-align: 1px"></span>
                 <span class="ws-counter"><?= $post->commentCount > 0 ? : 0 ?></span>
             </span>
+            <? endif ?>
 
             <div class="pull-right">
                 <? if ($post->sourceName): ?>
@@ -204,12 +208,12 @@ $this->placeholder->block('keywords')->set($post->title . ",外汇,期货,大宗
         <? endif ?>
 
     </article>
-
+    <? if ($post->commentStatus == 'open'): ?>
     <div id="comments">
-        <? if ($post->commentStatus == 'open'): ?>
             <? $this->partial('partial/comment', array('uniqueKey' => 'post_' . $post->id)); ?>
-        <? endif ?>
     </div>
+    <? endif ?>
+
 
 </div>
 <div id="rightbar">

@@ -1,7 +1,7 @@
 <!---- comment begin -->
 <? $this->assets->collection('header')
                 ->addCss('/wscn/css/comment.css') ?>
-<div class="user-comments" id="comments" data-ws-thread="<?=$uniqueKey?>"></div>
+<div class="user-comments" data-ws-thread="<?=$uniqueKey?>"></div>
 
 <?
 $this->assets->collection('footer')
@@ -10,7 +10,7 @@ $this->assets->collection('footer')
 $script = <<<HTML
 <script type="text/javascript">
     $(function() {
-        $('#comments').ws_comments();
+        $('.user-comments').ws_comments();
     });
 </script>
 
