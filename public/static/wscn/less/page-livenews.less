@@ -186,22 +186,29 @@
         //display: block;
         position: relative;
         .clearfix;
-        padding: 15px 0;
-        margin-left: 60px;
+        padding-top: 15px;
+        padding-left: 60px;
         padding-right: 120px;
         font-size: 13px;
         line-height: 20px;
-        border-bottom: 1px solid @borderColor;
+        //border-bottom: 1px solid @borderColor;
         color: #333;
+        &:after {
+            width: 100%;
+            margin-top: 15px;
+            border-bottom: 1px solid @borderColor;
+        }
         .time {
             position: absolute;
-            left: -60px;
+            //left: -60px;
+            left: 0;
         }
         .icon {
             position: absolute;
             font-size: 14px;
             top: 40px;
-            left: -50px;
+            //left: -50px;
+            left: 10o;
         }
         .control-box {
             position: absolute;
@@ -285,7 +292,16 @@
                 display: block;
             }
         }
-
+        &.new {
+            background-color: #FFE780;
+        }
+        &[data-importance="2"] {
+            font-weight: bold;
+        }
+        &[data-importance="3"] {
+            font-weight: bold;
+            color: @red;
+        }
         &.type-img ,
         &.type-video {
             & > .content {

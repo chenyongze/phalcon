@@ -55,6 +55,8 @@ $(function(){
         supplied: "mp3"
     });
     //
+    var loginUI = UserLogin.getInstance().getLoginUI();
+    //
     var $controlGroup;
     //
     var $alert;
@@ -62,8 +64,10 @@ $(function(){
     var $moreControl;
     //
     var $tags;
-    //
+    //实时新闻列表 body 部分
     var $body;
+    // html > body
+    var $htmlBody;
     //
     var tmpl = template.compile($livenews.find('script[data-template]').html(), {escape: false});
 
@@ -83,7 +87,8 @@ $(function(){
         updateUrl: 'http://api.rebirth.wallstreetcn.com:80/v2/livenews/realtime?limit=3',
         updateTimeout: 10000,
         //todo 修改
-        detailsUrl: 'http://rebirth.wallstreetcn.com/livenews/detail/'
+        detailsUrl: 'http://rebirth.wallstreetcn.com/livenews/detail/',
+        prefix: 'livenews-'
     };
     var uri = {
         baseUrl: location.href.replace(/\?.*|#.*/, ''),
@@ -180,6 +185,7 @@ $(function(){
     }
 
     function initDom() {
+        $htmlBody = $('body');
         $controlGroup = $livenews.children('.control-group');
         $moreControl = $controlGroup.find('.more-content');
         $tags = $controlGroup.find('.tags');
@@ -245,7 +251,9 @@ $(function(){
 
         //选择或取消分类
         $controlGroup.on('click', '[name="cid[]"][type=checkbox]', function(e){
-
+            if ($htmlBody.attr('data-logon') !== "true") {
+                loginUI.showModal();
+            }
             var $input = $(this);
             var input = $input[0];
             var name = input.name;
@@ -274,6 +282,9 @@ $(function(){
 
         //选择数据类型
         $controlGroup.on('click', '[type=radio][name=type]', function(e){
+            if ($htmlBody.attr('data-logon') !== "true") {
+                loginUI.showModal();
+            }
             var $selected = $controlGroup.find('[type=radio][name=type]:checked');
             var value = $selected[0].value;
             if (value) {
@@ -285,6 +296,9 @@ $(function(){
         });
         //选择 重要性
         $controlGroup.on('click', '[type=radio][name=importance]', function(e){
+            if ($htmlBody.attr('data-logon') !== "true") {
+                loginUI.showModal();
+            }
             var $selected = $controlGroup.find('[type=radio][name=importance]:checked');
             var value = $selected[0].value;
             if (value) {
@@ -364,7 +378,7 @@ $(function(){
                 var $date = $body.children('.date').first();
                 var i, l = data.length;
                 for (i = 0; i < l; i++) {
-                    var $item = $('#' + data[i].id);
+                    var $item = $('#' + data[i].oid);
                     if ($item.length) {
                         $item.remove();
                         if (data[i].status == 'deleted') {
@@ -375,6 +389,7 @@ $(function(){
                 if (data.length) {
                     var html = tmpl({
                         day: '',
+                        update: true,
                         records : data
                     });
                     $date.replaceWith(html);
@@ -409,12 +424,14 @@ $(function(){
                     var day = $body.children().last().attr('data-day');
                     html = tmpl({
                         day: day,
+                        update: false,
                         records : data
                     });
                     $body.append(html);
                 } else {
                     html = tmpl({
                         day: '',
+                        update: false,
                         records : data
                     });
                     $body.html(html);
@@ -444,7 +461,7 @@ $(function(){
         for (i = 0; i < l; i++) {
             var record = data[i];
             var mt = moment.unix(record.updatedAt);
-            //record.id = idPrefix + record.id;
+            record.oid = option.prefix + record.id;
             record.utm  = record.updatedAt;
             record.time = mt.format(option.timeFormat);
             record.date = mt.format(option.dateFormat);

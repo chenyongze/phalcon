@@ -105,7 +105,7 @@ $this->placeholder->block('keywords')->set($post->title . ",外汇,期货,大宗
             </div>
         </div>
         <? if ($post->imageId): ?>
-            <img class="main-image lazy" src="/wscn/img/default.png" alt=""
+            <img class="main-image lazy" src="<?=$this->url->getStatic('/wscn/img/default.png')?>" alt=""
                  data-original="<?=
                  $post->thumbnail->imageWidth > 640 || $post->thumbnail->imageHeight > 350 ?
                      $this->tag->thumb($post->image, 'c_fill,h_350,w_640') : $this->tag->thumb($post->image)?>"/>
@@ -293,7 +293,7 @@ $this->placeholder->block('keywords')->set($post->title . ",外汇,期货,大宗
     <!-- End: Wallstreetcn.com sidebar widget -->
     <!--  -->
     <div class="side-ad">
-        <img src="/wscn/img/side-img-1.jpg" alt=""/>
+        <img src="<?=$this->url->getStatic('/wscn/img/side-img-1.jpg')?>" alt=""/>
     </div>
     <!--  -->
     <h2 class="side-title" style="margin-bottom: 0;">热门阅读</h2>
@@ -307,7 +307,7 @@ $this->placeholder->block('keywords')->set($post->title . ",外汇,期货,大宗
         <? foreach ($posts as $hotpost): ?>
             <li>
                 <a href="<?= $hotpost->getUrl() ?>" class="news">
-                    <img class="lazy img" src="/wscn/img/default.png"
+                    <img class="lazy img" src="<?=$this->url->getStatic('/wscn/img/default.png')?>"
                          data-original="<?=
                          $hotpost->image ? $this->tag->thumb(
                              $hotpost->image,

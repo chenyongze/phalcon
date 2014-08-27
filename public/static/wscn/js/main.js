@@ -1,13 +1,53 @@
 //滚动条部分初始化
 $(function(){
-    //页面右侧事实新闻
-    /*$('#side-livenews').nanoScroller({
-        alwaysVisible: true,
-        preventPageScrolling: true,
-        iOSNativeScrolling: true
-    });*/
     //页面经济日历
     $('.fc-list').fcl();
+});
+
+//页面右侧事实新闻
+$(function(){
+    var $dom = $('#side-livenews');
+    if ($dom.length) {
+        var $content = $dom.children('.content');
+        var tmpl = template.compile($dom.find('script[data-template]').html(), {escape: false});
+        init();
+    }
+    function init () {
+        initData();
+    }
+    function initData() {
+        $.ajax({
+            url : 'http://api.rebirth.wallstreetcn.com:80/v2/livenews?limit=5',
+            method : 'GET',
+            dataType: 'jsonp'
+        }).then(function(response) {
+            var results = response.results;
+            if (results.length) {
+                var data = parseData(results);
+                var html = tmpl({
+                    records : data
+                });
+                $content.append(html);
+            }
+        }).fail(function(error) {
+            //todo
+            initData();
+        });
+    };
+    function parseData(data) {
+        var records = [];
+        var i;
+        var l = data.length;
+        for (i = 0; i < l; i++) {
+            var record = data[i];
+            var mt = moment.unix(record.updatedAt);
+            //record.id = idPrefix + record.id;
+            record.utm  = record.updatedAt;
+            record.time = mt.format('HH:mm');
+            records.push(record);
+        }
+        return records;
+    };
 });
 
 //收藏

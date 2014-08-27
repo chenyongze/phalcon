@@ -20,7 +20,7 @@
                         <li class="news">
                         <div class="clearfix">
                             <a href="<?=$post->getUrl()?>">
-                                <img class="lazy img" src="/wscn/img/default.png" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_120,w_200') : '/img/article.jpg'?>" alt=""/>
+                                <img class="lazy img" src="<?=$this->url->getStatic('/wscn/img/default.png')?>" data-original="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_120,w_200') : '/img/article.jpg'?>" alt=""/>
                             </a>
                             <div class="content">
                                 <a class="title" href="<?=$post->getUrl()?>"><?=$post->title?></a>
