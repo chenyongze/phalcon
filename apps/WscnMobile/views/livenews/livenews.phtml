@@ -20,7 +20,7 @@
 			<h2 class="head">
 				<i class="icon chart-line"></i>
                 <span class="time"><?=$this->tag->datetime($post->createdAt)?></span>
-                <img src="/wscnm/img/whitestar.png" class="favorite" style="display:none"/>
+                <img src="<?=$this->url->getStatic('/wscnm/img/whitestar.png')?>" class="favorite" style="display:none"/>
 			</h2>
 			<div class="content">
                 <?=$post->getContentHtml()?>

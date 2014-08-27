@@ -548,22 +548,13 @@
 
 
 <!--[if lt IE 9]>
-<?
-$this->assets
-->collection('jQueryIE')
-->addJs('/vendor/jquery-1.11.1/dist/jquery.js');
-$this->assets->outputJs('jQueryIE');
-?>
+<script type="text/javascript" src="<?=$this->url->getStatic('/vendor/jquery-1.11.1/dist/jquery.js');?>"></script>
 <![endif]-->
 
 
 <!--[if gt IE 8]><!-->
-<?
-$this->assets
-->collection('jQuery')
-->addJs('/vendor/jquery/dist/jquery.js');
-$this->assets->outputJs('jQuery');
-?>
+<script type="text/javascript" src="<?=$this->url->getStatic('/vendor/jquery/dist/jquery.js');?>"></script>
+
 <!--<![endif]-->
 
 <?
@@ -572,7 +563,6 @@ $this->assets
 ->addJs('/vendor/bootstrap/dist/js/bootstrap.js')
 ->addJs('/vendor/moment/moment.js')
 ->addJs('/vendor/parsleyjs/dist/parsley.js')
-->addJs('/vendor/parsleyjs/dist/parsley.remote.js')
 ->addJs('/vendor/parsleyjs/dist/parsley.remote.js')
 ->addJs('/vendor/jquery.lazyload/jquery.lazyload.js')
 ->addJs('/vendor/nanoscroller/bin/javascripts/jquery.nanoscroller.js')

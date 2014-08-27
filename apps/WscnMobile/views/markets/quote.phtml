@@ -99,9 +99,15 @@
     <?=$this->partial('partial/footer')?>
 </div>
 <?=$this->partial('partial/js')?>
-<script type="text/javascript" src="http://cdn.static.wallstreetcn.com/js/store.min.js"></script>
-<script type="text/javascript" src="/wscnm/js/wscn_util.js"></script>
-<script type="text/javascript" src="/wscnm/js/marketdetail.js"></script>
+
+<?
+$this->assets
+->collection('footerJs')
+->addJs('/vendor/store.js/store.js')
+->addJs('/vendor/wscn-jscore/wscn_util.js')
+->addJs('/wscnm/js/marketdetail.js');
+$this->assets->outputJs('footerJs');
+?>
 <script type="text/javascript">  
 	WSCN_UTIL.mobile.detectOrientation();
 </script>
