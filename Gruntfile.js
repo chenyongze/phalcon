@@ -11,7 +11,7 @@ module.exports = function(grunt) {
                     sourceMapFilename: 'style.css.map'
                 },
                 files: {
-                    'public/wscn/css/style.css': 'public/wscn/less/style.less'
+                    'public/static/wscn/css/style.css': 'public/static/wscn/less/style.less'
                 }
             }
         },
@@ -22,7 +22,7 @@ module.exports = function(grunt) {
             },
             livereload: {
                 options: { livereload: true },
-                files: ['public/wscn/js/**/*.js','public/wscn/css/**/*']
+                files: ['public/static/wscn/js/**/*.js','public/static/wscn/css/**/*']
             }
         }
     });
