@@ -2,11 +2,10 @@
 <?
 $this->assets
 ->collection('headerCss')
-->setPrefix('/static')
 ->addCss('/wscnm/gmu/reset.css')
 ->addCss('/wscnm/gmu/gmu.css')
 ->addCss('/wscnm/css/style.css');
 $this->assets->outputCss('headerCss');
 ?>
-<link rel="apple-touch-icon" href="/wscnm/img/bookmark.png"/> 
+<link rel="apple-touch-icon" href="<?=$this->url->getStatic('/wscnm/img/bookmark.png')?>"/> 
 
