@@ -85,10 +85,12 @@ $(function(){
         baseUpdateUrl: 'http://api.rebirth.wallstreetcn.com:80/v2/livenews/realtime?limit=3',
         url: 'http://api.rebirth.wallstreetcn.com:80/v2/livenews?limit=40',
         updateUrl: 'http://api.rebirth.wallstreetcn.com:80/v2/livenews/realtime?limit=3',
-        updateTimeout: 10000,
+        updateTimeout: 5000,
         //todo 修改
         detailsUrl: 'http://rebirth.wallstreetcn.com/livenews/detail/',
-        prefix: 'livenews-'
+        prefix: 'livenews-',
+        message: '登录后才能使用筛选功能哦。<br/>新人请猛点右下角“注册”加入我们。',
+        messageType: 'warning'
     };
     var uri = {
         baseUrl: location.href.replace(/\?.*|#.*/, ''),
@@ -251,9 +253,7 @@ $(function(){
 
         //选择或取消分类
         $controlGroup.on('click', '[name="cid[]"][type=checkbox]', function(e){
-            if ($htmlBody.attr('data-logon') !== "true") {
-                loginUI.showModal();
-            }
+            checkLogin();
             var $input = $(this);
             var input = $input[0];
             var name = input.name;
@@ -282,9 +282,7 @@ $(function(){
 
         //选择数据类型
         $controlGroup.on('click', '[type=radio][name=type]', function(e){
-            if ($htmlBody.attr('data-logon') !== "true") {
-                loginUI.showModal();
-            }
+            checkLogin();
             var $selected = $controlGroup.find('[type=radio][name=type]:checked');
             var value = $selected[0].value;
             if (value) {
@@ -296,9 +294,7 @@ $(function(){
         });
         //选择 重要性
         $controlGroup.on('click', '[type=radio][name=importance]', function(e){
-            if ($htmlBody.attr('data-logon') !== "true") {
-                loginUI.showModal();
-            }
+            checkLogin();
             var $selected = $controlGroup.find('[type=radio][name=importance]:checked');
             var value = $selected[0].value;
             if (value) {
@@ -406,6 +402,7 @@ $(function(){
     }
 
     function loadPage(page, callback) {
+        $livenews.addClass('loading');
         page = page || 1;
         $.ajax({
             url : option.url,
@@ -440,6 +437,7 @@ $(function(){
             if (typeof callback === 'function') {
                 callback();
             }
+            $livenews.removeClass('loading');
         }).fail(function(error) {
             //todo
             loadPage(page, callback);
@@ -504,6 +502,16 @@ $(function(){
         $tag.remove();
         if ($tags.find('.tag').length == 0) {
             $tags.removeClass('active');
+        }
+    }
+
+    function checkLogin() {
+        if ($htmlBody.attr('data-logon') !== "true") {
+            loginUI.showModal();
+            loginUI.showMessage('', option.message, option.messageType);
+            return false;
+        } else {
+            return true;
         }
     }
 

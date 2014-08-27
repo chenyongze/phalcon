@@ -17,7 +17,7 @@
     "use strict";
     var defaultOptions = {
         "rootSelector" : "#user-modal",
-        "carouselSelector" : "#user-modal-carousel",
+        "carouselSelector" : "#user-modal-carousel"
     };
 
     //Debug shortcut
@@ -82,10 +82,21 @@
         }      
 
         , showMessage : function(messageCode, message, messageType) {
-            var uiClass = messageType === "success" ? "alert-success" : "alert-danger";
+            var uiClass = "alert-danger";
+            if (messageType === "success") {
+                uiClass = "alert-success";
+            } else if (messageType === "info") {
+                uiClass = "alert-info";
+            } else if (messageType === "warning") {
+                uiClass = "alert-warning";
+            }
             var form = this.rootUI.find(".item.active form");
             form.find(".alert").remove();
-            form.prepend("<div data-raw-message='" + messageCode + "' class='alert " + uiClass + "'>" + message + "<button type='button' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button></div>");
+            form.prepend(
+                "<div data-raw-message='" + messageCode + "' class='alert " + uiClass + " alert-dismissible'>" +
+                "<button type='button' class='close' data-dismiss='alert'>" +
+                "<span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button>" +
+                message + "</div>");
         }
 
         , hideMessage : function() {

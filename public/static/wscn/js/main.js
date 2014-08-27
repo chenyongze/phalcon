@@ -72,7 +72,7 @@ $(function(){
 
     $(document).on("click", "body[data-logon=false] [data-toggle=collect]", function(e) {
         loginUI.showModal();
-        //loginUI.showMessage($(this).attr("data-message"), $(this).attr("data-message"));
+        loginUI.showMessage('', $(this).attr("data-message"), $(this).attr("data-message-type"));
         return false;
     });
 
