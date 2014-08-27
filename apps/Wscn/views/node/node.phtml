@@ -12,7 +12,8 @@ $this->placeholder->block('keywords')->set($post->title . ",外汇,期货,大宗
     <div class="sharebar">
         <span class="collect" data-toggle="collect" data-active=""
               data-post-id="<?= $post->id ?>" data-url="/stars/<?= $post->id ?>"
-              data-message="登录后收藏" data-text="收藏" data-active-text="取消收藏" >
+              data-message="请登录后收藏哦。<br/>新人请猛点右下角“注册”加入我们。" data-message-type="warning"
+              data-text="收藏" data-active-text="取消收藏" >
             <span class="fa fa-star"></span>
         </span>
         <a class="discuss" href="#comments">
@@ -117,15 +118,19 @@ $this->placeholder->block('keywords')->set($post->title . ",外汇,期货,大宗
         <div class="toolbar">
             <span class="collect" data-toggle="collect" data-active=""
                   data-post-id="<?= $post->id ?>" data-url="/stars/<?= $post->id ?>"
-                  data-message="登录后收藏" data-text="" data-active-text="" >
+                  data-message="请登录后收藏哦。<br/>新人请猛点右下角“注册”加入我们。" data-message-type="warning"
+                  data-text="" data-active-text="" >
 
                 <span class="fa fa-star"></span>
             </span>
             <span style="margin: 0 15px; float: left;">|</span>
-            <a class="endorse">
+            <span class="endorse" data-toggle="endorse" data-active=""
+                  data-post-id="<?= $post->id ?>" data-url="/<?= $post->id ?>"
+                  data-message="请登录后点赞哦。<br/>新人请猛点右下角“注册”加入我们。" data-message-type="warning"
+                  >
                 <span class="fa fa-thumbs-up"></span>
-                132
-            </a>
+                <!-- 132 -->
+            </span>
             <!-- JiaThis Button BEGIN -->
             <div class="jiathis_style_32x32">
                 <span class="title">分享到 </span>

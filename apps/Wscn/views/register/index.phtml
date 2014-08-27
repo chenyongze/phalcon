@@ -6,17 +6,18 @@
             <form data-validate action="/register"  method="POST" novalidate="novalidate" role="form">
                 <label for="register-form-email">邮箱</label>
                 <div class="form-group has-feedback">
-                    <input id="register-form-email" type="email" name="email" class="form-control" placeholder="" required
+                    <input id="register-form-email" type="email" name="email" class="form-control" placeholder="请输入一个邮箱" required
                            data-parsley-trigger="blur change"
                            data-parsley-remote="/register/check"
                            data-parsley-remote-options='{ method: "GET", dataType: "json"}'
                            data-parsley-remote-message="输入的邮箱已被占用"
-                            >
+                           data-parsley-required-message="必填项"
+                    >
                     <span class="fa fa-envelope form-control-feedback"></span>
                 </div>
                 <label for="register-form-username">用户名</label>
                 <div class="form-group has-feedback">
-                    <input id="register-form-username" type="text" name="username" class="form-control" placeholder="字母数字" required
+                    <input id="register-form-username" type="text" name="username" class="form-control" placeholder="请起一个名字吧" required
                            data-parsley-trigger="blur change"
                            data-parsley-type="alphanum"
                            maxlength="24"
@@ -24,23 +25,25 @@
                            data-parsley-minlength-message="用户名最短4个字符"
                            data-parsley-maxlength="24"
                            data-parsley-pattern="^(?![0-9]+$)"
-                           data-parsley-pattern-message="请不要使用纯数字作为用户名"
+                           data-parsley-pattern-message="用户名支持英文字母、下划线或数字的组合（不能为纯数字）"
                            data-parsley-remote="/register/check"
                            data-parsley-remote-options='{ method: "GET", dataType: "json"}'
-                           data-parsley-remote-message="输入的用户名已被占用"
-                            >
+                           data-parsley-remote-message="这个名字已经有人用了，请换一个吧"
+                           data-parsley-required-message="必填项"
+                    >
                     <span class="fa fa-user form-control-feedback"></span>
                 </div>
                 <label for="register-form-password">密码</label>
                 <div class="form-group has-feedback">
-                    <input id="register-form-password" type="password" name="password" class="form-control password-previewer" placeholder="6位以上密码" required
+                    <input id="register-form-password" type="password" name="password" class="form-control password-previewer" placeholder="请输入一个密码" required
                            data-parsley-trigger="blur change"
                            data-parsley-minlength="6"
                            data-parsley-minlength-message="密码最短6位"
                            maxlength="26"
                            data-parsley-maxlength="26"
                            data-parsley-max-length="密码最长26位"
-                            >
+                           data-parsley-required-message="必填项"
+                    >
                     <span class="fa fa-lock form-control-feedback"></span>
                 </div>
                 <div class="form-footer">
