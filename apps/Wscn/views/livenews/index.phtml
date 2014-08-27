@@ -423,7 +423,7 @@
                         <% } else { %>
                             <li id="<%= record.oid %>" class="news <%= className %>" data-importance="<%= record.importance %>" data-utm="<%= record.utm %>" data-day="<%= record.day %>">
                                 <span class="time"><%= record.time %></span>
-                                <span class="icon fa fa-file-text"></span>
+                                <span class="icon fa fa-file-o"></span>
                                 <div class="control-box">
                                     <div class="meta meta-comments" data-toggle="comments" data-target="#<%= record.oid %>">
                                         <a href="">
@@ -601,11 +601,12 @@
 </div>
 
 <!---- comment begin -->
-<link rel="stylesheet" href="/css/comment.css">
-<?
-$script = $this->tag->javascriptInclude("/js/comments.js").PHP_EOL;
-$script .= $this->tag->javascriptInclude("/wscn/js/livenews.js").PHP_EOL;
-$this->placeholder->block('script')->set($script);
+<? $this->assets->collection('headerCss')
+                ->addCss('/wscn/css/comment.css');
+
+$this->assets->collection('footerJs')
+            ->addJs('/wscn/js/livenews.js')
+            ->addJs('/wscn/js/comments.js');
 
 ?>
 <!---- comment end   -->

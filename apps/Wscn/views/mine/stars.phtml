@@ -37,7 +37,8 @@
                             <span class="time"><?=$this->tag->datetime($post->createdAt)?></span>
                             <span class="collect" data-toggle="collect" data-active="true"
                                   data-post-id="<?= $post->id ?>" data-url="/stars/<?= $post->id ?>"
-                                  data-message="" data-text="添加收藏" data-active-text="取消收藏" >
+                                  data-message="请登录后收藏哦。<br/>新人请猛点右下角“注册”加入我们。" data-message-type="warning"
+                                  data-text="添加收藏" data-active-text="取消收藏" >
                                 <span class="fa fa-star"></span>
                             </span>
                         </div>

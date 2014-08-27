@@ -15,12 +15,12 @@
 
     <?
     $this->assets
-    ->collection('header')
+    ->collection('headerJs')
     ->addCss('/wscn/css/bootstrap.css')
     ->addCss('/vendor/fontawesome/css/font-awesome.css')
     ->addCss('/vendor/nanoscroller/bin/css/nanoscroller.css')
     ->addCss('/wscn/css/style.css');
-    $this->assets->outputCss('header');
+    $this->assets->outputCss('headerCss');
     ?>
 
     <!-- for ie mobile content-width bug -->
@@ -275,7 +275,8 @@
                                         data-parsley-minlength="4"
                                         data-parsley-minlength-message="用户名最短4个字符"
                                         data-parsley-pattern="^(?![0-9]+$)"
-                                        data-parsley-pattern-message="不支持纯数字用户名"
+                                        data-parsley-pattern-message="请输入英文字母、下划线或数字的组合（不能为纯数字）"
+                                        data-parsley-required-message="必填项"
                                     >
                                     <span class="fa fa-user form-control-feedback"></span>
                                 </div>
@@ -287,6 +288,7 @@
                                         maxlength="26"
                                         data-parsley-maxlength="26"
                                         data-parsley-max-length="密码最长26位"
+                                        data-parsley-required-message="必填项"
                                     >
                                     <span class="fa fa-lock form-control-feedback"></span>
                                 </div>
@@ -339,6 +341,7 @@
                                         data-parsley-remote="/register/check"
                                         data-parsley-remote-options='{ method: "GET", dataType: "json"}'
                                         data-parsley-remote-message="输入的邮箱已被占用"
+                                        data-parsley-required-message="必填项"
                                     >
                                     <span class="fa fa-envelope form-control-feedback"></span>
                                 </div>
@@ -351,10 +354,11 @@
                                         data-parsley-minlength-message="用户名最短4个字符"
                                         data-parsley-maxlength="24"
                                         data-parsley-pattern="^(?![0-9]+$)"
-                                        data-parsley-pattern-message="请不要使用纯数字作为用户名"
+                                        data-parsley-pattern-message="用户名支持英文字母、下划线或数字的组合（不能为纯数字）"
                                         data-parsley-remote="/register/check"
                                         data-parsley-remote-options='{ method: "GET", dataType: "json"}'
-                                        data-parsley-remote-message="输入的用户名已被占用"
+                                        data-parsley-remote-message="这个名字已经有人用了，请换一个吧"
+                                        data-parsley-required-message="必填项"
                                     >
                                     <span class="fa fa-user form-control-feedback"></span>
                                 </div>
@@ -366,6 +370,7 @@
                                         maxlength="26"
                                         data-parsley-maxlength="26"
                                         data-parsley-max-length="密码最长26位"
+                                        data-parsley-required-message="必填项"
                                     >
                                     <span class="fa fa-lock form-control-feedback"></span>
                                 </div>
@@ -440,7 +445,8 @@
                                                 data-parsley-minlength="4"
                                                 data-parsley-minlength-message="用户名最短4个字符"
                                                 data-parsley-pattern="^(?![0-9]+$)"
-                                                data-parsley-pattern-message="不支持纯数字用户名"
+                                                data-parsley-pattern-message="请输入英文字母、下划线或数字的组合（不能为纯数字）"
+                                                data-parsley-required-message="必填项"
                                             >
                                             <span class="fa fa-user form-control-feedback"></span>
                                         </div>
@@ -452,6 +458,7 @@
                                                 maxlength="26"
                                                 data-parsley-maxlength="26"
                                                 data-parsley-max-length="密码最长26位"
+                                                data-parsley-required-message="必填项"
                                             >
                                             <span class="fa fa-lock form-control-feedback"></span>
                                         </div>
@@ -522,11 +529,12 @@
                                                    data-parsley-minlength-message="用户名最短4个字符"
                                                    data-parsley-maxlength="24"
                                                    data-parsley-pattern="^(?![0-9]+$)"
-                                                   data-parsley-pattern-message="请不要使用纯数字作为用户名"
+                                                   data-parsley-pattern-message="用户名支持英文字母、下划线或数字的组合（不能为纯数字）"
                                                    data-parsley-remote="/register/check"
                                                    data-parsley-remote-options='{ method: "GET", dataType: "json"}'
-                                                   data-parsley-remote-message="输入的用户名已被占用"
-                                                    >
+                                                   data-parsley-remote-message="这个名字已经有人用了，请换一个吧"
+                                                   data-parsley-required-message="必填项"
+                                            >
                                             <span class="fa fa-user form-control-feedback"></span>
                                         </div>
                                         <label for="connected-register-form-email" class="form-label">请填写邮箱及用户名确保账号不会丢失</label>
@@ -559,7 +567,7 @@
 
 <?
 $this->assets
-->collection('footer')
+->collection('footerJs')
 ->addJs('/vendor/bootstrap/dist/js/bootstrap.js')
 ->addJs('/vendor/moment/moment.js')
 ->addJs('/vendor/parsleyjs/dist/parsley.js')
@@ -576,7 +584,8 @@ $this->assets
 ->addJs('/wscn/js/jquery.fcl.js')
 ->addJs('/wscn/js/leftbar.js')
 ->addJs('/wscn/js/main.js');
-$this->assets->outputJs('footer');
+
+$this->assets->outputJs('footerJs');
 ?>
 
 <script type="text/javascript">

@@ -104,6 +104,10 @@ class Post extends Entities\Posts
     {
         $this->getDI()->getEventsManager()->fire('blog:afterCreate', $this);
     }
+    public function afterSave()
+    {
+        $this->getDI()->getEventsManager()->fire('blog:afterSave', $this);
+    }
 
     public function beforeUpdate()
     {
@@ -118,6 +122,7 @@ class Post extends Entities\Posts
 
     public function beforeSave()
     {
+
         if ($this->getDI()->getRequest()->hasFiles()) {
             $upload = new UploadModel();
             $files = $this->getDI()->getRequest()->getUploadedFiles();
