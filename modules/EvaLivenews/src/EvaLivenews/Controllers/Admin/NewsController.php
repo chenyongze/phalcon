@@ -41,6 +41,7 @@ class NewsController extends ControllerBase
             'uid' => $this->request->getQuery('uid', 'int'),
             'cid' => $this->request->getQuery('cid', 'int'),
             'username' => $this->request->getQuery('username', 'string'),
+            'type' => $this->request->getQuery('type', 'string'),
             'codeType' => $this->request->getQuery('code_type', 'string'),
             'order' => $order,
             'limit' => $limit,
