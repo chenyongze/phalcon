@@ -46,7 +46,6 @@ upgrade:
 update:
 	git pull
 	git submodule update --init --recursive
-	cnpm update
 	grunt less:wscn
 
 install-dev:
