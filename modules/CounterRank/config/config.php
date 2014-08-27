@@ -21,6 +21,10 @@ return array(
                 'token' => '8186b38865c422e581881b1e1d2d9740',
                 'type' => 'increment'
             ),
+            'livenews' => array(
+                'token' => 'e432abe386f5062488e9335dfe534e7d',
+                'type' => 'increment'
+            ),
             'comments' => array(
                 'token' => '4e1c2a79dcdd4e6e73bbdeb3f48d3d76',
                 'type' => 'increment'

@@ -102,11 +102,11 @@
 
 <?
 $this->assets
-->collection('footerJs')
+->collection('footer')
 ->addJs('/vendor/store.js/store.js')
 ->addJs('/vendor/wscn-jscore/wscn_util.js')
 ->addJs('/wscnm/js/marketdetail.js');
-$this->assets->outputJs('footerJs');
+$this->assets->outputJs('footer');
 ?>
 <script type="text/javascript">  
 	WSCN_UTIL.mobile.detectOrientation();
