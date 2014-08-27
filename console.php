@@ -14,6 +14,10 @@ set_time_limit(0);
 $_start_time = microtime(true);
 require __DIR__ . '/init_autoloader.php';
 
+// 去除参数中的脚本名称
+array_shift($argv);
+// 取出 appName ，命令行的第一个参数
+$appName = array_shift($argv);
 /*
 |--------------------------------------------------------------------------
 | 初始化 engine
@@ -26,12 +30,10 @@ require __DIR__ . '/init_autoloader.php';
 |
 |
 */
-$engine = new \Eva\EvaEngine\Engine(__DIR__ . '/', 'wscn', 'cli');
+$engine = new \Eva\EvaEngine\Engine(__DIR__ . '/', $appName ? $appName : 'evaengine', 'cli');
 $engine
     ->loadModules(include __DIR__ . '/config/modules.' . $engine->getAppName() . '.php')
     ->bootstrap();
-
-
 /** @var  $output Eva\EvaEngine\CLI\Output\ConsoleOutput */
 $output = $engine->getDI()->getOutput();
 
@@ -39,6 +41,7 @@ $output = $engine->getDI()->getOutput();
 try {
     /** @var  $dispatcher Phalcon\CLI\Dispatcher */
     $dispatcher = $engine->getDI()->getDispatcher();
+
 
     $engine->getApplication()->handle(
         array(
