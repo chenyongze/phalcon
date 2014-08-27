@@ -7,10 +7,12 @@
     "require-css": "latest",
     "requirejs-text": "latest",
     "fontawesome": "latest",
+    "fontawesome3": "https://github.com/FortAwesome/Font-Awesome.git#b1a8ad47303509e70e56079396fad2afadfd96d5",
     "underscore": "1.5.1",
     "jquery": "latest",
     "jquery-1.11.1": "1.11.1",
     "jquery-ui": "1.11.0",
+    "jquery-mobile": "latest",
     "bootstrap": "v3.2.0",
     "backbone": "latest",
     "jquery-file-upload" : "latest",
@@ -39,6 +41,7 @@
     "respond" : "latest",
     "html5shiv" : "latest",
     "wscn-jscore" : "https://github.com/wallstreetcn/wscn_jscore.git",
+    "quotes-search" : "https://github.com/wallstreetcn/quotes_search.git",
     "ckeditor" : "https://github.com/wallstreetcn/ckeditor.git",
     "ace-admin" : "https://github.com/wallstreetcn/ace_admin_v1.git"
   }
