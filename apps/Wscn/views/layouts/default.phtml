@@ -245,7 +245,7 @@
                             <form data-validate action="/session/forgot"  method="POST" novalidate="novalidate">
                                 <label >请输入注册邮箱</label>
                                 <div class="form-group has-feedback">
-                                    <input type="email" name="email" class="form-control" placeholder="注册邮箱" required>
+                                    <input type="email" name="email" class="form-control" placeholder="请输入您的注册邮箱" required>
                                     <span class="fa fa-envelope form-control-feedback"></span>
                                 </div>
                                 <div class="form-footer">
@@ -334,7 +334,7 @@
                             <form data-validate action="/register"  method="POST" novalidate="novalidate" role="form">
                                 <label>使用邮箱注册</label>
                                 <div class="form-group has-feedback">
-                                    <input type="email" name="email" class="form-control" placeholder="邮箱" required
+                                    <input type="email" name="email" class="form-control" placeholder="请输入一个邮箱" required
                                         data-parsley-trigger="blur change"
                                         data-parsley-remote="/register/check"
                                         data-parsley-remote-options='{ method: "GET", dataType: "json"}'
@@ -343,7 +343,7 @@
                                     <span class="fa fa-envelope form-control-feedback"></span>
                                 </div>
                                 <div class="form-group has-feedback">
-                                    <input type="text" name="username" class="form-control" placeholder="用户名" required
+                                    <input type="text" name="username" class="form-control" placeholder="请起一个名字吧" required
                                         data-parsley-trigger="blur change"
                                         data-parsley-type="alphanum"
                                         maxlength="24"
@@ -359,7 +359,7 @@
                                     <span class="fa fa-user form-control-feedback"></span>
                                 </div>
                                 <div class="form-group has-feedback">
-                                    <input type="password" name="password" class="form-control password-previewer" placeholder="密码" required
+                                    <input type="password" name="password" class="form-control password-previewer" placeholder="请输入一个密码" required
                                         data-parsley-trigger="blur change"
                                         data-parsley-minlength="6"
                                         data-parsley-minlength-message="密码最短6位"
@@ -500,7 +500,7 @@
                                     </div>
                                     <div class="custom-span-5">
                                         <div class="form-group has-feedback size-sm">
-                                            <input id="connected-register-form-email" type="email" name="email" class="form-control" placeholder="邮箱" required
+                                            <input id="connected-register-form-email" type="email" name="email" class="form-control" placeholder="请输入一个邮箱" required
                                                    data-parsley-trigger="blur change"
                                                    data-parsley-remote="/register/check"
                                                    data-parsley-remote-options='{ method: "GET", dataType: "json"}'
@@ -514,7 +514,7 @@
                                     </div>
                                     <div class="custom-span-5">
                                         <div class="form-group has-feedback size-sm">
-                                            <input type="text" name="username" class="form-control" placeholder="用户名" required
+                                            <input type="text" name="username" class="form-control" placeholder="请起一个名字吧" required
                                                    data-parsley-trigger="blur change"
                                                    data-parsley-type="alphanum"
                                                    maxlength="24"

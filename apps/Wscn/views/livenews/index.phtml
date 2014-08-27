@@ -357,7 +357,7 @@
                             <% if (record.hasMore == "1") { %>
                                 <span class="more fa" data-toggle="details" data-id="<%= record.id %>"></span>
                             <% } %>
-                            <div class="comments"></div>
+                            <div class="comments" data-ws-thread="livenews_<%= record.id %>"></div>
                         </li>
                     <% } else if (record.type =='data') { %>
                         <% if (record.codeType == 'json') { %>
@@ -391,7 +391,7 @@
                                     </div>
                                 </div>
                                 <div class="content">
-                                    <img  class="flag" src="<?=$this->url->getStatic('/wscn/css/flags/flags/4x3/<%= record.data.country %>.svg')?>" alt="<%= record.data.country %>"/>
+                                    <img  class="flag" src="<?=$this->url->getStatic('/wscn/css/flags/flags/4x3/')?><%= record.data.country %>.svg" alt="<%= record.data.country %>"/>
                                     <h3 class="title">
                                         <%= record.data.title %>
                                     </h3>
@@ -418,7 +418,7 @@
                                 <% if (record.hasMore == "1") { %>
                                 <span class="more fa" data-toggle="details" data-id="<%= record.id %>"></span>
                                 <% } %>
-                                <div class="comments"></div>
+                                <div class="comments" data-ws-thread="livenews_<%= record.id %>"></div>
                             </li>
                         <% } else { %>
                             <li id="<%= record.oid %>" class="news <%= className %>" data-importance="<%= record.importance %>" data-utm="<%= record.utm %>" data-day="<%= record.day %>">
