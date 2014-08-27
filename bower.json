@@ -12,7 +12,7 @@
     "jquery": "latest",
     "jquery-1.11.1": "1.11.1",
     "jquery-ui": "1.11.0",
-    "jquery-mobile": "latest",
+    "jquery-mobile-bower": "latest",
     "bootstrap": "v3.2.0",
     "bootstrap-markdown": "latest",
     "backbone": "latest",

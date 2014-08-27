@@ -24,7 +24,6 @@ $this->assets
 $this->assets->outputCss('headerCss');
 ?>
 
-
 		<!--[if IE 7]>
         <link rel="stylesheet" href="/vendor/js/typeahead/typeaheadjs.css" />
         <link rel="stylesheet" href="<?=$this->url->getStatic('/vendor/fontawesome3/css/font-awesome-ie7.css')?>" />
@@ -45,7 +44,7 @@ $this->assets->outputCss('headerCss');
         <!--<![endif]-->
 
         <script type="text/javascript">
-            if("ontouchend" in document) document.write("<script src='<?=$this->url->getStatic('/vendor/jquery-mobile/');?>'>"+"<"+"/script>");
+            if("ontouchend" in document) document.write("<script src='<?=$this->url->getStatic('/vendor/jquery-mobile-bower/js/jquery.mobile-1.4.2.js');?>'>"+"<"+"/script>");
         </script>
 
 <?
