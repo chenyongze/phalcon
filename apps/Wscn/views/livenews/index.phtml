@@ -334,14 +334,14 @@
                                 <div class="meta meta-comments" data-toggle="comments" data-target="#<%= record.oid %>">
                                     <a href="">
                                         <span class="fa fa-comment"></span>
-                                        <span class="text"><%= record.commentCount %></span>
+                                        <span class="text"><%= record.commentCount != '0' ? record.commentCount : '' %></span>
                                     </a>
                                 </div>
                                 <hr class="vr"/>
                                 <div class="meta">
-                                    <a href="">
+                                    <a href="http://s.jiathis.com/?webid=tsina&url=http://www.wallstreetcn.com/livenews/detail/<%= record.id%>&title=<%= record.title %>&uid=1393984262901745&jid=1394372050838613">
                                         <span class="fa fa-share-square-o"></span>
-                                        <span class="text"><%= record.shareCount %></span>
+                                        <span class="text"></span>
                                     </a>
                                 </div>
                                 <hr class="vr"/>
@@ -372,14 +372,14 @@
                                     <div class="meta meta-comments" data-toggle="comments" data-target="#<%= record.oid %>">
                                         <a href="">
                                             <span class="fa fa-comment"></span>
-                                            <span class="text"><%= record.commentCount %></span>
+                                            <span class="text"><%= record.commentCount != '0' ? record.commentCount : '' %></span>
                                         </a>
                                     </div>
                                     <hr class="vr"/>
                                     <div class="meta">
-                                        <a href="">
+                                        <a href="http://s.jiathis.com/?webid=tsina&url=http://www.wallstreetcn.com/livenews/detail/<%= record.id%>&title=<%= record.title %>&uid=1393984262901745&jid=1394372050838613">
                                             <span class="fa fa-share-square-o"></span>
-                                            <span class="text"><%= record.shareCount %></span>
+                                            <span class="text"></span>
                                         </a>
                                     </div>
                                     <hr class="vr"/>
@@ -428,14 +428,14 @@
                                     <div class="meta meta-comments" data-toggle="comments" data-target="#<%= record.oid %>">
                                         <a href="">
                                             <span class="fa fa-comment"></span>
-                                            <span class="text"><%= record.commentCount %></span>
+                                            <span class="text"><%= record.commentCount != '0' ? record.commentCount : '' %></span>
                                         </a>
                                     </div>
                                     <hr class="vr"/>
                                     <div class="meta">
-                                        <a href="">
+                                        <a href="http://s.jiathis.com/?webid=tsina&url=http://www.wallstreetcn.com/livenews/detail/<%= record.id%>&title=<%= record.title %>&uid=1393984262901745&jid=1394372050838613">
                                             <span class="fa fa-share-square-o"></span>
-                                            <span class="text"><%= record.shareCount %></span>
+                                            <span class="text"></span>
                                         </a>
                                     </div>
                                     <hr class="vr"/>
@@ -458,6 +458,11 @@
 
                 <% } %>
             </script>
+
+            <div class="loader">
+                <span class="indicator fa fa-spinner fa-spin" style="margin-top: 100px;"></span>
+            </div>
+
         </div>
 
     </div>
@@ -542,7 +547,7 @@
         <!-- End: Wallstreetcn.com sidebar widget -->
         <!--  -->
         <div class="side-ad">
-            <img src="<?=$this->url->getStatic('/wscn/img/side-img-1.jpg')?>" alt=""/>
+            <img src="<?=$this->url->getStatic('/wscn/img//ad/side-ad.png')?>" alt=""/>
         </div>
         <a class="side-title with-more" href="">
             财经日历
