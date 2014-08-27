@@ -16,46 +16,49 @@ $(function(){
     var usrManager = UserManager.getInstance();
 
     usrManager.onceLogin(function(user) {
-        $("[data-action=star]").each(function(){
+        $("[data-toggle=collect]").each(function(){
             var btn = $(this);
-            var postId = btn.attr("data-post-id");
+            //var postId = btn.attr("data-post-id");
+            var url = btn.attr("data-url");
             $.ajax({
-                url : '/stars/' + postId
+                url : url
             }).then(function(response) {
-                btn.removeClass("not-stared").addClass("stared");
+                btn.attr("data-active", "true");
             }).fail(function(error) {
-                btn.removeClass("stared").addClass("not-stared");
+                btn.attr("data-active", "false");
             });
         });
     });
 
-    $(document).on("click", "body[data-logon=false] [data-action=star]", function(e) {
+    $(document).on("click", "body[data-logon=false] [data-toggle=collect]", function(e) {
         loginUI.showModal();
         //loginUI.showMessage($(this).attr("data-message"), $(this).attr("data-message"));
         return false;
     });
 
-    $(document).on("click", "body[data-logon=true] .not-stared[data-action=star]", function(){
+    $(document).on("click", "body[data-logon=true] [data-active=false][data-toggle=collect]", function(){
         var btn = $(this);
-        var postId = btn.attr('data-post-id');
+        //var postId = btn.attr("data-post-id");
+        var url = btn.attr("data-url");
         $.ajax({
-            url : '/stars/' + postId,
+            url : url,
             method : 'PUT'
         }).then(function(response) {
-            btn.removeClass("not-stared").addClass("stared");
+            btn.attr("data-active", "true");
         }).fail(function(error) {
         });
         return false;
     });
 
-    $(document).on("click", "body[data-logon=true] .stared[data-action=star]", function(){
+    $(document).on("click", "body[data-logon=true] [data-active=true][data-toggle=collect]", function(){
         var btn = $(this);
-        var postId = btn.attr('data-post-id');
+        //var postId = btn.attr("data-post-id");
+        var url = btn.attr("data-url");
         $.ajax({
-            url : '/stars/' + postId,
+            url : url,
             method : 'DELETE'
         }).then(function(response) {
-            btn.removeClass("stared").addClass("not-stared");
+            btn.attr("data-active", "false");
         }).fail(function(error) {
         });
         return false;
@@ -170,13 +173,7 @@ $(function(){
         $this.addClass('active');
         e.preventDefault();
     });
-    //收藏
-    /*
-    $('[data-action=collect]').on('click', function(e){
-        $(this).toggleClass('active');
-        e.preventDefault();
-    });
-    */
+
 
     // 页面侧边栏 start
     var $sidebar = $('#sidebar');

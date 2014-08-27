@@ -48,6 +48,10 @@
     <?=$this->partial('partial/footer')?>
 </div>
 <?=$this->partial('partial/js')?>
-<script type="text/javascript" src="http://cdn.static.wallstreetcn.com/js/art-template-3.0.0.js"></script>
-<script type="text/javascript" src="/wscnm/js/marketlist.js"></script>
-
+<?
+$this->assets
+->collection('footerJs')
+->addJs('/vendor/art-template/dist/template.js')
+->addJs('/wscnm/js/marketlist.js');
+$this->assets->outputJs('footerJs');
+?>

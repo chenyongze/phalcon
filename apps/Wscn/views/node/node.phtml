@@ -10,10 +10,11 @@ $this->placeholder->block('keywords')->set($post->title . ",外汇,期货,大宗
 <div id="main-content">
 <aside id="leftbar">
     <div class="sharebar">
-        <a class="collect not-stared" href="" data-action="star" data-post-id="<?= $post->id ?>" data-message="登录后收藏">
+        <span class="collect" data-toggle="collect" data-active=""
+              data-post-id="<?= $post->id ?>" data-url="/stars/<?= $post->id ?>"
+              data-message="登录后收藏" data-text="收藏" data-active-text="取消收藏" >
             <span class="fa fa-star"></span>
-            <span class="text"></span>
-        </a>
+        </span>
         <a class="discuss" href="#comments">
             <span class="fa fa-comment"></span>
             评论
@@ -114,9 +115,12 @@ $this->placeholder->block('keywords')->set($post->title . ",外汇,期货,大宗
         </p>
 
         <div class="toolbar">
-            <a class="collect" href="" data-action="star" data-post-id="<?= $post->id ?>" data-message="登录后收藏">
+            <span class="collect" data-toggle="collect" data-active=""
+                  data-post-id="<?= $post->id ?>" data-url="/stars/<?= $post->id ?>"
+                  data-message="登录后收藏" data-text="" data-active-text="" >
+
                 <span class="fa fa-star"></span>
-            </a>
+            </span>
             <a class="endorse">
                 <span class="fa fa-thumbs-up"></span>
                 132
