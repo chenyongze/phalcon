@@ -45,4 +45,12 @@ class MediaController extends ControllerBase
         $pager = $paginator->getPaginate();
         $this->view->setVar('pager', $pager);
     }
+
+    /**
+    * @operationName("Upload Files")
+    * @operationDescription("Upload files by drag and drop")
+    */
+    public function uploadAction()
+    {
+    }
 }

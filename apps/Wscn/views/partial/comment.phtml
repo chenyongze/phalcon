@@ -1,16 +1,16 @@
 <!---- comment begin -->
-<? $this->assets->collection('header')
+<? $this->assets->collection('headerCss')
                 ->addCss('/wscn/css/comment.css') ?>
-<div class="user-comments" id="comments" data-ws-thread="<?=$uniqueKey?>"></div>
+<div class="user-comments" data-ws-thread="<?=$uniqueKey?>"></div>
 
 <?
-$this->assets->collection('footer')
+$this->assets->collection('footerJs')
             ->addJs('/wscn/js/comments.js');
 
 $script = <<<HTML
 <script type="text/javascript">
     $(function() {
-        $('#comments').ws_comments();
+        $('.user-comments').ws_comments();
     });
 </script>
 

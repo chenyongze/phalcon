@@ -3,89 +3,87 @@
 	<head>
 		<meta charset="utf-8" />
         <title><?=$this->placeholder->block('title', 'EvaEngine Admin');?></title>
-
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-        <link rel="stylesheet" href="/vendor/css/bootstrap-3.x/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="/vendor/css/bootstrap-3.x/css/bootstrap-theme.min.css" />
-		<link rel="stylesheet" href="/vendor/css/font-awesome.min.css" />
-        <link rel="stylesheet" href="/vendor/js/datepicker/css/datepicker3.css" />
-        <link rel="stylesheet" href="/vendor/js/select2/select2.css" />
-        <link rel="stylesheet" href="/vendor/js/select2/select2-bootstrap.css" />
-        <link rel="stylesheet" href="/vendor/js/timepicker/css/bootstrap-timepicker.css" />
-        <link rel="stylesheet" href="/vendor/js/jfu/css/jquery.fileupload.css" />
-        <link rel="stylesheet" href="/vendor/js/typeahead/typeaheadjs.css" />
+<?
+$this->assets
+->collection('headerCss')
+->addCss('/vendor/bootstrap/dist/css/bootstrap.css')
+->addCss('/vendor/fontawesome3/css/font-awesome.css')
+->addCss('/vendor/bootstrap-datepicker/css/datepicker3.css')
+->addCss('/vendor/bootstrap-timepicker/css/bootstrap-timepicker.css')
+->addCss('/vendor/select2/select2.css')
+->addCss('/vendor/select2/select2-bootstrap.css')
+->addCss('/vendor/jquery-file-upload/css/jquery.fileupload.css')
+->addCss('/vendor/jquery-ui/themes/ui-lightness/jquery-ui.css')
+->addCss('/vendor/dropzone/downloads/css/dropzone.css')
+->addCss('/vendor/quotes-search/quotes-search.css')
+->addCss('/vendor/ace-admin/css/ace-fonts.css')
+->addCss('/vendor/ace-admin/css/ace.min.css')
+->addCss('/vendor/ace-admin/css/ace-skins.min.css')
+->addCss('/vendor/ace-admin/css/ace-rtl.min.css');
+$this->assets->outputCss('headerCss');
+?>
 
 		<!--[if IE 7]>
-		  <link rel="stylesheet" href="/vendor/css/font-awesome-ie7.min.css" />
+        <link rel="stylesheet" href="/vendor/js/typeahead/typeaheadjs.css" />
+        <link rel="stylesheet" href="<?=$this->url->getStatic('/vendor/fontawesome3/css/font-awesome-ie7.css')?>" />
 		<![endif]-->
-
-		<link rel="stylesheet" href="/assets/css/jquery-ui-1.10.3.custom.min.css" />
-		<link rel="stylesheet" href="/assets/css/ace-fonts.css" />
-		<link rel="stylesheet" href="/assets/css/ace.min.css" />
-		<link rel="stylesheet" href="/assets/css/ace-skins.min.css" />
-		<link rel="stylesheet" href="/assets/css/ace-rtl.min.css" />
-		<link rel="stylesheet" href="/assets/css/dropzone.css" />
-		<link rel="stylesheet" href="/assets/css/quick-search.css" />
-
 
 		<!--[if lte IE 8]>
-		  <link rel="stylesheet" href="/assets/css/ace-ie.min.css" />
+        <link rel="stylesheet" href="<?=$this->url->getStatic('/vendor/ace-admin/css/ace-ie.min.css')?>" />
 		<![endif]-->
-
-		<script src="/assets/js/ace-extra.min.js"></script>
-
-		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 
 		<!--[if lt IE 9]>
-		<script src="/assets/js/html5shiv.js"></script>
-		<script src="/assets/js/respond.min.js"></script>
-		<![endif]-->
-
-		<!--[if !IE]> -->
-        <script type="text/javascript" src="/vendor/js/jquery-2.0.3.js"></script>
-		<!-- <![endif]-->
-		<!--[if IE]>
-		<script type="text/javascript" src="/vendor/js/jquery-1.10.2.min.js"></script>
+        <script src="<?=$this->url->getStatic('/vendor/html5shiv/dist/html5shiv.min.js')?>"></script>
+        <script src="<?=$this->url->getStatic('/vendor/respond/dest/respond.min.js')?>"></script>
+        <script type="text/javascript" src="<?=$this->url->getStatic('/vendor/jquery-1.11.1/dist/jquery.js');?>"></script>
         <![endif]-->
-		<script type="text/javascript">
-			if("ontouchend" in document) document.write("<script src='/assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
-		</script>
 
-        <!--
-		<script type="text/javascript" src="/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
-        -->
-        <script type="text/javascript" src="/vendor/js/jquery-ui-1.10.4/js/jquery-ui-1.10.4.min.js"></script>
-        <script type="text/javascript" src="/vendor/css/bootstrap-3.x/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="/vendor/js/parsley.min.js"></script>
-        <script type="text/javascript" src="/vendor/js/parsley.remote.min.js"></script>
-        <script type="text/javascript" src="/vendor/js/garlic.min.js"></script>
-        <script type="text/javascript" src="/vendor/js/moment.min.js"></script>
-        <script type="text/javascript" src="/vendor/js/moment-with-langs.min.js"></script>
-        <script type="text/javascript" src="/vendor/js/epiceditor/js/epiceditor.js"></script>
-        <script type="text/javascript" src="/vendor/js/ckeditor/ckeditor.js"></script>
-        <script type="text/javascript" src="/vendor/js/ckeditor/adapters/jquery.js"></script>
-        <script type="text/javascript" src="/vendor/js/select2/select2.js"></script>
-        <script type="text/javascript" src="/vendor/js/select2/select2_locale_zh-CN.js"></script>
-        <script type="text/javascript" src="/vendor/js/jquery.noty.js"></script>
-        <script type="text/javascript" src="/vendor/js/Uri.min.js"></script>
-        <script type="text/javascript" src="/vendor/js/datepicker/js/bootstrap-datepicker.js"></script>
-        <script type="text/javascript" src="/vendor/js/datepicker/js/locales/bootstrap-datepicker.zh-CN.js"></script>
-        <script type="text/javascript" src="/vendor/js/timepicker/js/bootstrap-timepicker.min.js"></script>
-        <script type="text/javascript" src="/vendor/js/dropzone/dropzone.min.js"></script>
-        <script type="text/javascript" src="/vendor/js/jfu/js/jquery.fileupload.js"></script>
-        <script type="text/javascript" src="/vendor/js/pinyin.js"></script>
-        <script type="text/javascript" src="/vendor/js/jquery.blockUI.js"></script>
+        <!--[if gt IE 8]><!-->
+        <script type="text/javascript" src="<?=$this->url->getStatic('/vendor/jquery/dist/jquery.js');?>"></script>
+        <!--<![endif]-->
 
-        <script type="text/javascript" src="/vendor/js/typeahead/typeahead.bundle.min.js"></script>
+        <script type="text/javascript">
+            if("ontouchend" in document) document.write("<script src='<?=$this->url->getStatic('/vendor/jquery-mobile-bower/js/jquery.mobile-1.4.2.js');?>'>"+"<"+"/script>");
+        </script>
+
+<?
+$this->assets
+->collection('headerJs')
+->addJs('/vendor/underscore/underscore.js')
+->addJs('/vendor/jquery-ui/jquery-ui.js')
+->addJs('/vendor/bootstrap/dist/js/bootstrap.js')
+->addJs('/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js')
+->addJs('/vendor/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js')
+->addJs('/vendor/bootstrap-timepicker/js/bootstrap-timepicker.js')
+->addJs('/vendor/typeahead.js/dist/typeahead.bundle.js')
+->addJs('/vendor/moment/min/moment-with-locales.js')
+->addJs('/vendor/uri.js/src/URI.js')
+->addJs('/vendor/parsleyjs/dist/parsley.js')
+->addJs('/vendor/parsleyjs/dist/parsley.remote.js')
+->addJs('/vendor/ckeditor/ckeditor.js')
+->addJs('/vendor/ckeditor/adapters/jquery.js')
+->addJs('/vendor/noty/js/noty/jquery.noty.js')
+->addJs('/vendor/blockui/jquery.blockUI.js')
+->addJs('/vendor/jquery-file-upload/js/jquery.fileupload.js')
+->addJs('/vendor/dropzone/downloads/dropzone.js')
+->addJs('/vendor/select2/select2.js')
+->addJs('/vendor/select2/select2_locale_zh-CN.js')
+->addJs('/vendor/epiceditor/epiceditor/js/epiceditor.js')
+->addJs('/vendor/art-template/dist/template-native.js')
+->addJs('/vendor/wscn-jscore/wscn_util.js')
+->addJs('/vendor/quotes-search/quotes-search.js')
+->addJs('/vendor/pinyin/pinyin.js')
+->addJs('/vendor/ace-admin/js/ace.js')
+->addJs('/vendor/ace-admin/js/ace-elements.js')
+->addJs('/vendor/ace-admin/js/ace-extra.js')
+;
+$this->assets->outputJs('headerJs');
+?>
+
+<!--
 		<script type="text/javascript" src="/assets/js/jquery.ui.touch-punch.min.js"></script>
-
-
-		<script type="text/javascript" src="/assets/js/ace-elements.js"></script>
-		<script type="text/javascript" src="/assets/js/ace.js"></script>
-		
-		<script type="text/javascript" src="http://markets.wallstreetcn.com/js/vendor/underscore.min.js"></script>
-		<script type="text/javascript" src="http://markets.wallstreetcn.com/js/quick-search.js"></script>
+-->
 	</head>
 
 	<body>
@@ -230,7 +228,7 @@
 		<!-- basic scripts -->
 
 
-        <script src="/js/backend.js"></script>
+        <script src="<?=$this->url->getStatic('/admin/js/main.js')?>"></script>
 		<script type="text/javascript">
 		</script>
 	</body>

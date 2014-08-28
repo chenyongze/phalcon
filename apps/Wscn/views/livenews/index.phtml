@@ -601,11 +601,12 @@
 </div>
 
 <!---- comment begin -->
-<link rel="stylesheet" href="/css/comment.css">
-<?
-$script = $this->tag->javascriptInclude("/js/comments.js").PHP_EOL;
-$script .= $this->tag->javascriptInclude("/wscn/js/livenews.js").PHP_EOL;
-$this->placeholder->block('script')->set($script);
+<? $this->assets->collection('headerCss')
+                ->addCss('/wscn/css/comment.css');
+
+$this->assets->collection('footerJs')
+            ->addJs('/wscn/js/livenews.js')
+            ->addJs('/wscn/js/comments.js');
 
 ?>
 <!---- comment end   -->
