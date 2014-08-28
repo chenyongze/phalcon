@@ -366,14 +366,16 @@ jplayer.jPlayer({
 });
 
 $(function(){
-
+    var LIVENEWS_API_DOMAIN = 'http://api.wallstreetcn.com/';
+    //just for api test
+    //var LIVENEWS_API_DOMAIN = 'http://han.test.wallstcn.com/';    
     //
     $('#main-livenews').lnl();
     //
     $('#livenews').lnl({
-        url: 'http://api.wallstreetcn.com/apiv1/livenews-list-gold.jsonp',
-        updateUrl: 'http://api.wallstreetcn.com/apiv1/livenews-gold.jsonp',
-        countUrl: 'http://api.wallstreetcn.com/apiv1/livenews-count-gold.jsonp',
+        url: LIVENEWS_API_DOMAIN + 'apiv1/livenews-list-gold.jsonp',
+        updateUrl: LIVENEWS_API_DOMAIN + 'apiv1/livenews-gold.jsonp',
+        countUrl: LIVENEWS_API_DOMAIN + 'apiv1/livenews-count-gold.jsonp',
         pageSize: 80,
         menu: true,
         paging: true,
