@@ -4,6 +4,11 @@
     //var PAGE_SIZE = 10;
     var UPDATE_INTERVAL = 10*1000;
 
+    var API_DOMAIN = 'http://api.wallstreetcn.com/';
+    //for test
+    //var API_DOMAIN = 'http://han.test.wallstcn.com/';
+
+
     function Lnl(options) {
         //todo 添加默认config 到 原型中，所有的配置放在config中
         this.config = {};
@@ -14,11 +19,11 @@
         //todo
         this.autoRefresh = options.autoRefresh === false ? false : true;
         this.scrollable = options.scrollable === false ? false : true;
-        this.updateUrl = options.updateUrl || 'http://api.wallstreetcn.com/apiv1/livenews.jsonp';
+        this.updateUrl = options.updateUrl || API_DOMAIN + 'apiv1/livenews.jsonp';
         this.countUrl = options.countUrl;
         //
         //this.url = options.url || 'http://api.wallstreetcn.com/apiv1/livenews-list-v2.jsonp';
-        this.url = options.url || 'http://api.wallstreetcn.com/apiv1/livenews-list-v2.jsonp?tid[]=9497&tid[]=9495';
+        this.url = options.url ||  API_DOMAIN + 'apiv1/livenews-list-v2.jsonp?tid[]=9497&tid[]=9495';
         this.baseUpdateUrl = this.updateUrl;
         this.baseCountUrl = this.countUrl;
         this.baseUrl = this.url;
